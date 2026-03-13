@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CampingFinder — Séjours d'exception en pleine nature</title>
+<meta name="description" content="Cottages, mobil-homes de luxe, cabanes avec vue mer, villas nature. Trouvez votre séjour d'exception parmi les plus beaux hébergements en pleine nature de France."/>
+<meta property="og:title" content="CampingFinder — Séjours d'exception en pleine nature"/>
+<meta property="og:url" content="https://campingfinder.fr"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.css"/>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0f0d0a;
+  --ink2:#2c2520;
+  --brown:#5c4033;
+  --taupe:#8c7260;
+  --gold:#c9a96e;
+  --gold2:#e8d5a3;
+  --cream:#faf7f2;
+  --linen:#f0ebe2;
+  --border:#e4ddd3;
+  --white:#ffffff;
+  --forest:#1e3a2f;
+  --ocean:#0e2a38;
+  --dusk:#2a1e3a;
+  --coral:#8b3a2a;
+  --ff-serif:'Cormorant Garamond',Georgia,serif;
+  --ff-sans:'Outfit',sans-serif;
+  --r:12px;
+  --sh:0 2px 20px rgba(15,13,10,.09);
+  --sh2:0 12px 50px rgba(15,13,10,.18);
+}
+html,body{height:100%;font-family:var(--ff-sans);background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased}
+body{display:flex;flex-direction:column;overflow:hidden;height:100vh}
+button,input,select{font-family:var(--ff-sans)}
+button{cursor:pointer;border:none;outline:none}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--linen)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+input[type=range]{accent-color:var(--gold)}
+select{outline:none;cursor:pointer}
+
+/* ══════════════════════════════════
+   HEADER
+══════════════════════════════════ */
+#header{
+  background:var(--ink);
+  flex-shrink:0;z-index:100;
+  position:relative;overflow:hidden;
+}
+/* grain overlay */
+#header::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity:.6;
+}
+/* warm glow */
+#header::after{
+  content:'';position:absolute;
+  width:500px;height:300px;
+  top:-80px;right:-60px;
+  background:radial-gradient(ellipse, rgba(201,169,110,.07) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hd-inner{position:relative;z-index:1;padding:13px 20px;display:flex;flex-direction:column;gap:11px}
+
+/* Logo row */
+.logo-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-emblem{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  background:linear-gradient(145deg,#c9a96e,#8b6830);
+  display:flex;align-items:center;justify-content:center;font-size:19px;
+  box-shadow:0 3px 14px rgba(201,169,110,.3);
+}
+.logo-text{font-family:var(--ff-serif);font-size:21px;color:var(--white);font-weight:600;line-height:1;letter-spacing:.01em}
+.logo-sub{font-size:8.5px;color:var(--gold2);letter-spacing:.2em;text-transform:uppercase;font-weight:400;margin-top:2px;opacity:.75}
+
+.hd-spacer{flex:1}
+
+/* Tabs */
+.hd-tabs{display:flex;gap:2px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:22px;padding:3px}
+.hd-tab{background:transparent;color:rgba(255,255,255,.38);border:none;border-radius:18px;padding:5px 14px;font-size:10.5px;font-weight:500;letter-spacing:.03em;transition:all .2s;display:flex;align-items:center;gap:5px}
+.hd-tab.active{background:rgba(255,255,255,.09);color:rgba(255,255,255,.82)}
+.hd-tab.fav.active{color:#f9b4b4}
+.fav-cnt{background:rgba(239,68,68,.75);color:#fff;border-radius:50%;width:16px;height:16px;display:none;align-items:center;justify-content:center;font-size:8px;font-weight:700}
+
+/* View toggle */
+.view-tgl{display:flex;gap:2px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:3px}
+.view-btn{background:transparent;color:rgba(255,255,255,.35);border:none;border-radius:16px;padding:4px 13px;font-size:10px;font-weight:600;letter-spacing:.05em;transition:all .2s}
+.view-btn.active{background:rgba(201,169,110,.18);color:var(--gold2);border:1px solid rgba(201,169,110,.22)}
+
+/* Search row */
+.search-row{display:flex;gap:8px;align-items:center}
+.search-wrap{
+  flex:1;display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  border-radius:40px;padding:8px 16px;transition:all .2s;
+}
+.search-wrap:focus-within{background:rgba(255,255,255,.1);border-color:rgba(201,169,110,.35)}
+.search-wrap input{flex:1;background:none;border:none;outline:none;color:#fff;font-size:13px;font-weight:300}
+.search-wrap input::placeholder{color:rgba(255,255,255,.3)}
+.s-ico{font-size:14px;opacity:.4;flex-shrink:0}
+.s-clr{background:rgba(255,255,255,.1);border:none;border-radius:50%;width:18px;height:18px;color:rgba(255,255,255,.45);font-size:11px;display:none;align-items:center;justify-content:center}
+
+.flt-btn{
+  background:rgba(255,255,255,.06);color:rgba(255,255,255,.55);
+  border:1px solid rgba(255,255,255,.1);border-radius:22px;
+  padding:7px 16px;font-size:10.5px;font-weight:500;letter-spacing:.04em;
+  display:flex;align-items:center;gap:6px;white-space:nowrap;transition:all .2s;
+}
+.flt-btn.open{background:rgba(201,169,110,.12);color:var(--gold2);border-color:rgba(201,169,110,.28)}
+.flt-dot{background:var(--coral);color:#fff;border-radius:50%;width:16px;height:16px;display:none;align-items:center;justify-content:center;font-size:8px;font-weight:700}
+
+.counter{color:rgba(255,255,255,.32);font-size:10px;white-space:nowrap}
+.counter b{color:var(--gold2);font-size:15px;font-weight:600}
+
+/* Sort + chain row */
+.ctrl-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ctrl-sep{color:rgba(255,255,255,.1);font-size:11px}
+.ctrl-lbl{font-size:8.5px;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.12em;white-space:nowrap}
+.sort-btn,.chain-btn{
+  background:rgba(255,255,255,.05);color:rgba(255,255,255,.38);
+  border:1px solid rgba(255,255,255,.07);border-radius:16px;
+  padding:3px 11px;font-size:10px;font-weight:500;transition:all .18s;
+}
+.sort-btn.active{background:rgba(201,169,110,.15);color:var(--gold2);border-color:rgba(201,169,110,.2)}
+.chain-btn.active{background:rgba(201,169,110,.15);color:var(--gold2);border-color:rgba(201,169,110,.2)}
+
+/* ══════════════════════════════════
+   FILTERS PANEL
+══════════════════════════════════ */
+#filters-panel{
+  background:var(--white);border-bottom:1px solid var(--border);
+  padding:12px 20px;flex-shrink:0;z-index:99;display:none;
+  box-shadow:var(--sh);
+}
+#filters-panel.open{display:block}
+.fi{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
+.fg label{font-size:8.5px;font-weight:600;color:var(--taupe);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.09em}
+.fg select{padding:7px 10px;border-radius:8px;border:1.5px solid var(--border);font-size:11px;color:var(--ink);background:var(--white);transition:border-color .2s}
+.fg select:focus{border-color:var(--gold)}
+.pill-group{display:flex;gap:3px;flex-wrap:wrap}
+.pill{background:var(--linen);color:var(--brown);border:1.5px solid transparent;border-radius:20px;padding:4px 11px;font-size:10px;font-weight:500;cursor:pointer;transition:all .16s}
+.pill.active{background:var(--ink);color:var(--gold2);border-color:var(--ink)}
+.equip-pill{background:var(--linen);border:1.5px solid transparent;border-radius:8px;padding:5px 9px;font-size:13px;cursor:pointer;transition:all .16s}
+.equip-pill.active{background:#f0faf4;border-color:#86efac}
+.type-chip{background:var(--linen);color:var(--taupe);border:1.5px solid transparent;border-radius:20px;padding:3px 10px;font-size:9px;font-weight:500;cursor:pointer;letter-spacing:.02em;transition:all .15s}
+.rst-btn{background:#fff5f5;color:#b91c1c;border:1px solid #fecaca;border-radius:8px;padding:6px 14px;font-size:10px;font-weight:600;white-space:nowrap}
+
+/* ══════════════════════════════════
+   MAIN
+══════════════════════════════════ */
+#main{flex:1;display:flex;overflow:hidden}
+
+/* ══════════════════════════════════
+   LIST PANEL
+══════════════════════════════════ */
+#list-panel{
+  width:390px;flex-shrink:0;overflow-y:auto;
+  background:var(--linen);border-right:1px solid var(--border);
+  padding:12px;display:flex;flex-direction:column;gap:10px;
+}
+#list-panel.full{width:100%;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));align-content:start;padding:18px;gap:14px}
+#list-panel.hidden{display:none}
+
+/* ── CARD ── */
+.camp-card{
+  background:var(--white);border-radius:16px;overflow:hidden;
+  border:1.5px solid var(--border);cursor:pointer;
+  transition:box-shadow .22s,transform .22s,border-color .22s;
+  position:relative;
+}
+.camp-card:hover,.camp-card.hov{
+  box-shadow:var(--sh2);transform:translateY(-2px);border-color:var(--gold);
+}
+.camp-card.sel{border-color:var(--gold);box-shadow:0 8px 32px rgba(201,169,110,.22)}
+
+/* Visual banner */
+.card-banner{
+  height:150px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.card-banner-bg{
+  position:absolute;inset:0;transition:transform .4s ease;
+  display:flex;align-items:center;justify-content:center;
+  font-size:64px;
+}
+.camp-card:hover .card-banner-bg{transform:scale(1.07)}
+
+/* Banner overlays */
+.card-type-badge{
+  position:absolute;top:11px;left:11px;
+  background:rgba(15,13,10,.55);backdrop-filter:blur(8px);
+  color:var(--gold2);font-size:8.5px;font-weight:600;
+  padding:3px 10px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid rgba(201,169,110,.25);
+}
+.card-stars{
+  position:absolute;top:11px;right:11px;
+  background:rgba(15,13,10,.55);backdrop-filter:blur(8px);
+  color:var(--gold);padding:3px 9px;border-radius:20px;
+  font-size:10px;border:1px solid rgba(201,169,110,.2);letter-spacing:.04em;
+}
+.card-label-badge{
+  position:absolute;bottom:10px;left:11px;
+  font-size:8px;font-weight:600;padding:2px 9px;border-radius:20px;letter-spacing:.04em;
+}
+.card-wishlist{
+  position:absolute;bottom:10px;right:11px;
+  background:rgba(15,13,10,.5);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.12);border-radius:50%;
+  width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+  font-size:14px;transition:all .2s;color:#fff;
+}
+.card-wishlist:hover{background:rgba(185,28,28,.65)}
+.card-wishlist.on{background:rgba(185,28,28,.8);border-color:rgba(185,28,28,.5)}
+
+/* Card body */
+.card-body{padding:13px 15px 12px}
+.card-name{
+  font-family:var(--ff-serif);font-size:16px;font-weight:600;color:var(--ink);
+  line-height:1.2;margin-bottom:4px;
+}
+.card-location{font-size:10px;color:var(--taupe);margin-bottom:9px;display:flex;align-items:center;gap:4px}
+.card-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+.card-tag{
+  font-size:8.5px;font-weight:500;padding:3px 9px;border-radius:20px;
+  letter-spacing:.02em;
+}
+.card-bottom{display:flex;align-items:flex-end;justify-content:space-between}
+.card-price-label{font-size:8.5px;color:var(--taupe);text-transform:uppercase;letter-spacing:.07em;margin-bottom:1px}
+.card-price{font-family:var(--ff-serif);font-size:24px;font-weight:700;color:var(--ink);line-height:1}
+.card-price-unit{font-size:9px;color:var(--taupe)}
+.card-rating{text-align:right}
+.card-score{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--ink);color:var(--gold2);
+  padding:5px 10px;border-radius:20px;font-size:10px;font-weight:600;
+}
+.card-reviews{font-size:9px;color:var(--taupe);margin-top:3px}
+.card-actions{
+  display:flex;gap:6px;margin-top:11px;padding-top:11px;
+  border-top:1px solid var(--border);
+}
+.card-act{
+  flex:1;padding:7px;border-radius:8px;font-size:10px;font-weight:500;
+  letter-spacing:.03em;background:var(--linen);color:var(--brown);
+  border:1px solid var(--border);transition:all .18s;
+}
+.card-act:hover{border-color:var(--gold);color:var(--ink)}
+.card-act.on-fav{background:#fff5f5;border-color:#fecaca;color:#b91c1c}
+.card-act.on-cmp{background:#eff6ff;border-color:#bfdbfe;color:#1e40af}
+
+/* Empty */
+.empty-state{
+  text-align:center;padding:70px 24px;
+  grid-column:1/-1;
+}
+.empty-state .ei{font-size:50px;margin-bottom:14px;display:block}
+.empty-state h3{font-family:var(--ff-serif);font-size:24px;color:var(--ink);margin-bottom:7px}
+.empty-state p{font-size:12px;color:var(--taupe);margin-bottom:18px;line-height:1.6}
+.empty-state button{background:var(--ink);color:var(--gold2);border-radius:10px;padding:10px 24px;font-size:11px;font-weight:600;letter-spacing:.05em}
+
+/* ══════════════════════════════════
+   MAP
+══════════════════════════════════ */
+#map-panel{flex:1;position:relative;overflow:hidden}
+#map-panel.hidden{display:none}
+#the-map{width:100%;height:100%}
+
+#map-legend{
+  position:absolute;top:12px;right:12px;z-index:700;
+  background:rgba(15,13,10,.8);backdrop-filter:blur(14px);
+  border:1px solid rgba(201,169,110,.18);border-radius:12px;
+  padding:10px 14px;box-shadow:var(--sh2);
+}
+.leg-title{font-size:8px;font-weight:700;color:rgba(255,255,255,.3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.1em}
+.leg-row{display:flex;align-items:center;gap:7px;font-size:9px;color:rgba(255,255,255,.45);margin-bottom:3px}
+.leg-pip{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* Map popup */
+#map-popup{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+  background:var(--white);border-radius:16px;padding:14px 16px;
+  box-shadow:var(--sh2);width:290px;z-index:800;
+  display:none;border:1px solid var(--border);
+}
+#map-popup.show{display:block;animation:popUp .22s ease}
+@keyframes popUp{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.pop-close{position:absolute;top:9px;right:11px;background:var(--linen);border:none;border-radius:50%;width:22px;height:22px;color:var(--taupe);font-size:13px;display:flex;align-items:center;justify-content:center}
+.pop-em{font-size:28px;margin-bottom:7px}
+.pop-name{font-family:var(--ff-serif);font-size:16px;font-weight:600;color:var(--ink);line-height:1.2}
+.pop-loc{font-size:10px;color:var(--taupe);margin:3px 0 8px}
+.pop-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.pop-score{background:var(--ink);color:var(--gold2);padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600}
+.pop-price{font-family:var(--ff-serif);font-size:19px;font-weight:700;color:var(--ink)}
+.pop-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:11px}
+.pop-cta{width:100%;padding:9px;border-radius:10px;background:var(--ink);color:var(--gold2);font-size:11px;font-weight:600;letter-spacing:.06em;border:none;transition:opacity .18s}
+.pop-cta:hover{opacity:.85}
+
+/* ══════════════════════════════════
+   COMPARE BAR
+══════════════════════════════════ */
+#cmp-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:900;
+  background:rgba(15,13,10,.93);backdrop-filter:blur(18px);
+  border-top:1px solid rgba(201,169,110,.18);
+  padding:10px 20px;box-shadow:0 -4px 28px rgba(0,0,0,.35);
+  display:none;align-items:center;gap:10px;flex-wrap:wrap;
+}
+#cmp-bar.show{display:flex}
+.cb-lbl{font-size:8.5px;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.12em;white-space:nowrap}
+.cb-items{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+.cb-item{background:rgba(255,255,255,.06);border:1px solid rgba(201,169,110,.18);border-radius:9px;padding:5px 11px;display:flex;align-items:center;gap:7px;font-size:11px;color:rgba(255,255,255,.7);font-weight:400}
+.cb-item button{background:none;border:none;color:rgba(255,255,255,.28);font-size:14px;line-height:1;padding:0}
+.cb-add{background:transparent;border:1px dashed rgba(201,169,110,.22);border-radius:9px;padding:5px 14px;color:rgba(201,169,110,.45);font-size:10px;display:flex;align-items:center}
+.cb-clear{background:rgba(255,255,255,.05);color:rgba(255,255,255,.35);border:none;border-radius:8px;padding:7px 13px;font-size:10px;font-weight:500}
+.cb-go{background:linear-gradient(135deg,var(--gold),#a07840);color:var(--ink);border:none;border-radius:9px;padding:8px 18px;font-size:11px;font-weight:700;letter-spacing:.04em}
+.cb-go:disabled{background:rgba(255,255,255,.07);color:rgba(255,255,255,.2);cursor:not-allowed}
+
+/* ══════════════════════════════════
+   TOAST
+══════════════════════════════════ */
+#toast{
+  position:fixed;top:18px;left:50%;transform:translateX(-50%);
+  background:rgba(15,13,10,.88);color:var(--gold2);
+  padding:9px 20px;border-radius:40px;font-size:11px;font-weight:500;
+  letter-spacing:.04em;z-index:3000;white-space:nowrap;
+  border:1px solid rgba(201,169,110,.22);backdrop-filter:blur(14px);
+  box-shadow:0 8px 28px rgba(0,0,0,.3);
+  opacity:0;transition:opacity .25s;pointer-events:none;
+}
+#toast.show{opacity:1}
+
+/* ══════════════════════════════════
+   MODALS
+══════════════════════════════════ */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(8,6,3,.72);z-index:2000;
+  display:none;align-items:center;justify-content:center;padding:16px;
+  overflow-y:auto;backdrop-filter:blur(5px);
+}
+.modal-bg.open{display:flex;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-box{
+  background:var(--white);border-radius:20px;max-width:540px;width:100%;
+  max-height:90vh;overflow-y:auto;
+  box-shadow:0 40px 100px rgba(0,0,0,.45);
+  animation:slideUp .28s ease;
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* Detail modal */
+.det-visual{
+  height:230px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  font-size:82px;
+}
+.det-vis-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,13,10,.82) 0%,rgba(15,13,10,.15) 55%,transparent 100%)}
+.det-x{
+  position:absolute;top:13px;right:13px;z-index:2;
+  background:rgba(15,13,10,.48);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.14);border-radius:50%;
+  width:32px;height:32px;color:#fff;font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+}
+.det-vis-info{position:absolute;bottom:15px;left:18px;right:18px;z-index:2}
+.det-vis-name{font-family:var(--ff-serif);font-size:22px;font-weight:700;color:#fff;line-height:1.2}
+.det-vis-loc{font-size:11px;color:rgba(255,255,255,.6);margin-top:3px}
+.det-vis-pills{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+.det-vis-pill{font-size:9px;font-weight:500;padding:3px 10px;border-radius:20px;backdrop-filter:blur(6px);letter-spacing:.04em}
+
+.det-body{padding:20px 22px}
+.det-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
+.det-kpi{background:var(--linen);border-radius:11px;padding:11px 10px;text-align:center;border:1px solid var(--border)}
+.det-kpi-ico{font-size:18px;margin-bottom:4px}
+.det-kpi-val{font-family:var(--ff-serif);font-weight:700;font-size:18px;color:var(--ink)}
+.det-kpi-lbl{font-size:8.5px;color:var(--taupe);text-transform:uppercase;letter-spacing:.05em}
+.det-sec{font-size:9px;font-weight:700;color:var(--taupe);text-transform:uppercase;letter-spacing:.1em;margin:14px 0 7px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.det-desc{color:var(--brown);line-height:1.8;font-size:13px;font-weight:300;margin-bottom:2px}
+.det-tags-wrap{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:2px}
+.det-tag-item{font-size:10px;font-weight:500;padding:4px 12px;border-radius:20px}
+.det-equips{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px}
+.det-eq{display:flex;align-items:center;gap:8px;padding:8px 11px;border-radius:9px;font-size:11px;font-weight:400}
+.det-eq.yes{background:#f0faf4;color:#166534}
+.det-eq.no{background:var(--linen);color:var(--taupe);opacity:.45}
+.det-acts{display:flex;gap:8px;margin:16px 0 10px}
+.det-act{flex:1;padding:11px;border-radius:10px;font-size:11px;font-weight:500;letter-spacing:.04em;background:var(--linen);color:var(--brown);border:1.5px solid var(--border);transition:all .18s}
+.det-act:hover{border-color:var(--gold);color:var(--ink)}
+.det-act.on-fav{background:#fff5f5;border-color:#fecaca;color:#b91c1c}
+.det-act.on-cmp{background:#eff6ff;border-color:#bfdbfe;color:#1e40af}
+.det-cta{width:100%;padding:14px;border-radius:12px;background:var(--ink);color:var(--gold2);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:none;transition:opacity .2s}
+.det-cta:hover{opacity:.88}
+
+/* Compare modal */
+#cmp-modal .modal-box{max-width:900px}
+.cmp-hdr{background:var(--ink);padding:20px 24px;display:flex;justify-content:space-between;align-items:center}
+.cmp-hdr h2{font-family:var(--ff-serif);font-size:22px;font-weight:600;color:var(--gold2);margin:0}
+.cmp-hdr p{font-size:9.5px;color:rgba(255,255,255,.32);margin:2px 0 0;letter-spacing:.06em}
+.cmp-hdr button{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:50%;width:30px;height:30px;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center}
+.cmp-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.cmp-tbl th{padding:14px 12px;text-align:center;border-bottom:2px solid var(--border);background:var(--linen)}
+.cmp-tbl th:first-child{text-align:left;width:22%;font-size:8.5px;font-weight:700;color:var(--taupe);text-transform:uppercase;letter-spacing:.07em}
+.cmp-tbl td{padding:11px 12px;text-align:center;border-bottom:1px solid var(--linen);vertical-align:middle}
+.cmp-tbl td:first-child{text-align:left;font-size:10px;font-weight:500;color:var(--taupe);background:var(--linen)}
+.cmp-best{background:linear-gradient(to bottom,#fdf8ef,#faf4e8)!important;position:relative}
+.best-flag{position:absolute;top:3px;right:5px;font-size:8px;color:var(--brown);font-weight:700;letter-spacing:.04em}
+.cmp-score-row td{background:var(--linen)!important;padding:14px 12px}
+.cmp-score-row td:first-child{font-size:9px;text-transform:uppercase;letter-spacing:.07em}
+.score-win{background:linear-gradient(135deg,#fdf3de,#faf0e0)!important}
+.score-val{font-family:var(--ff-serif);font-size:26px;font-weight:700;color:var(--ink);display:block}
+.score-sub{font-size:8.5px;font-weight:500;letter-spacing:.05em;display:block;margin-top:2px}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<div id="header">
+  <div class="hd-inner">
+
+    <!-- Row 1 -->
+    <div class="logo-row">
+      <div class="logo">
+        <div class="logo-emblem">🏕️</div>
+        <div>
+          <div class="logo-text">CampingFinder</div>
+          <div class="logo-sub">Séjours d'exception · Pleine nature</div>
+        </div>
+      </div>
+      <div class="hd-spacer"></div>
+      <div class="hd-tabs">
+        <button class="hd-tab active" id="tab-tous" onclick="setTab('tous')">Tous les séjours</button>
+        <button class="hd-tab fav" id="tab-fav" onclick="setTab('favoris')">
+          ♡ Mes favoris <span class="fav-cnt" id="fav-cnt"></span>
+        </button>
+      </div>
+      <div class="view-tgl">
+        <button class="view-btn" id="btn-list" onclick="setView('list')">☰</button>
+        <button class="view-btn active" id="btn-split" onclick="setView('split')">⊞</button>
+        <button class="view-btn" id="btn-map" onclick="setView('map')">🗺</button>
+      </div>
+    </div>
+
+    <!-- Row 2 : search -->
+    <div class="search-row">
+      <div class="search-wrap">
+        <span class="s-ico">⌕</span>
+        <input type="text" id="search" placeholder="Destination, ambiance, région…" oninput="onSearch(this)"/>
+        <button class="s-clr" id="s-clr" onclick="clearSearch()">×</button>
+      </div>
+      <button class="flt-btn" id="flt-toggle" onclick="toggleFilters()">
+        ⚙ Filtres <span class="flt-dot" id="flt-dot"></span>
+      </button>
+      <div class="counter"><b id="total-count">0</b> séjours</div>
+    </div>
+
+    <!-- Row 3 : tri + chaînes -->
+    <div class="ctrl-row">
+      <span class="ctrl-lbl">Trier par</span>
+      <button class="sort-btn active" onclick="setSort('note',this)">Mieux notés</button>
+      <button class="sort-btn" onclick="setSort('prix_asc',this)">Prix ↑</button>
+      <button class="sort-btn" onclick="setSort('prix_desc',this)">Prix ↓</button>
+      <button class="sort-btn" onclick="setSort('avis',this)">Plus d'avis</button>
+      <button class="sort-btn" onclick="setSort('nom',this)">A–Z</button>
+      <span class="ctrl-sep">|</span>
+      <button class="chain-btn" onclick="toggleChain('Yelloh! Village',this)">Yelloh!</button>
+      <button class="chain-btn" onclick="toggleChain('Homair',this)">Homair</button>
+      <button class="chain-btn" onclick="toggleChain('Sandaya',this)">Sandaya</button>
+      <button class="chain-btn" onclick="toggleChain('Cap Fun',this)">Cap Fun</button>
+      <button class="chain-btn" onclick="toggleChain('Huttopia',this)">Huttopia</button>
+      <button class="chain-btn" onclick="toggleChain('Indépendant',this)">Indépendants</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ FILTERS ══ -->
+<div id="filters-panel">
+  <div class="fi">
+    <div class="fg">
+      <label>Région</label>
+      <select id="f-region" onchange="applyFilters()"><option value="">Toutes les régions</option></select>
+    </div>
+    <div class="fg">
+      <label>Établissement</label>
+      <select id="f-chaine" onchange="applyFilters()">
+        <option value="">Tous</option>
+        <option>Yelloh! Village</option><option>Homair</option><option>Sandaya</option>
+        <option>Cap Fun</option><option>Huttopia</option><option>Tohapi</option>
+        <option>Siblu</option><option>Flower Campings</option><option>Les Castels</option>
+        <option>Camping Paradis</option><option>Indépendant</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Budget max / nuit — <span id="prix-lbl" style="color:var(--brown);font-weight:600">Tous</span></label>
+      <input type="range" min="10" max="120" step="5" value="120" id="f-prix" oninput="onPrix(this)" style="width:130px"/>
+    </div>
+    <div class="fg">
+      <label>Classement</label>
+      <div class="pill-group">
+        <button class="pill active" onclick="setStar(0,this)">Tous</button>
+        <button class="pill" onclick="setStar(3,this)">3★+</button>
+        <button class="pill" onclick="setStar(4,this)">4★+</button>
+        <button class="pill" onclick="setStar(5,this)">5★</button>
+      </div>
+    </div>
+    <div class="fg">
+      <label>Label</label>
+      <div class="pill-group">
+        <button class="pill active" onclick="setLabel('',this)">Tous</button>
+        <button class="pill" onclick="setLabel('Clé Verte',this)">🌿 Clé Verte</button>
+        <button class="pill" onclick="setLabel('Qualité Tourisme',this)">✦ Qualité</button>
+      </div>
+    </div>
+    <div class="fg">
+      <label>Services</label>
+      <div class="pill-group">
+        <button class="equip-pill" onclick="toggleEquip('piscine',this)" title="Piscine">🏊</button>
+        <button class="equip-pill" onclick="toggleEquip('wifi',this)" title="WiFi">📶</button>
+        <button class="equip-pill" onclick="toggleEquip('animaux',this)" title="Animaux">🐾</button>
+        <button class="equip-pill" onclick="toggleEquip('cc',this)" title="Camping-car">🚐</button>
+        <button class="equip-pill" onclick="toggleEquip('loc',this)" title="Hébergements insolites">🏠</button>
+      </div>
+    </div>
+    <div class="fg" style="flex:1">
+      <label>Ambiance & destination</label>
+      <div class="pill-group" id="types-wrap" style="flex-wrap:wrap"></div>
+    </div>
+    <button class="rst-btn" id="reset-btn" onclick="resetFilters()" style="display:none">✕ Réinitialiser</button>
+  </div>
+</div>
+
+<!-- ══ MAIN ══ -->
+<div id="main">
+  <div id="list-panel"></div>
+  <div id="map-panel">
+    <div id="the-map"></div>
+    <div id="map-legend">
+      <div class="leg-title">Carte</div>
+      <div class="leg-row"><div class="leg-pip" style="background:var(--gold)"></div>Prix / nuit</div>
+      <div class="leg-row"><div class="leg-pip" style="background:var(--ink);border:2px solid var(--gold)"></div>Sélectionné</div>
+      <div style="font-size:8px;color:rgba(255,255,255,.25);margin-top:6px;border-top:1px solid rgba(255,255,255,.06);padding-top:6px">Couleur = ambiance</div>
+    </div>
+    <div id="map-popup">
+      <button class="pop-close" onclick="closePopup()">×</button>
+      <div class="pop-em" id="pop-em"></div>
+      <div class="pop-name" id="pop-name"></div>
+      <div class="pop-loc" id="pop-loc"></div>
+      <div class="pop-meta">
+        <span class="pop-score" id="pop-score"></span>
+        <span class="pop-price" id="pop-price"></span>
+        <span style="font-size:9px;color:var(--taupe)">&nbsp;/ nuit</span>
+      </div>
+      <div class="pop-tags" id="pop-tags"></div>
+      <button class="pop-cta" onclick="openDetailFromPopup()">Découvrir ce séjour →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ COMPARE BAR ══ -->
+<div id="cmp-bar">
+  <span class="cb-lbl">Comparer</span>
+  <div class="cb-items" id="cb-items"></div>
+  <button class="cb-clear" onclick="clearCmp()">Vider</button>
+  <button class="cb-go" id="cb-go" onclick="openCmpModal()" disabled>⚖ Comparer</button>
+</div>
+
+<!-- ══ TOAST ══ -->
+<div id="toast"></div>
+
+<!-- ══ DETAIL MODAL ══ -->
+<div class="modal-bg" id="det-modal" onclick="onDetBg(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="det-visual" id="det-visual">
+      <div id="det-vis-bg" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:82px"></div>
+      <div class="det-vis-overlay"></div>
+      <button class="det-x" onclick="closeDetModal()">×</button>
+      <div class="det-vis-info">
+        <div class="det-vis-name" id="det-name"></div>
+        <div class="det-vis-loc" id="det-loc"></div>
+        <div class="det-vis-pills" id="det-pills"></div>
+      </div>
+    </div>
+    <div class="det-body">
+      <div class="det-kpis" id="det-kpis"></div>
+      <div class="det-sec">Le séjour</div>
+      <p class="det-desc" id="det-desc"></p>
+      <div class="det-sec">Ambiance & activités</div>
+      <div class="det-tags-wrap" id="det-tags"></div>
+      <div class="det-sec">Équipements & services</div>
+      <div class="det-equips" id="det-equips"></div>
+      <div class="det-acts">
+        <button class="det-act" id="det-fav-btn" onclick="detToggleFav()">♡ Sauvegarder</button>
+        <button class="det-act" id="det-cmp-btn" onclick="detToggleCmp()">⚖ Comparer</button>
+      </div>
+      <button class="det-cta">Vérifier les disponibilités →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ COMPARE MODAL ══ -->
+<div class="modal-bg" id="cmp-modal" onclick="onCmpBg(event)">
+  <div class="modal-box" onclick="event.stopPropagation()" style="max-width:900px">
+    <div class="cmp-hdr">
+      <div>
+        <h2>Comparaison</h2>
+        <p id="cmp-sub">— séjours côte à côte</p>
+      </div>
+      <button onclick="closeCmpModal()">×</button>
+    </div>
+    <div style="overflow-x:auto;padding:18px 20px 22px">
+      <table class="cmp-tbl" id="cmp-tbl"></table>
+    </div>
+  </div>
+</div>
+
+<script>
+// Loader visible pendant le chargement de campings.js
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('list-panel').innerHTML = `
+    <div style="text-align:center;padding:60px 20px">
+      <div style="font-size:40px;margin-bottom:16px;animation:spin 1.5s linear infinite;display:inline-block">⏳</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#2c2520;margin-bottom:8px">Chargement des séjours…</div>
+      <div style="font-size:12px;color:#8c7260">5 770 établissements en cours de chargement</div>
+    </div>`;
+});
+</script>
+<style>@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style>
+<script src="campings.js" onload="initApp()"></script>
+<script>
+function initApp(){init();}
+/* ─── CONSTANTES ─── */
+const TC={
+  'Mer':'#0e4d6e','Montagne':'#3b2f8a','Nature':'#1e5c38','Famille':'#8a3c10',
+  'Luxe':'#7a5520','Aventure':'#8a1c1c','Surf':'#0a4a7a','Randonnée':'#3a5c10',
+  'Pêche':'#3a4a5c','Patrimoine':'#5c1e78','Aquatique':'#1a3a8a','Île':'#0a5c58',
+  'Gastronomie':'#7a1430','Kayak':'#0a4870','Rivière':'#1a308a','Oiseaux':'#3c1a6e',
+  'Forêt':'#0c3a1c','Thermal':'#7a3a0a','Naturisme':'#6a3c0a','Equestre':'#4a2a14',
+};
+const EM={
+  'Mer':'🌊','Montagne':'⛰️','Nature':'🌿','Famille':'👨‍👩‍👧','Luxe':'✨',
+  'Aventure':'🏕️','Surf':'🏄','Randonnée':'🥾','Pêche':'🎣','Patrimoine':'🏰',
+  'Aquatique':'🏊','Île':'🏝️','Gastronomie':'🍷','Kayak':'🛶','Rivière':'🏞️',
+  'Oiseaux':'🦅','Forêt':'🌲','Thermal':'♨️','Naturisme':'☀️','Equestre':'🐎',
+};
+const GR={
+  'Mer':'linear-gradient(145deg,#062840,#0e4d6e,#0a3d5a)',
+  'Montagne':'linear-gradient(145deg,#1a1440,#3b2f8a,#241c5c)',
+  'Nature':'linear-gradient(145deg,#071a0e,#1e5c38,#0f3020)',
+  'Famille':'linear-gradient(145deg,#3a1408,#8a3c10,#5c2208)',
+  'Luxe':'linear-gradient(145deg,#1a0e04,#7a5520,#4a3010)',
+  'Aventure':'linear-gradient(145deg,#300808,#8a1c1c,#500c0c)',
+  'Surf':'linear-gradient(145deg,#040e20,#0a4a7a,#082860)',
+  'Randonnée':'linear-gradient(145deg,#0c1a04,#3a5c10,#1e3a08)',
+  'Île':'linear-gradient(145deg,#041c1a,#0a5c58,#083c3a)',
+  'Gastronomie':'linear-gradient(145deg,#200408,#7a1430,#4a0c1c)',
+  '_':'linear-gradient(145deg,#0f0d0a,#2c2520,#3d2b1c)',
+};
+const TYPES=['Mer','Montagne','Nature','Famille','Luxe','Aventure','Surf','Randonnée','Pêche','Patrimoine','Aquatique','Gastronomie','Kayak','Oiseaux','Forêt','Thermal','Île','Naturisme','Equestre','Rivière'];
+
+function em(types){return EM[types&&types[0]]||'🌿';}
+function gr(types){return GR[types&&types[0]]||GR['_'];}
+function tc(types){return TC[types&&types[0]]||'#3d2b1c';}
+function labelBadge(l,sm){
+  if(!l) return '';
+  const g=l==='Clé Verte';
+  const sz=sm?'8px':'9px';
+  return `<span style="background:${g?'rgba(22,101,52,.15)':'rgba(120,85,32,.15)'};color:${g?'#166534':'#785520'};font-size:${sz};font-weight:600;padding:2px 9px;border-radius:20px;letter-spacing:.04em;border:1px solid ${g?'rgba(22,101,52,.25)':'rgba(120,85,32,.25)'}">${g?'🌿':'✦'} ${l}</span>`;
+}
+
+/* ─── STATE ─── */
+let S={
+  view:'split',tab:'tous',sort:'note',
+  search:'',region:'',chaine:'',chainQ:'',
+  prixMax:120,catMin:0,label:'',
+  equip:{piscine:false,wifi:false,animaux:false,cc:false,loc:false},
+  selTypes:new Set(),
+  selId:null,hovId:null,
+  cmpIds:[],favs:new Set(),
+  detC:null,
+};
+let filtered=[],mapObj=null,mcg=null,markers={};
+
+/* ─── LEAFLET ─── */
+(()=>{
+  const s1=document.createElement('script');
+  s1.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+  s1.onload=()=>{
+    const s2=document.createElement('script');
+    s2.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js';
+    s2.onload=initMap; document.head.appendChild(s2);
+  };
+  document.head.appendChild(s1);
+})();
+
+function initMap(){
+  if(mapObj) return;
+  mapObj=window.L.map('the-map',{center:[46.6,2.3],zoom:6,zoomControl:false});
+  window.L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+    attribution:'&copy; CARTO',maxZoom:19
+  }).addTo(mapObj);
+  window.L.control.zoom({position:'bottomright'}).addTo(mapObj);
+  renderMarkers();
+}
+
+function mkIcon(c,active){
+  const color=tc(c.types);
+  const bg=active?'#0f0d0a':color;
+  const bdr=active?'2px solid #c9a96e':'2px solid rgba(255,255,255,.45)';
+  return window.L.divIcon({
+    html:`<div style="background:${bg};color:#fff;border-radius:9px;padding:4px 9px;font-size:10.5px;font-weight:600;box-shadow:0 3px 12px rgba(0,0,0,.38);border:${bdr};white-space:nowrap;font-family:'Outfit',sans-serif;letter-spacing:.02em;transform:${active?'scale(1.2)':'scale(1)'};transition:all .2s">${c.prix}€</div>`,
+    className:'',
+  });
+}
+
+function renderMarkers(){
+  if(!mapObj||!window.L) return;
+  if(mcg){mcg.clearLayers();mapObj.removeLayer(mcg);}
+  markers={};
+  mcg=window.L.markerClusterGroup({
+    maxClusterRadius:55,
+    iconCreateFunction:cl=>window.L.divIcon({
+      html:`<div style="background:#0f0d0a;color:#e8d5a3;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid rgba(201,169,110,.45);box-shadow:0 2px 12px rgba(0,0,0,.32);font-family:'Outfit',sans-serif">${cl.getChildCount()}</div>`,
+      className:'',iconSize:[36,36],
+    }),
+  });
+  filtered.forEach(c=>{
+    const mk=window.L.marker([c.lat,c.lng],{icon:mkIcon(c,false)});
+    mk.on('click',()=>onMkClick(c)); markers[c.id]=mk; mcg.addLayer(mk);
+  });
+  mapObj.addLayer(mcg);
+}
+
+function refreshMk(id){
+  const c=CAMPINGS_DATA.find(x=>x.id===id); if(!c||!markers[id]) return;
+  markers[id].setIcon(mkIcon(c,id===S.selId||id===S.hovId));
+}
+
+function onMkClick(c){
+  S.selId=c.id; showPopup(c); refreshMk(c.id);
+  renderList(); scrollToCard(c.id);
+}
+
+function showPopup(c){
+  document.getElementById('pop-em').textContent=em(c.types);
+  document.getElementById('pop-name').textContent=c.nom;
+  document.getElementById('pop-loc').textContent='📍 '+c.dept+' · '+c.region;
+  document.getElementById('pop-score').textContent=c.note+' ★';
+  document.getElementById('pop-price').textContent=c.prix+'€';
+  const t=document.getElementById('pop-tags');
+  t.innerHTML=(c.types||[]).slice(0,2).map(tp=>`<span class="card-tag" style="background:${TC[tp]||'#3d2b1c'}18;color:${TC[tp]||'#5c4033'};font-size:8.5px">${EM[tp]||''} ${tp}</span>`).join('')
+    +(c.label?'&nbsp;'+labelBadge(c.label,true):'');
+  document.getElementById('map-popup').dataset.id=c.id;
+  document.getElementById('map-popup').classList.add('show');
+}
+function closePopup(){document.getElementById('map-popup').classList.remove('show');}
+function openDetailFromPopup(){
+  const id=+document.getElementById('map-popup').dataset.id;
+  const c=CAMPINGS_DATA.find(x=>x.id===id); if(c) openDetail(c);
+}
+
+/* ─── INIT ─── */
+function init(){
+  try{const f=JSON.parse(localStorage.getItem('cf_fav')||'[]');S.favs=new Set(f);}catch(e){}
+  const regions=[...new Set(CAMPINGS_DATA.map(c=>c.region))].sort();
+  const sel=document.getElementById('f-region');
+  regions.forEach(r=>{const o=document.createElement('option');o.value=r;o.textContent=r;sel.appendChild(o);});
+  const tw=document.getElementById('types-wrap');
+  TYPES.forEach(t=>{
+    const b=document.createElement('button');b.className='type-chip';
+    b.innerHTML=(EM[t]||'')+' '+t; b.onclick=()=>toggleType(t,b);
+    tw.appendChild(b);
+  });
+  updateFavBadge(); applyFilters();
+}
+
+/* ─── FILTRES ─── */
+function applyFilters(){
+  const q=S.search.toLowerCase();
+  const chain=S.chainQ||S.chaine;
+  filtered=CAMPINGS_DATA.filter(c=>{
+    if(q&&!`${c.nom} ${c.dept} ${c.region} ${c.chaine}`.toLowerCase().includes(q)) return false;
+    if(S.region&&c.region!==S.region) return false;
+    if(chain&&c.chaine!==chain) return false;
+    if(c.prix>S.prixMax) return false;
+    if(c.cat<S.catMin) return false;
+    if(S.label&&c.label!==S.label) return false;
+    if(S.equip.piscine&&!c.piscine) return false;
+    if(S.equip.wifi&&!c.wifi) return false;
+    if(S.equip.animaux&&!c.animaux) return false;
+    if(S.equip.cc&&!c.cc) return false;
+    if(S.equip.loc&&!c.loc) return false;
+    if(S.selTypes.size){for(const t of S.selTypes){if(!(c.types||[]).includes(t)) return false;}}
+    if(S.tab==='favoris'&&!S.favs.has(c.id)) return false;
+    return true;
+  });
+  if(S.sort==='note') filtered.sort((a,b)=>b.note-a.note);
+  else if(S.sort==='prix_asc') filtered.sort((a,b)=>a.prix-b.prix);
+  else if(S.sort==='prix_desc') filtered.sort((a,b)=>b.prix-a.prix);
+  else if(S.sort==='avis') filtered.sort((a,b)=>b.avis-a.avis);
+  else filtered.sort((a,b)=>a.nom.localeCompare(b.nom));
+  document.getElementById('total-count').textContent=filtered.length.toLocaleString('fr');
+  renderList(); renderMarkers(); updateFltBadge();
+}
+
+/* ─── RENDER LIST ─── */
+function renderList(){
+  const panel=document.getElementById('list-panel');
+  if(S.view==='map'){panel.classList.add('hidden');return;}
+  panel.classList.remove('hidden');
+  const isGrid=S.view==='list';
+  panel.classList.toggle('full',isGrid);
+
+  if(!filtered.length){
+    panel.innerHTML=`<div class="empty-state"><span class="ei">${S.tab==='favoris'?'🤍':'🔍'}</span>
+      <h3>${S.tab==='favoris'?'Aucun favori':'Aucun résultat'}</h3>
+      <p>${S.tab==='favoris'?'Ajoutez des séjours à vos coups de cœur en cliquant sur ♡':'Essayez de modifier vos critères de recherche'}</p>
+      <button onclick="${S.tab==='favoris'?'setTab(\'tous\')':'resetFilters()'}">${S.tab==='favoris'?'Parcourir les séjours':'Réinitialiser'}</button>
+    </div>`;
+    return;
+  }
+
+  const items=filtered.slice(0,200);
+  let h='';
+  items.forEach(c=>{
+    const isSel=c.id===S.selId, isFav=S.favs.has(c.id), isCmp=S.cmpIds.includes(c.id);
+    const gradient=gr(c.types);
+    const mainType=(c.types&&c.types[0])||'Nature';
+
+    /* Perks : types as luxury-themed tags */
+    const perks=(c.types||[]).slice(0,3).map(t=>{
+      const bg=TC[t]||'#3d2b1c';
+      return `<span class="card-tag" style="background:${bg}18;color:${bg}">${EM[t]||''} ${t}</span>`;
+    }).join('');
+
+    h+=`<div class="camp-card${isSel?' sel':''}" data-id="${c.id}"
+      onclick="selectCard(${c.id})"
+      onmouseenter="hoverCard(${c.id})"
+      onmouseleave="hoverCard(null)">
+      <div class="card-banner">
+        <div class="card-banner-bg" style="background:${gradient}">${em(c.types)}</div>
+        <div class="card-type-badge">${mainType}</div>
+        <div class="card-stars">${c.cat}★</div>
+        ${c.label?`<div class="card-label-badge" style="background:${c.label==='Clé Verte'?'rgba(22,101,52,.82)':'rgba(120,85,32,.82)'};color:#fff">${c.label==='Clé Verte'?'🌿':'✦'} ${c.label}</div>`:''}
+        <button class="card-wishlist${isFav?' on':''}" onclick="event.stopPropagation();toggleFav(${c.id})">${isFav?'❤️':'🤍'}</button>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${c.nom}</div>
+        <div class="card-location">📍 ${c.dept} · ${c.region}</div>
+        <div class="card-tags">${perks}</div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price-label">À partir de</div>
+            <div><span class="card-price">${c.prix}€</span><span class="card-price-unit"> / nuit</span></div>
+          </div>
+          <div class="card-rating">
+            <div class="card-score">★ ${c.note}</div>
+            <div class="card-reviews">${c.avis.toLocaleString('fr')} avis</div>
+          </div>
+        </div>
+        <div class="card-actions" onclick="event.stopPropagation()">
+          <button class="card-act${isFav?' on-fav':''}" onclick="toggleFav(${c.id})">${isFav?'❤ Sauvegardé':'♡ Sauvegarder'}</button>
+          <button class="card-act${isCmp?' on-cmp':''}" onclick="toggleCmp(${c.id})" ${!isCmp&&S.cmpIds.length>=3?'disabled':''}>${isCmp?'⚖ Ajouté':'⚖ Comparer'}</button>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  if(filtered.length>200){
+    h+=`<div style="grid-column:1/-1;text-align:center;padding:14px;font-size:11px;color:var(--taupe);background:var(--white);border-radius:var(--r);border:1px solid var(--border)">
+      … et <strong>${(filtered.length-200).toLocaleString('fr')}</strong> autres séjours — affinez votre recherche pour les voir
+    </div>`;
+  }
+  panel.innerHTML=h;
+}
+
+/* ─── INTERACTIONS ─── */
+function selectCard(id){
+  S.selId=id;
+  const c=CAMPINGS_DATA.find(x=>x.id===id);
+  if(S.view==='list'){openDetail(c);return;}
+  renderList();
+  if(c&&mapObj){mapObj.flyTo([c.lat,c.lng],13,{duration:1});showPopup(c);}
+  if(markers[id]) refreshMk(id);
+}
+function hoverCard(id){
+  const prev=S.hovId; S.hovId=id;
+  if(prev) refreshMk(prev); if(id) refreshMk(id);
+}
+function scrollToCard(id){
+  const el=document.querySelector(`[data-id="${id}"]`);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ─── FAVORIS ─── */
+function toggleFav(id){
+  const was=S.favs.has(id);
+  if(was) S.favs.delete(id); else S.favs.add(id);
+  try{localStorage.setItem('cf_fav',JSON.stringify([...S.favs]));}catch(e){}
+  const c=CAMPINGS_DATA.find(x=>x.id===id);
+  showToast(was?`Retiré de vos favoris`:`❤ "${c.nom}" sauvegardé`);
+  updateFavBadge();
+  if(S.tab==='favoris') applyFilters(); else renderList();
+}
+function updateFavBadge(){
+  const n=S.favs.size, el=document.getElementById('fav-cnt');
+  el.textContent=n||''; el.style.display=n?'inline-flex':'none';
+}
+
+/* ─── COMPARAISON ─── */
+function toggleCmp(id){
+  const i=S.cmpIds.indexOf(id);
+  if(i>=0) S.cmpIds.splice(i,1);
+  else if(S.cmpIds.length<3){S.cmpIds.push(id);const c=CAMPINGS_DATA.find(x=>x.id===id);showToast(`⚖ "${c.nom}" ajouté`);}
+  renderList(); renderCmpBar();
+}
+function clearCmp(){S.cmpIds=[];renderList();renderCmpBar();}
+function renderCmpBar(){
+  const bar=document.getElementById('cmp-bar');
+  if(!S.cmpIds.length){bar.classList.remove('show');return;}
+  bar.classList.add('show');
+  const items=document.getElementById('cb-items');
+  items.innerHTML=S.cmpIds.map(id=>{
+    const c=CAMPINGS_DATA.find(x=>x.id===id);
+    return `<div class="cb-item">${em(c.types)} <span style="font-family:var(--ff-serif)">${c.nom}</span><button onclick="toggleCmp(${id})">×</button></div>`;
+  }).join('');
+  if(S.cmpIds.length<3) items.innerHTML+=`<div class="cb-add">+ Ajouter</div>`;
+  document.getElementById('cb-go').disabled=S.cmpIds.length<2;
+}
+
+/* ─── VUE / TRI / CONTRÔLES ─── */
+function setView(v){
+  S.view=v;
+  ['list','split','map'].forEach(x=>document.getElementById('btn-'+x).classList.toggle('active',x===v));
+  document.getElementById('map-panel').classList.toggle('hidden',v==='list');
+  applyFilters();
+}
+function setTab(t){
+  S.tab=t;
+  document.getElementById('tab-tous').classList.toggle('active',t==='tous');
+  document.getElementById('tab-fav').classList.toggle('active',t==='favoris');
+  applyFilters();
+}
+function setSort(s,btn){
+  S.sort=s; document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active'); applyFilters();
+}
+function toggleChain(ch,btn){
+  const same=S.chainQ===ch; S.chainQ=same?'':ch;
+  document.querySelectorAll('.chain-btn').forEach(b=>b.classList.remove('active'));
+  if(!same) btn.classList.add('active'); applyFilters();
+}
+function toggleFilters(){
+  const p=document.getElementById('filters-panel'),b=document.getElementById('flt-toggle');
+  p.classList.toggle('open'); b.classList.toggle('open',p.classList.contains('open'));
+}
+function onSearch(inp){
+  S.search=inp.value;
+  document.getElementById('s-clr').style.display=inp.value?'flex':'none';
+  applyFilters();
+}
+function clearSearch(){
+  S.search=''; document.getElementById('search').value='';
+  document.getElementById('s-clr').style.display='none'; applyFilters();
+}
+function setStar(n,btn){
+  S.catMin=n; document.querySelectorAll('.pill').forEach(b=>b.classList.remove('active'));
+  // target only star pills
+  btn.classList.add('active'); applyFilters();
+}
+function setLabel(l,btn){
+  S.label=l;
+  // Only toggle within label group
+  btn.parentNode.querySelectorAll('.pill').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active'); applyFilters();
+}
+function onPrix(inp){
+  S.prixMax=+inp.value;
+  document.getElementById('prix-lbl').textContent=+inp.value>=120?'Tous':`${inp.value}€`;
+  applyFilters();
+}
+function toggleEquip(k,btn){S.equip[k]=!S.equip[k];btn.classList.toggle('active',S.equip[k]);applyFilters();}
+function toggleType(t,btn){
+  if(S.selTypes.has(t)) S.selTypes.delete(t); else S.selTypes.add(t);
+  const c=TC[t]||'#3d2b1c';
+  if(S.selTypes.has(t)){btn.style.background=c+'18';btn.style.color=c;btn.style.borderColor=c;}
+  else{btn.style.background='';btn.style.color='';btn.style.borderColor='';}
+  applyFilters();
+}
+function updateFltBadge(){
+  const n=[S.region,S.chaine||S.chainQ,S.label,S.prixMax<120?'x':'',S.catMin?'x':'',
+    ...Object.values(S.equip).map(v=>v?'x':''),S.selTypes.size?'x':''].filter(Boolean).length;
+  const b=document.getElementById('flt-dot');
+  b.style.display=n?'inline-flex':'none'; b.textContent=n;
+  document.getElementById('reset-btn').style.display=n?'':'none';
+}
+function resetFilters(){
+  S.search='';S.region='';S.chaine='';S.chainQ='';S.prixMax=120;S.catMin=0;S.label='';
+  S.equip={piscine:false,wifi:false,animaux:false,cc:false,loc:false};S.selTypes.clear();
+  document.getElementById('search').value='';
+  document.getElementById('s-clr').style.display='none';
+  document.getElementById('f-region').value='';
+  document.getElementById('f-chaine').value='';
+  document.getElementById('f-prix').value=120;
+  document.getElementById('prix-lbl').textContent='Tous';
+  document.querySelectorAll('.equip-pill').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.type-chip').forEach(b=>{b.style.background='';b.style.color='';b.style.borderColor='';});
+  document.querySelectorAll('.chain-btn').forEach(b=>b.classList.remove('active'));
+  // Reset pill groups
+  document.querySelectorAll('.pill').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.pill:first-child').forEach(b=>b.classList.add('active'));
+  applyFilters();
+}
+
+/* ─── DETAIL MODAL ─── */
+function openDetail(c){
+  S.detC=c;
+  const g=gr(c.types);
+  document.getElementById('det-vis-bg').style.background=g;
+  document.getElementById('det-vis-bg').textContent=em(c.types);
+  document.getElementById('det-name').textContent=c.nom;
+  document.getElementById('det-loc').textContent='📍 '+c.dept+', '+c.region;
+  document.getElementById('det-pills').innerHTML=
+    `<span class="det-vis-pill" style="background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.18)">${'★'.repeat(c.cat)} ${c.cat} étoile${c.cat>1?'s':''}</span>
+     <span class="det-vis-pill" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.12)">${c.chaine}</span>
+     ${c.label?labelBadge(c.label):''}`;
+  document.getElementById('det-kpis').innerHTML=[
+    {i:'★',v:`${c.note}/5`,l:`${c.avis.toLocaleString('fr')} avis`},
+    {i:'€',v:`${c.prix}€`,l:'par nuit'},
+    {i:'⛺',v:c.empl||'—',l:'emplacements'},
+  ].map(k=>`<div class="det-kpi"><div class="det-kpi-ico">${k.i}</div><div class="det-kpi-val">${k.v}</div><div class="det-kpi-lbl">${k.l}</div></div>`).join('');
+  document.getElementById('det-desc').textContent=c.desc;
+  document.getElementById('det-tags').innerHTML=(c.types||[]).map(t=>{
+    const col=TC[t]||'#3d2b1c';
+    return `<span class="det-tag-item" style="background:${col}18;color:${col}">${EM[t]||''} ${t}</span>`;
+  }).join('');
+  document.getElementById('det-equips').innerHTML=[
+    {k:'piscine',l:'Piscine & aquatique',i:'🏊'},{k:'wifi',l:'WiFi gratuit',i:'📶'},
+    {k:'animaux',l:'Animaux acceptés',i:'🐾'},{k:'cc',l:'Accessible camping-car',i:'🚐'},
+    {k:'loc',l:'Hébergements insolites',i:'🏠'},
+  ].map(e=>`<div class="det-eq ${c[e.k]?'yes':'no'}">${e.i} ${e.l}</div>`).join('');
+  updateDetBtns();
+  document.getElementById('det-modal').classList.add('open');
+}
+function updateDetBtns(){
+  const c=S.detC; if(!c) return;
+  const iF=S.favs.has(c.id), iC=S.cmpIds.includes(c.id);
+  const fb=document.getElementById('det-fav-btn');
+  fb.textContent=iF?'❤ Sauvegardé':'♡ Sauvegarder';
+  fb.className='det-act'+(iF?' on-fav':'');
+  const cb=document.getElementById('det-cmp-btn');
+  cb.textContent=iC?'⚖ Dans la comparaison':'⚖ Comparer';
+  cb.className='det-act'+(iC?' on-cmp':'');
+  cb.disabled=!iC&&S.cmpIds.length>=3;
+}
+function detToggleFav(){if(S.detC){toggleFav(S.detC.id);updateDetBtns();}}
+function detToggleCmp(){if(S.detC){toggleCmp(S.detC.id);updateDetBtns();}}
+function onDetBg(e){if(e.target===document.getElementById('det-modal'))closeDetModal();}
+function closeDetModal(){document.getElementById('det-modal').classList.remove('open');}
+
+/* ─── COMPARE MODAL ─── */
+function openCmpModal(){
+  const cs=S.cmpIds.map(id=>CAMPINGS_DATA.find(c=>c.id===id)).filter(Boolean);
+  if(cs.length<2) return;
+  document.getElementById('cmp-sub').textContent=`— ${cs.length} séjours côte à côte`;
+  const rows=[
+    {l:'Note',        v:c=>c.note,  r:c=>`<span style="font-family:var(--ff-serif);font-size:22px;font-weight:700;color:var(--ink)">${c.note}</span><span style="font-size:10px;color:var(--taupe)">/5</span>`, best:(a,b)=>a.note>b.note},
+    {l:'Prix / nuit', v:c=>c.prix,  r:c=>`<span style="font-family:var(--ff-serif);font-size:22px;font-weight:700;color:var(--forest)">${c.prix}€</span>`, best:(a,b)=>a.prix<b.prix},
+    {l:'Avis',        v:c=>c.avis,  r:c=>`<strong>${c.avis.toLocaleString('fr')}</strong>`, best:(a,b)=>a.avis>b.avis},
+    {l:'Classement',  v:c=>c.cat,   r:c=>`<span style="color:#c9a96e">${'★'.repeat(c.cat)}</span>`, best:(a,b)=>a.cat>b.cat},
+    {l:'🏊 Piscine',   v:null,r:c=>c.piscine?'<span style="color:#166534;font-size:15px">✓</span>':'<span style="color:#ddd">—</span>',best:null},
+    {l:'📶 WiFi',      v:null,r:c=>c.wifi?'<span style="color:#166534;font-size:15px">✓</span>':'<span style="color:#ddd">—</span>',best:null},
+    {l:'🐾 Animaux',   v:null,r:c=>c.animaux?'<span style="color:#166534;font-size:15px">✓</span>':'<span style="color:#ddd">—</span>',best:null},
+    {l:'🏠 Insolite',  v:null,r:c=>c.loc?'<span style="color:#166534;font-size:15px">✓</span>':'<span style="color:#ddd">—</span>',best:null},
+    {l:'Label',        v:null,r:c=>c.label?labelBadge(c.label,true):'<span style="color:#ddd">—</span>',best:null},
+  ];
+  const getBest=row=>{
+    if(!row.best||!row.v) return null;
+    let bi=0; cs.forEach((c,i)=>{if(row.best(c,cs[bi])) bi=i;});
+    return cs.filter(c=>row.v(c)===row.v(cs[bi])).length===1?cs[bi].id:null;
+  };
+  const cw=Math.floor(73/cs.length)+'%';
+  let h=`<thead><tr><th></th>${cs.map(c=>`<th style="width:${cw}">
+    <div style="font-size:34px;margin-bottom:7px">${em(c.types)}</div>
+    <div style="font-family:var(--ff-serif);font-size:15px;font-weight:600;color:var(--ink);line-height:1.2">${c.nom}</div>
+    <div style="font-size:10px;color:var(--taupe);margin-top:3px">📍 ${c.dept}</div>
+    <div style="font-size:9px;font-weight:600;color:var(--brown);background:var(--linen);padding:2px 9px;border-radius:20px;display:inline-block;margin-top:6px;letter-spacing:.03em">${c.chaine}</div>
+  </th>`).join('')}</tr></thead><tbody>`;
+  rows.forEach(row=>{
+    const best=getBest(row);
+    h+=`<tr><td>${row.l}</td>${cs.map(c=>{
+      const isB=best===c.id;
+      return `<td class="${isB?'cmp-best':''}" style="position:relative">${isB?'<span class="best-flag">✓ Top</span>':''}${row.r(c)}</td>`;
+    }).join('')}</tr>`;
+  });
+  const scores=cs.map(c=>Math.round(c.note*20+(1-c.prix/200)*30+[c.piscine,c.wifi,c.animaux,c.loc].filter(Boolean).length*5+(c.label?10:0)));
+  const mx=Math.max(...scores);
+  h+=`<tr class="cmp-score-row"><td>Score global</td>${cs.map((c,i)=>`<td class="${scores[i]===mx?'score-win':''}">
+    <span class="score-val" style="color:${scores[i]===mx?'var(--brown)':'var(--ink)'}">${scores[i]}</span>
+    <span class="score-sub" style="color:${scores[i]===mx?'var(--brown)':'var(--taupe)'}">${scores[i]===mx?'🏆 Meilleur choix':''}</span>
+  </td>`).join('')}</tr></tbody>`;
+  document.getElementById('cmp-tbl').innerHTML=h;
+  document.getElementById('cmp-modal').classList.add('open');
+}
+function onCmpBg(e){if(e.target===document.getElementById('cmp-modal'))closeCmpModal();}
+function closeCmpModal(){document.getElementById('cmp-modal').classList.remove('open');}
+
+/* ─── TOAST ─── */
+let _tt;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(_tt); _tt=setTimeout(()=>t.classList.remove('show'),2400);
+}
+
+// init() est maintenant appelé par initApp() après chargement de campings.js
+</script>
+</body>
+</html>
