@@ -1,0 +1,44 @@
+{
+  "name": "SnowFinder — Stations de ski",
+  "short_name": "SnowFinder",
+  "description": "Trouvez votre station de ski idéale parmi 196 stations françaises",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf6f0",
+  "theme_color": "#3a7db8",
+  "orientation": "portrait-primary",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Trouver ma station",
+      "short_name": "Recherche",
+      "url": "/recherche.html",
+      "icons": [
+        {
+          "src": "logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "categories": [
+    "travel",
+    "sports",
+    "lifestyle"
+  ],
+  "screenshots": []
+}
