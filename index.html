@@ -248,6 +248,134 @@ footer a{color:rgba(255,255,255,.6);text-decoration:none}
 .sb-link .sb-soon { margin-left: auto; background: var(--wood-light); color: var(--wood-dark); font-size: .6rem; font-weight: 700; padding: 1px 6px; border-radius: 10px; }
 .sb-divider { height: 1px; background: var(--wood-light); margin: 6px 14px; }
 
+/* ── VIEUX PANNEAU BOIS ── */
+.sb-label {
+  display: inline-block;
+  font-family: "DM Serif Display", serif;
+  font-size: .8rem;
+  letter-spacing: .04em;
+  color: #1a0e05;
+  padding: 5px 20px 5px 14px;
+  position: relative;
+  /* Forme dentelée côté droit uniquement */
+  clip-path: polygon(
+    0 0, calc(100% - 10px) 0,
+    100% 20%, calc(100% - 8px) 35%,
+    100% 50%, calc(100% - 8px) 65%,
+    100% 80%, calc(100% - 10px) 100%,
+    0 100%
+  );
+  /* Grain bois multi-couches */
+  background:
+    repeating-linear-gradient(91deg,
+      transparent, transparent 4px,
+      rgba(0,0,0,.035) 4px, rgba(0,0,0,.035) 5px,
+      transparent 5px, transparent 12px,
+      rgba(255,255,255,.04) 12px, rgba(255,255,255,.04) 13px
+    ),
+    repeating-linear-gradient(180deg,
+      rgba(0,0,0,.05) 0px, transparent 1px,
+      transparent 5px, rgba(255,255,255,.03) 5px,
+      transparent 6px, transparent 12px
+    ),
+    linear-gradient(175deg,
+      #b06828 0%, #d4944e 6%, #a05e20 14%,
+      #c88840 22%, #e0a860 28%, #b07030 36%,
+      #cc8c44 44%, #a06020 52%, #be8038 60%,
+      #d09850 66%, #a86830 74%, #c28440 82%,
+      #985820 90%, #b87838 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 -2px 4px rgba(0,0,0,.28),
+    inset 3px 0 5px rgba(0,0,0,.1),
+    2px 2px 5px rgba(30,15,3,.45),
+    4px 4px 10px rgba(30,15,3,.18);
+  transition: filter .12s;
+}
+/* Clou gauche */
+.sb-label::before {
+  content: '';
+  position: absolute;
+  left: 7px; top: 50%;
+  transform: translateY(-50%);
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #9a7040, #201005);
+  box-shadow: 0 1px 3px rgba(0,0,0,.7), inset 0 1px rgba(255,255,255,.1);
+}
+.sb-link:hover .sb-label { filter: brightness(1.1); }
+.sb-link.active .sb-label {
+  background:
+    repeating-linear-gradient(91deg,
+      transparent, transparent 4px, rgba(0,0,0,.04) 4px, rgba(0,0,0,.04) 5px,
+      transparent 5px, transparent 12px
+    ),
+    linear-gradient(175deg,
+      #5a2c08 0%, #7a4018 15%, #4e2408 30%,
+      #6e3818 45%, #804820 55%, #5a2c08 70%,
+      #7a4018 85%, #5a3010 100%
+    );
+  color: #f5e0b8;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), inset 0 -2px 4px rgba(0,0,0,.4), 2px 2px 6px rgba(20,8,2,.55);
+}
+
+/* Panneau topbar — même bois, deux bouts dentelés */
+.pt-panneau {
+  display: inline-flex;
+  align-items: center;
+  font-family: "DM Serif Display", serif;
+  font-size: .9rem;
+  letter-spacing: .05em;
+  color: #1a0e05;
+  padding: 7px 24px;
+  position: relative;
+  clip-path: polygon(
+    10px 0, calc(100% - 10px) 0,
+    100% 25%, calc(100% - 8px) 50%, 100% 75%, calc(100% - 10px) 100%,
+    10px 100%, 0 75%, 8px 50%, 0 25%
+  );
+  background:
+    repeating-linear-gradient(91deg,
+      transparent, transparent 4px, rgba(0,0,0,.035) 4px, rgba(0,0,0,.035) 5px,
+      transparent 5px, transparent 12px, rgba(255,255,255,.04) 12px, rgba(255,255,255,.04) 13px
+    ),
+    repeating-linear-gradient(180deg,
+      rgba(0,0,0,.05) 0px, transparent 1px, transparent 5px,
+      rgba(255,255,255,.03) 5px, transparent 6px, transparent 12px
+    ),
+    linear-gradient(175deg,
+      #b06828 0%, #d4944e 6%, #a05e20 14%, #c88840 22%, #e0a860 28%,
+      #b07030 36%, #cc8c44 44%, #a06020 52%, #be8038 60%,
+      #d09850 66%, #a86830 74%, #c28440 82%, #985820 90%, #b87838 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 -2px 4px rgba(0,0,0,.28),
+    2px 3px 6px rgba(30,15,3,.45),
+    4px 5px 12px rgba(30,15,3,.18);
+}
+.pt-panneau::before {
+  content: '';
+  position: absolute;
+  left: 14px; top: 50%;
+  transform: translateY(-50%);
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #9a7040, #201005);
+  box-shadow: 0 1px 3px rgba(0,0,0,.7), inset 0 1px rgba(255,255,255,.1);
+}
+.pt-panneau::after {
+  content: '';
+  position: absolute;
+  right: 14px; top: 50%;
+  transform: translateY(-50%);
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #9a7040, #201005);
+  box-shadow: 0 1px 3px rgba(0,0,0,.7), inset 0 1px rgba(255,255,255,.1);
+}
+
 .sb-footer { padding: 12px 16px; border-top: 1px solid var(--wood-light); background: var(--wood-pale); }
 .sb-footer-txt { font-size: .7rem; color: var(--text-light); line-height: 1.5; }
 .sb-footer-txt strong { color: var(--text-mid); }
@@ -721,15 +849,15 @@ const FAV_STATIONS = DATA;
 
 <div class="sb-divider"></div>
 <div class="sb-links">
-    <a class="sb-link" href="index.html"><span class="sb-icon">🏠</span> Chalet d'accueil</a>
-    <a class="sb-link" href="favoris.html"><span class="sb-icon">⭐</span> Mes stations favorites</a>
-    <a class="sb-link" href="recherche.html"><span class="sb-icon">🔍</span> Trouver ma station</a>
-    <a class="sb-link" href="recherche.html#carte" onclick="goToMap()"><span class="sb-icon">🗺</span> Carte interactive</a>
-    <a class="sb-link" href="station-du-moment.html"><span class="sb-icon">🏔</span> Station du moment</a>
+    <a class="sb-link" href="index.html"><span class="sb-icon">🏠</span> <span class="sb-label">Chalet d'accueil</span></a>
+    <a class="sb-link" href="favoris.html"><span class="sb-icon">⭐</span> <span class="sb-label">Mes stations favorites</span></a>
+    <a class="sb-link" href="recherche.html"><span class="sb-icon">🔍</span> <span class="sb-label">Trouver ma station</span></a>
+    <a class="sb-link" href="recherche.html#carte" onclick="goToMap()"><span class="sb-icon">🗺</span> <span class="sb-label">Carte interactive</span></a>
+    <a class="sb-link" href="station-du-moment.html"><span class="sb-icon">🏔</span> <span class="sb-label">Station du moment</span></a>
     <div class="sb-divider"></div>
-    <a class="sb-link" href="recherche.html"><span class="sb-icon">❄️</span> Enneigement <span class="sb-new">Live</span></a>
-    <button class="sb-link" onclick="openHebModal()"><span class="sb-icon">🏨</span> Hébergements</button>
-    <button class="sb-link" onclick="openContact()"><span class="sb-icon">📧</span> Nous contacter</button>
+    <a class="sb-link" href="recherche.html"><span class="sb-icon">❄️</span> <span class="sb-label">Enneigement <span class="sb-new">Live</span></span></a>
+    <button class="sb-link" onclick="openHebModal()"><span class="sb-icon">🏨</span> <span class="sb-label">Hébergements</span></button>
+    <button class="sb-link" onclick="openContact()"><span class="sb-icon">📧</span> <span class="sb-label">Nous contacter</span></button>
   </div>
   <div class="sb-footer">
     <div class="sb-footer-txt"><strong>SnowFinder</strong> — +250 stations<br>Données météo : Open-Meteo<br>BRA : Météo-France<br><a href="mentions-legales.html" style="color:var(--text-light);font-size:.68rem">Mentions légales</a></div>
@@ -741,9 +869,10 @@ const FAV_STATIONS = DATA;
     var href=a.getAttribute('href').split('#')[0].split('/').pop()||'index.html';
     if(href===page)a.classList.add('active');
   });
-  var TITLES={'index.html':'🏠 Chalet d'accueil','favoris.html':'⭐ Mes stations favorites','recherche.html':'🔍 Trouver ma station','station-du-moment.html':'🏔 Station du moment'};
+  var TITLES={'index.html':{emoji:'🏠',name:'Chalet d\'accueil'},'favoris.html':{emoji:'⭐',name:'Mes stations favorites'},'recherche.html':{emoji:'🔍',name:'Trouver ma station'},'station-du-moment.html':{emoji:'🏔',name:'Station du moment'}};
+  var info=TITLES[page]||{emoji:'⛷',name:'SnowFinder'};
   var el=document.getElementById('pageTitle');
-  if(el)el.textContent=TITLES[page]||'⛷ SnowFinder';
+  if(el)el.innerHTML = '<span style="font-size:1.1rem;margin-right:10px">'+info.emoji+'</span><span class="pt-panneau">'+info.name+'</span>';
 })();
 </script>
 </nav>
