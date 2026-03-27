@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Station du moment · Val Thorens · SnowFinder</title>
+<meta name="description" content="Val Thorens — Station du moment SnowFinder. Enneigement actuel, météo, pistes ouvertes, hébergements.">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#3a7db8">
+<link rel="apple-touch-icon" href="/logo.png">
+<link rel="icon" type="image/png" href="logo.png">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S0C748Y0DX');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--wood-pale:#f7efe2;--wood-light:#eddcbf;--wood:#c49a6c;--wood-dark:#8b5e3c;--blue:#5b9fd4;--blue-light:#e8f3fb;--blue-mid:#3a7db8;--blue-dark:#1a5a8a;--green:#2a8a3a;--green-light:#e6f5eb;--text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;--bg:#faf6f0;--white:#fff;--border:#e8d8c4;--shadow:0 1px 4px rgba(0,0,0,.08);--shadow-md:0 6px 20px rgba(0,0,0,.12);--radius:10px;--sb-w:230px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.sb{position:fixed;left:0;top:0;bottom:0;width:var(--sb-w);background:var(--white);border-right:1.5px solid var(--wood-light);z-index:300;display:flex;flex-direction:column;overflow-y:auto;transition:transform .3s;box-shadow:2px 0 12px rgba(0,0,0,.06)}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:14px 16px;text-decoration:none;border-bottom:1px solid var(--wood-light);background:var(--wood-pale)}
+.sb-logo img{width:32px;height:32px;border-radius:8px;flex-shrink:0}
+.sb-logo-text{font-family:"DM Serif Display",serif;font-size:1rem;color:var(--blue-dark);line-height:1.2}
+.sb-logo-text small{display:block;font-family:"DM Sans",sans-serif;font-size:.65rem;color:var(--text-light);font-style:normal}
+.saison-toggle{margin:10px 12px;border-radius:30px;overflow:hidden;border:2px solid var(--wood-light);display:flex;cursor:pointer}
+.saison-toggle-track{display:flex;width:100%}
+.saison-btn{flex:1;padding:7px 6px;text-align:center;font-size:.76rem;font-weight:700;border:none;cursor:pointer;background:none;color:var(--text-light);font-family:"DM Sans",sans-serif}
+.saison-btn.active-hiver{background:var(--blue-dark);color:white;border-radius:26px}
+.sb-links{display:flex;flex-direction:column;padding:4px 0;flex:1}
+.sb-link{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:.88rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:background .15s;cursor:pointer;background:none;border:none;width:100%;text-align:left;font-family:"DM Sans",sans-serif}
+.sb-link:hover{background:var(--wood-pale);color:var(--blue-mid)}
+.sb-link.active{background:var(--blue-light);color:var(--blue-mid);font-weight:700}
+.sb-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
+.sb-new{margin-left:auto;background:var(--blue-mid);color:white;font-size:.6rem;font-weight:700;padding:1px 6px;border-radius:10px}
+.sb-divider{height:1px;background:var(--wood-light);margin:6px 14px}
+.sb-footer{padding:12px 16px;border-top:1px solid var(--wood-light);background:var(--wood-pale)}
+.sb-footer-txt{font-size:.7rem;color:var(--text-light);line-height:1.5}
+.sb-hamburger{display:none;position:fixed;top:12px;left:12px;z-index:400;width:40px;height:40px;background:var(--white);border:2px solid var(--wood-light);border-radius:8px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:var(--shadow)}
+.sb-hamburger span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.sb-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.sb-hamburger.open span:nth-child(2){opacity:0}
+.sb-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:250}
+.sb-overlay.open{display:block}
+.page-wrap{margin-left:var(--sb-w);transition:margin-left .3s}
+@media(max-width:900px){.sb{transform:translateX(calc(-1 * var(--sb-w)))}.sb.open{transform:translateX(0)}.sb-hamburger{display:flex}.page-wrap{margin-left:0}.page-wrap .topbar{padding-left:60px!important}}
+.topbar{background:var(--white);border-bottom:1px solid var(--wood-light);height:56px;display:flex;align-items:center;padding:0 20px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.topbar-panneau{display:block;height:44px;object-fit:contain;filter:drop-shadow(1px 2px 4px rgba(0,0,0,.3))}
+/* HERO */
+.sotm-hero{position:relative;min-height:340px;display:flex;align-items:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.25) 60%,transparent 100%)}
+.hero-inner{position:relative;z-index:1;width:100%;max-width:860px;margin:0 auto;padding:36px 24px 28px}
+.sotm-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);color:white;padding:5px 14px;border-radius:30px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;border:1px solid rgba(255,255,255,.28)}
+.hero-title{font-family:"DM Serif Display",serif;font-size:clamp(2.2rem,5vw,3.5rem);color:white;line-height:1.05;margin-bottom:6px;text-shadow:0 3px 12px rgba(0,0,0,.5)}
+.hero-sub{font-size:.95rem;color:rgba(255,255,255,.82);margin-bottom:16px}
+.hero-stats{display:flex;gap:10px;flex-wrap:wrap}
+.hstat{background:rgba(255,255,255,.17);backdrop-filter:blur(6px);color:white;border:1px solid rgba(255,255,255,.23);border-radius:9px;padding:7px 12px;text-align:center;min-width:72px}
+.hstat-val{font-family:"DM Serif Display",serif;font-size:1.2rem;line-height:1}
+.hstat-lbl{font-size:.62rem;opacity:.78;margin-top:2px;text-transform:uppercase;letter-spacing:.03em}
+.hero-score{display:inline-flex;align-items:center;gap:6px;background:var(--wood);color:white;padding:5px 13px;border-radius:20px;font-size:.84rem;font-weight:700;margin-top:10px}
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:2fr 1fr;gap:3px;max-height:300px}
+.gallery-main img{width:100%;height:300px;object-fit:cover;display:block}
+.gallery-side{display:flex;flex-direction:column;gap:3px}
+.gallery-side img{width:100%;height:148.5px;object-fit:cover;display:block;transition:opacity .2s;cursor:pointer}
+.gallery-side img:hover{opacity:.88}
+@media(max-width:600px){.gallery{grid-template-columns:1fr;max-height:200px}.gallery-main img{height:200px}.gallery-side{display:none}}
+/* PAGE */
+.page{max-width:860px;margin:0 auto;padding:24px 20px 60px}
+.sc{background:var(--white);border-radius:13px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:18px;overflow:hidden}
+.sc-head{padding:14px 18px 10px;border-bottom:1px solid var(--wood-pale);display:flex;align-items:center;gap:10px}
+.sc-title{font-family:"DM Serif Display",serif;font-size:1.1rem;color:var(--text)}
+.sc-body{padding:16px 18px}
+/* ENNEIGEMENT */
+.snow-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.snow-box{background:var(--bg);border-radius:9px;padding:13px 15px;border:1px solid var(--border);text-align:center}
+.sb-lbl{font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-light);margin-bottom:5px;font-weight:700}
+.sb-val{font-family:"DM Serif Display",serif;font-size:1.9rem;color:var(--blue-dark)}
+.sb-unit{font-size:.72rem;color:var(--text-light)}
+.sb-bar-track{height:7px;background:var(--border);border-radius:4px;overflow:hidden;margin:8px 0 3px}
+.sb-bar-fill{height:100%;border-radius:4px}
+.sb-sub{font-size:.66rem;color:var(--text-light)}
+.snow-status{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:20px;font-size:.78rem;font-weight:700}
+.snow-good{background:#e6f5eb;color:#1a6a28}
+/* METEO */
+.meteo-row{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.md{background:var(--bg);border-radius:8px;padding:9px 5px;text-align:center;border:1px solid var(--border)}
+.md-name{font-size:.64rem;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:5px}
+.md-icon{font-size:1.5rem;margin-bottom:3px}
+.md-temp{font-family:"DM Serif Display",serif;font-size:.9rem;color:var(--blue-dark)}
+.md-desc{font-size:.62rem;color:var(--text-light);margin-top:2px}
+/* AVALANCHE */
+.aval-row{display:flex;gap:4px;margin:8px 0 4px}
+.aval{flex:1;height:9px;border-radius:3px}
+.a1{background:#90ee90}.a2{background:#ffd700}.a3{background:#ff8c00;outline:3px solid #333;outline-offset:1px}.a4{background:#ff4444;opacity:.4}.a5{background:#8b0000;opacity:.4}
+/* PISTES */
+.pistes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.pb{border-radius:8px;padding:11px 6px;text-align:center}
+.pb-v{background:#e8f5e9;border:1px solid #c8e6c9}
+.pb-b{background:#e3f2fd;border:1px solid #b3d4f5}
+.pb-r{background:#fce4ec;border:1px solid #f8bbd0}
+.pb-n{background:#f3e5f5;border:1px solid #e1bee7}
+.pb-num{font-family:"DM Serif Display",serif;font-size:1.4rem;line-height:1}
+.pb-v .pb-num{color:#2e7d32}.pb-b .pb-num{color:#1565c0}.pb-r .pb-num{color:#c62828}.pb-n .pb-num{color:#4a148c}
+.pb-tot{font-size:.62rem;color:var(--text-light)}
+.pb-lbl{font-size:.7rem;font-weight:600;margin-top:3px}
+.pb-v .pb-lbl{color:#2e7d32}.pb-b .pb-lbl{color:#1565c0}.pb-r .pb-lbl{color:#c62828}.pb-n .pb-lbl{color:#4a148c}
+.piste-global{background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));color:white;border-radius:9px;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pg-pct{font-family:"DM Serif Display",serif;font-size:2.2rem;color:white}
+.pg-bar{flex:1;max-width:130px}
+.pg-track{height:7px;background:rgba(255,255,255,.3);border-radius:4px;overflow:hidden;margin-bottom:4px}
+.pg-fill{height:100%;background:white;border-radius:4px}
+/* HEBERG */
+.heb-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.heb-card{display:flex;align-items:center;gap:11px;background:var(--bg);border-radius:9px;padding:11px 13px;text-decoration:none;border:1.5px solid var(--border);transition:all .2s}
+.heb-card:hover{border-color:var(--blue-mid);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.heb-logo{font-size:1.5rem;flex-shrink:0}
+.heb-name{font-weight:700;font-size:.88rem;color:var(--text)}
+.heb-desc{font-size:.72rem;color:var(--text-light);margin-top:1px}
+.chalet-sugg{background:linear-gradient(135deg,#fff9e6,#fff0cc);border-radius:9px;padding:13px 15px;border:1px solid #ffd966;margin-top:11px;display:flex;align-items:center;gap:12px}
+.chalet-img{width:60px;height:60px;border-radius:7px;object-fit:cover;flex-shrink:0}
+.chalet-title{font-weight:700;font-size:.85rem;color:#5c4400;margin-bottom:2px}
+.chalet-desc{font-size:.72rem;color:#7a5c00}
+.chalet-link{display:inline-block;margin-top:5px;font-size:.72rem;font-weight:700;color:var(--blue-dark);text-decoration:none}
+.chalet-link:hover{text-decoration:underline}
+/* ANECDOTE */
+.anecdote{background:linear-gradient(135deg,var(--blue-light),#d6eaf8);border-radius:12px;padding:16px 18px;border:1px solid #b8d5f0;display:flex;gap:12px;margin-bottom:18px}
+.anecdote-lbl{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--blue-dark);margin-bottom:4px}
+/* INFOS */
+.infos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.ii{background:var(--bg);border-radius:8px;padding:11px 13px;border:1px solid var(--border)}
+.ii-lbl{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text-light);margin-bottom:3px}
+.ii-val{font-size:.9rem;font-weight:600;color:var(--text)}
+.ii-sub{font-size:.68rem;color:var(--text-light);margin-top:2px}
+/* PROMO */
+.promo{background:linear-gradient(135deg,#ff6b35,#e83535);color:white;border-radius:9px;padding:10px 14px;font-size:.8rem;font-weight:700;text-align:center;margin-bottom:14px}
+/* FAV */
+.fav-btn{width:100%;padding:11px;margin-top:11px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;border:2px solid var(--wood-light);background:var(--wood-pale);color:var(--wood-dark)}
+.fav-btn.active{border-color:#f5c518;background:rgba(245,197,24,.15);color:#b8860b}
+footer{background:var(--wood-dark);color:rgba(255,255,255,.7);text-align:center;padding:28px 20px;font-size:.82rem}
+footer strong{color:white}
+footer a{color:rgba(255,255,255,.5);text-decoration:none}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+@media(max-width:600px){.snow-grid,.heb-grid,.infos-grid{grid-template-columns:1fr 1fr}.meteo-row{grid-template-columns:repeat(3,1fr)}.pistes-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<button class="sb-hamburger" id="sbHamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
+<div class="sb-overlay" id="sbOverlay" onclick="closeSidebar()"></div>
+
+<nav class="sb" id="sidebar">
+  <a class="sb-logo" href="index.html">
+    <img src="logo.png" alt="SnowFinder">
+    <div class="sb-logo-text">SnowFinder<small>Le guide ski français</small></div>
+  </a>
+  <div class="saison-toggle" onclick="window.location='index.html'">
+    <div class="saison-toggle-track">
+      <button class="saison-btn active-hiver">❄️ Hiver</button>
+      <button class="saison-btn">🌿 Été</button>
+    </div>
+  </div>
+  <div class="sb-divider"></div>
+  <div class="sb-links">
+    <a class="sb-link" href="index.html"><span class="sb-icon">🏠</span> Chalet d'accueil</a>
+    <a class="sb-link" href="favoris.html"><span class="sb-icon">⭐</span> Mes favoris</a>
+    <a class="sb-link" href="recherche.html"><span class="sb-icon">🔍</span> Trouver ma station</a>
+    <a class="sb-link active" href="station-du-moment.html"><span class="sb-icon">🏔</span> Station du moment</a>
+    <a class="sb-link" href="comparateur.html"><span class="sb-icon">⚖️</span> Comparer les stations</a>
+    <div class="sb-divider"></div>
+    <a class="sb-link" href="enneigement.html"><span class="sb-icon">❄️</span> Neige / Météo <span class="sb-new">Live</span></a>
+    <button class="sb-link" onclick="window.location='recherche.html'"><span class="sb-icon">🏨</span> Hébergements</button>
+    <button class="sb-link" onclick="window.location='index.html'"><span class="sb-icon">📧</span> Nous contacter</button>
+  </div>
+  <div class="sb-footer">
+    <div class="sb-footer-txt"><strong>SnowFinder</strong> — +220 stations<br>Météo : Open-Meteo · BRA : Météo-France<br><a href="mentions-legales.html" style="color:var(--text-light);font-size:.68rem">Mentions légales</a></div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+<div class="topbar">
+  <img class="topbar-panneau" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NjAgNzQiIHdpZHRoPSI0NjAiIGhlaWdodD0iNzQiPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJ3b29kQmFzZSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjN2E0ZTIwIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMjAlIiBzdG9wLWNvbG9yPSIjOGE1YTI4Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iNDUlIiBzdG9wLWNvbG9yPSIjNmU0NDE4Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iNzAlIiBzdG9wLWNvbG9yPSIjN2U1MDIyIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzVjMzgxNCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ic25vd0dyYWQiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjYwJSIgc3RvcC1jb2xvcj0iI2VhZjNmZiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjY2RhZjAiIHN0b3Atb3BhY2l0eT0iMC41Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGZpbHRlciBpZD0ic2hhZG93IiB4PSItNSUiIHk9Ii01JSIgd2lkdGg9IjEyMCUiIGhlaWdodD0iMTQwJSI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjMiIGR5PSI1IiBzdGREZXZpYXRpb249IjUiIGZsb29kLWNvbG9yPSJyZ2JhKDAsMCwwLDAuNTUpIi8+CiAgICA8L2ZpbHRlcj4KICAgIDxmaWx0ZXIgaWQ9ImVuZ3JhdmUiPgogICAgICA8ZmVHYXVzc2lhbkJsdXIgaW49IlNvdXJjZUFscGhhIiBzdGREZXZpYXRpb249IjEuNCIgcmVzdWx0PSJibHVyIi8+CiAgICAgIDxmZU9mZnNldCBkeD0iLTEuMiIgZHk9Ii0xLjIiIGluPSJibHVyIiByZXN1bHQ9InMxIi8+CiAgICAgIDxmZU9mZnNldCBkeD0iMS4yIiBkeT0iMS4yIiBpbj0iYmx1ciIgcmVzdWx0PSJzMiIvPgogICAgICA8ZmVGbG9vZCBmbG9vZC1jb2xvcj0icmdiYSgwLDAsMCwwLjg1KSIgcmVzdWx0PSJkYXJrIi8+CiAgICAgIDxmZUZsb29kIGZsb29kLWNvbG9yPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMjgpIiByZXN1bHQ9ImxpZ2h0Ii8+CiAgICAgIDxmZUNvbXBvc2l0ZSBpbj0iZGFyayIgaW4yPSJzMSIgb3BlcmF0b3I9ImluIiByZXN1bHQ9ImRzIi8+CiAgICAgIDxmZUNvbXBvc2l0ZSBpbj0ibGlnaHQiIGluMj0iczIiIG9wZXJhdG9yPSJpbiIgcmVzdWx0PSJscyIvPgogICAgICA8ZmVNZXJnZT4KICAgICAgICA8ZmVNZXJnZU5vZGUgaW49ImRzIi8+CiAgICAgICAgPGZlTWVyZ2VOb2RlIGluPSJscyIvPgogICAgICAgIDxmZU1lcmdlTm9kZSBpbj0iU291cmNlR3JhcGhpYyIvPgogICAgICA8L2ZlTWVyZ2U+CiAgICA8L2ZpbHRlcj4KICAgIDxmaWx0ZXIgaWQ9InJvdWdoIj4KICAgICAgPGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuMDQiIG51bU9jdGF2ZXM9IjMiIHJlc3VsdD0ibm9pc2UiIHNlZWQ9IjgiLz4KICAgICAgPGZlRGlzcGxhY2VtZW50TWFwIGluPSJTb3VyY2VHcmFwaGljIiBpbjI9Im5vaXNlIiBzY2FsZT0iMS4yIiB4Q2hhbm5lbFNlbGVjdG9yPSJSIiB5Q2hhbm5lbFNlbGVjdG9yPSJHIi8+CiAgICA8L2ZpbHRlcj4KICAgIDxjbGlwUGF0aCBpZD0iY2xpcCI+CiAgICAgIDxwb2x5Z29uIHBvaW50cz0iMTAsOCA0MjAsOCA0NTAsMzcgNDIwLDY2IDEwLDY2IDEwLDgiLz4KICAgIDwvY2xpcFBhdGg+CiAgPC9kZWZzPgoKICA8cG9seWdvbiBwb2ludHM9IjEwLDggNDIwLDggNDUwLDM3IDQyMCw2NiAxMCw2NiAxMCw4IgogICAgICAgICAgIGZpbGw9ImJsYWNrIiBvcGFjaXR5PSIwLjM1IiBmaWx0ZXI9InVybCgjc2hhZG93KSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMyw0KSIvPgogIDxwb2x5Z29uIHBvaW50cz0iMTAsOCA0MjAsOCA0NTAsMzcgNDIwLDY2IDEwLDY2IDEwLDgiCiAgICAgICAgICAgZmlsbD0idXJsKCN3b29kQmFzZSkiLz4KCiAgPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXApIj4KICAgIDwhLS0gVmVpbmFnZSBkdSBib2lzIC0tPgogICAgPGcgc3Ryb2tlPSIjNGEyYzBlIiBzdHJva2Utd2lkdGg9IjEuMyIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC41Ij4KICAgICAgPHBhdGggZD0iTTAsMTYgQzgwLDE0IDE2MCwxOCAyNDAsMTUgQzMyMCwxMiAzOTAsMTYgNDYwLDE0Ii8+CiAgICAgIDxwYXRoIGQ9Ik0wLDI0IEM4MCwyMiAxNjAsMjYgMjQwLDIzIEMzMjAsMjAgMzkwLDI0IDQ2MCwyMiIvPgogICAgICA8cGF0aCBkPSJNMCwzMiBDODAsMzAgMTYwLDM0IDI0MCwzMSBDMzIwLDI4IDM5MCwzMiA0NjAsMzAiLz4KICAgICAgPHBhdGggZD0iTTAsNDAgQzgwLDM4IDE2MCw0MiAyNDAsMzkgQzMyMCwzNiAzOTAsNDAgNDYwLDM4Ii8+CiAgICAgIDxwYXRoIGQ9Ik0wLDQ4IEM4MCw0NiAxNjAsNTAgMjQwLDQ3IEMzMjAsNDQgMzkwLDQ4IDQ2MCw0NiIvPgogICAgICA8cGF0aCBkPSJNMCw1NiBDODAsNTQgMTYwLDU4IDI0MCw1NSBDMzIwLDUyIDM5MCw1NiA0NjAsNTQiLz4KICAgICAgPHBhdGggZD0iTTAsNjQgQzgwLDYyIDE2MCw2NiAyNDAsNjMgQzMyMCw2MCAzOTAsNjQgNDYwLDYyIi8+CiAgICA8L2c+CiAgICA8ZyBzdHJva2U9IiNiMDc4NDAiIHN0cm9rZS13aWR0aD0iMC43IiBmaWxsPSJub25lIiBvcGFjaXR5PSIwLjMiPgogICAgICA8cGF0aCBkPSJNMCwyMCBDODAsMTggMTYwLDIyIDI0MCwxOSBDMzIwLDE2IDM5MCwyMCA0NjAsMTgiLz4KICAgICAgPHBhdGggZD0iTTAsMjggQzgwLDI2IDE2MCwzMCAyNDAsMjcgQzMyMCwyNCAzOTAsMjggNDYwLDI2Ii8+CiAgICAgIDxwYXRoIGQ9Ik0wLDM2IEM4MCwzNCAxNjAsMzggMjQwLDM1IEMzMjAsMzIgMzkwLDM2IDQ2MCwzNCIvPgogICAgICA8cGF0aCBkPSJNMCw0NCBDODAsNDIgMTYwLDQ2IDI0MCw0MyBDMzIwLDQwIDM5MCw0NCA0NjAsNDIiLz4KICAgICAgPHBhdGggZD0iTTAsNTIgQzgwLDUwIDE2MCw1NCAyNDAsNTEgQzMyMCw0OCAzOTAsNTIgNDYwLDUwIi8+CiAgICAgIDxwYXRoIGQ9Ik0wLDYwIEM4MCw1OCAxNjAsNjIgMjQwLDU5IEMzMjAsNTYgMzkwLDYwIDQ2MCw1OCIvPgogICAgPC9nPgoKICAgIDwhLS0gTsWTdWRzIGJvaXMgLS0+CiAgICA8ZWxsaXBzZSBjeD0iMzQwIiBjeT0iNDUiIHJ4PSIxMiIgcnk9IjIwIiBmaWxsPSJub25lIiBzdHJva2U9IiMzYTFlMDgiIHN0cm9rZS13aWR0aD0iMS41IiBvcGFjaXR5PSIwLjM1Ii8+CiAgICA8ZWxsaXBzZSBjeD0iMzQwIiBjeT0iNDUiIHJ4PSI2IiByeT0iMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzNhMWUwOCIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjMiLz4KICAgIDxjaXJjbGUgY3g9IjM0MCIgY3k9IjQ1IiByPSIyLjUiIGZpbGw9IiMyZTE2MDYiIG9wYWNpdHk9IjAuNDUiLz4KICAgIDxwb2x5Z29uIHBvaW50cz0iMTAsOCA0MjAsOCA0MjQsMTIgMTAsMTIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNykiLz4KICAgIDxjaXJjbGUgY3g9IjM4IiBjeT0iMzciIHI9IjQiIGZpbGw9IiMzYTIwMTAiIHN0cm9rZT0iIzZhNDAyMCIgc3Ryb2tlLXdpZHRoPSIxLjIiLz4KICAgIDxjaXJjbGUgY3g9IjM4IiBjeT0iMzciIHI9IjEuOCIgZmlsbD0iIzlhNjgzMCIvPgogICAgPGNpcmNsZSBjeD0iNDEwIiBjeT0iMjUiIHI9IjMuNSIgZmlsbD0iIzNhMjAxMCIgc3Ryb2tlPSIjNmE0MDIwIiBzdHJva2Utd2lkdGg9IjEuMiIvPgogICAgPGNpcmNsZSBjeD0iNDEwIiBjeT0iMjUiIHI9IjEuNiIgZmlsbD0iIzlhNjgzMCIvPgogICAgPGNpcmNsZSBjeD0iNDEwIiBjeT0iNTAiIHI9IjMuNSIgZmlsbD0iIzNhMjAxMCIgc3Ryb2tlPSIjNmE0MDIwIiBzdHJva2Utd2lkdGg9IjEuMiIvPgogICAgPGNpcmNsZSBjeD0iNDEwIiBjeT0iNTAiIHI9IjEuNiIgZmlsbD0iIzlhNjgzMCIvPgoKICAgIDwhLS0gVGV4dGUgZ3JhdsOpIC0tPgogICAgPHRleHQgeD0iMjIyIiB5PSI1NiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsICdUaW1lcyBOZXcgUm9tYW4nLCBzZXJpZiIKICAgICAgICAgIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiBsZXR0ZXItc3BhY2luZz0iMiIgdGV4dC1hbmNob3I9Im1pZGRsZSIKICAgICAgICAgIGZpbGw9InJnYmEoMCwwLDAsMC44NSkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEuMiwxLjIpIiBmaWx0ZXI9InVybCgjcm91Z2gpIj5TdGF0aW9uIGR1IG1vbWVudDwvdGV4dD4KICAgIDx0ZXh0IHg9IjIyMiIgeT0iNTYiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCAnVGltZXMgTmV3IFJvbWFuJywgc2VyaWYiCiAgICAgICAgICBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgbGV0dGVyLXNwYWNpbmc9IjIiIHRleHQtYW5jaG9yPSJtaWRkbGUiCiAgICAgICAgICBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMjIpIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMC44LC0wLjgpIiBmaWx0ZXI9InVybCgjcm91Z2gpIj5TdGF0aW9uIGR1IG1vbWVudDwvdGV4dD4KICAgIDx0ZXh0IHg9IjIyMSIgeT0iNTUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCAnVGltZXMgTmV3IFJvbWFuJywgc2VyaWYiCiAgICAgICAgICBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgbGV0dGVyLXNwYWNpbmc9IjIiIHRleHQtYW5jaG9yPSJtaWRkbGUiCiAgICAgICAgICBmaWxsPSIjZWZlNWNjIiBmaWx0ZXI9InVybCgjZW5ncmF2ZSkiPlN0YXRpb24gZHUgbW9tZW50PC90ZXh0PgoKICAgIDwhLS0gTmVpZ2UgZW4gdmFndWVzIG9yZ2FuaXF1ZXMgc3VyIGxlIGRlc3N1cyAtLT4KICAgIDxwYXRoIGQ9Ik0gMTAsOCBMIDQyMCw4IEwgNDMwLDExIEwgNDUwLDIwCiAgICAgIEMgNDQyLDE3IDQzMiwxMyA0MTgsMTUgQyA0MDQsMTcgMzkwLDIyIDM3NCwxOQogICAgICBDIDM1OCwxNiAzNDQsMTEgMzI4LDE0IEMgMzEyLDE3IDI5OCwyMiAyODIsMjAKICAgICAgQyAyNjYsMTggMjUwLDEzIDIzNCwxNiBDIDIxOCwxOSAyMDQsMjMgMTg4LDIwCiAgICAgIEMgMTcyLDE3IDE1OCwxMiAxNDIsMTUgQyAxMjYsMTggMTEyLDIyIDk2LDE5CiAgICAgIEMgODAsMTYgNjQsMTEgNDgsMTQgQyAzNCwxNyAyMCwyMCAxMCwxOCBaIgogICAgICBmaWxsPSJ1cmwoI3Nub3dHcmFkKSIgb3BhY2l0eT0iMC45NCIvPgogICAgPCEtLSBCb3NzZXMgZGUgbmVpZ2Ugc3VwcGzDqW1lbnRhaXJlcyAtLT4KICAgIDxwYXRoIGQ9Ik0gMTAsOCBDIDI0LDUgNDAsOSA1OCw4IEMgNDgsMTEgMzAsMTEgMTAsOSBaIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC43NSIvPgogICAgPHBhdGggZD0iTSA4Miw4IEMgMTAwLDQgMTIyLDYgMTQ1LDggQyAxMzIsMTIgMTA4LDEyIDgyLDkgWiIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuOCIvPgogICAgPHBhdGggZD0iTSAxNjgsOCBDIDE4MCw1IDE5Niw3IDIxMiw4IEMgMjAwLDExIDE4NCwxMSAxNjgsOSBaIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC43Ii8+CiAgICA8cGF0aCBkPSJNIDIzNSw4IEMgMjUyLDQgMjc4LDUgMzAwLDggQyAyODQsMTIgMjU4LDEyIDIzNSw5IFoiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjc4Ii8+CiAgICA8cGF0aCBkPSJNIDMyMiw4IEMgMzM2LDUgMzUyLDcgMzY4LDggQyAzNTYsMTIgMzM4LDEyIDMyMiw5IFoiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjcyIi8+CiAgICA8cGF0aCBkPSJNIDM4NSw4IEMgMzk2LDUgNDA4LDcgNDE4LDggQyA0MTAsMTEgMzk4LDExIDM4NSw5IFoiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjY4Ii8+CiAgICA8IS0tIFN0YWxhY3RpdGVzIGRlIGdsYWNlIC0tPgogICAgPHBhdGggZD0iTSAzMiwxNiBDIDMwLDIwIDMwLDI1IDMyLDI4IEMgMzQsMjUgMzQsMjAgMzIsMTYgWiIgZmlsbD0icmdiYSgyMjUsMjQwLDI1NSwwLjg4KSIvPgogICAgPHBhdGggZD0iTSA2MiwxOCBDIDYwLDIyIDYxLDI2IDYzLDI4IEMgNjUsMjYgNjUsMjMgNjIsMTggWiIgZmlsbD0icmdiYSgyMjUsMjQwLDI1NSwwLjc1KSIvPgogICAgPHBhdGggZD0iTSAxMDAsMTcgQyA5OCwyMiA5OSwyOCAxMDEsMzIgQyAxMDMsMjggMTAzLDIyIDEwMCwxNyBaIiBmaWxsPSJyZ2JhKDIyNSwyNDAsMjU1LDAuOSkiLz4KICAgIDxwYXRoIGQ9Ik0gMTMwLDE2IEMgMTI4LDE5IDEyOSwyMiAxMzEsMjQgQyAxMzMsMjIgMTMzLDE5IDEzMCwxNiBaIiBmaWxsPSJyZ2JhKDIyNSwyNDAsMjU1LDAuNykiLz4KICAgIDxwYXRoIGQ9Ik0gMTYyLDE4IEMgMTYwLDIzIDE2MCwyOSAxNjIsMzMgQyAxNjQsMjkgMTY0LDIzIDE2MiwxOCBaIiBmaWxsPSJyZ2JhKDIyNSwyNDAsMjU1LDAuODUpIi8+CiAgICA8cGF0aCBkPSJNIDE5NiwxNyBDIDE5NCwyMSAxOTQsMjUgMTk2LDI4IEMgMTk4LDI1IDE5OCwyMSAxOTYsMTcgWiIgZmlsbD0icmdiYSgyMjUsMjQwLDI1NSwwLjc4KSIvPgogICAgPHBhdGggZD0iTSAyMjgsMTYgQyAyMjYsMjEgMjI3LDI3IDIyOSwzMSBDIDIzMSwyNyAyMzEsMjEgMjI4LDE2IFoiIGZpbGw9InJnYmEoMjI1LDI0MCwyNTUsMC44OCkiLz4KICAgIDxwYXRoIGQ9Ik0gMjYyLDE4IEMgMjYwLDIyIDI2MCwyNSAyNjIsMjcgQyAyNjQsMjUgMjY0LDIyIDI2MiwxOCBaIiBmaWxsPSJyZ2JhKDIyNSwyNDAsMjU1LDAuNzIpIi8+CiAgICA8cGF0aCBkPSJNIDI5OCwxNyBDIDI5NiwyMiAyOTYsMjggMjk4LDMyIEMgMzAwLDI4IDMwMCwyMiAyOTgsMTcgWiIgZmlsbD0icmdiYSgyMjUsMjQwLDI1NSwwLjg1KSIvPgogICAgPHBhdGggZD0iTSAzMjgsMTYgQyAzMjYsMjAgMzI3LDIzIDMyOSwyNSBDIDMzMSwyMyAzMzEsMjAgMzI4LDE2IFoiIGZpbGw9InJnYmEoMjI1LDI0MCwyNTUsMC43KSIvPgogICAgPHBhdGggZD0iTSAzNjAsMTggQyAzNTgsMjMgMzU4LDI5IDM2MCwzMyBDIDM2MiwyOSAzNjIsMjMgMzYwLDE4IFoiIGZpbGw9InJnYmEoMjI1LDI0MCwyNTUsMC44OCkiLz4KICAgIDxwYXRoIGQ9Ik0gMzkyLDE3IEMgMzkwLDIxIDM5MCwyNCAzOTIsMjYgQyAzOTQsMjQgMzk0LDIxIDM5MiwxNyBaIiBmaWxsPSJyZ2JhKDIyNSwyNDAsMjU1LDAuNzUpIi8+CiAgICA8cGF0aCBkPSJNIDQxNiwxNSBDIDQxNCwxOCA0MTUsMjEgNDE3LDIzIEMgNDE5LDIxIDQxOSwxOCA0MTYsMTUgWiIgZmlsbD0icmdiYSgyMjUsMjQwLDI1NSwwLjY1KSIvPgogICAgPCEtLSBQZXRpdHMgZmxvY29ucyAtLT4KICAgIDxnIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjU1Ij4KICAgICAgPGNpcmNsZSBjeD0iNDUiIGN5PSI0IiByPSIxLjEiLz48Y2lyY2xlIGN4PSIxMTgiIGN5PSIzIiByPSIwLjkiLz4KICAgICAgPGNpcmNsZSBjeD0iMTg1IiBjeT0iNSIgcj0iMS4yIi8+PGNpcmNsZSBjeD0iMjUwIiBjeT0iMiIgcj0iMC44Ii8+CiAgICAgIDxjaXJjbGUgY3g9IjMxNSIgY3k9IjQiIHI9IjEuMSIvPjxjaXJjbGUgY3g9IjM3NSIgY3k9IjMiIHI9IjAuOSIvPgogICAgICA8Y2lyY2xlIGN4PSI0MDgiIGN5PSI1IiByPSIxIi8+PGNpcmNsZSBjeD0iMTQ4IiBjeT0iMiIgcj0iMC43Ii8+CiAgICAgIDxjaXJjbGUgY3g9IjI4MCIgY3k9IjUiIHI9IjAuOCIvPgogICAgPC9nPgogIDwvZz4KPC9zdmc+" alt="Station du moment">
+</div>
+
+<!-- HERO + GALERIE INTÉGRÉE -->
+<div class="sotm-hero">
+  <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&q=80')"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="sotm-badge">🏔 Station du moment · Mars 2025</div>
+    <div class="hero-title">Val Thorens</div>
+    <div class="hero-sub">Les 3 Vallées, Savoie · La plus haute station d'Europe</div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-val">2300m</div><div class="hstat-lbl">Départ pistes</div></div>
+      <div class="hstat"><div class="hstat-val">3230m</div><div class="hstat-lbl">Sommet</div></div>
+      <div class="hstat"><div class="hstat-val">600km</div><div class="hstat-lbl">3 Vallées</div></div>
+      <div class="hstat"><div class="hstat-val">170</div><div class="hstat-lbl">Remontées</div></div>
+      <div class="hstat"><div class="hstat-val">60€</div><div class="hstat-lbl">Forfait/j*</div></div>
+    </div>
+    <div class="hero-score">⭐ 4.9 / 5 — Note SnowFinder</div>
+  </div>
+</div>
+
+
+
+<!-- PHOTO VAL THORENS -->
+<div style="position:relative;overflow:hidden;max-height:320px">
+  <img src="https://images.unsplash.com/photo-1548133612-cb5a8c886b4c?w=1200&q=85" alt="Val Thorens, Les 3 Vallées" style="width:100%;height:320px;object-fit:cover;display:block">
+  <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 16px;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 100%);display:flex;align-items:flex-end;justify-content:space-between">
+    <span style="color:white;font-size:.78rem;font-weight:600">Val Thorens — Les 3 Vallées, Savoie</span>
+    <span style="color:rgba(255,255,255,.6);font-size:.68rem">© Unsplash</span>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ENNEIGEMENT -->
+<div class="sc">
+  <div class="sc-head">
+    <span style="font-size:1.3rem">❄️</span>
+    <div class="sc-title">Enneigement</div>
+    <span style="margin-left:auto;background:#e6f5eb;color:#1a6a28;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:20px"><span style="display:inline-block;width:6px;height:6px;background:#2a8a3a;border-radius:50%;margin-right:4px;vertical-align:middle;animation:pulse 2s infinite"></span>Live</span>
+  </div>
+  <div class="sc-body">
+    <div class="snow-grid">
+      <div class="snow-box">
+        <div class="sb-lbl">Enneigement actuel</div>
+        <div class="sb-val">185<span class="sb-unit"> cm</span></div>
+        <div class="sb-bar-track"><div class="sb-bar-fill" style="width:92%;background:linear-gradient(90deg,#5b9fd4,#1a5a8a)"></div></div>
+        <div class="sb-sub">Sommet 220 cm · Bas 130 cm</div>
+      </div>
+      <div class="snow-box">
+        <div class="sb-lbl">Moyenne historique</div>
+        <div class="sb-val">145<span class="sb-unit"> cm</span></div>
+        <div class="sb-bar-track"><div class="sb-bar-fill" style="width:72%;background:linear-gradient(90deg,#c8e8f8,#5b9fd4)"></div></div>
+        <div class="sb-sub">*Moyenne 10 dernières saisons</div>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <span class="snow-status snow-good">✅ Excellent — +28% au-dessus de la moyenne</span>
+    </div>
+    <div style="margin-top:12px;font-size:.78rem;color:var(--text-mid);background:var(--bg);padding:10px 13px;border-radius:8px;border:1px solid var(--border);line-height:1.65">
+      <strong>Dernière chute :</strong> 18 cm il y a 2 jours · <strong>Qualité :</strong> Poudreuse compacte en altitude · <strong>Prochaines chutes :</strong> Samedi +15 cm prévus
+    </div>
+  </div>
+</div>
+
+<!-- MÉTÉO -->
+<div class="sc">
+  <div class="sc-head">
+    <span style="font-size:1.3rem">🌤</span>
+    <div class="sc-title">Météo cette semaine</div>
+    <span style="margin-left:auto;font-size:.72rem;color:var(--text-light)">À 2300m</span>
+  </div>
+  <div class="sc-body">
+    <div class="meteo-row">
+      <div class="md"><div class="md-name">Auj.</div><div class="md-icon">☀️</div><div class="md-temp">-4° / -12°</div><div class="md-desc">Ensoleillé</div></div>
+      <div class="md"><div class="md-name">Ven.</div><div class="md-icon">⛅</div><div class="md-temp">-2° / -10°</div><div class="md-desc">Voilé</div></div>
+      <div class="md"><div class="md-name">Sam.</div><div class="md-icon">🌨</div><div class="md-temp">-6° / -14°</div><div class="md-desc">Chutes ❄️</div></div>
+      <div class="md"><div class="md-name">Dim.</div><div class="md-icon">🌨</div><div class="md-temp">-8° / -16°</div><div class="md-desc">Neige !</div></div>
+      <div class="md"><div class="md-name">Lun.</div><div class="md-icon">☀️</div><div class="md-temp">-5° / -13°</div><div class="md-desc">Grand beau</div></div>
+    </div>
+    <div style="margin-top:14px">
+      <div style="font-size:.72rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px">Vigilance avalanche — BRA Météo-France</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="aval-row" style="flex:1;margin:0">
+          <div class="aval a1"></div>
+          <div class="aval a2"></div>
+          <div class="aval a3"></div>
+          <div class="aval a4"></div>
+          <div class="aval a5"></div>
+        </div>
+        <span style="font-weight:700;color:#ff8c00;font-size:.85rem">Niveau 3/5 — Marqué</span>
+      </div>
+      <div style="font-size:.7rem;color:var(--text-light);margin-top:5px">Risque marqué versants N et E au-dessus de 2500m. Prudence hors-piste.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PISTES -->
+<div class="sc">
+  <div class="sc-head">
+    <span style="font-size:1.3rem">🎿</span>
+    <div class="sc-title">Pistes ouvertes</div>
+  </div>
+  <div class="sc-body">
+    <div class="pistes-grid">
+      <div class="pb pb-v"><div class="pb-num">20</div><div class="pb-tot">sur 20</div><div class="pb-lbl">Vertes</div></div>
+      <div class="pb pb-b"><div class="pb-num">85</div><div class="pb-tot">sur 89</div><div class="pb-lbl">Bleues</div></div>
+      <div class="pb pb-r"><div class="pb-num">65</div><div class="pb-tot">sur 69</div><div class="pb-lbl">Rouges</div></div>
+      <div class="pb pb-n"><div class="pb-num">21</div><div class="pb-tot">sur 22</div><div class="pb-lbl">Noires</div></div>
+    </div>
+    <div class="piste-global">
+      <div>
+        <div class="pg-pct">96%</div>
+        <div style="font-size:.82rem;opacity:.85;margin-top:1px">du domaine ouvert</div>
+        <div style="font-size:.7rem;opacity:.7;margin-top:2px">191 pistes · 168/170 remontées</div>
+      </div>
+      <div class="pg-bar">
+        <div class="pg-track"><div class="pg-fill" style="width:96%"></div></div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.7)">Mise à jour aujourd'hui 8h</div>
+      </div>
+    </div>
+    <div style="margin-top:11px;font-size:.77rem;color:var(--text-mid);background:var(--bg);padding:9px 12px;border-radius:8px;border:1px solid var(--border)">
+      <strong>Snowparks :</strong> Tous ouverts · <strong>Halfpipe :</strong> Ouvert · <strong>Nordique :</strong> 32km ❄️
+    </div>
+  </div>
+</div>
+
+<!-- HÉBERGEMENTS -->
+<div class="sc">
+  <div class="sc-head">
+    <span style="font-size:1.3rem">🏨</span>
+    <div class="sc-title">Hébergements à Val Thorens</div>
+  </div>
+  <div class="sc-body">
+    <div class="promo">🔥 Week-end 29–30 mars — <span style="font-weight:400;font-size:.75rem">Dernières disponibilités !</span></div>
+    <div class="heb-grid">
+      <a class="heb-card" href="https://www.booking.com/searchresults.fr.html?ss=Val+Thorens&aid=SnowFinder" target="_blank" rel="noopener">
+        <div class="heb-logo">🏨</div>
+        <div><div class="heb-name">Booking.com</div><div class="heb-desc">Hôtels & résidences — dès 45€</div></div>
+      </a>
+      <a class="heb-card" href="https://www.expedia.fr/Hotel-Search?destination=Val+Thorens" target="_blank" rel="noopener">
+        <div class="heb-logo">✈️</div>
+        <div><div class="heb-name">Expedia</div><div class="heb-desc">Vols + hôtel — offres combinées</div></div>
+      </a>
+    </div>
+    <div class="chalet-sugg">
+      <img class="chalet-img" src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=200&q=80" alt="Chalet">
+      <div>
+        <div class="chalet-title">🏔 Notre coup de cœur : Chalet ski-in ski-out</div>
+        <div class="chalet-desc">4–8 personnes · Sauna privatif · Vue panoramique · Accès direct pistes</div>
+        <a class="chalet-link" href="https://www.booking.com/searchresults.fr.html?ss=Val+Thorens+chalet&aid=SnowFinder&nflt=property_type%3D67" target="_blank" rel="noopener">Voir les chalets disponibles →</a>
+      </div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-light);margin-top:8px">Affiliation CJ en cours — liens susceptibles de générer une commission, sans coût supplémentaire.</div>
+  </div>
+</div>
+
+<!-- POURQUOI CETTE SEMAINE -->
+<div class="sc">
+  <div class="sc-head">
+    <span style="font-size:1.3rem">🏆</span>
+    <div class="sc-title">Pourquoi Val Thorens ce mois-ci ?</div>
+  </div>
+  <div class="sc-body">
+    <p style="font-size:.9rem;color:var(--text-mid);line-height:1.7;margin-bottom:14px">
+      Val Thorens s'impose cette semaine grâce à un enneigement exceptionnel (+28% au-dessus de la moyenne) et un domaine ouvert à 96%. La plus haute station d'Europe garantit une neige de qualité jusqu'à fin avril. Avec 600 km de pistes dans les 3 Vallées, c'est le meilleur rapport domaine/qualité neige du moment.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:7px">
+      <div style="display:flex;gap:9px;font-size:.86rem;color:var(--text-mid)"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span>Plus haute station d'Europe à 2300m — neige jusqu'en mai</div>
+      <div style="display:flex;gap:9px;font-size:.86rem;color:var(--text-mid)"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span>3 Vallées 600 km — le plus grand domaine skiable du monde</div>
+      <div style="display:flex;gap:9px;font-size:.86rem;color:var(--text-mid)"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span>Snowpark & halfpipe olympique ouverts</div>
+      <div style="display:flex;gap:9px;font-size:.86rem;color:var(--text-mid)"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span>Après-ski ultra animé — concerts, bars, événements</div>
+      <div style="display:flex;gap:9px;font-size:.86rem;color:var(--text-mid)"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span>Accès Méribel et Courchevel en remontées mécaniques</div>
+    </div>
+  </div>
+</div>
+
+<!-- INFOS PRATIQUES -->
+<div class="sc">
+  <div class="sc-head">
+    <span style="font-size:1.3rem">ℹ️</span>
+    <div class="sc-title">Infos pratiques</div>
+  </div>
+  <div class="sc-body">
+    <div class="infos-grid">
+      <div class="ii"><div class="ii-lbl">Forfait journée</div><div class="ii-val">60€ / jour</div><div class="ii-sub">3 Vallées · adulte haute saison</div></div>
+      <div class="ii"><div class="ii-lbl">Niveaux</div><div class="ii-val">Débutant → Expert</div><div class="ii-sub">Tous niveaux représentés</div></div>
+      <div class="ii"><div class="ii-lbl">Ouverture</div><div class="ii-val">Nov. 2024 → Mai 2025</div><div class="ii-sub">Fermeture prévue début mai</div></div>
+      <div class="ii"><div class="ii-lbl">Accès</div><div class="ii-val">Navettes depuis Moûtiers</div><div class="ii-sub">Lyon 2h30 · TGV + navette</div></div>
+      <div class="ii"><div class="ii-lbl">École de ski</div><div class="ii-val">ESF + écoles privées</div><div class="ii-sub">Réservation conseillée</div></div>
+      <div class="ii"><div class="ii-lbl">Garderie</div><div class="ii-val">Oui — dès 3 ans</div><div class="ii-sub">Halte-garderie jusqu'à 8 ans</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- LE SAVIEZ-VOUS -->
+<div class="anecdote">
+  <div style="font-size:1.7rem;flex-shrink:0">💡</div>
+  <div>
+    <div class="anecdote-lbl">Le saviez-vous ?</div>
+    <div style="font-size:.87rem;color:var(--text-mid);line-height:1.65">Val Thorens est la station la plus haute d'Europe à 2300m. Grâce à cette altitude, la neige y est garantie de novembre à mai — 6 mois de ski ! Les 200 pistes des 3 Vallées représentent 600 km : à raison de 30 km par jour, il faudrait 20 jours pour toutes les parcourir.</div>
+  </div>
+</div>
+
+<!-- FAV + RECHERCHE -->
+<button id="sotmFavBtn" class="fav-btn" onclick="toggleSotmFav()">☆ Ajouter aux favoris</button>
+<a href="recherche.html" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;margin-top:10px;border:2px solid var(--border);border-radius:var(--radius);text-decoration:none;color:var(--text-mid);font-size:.86rem;font-weight:600;background:var(--white);transition:all .2s" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-mid)'">🔍 Trouver d'autres stations →</a>
+
+</div>
+<footer>
+  <strong>SnowFinder</strong> — +220 stations de ski en France<br>
+  <a href="mentions-legales.html">Mentions légales</a> · <a href="index.html">Accueil</a><br>
+  <span style="font-size:.7rem;opacity:.6">*Données indicatives · Météo : Open-Meteo · BRA : Météo-France</span>
+</footer>
+</div>
+
+<script>
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sbHamburger').classList.toggle('open');document.getElementById('sbOverlay').classList.toggle('open');}
+function closeSidebar(){['sidebar','sbHamburger','sbOverlay'].forEach(id=>document.getElementById(id).classList.remove('open'));}
+const SOTM_ID = 9;
+function toggleSotmFav(){
+  var f=JSON.parse(localStorage.getItem('sf_favorites')||'[]');
+  var i=f.indexOf(SOTM_ID);
+  if(i>=0)f.splice(i,1);else f.push(SOTM_ID);
+  localStorage.setItem('sf_favorites',JSON.stringify(f));
+  updateFavBtn();
+}
+function updateFavBtn(){
+  var f=JSON.parse(localStorage.getItem('sf_favorites')||'[]');
+  var b=document.getElementById('sotmFavBtn');
+  if(!b)return;
+  if(f.includes(SOTM_ID)){b.textContent='⭐ Dans vos favoris';b.classList.add('active');}
+  else{b.textContent='☆ Ajouter aux favoris';b.classList.remove('active');}
+}
+updateFavBtn();
+</script>
+</body>
+</html>
