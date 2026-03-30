@@ -1,0 +1,33 @@
+<button class="sb-hamburger" id="sbHamburger" onclick="toggleSidebar()">
+  <span></span><span></span><span></span>
+</button>
+<div class="sb-overlay" id="sbOverlay" onclick="closeSidebar()"></div>
+
+<nav class="sb" id="sidebar">
+  <a class="sb-logo" href="index.html">
+    <img src="logo.png" alt="SnowFinder" style="width:72px;height:72px;object-fit:contain">
+    <div class="sb-logo-text" style="font-size:1.25rem">SnowFinder<small style="font-size:.72rem">Le guide ski français</small></div>
+  </a>
+
+  <div class="sb-divider"></div>
+
+  <div class="sb-links">
+    <a class="sb-link" href="index.html"         data-page="index.html">        <span class="sb-icon">🏠</span> Chalet d'accueil</a>
+    <a class="sb-link" href="favoris.html"        data-page="favoris.html">       <span class="sb-icon">⭐</span> Mes favoris</a>
+    <a class="sb-link" href="recherche.html"      data-page="recherche.html">     <span class="sb-icon">🔍</span> Trouver ma station</a>
+    <a class="sb-link" href="station-du-moment.html" data-page="station-du-moment.html"><span class="sb-icon">🏔</span> Station du moment</a>
+    <a class="sb-link" href="comparateur.html"   data-page="comparateur.html">   <span class="sb-icon">⚖️</span> Comparer les stations</a>
+    <div class="sb-divider"></div>
+    <a class="sb-link" href="enneigement.html"   data-page="enneigement.html">   <span class="sb-icon">❄️</span> Météo/Enneigement <span class="sb-new">Live</span></a>
+    <a class="sb-link" href="hebergement.html"  data-page="hebergement.html">   <span class="sb-icon">🏨</span> Hébergements</a>
+    <button class="sb-link" onclick="openContact()"><span class="sb-icon">📧</span> Nous contacter</button>
+  </div>
+
+  <div class="sb-footer">
+    <div class="sb-footer-txt">
+      <strong>SnowFinder</strong> — +220 stations<br>
+      Météo : Open-Meteo · BRA : Météo-France<br>
+      <a href="mentions-legales.html" style="color:var(--text-light);font-size:.68rem">Mentions légales</a>
+    </div>
+  </div>
+</nav>
