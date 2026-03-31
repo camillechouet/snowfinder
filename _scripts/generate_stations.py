@@ -1,0 +1,240 @@
+#!/usr/bin/env python3
+"""
+SnowFinder — Générateur de pages statiques par station
+=======================================================
+Modifiez la fonction render_page() pour changer le design
+de toutes les pages stations d'un coup.
+
+Déclenchement automatique via GitHub Actions quand recherche.html change.
+Ou manuellement : python3 _scripts/generate_stations.py
+"""
+import re, json, unicodedata, os, sys
+
+def slugify(name):
+    name = unicodedata.normalize('NFD', name)
+    name = ''.join(c for c in name if unicodedata.category(c) != 'Mn')
+    name = name.lower()
+    name = re.sub(r'[^a-z0-9]+', '-', name)
+    return name.strip('-')
+
+NIV = {"debutant":"Débutant","intermediaire":"Intermédiaire","avance":"Avancé","expert":"Expert"}
+AMB = {"luxe":"Luxe","festif":"Festif","famille":"Famille","nature":"Nature","village":"Village","avance":"Technique","soleil":"Ensoleillé"}
+EQ  = {"snowpark":"Snowpark","garderie":"Garderie","restaurants":"Restaurants","telesiege":"Télésiège"}
+
+# Charger les données depuis recherche.html
+script_dir = os.path.dirname(os.path.abspath(__file__))
+root_dir = os.path.dirname(script_dir)
+recherche_path = os.path.join(root_dir, 'recherche.html')
+
+with open(recherche_path, 'r', encoding='utf-8') as f:
+    content = f.read()
+
+m = re.search(r'const DATA = (\[.*?\]);', content, re.DOTALL)
+if not m:
+    print("ERREUR: const DATA non trouvé dans recherche.html")
+    sys.exit(1)
+
+DATA = json.loads(m.group(1))
+print(f"✓ {len(DATA)} stations chargées")
+
+def render_page(s):
+    slug = slugify(s['name'])
+    canonical = f"https://snowfinder.fr/stations/{slug}.html"
+    photo = s.get('photo') or 'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1200&q=80'
+    prix_nuit = round(s['forfait'] * 2.4)
+    niveaux = ", ".join(NIV.get(n, n) for n in s.get('niv', []))
+    pts = s.get('pts', [])
+    pts_html = "\n".join(f'<li style="padding:5px 0;border-bottom:1px solid #f7efe2">{p}</li>' for p in pts)
+    booking_url = f"https://www.booking.com/searchresults.fr.html?ss={s['name'].replace(' ', '+')}+ski+france&aid=SnowFinder"
+    expedia_url = f"https://www.expedia.fr/Hotel-Search?destination={s['name'].replace(' ', '+')}+ski&affcid=SnowFinder"
+    desc_long = s.get('desc_long') or s.get('desc', '')
+    snow_html = f'<div style="background:linear-gradient(135deg,#e8f3fb,#d0e8f8);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.5rem">❄️</span><div><div style="font-weight:700;color:#1a5a8a;font-size:1.1rem">{s["snow"]} cm</div><div style="font-size:.78rem;color:#5a8ab8">Enneigement actuel</div></div></div>' if s.get('snow') else ''
+    schema = json.dumps({"@context":"https://schema.org","@type":"TouristAttraction","name":s['name'],"description":s.get('desc',''),"url":canonical,"image":photo}, ensure_ascii=False)
+
+    return f'''<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{s['name']} — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
+  <meta name="description" content="{s['name']} : {s['km']} km de pistes, altitude {s['alt_min']}-{s['alt_max']}m, forfait {s['forfait']}€/jour. {s.get('desc','')[:100]}">
+  <link rel="canonical" href="{canonical}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SnowFinder">
+  <meta property="og:url" content="{canonical}">
+  <meta property="og:title" content="{s['name']} — Station de ski | SnowFinder">
+  <meta property="og:description" content="{s['km']} km · {s['alt_max']}m · {s['forfait']}€/j · {s['massif']}">
+  <meta property="og:image" content="{photo}">
+  <meta property="og:locale" content="fr_FR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{s['name']} — Station de ski | SnowFinder">
+  <meta name="twitter:image" content="{photo}">
+  <script type="application/ld+json">{schema}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{{box-sizing:border-box;margin:0;padding:0}}
+    :root{{--wood-pale:#f7efe2;--wood-light:#eddcbf;--wood:#c49a6c;--wood-dark:#8b5e3c;--blue-light:#e8f3fb;--blue-mid:#3a7db8;--blue-dark:#1a5a8a;--text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;--white:#fff;--radius:10px}}
+    body{{font-family:"DM Sans",sans-serif;color:var(--text);background:#f4f0eb;min-height:100vh}}
+    a{{color:inherit;text-decoration:none}}
+    .nav{{background:var(--white);border-bottom:2px solid var(--wood-light);padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06)}}
+    .nav-logo{{display:flex;align-items:center;gap:8px;font-family:"DM Serif Display",serif;font-size:1.1rem;color:var(--blue-dark)}}
+    .nav-logo img{{width:36px;height:36px;border-radius:8px}}
+    .nav-back{{display:flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;color:var(--blue-mid);background:var(--blue-light);padding:7px 14px;border-radius:20px}}
+    .hero{{position:relative;height:300px;overflow:hidden}}
+    .hero img{{width:100%;height:100%;object-fit:cover}}
+    .hero-overlay{{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.15) 55%,transparent 100%)}}
+    .hero-content{{position:absolute;bottom:0;left:0;right:0;padding:20px}}
+    .hero-massif{{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:3px 12px;font-size:.72rem;font-weight:700;color:white;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;backdrop-filter:blur(6px)}}
+    h1{{font-family:"DM Serif Display",serif;font-size:clamp(1.8rem,6vw,2.8rem);color:white;line-height:1.05}}
+    .hero-region{{color:rgba(255,255,255,.8);font-size:.82rem;margin-top:3px}}
+    .hero-score{{position:absolute;top:14px;right:14px;background:var(--wood);color:white;font-weight:700;font-size:.95rem;padding:5px 11px;border-radius:8px}}
+    .container{{max-width:860px;margin:0 auto;padding:20px 16px 48px}}
+    .grid-2{{display:grid;grid-template-columns:1fr 1fr;gap:12px}}
+    @media(max-width:600px){{.grid-2{{grid-template-columns:1fr}}}}
+    .card{{background:var(--white);border-radius:var(--radius);padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:12px}}
+    .card-title{{font-family:"DM Serif Display",serif;font-size:.9rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--wood-pale)}}
+    .stats-grid{{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px}}
+    .stat-box{{background:var(--wood-pale);border-radius:8px;padding:11px;text-align:center}}
+    .stat-val{{font-family:"DM Serif Display",serif;font-size:1.35rem;color:var(--blue-dark)}}
+    .stat-lbl{{font-size:.68rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.04em;margin-top:2px}}
+    .piste-row{{display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid var(--wood-pale)}}
+    .piste-dot{{width:11px;height:11px;border-radius:50%;flex-shrink:0}}
+    .tag{{display:inline-block;border-radius:20px;padding:3px 10px;font-size:.72rem;font-weight:600;margin:2px}}
+    .tag-niv{{background:var(--blue-light);color:var(--blue-dark)}}
+    .tag-amb{{background:var(--wood-pale);color:var(--wood-dark)}}
+    .tag-eq{{background:#e6f5eb;color:#1a6a2a}}
+    .related-link{{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:var(--white);border-radius:8px;margin-bottom:7px;border:1.5px solid var(--wood-light);font-size:.82rem;font-weight:600;color:var(--blue-mid)}}
+    .breadcrumb{{font-size:.76rem;color:var(--text-light);margin-bottom:14px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}}
+    .breadcrumb a{{color:var(--blue-mid);font-weight:500}}
+    .footer{{background:var(--blue-dark);color:rgba(255,255,255,.7);text-align:center;padding:22px 20px;font-size:.78rem;margin-top:36px}}
+    .footer a{{color:rgba(255,255,255,.9);font-weight:600}}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">
+    <img src="../logo.png" alt="SnowFinder">
+    <span>SnowFinder</span>
+  </a>
+  <a href="../recherche.html" class="nav-back">← Toutes les stations</a>
+</nav>
+<div class="hero">
+  <img src="{photo}" alt="{s['name']} station de ski" loading="eager">
+  <div class="hero-overlay"></div>
+  <div class="hero-score">{s['score']:.1f} ⭐</div>
+  <div class="hero-content">
+    <div class="hero-massif">⛷ {s['massif']}</div>
+    <h1>{s['name']}</h1>
+    <div class="hero-region">📍 {s['region']}</div>
+  </div>
+</div>
+<div class="container">
+  <nav class="breadcrumb">
+    <a href="../index.html">Accueil</a> ›
+    <a href="../recherche.html">Stations de ski</a> ›
+    <a href="../recherche.html">{s['massif']}</a> ›
+    <span>{s['name']}</span>
+  </nav>
+  <div class="stats-grid">
+    <div class="stat-box"><div class="stat-val">{s['km']} km</div><div class="stat-lbl">Pistes skiables</div></div>
+    <div class="stat-box"><div class="stat-val">{s['alt_max']}m</div><div class="stat-lbl">Altitude max</div></div>
+    <div class="stat-box"><div class="stat-val">{s['remontees']}</div><div class="stat-lbl">Remontées</div></div>
+    <div class="stat-box"><div class="stat-val">{s['forfait']}€</div><div class="stat-lbl">Forfait/jour</div></div>
+  </div>
+  {snow_html}
+  <div class="grid-2">
+    <div>
+      <div class="card">
+        <div class="card-title">À propos</div>
+        <p style="font-size:.88rem;line-height:1.7;color:var(--text-mid)">{desc_long}</p>
+        {f'<ul style="margin-top:10px;padding-left:0;list-style:none">{pts_html}</ul>' if pts_html else ''}
+      </div>
+      <div class="card">
+        <div class="card-title">Pistes — {s['km']} km</div>
+        <div class="piste-row"><div class="piste-dot" style="background:#2ea84e"></div><span style="flex:1;font-size:.84rem;color:var(--text-mid)">Vertes</span><strong>{s['pistes']['v']}</strong></div>
+        <div class="piste-row"><div class="piste-dot" style="background:#3a7db8"></div><span style="flex:1;font-size:.84rem;color:var(--text-mid)">Bleues</span><strong>{s['pistes']['b']}</strong></div>
+        <div class="piste-row"><div class="piste-dot" style="background:#cc2200"></div><span style="flex:1;font-size:.84rem;color:var(--text-mid)">Rouges</span><strong>{s['pistes']['r']}</strong></div>
+        <div class="piste-row" style="border-bottom:none"><div class="piste-dot" style="background:#222"></div><span style="flex:1;font-size:.84rem;color:var(--text-mid)">Noires</span><strong>{s['pistes']['n']}</strong></div>
+        <div style="margin-top:8px;font-size:.73rem;color:var(--text-light)">Altitude : {s['alt_min']}m – {s['alt_max']}m</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Profil</div>
+        <div style="margin-bottom:8px"><div style="font-size:.72rem;color:var(--text-light);margin-bottom:4px;font-weight:600">NIVEAUX</div>{''.join(f'<span class="tag tag-niv">{NIV.get(n,n)}</span>' for n in s.get('niv',[]))}</div>
+        <div style="margin-bottom:8px"><div style="font-size:.72rem;color:var(--text-light);margin-bottom:4px;font-weight:600">AMBIANCE</div>{''.join(f'<span class="tag tag-amb">{AMB.get(a,a)}</span>' for a in s.get('amb',[]))}</div>
+        <div><div style="font-size:.72rem;color:var(--text-light);margin-bottom:4px;font-weight:600">ÉQUIPEMENTS</div>{''.join(f'<span class="tag tag-eq">{EQ.get(e,e)}</span>' for e in s.get('equip',[])) or '<span style="color:var(--text-light);font-size:.78rem">Non renseigné</span>'}</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Informations pratiques</div>
+        <p style="font-size:.82rem;line-height:1.65;color:var(--text-mid)"><strong>{s['name']}</strong> est une station de ski du massif <strong>{s['massif']}</strong> en <strong>{s['region']}</strong>. Le domaine couvre <strong>{s['km']} km de pistes</strong> entre {s['alt_min']} et {s['alt_max']} mètres, avec {s['remontees']} remontées mécaniques. Forfait journée à partir de <strong>{s['forfait']}€</strong>. Station recommandée pour les niveaux {niveaux.lower()}.</p>
+      </div>
+    </div>
+    <div>
+      <div style="border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.12);margin-bottom:12px">
+        <div style="position:relative;height:130px;overflow:hidden">
+          <img src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=600&q=80&auto=format&fit=crop" alt="Hébergement {s['name']}" style="width:100%;height:100%;object-fit:cover" loading="lazy">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent)"></div>
+          <div style="position:absolute;bottom:10px;left:12px;right:12px">
+            <div style="color:rgba(255,255,255,.8);font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em">🏡 Hébergement à {s['name']}</div>
+            <div style="color:white;font-family:'DM Serif Display',serif;font-size:1.1rem">Dès ~{prix_nuit}€<span style="font-size:.72rem;font-family:'DM Sans',sans-serif;opacity:.8"> /nuit</span></div>
+          </div>
+          <div style="position:absolute;top:8px;right:8px;background:#e63535;color:white;font-size:.63rem;font-weight:700;padding:2px 7px;border-radius:20px">🔥 Prix live</div>
+        </div>
+        <div style="display:flex;gap:5px;padding:7px 10px;background:#f7efe2;flex-wrap:wrap">
+          <span style="font-size:.67rem;font-weight:600;background:rgba(42,138,58,.1);color:#1a6a2a;border-radius:20px;padding:2px 7px">✓ Annulation gratuite</span>
+          <span style="font-size:.67rem;font-weight:600;background:rgba(26,90,138,.1);color:#1a3a5c;border-radius:20px;padding:2px 7px">✓ Paiement sécurisé</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr">
+          <a href="{booking_url}" target="_blank" rel="noopener sponsored" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:13px 8px;background:#003580;text-decoration:none;gap:2px">
+            <span>🏨</span><span style="color:white;font-weight:700;font-size:.8rem">Booking.com</span>
+            <span style="color:rgba(255,255,255,.7);font-size:.66rem">Voir les offres →</span>
+          </a>
+          <a href="{expedia_url}" target="_blank" rel="noopener sponsored" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:13px 8px;background:#ffcc00;text-decoration:none;gap:2px;border-left:1px solid rgba(0,0,0,.08)">
+            <span>✈️</span><span style="color:#003580;font-weight:700;font-size:.8rem">Expedia</span>
+            <span style="color:#003580;font-size:.66rem;opacity:.7">Réserver →</span>
+          </a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Explorer</div>
+        <a href="../recherche.html" class="related-link">📍 Autres stations {s['massif']} <span>→</span></a>
+        <a href="../comparateur.html" class="related-link">⚖️ Comparer des stations <span>→</span></a>
+        <a href="../enneigement.html" class="related-link">❄️ Enneigement en direct <span>→</span></a>
+        <a href="../hebergement.html" class="related-link" style="margin-bottom:0">🏨 Rechercher un hébergement <span>→</span></a>
+      </div>
+    </div>
+  </div>
+  <div style="background:linear-gradient(135deg,#1a5a8a,#3a7db8);border-radius:14px;padding:24px;text-align:center;margin-top:8px">
+    <h2 style="font-family:'DM Serif Display',serif;color:white;font-size:1.3rem;margin-bottom:6px">Réserver à {s['name']}</h2>
+    <p style="color:rgba(255,255,255,.8);font-size:.85rem;margin-bottom:16px">Annulation gratuite sur la plupart des offres</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <a href="{booking_url}" target="_blank" rel="noopener sponsored" style="background:white;color:#003580;font-weight:700;padding:11px 22px;border-radius:25px;font-size:.88rem">🏨 Booking.com</a>
+      <a href="{expedia_url}" target="_blank" rel="noopener sponsored" style="background:#ffcc00;color:#003580;font-weight:700;padding:11px 22px;border-radius:25px;font-size:.88rem">✈️ Expedia</a>
+    </div>
+  </div>
+</div>
+<footer class="footer">
+  <strong>SnowFinder</strong> — Le guide complet des stations de ski françaises<br>
+  <a href="../index.html">Accueil</a> · <a href="../recherche.html">Recherche</a> · <a href="../comparateur.html">Comparateur</a> · <a href="../mentions-legales.html">Mentions légales</a>
+</footer>
+</body>
+</html>'''
+
+# Générer
+stations_dir = os.path.join(root_dir, 'stations')
+os.makedirs(stations_dir, exist_ok=True)
+count = 0
+errors = []
+for s in DATA:
+    slug = slugify(s['name'])
+    try:
+        html = render_page(s)
+        with open(os.path.join(stations_dir, f'{slug}.html'), 'w', encoding='utf-8') as f:
+            f.write(html)
+        count += 1
+    except Exception as e:
+        errors.append(f"{s['name']}: {e}")
+
+print(f"✓ {count}/{len(DATA)} pages générées dans stations/")
+if errors:
+    print("Erreurs:", errors)
