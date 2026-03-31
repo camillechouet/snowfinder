@@ -1,0 +1,34 @@
+name: Generate Station Pages
+
+on:
+  push:
+    paths:
+      - 'recherche.html'
+      - '_scripts/generate_stations.py'
+  workflow_dispatch:   # permet de relancer manuellement
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate station pages
+        run: python3 _scripts/generate_stations.py
+
+      - name: Update sitemap
+        run: python3 _scripts/generate_sitemap.py
+
+      - name: Commit & Push
+        run: |
+          git config user.name "SnowFinder Bot"
+          git config user.email "bot@snowfinder.fr"
+          git add stations/ sitemap.xml
+          git diff --staged --quiet || git commit -m "🤖 Régénération automatique des pages stations"
+          git push
