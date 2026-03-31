@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://snowfinder.fr/sitemap.xml
+
+# Pas besoin d'indexer les assets
+Disallow: /manifest.json
+Disallow: /logo.png
