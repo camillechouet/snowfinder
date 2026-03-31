@@ -37,6 +37,51 @@ if not m:
 DATA = json.loads(m.group(1))
 print(f"✓ {len(DATA)} stations chargées")
 
+# Index par massif pour les liens internes
+by_massif = {}
+for s in DATA:
+    by_massif.setdefault(s['massif'], []).append(s)
+
+def get_similar(s, n=4):
+    candidates = [x for x in by_massif[s['massif']] if x['id'] != s['id']]
+    candidates.sort(key=lambda x: -x['score'])
+    return candidates[:n]
+
+def render_similar_section(s):
+    similar = get_similar(s, 4)
+    if not similar:
+        return ''
+    cards = ''
+    for sim in similar:
+        slug = slugify(sim['name'])
+        photo = sim.get('photo') or 'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'
+        prix_nuit = round(sim['forfait'] * 2.4)
+        cards += f"""
+        <a href="{slug}.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
+          <div style="position:relative;height:90px;overflow:hidden">
+            <img src="{photo}" alt="{sim['name']}" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
+            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">{sim['name']}</div>
+            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">{sim['score']:.1f} ⭐</div>
+          </div>
+          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">{sim['km']} km · {sim['alt_max']}m</span>
+            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~{prix_nuit}€/nuit</span>
+          </div>
+        </a>"""
+    return f"""
+  <div style="margin-top:20px">
+    <div style="font-family:'DM Serif Display',serif;font-size:1rem;color:#8a7060;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid #f7efe2">
+      ⛷ Autres stations {s['massif']}
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
+      {cards}
+    </div>
+    <a href="../recherche.html" style="display:block;text-align:center;margin-top:12px;padding:9px;background:#f7efe2;border-radius:8px;font-size:.82rem;font-weight:600;color:#3a7db8;border:1.5px solid #eddcbf">
+      Voir toutes les stations {s['massif']} →
+    </a>
+  </div>"""
+
 def render_page(s):
     slug = slugify(s['name'])
     canonical = f"https://snowfinder.fr/stations/{slug}.html"
@@ -48,10 +93,11 @@ def render_page(s):
     booking_url = f"https://www.booking.com/searchresults.fr.html?ss={s['name'].replace(' ', '+')}+ski+france&aid=SnowFinder"
     expedia_url = f"https://www.expedia.fr/Hotel-Search?destination={s['name'].replace(' ', '+')}+ski&affcid=SnowFinder"
     desc_long = s.get('desc_long') or s.get('desc', '')
-    snow_html = f'<div style="background:linear-gradient(135deg,#e8f3fb,#d0e8f8);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.5rem">❄️</span><div><div style="font-weight:700;color:#1a5a8a;font-size:1.1rem">{s["snow"]} cm</div><div style="font-size:.78rem;color:#5a8ab8">Enneigement actuel</div></div></div>' if s.get('snow') else ''
+    snow_html = f'''<div style="background:linear-gradient(135deg,#e8f3fb,#d0e8f8);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.5rem">❄️</span><div><div style="font-weight:700;color:#1a5a8a;font-size:1.1rem">{s["snow"]} cm</div><div style="font-size:.78rem;color:#5a8ab8">Enneigement actuel</div></div></div>''' if s.get('snow') else ''
     schema = json.dumps({"@context":"https://schema.org","@type":"TouristAttraction","name":s['name'],"description":s.get('desc',''),"url":canonical,"image":photo}, ensure_ascii=False)
+    similar_html = render_similar_section(s)
 
-    return f'''<!DOCTYPE html>
+    return f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -160,14 +206,15 @@ def render_page(s):
       </div>
       <div class="card">
         <div class="card-title">Profil</div>
-        <div style="margin-bottom:8px"><div style="font-size:.72rem;color:var(--text-light);margin-bottom:4px;font-weight:600">NIVEAUX</div>{''.join(f'<span class="tag tag-niv">{NIV.get(n,n)}</span>' for n in s.get('niv',[]))}</div>
-        <div style="margin-bottom:8px"><div style="font-size:.72rem;color:var(--text-light);margin-bottom:4px;font-weight:600">AMBIANCE</div>{''.join(f'<span class="tag tag-amb">{AMB.get(a,a)}</span>' for a in s.get('amb',[]))}</div>
-        <div><div style="font-size:.72rem;color:var(--text-light);margin-bottom:4px;font-weight:600">ÉQUIPEMENTS</div>{''.join(f'<span class="tag tag-eq">{EQ.get(e,e)}</span>' for e in s.get('equip',[])) or '<span style="color:var(--text-light);font-size:.78rem">Non renseigné</span>'}</div>
+        <div style="margin-bottom:8px"><div style="font-size:.72rem;color:var(--text-light);margin-bottom:4px;font-weight:600">NIVEAUX</div>{'  '.join(f'<span class="tag tag-niv">{NIV.get(n,n)}</span>' for n in s.get('niv',[]))}</div>
+        <div style="margin-bottom:8px"><div style="font-size:.72rem;color:var(--text-light);margin-bottom:4px;font-weight:600">AMBIANCE</div>{'  '.join(f'<span class="tag tag-amb">{AMB.get(a,a)}</span>' for a in s.get('amb',[]))}</div>
+        <div><div style="font-size:.72rem;color:var(--text-light);margin-bottom:4px;font-weight:600">ÉQUIPEMENTS</div>{' '.join(f'<span class="tag tag-eq">{EQ.get(e,e)}</span>' for e in s.get('equip',[])) or '<span style="color:var(--text-light);font-size:.78rem">Non renseigné</span>'}</div>
       </div>
       <div class="card">
         <div class="card-title">Informations pratiques</div>
         <p style="font-size:.82rem;line-height:1.65;color:var(--text-mid)"><strong>{s['name']}</strong> est une station de ski du massif <strong>{s['massif']}</strong> en <strong>{s['region']}</strong>. Le domaine couvre <strong>{s['km']} km de pistes</strong> entre {s['alt_min']} et {s['alt_max']} mètres, avec {s['remontees']} remontées mécaniques. Forfait journée à partir de <strong>{s['forfait']}€</strong>. Station recommandée pour les niveaux {niveaux.lower()}.</p>
       </div>
+      {similar_html}
     </div>
     <div>
       <div style="border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.12);margin-bottom:12px">
@@ -218,7 +265,7 @@ def render_page(s):
   <a href="../index.html">Accueil</a> · <a href="../recherche.html">Recherche</a> · <a href="../comparateur.html">Comparateur</a> · <a href="../mentions-legales.html">Mentions légales</a>
 </footer>
 </body>
-</html>'''
+</html>"""
 
 # Générer
 stations_dir = os.path.join(root_dir, 'stations')
