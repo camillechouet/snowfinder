@@ -1,0 +1,55 @@
+name: Build SnowFinder APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Bubblewrap
+        run: npm install -g @bubblewrap/cli
+
+      - name: Initialize TWA project
+        run: |
+          mkdir snowfinder-twa && cd snowfinder-twa
+          bubblewrap init --manifest https://snowfinder.fr/manifest.json \
+            --directory . \
+            --packageId fr.snowfinder.twa \
+            --name SnowFinder \
+            --shortName SnowFinder \
+            --host snowfinder.fr \
+            --startUrl / \
+            --themeColor "#1a73e8" \
+            --backgroundColor "#0a1628" \
+            --iconUrl https://snowfinder.fr/logo.png \
+            --maskableIconUrl https://snowfinder.fr/logo.png \
+            --signingKeyPath ./snowfinder.keystore \
+            --signingKeyAlias snowfinder \
+            --signingKeyPassword snowfinder123 \
+            --signingStorePassword snowfinder123 \
+            --versionCode 1 \
+            --versionName "1.0.0"
+
+      - name: Build APK
+        working-directory: snowfinder-twa
+        run: bubblewrap build --skipPwaValidation
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: snowfinder-apk
+          path: snowfinder-twa/*.apk
+          retention-days: 30
