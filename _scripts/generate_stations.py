@@ -315,4 +315,17 @@ def render_page(s):
 stations_dir = os.path.join(root_dir, 'stations')
 os.makedirs(stations_dir, exist_ok=True)
 count = 0
-e
+errors = []
+for s in DATA:
+    slug = slugify(s['name'])
+    try:
+        html = render_page(s)
+        with open(os.path.join(stations_dir, f'{slug}.html'), 'w', encoding='utf-8') as f:
+            f.write(html)
+        count += 1
+    except Exception as e:
+        errors.append(f"{s['name']}: {e}")
+
+print(f"✓ {count}/{len(DATA)} pages générées dans stations/")
+if errors:
+    print("Erreurs:", errors)
