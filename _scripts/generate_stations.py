@@ -4,23 +4,23 @@ SnowFinder — Générateur de pages statiques par station
 =======================================================
 Modifiez la fonction render_page() pour changer le design
 de toutes les pages stations d'un coup.
- 
+
 Déclenchement automatique via GitHub Actions quand recherche.html change.
 Ou manuellement : python3 _scripts/generate_stations.py
 """
 import re, json, unicodedata, os, sys
- 
+
 def slugify(name):
     name = unicodedata.normalize('NFD', name)
     name = ''.join(c for c in name if unicodedata.category(c) != 'Mn')
     name = name.lower()
     name = re.sub(r'[^a-z0-9]+', '-', name)
     return name.strip('-')
- 
+
 NIV = {"debutant":"Débutant","intermediaire":"Intermédiaire","avance":"Avancé","expert":"Expert"}
 AMB = {"luxe":"Luxe","festif":"Festif","famille":"Famille","nature":"Nature","village":"Village","avance":"Technique","soleil":"Ensoleillé"}
 EQ  = {"snowpark":"Snowpark","garderie":"Garderie","restaurants":"Restaurants","telesiege":"Télésiège"}
- 
+
 GRAND_DOMAINS = {
     "Avoriaz":{"name":"Portes du Soleil","km":650,"remontees":196,"pistes":{"v":80,"b":173,"r":103,"n":44}},
     "Morzine":{"name":"Portes du Soleil","km":650,"remontees":196,"pistes":{"v":80,"b":173,"r":103,"n":44}},
@@ -57,33 +57,33 @@ GRAND_DOMAINS = {
     "Grand Tourmalet":{"name":"Grand Tourmalet","km":100,"remontees":29,"pistes":{"v":25,"b":60,"r":45,"n":15}},
     "Les Saisies":{"name":"Espace Diamant","km":150,"remontees":48,"pistes":{"v":40,"b":92,"r":60,"n":16}},
 }
- 
+
 # Charger les données depuis recherche.html
 script_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(script_dir)
 recherche_path = os.path.join(root_dir, 'recherche.html')
- 
+
 with open(recherche_path, 'r', encoding='utf-8') as f:
     content = f.read()
- 
+
 m = re.search(r'const DATA = (\[.*?\]);', content, re.DOTALL)
 if not m:
     print("ERREUR: const DATA non trouvé dans recherche.html")
     sys.exit(1)
- 
+
 DATA = json.loads(m.group(1))
 print(f"✓ {len(DATA)} stations chargées")
- 
+
 # Index par massif pour les liens internes
 by_massif = {}
 for s in DATA:
     by_massif.setdefault(s['massif'], []).append(s)
- 
+
 def get_similar(s, n=4):
     candidates = [x for x in by_massif[s['massif']] if x['id'] != s['id']]
     candidates.sort(key=lambda x: -x['score'])
     return candidates[:n]
- 
+
 def render_similar_section(s):
     similar = get_similar(s, 4)
     if not similar:
@@ -119,7 +119,7 @@ def render_similar_section(s):
         'background:#f7efe2;border-radius:10px;font-size:.82rem;font-weight:600;color:#3a7db8;border:1.5px solid #eddcbf">'
         'Voir toutes les stations ' + s['massif'] + ' →</a></div>'
     )
- 
+
 def piste_bar(count, color, label):
     return (
         '<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f0ebe3">'
@@ -130,7 +130,7 @@ def piste_bar(count, color, label):
         '<strong style="font-size:.9rem;color:#2a1f14">' + str(count) + '</strong>'
         '</div>'
     )
- 
+
 def render_page(s):
     slug = slugify(s['name'])
     canonical = 'https://snowfinder.fr/stations/' + slug + '.html'
@@ -142,7 +142,7 @@ def render_page(s):
     desc_long = s.get('desc_long') or s.get('desc', '')
     gd = GRAND_DOMAINS.get(s['name'])
     similar_html = render_similar_section(s)
- 
+
     schema_obj = {
         "@context": "https://schema.org",
         "@graph": [
@@ -183,10 +183,10 @@ def render_page(s):
         ]
     }
     schema = json.dumps(schema_obj, ensure_ascii=False)
- 
+
     # Points forts
     pts_html = ''.join('<li style="padding:6px 0;border-bottom:1px solid #f0ebe3;font-size:.88rem;color:#4a3a2a;display:flex;align-items:center;gap:8px"><span style="color:#2a8a4a;font-weight:700">✓</span>' + p + '</li>' for p in pts)
- 
+
     # Zone pistes station
     p = s['pistes']
     pistes_station = (
@@ -203,7 +203,7 @@ def render_page(s):
         '<strong style="font-size:.9rem;color:#2a1f14">' + str(p["n"]) + '</strong></div>'
         '</div>'
     )
- 
+
     # Zone pistes grand domaine
     pistes_gd = ''
     if gd:
@@ -222,7 +222,7 @@ def render_page(s):
             '<strong style="font-size:.9rem;color:#2a1f14">' + str(gp["n"]) + '</strong></div>'
             '</div>'
         )
- 
+
     # Enneigement
     snow_html = ''
     if s.get('snow'):
@@ -234,12 +234,12 @@ def render_page(s):
             '<div style="font-size:.75rem;color:#5a8ab8;font-weight:500">Enneigement actuel</div></div>'
             '</div>'
         )
- 
+
     # Tags niveaux et ambiances
     niv_tags = ''.join('<span style="display:inline-block;background:#e8f3fb;color:#1a5a8a;border-radius:20px;padding:4px 12px;font-size:.75rem;font-weight:600;margin:3px">' + NIV.get(n, n) + '</span>' for n in s.get('niv', []))
     amb_tags = ''.join('<span style="display:inline-block;background:#f7efe2;color:#8b5e3c;border-radius:20px;padding:4px 12px;font-size:.75rem;font-weight:600;margin:3px">' + AMB.get(a, a) + '</span>' for a in s.get('amb', []))
     eq_tags  = ''.join('<span style="display:inline-block;background:#e6f5eb;color:#1a6a2a;border-radius:20px;padding:4px 12px;font-size:.75rem;font-weight:600;margin:3px">' + EQ.get(e, e) + '</span>' for e in s.get('equip', []))
- 
+
     html = (
         '<!DOCTYPE html>'
         '<html lang="fr">'
@@ -381,8 +381,8 @@ def render_page(s):
         '</body></html>'
     )
     return html
- 
- 
+
+
 stations_dir = os.path.join(root_dir, 'stations')
 os.makedirs(stations_dir, exist_ok=True)
 count = 0
@@ -396,6 +396,7 @@ for s in DATA:
         count += 1
     except Exception as e:
         errors.append(f"{s['name']}: {e}")
- 
+
 print(f"✓ {count}/{len(DATA)} pages générées dans stations/")
 if errors:
+    print("Erreurs:", errors)
