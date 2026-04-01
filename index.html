@@ -1043,17 +1043,24 @@ document.getElementById("eteOverlay").addEventListener("click", e => {
     timer = setInterval(next, 4000);
   }
 
-  // Charge hero1.jpg, hero2.jpg... jusqu'à 404 (max 20)
-  var found = [], i = 1;
-  function tryNext() {
-    if (i > 20) { if (found.length) buildCarousel(found); return; }
-    var url = 'img/hero' + i + '.jpg';
-    var img = new Image();
-    img.onload = function() { found.push(url); i++; tryNext(); };
-    img.onerror = function() { if (found.length) buildCarousel(found); };
-    img.src = url;
+  // Charge toutes les photos hero1..hero20, ignore les manquantes
+  var found = [], total = 20, checked = 0;
+  for (var k = 1; k <= total; k++) {
+    (function(n) {
+      var url = 'img/hero' + n + '.jpg';
+      var img = new Image();
+      img.onload = function() { found.push({n: n, url: url}); check(); };
+      img.onerror = function() { check(); };
+      img.src = url;
+    })(k);
   }
-  tryNext();
+  function check() {
+    checked++;
+    if (checked === total) {
+      found.sort(function(a,b){ return a.n - b.n; });
+      if (found.length) buildCarousel(found.map(function(x){ return x.url; }));
+    }
+  }
 })();
 </script>
 
@@ -1062,11 +1069,13 @@ document.getElementById("eteOverlay").addEventListener("click", e => {
 
 
     <!-- Titre accrocheur -->
-    <h1 style="font-size:clamp(2.2rem,6vw,3.8rem);margin-bottom:12px;animation:fadeInUp .6s .1s ease both;line-height:1.1;letter-spacing:-.01em">
+    <p style="font-size:.95rem;color:rgba(255,255,255,.78);margin:0 0 10px;animation:fadeInUp .6s .05s ease both;font-weight:300;line-height:1.5;text-transform:uppercase;letter-spacing:.08em">
+      Le guide du ski des Français
+    </p>
+
+    <h1 style="font-size:clamp(2.2rem,6vw,3.8rem);margin-bottom:28px;animation:fadeInUp .6s .1s ease both;line-height:1.1;letter-spacing:-.01em">
       Trouve ta station<br><em style="color:var(--wood-light)">en 10 secondes.</em>
     </h1>
-
-
 
     <!-- 2 CTAs principaux -->
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeInUp .6s .3s ease both">
