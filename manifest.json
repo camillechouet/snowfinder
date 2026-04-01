@@ -1,0 +1,28 @@
+{
+  "name": "SnowFinder",
+  "short_name": "SnowFinder",
+  "description": "Trouve et compare les meilleures stations de ski en France. 220+ stations, filtres avancés, enneigement en temps réel.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a1628",
+  "theme_color": "#1a73e8",
+  "orientation": "portrait",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "categories": ["travel", "sports"],
+  "scope": "/"
+}
