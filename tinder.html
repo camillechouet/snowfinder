@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>Trouve ta station de ski en 2 minutes — SnowFinder</title>
+  <meta name="description" content="Swipe pour trouver ta station de ski idéale. Like ou passe, et découvrez votre match parfait parmi 220+ stations françaises.">
+  <link rel="canonical" href="https://snowfinder.fr/tinder.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SnowFinder">
+  <meta property="og:url" content="https://snowfinder.fr/tinder.html">
+  <meta property="og:title" content="Je me laisse surprendre — SnowFinder">
+  <meta property="og:description" content="Swipe pour trouver ta station de ski idéale en 2 minutes. Coup de cœur garanti.">
+  <meta property="og:image" content="https://snowfinder.fr/logo.png">
+  <meta property="og:locale" content="fr_FR">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Je me laisse surprendre — SnowFinder">
+  <meta name="twitter:description" content="Swipe pour trouver ta station de ski idéale en 2 minutes. Coup de cœur garanti.">
+  <meta name="twitter:image" content="https://snowfinder.fr/logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SnowFinder — Tinder du Ski ❤️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="manifest" href="/manifest.json">
+<style>
+:root{--wood-pale:#f7efe2;--wood-light:#eddcbf;--wood:#c49a6c;--wood-dark:#8b5e3c;--blue:#5b9fd4;--blue-light:#e8f3fb;--blue-mid:#3a7db8;--blue-dark:#1a5a8a;--green:#5aaa72;--green-light:#e6f5eb;--text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;--bg:#faf6f0;--white:#fff;--border:#e8d8c4;--radius:16px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* NAV */
+.topnav{background:var(--white);border-bottom:2px solid var(--wood-light);padding:0 20px;height:56px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.topnav-logo{font-family:"DM Serif Display",serif;font-size:1.2rem;color:var(--blue-dark);text-decoration:none;display:flex;align-items:center;gap:8px}
+.topnav-logo img{height:30px;width:auto}
+.topnav-back{margin-left:auto;font-size:.82rem;color:var(--blue-mid);text-decoration:none;font-weight:600}
+
+/* INTRO */
+.intro{text-align:center;padding:32px 20px 16px}
+.intro h1{font-family:"DM Serif Display",serif;font-size:1.8rem;color:var(--text);margin-bottom:8px}
+.intro p{font-size:.88rem;color:var(--text-light);max-width:380px;margin:0 auto 16px;line-height:1.6}
+.criteria-btns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:8px}
+.criteria-btn{padding:6px 14px;border-radius:20px;border:2px solid var(--border);background:white;font-family:"DM Sans",sans-serif;font-size:.8rem;cursor:pointer;color:var(--text-mid);transition:all .2s;font-weight:500}
+.criteria-btn.active{background:var(--blue-mid);border-color:var(--blue-mid);color:white;font-weight:700}
+
+/* STACK DE CARTES */
+.stack-wrap{position:relative;width:340px;height:480px;margin:0 auto 24px;touch-action:none;user-select:none}
+.tinder-card{position:absolute;inset:0;border-radius:20px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.2);cursor:grab;transition:box-shadow .2s;background:white}
+.tinder-card:nth-child(2){transform:scale(.96) translateY(8px);z-index:1}
+.tinder-card:nth-child(3){transform:scale(.92) translateY(16px);z-index:0}
+.tinder-card:active{cursor:grabbing}
+.tinder-card.top{z-index:10}
+.card-img{height:260px;background:center/cover no-repeat;position:relative}
+.card-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 50%)}
+.card-img-massif{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.5);color:white;font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em}
+.card-img-score{position:absolute;top:12px;right:12px;background:var(--wood);color:white;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:20px}
+.card-img-name{position:absolute;bottom:14px;left:16px;right:16px;font-family:"DM Serif Display",serif;font-size:1.5rem;color:white;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.card-body{padding:14px 16px}
+.card-region{font-size:.75rem;color:var(--text-light);margin-bottom:10px;display:flex;align-items:center;gap:4px}
+.card-stats-row{display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.card-stat{font-size:.8rem;color:var(--text-mid);display:flex;align-items:center;gap:4px}
+.card-desc{font-size:.82rem;color:var(--text-mid);line-height:1.5;margin-bottom:10px}
+.card-tags{display:flex;flex-wrap:wrap;gap:5px}
+.card-tag{padding:3px 8px;border-radius:8px;font-size:.7rem;font-weight:600;background:var(--blue-light);color:var(--blue-dark)}
+
+/* OVERLAY LIKE/NOPE */
+.stamp-like{position:absolute;top:30px;left:20px;transform:rotate(-20deg);border:4px solid #2ea84e;color:#2ea84e;font-size:1.8rem;font-weight:800;padding:4px 12px;border-radius:8px;opacity:0;z-index:20;pointer-events:none;font-family:"DM Serif Display",serif;text-transform:uppercase;background:rgba(255,255,255,.9)}
+.stamp-nope{position:absolute;top:30px;right:20px;transform:rotate(20deg);border:4px solid #cc2200;color:#cc2200;font-size:1.8rem;font-weight:800;padding:4px 12px;border-radius:8px;opacity:0;z-index:20;pointer-events:none;font-family:"DM Serif Display",serif;text-transform:uppercase;background:rgba(255,255,255,.9)}
+
+/* BOUTONS SWIPE */
+.swipe-btns{display:flex;justify-content:center;gap:24px;margin-bottom:32px}
+.swipe-btn{width:60px;height:60px;border-radius:50%;border:3px solid;display:flex;align-items:center;justify-content:center;font-size:1.6rem;cursor:pointer;transition:all .2s;background:white;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+.swipe-btn.nope{border-color:#cc2200;color:#cc2200}
+.swipe-btn.nope:hover{background:#cc2200;color:white;transform:scale(1.1)}
+.swipe-btn.skip{border-color:var(--wood);color:var(--wood)}
+.swipe-btn.skip:hover{background:var(--wood);color:white;transform:scale(1.1)}
+.swipe-btn.like{border-color:#2ea84e;color:#2ea84e}
+.swipe-btn.like:hover{background:#2ea84e;color:white;transform:scale(1.1)}
+
+/* COMPTEUR */
+.counter{text-align:center;font-size:.82rem;color:var(--text-light);margin-bottom:8px}
+.counter strong{color:var(--text)}
+
+/* RÉSULTATS */
+.results{max-width:600px;margin:0 auto;padding:0 16px 60px}
+.results-title{font-family:"DM Serif Display",serif;font-size:1.5rem;color:var(--text);text-align:center;margin-bottom:20px}
+.result-card{background:white;border-radius:var(--radius);overflow:hidden;margin-bottom:14px;box-shadow:0 4px 16px rgba(0,0,0,.1);display:flex;gap:0}
+.result-card-img{width:100px;flex-shrink:0;background:center/cover no-repeat}
+.result-card-body{padding:12px 14px;flex:1}
+.result-card-name{font-family:"DM Serif Display",serif;font-size:1.05rem;color:var(--text);margin-bottom:4px}
+.result-card-meta{font-size:.75rem;color:var(--text-light);margin-bottom:8px}
+.result-card-btns{display:flex;gap:8px;flex-wrap:wrap}
+.result-btn{padding:6px 14px;border-radius:20px;font-size:.78rem;font-weight:600;text-decoration:none;cursor:pointer;border:none;font-family:"DM Sans",sans-serif;transition:all .2s}
+.result-btn-primary{background:var(--blue-mid);color:white}
+.result-btn-primary:hover{background:var(--blue-dark)}
+.result-btn-sec{background:var(--wood-pale);color:var(--wood-dark);border:1.5px solid var(--wood-light)}
+
+/* PROGRESS */
+.progress-wrap{max-width:340px;margin:0 auto 16px;padding:0 20px}
+.progress-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue-mid),var(--green));border-radius:2px;transition:width .3s ease}
+
+/* FIN */
+.end-screen{text-align:center;padding:40px 20px;display:none}
+.end-screen.show{display:block}
+.end-emoji{font-size:4rem;margin-bottom:16px}
+.end-title{font-family:"DM Serif Display",serif;font-size:1.8rem;color:var(--text);margin-bottom:8px}
+.end-sub{font-size:.88rem;color:var(--text-light);margin-bottom:24px}
+.restart-btn{padding:12px 28px;background:var(--blue-mid);color:white;border:none;border-radius:30px;font-family:"DM Sans",sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s}
+.restart-btn:hover{background:var(--blue-dark);transform:translateY(-2px)}
+
+@media(max-width:380px){
+  .stack-wrap{width:300px;height:440px}
+  .card-img{height:220px}
+  .card-img-name{font-size:1.2rem}
+}
+/* ── SIDEBAR ── */
+:root{--sb-w:230px}
+.sb{position:fixed;left:0;top:0;bottom:0;width:var(--sb-w);background:var(--white,#fff);border-right:1.5px solid var(--wood-light,#eddcbf);z-index:300;display:flex;flex-direction:column;overflow-y:auto;transition:transform .3s;box-shadow:2px 0 12px rgba(0,0,0,.06)}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:14px 16px;text-decoration:none;border-bottom:1px solid var(--wood-light,#eddcbf);background:var(--wood-pale,#f7efe2)}
+.sb-logo img{width:32px;height:32px;border-radius:8px;flex-shrink:0}
+.sb-logo-text{font-family:"DM Serif Display",serif;font-size:1rem;color:var(--blue-dark,#1a5a8a);line-height:1.2}
+.sb-logo-text small{display:block;font-family:"DM Sans",sans-serif;font-size:.65rem;color:var(--text-light,#8a7060);font-style:normal}
+.saison-toggle{margin:10px 12px;border-radius:30px;overflow:hidden;border:2px solid var(--wood-light,#eddcbf);display:flex;cursor:pointer}
+.saison-toggle-track{display:flex;width:100%}
+.saison-btn{flex:1;padding:7px 6px;text-align:center;font-size:.76rem;font-weight:700;border:none;cursor:pointer;background:none;color:var(--text-light,#8a7060);font-family:"DM Sans",sans-serif;transition:all .25s}
+.saison-btn.active-hiver{background:var(--blue-dark,#1a5a8a);color:white;border-radius:26px}
+.saison-btn.active-ete{background:#2a8a3a;color:white;border-radius:26px}
+.sb-links{display:flex;flex-direction:column;padding:4px 0;flex:1}
+.sb-link{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:.88rem;font-weight:500;color:var(--text-mid,#5c4a35);text-decoration:none;transition:background .15s;cursor:pointer;background:none;border:none;width:100%;text-align:left;font-family:"DM Sans",sans-serif}
+.sb-link:hover{background:var(--wood-pale,#f7efe2);color:var(--blue-mid,#3a7db8)}
+.sb-link.active{background:var(--blue-light,#e8f3fb);color:var(--blue-mid,#3a7db8);font-weight:700}
+.sb-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
+.sb-new{margin-left:auto;background:var(--blue-mid,#3a7db8);color:white;font-size:.6rem;font-weight:700;padding:1px 6px;border-radius:10px}
+.sb-divider{height:1px;background:var(--wood-light,#eddcbf);margin:6px 14px}
+.sb-footer{padding:12px 16px;border-top:1px solid var(--wood-light,#eddcbf);background:var(--wood-pale,#f7efe2)}
+.sb-footer-txt{font-size:.7rem;color:var(--text-light,#8a7060);line-height:1.5}
+.sb-footer-txt strong{color:var(--text-mid,#5c4a35)}
+.sb-hamburger{display:none;position:fixed;top:12px;left:12px;z-index:400;width:40px;height:40px;background:var(--white,#fff);border:2px solid var(--wood-light,#eddcbf);border-radius:8px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.sb-hamburger span{display:block;width:18px;height:2px;background:var(--text,#2a1f14);border-radius:2px;transition:all .3s}
+.sb-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.sb-hamburger.open span:nth-child(2){opacity:0}
+.sb-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:250}
+.sb-overlay.open{display:block}
+.page-wrap{margin-left:var(--sb-w);transition:margin-left .3s}
+@media(max-width:900px){.sb{transform:translateX(calc(-1 * var(--sb-w)))}.sb.open{transform:translateX(0)}.sb-hamburger{display:flex}.page-wrap{margin-left:0}.page-wrap .topbar{padding-left:60px!important}}
+</style>
+</head>
+<body>
+
+<div id="sidebar-placeholder"></div>
+<script src="sidebar.js"></script>
+
+<div class="page-wrap">
+<!-- NAVBAR PRODUIT -->
+<nav style="background:var(--white);border-bottom:2px solid var(--wood-light);height:60px;display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.07);gap:0">
+  <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0">
+    <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--blue-dark) 0%,var(--blue-mid) 100%);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 2px 8px rgba(26,90,138,.35)">⛷</div>
+    <div>
+      <div style="font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--blue-dark);line-height:1">SnowFinder</div>
+      <div style="font-size:.58rem;color:var(--text-light);font-weight:500;letter-spacing:.04em;text-transform:uppercase;line-height:1;margin-top:1px">Guide des stations de ski</div>
+    </div>
+  </a>
+  <div style="display:flex;align-items:center;gap:2px;margin-left:24px;flex:1;overflow:hidden" id="navLinks">
+    <a href="recherche.html" style="padding:7px 13px;border-radius:20px;font-size:.85rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:all .15s;white-space:nowrap">🔍 Recherche</a>
+    <a href="comparateur.html" style="padding:7px 13px;border-radius:20px;font-size:.85rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:all .15s;white-space:nowrap">⚖️ Comparer</a>
+    <a href="enneigement.html" style="padding:7px 13px;border-radius:20px;font-size:.85rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:all .15s;white-space:nowrap">❄️ Enneigement</a>
+    <a href="tinder.html" style="padding:7px 13px;border-radius:20px;font-size:.85rem;font-weight:500;background:var(--blue-light);color:var(--blue-mid);font-weight:700;text-decoration:none;transition:all .15s;white-space:nowrap">✨ Station idéale</a>
+    <a href="station-du-moment.html" style="padding:7px 13px;border-radius:20px;font-size:.85rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:all .15s;white-space:nowrap">⭐ Du moment</a>
+    
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0">
+    <div style="display:flex;align-items:center;gap:5px;background:var(--green-light);border:1px solid var(--green);border-radius:20px;padding:4px 10px;font-size:.7rem;font-weight:600;color:var(--green);white-space:nowrap">
+      <span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>
+      Live
+    </div>
+    <a href="recherche.html" style="display:flex;align-items:center;gap:6px;background:var(--blue-dark);color:white;padding:9px 16px;border-radius:22px;font-size:.83rem;font-weight:700;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(26,90,138,.3)">Trouver →</a>
+  </div>
+</nav>
+<style>
+@media(max-width:900px){#navLinks{display:none!important}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+</style>
+<!-- BANDE PREUVE SOCIALE -->
+<div style="background:var(--wood-pale);border-top:1px solid var(--wood-light);border-bottom:1px solid var(--wood-light);padding:12px 24px">
+  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--text-mid)">
+      <span style="color:#f5c518;letter-spacing:1px">★★★★★</span>
+      <span><strong style="color:var(--text)">4,9/5</strong> · Des milliers d'utilisateurs</span>
+    </div>
+    <div style="width:1px;height:18px;background:var(--border);flex-shrink:0"></div>
+    <div style="display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--text-mid)">
+      <span>🏔️</span><span><strong style="color:var(--text)">+220 stations</strong> référencées</span>
+    </div>
+    <div style="width:1px;height:18px;background:var(--border);flex-shrink:0"></div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--text-mid)">
+      <span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>
+      <span>Météo & enneigement <strong style="color:var(--green)">en direct</strong></span>
+    </div>
+    <div style="width:1px;height:18px;background:var(--border);flex-shrink:0"></div>
+    <div style="display:flex;align-items:center;gap:7px">
+      <span style="background:#003580;color:white;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:3px">Booking</span>
+      <span style="background:#f26024;color:white;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:3px">Expedia</span>
+    </div>
+  </div>
+</div>
+
+  <p>Swipe à droite si la station t'attire, à gauche si non. On te propose ta sélection parfaite !</p>
+  <div class="criteria-btns">
+    <button class="criteria-btn active" data-filter="all" onclick="setFilter('all',this)">Toutes</button>
+    <button class="criteria-btn" data-filter="famille" onclick="setFilter('famille',this)">👨‍👩‍👧 Famille</button>
+    <button class="criteria-btn" data-filter="rider" onclick="setFilter('rider',this)">⚡ Rider</button>
+    <button class="criteria-btn" data-filter="luxe" onclick="setFilter('luxe',this)">💎 Luxe</button>
+    <button class="criteria-btn" data-filter="budget" onclick="setFilter('budget',this)">💚 Budget</button>
+    <button class="criteria-btn" data-filter="village" onclick="setFilter('village',this)">🏡 Village</button>
+  </div>
+</div>
+
+<div id="mainContent">
+  <div class="progress-wrap">
+    <div class="counter"><strong id="cardNum">1</strong> / <strong id="cardTotal">20</strong></div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+
+  <div class="stack-wrap" id="stackWrap">
+    <!-- Cartes générées par JS -->
+  </div>
+
+  <div class="swipe-btns">
+    <button class="swipe-btn nope" onclick="swipe('left')" title="Non">✕</button>
+    <button class="swipe-btn skip" onclick="swipe('skip')" title="Passer">↷</button>
+    <button class="swipe-btn like" onclick="swipe('right')" title="J'aime !">❤</button>
+  </div>
+</div>
+
+<div class="end-screen" id="endScreen">
+  <div class="end-emoji">🎿</div>
+  <div class="end-title">Voilà tes stations !</div>
+  <div class="end-sub" id="endSub">Tu as sélectionné <strong id="likeCount">0</strong> stations qui te correspondent.</div>
+  <div class="results" id="resultsWrap">
+    <div class="results-title">Tes coups de cœur ❤️</div>
+    <div id="resultsList"></div>
+
+  <!-- Tinder Booking CTA -->
+  <div style="margin-top:24px;padding:20px;background:linear-gradient(135deg,#1a5a8a,#3a7db8);border-radius:14px;text-align:center">
+    <h3 style="color:#fff;font-size:1.1rem;margin:0 0 6px;font-family:serif">Coup de cœur ? Réservez maintenant !</h3>
+    <p style="color:rgba(255,255,255,.8);margin:0 0 16px;font-size:.82rem">Les meilleures places partent vite</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap" id="tinderCtaBtns">
+      <a id="tinderBtnBooking" href="https://www.booking.com/searchresults.fr.html?ss=alpes+ski+france&aid=SnowFinder" target="_blank" rel="noopener sponsored"
+         style="background:#fff;color:#003580;font-weight:700;padding:11px 20px;border-radius:8px;text-decoration:none;font-size:.88rem">🏨 Booking.com</a>
+      <a id="tinderBtnExpedia" href="https://www.expedia.fr/Hotel-Search?destination=alpes+ski+france&sort=recommended&affcid=SnowFinder" target="_blank" rel="noopener sponsored"
+         style="background:#ffcc00;color:#003580;font-weight:700;padding:11px 20px;border-radius:8px;text-decoration:none;font-size:.88rem">✈️ Expedia</a>
+    </div>
+  </div>
+
+  </div>
+  <button class="restart-btn" onclick="restart()">🔄 Recommencer</button>
+</div>
+
+<script>
+const MASSIF_COLORS = {
+  "Alpes du Nord":"linear-gradient(135deg,#1a5a8a,#3a7db8)",
+  "Alpes du Sud":"linear-gradient(135deg,#8b5e3c,#c49a6c)",
+  "Pyrénées":"linear-gradient(135deg,#2a6a38,#4aaa5a)",
+  "Vosges":"linear-gradient(135deg,#3a6830,#5a9848)",
+  "Jura":"linear-gradient(135deg,#3a5878,#6888a8)",
+  "Massif Central":"linear-gradient(135deg,#784820,#a87840)",
+  "Corse":"linear-gradient(135deg,#1a7848,#3aa868)"
+};
+const MASSIF_IMGS = {
+  "Alpes du Nord":"https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600&q=80",
+  "Alpes du Sud":"https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&q=80",
+  "Pyrénées":"https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=600&q=80",
+  "Vosges":"https://images.unsplash.com/photo-1418985991508-e47386d96a71?w=600&q=80",
+  "Jura":"https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=600&q=80",
+  "Massif Central":"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80",
+  "Corse":"https://images.unsplash.com/photo-1534258936925-c58bed479fcb?w=600&q=80"
+};
+const NIV = {debutant:"🟢",intermediaire:"🔵",avance:"🔴",expert:"⚫"};
+const AMB = {famille:"👨‍👩‍👧",festif:"🎉",luxe:"💎",nature:"🌿",village:"🏡",avance:"⚡"};
+const GRAND_DOMAINS_TINDER = {
+  "Val d'Isère":{"name":"Espace Killy","km":300},
+  "Tignes":{"name":"Espace Killy","km":300},
+  "Les Arcs":{"name":"Paradiski","km":425},
+  "La Plagne":{"name":"Paradiski","km":425},
+  "Peisey-Vallandry":{"name":"Paradiski","km":425},
+  "Champagny-en-Vanoise":{"name":"Paradiski","km":425},
+  "Montchavin-Les Coches":{"name":"Paradiski","km":425},
+  "Avoriaz":{"name":"Portes du Soleil","km":650},
+  "Morzine":{"name":"Portes du Soleil","km":650},
+  "Les Gets":{"name":"Portes du Soleil","km":650},
+  "Châtel":{"name":"Portes du Soleil","km":650},
+  "Courchevel":{"name":"Les 3 Vallées","km":600},
+  "Méribel":{"name":"Les 3 Vallées","km":600},
+  "Val Thorens":{"name":"Les 3 Vallées","km":600},
+  "Les Menuires":{"name":"Les 3 Vallées","km":600},
+  "Saint-Martin-de-Belleville":{"name":"Les 3 Vallées","km":600},
+  "Brides-les-Bains":{"name":"Les 3 Vallées","km":600},
+  "Flaine":{"name":"Grand Massif","km":265},
+  "Les Carroz":{"name":"Grand Massif","km":265},
+  "Samoëns":{"name":"Grand Massif","km":265},
+  "Morillon":{"name":"Grand Massif","km":265},
+  "Alpe d'Huez":{"name":"Grand Domaine Alpe d'Huez","km":250},
+  "Les Deux Alpes":{"name":"Les 2 Alpes","km":225},
+  "Serre Chevalier":{"name":"Serre Chevalier","km":250},
+  "Vars":{"name":"Forêt Blanche","km":185},
+  "Risoul":{"name":"Forêt Blanche","km":185},
+  "Megève":{"name":"Évasion Mont-Blanc","km":445},
+  "Saint-Gervais":{"name":"Évasion Mont-Blanc","km":445},
+  "Grand Tourmalet":{"name":"Grand Tourmalet","km":100},
+  "Saint-Lary-Soulan":{"name":"Saint-Lary","km":100},
+  "La Toussuire":{"name":"Les Sybelles","km":310},
+  "Valloire":{"name":"Galibier-Thabor","km":160},
+  "Pra-Loup":{"name":"Espace Lumière","km":180},
+  "Val d'Allos":{"name":"Espace Lumière","km":180}
+};
+
+
+// Données inline (top 60 stations)
+const RAW_DATA = [{"id": 1, "name": "Val d'Isère", "massif": "Alpes du Nord", "region": "Tarentaise, Savoie", "alt_min": 1850, "alt_max": 3456, "km": 300, "remontees": 91, "forfait": 62, "score": 4.8, "niv": ["avance", "expert"], "amb": ["luxe", "avance"], "tags": ["alt", "rider"], "pistes": {"v": 4, "b": 19, "r": 37, "n": 17}, "desc": "Domaine Espace Killy (300 km) partagé avec Tignes. Glacier ouvert de novembre à mai. Paradis du freeride légendaire.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Val_d%27Is%C3%A8re_-_2012-01-02_-_112.jpg?width=800", "snow": 290}, {"id": 2, "name": "Tignes", "massif": "Alpes du Nord", "region": "Tarentaise, Savoie", "alt_min": 1550, "alt_max": 3456, "km": 300, "remontees": 91, "forfait": 60, "score": 4.7, "niv": ["intermediaire", "avance", "expert"], "amb": ["festif", "avance"], "tags": ["alt", "rider"], "pistes": {"v": 4, "b": 22, "r": 33, "n": 19}, "desc": "Altitude garantissant la neige toute saison. Glacier du Grande Motte ouvert en été. Snowpark parmi les meilleurs du monde.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Tignes_le_lac.jpg?width=800", "snow": 280}, {"id": 3, "name": "Les Arcs", "massif": "Alpes du Nord", "region": "Tarentaise, Savoie", "alt_min": 1200, "alt_max": 3226, "km": 425, "remontees": 76, "forfait": 55, "score": 4.6, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "avance"], "tags": ["alt", "fam", "rider"], "pistes": {"v": 11, "b": 41, "r": 31, "n": 17}, "desc": "Avec La Plagne, forme le domaine Paradiski (425 km). Station piétonne Arc 1950, grande diversité pour tous niveaux.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Arc_1800_Les_Arcs.jpg?width=800", "snow": 170}, {"id": 4, "name": "La Plagne", "massif": "Alpes du Nord", "region": "Tarentaise, Savoie", "alt_min": 1250, "alt_max": 3250, "km": 225, "remontees": 77, "forfait": 53, "score": 4.6, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille"], "tags": ["fam", "alt"], "pistes": {"v": 19, "b": 61, "r": 39, "n": 11}, "desc": "Très appréciée des familles. Domaine Paradiski avec Les Arcs, activités variées dont le bobsleigh olympique.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/La_Plagne_-_Belle_Plagne.jpg?width=800", "snow": 160}, {"id": 5, "name": "Chamonix", "massif": "Alpes du Nord", "region": "Mont-Blanc, Haute-Savoie", "alt_min": 1035, "alt_max": 3842, "km": 170, "remontees": 49, "forfait": 58, "score": 4.9, "niv": ["avance", "expert"], "amb": ["avance", "nature"], "tags": ["alt", "rider"], "pistes": {"v": 5, "b": 9, "r": 21, "n": 12}, "desc": "Capitale mondiale du ski extrême. La Vallée Blanche (24 km hors-piste), les Grands Montets, le Brévent. Au pied du Mont-Blanc 4808m.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Chamonix_and_Mont_Blanc.jpg?width=800", "snow": 120}, {"id": 6, "name": "Avoriaz", "massif": "Alpes du Nord", "region": "Portes du Soleil, Haute-Savoie", "alt_min": 1000, "alt_max": 2466, "km": 650, "remontees": 196, "forfait": 52, "score": 4.5, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "festif"], "tags": ["fam", "rider"], "pistes": {"v": 24, "b": 68, "r": 40, "n": 14}, "desc": "Station piétonne au cœur des Portes du Soleil franco-suisses (650 km). Snowpark top, Village des Enfants réputé.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Avoriaz_1800.jpg?width=800", "snow": 190}, {"id": 7, "name": "Courchevel", "massif": "Alpes du Nord", "region": "Les 3 Vallées, Savoie", "alt_min": 1100, "alt_max": 3230, "km": 600, "remontees": 170, "forfait": 72, "score": 4.7, "niv": ["debutant", "intermediaire", "avance", "expert"], "amb": ["luxe", "festif"], "tags": ["luxe", "alt"], "pistes": {"v": 18, "b": 78, "r": 49, "n": 21}, "desc": "Courchevel 1850, symbole du luxe alpin mondial. Palaces, restaurants Michelin en altitude, héliski. Cœur des 3 Vallées 600 km.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Courchevel_1850.jpg?width=800", "snow": 180}, {"id": 8, "name": "Méribel", "massif": "Alpes du Nord", "region": "Les 3 Vallées, Savoie", "alt_min": 1450, "alt_max": 2952, "km": 150, "remontees": 60, "forfait": 60, "score": 4.6, "niv": ["intermediaire", "avance"], "amb": ["festif", "luxe"], "tags": ["luxe", "rider"], "pistes": {"v": 7, "b": 25, "r": 35, "n": 12}, "desc": "Au cœur géographique des 3 Vallées. Architecture chalet préservée, après-ski parmi les meilleurs d'Europe.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/M%C3%A9ribel_-_20130301.jpg?width=800", "snow": 160}, {"id": 9, "name": "Val Thorens", "massif": "Alpes du Nord", "region": "Les 3 Vallées, Savoie", "alt_min": 2300, "alt_max": 3230, "km": 600, "remontees": 170, "forfait": 60, "score": 4.9, "niv": ["debutant", "intermediaire", "avance", "expert"], "amb": ["festif", "avance"], "tags": ["alt", "rider", "fam"], "pistes": {"v": 20, "b": 89, "r": 69, "n": 22}, "desc": "La plus haute station d'Europe (2300m). Neige garantie toute la saison, accès aux 3 Vallées 600 km.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Val_Thorens_village.jpg?width=800", "snow": 250}, {"id": 10, "name": "Les Menuires", "massif": "Alpes du Nord", "region": "Les 3 Vallées, Savoie", "alt_min": 1800, "alt_max": 3230, "km": 600, "remontees": 170, "forfait": 48, "score": 4.3, "niv": ["debutant", "intermediaire", "avance", "expert"], "amb": ["famille", "festif"], "tags": ["alt", "fam", "rider"], "pistes": {"v": 18, "b": 78, "r": 49, "n": 21}, "desc": "Entrée la plus accessible des 3 Vallées. Haute altitude, snowpark, accès au domaine de 600 km.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Les_Menuires_-_Reberty.jpg?width=800", "snow": 220}, {"id": 11, "name": "Saint-Martin-de-Belleville", "massif": "Alpes du Nord", "region": "Les 3 Vallées, Savoie", "alt_min": 1400, "alt_max": 3230, "km": 600, "remontees": 170, "forfait": 50, "score": 4.4, "niv": ["debutant", "intermediaire", "avance"], "amb": ["village", "luxe"], "tags": ["vil", "luxe", "alt"], "pistes": {"v": 18, "b": 78, "r": 49, "n": 21}, "desc": "Village authentique aux portes des 3 Vallées. Architecture savoyarde préservée, accès au domaine mondial.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Saint-Martin-de-Belleville_village.jpg?width=800", "snow": 150}, {"id": 12, "name": "La Tania", "massif": "Alpes du Nord", "region": "Les 3 Vallées, Savoie", "alt_min": 1400, "alt_max": 2200, "km": 600, "remontees": 170, "forfait": 55, "score": 4.3, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "village"], "tags": ["fam", "vil"], "pistes": {"v": 18, "b": 78, "r": 49, "n": 21}, "desc": "Petite station sans voitures des 3 Vallées entre Courchevel et Méribel. Ambiance village préservée.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/La_Tania.jpg?width=800", "snow": 155}, {"id": 13, "name": "Orelle", "massif": "Alpes du Nord", "region": "Maurienne, Savoie", "alt_min": 580, "alt_max": 3230, "km": 600, "remontees": 170, "forfait": 42, "score": 3.6, "niv": ["intermediaire", "avance", "expert"], "amb": ["village", "nature", "avance"], "tags": ["vil", "rider", "alt"], "pistes": {"v": 18, "b": 78, "r": 49, "n": 21}, "desc": "Porte d'entrée confidentielle des 3 Vallées depuis la Maurienne. Télécabine express vers Val Thorens.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Orelle_village_maurienne.jpg?width=800", "snow": 220}, {"id": 14, "name": "Megève", "massif": "Alpes du Nord", "region": "Mont-Blanc, Haute-Savoie", "alt_min": 1113, "alt_max": 2350, "km": 325, "remontees": 107, "forfait": 65, "score": 4.7, "niv": ["debutant", "intermediaire", "avance"], "amb": ["luxe", "village"], "tags": ["luxe", "vil", "fam"], "pistes": {"v": 22, "b": 76, "r": 48, "n": 15}, "desc": "Fondée en 1916 par la baronne de Rothschild. Village préservé, gastronomie étoilée, 325 km de pistes variées.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Meg%C3%A8ve_village_hiver.jpg?width=800", "snow": 100}, {"id": 15, "name": "Saint-Gervais", "massif": "Alpes du Nord", "region": "Mont-Blanc, Haute-Savoie", "alt_min": 850, "alt_max": 2350, "km": 445, "remontees": 107, "forfait": 52, "score": 4.2, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "village"], "tags": ["fam", "vil"], "pistes": {"v": 22, "b": 76, "r": 48, "n": 15}, "desc": "Station thermale et village charmant relié au domaine Évasion Mont-Blanc (445 km).", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Saint-Gervais-les-Bains.jpg?width=800", "snow": 90}, {"id": 16, "name": "Les Houches", "massif": "Alpes du Nord", "region": "Mont-Blanc, Haute-Savoie", "alt_min": 1008, "alt_max": 1900, "km": 55, "remontees": 14, "forfait": 42, "score": 4.1, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam"], "pistes": {"v": 5, "b": 10, "r": 12, "n": 5}, "desc": "Au pied du Mont-Blanc, à 6 km de Chamonix. Label Famille Plus, piste de la Verte légendaire.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Les_Houches_ski.jpg?width=800", "snow": 110}, {"id": 17, "name": "Combloux", "massif": "Alpes du Nord", "region": "Mont-Blanc, Haute-Savoie", "alt_min": 1000, "alt_max": 1852, "km": 25, "remontees": 10, "forfait": 28, "score": 4.0, "niv": ["debutant", "intermediaire"], "amb": ["famille", "village"], "tags": ["fam", "vil"], "pistes": {"v": 5, "b": 8, "r": 6, "n": 1}, "desc": "Surnommé le balcon du Mont-Blanc. Vue panoramique à 360° sur les massifs alpins. Village avec chapelle classée.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Combloux_Mont_Blanc.jpg?width=800", "snow": 85}, {"id": 18, "name": "Les Contamines-Montjoie", "massif": "Alpes du Nord", "region": "Mont-Blanc, Haute-Savoie", "alt_min": 1164, "alt_max": 2480, "km": 120, "remontees": 26, "forfait": 38, "score": 4.1, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 8, "b": 28, "r": 20, "n": 10}, "desc": "Au pied du Mont-Blanc, station familiale préservée dans la Réserve de Biosphère UNESCO.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Les_Contamines-Montjoie.jpg?width=800", "snow": 140}, {"id": 19, "name": "Morzine", "massif": "Alpes du Nord", "region": "Portes du Soleil, Haute-Savoie", "alt_min": 1000, "alt_max": 2466, "km": 650, "remontees": 196, "forfait": 48, "score": 4.5, "niv": ["debutant", "intermediaire", "avance"], "amb": ["village", "festif", "famille"], "tags": ["vil", "fam"], "pistes": {"v": 24, "b": 68, "r": 40, "n": 14}, "desc": "Village charmant des Portes du Soleil. Centre de station toute l'année, ambiance village préservée à 1h de Genève.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Morzine_village_hiver.jpg?width=800", "snow": 130}, {"id": 20, "name": "Les Gets", "massif": "Alpes du Nord", "region": "Portes du Soleil, Haute-Savoie", "alt_min": 1172, "alt_max": 1852, "km": 650, "remontees": 196, "forfait": 46, "score": 4.5, "niv": ["debutant", "intermediaire"], "amb": ["famille", "village"], "tags": ["fam", "vil"], "pistes": {"v": 24, "b": 68, "r": 40, "n": 14}, "desc": "Charmant village savoyard des Portes du Soleil. Station familiale par excellence, accès aux 650 km du domaine transfrontalier.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Les_Gets_village.jpg?width=800", "snow": 125}, {"id": 21, "name": "Châtel", "massif": "Alpes du Nord", "region": "Portes du Soleil, Haute-Savoie", "alt_min": 1200, "alt_max": 2200, "km": 650, "remontees": 196, "forfait": 44, "score": 4.3, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "village"], "tags": ["fam", "vil"], "pistes": {"v": 24, "b": 68, "r": 40, "n": 14}, "desc": "Village frontalier franco-suisse au cœur des Portes du Soleil. Accès direct vers la Suisse à ski.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Ch%C3%A2tel_village_ski.jpg?width=800", "snow": 145}, {"id": 22, "name": "La Chapelle d'Abondance", "massif": "Alpes du Nord", "region": "Portes du Soleil, Haute-Savoie", "alt_min": 1020, "alt_max": 1800, "km": 35, "remontees": 12, "forfait": 28, "score": 3.8, "niv": ["debutant", "intermediaire"], "amb": ["village", "nature", "famille"], "tags": ["vil", "fam", "deb"], "pistes": {"v": 5, "b": 10, "r": 8, "n": 2}, "desc": "Petit village préservé des Portes du Soleil. Domaine local confidentiel pour familles et débutants.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/La_Chapelle-d%27Abondance.jpg?width=800", "snow": 120}, {"id": 23, "name": "Abondance", "massif": "Alpes du Nord", "region": "Haute-Savoie", "alt_min": 900, "alt_max": 1730, "km": 17, "remontees": 8, "forfait": 22, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["village", "nature", "famille"], "tags": ["vil", "fam", "deb"], "pistes": {"v": 4, "b": 6, "r": 4, "n": 1}, "desc": "Station village au pied de l'abbaye médiévale classée. Petit domaine familial, fromage d'Abondance AOP.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Abondance_abbaye.jpg?width=800", "snow": 80}, {"id": 26, "name": "Saint-Jean-d'Aulps", "massif": "Alpes du Nord", "region": "Haute-Savoie", "alt_min": 900, "alt_max": 1700, "km": 25, "remontees": 10, "forfait": 24, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["village", "famille", "nature"], "tags": ["vil", "fam", "deb"], "pistes": {"v": 4, "b": 8, "r": 6, "n": 1}, "desc": "Petite station familiale haut-savoyarde dans la vallée de la Dranse. Domaine à taille humaine.", "photo": "https://images.unsplash.com/photo-1548247416-ec66f4900b2e?w=1280&q=80", "snow": 85}, {"id": 27, "name": "Praz-de-Lys Sommand", "massif": "Alpes du Nord", "region": "Haute-Savoie", "alt_min": 1500, "alt_max": 1700, "km": 50, "remontees": 21, "forfait": 30, "score": 3.8, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 10, "b": 14, "r": 8, "n": 2}, "desc": "Station familiale sur le plateau du Giffre. Domaine calme entre Cluses et Genève.", "photo": "https://images.unsplash.com/photo-1594306776981-8eca1a5dad8c?w=1280&q=80", "snow": 110}, {"id": 28, "name": "Flaine", "massif": "Alpes du Nord", "region": "Grand Massif, Haute-Savoie", "alt_min": 1600, "alt_max": 2480, "km": 265, "remontees": 88, "forfait": 47, "score": 4.3, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam", "alt"], "pistes": {"v": 10, "b": 43, "r": 34, "n": 12}, "desc": "Architecture brutaliste iconique des années 60. Grand Massif (265 km), domaine compact et efficace, peu de voitures.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Flaine_station.jpg?width=800", "snow": 210}, {"id": 29, "name": "Les Carroz", "massif": "Alpes du Nord", "region": "Grand Massif, Haute-Savoie", "alt_min": 1140, "alt_max": 2480, "km": 265, "remontees": 88, "forfait": 42, "score": 4.0, "niv": ["debutant", "intermediaire"], "amb": ["famille", "village"], "tags": ["vil", "fam"], "pistes": {"v": 10, "b": 43, "r": 34, "n": 12}, "desc": "Village de charme du Grand Massif sur un plateau ensoleillé à 1140m. Accès aux 265 km.", "photo": "https://images.unsplash.com/photo-1551582045-6ec9c11d8697?w=1280&q=80", "snow": 160}, {"id": 30, "name": "Samoëns", "massif": "Alpes du Nord", "region": "Grand Massif, Haute-Savoie", "alt_min": 710, "alt_max": 2480, "km": 265, "remontees": 88, "forfait": 42, "score": 4.0, "niv": ["debutant", "intermediaire"], "amb": ["village", "famille"], "tags": ["vil", "fam"], "pistes": {"v": 10, "b": 43, "r": 34, "n": 12}, "desc": "Plus Beau Village de France classé. Village médiéval avec sa place centrale, accès au Grand Massif en télécabine.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Samoens_village.jpg?width=800", "snow": 140}, {"id": 31, "name": "Morillon", "massif": "Alpes du Nord", "region": "Grand Massif, Haute-Savoie", "alt_min": 700, "alt_max": 2480, "km": 265, "remontees": 88, "forfait": 40, "score": 3.8, "niv": ["debutant", "intermediaire"], "amb": ["famille", "village"], "tags": ["fam", "vil"], "pistes": {"v": 10, "b": 43, "r": 34, "n": 12}, "desc": "Village paisible du Grand Massif dans la vallée du Giffre. Entrée moins fréquentée du Grand Massif.", "photo": "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1280&q=80", "snow": 130}, {"id": 33, "name": "La Clusaz", "massif": "Alpes du Nord", "region": "Aravis, Haute-Savoie", "alt_min": 1100, "alt_max": 2600, "km": 132, "remontees": 56, "forfait": 45, "score": 4.4, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "village", "festif"], "tags": ["vil", "fam"], "pistes": {"v": 12, "b": 38, "r": 28, "n": 11}, "desc": "Village-station charmant à 45 min de Genève. Architecture traditionnelle, ambiance locale chaleureuse.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/La_Clusaz_village.jpg?width=800", "snow": 130}, {"id": 34, "name": "Le Grand-Bornand", "massif": "Alpes du Nord", "region": "Aravis, Haute-Savoie", "alt_min": 1000, "alt_max": 2100, "km": 90, "remontees": 41, "forfait": 37, "score": 4.3, "niv": ["debutant", "intermediaire"], "amb": ["famille", "village"], "tags": ["vil", "fam"], "pistes": {"v": 12, "b": 28, "r": 18, "n": 5}, "desc": "Village savoyard d'exception. Reblochon, panorama des Aravis, architecture préservée.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Le_Grand-Bornand_village.jpg?width=800", "snow": 110}, {"id": 35, "name": "La Giettaz", "massif": "Alpes du Nord", "region": "Aravis, Haute-Savoie", "alt_min": 1117, "alt_max": 2440, "km": 155, "remontees": 54, "forfait": 35, "score": 3.6, "niv": ["debutant", "intermediaire"], "amb": ["famille", "village", "nature"], "tags": ["vil", "fam", "deb"], "pistes": {"v": 8, "b": 20, "r": 15, "n": 5}, "desc": "Petit village pastoral entre Aravis et Mont-Blanc, relié aux domaines de Megève et des Aravis.", "photo": "https://images.unsplash.com/photo-1548516173-3cab31304161?w=1280&q=80", "snow": 120}, {"id": 36, "name": "Praz-sur-Arly", "massif": "Alpes du Nord", "region": "Val d'Arly, Haute-Savoie", "alt_min": 1030, "alt_max": 2070, "km": 66, "remontees": 25, "forfait": 30, "score": 3.6, "niv": ["debutant", "intermediaire"], "amb": ["famille", "village", "nature"], "tags": ["fam", "vil", "deb"], "pistes": {"v": 8, "b": 18, "r": 12, "n": 4}, "desc": "Station tranquille du Val d'Arly reliée à l'Espace Diamant. Village préservé à 30 min de Megève.", "photo": "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=1280&q=80", "snow": 95}, {"id": 37, "name": "Flumet", "massif": "Alpes du Nord", "region": "Val d'Arly, Haute-Savoie", "alt_min": 911, "alt_max": 2070, "km": 66, "remontees": 25, "forfait": 30, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["village", "famille"], "tags": ["vil", "fam", "deb"], "pistes": {"v": 8, "b": 18, "r": 12, "n": 4}, "desc": "Carrefour entre Aravis et Val d'Arly, village typique savoyard relié au domaine du Mont-Blanc.", "photo": "https://images.unsplash.com/photo-1551582045-6ec9c11d8697?w=1280&q=80", "snow": 90}, {"id": 38, "name": "Crest-Voland", "massif": "Alpes du Nord", "region": "Val d'Arly, Savoie", "alt_min": 1230, "alt_max": 2066, "km": 66, "remontees": 25, "forfait": 32, "score": 3.9, "niv": ["debutant", "intermediaire"], "amb": ["famille", "village"], "tags": ["fam", "vil", "deb"], "pistes": {"v": 8, "b": 18, "r": 12, "n": 4}, "desc": "Village du Val d'Arly dans les Alpes du Nord. Domaine Espace Diamant avec Notre-Dame-de-Bellecombe et Les Saisies.", "photo": "https://images.unsplash.com/photo-1594306776981-8eca1a5dad8c?w=1280&q=80", "snow": 95}, {"id": 39, "name": "Notre-Dame-de-Bellecombe", "massif": "Alpes du Nord", "region": "Val d'Arly, Savoie", "alt_min": 1150, "alt_max": 2070, "km": 66, "remontees": 25, "forfait": 32, "score": 3.8, "niv": ["debutant", "intermediaire"], "amb": ["famille", "village"], "tags": ["fam", "vil"], "pistes": {"v": 8, "b": 18, "r": 12, "n": 4}, "desc": "Village station entre Aravis et Beaufortain. Espace Diamant partagé avec Crest-Voland et Les Saisies.", "photo": "https://images.unsplash.com/photo-1548247416-ec66f4900b2e?w=1280&q=80", "snow": 95}, {"id": 40, "name": "Les Saisies", "massif": "Alpes du Nord", "region": "Beaufortain, Savoie", "alt_min": 1650, "alt_max": 2070, "km": 150, "remontees": 48, "forfait": 36, "score": 4.4, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 20, "b": 46, "r": 30, "n": 8}, "desc": "Station nordique de légende. Domaine Espace Diamant (150 km), berceau du ski de fond olympique. Label Famille Plus.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Les_Saisies_station.jpg?width=800", "snow": 140}, {"id": 41, "name": "Arêches-Beaufort", "massif": "Alpes du Nord", "region": "Beaufortain, Savoie", "alt_min": 1080, "alt_max": 2300, "km": 50, "remontees": 15, "forfait": 30, "score": 4.0, "niv": ["intermediaire", "avance", "expert"], "amb": ["nature", "village", "avance"], "tags": ["vil", "rider"], "pistes": {"v": 5, "b": 14, "r": 14, "n": 7}, "desc": "Station confidentielle du Beaufortain. Domaine exigeant, glisse engagée, neige naturelle abondante.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Ar%C3%AAches-Beaufort.jpg?width=800", "snow": 130}, {"id": 42, "name": "Sainte-Foy-Tarentaise", "massif": "Alpes du Nord", "region": "Tarentaise, Savoie", "alt_min": 1550, "alt_max": 2620, "km": 25, "remontees": 6, "forfait": 30, "score": 4.3, "niv": ["avance", "expert"], "amb": ["nature", "avance"], "tags": ["rider", "alt"], "pistes": {"v": 2, "b": 4, "r": 8, "n": 6}, "desc": "Joyau secret entre Les Arcs et Val d'Isère. Domaine préservé, hors-piste exceptionnel, neige souvent poudreuse.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Sainte-Foy-Tarentaise.jpg?width=800", "snow": 200}, {"id": 43, "name": "La Rosière", "massif": "Alpes du Nord", "region": "Tarentaise, Savoie", "alt_min": 1850, "alt_max": 2809, "km": 175, "remontees": 38, "forfait": 38, "score": 4.1, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam", "alt"], "pistes": {"v": 13, "b": 42, "r": 25, "n": 7}, "desc": "Station familiale franco-italienne reliée à La Thuile. Vue exceptionnelle sur le Mont-Blanc. Enneigement garanti.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/La_Rosi%C3%A8re_ski.jpg?width=800", "snow": 180}, {"id": 44, "name": "Champagny-en-Vanoise", "massif": "Alpes du Nord", "region": "Tarentaise, Savoie", "alt_min": 1250, "alt_max": 3250, "km": 225, "remontees": 77, "forfait": 48, "score": 3.9, "niv": ["debutant", "intermediaire", "avance"], "amb": ["village", "famille"], "tags": ["vil", "fam"], "pistes": {"v": 19, "b": 61, "r": 39, "n": 11}, "desc": "Village savoyard relié à La Plagne/Paradiski. Vue sur la Grande Casse, ambiance village authentique.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Champagny-en-Vanoise.jpg?width=800", "snow": 160}, {"id": 45, "name": "Peisey-Vallandry", "massif": "Alpes du Nord", "region": "Tarentaise, Savoie", "alt_min": 1600, "alt_max": 3226, "km": 425, "remontees": 76, "forfait": 50, "score": 4.0, "niv": ["debutant", "intermediaire", "avance"], "amb": ["village", "famille"], "tags": ["vil", "fam", "alt"], "pistes": {"v": 11, "b": 41, "r": 31, "n": 17}, "desc": "Village station au cœur de Paradiski. Accès à pied des remontées, vue sur le Mont-Blanc. Label Famille Plus.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Peisey-Nancroix.jpg?width=800", "snow": 165}, {"id": 46, "name": "Montchavin-Les Coches", "massif": "Alpes du Nord", "region": "Tarentaise, Savoie", "alt_min": 1250, "alt_max": 3250, "km": 225, "remontees": 77, "forfait": 50, "score": 4.0, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "village"], "tags": ["fam", "vil", "alt"], "pistes": {"v": 19, "b": 61, "r": 39, "n": 11}, "desc": "Double village de Paradiski offrant une porte d'entrée authentique de La Plagne.", "photo": "https://images.unsplash.com/photo-1551582045-6ec9c11d8697?w=1280&q=80", "snow": 155}, {"id": 47, "name": "Pralognan-la-Vanoise", "massif": "Alpes du Nord", "region": "Tarentaise, Savoie", "alt_min": 1410, "alt_max": 2360, "km": 25, "remontees": 10, "forfait": 25, "score": 3.8, "niv": ["debutant", "intermediaire"], "amb": ["nature", "famille", "village"], "tags": ["vil", "fam", "deb"], "pistes": {"v": 3, "b": 8, "r": 6, "n": 3}, "desc": "Au cœur du Parc National de la Vanoise. Petite station préservée, ski de fond réputé.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Pralognan-la-Vanoise.jpg?width=800", "snow": 120}, {"id": 48, "name": "Brides-les-Bains", "massif": "Alpes du Nord", "region": "Les 3 Vallées, Savoie", "alt_min": 600, "alt_max": 3230, "km": 600, "remontees": 170, "forfait": 40, "score": 3.8, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "village"], "tags": ["fam"], "pistes": {"v": 18, "b": 78, "r": 49, "n": 21}, "desc": "Station thermale au fond de la Tarentaise. Accès aux 3 Vallées par gondole, hébergements économiques.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Brides-les-Bains.jpg?width=800", "snow": 160}, {"id": 49, "name": "Valmorel", "massif": "Alpes du Nord", "region": "Tarentaise, Savoie", "alt_min": 1400, "alt_max": 2550, "km": 165, "remontees": 52, "forfait": 38, "score": 4.2, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "village"], "tags": ["fam", "vil"], "pistes": {"v": 15, "b": 43, "r": 30, "n": 8}, "desc": "Station village des années 80 aux rues piétonnes. Architecture respectant le style savoyard. Label Famille Plus.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Valmorel.jpg?width=800", "snow": 150}, {"id": 50, "name": "La Toussuire", "massif": "Alpes du Nord", "region": "Les Sybelles, Savoie", "alt_min": 1750, "alt_max": 2620, "km": 310, "remontees": 58, "forfait": 35, "score": 4.0, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam", "alt"], "pistes": {"v": 20, "b": 60, "r": 35, "n": 11}, "desc": "Station des Sybelles (310 km). Station familiale haute en Maurienne avec enneigement fiable.", "photo": "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1280&q=80", "snow": 170}, {"id": 51, "name": "Le Corbier", "massif": "Alpes du Nord", "region": "Les Sybelles, Savoie", "alt_min": 1550, "alt_max": 2265, "km": 310, "remontees": 58, "forfait": 30, "score": 3.7, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam"], "pistes": {"v": 20, "b": 60, "r": 35, "n": 11}, "desc": "Station des Sybelles à tarifs accessibles. Architecture des années 70 entièrement piétonne.", "photo": "https://images.unsplash.com/photo-1601024445121-e5b82f020549?w=1280&q=80", "snow": 160}, {"id": 52, "name": "Saint-Sorlin-d'Arves", "massif": "Alpes du Nord", "region": "Les Sybelles, Savoie", "alt_min": 1550, "alt_max": 2620, "km": 310, "remontees": 58, "forfait": 32, "score": 3.9, "niv": ["debutant", "intermediaire", "avance"], "amb": ["village", "nature", "famille"], "tags": ["vil", "fam"], "pistes": {"v": 20, "b": 60, "r": 35, "n": 11}, "desc": "Village authentique des Sybelles face aux Aiguilles d'Arves. Architecture pittoresque, ski familial.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Saint-Sorlin-d%27Arves.jpg?width=800", "snow": 175}, {"id": 53, "name": "Saint-Jean-d'Arves", "massif": "Alpes du Nord", "region": "Les Sybelles, Savoie", "alt_min": 1550, "alt_max": 2620, "km": 310, "remontees": 58, "forfait": 30, "score": 3.7, "niv": ["debutant", "intermediaire"], "amb": ["village", "nature"], "tags": ["vil"], "pistes": {"v": 20, "b": 60, "r": 35, "n": 11}, "desc": "Village des Sybelles face aux célèbres Aiguilles d'Arves (3514m). Ski familial, paysage grandiose.", "photo": "https://images.unsplash.com/photo-1548516173-3cab31304161?w=1280&q=80", "snow": 165}, {"id": 54, "name": "Saint-Colomban-des-Villards", "massif": "Alpes du Nord", "region": "Les Sybelles, Savoie", "alt_min": 1100, "alt_max": 2266, "km": 310, "remontees": 58, "forfait": 28, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["village", "nature", "famille"], "tags": ["vil", "fam", "deb"], "pistes": {"v": 20, "b": 60, "r": 35, "n": 11}, "desc": "Petite entrée confidentielle des Sybelles. Village de charme en Maurienne peu fréquenté.", "photo": "https://images.unsplash.com/photo-1594306776981-8eca1a5dad8c?w=1280&q=80", "snow": 150}, {"id": 56, "name": "Valloire", "massif": "Alpes du Nord", "region": "Galibier-Thabor, Savoie", "alt_min": 1430, "alt_max": 2600, "km": 160, "remontees": 33, "forfait": 38, "score": 4.2, "niv": ["debutant", "intermediaire", "avance"], "amb": ["village", "famille"], "tags": ["vil", "fam"], "pistes": {"v": 13, "b": 30, "r": 27, "n": 9}, "desc": "Station village de Maurienne au pied du Galibier. Domaine Galibier-Thabor (160 km) partagé avec Valmeinier.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Valloire_village.jpg?width=800", "snow": 155}, {"id": 57, "name": "Valmeinier", "massif": "Alpes du Nord", "region": "Galibier-Thabor, Savoie", "alt_min": 1500, "alt_max": 2600, "km": 160, "remontees": 33, "forfait": 35, "score": 4.0, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam"], "pistes": {"v": 13, "b": 30, "r": 27, "n": 9}, "desc": "Station familiale du Galibier-Thabor avec vue grandiose sur la Maurienne. Domaine partagé avec Valloire.", "photo": "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1280&q=80", "snow": 150}, {"id": 58, "name": "Val Cenis", "massif": "Alpes du Nord", "region": "Haute-Maurienne, Savoie", "alt_min": 1400, "alt_max": 2800, "km": 125, "remontees": 30, "forfait": 38, "score": 4.2, "niv": ["debutant", "intermediaire", "avance"], "amb": ["village", "famille", "nature"], "tags": ["vil", "fam"], "pistes": {"v": 13, "b": 37, "r": 22, "n": 8}, "desc": "5 villages au ski traditionnel et authentique en Haute-Maurienne. Domaine nordique de Bessans (133 km) à proximité.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Val_Cenis_station.jpg?width=800", "snow": 165}, {"id": 59, "name": "Aussois", "massif": "Alpes du Nord", "region": "Haute-Maurienne, Savoie", "alt_min": 1500, "alt_max": 2750, "km": 55, "remontees": 18, "forfait": 26, "score": 3.9, "niv": ["debutant", "intermediaire", "avance"], "amb": ["village", "nature", "famille"], "tags": ["vil", "fam"], "pistes": {"v": 7, "b": 16, "r": 12, "n": 4}, "desc": "Station confidentielle de Haute-Maurienne face au massif de la Vanoise. Village fortifié, ambiance calme.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Aussois_village.jpg?width=800", "snow": 150}, {"id": 60, "name": "Bonneval-sur-Arc", "massif": "Alpes du Nord", "region": "Haute-Maurienne, Savoie", "alt_min": 1800, "alt_max": 3000, "km": 25, "remontees": 6, "forfait": 28, "score": 4.0, "niv": ["intermediaire", "avance", "expert"], "amb": ["village", "nature", "avance"], "tags": ["vil", "rider", "alt"], "pistes": {"v": 2, "b": 7, "r": 8, "n": 4}, "desc": "Le plus haut village de Savoie (1800m). Dernier village avant le col de l'Iséran. Ambiance montagne authentique.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Bonneval-sur-Arc.jpg?width=800", "snow": 200}, {"id": 61, "name": "Bessans", "massif": "Alpes du Nord", "region": "Haute-Maurienne, Savoie", "alt_min": 1740, "alt_max": 1900, "km": 3, "remontees": 2, "forfait": 18, "score": 3.5, "niv": ["debutant"], "amb": ["nature", "famille"], "tags": ["deb", "fam"], "pistes": {"v": 1, "b": 1, "r": 1, "n": 0}, "desc": "Mecque du ski de fond avec 133 km de pistes nordiques. Petit domaine alpin, capital pour le ski nordique.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Bessans_village.jpg?width=800", "snow": 100}, {"id": 63, "name": "Valfréjus", "massif": "Alpes du Nord", "region": "Maurienne, Savoie", "alt_min": 1550, "alt_max": 2737, "km": 52, "remontees": 13, "forfait": 30, "score": 3.9, "niv": ["intermediaire", "avance"], "amb": ["nature", "famille", "avance"], "tags": ["fam", "rider"], "pistes": {"v": 5, "b": 15, "r": 16, "n": 6}, "desc": "Station familiale de Maurienne avec vue spectaculaire sur la Vanoise. Domaine varié peu fréquenté.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Valfr%C3%A9jus.jpg?width=800", "snow": 160}, {"id": 64, "name": "La Norma", "massif": "Alpes du Nord", "region": "Maurienne, Savoie", "alt_min": 1350, "alt_max": 2750, "km": 65, "remontees": 16, "forfait": 28, "score": 3.8, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam"], "pistes": {"v": 6, "b": 18, "r": 15, "n": 5}, "desc": "Petite station familiale de Maurienne entre Modane et le Fréjus. Ambiance décontractée, tarifs accessibles.", "photo": "https://images.unsplash.com/photo-1601024445121-e5b82f020549?w=1280&q=80", "snow": 155}, {"id": 65, "name": "Albiez-Montrond", "massif": "Alpes du Nord", "region": "Maurienne, Savoie", "alt_min": 1500, "alt_max": 2100, "km": 35, "remontees": 11, "forfait": 25, "score": 3.6, "niv": ["debutant", "intermediaire"], "amb": ["village", "famille", "nature"], "tags": ["vil", "fam"], "pistes": {"v": 5, "b": 10, "r": 9, "n": 3}, "desc": "Station confidentielle entre Maurienne et Les Sybelles. Village authentique peu fréquenté.", "photo": "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1280&q=80", "snow": 120}, {"id": 66, "name": "Saint-François-Longchamp", "massif": "Alpes du Nord", "region": "Maurienne, Savoie", "alt_min": 1450, "alt_max": 2650, "km": 160, "remontees": 58, "forfait": 36, "score": 4.2, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam", "alt"], "pistes": {"v": 10, "b": 40, "r": 32, "n": 8}, "desc": "Station familiale du domaine de Maurienne (160 km). Enneigement fiable, ambiance tranquille.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Saint-Fran%C3%A7ois-Longchamp.jpg?width=800", "snow": 160}, {"id": 67, "name": "Les Karellis", "massif": "Alpes du Nord", "region": "Maurienne, Savoie", "alt_min": 1600, "alt_max": 2520, "km": 60, "remontees": 16, "forfait": 24, "score": 4.2, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 7, "b": 17, "r": 12, "n": 4}, "desc": "Station associative unique en France. Tarifs imbattables, ambiance conviviale, fondée par des colonies de vacances.", "photo": "https://images.unsplash.com/photo-1548516173-3cab31304161?w=1280&q=80", "snow": 145}, {"id": 69, "name": "Savoie Grand Revard", "massif": "Alpes du Nord", "region": "Bauges, Savoie", "alt_min": 1150, "alt_max": 1547, "km": 30, "remontees": 8, "forfait": 22, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 5, "b": 10, "r": 8, "n": 2}, "desc": "Station des Bauges au-dessus d'Aix-les-Bains. Vue sur le lac du Bourget, ski de fond réputé.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Grand_Revard_lac_bourget.jpg?width=800", "snow": 70}, {"id": 70, "name": "Chamrousse", "massif": "Alpes du Nord", "region": "Belledonne, Isère", "alt_min": 1650, "alt_max": 2250, "km": 100, "remontees": 26, "forfait": 34, "score": 4.1, "niv": ["debutant", "intermediaire", "avance"], "amb": ["nature", "famille"], "tags": ["fam", "alt"], "pistes": {"v": 6, "b": 18, "r": 16, "n": 6}, "desc": "Station olympique de Grenoble (JO 1968). À 30 min de Grenoble, domaine varié dans le massif de Belledonne.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Chamrousse_station.jpg?width=800", "snow": 120}, {"id": 71, "name": "Les 7 Laux", "massif": "Alpes du Nord", "region": "Belledonne, Isère", "alt_min": 1350, "alt_max": 2200, "km": 120, "remontees": 28, "forfait": 34, "score": 4.1, "niv": ["debutant", "intermediaire", "avance"], "amb": ["nature", "famille", "avance"], "tags": ["fam", "rider"], "pistes": {"v": 10, "b": 25, "r": 20, "n": 5}, "desc": "3 stations reliées dans Belledonne (Prapoutel, Pipay, Le Pleynet). 120 km variés, belle neige.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Les_7_Laux.jpg?width=800", "snow": 115}, {"id": 72, "name": "Alpe d'Huez", "massif": "Alpes du Nord", "region": "Oisans, Isère", "alt_min": 1120, "alt_max": 3330, "km": 250, "remontees": 82, "forfait": 54, "score": 4.5, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "avance"], "tags": ["alt", "fam"], "pistes": {"v": 8, "b": 34, "r": 41, "n": 11}, "desc": "300 jours de soleil/an. La Sarenne (16 km) est la plus longue piste noire d'Europe. Label Famille Plus.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Alpe_d%27Huez_station.jpg?width=800", "snow": 160}, {"id": 73, "name": "Les Deux Alpes", "massif": "Alpes du Nord", "region": "Isère", "alt_min": 1650, "alt_max": 3568, "km": 225, "remontees": 57, "forfait": 51, "score": 4.4, "niv": ["intermediaire", "avance", "expert"], "amb": ["festif", "avance"], "tags": ["rider", "alt"], "pistes": {"v": 7, "b": 42, "r": 33, "n": 17}, "desc": "Plus grand glacier skiable d'Europe. Snowpark référence mondiale, après-ski ultra animé.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Les_Deux_Alpes.jpg?width=800", "snow": 200}, {"id": 74, "name": "Auris-en-Oisans", "massif": "Alpes du Nord", "region": "Oisans, Isère", "alt_min": 1600, "alt_max": 3330, "km": 250, "remontees": 82, "forfait": 50, "score": 3.8, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam", "alt"], "pistes": {"v": 8, "b": 34, "r": 41, "n": 11}, "desc": "Accès calme à l'Alpe d'Huez Grand Domaine. Village à 1600m, porte d'entrée préservée des 250 km.", "photo": "https://images.unsplash.com/photo-1548516173-3cab31304161?w=1280&q=80", "snow": 155}, {"id": 75, "name": "Alpe du Grand Serre", "massif": "Alpes du Nord", "region": "Trièves, Isère", "alt_min": 1400, "alt_max": 2197, "km": 55, "remontees": 16, "forfait": 28, "score": 3.7, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 7, "b": 14, "r": 11, "n": 3}, "desc": "Station confidentielle iséroise dans le Trièves. Domaine tranquille à 1h de Grenoble.", "photo": "https://images.unsplash.com/photo-1601024445121-e5b82f020549?w=1280&q=80", "snow": 100}, {"id": 76, "name": "Villard-de-Lans", "massif": "Alpes du Nord", "region": "Vercors, Isère", "alt_min": 1050, "alt_max": 2050, "km": 125, "remontees": 28, "forfait": 30, "score": 4.0, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "village", "nature"], "tags": ["fam", "vil", "deb"], "pistes": {"v": 10, "b": 22, "r": 18, "n": 7}, "desc": "Au cœur du Vercors. Label Famille Plus, 30 min de Grenoble, ski nordique exceptionnel (110 km).", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Villard-de-Lans.jpg?width=800", "snow": 90}, {"id": 77, "name": "Corrençon-en-Vercors", "massif": "Alpes du Nord", "region": "Vercors, Isère", "alt_min": 1111, "alt_max": 2050, "km": 125, "remontees": 28, "forfait": 28, "score": 3.8, "niv": ["debutant", "intermediaire"], "amb": ["village", "nature", "famille"], "tags": ["vil", "fam"], "pistes": {"v": 10, "b": 22, "r": 18, "n": 7}, "desc": "Village du bout du monde dans le Vercors. Relié à Villard-de-Lans, accès exceptionnel au ski de fond.", "photo": "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1280&q=80", "snow": 85}, {"id": 78, "name": "Autrans-Méaudre", "massif": "Alpes du Nord", "region": "Vercors, Isère", "alt_min": 1050, "alt_max": 1710, "km": 18, "remontees": 7, "forfait": 22, "score": 3.7, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 4, "b": 6, "r": 5, "n": 2}, "desc": "Site olympique de Grenoble 1968 pour le ski de fond. Domaine alpin familial, ski de fond exceptionnel.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Autrans_Vercors.jpg?width=800", "snow": 70}, {"id": 79, "name": "Lans-en-Vercors", "massif": "Alpes du Nord", "region": "Vercors, Isère", "alt_min": 1020, "alt_max": 1983, "km": 26, "remontees": 12, "forfait": 24, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature", "village"], "tags": ["fam", "deb", "vil"], "pistes": {"v": 5, "b": 9, "r": 8, "n": 2}, "desc": "Station à 20 min de Grenoble. Domaine alpin familial et parc de loisirs hivernal.", "photo": "https://images.unsplash.com/photo-1548247416-ec66f4900b2e?w=1280&q=80", "snow": 80}, {"id": 84, "name": "Semnoz - Annecy", "massif": "Alpes du Nord", "region": "Haute-Savoie", "alt_min": 1200, "alt_max": 1699, "km": 25, "remontees": 7, "forfait": 22, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 4, "b": 8, "r": 7, "n": 2}, "desc": "Station d'Annecy sur le belvédère des Alpes. Vue panoramique sur le lac d'Annecy et les massifs.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Semnoz_lac_annecy.jpg?width=800", "snow": 75}, {"id": 89, "name": "Serre Chevalier", "massif": "Alpes du Sud", "region": "Hautes-Alpes", "alt_min": 1200, "alt_max": 2800, "km": 250, "remontees": 71, "forfait": 50, "score": 4.6, "niv": ["debutant", "intermediaire", "avance", "expert"], "amb": ["famille", "avance", "village"], "tags": ["alt", "fam", "vil"], "pistes": {"v": 8, "b": 38, "r": 29, "n": 16}, "desc": "Plus grand domaine des Alpes du Sud (250 km). 4 villages reliés, neige côté soleil et côté ombre.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Serre-Chevalier.jpg?width=800", "snow": 150}, {"id": 90, "name": "Montgenèvre", "massif": "Alpes du Sud", "region": "Hautes-Alpes", "alt_min": 1860, "alt_max": 2823, "km": 92, "remontees": 36, "forfait": 38, "score": 4.0, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "alt"], "pistes": {"v": 9, "b": 27, "r": 18, "n": 6}, "desc": "Plus ancienne station de France (1907). Domaine franco-italien Via Lattea (400 km). Haute altitude et ensoleillement.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Montgen%C3%A8vre_station.jpg?width=800", "snow": 160}, {"id": 91, "name": "Vars", "massif": "Alpes du Sud", "region": "Hautes-Alpes", "alt_min": 1650, "alt_max": 2750, "km": 185, "remontees": 51, "forfait": 38, "score": 4.2, "niv": ["intermediaire", "avance", "expert"], "amb": ["famille", "avance"], "tags": ["alt", "fam", "rider"], "pistes": {"v": 13, "b": 33, "r": 26, "n": 8}, "desc": "Domaine de La Forêt Blanche avec Risoul (185 km). 83% des pistes au-dessus de 2000m. Enneigement exceptionnel.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Vars_les_Claux.jpg?width=800", "snow": 180}, {"id": 92, "name": "Risoul", "massif": "Alpes du Sud", "region": "Hautes-Alpes", "alt_min": 1850, "alt_max": 2750, "km": 185, "remontees": 51, "forfait": 35, "score": 4.0, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "festif"], "tags": ["fam", "alt"], "pistes": {"v": 13, "b": 33, "r": 26, "n": 8}, "desc": "Station moderne des Hautes-Alpes. Forêt Blanche avec Vars (185 km), snowpark, ambiance jeune.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Risoul.jpg?width=800", "snow": 175}, {"id": 93, "name": "La Grave - La Meije", "massif": "Alpes du Sud", "region": "Hautes-Alpes", "alt_min": 1450, "alt_max": 3568, "km": 10, "remontees": 3, "forfait": 32, "score": 4.5, "niv": ["expert"], "amb": ["avance", "nature"], "tags": ["rider", "alt"], "pistes": {"v": 0, "b": 0, "r": 0, "n": 2}, "desc": "Mecque mondiale du ski hors-piste. Dénivelé de 2100m, glacier de la Girose, domaine non aménagé pour experts.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/La_Grave_La_Meije.jpg?width=800", "snow": 210}, {"id": 94, "name": "Puy-Saint-Vincent", "massif": "Alpes du Sud", "region": "Hautes-Alpes", "alt_min": 1400, "alt_max": 2700, "km": 75, "remontees": 19, "forfait": 32, "score": 4.0, "niv": ["intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam"], "pistes": {"v": 5, "b": 20, "r": 23, "n": 9}, "desc": "Joyau confidentiel des Hautes-Alpes au pied des Écrins. Ensoleillement exceptionnel, ambiance authentique.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Puy-Saint-Vincent.jpg?width=800", "snow": 140}, {"id": 95, "name": "Orcières-Merlette", "massif": "Alpes du Sud", "region": "Champsaur, Hautes-Alpes", "alt_min": 1850, "alt_max": 2725, "km": 100, "remontees": 30, "forfait": 35, "score": 4.1, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam", "alt"], "pistes": {"v": 10, "b": 25, "r": 18, "n": 7}, "desc": "Station familiale du Champsaur. Haute altitude (1850m), ensoleillement remarquable, ambiance détendue.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Orci%C3%A8res-Merlette.jpg?width=800", "snow": 130}, {"id": 96, "name": "Superdévoluy", "massif": "Alpes du Sud", "region": "Hautes-Alpes", "alt_min": 1480, "alt_max": 2500, "km": 100, "remontees": 25, "forfait": 33, "score": 4.2, "niv": ["debutant", "intermediaire"], "amb": ["famille", "village"], "tags": ["fam", "vil"], "pistes": {"v": 10, "b": 30, "r": 20, "n": 5}, "desc": "Superdévoluy - La Joue du Loup, label Famille Plus. Deux domaines complémentaires dans le massif du Dévoluy.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Superdeволuy.jpg?width=800", "snow": 160}, {"id": 97, "name": "Les Orres", "massif": "Alpes du Sud", "region": "Hautes-Alpes", "alt_min": 1650, "alt_max": 2720, "km": 100, "remontees": 22, "forfait": 30, "score": 3.9, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam"], "pistes": {"v": 10, "b": 23, "r": 16, "n": 6}, "desc": "Station accessible depuis Marseille (2h15). Vue sur le lac de Serre-Ponçon spectaculaire.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Les_Orres.jpg?width=800", "snow": 135}, {"id": 99, "name": "Saint-Léger-les-Mélèzes", "massif": "Alpes du Sud", "region": "Champsaur, Hautes-Alpes", "alt_min": 1260, "alt_max": 1900, "km": 35, "remontees": 10, "forfait": 22, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["famille", "village", "nature"], "tags": ["fam", "deb", "vil"], "pistes": {"v": 5, "b": 11, "r": 8, "n": 2}, "desc": "Station confidentielle du Champsaur. Village authentique sous les mélèzes, ski tranquille.", "photo": "https://images.unsplash.com/photo-1594306776981-8eca1a5dad8c?w=1280&q=80", "snow": 75}, {"id": 103, "name": "Sauze-Super-Sauze", "massif": "Alpes du Sud", "region": "Ubaye, Alpes-de-Haute-Provence", "alt_min": 1400, "alt_max": 2400, "km": 50, "remontees": 14, "forfait": 25, "score": 3.8, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam"], "pistes": {"v": 6, "b": 14, "r": 12, "n": 4}, "desc": "Station au-dessus de Barcelonnette. Domaine soleil et ombre, bonne neige en Ubaye.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Le_Sauze.jpg?width=800", "snow": 130}, {"id": 104, "name": "Pra-Loup", "massif": "Alpes du Sud", "region": "Ubaye, Alpes-de-Haute-Provence", "alt_min": 1500, "alt_max": 2600, "km": 180, "remontees": 53, "forfait": 36, "score": 3.9, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam", "alt"], "pistes": {"v": 13, "b": 40, "r": 28, "n": 6}, "desc": "Dans la vallée de l'Ubaye. Espace Lumière (180 km) avec Val d'Allos, soleil méditerranéen.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Pra-Loup.jpg?width=800", "snow": 150}, {"id": 105, "name": "Val d'Allos", "massif": "Alpes du Sud", "region": "Alpes-de-Haute-Provence", "alt_min": 1400, "alt_max": 2600, "km": 180, "remontees": 53, "forfait": 35, "score": 3.6, "niv": ["debutant", "intermediaire"], "amb": ["famille", "village"], "tags": ["fam", "vil"], "pistes": {"v": 13, "b": 40, "r": 28, "n": 6}, "desc": "Deux stations (Le Seignus et La Foux) dans la haute vallée du Verdon. Espace Lumière avec Pra-Loup.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Val_d%27Allos.jpg?width=800", "snow": 145}, {"id": 106, "name": "Chabanon", "massif": "Alpes du Sud", "region": "Alpes-de-Haute-Provence", "alt_min": 1600, "alt_max": 2000, "km": 40, "remontees": 10, "forfait": 24, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 5, "b": 13, "r": 10, "n": 2}, "desc": "Station familiale tranquille de Haute-Provence. Domaine accessible, tarifs maîtrisés.", "photo": "https://images.unsplash.com/photo-1548247416-ec66f4900b2e?w=1280&q=80", "snow": 110}, {"id": 110, "name": "Isola 2000", "massif": "Alpes du Sud", "region": "Alpes-Maritimes", "alt_min": 1800, "alt_max": 2610, "km": 120, "remontees": 24, "forfait": 35, "score": 4.5, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["alt", "deb", "fam"], "pistes": {"v": 7, "b": 28, "r": 17, "n": 8}, "desc": "Station la plus proche de la Côte d'Azur (Nice à 90 min). Ensoleillement méditerranéen, vue sur mer.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Isola_2000.jpg?width=800", "snow": 170}, {"id": 111, "name": "Auron", "massif": "Alpes du Sud", "region": "Alpes-Maritimes", "alt_min": 1600, "alt_max": 2450, "km": 135, "remontees": 22, "forfait": 34, "score": 3.5, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam", "alt"], "pistes": {"v": 8, "b": 25, "r": 20, "n": 8}, "desc": "Station familiale des Alpes-Maritimes. Ski sous le soleil méditerranéen depuis Saint-Martin-Vésubie.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Auron_station.jpg?width=800", "snow": 120}, {"id": 117, "name": "Abriès-en-Queyras", "massif": "Alpes du Sud", "region": "Queyras, Hautes-Alpes", "alt_min": 1550, "alt_max": 2390, "km": 20, "remontees": 6, "forfait": 18, "score": 3.7, "niv": ["debutant", "intermediaire"], "amb": ["nature", "village"], "tags": ["deb", "vil"], "pistes": {"v": 3, "b": 7, "r": 5, "n": 2}, "desc": "Au cœur du Parc Naturel Régional du Queyras. Village le plus haut du massif à 1550m.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Abri%C3%A8s_Queyras.jpg?width=800", "snow": 130}, {"id": 121, "name": "Arvieux-en-Queyras", "massif": "Alpes du Sud", "region": "Queyras, Hautes-Alpes", "alt_min": 1150, "alt_max": 2100, "km": 15, "remontees": 5, "forfait": 20, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["nature", "village"], "tags": ["deb", "vil"], "pistes": {"v": 3, "b": 5, "r": 4, "n": 1}, "desc": "Dans le Parc Naturel Régional du Queyras. Ski sous le col de l'Izoard.", "photo": "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1280&q=80", "snow": 120}, {"id": 122, "name": "Grand Tourmalet", "massif": "Pyrénées", "region": "Hautes-Pyrénées", "alt_min": 1250, "alt_max": 2500, "km": 100, "remontees": 30, "forfait": 38, "score": 4.3, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "avance"], "tags": ["alt", "fam"], "pistes": {"v": 10, "b": 25, "r": 15, "n": 5}, "desc": "Plus grand domaine des Pyrénées françaises (100 km). Barèges et La Mongie réunis. Vue sur le Pic du Midi 2877m.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Grand_Tourmalet_ski.jpg?width=800", "snow": 140}, {"id": 123, "name": "Saint-Lary-Soulan", "massif": "Pyrénées", "region": "Hautes-Pyrénées", "alt_min": 830, "alt_max": 2450, "km": 100, "remontees": 32, "forfait": 35, "score": 4.2, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "village"], "tags": ["fam", "vil", "alt"], "pistes": {"v": 15, "b": 30, "r": 25, "n": 10}, "desc": "Station village des Pyrénées centrales avec thermes réputés. Bon enneigement, domaine varié.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Saint-Lary-Soulan.jpg?width=800", "snow": 130}, {"id": 124, "name": "Piau-Engaly", "massif": "Pyrénées", "region": "Hautes-Pyrénées", "alt_min": 1850, "alt_max": 2500, "km": 65, "remontees": 16, "forfait": 32, "score": 3.9, "niv": ["debutant", "intermediaire", "avance"], "amb": ["nature", "famille"], "tags": ["fam", "alt"], "pistes": {"v": 8, "b": 20, "r": 15, "n": 7}, "desc": "Station la plus haute des Pyrénées françaises (1850m). Enneigement fiable, au cœur du Parc National.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Piau-Engaly.jpg?width=800", "snow": 170}, {"id": 125, "name": "Luz-Ardiden", "massif": "Pyrénées", "region": "Hautes-Pyrénées", "alt_min": 1720, "alt_max": 2500, "km": 60, "remontees": 14, "forfait": 30, "score": 3.8, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam", "alt"], "pistes": {"v": 8, "b": 18, "r": 14, "n": 5}, "desc": "Domaine ensoleillé au-dessus de Luz-Saint-Sauveur. Vue sur le Pic du Midi, ski tranquille.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Luz-Ardiden.jpg?width=800", "snow": 135}, {"id": 126, "name": "Cauterets", "massif": "Pyrénées", "region": "Hautes-Pyrénées", "alt_min": 1000, "alt_max": 2350, "km": 35, "remontees": 11, "forfait": 30, "score": 3.8, "niv": ["debutant", "intermediaire"], "amb": ["village", "famille"], "tags": ["vil", "fam"], "pistes": {"v": 6, "b": 12, "r": 8, "n": 4}, "desc": "Village thermal pyrénéen avec spa réputé. Cirque du Lys au départ de Cauterets.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Cauterets_station.jpg?width=800", "snow": 110}, {"id": 127, "name": "Gourette", "massif": "Pyrénées", "region": "Pyrénées-Atlantiques", "alt_min": 1350, "alt_max": 2400, "km": 40, "remontees": 13, "forfait": 30, "score": 3.6, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam"], "pistes": {"v": 5, "b": 14, "r": 10, "n": 3}, "desc": "Station béarnaise au-dessus d'Eaux-Bonnes. Domaine bien enneigé face aux sommets basques.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Gourette_station.jpg?width=800", "snow": 120}, {"id": 128, "name": "La Pierre-Saint-Martin", "massif": "Pyrénées", "region": "Pyrénées-Atlantiques", "alt_min": 1650, "alt_max": 2115, "km": 40, "remontees": 12, "forfait": 28, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["nature", "famille"], "tags": ["fam"], "pistes": {"v": 5, "b": 12, "r": 9, "n": 2}, "desc": "Station franco-espagnole au col de la Pierre-Saint-Martin. Frontière naturelle, enneigement côté nord.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Pierre-Saint-Martin.jpg?width=800", "snow": 140}, {"id": 129, "name": "Gavarnie-Gèdre", "massif": "Pyrénées", "region": "Hautes-Pyrénées", "alt_min": 1350, "alt_max": 2400, "km": 30, "remontees": 9, "forfait": 28, "score": 3.7, "niv": ["debutant", "intermediaire"], "amb": ["nature", "village", "famille"], "tags": ["vil", "fam", "deb"], "pistes": {"v": 4, "b": 10, "r": 8, "n": 3}, "desc": "Face au cirque de Gavarnie, site UNESCO. Ski sous une des plus grandes cascades d'Europe.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Cirque_de_Gavarnie.jpg?width=800", "snow": 100}, {"id": 130, "name": "Peyragudes", "massif": "Pyrénées", "region": "Hautes-Pyrénées / Haute-Garonne", "alt_min": 1600, "alt_max": 2400, "km": 60, "remontees": 18, "forfait": 32, "score": 3.9, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "festif"], "tags": ["fam", "rider"], "pistes": {"v": 7, "b": 18, "r": 14, "n": 6}, "desc": "Station franco-pyrénéenne sur deux versants. Peyresourde et Les Agudes reliés. Snowpark réputé.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Peyragudes.jpg?width=800", "snow": 130}, {"id": 131, "name": "Luchon-Superbagnères", "massif": "Pyrénées", "region": "Haute-Garonne", "alt_min": 1440, "alt_max": 2260, "km": 35, "remontees": 12, "forfait": 28, "score": 3.8, "niv": ["debutant", "intermediaire"], "amb": ["village", "famille"], "tags": ["vil", "fam"], "pistes": {"v": 4, "b": 12, "r": 10, "n": 3}, "desc": "Au-dessus de Luchon, reine des Pyrénées. Thermes de Luchon renommés, ski et bien-être.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Superbagn%C3%A8res.jpg?width=800", "snow": 100}, {"id": 132, "name": "Val-Louron", "massif": "Pyrénées", "region": "Hautes-Pyrénées", "alt_min": 1450, "alt_max": 2100, "km": 40, "remontees": 14, "forfait": 28, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 5, "b": 14, "r": 10, "n": 3}, "desc": "Station familiale des Pyrénées centrales avec accès rapide depuis Toulouse. Domaine tranquille.", "photo": "https://images.unsplash.com/photo-1548516173-3cab31304161?w=1280&q=80", "snow": 115}, {"id": 136, "name": "Ax-3-Domaines", "massif": "Pyrénées", "region": "Ariège", "alt_min": 1400, "alt_max": 2400, "km": 80, "remontees": 23, "forfait": 28, "score": 4.0, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "avance"], "tags": ["fam", "rider", "alt"], "pistes": {"v": 10, "b": 22, "r": 18, "n": 7}, "desc": "3 domaines reliés en Ariège. Station ariégeoise avec snowpark et bon enneigement côté nord.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Ax_3_Domaines.jpg?width=800", "snow": 120}, {"id": 137, "name": "Les Monts d'Olmes", "massif": "Pyrénées", "region": "Ariège", "alt_min": 1430, "alt_max": 2000, "km": 40, "remontees": 13, "forfait": 25, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 5, "b": 12, "r": 10, "n": 3}, "desc": "Station ariégeoise familiale. Accès depuis Toulouse en 1h30. Ski tranquille en forêt.", "photo": "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1280&q=80", "snow": 90}, {"id": 139, "name": "Font-Romeu-Pyrénées 2000", "massif": "Pyrénées", "region": "Pyrénées-Orientales", "alt_min": 1700, "alt_max": 2213, "km": 45, "remontees": 25, "forfait": 28, "score": 3.8, "niv": ["debutant", "intermediaire"], "amb": ["famille", "soleil"], "tags": ["fam", "deb"], "pistes": {"v": 6, "b": 14, "r": 12, "n": 4}, "desc": "Station la plus ensoleillée des Pyrénées (3000h/an). Centre olympique d'altitude, altitude plateau.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Font-Romeu.jpg?width=800", "snow": 90}, {"id": 140, "name": "Les Angles", "massif": "Pyrénées", "region": "Pyrénées-Orientales", "alt_min": 1600, "alt_max": 2400, "km": 55, "remontees": 18, "forfait": 28, "score": 3.7, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam", "alt"], "pistes": {"v": 7, "b": 18, "r": 15, "n": 5}, "desc": "Station des Pyrénées-Orientales en Cerdagne. Snowpark, bon enneigement côté nord du Carlit.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Les_Angles_station.jpg?width=800", "snow": 100}, {"id": 141, "name": "Bolquère-Pyrénées 2000", "massif": "Pyrénées", "region": "Pyrénées-Orientales", "alt_min": 1800, "alt_max": 2200, "km": 40, "remontees": 14, "forfait": 25, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 6, "b": 12, "r": 10, "n": 3}, "desc": "Haute Cerdagne au-dessus de Bolquère. Reliée au Train Jaune mythique de Cerdagne.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Pyr%C3%A9n%C3%A9es_2000_station.jpg?width=800", "snow": 85}, {"id": 142, "name": "Formiguères", "massif": "Pyrénées", "region": "Pyrénées-Orientales", "alt_min": 1750, "alt_max": 2400, "km": 25, "remontees": 10, "forfait": 22, "score": 3.6, "niv": ["debutant", "intermediaire"], "amb": ["village", "famille", "nature"], "tags": ["vil", "fam", "deb"], "pistes": {"v": 4, "b": 8, "r": 6, "n": 2}, "desc": "Village station catalan en Capcir. Station familiale préservée au cœur des Pyrénées catalanes.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Formigueres.jpg?width=800", "snow": 95}, {"id": 143, "name": "Cambre d'Aze", "massif": "Pyrénées", "region": "Pyrénées-Orientales", "alt_min": 1700, "alt_max": 2408, "km": 30, "remontees": 8, "forfait": 22, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 4, "b": 10, "r": 8, "n": 2}, "desc": "Cerdagne catalane, station familiale face au Puigmal. Vue sur le Canigou.", "photo": "https://images.unsplash.com/photo-1548516173-3cab31304161?w=1280&q=80", "snow": 110}, {"id": 148, "name": "Guzet", "massif": "Pyrénées", "region": "Ariège", "alt_min": 1100, "alt_max": 1800, "km": 35, "remontees": 11, "forfait": 22, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 5, "b": 11, "r": 8, "n": 2}, "desc": "Station ariégeoise au-dessus du Couserans. Ski familial, vue sur les Pyrénées ariégeoises.", "photo": "https://images.unsplash.com/photo-1548247416-ec66f4900b2e?w=1280&q=80", "snow": 90}, {"id": 156, "name": "Gérardmer", "massif": "Vosges", "region": "Vosges", "alt_min": 660, "alt_max": 1138, "km": 40, "remontees": 17, "forfait": 25, "score": 4.0, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "village", "festif"], "tags": ["vil", "fam"], "pistes": {"v": 6, "b": 11, "r": 10, "n": 3}, "desc": "Perle des Vosges au bord du lac de Gérardmer. Plus grande station des Vosges, ski alpin et nordique.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/G%C3%A9rardmer_lac.jpg?width=800", "snow": 80}, {"id": 157, "name": "La Bresse-Hohneck", "massif": "Vosges", "region": "Vosges", "alt_min": 900, "alt_max": 1268, "km": 40, "remontees": 18, "forfait": 24, "score": 3.8, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam"], "pistes": {"v": 7, "b": 12, "r": 11, "n": 3}, "desc": "Station vosgienne face au Hohneck, point culminant des Vosges. Domaine alpin et nordique.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/La_Bresse_Hohneck.jpg?width=800", "snow": 90}, {"id": 158, "name": "Le Markstein", "massif": "Vosges", "region": "Haut-Rhin", "alt_min": 900, "alt_max": 1241, "km": 25, "remontees": 11, "forfait": 22, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 5, "b": 8, "r": 7, "n": 2}, "desc": "Station alsacienne du Grand Ballon. Vue sur la plaine d'Alsace et la Forêt-Noire allemande.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Le_Markstein.jpg?width=800", "snow": 75}, {"id": 172, "name": "Métabief Mont d'Or", "massif": "Jura", "region": "Doubs", "alt_min": 900, "alt_max": 1463, "km": 40, "remontees": 16, "forfait": 25, "score": 3.9, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 7, "b": 12, "r": 9, "n": 3}, "desc": "Plus grande station du Jura (40 km). Mont d'Or 1463m, vue sur les Alpes par temps clair. Label Famille Plus.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/M%C3%A9tabief.jpg?width=800", "snow": 80}, {"id": 173, "name": "Les Rousses", "massif": "Jura", "region": "Jura", "alt_min": 1100, "alt_max": 1680, "km": 50, "remontees": 22, "forfait": 26, "score": 4.0, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature", "village"], "tags": ["fam", "vil", "deb"], "pistes": {"v": 8, "b": 15, "r": 10, "n": 3}, "desc": "Station des Rousses, 4 communes du Haut-Jura reliées. Nordique exceptionnel (200 km de pistes de fond).", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Les_Rousses_station.jpg?width=800", "snow": 90}, {"id": 174, "name": "Monts Jura", "massif": "Jura", "region": "Ain", "alt_min": 1000, "alt_max": 1680, "km": 40, "remontees": 18, "forfait": 25, "score": 3.8, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 6, "b": 12, "r": 10, "n": 3}, "desc": "Domaine franco-suisse entre France et Suisse. Vue sur le lac Léman et le Mont-Blanc depuis la Faucille.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Monts_Jura.jpg?width=800", "snow": 85}, {"id": 181, "name": "Le Lioran", "massif": "Massif Central", "region": "Cantal", "alt_min": 1160, "alt_max": 1855, "km": 60, "remontees": 23, "forfait": 28, "score": 4.0, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "village", "nature"], "tags": ["fam", "vil"], "pistes": {"v": 8, "b": 16, "r": 12, "n": 4}, "desc": "Plus grande station du Massif Central (60 km). Au pied du Plomb du Cantal, volcanisme unique.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Le_Lioran_station.jpg?width=800", "snow": 110}, {"id": 182, "name": "Super Besse", "massif": "Massif Central", "region": "Puy-de-Dôme", "alt_min": 1300, "alt_max": 1850, "km": 42, "remontees": 18, "forfait": 26, "score": 3.8, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["fam"], "pistes": {"v": 7, "b": 13, "r": 10, "n": 4}, "desc": "Station volcanique d'Auvergne au pied du Puy de Sancy. Lac Pavin et volcans d'Auvergne à proximité.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Super_Besse.jpg?width=800", "snow": 100}, {"id": 183, "name": "Le Mont Dore", "massif": "Massif Central", "region": "Puy-de-Dôme", "alt_min": 1050, "alt_max": 1850, "km": 35, "remontees": 15, "forfait": 25, "score": 3.7, "niv": ["debutant", "intermediaire", "avance"], "amb": ["village", "famille"], "tags": ["vil", "fam"], "pistes": {"v": 6, "b": 11, "r": 9, "n": 3}, "desc": "Station volcanique thermale. Village thermal Belle Époque, Sancy, Auvergne profonde.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Le_Mont-Dore.jpg?width=800", "snow": 95}, {"id": 184, "name": "Chastreix-Sancy", "massif": "Massif Central", "region": "Puy-de-Dôme", "alt_min": 1350, "alt_max": 1850, "km": 25, "remontees": 9, "forfait": 22, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["nature", "famille"], "tags": ["fam", "deb"], "pistes": {"v": 4, "b": 8, "r": 7, "n": 3}, "desc": "Versant sauvage du Sancy. Station confidentielle face aux volcans auvergnats.", "photo": "https://images.unsplash.com/photo-1548516173-3cab31304161?w=1280&q=80", "snow": 85}, {"id": 185, "name": "Chalmazel", "massif": "Massif Central", "region": "Loire", "alt_min": 1100, "alt_max": 1548, "km": 30, "remontees": 11, "forfait": 22, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["fam", "deb"], "pistes": {"v": 5, "b": 9, "r": 7, "n": 2}, "desc": "Station de la Loire au pied du Chauvetier. Domaine familial, Forez préservé.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Chalmazel_station.jpg?width=800", "snow": 70}, {"id": 194, "name": "Ghisoni - Capanelle", "massif": "Corse", "region": "Haute-Corse", "alt_min": 1350, "alt_max": 1650, "km": 10, "remontees": 3, "forfait": 18, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["nature", "village"], "tags": ["deb", "vil"], "pistes": {"v": 2, "b": 4, "r": 3, "n": 1}, "desc": "Station corse au cœur du Monte Renoso. Unique ambiance maquis enneigé, vue sur mer entre les nuages.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Ghisoni_Capanelle_ski.jpg?width=800", "snow": 60}, {"id": 197, "name": "Orcières 1850", "massif": "Alpes du Sud", "region": "Hautes-Alpes", "alt_min": 1850, "alt_max": 2725, "km": 80, "remontees": 25, "forfait": 37, "score": 4.0, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["ensoleillee", "altitude"], "pistes": {"v": 18, "b": 22, "r": 15, "n": 5}, "desc": "Station familiale des Hautes-Alpes réputée pour son ensoleillement exceptionnel et sa neige de qualité. Idéale pour les séjours au soleil.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Orci%C3%A8res-Merlette.jpg?width=800", "snow": 130}, {"id": 209, "name": "Beaufort-sur-Doron", "massif": "Alpes du Nord", "region": "Savoie", "alt_min": 750, "alt_max": 1800, "km": 25, "remontees": 10, "forfait": 20, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["village", "nature", "famille"], "tags": ["beaufort", "budget", "authentique"], "pistes": {"v": 8, "b": 10, "r": 5, "n": 1}, "desc": "Village du Beaufortain célèbre pour son fromage AOP. Petit domaine familial et authentique, parfait pour un séjour tranquille.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Beaufort-sur-Doron.jpg?width=800", "snow": 110}, {"id": 212, "name": "Le Revard", "massif": "Alpes du Nord", "region": "Savoie", "alt_min": 1300, "alt_max": 1550, "km": 40, "remontees": 10, "forfait": 22, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["bauges", "lac-du-bourget", "accessible"], "pistes": {"v": 5, "b": 15, "r": 8, "n": 2}, "desc": "Vue spectaculaire sur le lac du Bourget depuis les pistes. Station accessible depuis Aix-les-Bains, parfaite pour une journée.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Revard_lac_bourget.jpg?width=800", "snow": 75}, {"id": 214, "name": "La Féclaz", "massif": "Alpes du Nord", "region": "Savoie", "alt_min": 1350, "alt_max": 1750, "km": 35, "remontees": 12, "forfait": 24, "score": 3.6, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature", "nordique"], "tags": ["bauges", "nordique", "accessible"], "pistes": {"v": 8, "b": 14, "r": 8, "n": 2}, "desc": "Station des Bauges réputée pour son ski nordique exceptionnel. Accès facile depuis Chambéry et Aix-les-Bains.", "photo": "https://images.unsplash.com/photo-1594306776981-8eca1a5dad8c?w=1280&q=80", "snow": 90}, {"id": 221, "name": "Vallouise", "massif": "Alpes du Sud", "region": "Hautes-Alpes", "alt_min": 1200, "alt_max": 2500, "km": 20, "remontees": 8, "forfait": 20, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["nature", "famille"], "tags": ["ecrins", "alpinisme", "nature"], "pistes": {"v": 6, "b": 8, "r": 4, "n": 2}, "desc": "Porte d'entrée du Parc National des Écrins. Ski familial avec accès à l'alpinisme et aux randonnées glaciaires.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Vallouise_Ecrins.jpg?width=800", "snow": 110}, {"id": 222, "name": "La Joue du Loup", "massif": "Alpes du Sud", "region": "Hautes-Alpes", "alt_min": 1400, "alt_max": 2464, "km": 60, "remontees": 18, "forfait": 32, "score": 3.8, "niv": ["debutant", "intermediaire", "avance"], "amb": ["famille", "nature"], "tags": ["devoluy", "ensoleillee", "famille"], "pistes": {"v": 15, "b": 20, "r": 15, "n": 5}, "desc": "Station du Dévoluy très ensoleillée. Accès au domaine du Dévoluy pour plus de 100 km de pistes enchaînables.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/La_Joue_du_Loup.jpg?width=800", "snow": 150}, {"id": 236, "name": "Lamoura", "massif": "Jura", "region": "Ain", "alt_min": 1150, "alt_max": 1430, "km": 20, "remontees": 8, "forfait": 20, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["nature", "nordique", "famille"], "tags": ["haut-jura", "nordique", "nature"], "pistes": {"v": 5, "b": 8, "r": 5, "n": 1}, "desc": "Dans le Parc naturel du Haut-Jura. Station mixte alpin/nordique dans un environnement préservé exceptionnel.", "photo": "https://images.unsplash.com/photo-1548516173-3cab31304161?w=1280&q=80", "snow": 75}, {"id": 237, "name": "Mijoux-La Valserine", "massif": "Jura", "region": "Ain", "alt_min": 900, "alt_max": 1680, "km": 25, "remontees": 10, "forfait": 22, "score": 3.6, "niv": ["debutant", "intermediaire"], "amb": ["nature", "famille"], "tags": ["jura", "accessible", "nordique"], "pistes": {"v": 8, "b": 10, "r": 5, "n": 1}, "desc": "Station jurassienne proche de Genève. Domaine alpin et nordique dans le Parc naturel régional du Haut-Jura.", "photo": "https://images.unsplash.com/photo-1548247416-ec66f4900b2e?w=1280&q=80", "snow": 80}, {"id": 238, "name": "Lélex-Crozet", "massif": "Jura", "region": "Ain", "alt_min": 900, "alt_max": 1680, "km": 30, "remontees": 12, "forfait": 24, "score": 3.6, "niv": ["debutant", "intermediaire"], "amb": ["nature", "famille"], "tags": ["jura", "ain", "accessible"], "pistes": {"v": 8, "b": 12, "r": 6, "n": 1}, "desc": "Station du massif jurassien formant le domaine des Monts Jura avec Mijoux. Proche de Genève et Bourg-en-Bresse.", "photo": "https://images.unsplash.com/photo-1594306776981-8eca1a5dad8c?w=1280&q=80", "snow": 75}, {"id": 243, "name": "Peyresourde-Balestas", "massif": "Pyrénées", "region": "Hautes-Pyrénées", "alt_min": 1600, "alt_max": 2215, "km": 35, "remontees": 14, "forfait": 26, "score": 3.8, "niv": ["debutant", "intermediaire", "avance"], "amb": ["nature", "famille"], "tags": ["tour-de-france", "confidentiel", "col"], "pistes": {"v": 10, "b": 12, "r": 8, "n": 2}, "desc": "Station du col de Peyresourde, mythique du Tour de France. Ski authentique avec vue panoramique sur les Pyrénées centrales.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Peyresourde_station.jpg?width=800", "snow": 120}, {"id": 248, "name": "La Mongie-Barèges (Tourmalet)", "massif": "Pyrénées", "region": "Hautes-Pyrénées", "alt_min": 1250, "alt_max": 2877, "km": 100, "remontees": 29, "forfait": 38, "score": 4.2, "niv": ["debutant", "intermediaire", "avance", "expert"], "amb": ["nature", "famille"], "tags": ["grand-tourmalet", "plus-grand-pyrenees", "altitude"], "pistes": {"v": 20, "b": 35, "r": 30, "n": 10}, "desc": "Le plus grand domaine skiable des Pyrénées françaises. Deux stations reliées, altitude remarquable avec le Pic du Midi.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/La_Mongie_Tourne.jpg?width=800", "snow": 155}, {"id": 250, "name": "Saint-Lary-Village", "massif": "Pyrénées", "region": "Hautes-Pyrénées", "alt_min": 820, "alt_max": 2515, "km": 100, "remontees": 31, "forfait": 35, "score": 4.1, "niv": ["debutant", "intermediaire", "avance"], "amb": ["village", "famille", "spa"], "tags": ["espagne", "transfrontalier", "village"], "pistes": {"v": 20, "b": 35, "r": 28, "n": 10}, "desc": "Grande station pyrénéenne avec accès à l'Espagne par le tunnel de Bielsa. Village animé, thermes et grand domaine varié.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Saint-Lary-Soulan.jpg?width=800", "snow": 130}, {"id": 258, "name": "Termignon", "massif": "Alpes du Nord", "region": "Savoie", "alt_min": 1300, "alt_max": 3534, "km": 15, "remontees": 8, "forfait": 22, "score": 3.7, "niv": ["intermediaire", "avance"], "amb": ["nature", "village"], "tags": ["vanoise", "altitude-record", "nature"], "pistes": {"v": 4, "b": 5, "r": 4, "n": 2}, "desc": "Accès au glacier de la Vanoise depuis 1300m. Point de départ pour skier jusqu'à 3534m dans la Vanoise sauvage.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Termignon_Vanoise.jpg?width=800", "snow": 220}, {"id": 265, "name": "Mont Serein", "massif": "Alpes du Sud", "region": "Vaucluse", "alt_min": 1400, "alt_max": 1900, "km": 15, "remontees": 7, "forfait": 18, "score": 3.6, "niv": ["debutant", "intermediaire"], "amb": ["nature", "famille"], "tags": ["ventoux", "provence", "unique"], "pistes": {"v": 4, "b": 6, "r": 3, "n": 1}, "desc": "Seule station du Mont Ventoux, géant de Provence. Ski avec vue sur la Méditerranée par temps clair, expérience unique.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Mont_Ventoux.jpg?width=800", "snow": 55}, {"id": 273, "name": "Hauteluce", "massif": "Alpes du Nord", "region": "Savoie", "alt_min": 1150, "alt_max": 2000, "km": 50, "remontees": 14, "forfait": 32, "score": 3.8, "niv": ["debutant", "intermediaire", "avance"], "amb": ["village", "nature", "famille"], "tags": ["beaufortain", "mont-blanc", "confidentiel"], "pistes": {"v": 10, "b": 16, "r": 12, "n": 4}, "desc": "Village authentique du Beaufortain avec vue sur le Mont-Blanc. Reliée aux Saisies pour un grand domaine.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Hauteluce_Mont_Blanc.jpg?width=800", "snow": 130}, {"id": 275, "name": "Peisey-Nancroix", "massif": "Alpes du Nord", "region": "Savoie", "alt_min": 1320, "alt_max": 3226, "km": 425, "remontees": 55, "forfait": 48, "score": 4.3, "niv": ["debutant", "intermediaire", "avance", "expert"], "amb": ["nature", "village"], "tags": ["paradiski", "authentique", "village"], "pistes": {"v": 30, "b": 80, "r": 65, "n": 20}, "desc": "Village authentique au cœur de Paradiski. Accès aux 425 km dans un cadre préservé, loin de l'agitation des grandes stations.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Peisey-Nancroix.jpg?width=800", "snow": 165}, {"id": 281, "name": "Molines-Saint-Véran", "massif": "Alpes du Sud", "region": "Hautes-Alpes", "alt_min": 1750, "alt_max": 2500, "km": 30, "remontees": 10, "forfait": 26, "score": 3.8, "niv": ["debutant", "intermediaire"], "amb": ["village", "nature"], "tags": ["queyras", "plus-beau-village", "altitude"], "pistes": {"v": 8, "b": 12, "r": 6, "n": 2}, "desc": "Entre les deux Plus Beaux Villages de France du Queyras. Ski authentique à très haute altitude dans un cadre préservé.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Saint-Veran_village.jpg?width=800", "snow": 150}, {"id": 283, "name": "Aiguilles", "massif": "Alpes du Sud", "region": "Hautes-Alpes", "alt_min": 1470, "alt_max": 2000, "km": 18, "remontees": 6, "forfait": 20, "score": 3.5, "niv": ["debutant", "intermediaire"], "amb": ["village", "nature"], "tags": ["queyras", "confidentiel", "budget"], "pistes": {"v": 5, "b": 7, "r": 4, "n": 1}, "desc": "Village perché du Queyras. Ski intimiste et authentique dans l'un des massifs les plus préservés des Alpes.", "photo": "https://images.unsplash.com/photo-1601024445121-e5b82f020549?w=1280&q=80", "snow": 120}, {"id": 286, "name": "Montriond", "massif": "Alpes du Nord", "region": "Haute-Savoie", "alt_min": 900, "alt_max": 1800, "km": 25, "remontees": 10, "forfait": 28, "score": 3.7, "niv": ["debutant", "intermediaire"], "amb": ["village", "famille"], "tags": ["morzine", "lac", "confidentiel"], "pistes": {"v": 8, "b": 10, "r": 5, "n": 1}, "desc": "Village paisible du Chablais au bord du lac de Montriond. Ski familial, reliée aux Portes du Soleil.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Lac_de_Montriond.jpg?width=800", "snow": 120}, {"id": 287, "name": "Thollon-les-Mémises", "massif": "Alpes du Nord", "region": "Haute-Savoie", "alt_min": 900, "alt_max": 1980, "km": 25, "remontees": 10, "forfait": 26, "score": 3.7, "niv": ["debutant", "intermediaire"], "amb": ["famille", "nature"], "tags": ["leman", "vue", "chablais"], "pistes": {"v": 8, "b": 10, "r": 5, "n": 1}, "desc": "Vue exceptionnelle sur le lac Léman et les Alpes suisses. Station familiale au-dessus d'Évian, confidentielle et authentique.", "photo": "https://commons.wikimedia.org/wiki/Special:FilePath/Thollon_les_Memises.jpg?width=800", "snow": 85}];
+
+let allStations = [];
+let deck = [];
+let likes = [];
+let currentIdx = 0;
+let currentFilter = "all";
+let isDragging = false;
+let startX = 0, startY = 0, currentX = 0;
+let topCard = null;
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll(".criteria-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  restart();
+}
+
+function buildDeck() {
+  let pool = RAW_DATA.filter(s => s.score >= 3.8);
+  if(currentFilter === "famille") pool = pool.filter(s => s.amb.includes("famille"));
+  else if(currentFilter === "rider") pool = pool.filter(s => s.tags.includes("rider") || s.amb.includes("avance"));
+  else if(currentFilter === "luxe") pool = pool.filter(s => s.amb.includes("luxe"));
+  else if(currentFilter === "budget") pool = pool.filter(s => s.forfait <= 30);
+  else if(currentFilter === "village") pool = pool.filter(s => s.amb.includes("village"));
+
+  // Shuffle
+  pool = pool.sort(() => Math.random() - .5).slice(0, 10);
+  return pool;
+}
+
+function renderStack() {
+  const wrap = document.getElementById("stackWrap");
+  wrap.innerHTML = "";
+
+  const visible = deck.slice(currentIdx, currentIdx + 3);
+  if(visible.length === 0) {
+    showEnd();
+    return;
+  }
+
+  visible.reverse().forEach((s, i) => {
+    const card = createCard(s, i === visible.length - 1);
+    wrap.appendChild(card);
+  });
+
+  topCard = wrap.querySelector(".tinder-card.top");
+  if(topCard) initDrag(topCard);
+
+  document.getElementById("cardNum").textContent = currentIdx + 1;
+  document.getElementById("cardTotal").textContent = deck.length;
+  document.getElementById("progressFill").style.width = ((currentIdx / deck.length) * 100) + "%";
+}
+
+function createCard(s, isTop) {
+  const div = document.createElement("div");
+  div.className = "tinder-card" + (isTop ? " top" : "");
+  div.dataset.id = s.id;
+
+  const img = MASSIF_IMGS[s.massif] || "";
+  const bg = img ? `url(${img}) center/cover no-repeat` : MASSIF_COLORS[s.massif];
+  const niveaux = s.niv.map(n => `${NIV[n]||""}`).join(" ");
+  const ambiances = s.amb.slice(0,2).map(a => `${AMB[a]||""}`).join(" ");
+
+  // Grand domaine
+  const gd = GRAND_DOMAINS_TINDER[s.name];
+  const domainName = gd ? gd.name : null;
+  const domainKm = gd ? gd.km : s.km;
+  // 1 seul critère ambiance (le premier)
+  const mainAmb = s.amb[0];
+  const ambLabel = {famille:'👨‍👩‍👧 Famille', festif:'🎉 Festif', luxe:'💎 Luxe', nature:'🌿 Nature', village:'🏡 Village', avance:'⚡ Expert'}[mainAmb] || mainAmb;
+
+  div.innerHTML = `
+    <div class="stamp-like" id="stampLike${s.id}">❤ OUI</div>
+    <div class="stamp-nope" id="stampNope${s.id}">✕ NON</div>
+    <div class="card-img" style="background:${bg}">
+      <div class="card-img-overlay"></div>
+      <div class="card-img-massif">${s.massif}</div>
+      <div class="card-img-score">${s.score} ⭐</div>
+      <div class="card-img-name">${s.name}</div>
+    </div>
+    <div class="card-body" style="padding:14px 16px">
+      <div style="font-size:.75rem;color:var(--text-light);margin-bottom:12px">📍 ${s.region}</div>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:12px;background:var(--blue-light);border-radius:12px;padding:11px 14px">
+          <span style="font-size:1.6rem;flex-shrink:0">⛰</span>
+          <div>
+            <div style="font-size:.65rem;color:var(--blue-dark);text-transform:uppercase;letter-spacing:.07em;font-weight:700;margin-bottom:2px">Altitude</div>
+            <div style="font-size:1.25rem;font-weight:800;color:var(--blue-dark);line-height:1.1">${s.alt_min}<span style="font-size:.75rem;font-weight:500"> → sommet </span>${s.alt_max}m</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;background:var(--wood-pale);border-radius:12px;padding:11px 14px">
+          <span style="font-size:1.6rem;flex-shrink:0">🎿</span>
+          <div>
+            <div style="font-size:.65rem;color:var(--wood-dark);text-transform:uppercase;letter-spacing:.07em;font-weight:700;margin-bottom:2px">${domainName ? domainName : 'Domaine'}</div>
+            <div style="font-size:1.25rem;font-weight:800;color:var(--wood-dark)">${domainKm} km</div>
+          </div>
+        </div>
+      </div>
+      <span style="display:inline-block;background:var(--green-light);color:#1a7a38;font-size:.9rem;font-weight:700;padding:7px 16px;border-radius:20px">${ambLabel}</span>
+    </div>
+  `;
+  return div;
+}
+
+function initDrag(card) {
+  // Touch
+  card.addEventListener("touchstart", e => {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    card.style.transition = "none";
+  }, {passive:true});
+
+  card.addEventListener("touchmove", e => {
+    if(!isDragging) return;
+    currentX = e.touches[0].clientX - startX;
+    const rot = currentX * 0.1;
+    card.style.transform = `translateX(${currentX}px) rotate(${rot}deg)`;
+
+    const likeStamp = card.querySelector(`[id^=stampLike]`);
+    const nopeStamp = card.querySelector(`[id^=stampNope]`);
+    if(likeStamp) likeStamp.style.opacity = Math.max(0, currentX / 80);
+    if(nopeStamp) nopeStamp.style.opacity = Math.max(0, -currentX / 80);
+  }, {passive:true});
+
+  card.addEventListener("touchend", () => {
+    if(!isDragging) return;
+    isDragging = false;
+    card.style.transition = "transform .3s ease";
+
+    if(currentX > 80) swipe("right");
+    else if(currentX < -80) swipe("left");
+    else {
+      card.style.transform = "";
+      const likeStamp = card.querySelector(`[id^=stampLike]`);
+      const nopeStamp = card.querySelector(`[id^=stampNope]`);
+      if(likeStamp) likeStamp.style.opacity = 0;
+      if(nopeStamp) nopeStamp.style.opacity = 0;
+    }
+    currentX = 0;
+  });
+
+  // Mouse
+  card.addEventListener("mousedown", e => {
+    isDragging = true;
+    startX = e.clientX;
+    card.style.transition = "none";
+  });
+
+  window.addEventListener("mousemove", e => {
+    if(!isDragging) return;
+    currentX = e.clientX - startX;
+    const rot = currentX * 0.1;
+    card.style.transform = `translateX(${currentX}px) rotate(${rot}deg)`;
+
+    const likeStamp = card.querySelector(`[id^=stampLike]`);
+    const nopeStamp = card.querySelector(`[id^=stampNope]`);
+    if(likeStamp) likeStamp.style.opacity = Math.max(0, currentX / 80);
+    if(nopeStamp) nopeStamp.style.opacity = Math.max(0, -currentX / 80);
+  });
+
+  window.addEventListener("mouseup", () => {
+    if(!isDragging) return;
+    isDragging = false;
+    card.style.transition = "transform .3s ease";
+
+    if(currentX > 80) swipe("right");
+    else if(currentX < -80) swipe("left");
+    else {
+      card.style.transform = "";
+    }
+    currentX = 0;
+  });
+}
+
+function swipe(dir) {
+  if(!topCard) return;
+  const s = deck[currentIdx];
+
+  topCard.style.transition = "transform .4s ease, opacity .4s ease";
+
+  if(dir === "right") {
+    topCard.style.transform = "translateX(120%) rotate(20deg)";
+    likes.push(s);
+    // Haptic feedback
+    if(navigator.vibrate) navigator.vibrate(50);
+  } else if(dir === "left") {
+    topCard.style.transform = "translateX(-120%) rotate(-20deg)";
+    if(navigator.vibrate) navigator.vibrate(30);
+  } else {
+    topCard.style.transform = "translateY(-120%)";
+  }
+
+  topCard.style.opacity = "0";
+  currentIdx++;
+
+  setTimeout(renderStack, 350);
+}
+
+function showEnd() {
+  document.getElementById("mainContent").style.display = "none";
+  document.getElementById("endScreen").classList.add("show");
+  document.getElementById("likeCount").textContent = likes.length;
+
+  const list = document.getElementById("resultsList");
+  if(likes.length === 0) {
+    list.innerHTML = '<p style="text-align:center;color:var(--text-light);font-size:.88rem">Tu n\'as aimé aucune station… Recommence avec d\'autres critères !</p>';
+    return;
+  }
+
+  list.innerHTML = likes.map(s => {
+    const img = MASSIF_IMGS[s.massif] || "";
+    const bg = img ? `url(${img}) center/cover no-repeat` : MASSIF_COLORS[s.massif];
+    return `
+      <div class="result-card">
+        <div class="result-card-img" style="background:${bg}"></div>
+        <div class="result-card-body">
+          <div class="result-card-name">${s.name}</div>
+          <div class="result-card-meta">📍 ${s.region} · ⭐ ${s.score} · 💶 ${s.forfait}€/j</div>
+          <div class="result-card-btns">
+            <a class="result-btn result-btn-primary" href="recherche.html?station=${s.id}">Voir la fiche</a>
+            <a class="result-btn result-btn-sec" href="comparateur.html?s1=${s.id}">Comparer</a>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function restart() {
+  likes = [];
+  currentIdx = 0;
+  deck = buildDeck();
+  document.getElementById("mainContent").style.display = "block";
+  document.getElementById("endScreen").classList.remove("show");
+  renderStack();
+}
+
+// Init
+restart();
+</script>
+</div><!-- end page-wrap -->
+<script>
+/* toggleSidebar/closeSidebar now in sidebar.js */
+/* toggleSidebar/closeSidebar now in sidebar.js */
+</script>
+
+<section style="background:linear-gradient(135deg,#1a5a8a 0%,#3a7db8 100%);padding:40px 24px;margin-top:40px">
+  <div style="max-width:860px;margin:0 auto;text-align:center">
+    <h2 style="color:#fff;font-family:serif;font-size:1.5rem;margin:0 0 8px">Vous avez trouvé votre station ? Réservez !</h2>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+      <a href="https://www.booking.com/searchresults.fr.html?ss=alpes+ski+france&aid=SnowFinder" target="_blank" rel="noopener sponsored" style="background:#fff;color:#003580;font-weight:700;padding:14px 28px;border-radius:10px;text-decoration:none;font-size:.95rem">🏨 Booking.com</a>
+      <a href="https://www.expedia.fr/Hotel-Search?destination=alpes+ski+france&sort=recommended&affcid=SnowFinder" target="_blank" rel="noopener sponsored" style="background:#ffcc00;color:#003580;font-weight:700;padding:14px 28px;border-radius:10px;text-decoration:none;font-size:.95rem">✈️ Expedia</a>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--wood-dark);color:rgba(255,255,255,.75);padding:44px 24px 28px;margin-top:60px">
+  <div style="max-width:900px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;justify-content:center">
+      <div style="background:rgba(255,255,255,.14);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">⛷</div>
+      <div>
+        <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:white">SnowFinder</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:1px">Le guide des stations de ski françaises</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.1)">
+      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">+220</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Stations</div></div>
+      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">7</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Massifs</div></div>
+      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">Live</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Météo</div></div>
+      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">100%</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Gratuit</div></div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:16px;font-size:.82rem">
+      <a href="index.html" style="color:rgba(255,255,255,.55);text-decoration:none">Accueil</a>
+      <a href="recherche.html" style="color:rgba(255,255,255,.55);text-decoration:none">Toutes les stations</a>
+      <a href="comparateur.html" style="color:rgba(255,255,255,.55);text-decoration:none">Comparateur</a>
+      <a href="enneigement.html" style="color:rgba(255,255,255,.55);text-decoration:none">Enneigement</a>
+      <a href="tinder.html" style="color:rgba(255,255,255,.55);text-decoration:none">Station idéale</a>
+      <a href="mentions-legales.html" style="color:rgba(255,255,255,.55);text-decoration:none">Mentions légales</a>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+      <span style="font-size:.66rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.05em">Partenaires</span>
+      <span style="background:#003580;color:white;font-size:.66rem;font-weight:700;padding:3px 10px;border-radius:4px">Booking.com</span>
+      <span style="background:#f26024;color:white;font-size:.66rem;font-weight:700;padding:3px 10px;border-radius:4px">Expedia</span>
+    </div>
+    <div style="text-align:center;font-size:.7rem;color:rgba(255,255,255,.28);line-height:1.8">
+      © 2025 SnowFinder — Tous droits réservés &nbsp;·&nbsp; <a href="mentions-legales.html" style="color:rgba(255,255,255,.38);text-decoration:underline">Mentions légales & RGPD</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Update tinder CTA with first liked station
+(function(){
+  var origShowEnd = typeof showEndScreen === 'function' ? showEndScreen : null;
+  document.addEventListener('sf:tinder:end', function(e){
+    updateTinderCta(e.detail && e.detail.liked);
+  });
+  function updateTinderCta(liked){
+    if(!liked || !liked.length) return;
+    var first = liked[0];
+    if(typeof DATA !== 'undefined'){
+      var s = DATA.find(function(st){ return st.id === first || st.id === parseInt(first); });
+      if(s){
+        var dest = encodeURIComponent(s.name + ' ski');
+        var bBtn = document.getElementById('tinderBtnBooking');
+        var eBtn = document.getElementById('tinderBtnExpedia');
+        if(bBtn) bBtn.href = 'https://www.booking.com/searchresults.fr.html?ss=' + dest + '&aid=SnowFinder';
+        if(eBtn) eBtn.href = 'https://www.expedia.fr/Hotel-Search?destination=' + dest + '&sort=recommended&affcid=SnowFinder';
+      }
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
