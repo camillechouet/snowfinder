@@ -1,0 +1,9 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "fr.snowfinder.twa",
+        "sha256_cert_fingerprints": ["69:69:4E:E8:1D:52:7D:A6:E4:36:F2:75:06:93:73:A6:F8:5D:BE:0A:CB:82:61:C0:AA:B2:B3:F2:2B:60:26:61"]
+      }
+    }]
+
