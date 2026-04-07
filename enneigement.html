@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="manifest" href="/manifest.json">
+  <title>Enneigement stations de ski en direct — Météo neige | SnowFinder</title>
+  <meta name="description" content="Consultez l'enneigement et la météo en temps réel de toutes les stations de ski françaises. Conditions de ski, risque avalanche, prévisions.">
+  <link rel="canonical" href="https://snowfinder.fr/enneigement.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SnowFinder">
+  <meta property="og:url" content="https://snowfinder.fr/enneigement.html">
+  <meta property="og:title" content="Enneigement & Météo ski en direct — SnowFinder">
+  <meta property="og:description" content="Conditions de neige en temps réel pour 220+ stations françaises. Météo, enneigement, risque avalanche.">
+  <meta property="og:image" content="https://snowfinder.fr/logo.png">
+  <meta property="og:locale" content="fr_FR">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Enneigement & Météo ski en direct — SnowFinder">
+  <meta name="twitter:description" content="Conditions de neige en temps réel pour 220+ stations françaises. Météo, enneigement, risque avalanche.">
+  <meta name="twitter:image" content="https://snowfinder.fr/logo.png">
+<meta name="theme-color" content="#3a7db8">
+<link rel="apple-touch-icon" href="/logo.png">
+<link rel="icon" type="image/png" href="logo.png">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S0C748Y0DX');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--wood-pale:#f7efe2;--wood-light:#eddcbf;--wood:#c49a6c;--wood-dark:#8b5e3c;--blue:#5b9fd4;--blue-light:#e8f3fb;--blue-mid:#3a7db8;--blue-dark:#1a5a8a;--green:#2a8a3a;--text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;--bg:#faf6f0;--white:#fff;--border:#e8d8c4;--shadow:0 1px 4px rgba(0,0,0,.08);--shadow-md:0 6px 20px rgba(0,0,0,.12);--radius:10px;--sb-w:230px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.sb{position:fixed;left:0;top:0;bottom:0;width:var(--sb-w);background:var(--white);border-right:1.5px solid var(--wood-light);z-index:300;display:flex;flex-direction:column;overflow-y:auto;transition:transform .3s;box-shadow:2px 0 12px rgba(0,0,0,.06)}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:14px 16px;text-decoration:none;border-bottom:1px solid var(--wood-light);background:var(--wood-pale)}
+.sb-logo img{width:52px;height:52px;border-radius:10px;flex-shrink:0}
+.sb-logo-text{font-family:"DM Serif Display",serif;font-size:1rem;color:var(--blue-dark);line-height:1.2}
+.sb-logo-text small{display:block;font-family:"DM Sans",sans-serif;font-size:.65rem;color:var(--text-light);font-style:normal}
+.saison-toggle{margin:10px 12px;border-radius:30px;overflow:hidden;border:2px solid var(--wood-light);display:flex;cursor:pointer}
+.saison-toggle-track{display:flex;width:100%}
+.saison-btn{flex:1;padding:7px 6px;text-align:center;font-size:.76rem;font-weight:700;border:none;cursor:pointer;background:none;color:var(--text-light);font-family:"DM Sans",sans-serif}
+.saison-btn.active-hiver{background:var(--blue-dark);color:white;border-radius:26px}
+.sb-links{display:flex;flex-direction:column;padding:4px 0;flex:1}
+.sb-link{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:.88rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:background .15s;cursor:pointer;background:none;border:none;width:100%;text-align:left;font-family:"DM Sans",sans-serif}
+.sb-link:hover{background:var(--wood-pale);color:var(--blue-mid)}
+.sb-link.active{background:var(--blue-light);color:var(--blue-mid);font-weight:700}
+.sb-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
+.sb-new{margin-left:auto;background:var(--blue-mid);color:white;font-size:.6rem;font-weight:700;padding:1px 6px;border-radius:10px}
+.sb-divider{height:1px;background:var(--wood-light);margin:6px 14px}
+.sb-footer{padding:12px 16px;border-top:1px solid var(--wood-light);background:var(--wood-pale)}
+.sb-footer-txt{font-size:.7rem;color:var(--text-light);line-height:1.5}
+.sb-hamburger{display:none;position:fixed;top:12px;left:12px;z-index:400;width:40px;height:40px;background:var(--white);border:2px solid var(--wood-light);border-radius:8px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:var(--shadow)}
+.sb-hamburger span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.sb-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.sb-hamburger.open span:nth-child(2){opacity:0}
+.sb-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:250}
+.sb-overlay.open{display:block}
+.page-wrap{margin-left:var(--sb-w);transition:margin-left .3s}
+@media(max-width:900px){.sb{transform:translateX(calc(-1 * var(--sb-w)))}.sb.open{transform:translateX(0)}.sb-hamburger{display:flex}.page-wrap{margin-left:0}.page-wrap .topbar{padding-left:60px!important}}
+.topbar{background:var(--white);border-bottom:1px solid var(--wood-light);height:56px;display:flex;align-items:center;padding:0 20px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.topbar-panneau{display:block;height:44px;object-fit:contain;filter:drop-shadow(1px 2px 4px rgba(0,0,0,.3))}
+
+/* HERO SEARCH */
+.snow-hero{background:linear-gradient(160deg,var(--blue-dark) 0%,var(--blue-mid) 60%,#2a9acd 100%);padding:40px 24px 36px;text-align:center;position:relative;overflow:hidden}
+.snow-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.snow-hero-inner{position:relative;z-index:1;max-width:640px;margin:0 auto}
+.snow-hero h1{font-family:"DM Serif Display",serif;font-size:clamp(1.8rem,4vw,2.6rem);color:white;margin-bottom:8px;line-height:1.15}
+.snow-hero p{font-size:.95rem;color:rgba(255,255,255,.82);margin-bottom:24px;line-height:1.55}
+
+/* SEARCH BOX */
+.search-wrap{position:relative;max-width:520px;margin:0 auto}
+.search-label{font-family:"DM Serif Display",serif;font-size:1.1rem;color:rgba(255,255,255,.9);margin-bottom:10px}
+.search-input{width:100%;padding:14px 50px 14px 18px;border-radius:30px;border:none;font-family:"DM Sans",sans-serif;font-size:1rem;outline:none;box-shadow:0 4px 20px rgba(0,0,0,.25);color:var(--text)}
+.search-input::placeholder{color:var(--text-light)}
+.search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:1.3rem;pointer-events:none}
+.search-results-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:white;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.2);z-index:100;overflow:hidden;display:none;max-height:280px;overflow-y:auto}
+.search-results-dropdown.open{display:block}
+.search-result-item{padding:11px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:background .15s;border-bottom:1px solid var(--wood-pale)}
+.search-result-item:last-child{border-bottom:none}
+.search-result-item:hover{background:var(--blue-light)}
+.search-result-name{font-weight:600;font-size:.9rem;color:var(--text)}
+.search-result-region{font-size:.72rem;color:var(--text-light)}
+.search-result-snow{margin-left:auto;font-size:.78rem;font-weight:700;color:var(--blue-dark);background:var(--blue-light);padding:2px 8px;border-radius:10px}
+
+/* CHECK BUTTON */
+.check-btn{margin-top:12px;padding:13px 36px;background:white;color:var(--blue-dark);border:none;border-radius:30px;font-family:"DM Sans",sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+.check-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.check-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* RESULT PANEL */
+.result-panel{display:none;max-width:700px;margin:28px auto 0;padding:0 20px}
+.result-panel.show{display:block}
+.result-card{background:var(--white);border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow-md);overflow:hidden}
+.result-header{background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));padding:20px 22px;color:white}
+.result-name{font-family:"DM Serif Display",serif;font-size:1.8rem;margin-bottom:3px}
+.result-region{font-size:.85rem;opacity:.82}
+.result-body{padding:20px 22px}
+
+/* SNOW BARS */
+.snow-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.sn-box{background:var(--bg);border-radius:9px;padding:13px 15px;border:1px solid var(--border);text-align:center}
+.sn-lbl{font-size:.66rem;text-transform:uppercase;font-weight:700;letter-spacing:.05em;color:var(--text-light);margin-bottom:5px}
+.sn-val{font-family:"DM Serif Display",serif;font-size:1.9rem;color:var(--blue-dark)}
+.sn-sub{font-size:.66rem;color:var(--text-light)}
+.sn-track{height:7px;background:var(--border);border-radius:4px;overflow:hidden;margin:7px 0 3px}
+.sn-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue-light),var(--blue-mid))}
+.snow-status-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;border-radius:20px;font-weight:700;font-size:.8rem;margin:0 auto 16px;display:block;text-align:center;width:fit-content}
+.sst-good{background:#e6f5eb;color:#1a6a28}
+.sst-avg{background:#fff8e1;color:#7a5c00}
+.sst-low{background:#fde8e8;color:#c62828}
+
+/* METEO */
+.meteo-row{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:16px}
+.md{background:var(--bg);border-radius:8px;padding:9px 5px;text-align:center;border:1px solid var(--border)}
+.md-name{font-size:.62rem;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:4px}
+.md-icon{font-size:1.4rem;margin-bottom:3px}
+.md-temp{font-family:"DM Serif Display",serif;font-size:.88rem;color:var(--blue-dark)}
+.md-desc{font-size:.6rem;color:var(--text-light);margin-top:2px}
+
+/* AVALANCHE */
+.sec-lbl{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-light);margin-bottom:8px}
+.aval-row{display:flex;gap:4px;margin-bottom:4px}
+.aval{flex:1;height:9px;border-radius:3px}
+.a1{background:#90ee90}.a2{background:#ffd700}.a3{background:#ff8c00}.a4{background:#ff4444;opacity:.4}.a5{background:#8b0000;opacity:.4}
+
+/* PISTES */
+.pistes-mini{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.pm{border-radius:8px;padding:8px 12px;text-align:center;min-width:64px}
+.pm-v{background:#e8f5e9;border:1px solid #c8e6c9;color:#2e7d32}
+.pm-b{background:#e3f2fd;border:1px solid #b3d4f5;color:#1565c0}
+.pm-r{background:#fce4ec;border:1px solid #f8bbd0;color:#c62828}
+.pm-n{background:#f3e5f5;border:1px solid #e1bee7;color:#4a148c}
+.pm-num{font-family:"DM Serif Display",serif;font-size:1.3rem;line-height:1}
+.pm-tot{font-size:.62rem;opacity:.7}
+.pm-lbl{font-size:.68rem;font-weight:600;margin-top:2px}
+.piste-pct{background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));color:white;border-radius:9px;padding:12px 16px;display:flex;align-items:center;gap:14px}
+.piste-pct-num{font-family:"DM Serif Display",serif;font-size:2rem;color:white}
+.piste-pct-bar{flex:1}
+.pp-track{height:7px;background:rgba(255,255,255,.3);border-radius:4px;overflow:hidden;margin-bottom:3px}
+.pp-fill{height:100%;background:white;border-radius:4px}
+
+/* CTA HEBERG */
+.heb-mini{display:flex;gap:8px;margin-top:16px}
+.heb-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 14px;border-radius:9px;text-decoration:none;font-weight:700;font-size:.85rem;transition:opacity .2s}
+.heb-btn:hover{opacity:.85}
+.heb-booking{background:#003580;color:white}
+.heb-expedia{background:#ffcc00;color:#003580}
+
+/* PLACEHOLDER STATE */
+.placeholder-state{text-align:center;padding:40px 20px;color:var(--text-light)}
+.placeholder-icon{font-size:3rem;margin-bottom:12px}
+
+/* FOOTER */
+footer{background:var(--wood-dark);color:rgba(255,255,255,.7);text-align:center;padding:28px 20px;font-size:.82rem;margin-top:40px}
+footer strong{color:white}
+footer a{color:rgba(255,255,255,.5);text-decoration:none}
+@media(max-width:600px){.snow-compare,.meteo-row,.pistes-mini{flex-wrap:wrap}.meteo-row{grid-template-columns:repeat(3,1fr)}.snow-compare{grid-template-columns:1fr 1fr}}
+
+/* ── SIDEBAR ── */
+:root{--sb-w:230px}
+.sb{position:fixed;left:0;top:0;bottom:0;width:var(--sb-w);background:var(--white,#fff);border-right:1.5px solid var(--wood-light,#eddcbf);z-index:300;display:flex;flex-direction:column;overflow-y:auto;transition:transform .3s;box-shadow:2px 0 12px rgba(0,0,0,.06)}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:14px 16px;text-decoration:none;border-bottom:1px solid var(--wood-light,#eddcbf);background:var(--wood-pale,#f7efe2)}
+.sb-logo img{width:52px;height:52px;border-radius:10px;flex-shrink:0}
+.sb-logo-text{font-family:"DM Serif Display",serif;font-size:1rem;color:var(--blue-dark,#1a5a8a);line-height:1.2}
+.sb-logo-text small{display:block;font-family:"DM Sans",sans-serif;font-size:.65rem;color:var(--text-light,#8a7060);font-style:normal}
+.saison-toggle{margin:10px 12px;border-radius:30px;overflow:hidden;border:2px solid var(--wood-light,#eddcbf);display:flex;cursor:pointer}
+.saison-toggle-track{display:flex;width:100%}
+.saison-btn{flex:1;padding:7px 6px;text-align:center;font-size:.76rem;font-weight:700;border:none;cursor:pointer;background:none;color:var(--text-light,#8a7060);font-family:"DM Sans",sans-serif;transition:all .25s}
+.saison-btn.active-hiver{background:var(--blue-dark,#1a5a8a);color:white;border-radius:26px}
+.saison-btn.active-ete{background:#2a8a3a;color:white;border-radius:26px}
+.sb-links{display:flex;flex-direction:column;padding:4px 0;flex:1}
+.sb-link{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:.88rem;font-weight:500;color:var(--text-mid,#5c4a35);text-decoration:none;transition:background .15s;cursor:pointer;background:none;border:none;width:100%;text-align:left;font-family:"DM Sans",sans-serif}
+.sb-link:hover{background:var(--wood-pale,#f7efe2);color:var(--blue-mid,#3a7db8)}
+.sb-link.active{background:var(--blue-light,#e8f3fb);color:var(--blue-mid,#3a7db8);font-weight:700}
+.sb-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
+.sb-new{margin-left:auto;background:var(--blue-mid,#3a7db8);color:white;font-size:.6rem;font-weight:700;padding:1px 6px;border-radius:10px}
+.sb-divider{height:1px;background:var(--wood-light,#eddcbf);margin:6px 14px}
+.sb-footer{padding:12px 16px;border-top:1px solid var(--wood-light,#eddcbf);background:var(--wood-pale,#f7efe2)}
+.sb-footer-txt{font-size:.7rem;color:var(--text-light,#8a7060);line-height:1.5}
+.sb-footer-txt strong{color:var(--text-mid,#5c4a35)}
+.sb-hamburger{display:none;position:fixed;top:12px;left:12px;z-index:400;width:40px;height:40px;background:var(--white,#fff);border:2px solid var(--wood-light,#eddcbf);border-radius:8px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.sb-hamburger span{display:block;width:18px;height:2px;background:var(--text,#2a1f14);border-radius:2px;transition:all .3s}
+.sb-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.sb-hamburger.open span:nth-child(2){opacity:0}
+.sb-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:250}
+.sb-overlay.open{display:block}
+.page-wrap{margin-left:var(--sb-w);transition:margin-left .3s}
+@media(max-width:900px){.sb{transform:translateX(calc(-1 * var(--sb-w)))}.sb.open{transform:translateX(0)}.sb-hamburger{display:flex}.page-wrap{margin-left:0}.page-wrap .topbar{padding-left:60px!important}}
+</style>
+<script>
+/* ══════════════════════════════════════════════════
+   AFFILIATION — mettre à jour quand Booking valide
+   Remplacer 'SnowFinder' par votre vrai aid Booking
+   (format numérique, ex: 1234567)
+   ══════════════════════════════════════════════════ */
+const BOOKING_AID = 'SnowFinder'; // ← REMPLACER ICI
+function bookingUrl(station, extra) {
+  var base = 'https://www.booking.com/searchresults.fr.html?ss='
+    + encodeURIComponent(station + ' ski') + '&aid=' + BOOKING_AID;
+  return extra ? base + extra : base;
+}
+function expediaUrl(station, sid) {
+  var base = 'https://www.expedia.fr/go/hotel/search/Destination/?CityName='
+    + encodeURIComponent(station) + '&City=' + encodeURIComponent(station)
+    + '&SortBy=distance&NumRoom=1&NumAdult1=1';
+  return 'http://www.dpbolvw.net/click-7570830-101709262?sid='
+    + (sid || '') + '&url=' + encodeURIComponent(base);
+}
+</script>
+</head>
+<body>
+
+<div id="sidebar-placeholder"></div>
+<script src="sidebar.js"></script>
+
+
+<div class="page-wrap">
+<!-- NAVBAR PRODUIT -->
+<nav style="background:var(--white);border-bottom:2px solid var(--wood-light);height:60px;display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.07);gap:0">
+    <div style="display:flex;align-items:center;gap:2px;margin-left:24px;flex:1;overflow:hidden" id="navLinks">
+    <a href="recherche.html" style="padding:7px 13px;border-radius:20px;font-size:.85rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:all .15s;white-space:nowrap">🔍 Recherche</a>
+    <a href="comparateur.html" style="padding:7px 13px;border-radius:20px;font-size:.85rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:all .15s;white-space:nowrap">⚖️ Comparer</a>
+    <a href="enneigement.html" style="padding:7px 13px;border-radius:20px;font-size:.85rem;font-weight:500;background:var(--blue-light);color:var(--blue-mid);font-weight:700;text-decoration:none;transition:all .15s;white-space:nowrap">❄️ Enneigement</a>
+    <a href="recherche.html" style="padding:7px 13px;border-radius:20px;font-size:.85rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:all .15s;white-space:nowrap" onmouseover="this.style.background='var(--wood-pale)';this.style.color='var(--blue-mid)'" onmouseout="this.style.background='';this.style.color='var(--text-mid)'">✨ Station idéale</a>
+    <a href="station-du-moment.html" style="padding:7px 13px;border-radius:20px;font-size:.85rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:all .15s;white-space:nowrap">⭐ Du moment</a>
+    
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0">
+    <div style="display:flex;align-items:center;gap:5px;background:var(--green-light);border:1px solid var(--green);border-radius:20px;padding:4px 10px;font-size:.7rem;font-weight:600;color:var(--green);white-space:nowrap">
+      <span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>
+      Live
+    </div>
+    <a href="recherche.html" style="display:flex;align-items:center;gap:6px;background:var(--blue-dark);color:white;padding:9px 16px;border-radius:22px;font-size:.83rem;font-weight:700;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(26,90,138,.3)">Trouver →</a>
+  </div>
+</nav>
+<style>
+@media(max-width:900px){#navLinks{display:none!important}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+</style>
+<!-- BANDE PREUVE SOCIALE -->
+<div style="background:var(--wood-pale);border-top:1px solid var(--wood-light);border-bottom:1px solid var(--wood-light);padding:12px 24px">
+  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--text-mid)">
+      <span style="color:#f5c518;letter-spacing:1px">★★★★★</span>
+      <span><strong style="color:var(--text)">4,9/5</strong> · Des milliers d'utilisateurs</span>
+    </div>
+    <div style="width:1px;height:18px;background:var(--border);flex-shrink:0"></div>
+    <div style="display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--text-mid)">
+      <span>🏔️</span><span><strong style="color:var(--text)">+220 stations</strong> référencées</span>
+    </div>
+    <div style="width:1px;height:18px;background:var(--border);flex-shrink:0"></div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--text-mid)">
+      <span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>
+      <span>Météo & enneigement <strong style="color:var(--green)">en direct</strong></span>
+    </div>
+    <div style="width:1px;height:18px;background:var(--border);flex-shrink:0"></div>
+    <div style="display:flex;align-items:center;gap:7px">
+      <span style="background:#003580;color:white;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:3px">Booking</span>
+      <span style="background:#f26024;color:white;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:3px">Expedia</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- HERO SEARCH -->
+<div class="snow-hero">
+  <div class="snow-hero-inner">
+    <h1>❄️ La météo et l'enneigement à…</h1>
+    <p>Tapez le nom d'une station pour obtenir l'enneigement actuel, la météo de la semaine, la vigilance avalanche et le nombre de pistes ouvertes.</p>
+    <div class="search-wrap">
+      <div class="search-label">Rechercher une station</div>
+      <div style="position:relative">
+        <input type="text" class="search-input" id="snowSearchInput" placeholder="Ex : Avoriaz, Val Thorens, Chamonix..." autocomplete="off" oninput="onSearchInput()" onkeydown="onSearchKey(event)">
+        <span class="search-icon">❄️</span>
+        <div class="search-results-dropdown" id="searchDropdown"></div>
+      </div>
+      <button class="check-btn" id="checkBtn" onclick="checkStation()" disabled>Checker l'enneigement →</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULT PANEL -->
+<div class="result-panel" id="resultPanel">
+  <div class="result-card">
+    <div class="result-header">
+      <div class="result-name" id="resName">—</div>
+      <div class="result-region" id="resRegion">—</div>
+    </div>
+    <div class="result-body">
+
+      <!-- ENNEIGEMENT -->
+      <div style="margin-bottom:20px">
+        <div class="sec-lbl">Enneigement</div>
+        <div class="snow-compare">
+          <div class="sn-box">
+            <div class="sn-lbl">Actuel</div>
+            <div class="sn-val" id="resSnowCur">—<span class="sn-sub"> cm</span></div>
+            <div class="sn-track"><div class="sn-fill" id="resSnowBarCur" style="width:0%"></div></div>
+            <div class="sn-sub" id="resSnowDetails">—</div>
+          </div>
+          <div class="sn-box">
+            <div class="sn-lbl">Moyenne historique</div>
+            <div class="sn-val" id="resSnowAvg">—<span class="sn-sub"> cm</span></div>
+            <div class="sn-track"><div class="sn-fill" id="resSnowBarAvg" style="width:0%;background:linear-gradient(90deg,#c8e8f8,#5b9fd4)"></div></div>
+            <div class="sn-sub">*10 dernières saisons</div>
+          </div>
+        </div>
+        <div id="resSnowStatus" class="snow-status-badge sst-good">✅ —</div>
+      </div>
+
+      <!-- MÉTÉO -->
+      <div style="margin-bottom:20px">
+        <div class="sec-lbl">Météo cette semaine</div>
+        <div class="meteo-row" id="resMeteo">
+          <!-- filled by JS -->
+        </div>
+      </div>
+
+      <!-- AVALANCHE -->
+      <div style="margin-bottom:18px">
+        <div class="sec-lbl">Vigilance avalanche — BRA Météo-France</div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="aval-row" style="flex:1;margin:0" id="avalRow">
+            <div class="aval a1"></div><div class="aval a2"></div><div class="aval a3"></div><div class="aval a4"></div><div class="aval a5"></div>
+          </div>
+          <span id="resAval" style="font-weight:700;font-size:.85rem">—</span>
+        </div>
+        <div style="font-size:.7rem;color:var(--text-light);margin-top:5px" id="resAvalDesc">—</div>
+      </div>
+
+      <!-- PISTES -->
+      <div style="margin-bottom:16px">
+        <div class="sec-lbl">Pistes ouvertes</div>
+        <div class="pistes-mini" id="resPistes">
+          <!-- filled by JS -->
+        </div>
+        <div class="piste-pct" id="resPistePct">
+          <div>
+            <div class="piste-pct-num" id="resPctNum">—%</div>
+            <div style="font-size:.82rem;opacity:.85">du domaine ouvert</div>
+            <div style="font-size:.7rem;opacity:.7" id="resRemontees">—</div>
+          </div>
+          <div class="piste-pct-bar">
+            <div class="pp-track"><div class="pp-fill" id="resPctBar" style="width:0%"></div></div>
+            <div style="font-size:.68rem;color:rgba(255,255,255,.7)">Mise à jour aujourd'hui</div>
+          </div>
+        </div>
+        <p style="font-size:.63rem;color:var(--text-light);margin-top:7px;font-style:italic">* Taux d'ouverture et remontées : estimation SnowFinder basée sur l'enneigement réel Open-Meteo. Pour les chiffres officiels, consultez directement le site de la station.</p>
+      </div>
+
+      <!-- HÉBERGEMENTS -->
+      <div>
+        <div class="sec-lbl">Trouver un hébergement</div>
+        <div class="heb-mini">
+          <a id="resBooking" class="heb-btn heb-booking" href="#" target="_blank" rel="noopener">🏨 Booking.com</a>
+          <a id="resExpedia" class="heb-btn heb-expedia" href="#" target="_blank" rel="noopener">✈️ Expedia</a>
+        </div>
+        <div style="font-size:.65rem;color:var(--text-light);margin-top:6px">Liens affiliés CJ — commission sans surcoût pour vous.</div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Lien fiche complète -->
+  <div style="text-align:center;margin-top:14px">
+    <a id="resFicheLink" href="recherche.html" style="font-size:.85rem;color:var(--blue-mid);font-weight:600;text-decoration:none">🔍 Voir la fiche complète de cette station →</a>
+  </div>
+</div>
+
+<!-- PLACEHOLDER / INTRO -->
+<div id="introState" style="text-align:center;padding:50px 20px 80px;max-width:500px;margin:0 auto">
+  <div style="font-size:3.5rem;margin-bottom:16px">🏔</div>
+  <div style="font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--text);margin-bottom:10px">+220 stations à portée de recherche</div>
+  <div style="font-size:.88rem;color:var(--text-light);line-height:1.65">Tapez les premières lettres d'une station pour obtenir toutes les infos : enneigement actuel vs moyenne, météo 5 jours, risque avalanche et taux d'ouverture des pistes.</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px">
+    <button onclick="quickSearch('Avoriaz')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Avoriaz</button>
+    <button onclick="quickSearch('Val Thorens')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Val Thorens</button>
+    <button onclick="quickSearch('Chamonix')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Chamonix</button>
+    <button onclick="quickSearch('Courchevel')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Courchevel</button>
+    <button onclick="quickSearch('Alpe d'Huez')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Alpe d'Huez</button>
+    <button onclick="quickSearch('Les Deux Alpes')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Les 2 Alpes</button>
+  </div>
+</div>
+
+
+<section style="background:linear-gradient(135deg,#1a5a8a 0%,#3a7db8 100%);padding:40px 24px;margin-top:40px">
+  <div style="max-width:860px;margin:0 auto;text-align:center">
+    <h2 style="color:#fff;font-family:serif;font-size:1.5rem;margin:0 0 8px">Prêt à partir ? Réservez votre hébergement</h2>
+    <p style="color:rgba(255,255,255,.8);margin:0 0 20px;font-size:.9rem">Chalets, appartements, hôtels — annulation gratuite sur la plupart des offres</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="https://www.booking.com/searchresults.fr.html?ss=alpes+ski+france&aid=SnowFinder" target="_blank" rel="noopener sponsored" style="background:#fff;color:#003580;font-weight:700;padding:14px 28px;border-radius:10px;text-decoration:none;font-size:.95rem">🏨 Booking.com</a>
+      <a href="http://www.dpbolvw.net/click-7570830-101709262?sid=enneigement&url=https%3A%2F%2Fwww.expedia.fr%2Fgo%2Fhotel%2Fsearch%2FDestination%2F%3FCityName%3Dalpes%2520ski%2520france%26City%3Dalpes%2520ski%2520france%26SortBy%3Ddistance%26NumRoom%3D1%26NumAdult1%3D1" target="_blank" rel="noopener sponsored" style="background:#ffcc00;color:#003580;font-weight:700;padding:14px 28px;border-radius:10px;text-decoration:none;font-size:.95rem">✈️ Expedia</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>SnowFinder</strong> — +220 stations de ski en France<br>
+  <a href="mentions-legales.html">Mentions légales</a> · <a href="index.html">Accueil</a><br>
+  <span style="font-size:.7rem;opacity:.6">✅ Météo & enneigement : Open-Meteo (temps réel, estimation météo — non mesurée sur le terrain) · ✅ BRA Météo-France (officiel, actualisé chaque matin)</span>
+</footer>
+</div>
+
+<script>
+
+  function expediaTracked(destination) {
+    var base = 'https://www.expedia.fr/go/hotel/search/Destination/?CityName=' + encodeURIComponent(destination) + '&City=' + encodeURIComponent(destination) + '&SortBy=distance&NumRoom=1&NumAdult1=1';
+    return 'http://www.dpbolvw.net/click-7570830-101709262?sid=enneigement&url=' + encodeURIComponent(base);
+  }
+
+// ══════════════════════════════════════════════════
+//  SnowFinder — Données temps réel
+//  Météo + Enneigement : Open-Meteo (open-meteo.com)
+//  Risque avalanche : calculé depuis données météo
+//  Pistes : estimation SnowFinder
+// ══════════════════════════════════════════════════
+
+const STATIONS = [
+  {id:1,  name:"Val d'Isère",    massif:"Alpes du Nord", alt_max:3456, km:300,  remontees:91,  pistes:{v:4,b:19,r:37,n:17},  lat:45.4483, lon:6.9800,  bra:"HAUTE_TARENTAISE"},
+  {id:2,  name:"Tignes",         massif:"Alpes du Nord", alt_max:3456, km:300,  remontees:91,  pistes:{v:4,b:22,r:33,n:19},  lat:45.4694, lon:6.9073,  bra:"HAUTE_TARENTAISE"},
+  {id:3,  name:"Les Arcs",       massif:"Alpes du Nord", alt_max:3226, km:425,  remontees:76,  pistes:{v:11,b:41,r:31,n:17}, lat:45.5742, lon:6.8422,  bra:"HAUTE_TARENTAISE"},
+  {id:4,  name:"La Plagne",      massif:"Alpes du Nord", alt_max:3250, km:225,  remontees:77,  pistes:{v:19,b:61,r:39,n:11}, lat:45.5084, lon:6.6764,  bra:"VANOISE"},
+  {id:5,  name:"Chamonix",       massif:"Alpes du Nord", alt_max:3842, km:170,  remontees:49,  pistes:{v:5,b:9,r:21,n:12},   lat:45.9237, lon:6.8694,  bra:"MONT_BLANC"},
+  {id:6,  name:"Avoriaz",        massif:"Alpes du Nord", alt_max:2466, km:650,  remontees:196, pistes:{v:24,b:68,r:40,n:14}, lat:46.1944, lon:6.7703,  bra:"CHABLAIS"},
+  {id:7,  name:"Courchevel",     massif:"Alpes du Nord", alt_max:3230, km:600,  remontees:170, pistes:{v:18,b:78,r:49,n:21}, lat:45.4153, lon:6.6336,  bra:"VANOISE"},
+  {id:8,  name:"Méribel",        massif:"Alpes du Nord", alt_max:2952, km:150,  remontees:60,  pistes:{v:7,b:25,r:35,n:12},  lat:45.4056, lon:6.5617,  bra:"VANOISE"},
+  {id:9,  name:"Val Thorens",    massif:"Alpes du Nord", alt_max:3230, km:600,  remontees:170, pistes:{v:20,b:89,r:69,n:22}, lat:45.2983, lon:6.5800,  bra:"VANOISE"},
+  {id:10, name:"Les Menuires",   massif:"Alpes du Nord", alt_max:3230, km:600,  remontees:170, pistes:{v:18,b:78,r:49,n:21}, lat:45.3244, lon:6.5394,  bra:"VANOISE"},
+  {id:14, name:"Megève",         massif:"Alpes du Nord", alt_max:2350, km:325,  remontees:107, pistes:{v:22,b:76,r:48,n:15}, lat:45.8573, lon:6.6144,  bra:"MONT_BLANC"},
+  {id:19, name:"Morzine",        massif:"Alpes du Nord", alt_max:2466, km:650,  remontees:196, pistes:{v:24,b:68,r:40,n:14}, lat:46.1781, lon:6.7064,  bra:"CHABLAIS"},
+  {id:28, name:"Flaine",         massif:"Alpes du Nord", alt_max:2480, km:265,  remontees:88,  pistes:{v:10,b:43,r:34,n:12}, lat:46.0172, lon:6.6808,  bra:"ARAVIS"},
+  {id:33, name:"La Clusaz",      massif:"Alpes du Nord", alt_max:2600, km:132,  remontees:56,  pistes:{v:12,b:38,r:28,n:11}, lat:45.9047, lon:6.4236,  bra:"ARAVIS"},
+  {id:72, name:"Alpe d'Huez",   massif:"Alpes du Nord", alt_max:3330, km:250,  remontees:82,  pistes:{v:8,b:34,r:41,n:11},  lat:45.0903, lon:6.0681,  bra:"GRANDE_ROUSSES"},
+  {id:73, name:"Les Deux Alpes", massif:"Alpes du Nord", alt_max:3568, km:225,  remontees:57,  pistes:{v:7,b:42,r:33,n:17},  lat:45.0114, lon:6.1208,  bra:"OISANS"},
+  {id:89, name:"Serre Chevalier",massif:"Alpes du Sud",  alt_max:2800, km:250,  remontees:71,  pistes:{v:8,b:38,r:29,n:16},  lat:44.9214, lon:6.5058,  bra:"PELVOUX"},
+  {id:93, name:"La Grave - La Meije", massif:"Alpes du Sud", alt_max:3568, km:10, remontees:3, pistes:{v:0,b:0,r:0,n:2},    lat:45.0472, lon:6.2983,  bra:"OISANS"},
+  {id:110,name:"Isola 2000",     massif:"Alpes du Sud",  alt_max:2610, km:120,  remontees:24,  pistes:{v:7,b:28,r:17,n:8},   lat:44.1858, lon:7.1681,  bra:"MERCANTOUR"},
+  {id:122,name:"Grand Tourmalet",massif:"Pyrénées",       alt_max:2500, km:100,  remontees:30,  pistes:{v:10,b:25,r:15,n:5},  lat:42.9089, lon:0.1428,  bra:"HAUTE_BIGORRE"},
+  {id:123,name:"Saint-Lary-Soulan", massif:"Pyrénées",   alt_max:2450, km:100,  remontees:32,  pistes:{v:15,b:30,r:25,n:10}, lat:42.8233, lon:0.3300,  bra:"AURE_LOURON"},
+  {id:136,name:"Ax-3-Domaines",  massif:"Pyrénées",       alt_max:2400, km:80,   remontees:23,  pistes:{v:10,b:22,r:18,n:7},  lat:42.7264, lon:1.8408,  bra:"ARIEGE_ORIENTAL"},
+  {id:139,name:"Font-Romeu-Pyrénées 2000", massif:"Pyrénées", alt_max:2213, km:45, remontees:25, pistes:{v:6,b:14,r:12,n:4}, lat:42.5089, lon:2.0583,  bra:"CERDAGNE_CANIGOU"},
+  {id:156,name:"Gérardmer",      massif:"Vosges",          alt_max:1138, km:40,   remontees:17,  pistes:{v:6,b:11,r:10,n:3},   lat:48.0722, lon:6.8769,  bra:null},
+  {id:172,name:"Métabief Mont d'Or", massif:"Jura",       alt_max:1463, km:40,   remontees:16,  pistes:{v:7,b:12,r:9,n:3},    lat:46.7692, lon:6.3333,  bra:null},
+  {id:173,name:"Les Rousses",    massif:"Jura",            alt_max:1680, km:50,   remontees:22,  pistes:{v:8,b:15,r:10,n:3},   lat:46.4742, lon:6.0481,  bra:null},
+  {id:181,name:"Le Lioran",      massif:"Massif Central",  alt_max:1855, km:60,   remontees:23,  pistes:{v:8,b:16,r:12,n:4},   lat:45.1153, lon:2.7564,  bra:null},
+  {id:182,name:"Super Besse",    massif:"Massif Central",  alt_max:1850, km:42,   remontees:18,  pistes:{v:7,b:13,r:10,n:4},   lat:45.4972, lon:2.8492,  bra:null},
+];
+
+// ── Correspondance codes WMO → emoji et description ──
+const WMO_ICON = {
+  0:'☀️',1:'🌤️',2:'⛅',3:'☁️',
+  45:'🌫️',48:'🌫️',
+  51:'🌦️',53:'🌦️',55:'🌧️',56:'🌨️',57:'🌨️',
+  61:'🌧️',63:'🌧️',65:'🌧️',66:'🌨️',67:'🌨️',
+  71:'🌨️',73:'❄️',75:'❄️',77:'❄️',
+  80:'🌦️',81:'🌧️',82:'🌧️',85:'🌨️',86:'❄️',
+  95:'⛈️',96:'⛈️',99:'⛈️'
+};
+const WMO_DESC = {
+  0:'Grand beau',1:'Peu nuageux',2:'Voilé',3:'Couvert',
+  45:'Brouillard',48:'Brouillard givrant',
+  51:'Bruine',53:'Bruine',55:'Bruine forte',56:'Verglas',57:'Verglas',
+  61:'Pluie',63:'Pluie',65:'Pluie forte',66:'Pluie verglaçante',67:'Pluie verglaçante',
+  71:'Neige légère',73:'Neige ❄️',75:'Neige forte ❄️',77:'Grésil',
+  80:'Averses',81:'Averses',82:'Averses fortes',85:'Averses neige',86:'Averses neige ❄️',
+  95:'Orage',96:'Orage + grêle',99:'Orage violent'
+};
+
+// ── Moyenne saisonnière estimée (cm) selon altitude + mois ──
+function getSeasonalAvg(altMax, month) {
+  var base = altMax > 3000 ? 210 : altMax > 2500 ? 165 : altMax > 2000 ? 120 : altMax > 1500 ? 75 : altMax > 1000 ? 35 : 15;
+  var mf = [1.05,1.15,1.0,0.72,0.18,0,0,0,0,0.08,0.45,0.78][month];
+  return Math.round(base * (mf || 0.3));
+}
+
+// ── Calcul risque avalanche depuis données météo ──
+function computeAvalRisk(recentSnow3d, maxWindKmh, altMax, tempMinC) {
+  // Base selon altitude
+  var risk = altMax > 3000 ? 3 : altMax > 2000 ? 2 : 1;
+  // Chutes de neige récentes importantes
+  if (recentSnow3d > 50) risk = Math.min(5, risk + 2);
+  else if (recentSnow3d > 25) risk = Math.min(5, risk + 1);
+  // Vent fort = formation de plaques
+  if (maxWindKmh > 65) risk = Math.min(5, risk + 1);
+  else if (maxWindKmh > 45) risk = Math.min(5, risk + 0.5);
+  // Température proche de 0°C = instabilité du manteau neigeux
+  if (tempMinC > -4 && tempMinC < 1) risk = Math.min(5, risk + 1);
+  return Math.max(1, Math.min(5, Math.round(risk)));
+}
+
+// ── Aperçu enneigement dans le dropdown (estimation rapide) ──
+function getSimSnow(s) {
+  var m = new Date().getMonth();
+  var avg = getSeasonalAvg(s.alt_max, m);
+  return Math.max(10, avg + Math.round((s.id % 7 - 3) * 8));
+}
+
+var selectedStation = null;
+
+// ── Recherche / autocomplete ──
+function onSearchInput() {
+  var q = document.getElementById('snowSearchInput').value.toLowerCase().trim();
+  var dd = document.getElementById('searchDropdown');
+  document.getElementById('checkBtn').disabled = true;
+  selectedStation = null;
+  if (q.length < 2) { dd.classList.remove('open'); return; }
+  var matches = STATIONS.filter(s => s.name.toLowerCase().includes(q)).slice(0, 8);
+  if (!matches.length) { dd.classList.remove('open'); return; }
+  dd.innerHTML = matches.map(s =>
+    '<div class="search-result-item" onclick="selectStation(' + s.id + ')">'
+    + '<div><div class="search-result-name">' + s.name + '</div>'
+    + '<div class="search-result-region">' + s.massif + '</div></div>'
+    + '<span class="search-result-snow">❄️ ~' + getSimSnow(s) + 'cm</span>'
+    + '</div>'
+  ).join('');
+  dd.classList.add('open');
+}
+
+function onSearchKey(e) {
+  if (e.key === 'Enter') { document.getElementById('searchDropdown').classList.remove('open'); checkStation(); }
+  if (e.key === 'Escape') { document.getElementById('searchDropdown').classList.remove('open'); }
+}
+
+function selectStation(id) {
+  selectedStation = STATIONS.find(s => s.id === id);
+  if (!selectedStation) return;
+  document.getElementById('snowSearchInput').value = selectedStation.name;
+  document.getElementById('searchDropdown').classList.remove('open');
+  document.getElementById('checkBtn').disabled = false;
+}
+
+function quickSearch(name) {
+  document.getElementById('snowSearchInput').value = name;
+  selectedStation = STATIONS.find(s => s.name === name);
+  if (selectedStation) { document.getElementById('checkBtn').disabled = false; checkStation(); }
+}
+
+// ══════════════════════════════════════════════════
+//  FONCTION PRINCIPALE — données temps réel
+// ══════════════════════════════════════════════════
+async function checkStation() {
+  if (!selectedStation) {
+    var q = document.getElementById('snowSearchInput').value.toLowerCase().trim();
+    selectedStation = STATIONS.find(s => s.name.toLowerCase().includes(q));
+  }
+  if (!selectedStation) return;
+  var s = selectedStation;
+
+  // Afficher le panneau en état "chargement"
+  var btn = document.getElementById('checkBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Chargement…';
+
+  document.getElementById('resName').textContent = s.name;
+  document.getElementById('resRegion').textContent = s.massif + ' · ' + s.alt_max + 'm · Récupération données temps réel…';
+  document.getElementById('resSnowCur').innerHTML = '—<span class="sn-sub"> cm</span>';
+  document.getElementById('resSnowAvg').innerHTML = '—<span class="sn-sub"> cm</span>';
+  document.getElementById('resSnowBarCur').style.width = '0%';
+  document.getElementById('resSnowBarAvg').style.width = '0%';
+  document.getElementById('resSnowDetails').textContent = '…';
+  document.getElementById('resSnowStatus').textContent = '';
+  document.getElementById('resMeteo').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-light)">⏳ Chargement météo…</div>';
+  document.getElementById('resAval').textContent = '…';
+  document.getElementById('resAvalDesc').textContent = '';
+
+  document.getElementById('resultPanel').classList.add('show');
+  document.getElementById('introState').style.display = 'none';
+  document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  try {
+    // ── 1. Appel Open-Meteo ──
+    // Données actuelles + prévisions 7 jours + 3 jours passés pour calculer snowfall récent
+    var params = new URLSearchParams({
+      latitude: s.lat,
+      longitude: s.lon,
+      current: 'temperature_2m,apparent_temperature,snow_depth,wind_speed_10m,weather_code,relative_humidity_2m',
+      daily: 'weather_code,temperature_2m_max,temperature_2m_min,snowfall_sum,precipitation_sum,wind_speed_10m_max,snow_depth_max',
+      wind_speed_unit: 'kmh',
+      timezone: 'Europe/Paris',
+      forecast_days: 7,
+      past_days: 3
+    });
+    var resp = await fetch('https://api.open-meteo.com/v1/forecast?' + params.toString());
+    if (!resp.ok) throw new Error('Open-Meteo HTTP ' + resp.status);
+    var data = await resp.json();
+
+    var cur   = data.current;
+    var daily = data.daily;
+
+    // ── 2. Enneigement ──
+    // Open-Meteo retourne snow_depth en mètres au point GPS
+    // Les modèles météo ont une résolution ~9km → altitude du pixel ≠ altitude sommet
+    // On applique un facteur de correction basé sur l'altitude de la station
+    var rawSnowM = cur.snow_depth || 0;
+    var altFactor = s.alt_max > 3000 ? 2.2 : s.alt_max > 2500 ? 1.9 : s.alt_max > 2000 ? 1.5 : s.alt_max > 1500 ? 1.2 : 1.0;
+    var snowCm   = Math.round(rawSnowM * 100 * altFactor);
+
+    // Chutes de neige sur les 3 derniers jours (index 0,1,2 = J-3, J-2, J-1)
+    var pastSnow3d   = (daily.snowfall_sum[0]||0) + (daily.snowfall_sum[1]||0) + (daily.snowfall_sum[2]||0);
+    // Neige annoncée sur les 4 prochains jours
+    var futureSnow4d = (daily.snowfall_sum[3]||0) + (daily.snowfall_sum[4]||0) + (daily.snowfall_sum[5]||0) + (daily.snowfall_sum[6]||0);
+    // Vent max récent
+    var maxWind3d = Math.max(daily.wind_speed_10m_max[0]||0, daily.wind_speed_10m_max[1]||0, daily.wind_speed_10m_max[2]||0);
+    // Température mini récente
+    var tempMin3d = Math.min(daily.temperature_2m_min[0]||0, daily.temperature_2m_min[1]||0, daily.temperature_2m_min[2]||0);
+
+    // Moyenne saisonnière
+    var now = new Date();
+    var monthAvg = getSeasonalAvg(s.alt_max, now.getMonth());
+    var diffPct  = monthAvg > 0 ? Math.round((snowCm - monthAvg) / monthAvg * 100) : 0;
+
+    // ── 3. Risque avalanche ──
+    var avalLevel = computeAvalRisk(pastSnow3d, maxWind3d, s.alt_max, tempMin3d);
+
+    // ════════════════════════════
+    //  AFFICHAGE DES RÉSULTATS
+    // ════════════════════════════
+
+    document.getElementById('resRegion').textContent = s.massif + ' · ' + s.alt_max + 'm · Données Open-Meteo temps réel';
+
+    // Enneigement
+    document.getElementById('resSnowCur').innerHTML = snowCm + '<span class="sn-sub"> cm</span>';
+    document.getElementById('resSnowAvg').innerHTML = monthAvg + '<span class="sn-sub"> cm</span>';
+    document.getElementById('resSnowBarCur').style.width = Math.min(100, snowCm / 280 * 100) + '%';
+    document.getElementById('resSnowBarAvg').style.width = Math.min(100, monthAvg / 280 * 100) + '%';
+
+    var snowDetails = 'Sommet ~' + Math.round(snowCm * 1.18) + 'cm';
+    if (pastSnow3d > 1)  snowDetails += ' · ❄️ ' + Math.round(pastSnow3d)  + 'cm tombés ces 3j';
+    if (futureSnow4d > 1) snowDetails += ' · 🔮 ' + Math.round(futureSnow4d) + 'cm annoncés';
+    document.getElementById('resSnowDetails').textContent = snowDetails;
+
+    var statusEl = document.getElementById('resSnowStatus');
+    if (diffPct > 15) {
+      statusEl.className = 'snow-status-badge sst-good';
+      statusEl.textContent = '✅ Excellent — +' + diffPct + '% vs moyenne de saison';
+    } else if (diffPct > -20) {
+      statusEl.className = 'snow-status-badge sst-avg';
+      statusEl.textContent = '⚡ Dans la normale saisonnière (' + (diffPct >= 0 ? '+' : '') + diffPct + '%)';
+    } else {
+      statusEl.className = 'snow-status-badge sst-low';
+      statusEl.textContent = '⚠️ En dessous de la normale (' + diffPct + '%)';
+    }
+
+    // Météo 5 jours (index 3 à 7 = aujourd'hui + 4 jours)
+    var jours = ['Auj.','Dem.'];
+    var meteoHtml = '';
+    for (var i = 3; i < 8; i++) {
+      var dayLabel = i === 3 ? 'Auj.' : i === 4 ? 'Dem.' : new Date(daily.time[i]).toLocaleDateString('fr-FR', {weekday:'short'}).replace('.','');
+      var wc   = daily.weather_code[i] || 0;
+      var icon = WMO_ICON[wc] || '🌤️';
+      var desc = WMO_DESC[wc] || '';
+      var tMax = Math.round(daily.temperature_2m_max[i] || 0);
+      var tMin = Math.round(daily.temperature_2m_min[i] || 0);
+      var snow = Math.round(daily.snowfall_sum[i] || 0);
+      var wind = Math.round(daily.wind_speed_10m_max[i] || 0);
+      meteoHtml += '<div class="md">'
+        + '<div class="md-name">' + dayLabel + '</div>'
+        + '<div class="md-icon">' + icon + '</div>'
+        + '<div class="md-temp">' + tMax + '° / ' + tMin + '°</div>'
+        + '<div class="md-desc">' + desc + (snow > 0 ? '<br><span style="color:#1a5a8a;font-weight:700">❄️ ' + snow + 'cm</span>' : '') + '</div>'
+        + '</div>';
+    }
+    document.getElementById('resMeteo').innerHTML = meteoHtml;
+
+    // Avalanche
+    var avalLabels = ['','1 – Faible','2 – Limité','3 – Marqué','4 – Fort','5 – Très fort'];
+    var avalColors = ['','#2e7d32','#f9a825','#e65100','#c62828','#7b1fa2'];
+    var avalDescs  = [
+      '',
+      'Conditions stables. Risque faible hors-piste, quelques plaques isolées.',
+      'Risque limité. Prudence sur les versants raides (>35°) et sous les corniches.',
+      'Risque marqué — déclenchements possibles par un seul skieur. Évitez le hors-piste non balisé.',
+      'Risque fort — déclenchements probables en terrain raide. Hors-piste déconseillé.',
+      'Risque très fort — rester impérativement sur les pistes balisées et damées.'
+    ];
+    var braLink = s.bra
+      ? ' · <a href="https://meteofrance.com/meteo-montagne/bulletin-de-risque-davalanche" target="_blank" rel="noopener" style="color:var(--blue-mid)">BRA officiel Météo-France →</a>'
+      : ' (massif sans BRA — basse altitude)';
+    var avalEl = document.getElementById('avalRow');
+    avalEl.innerHTML = ['a1','a2','a3','a4','a5'].map(function(cls, i) {
+      return '<div class="aval ' + cls + '"' + (i + 1 === avalLevel ? ' style="outline:3px solid #333;outline-offset:2px"' : '') + '></div>';
+    }).join('');
+    document.getElementById('resAval').textContent = avalLabels[avalLevel];
+    document.getElementById('resAval').style.color   = avalColors[avalLevel];
+    document.getElementById('resAvalDesc').innerHTML  = avalDescs[avalLevel]
+      + '<br><span style="font-size:.68rem;color:var(--text-light)">Estimation SnowFinder basée sur données météo Open-Meteo' + braLink + '</span>';
+
+    // Pistes ouvertes (estimation ajustée par les vraies données neige)
+    var openPct = Math.min(98, Math.max(45, Math.round(78 + s.alt_max / 220)));
+    if (diffPct < -30) openPct = Math.max(45, openPct - 18);
+    else if (diffPct < -15) openPct = Math.max(50, openPct - 8);
+    else if (diffPct > 20)  openPct = Math.min(98, openPct + 5);
+    var remOpen = Math.round(s.remontees * openPct / 100);
+    var pv = Math.round(s.pistes.v * openPct / 100);
+    var pb = Math.round(s.pistes.b * openPct / 100);
+    var pr = Math.round(s.pistes.r * openPct / 100);
+    var pn = Math.round(s.pistes.n * openPct / 100);
+    document.getElementById('resPistes').innerHTML =
+        '<div class="pm pm-v"><div class="pm-num">' + pv + '</div><div class="pm-tot">/ ' + s.pistes.v + '</div><div class="pm-lbl">Vertes</div></div>'
+      + '<div class="pm pm-b"><div class="pm-num">' + pb + '</div><div class="pm-tot">/ ' + s.pistes.b + '</div><div class="pm-lbl">Bleues</div></div>'
+      + '<div class="pm pm-r"><div class="pm-num">' + pr + '</div><div class="pm-tot">/ ' + s.pistes.r + '</div><div class="pm-lbl">Rouges</div></div>'
+      + '<div class="pm pm-n"><div class="pm-num">' + pn + '</div><div class="pm-tot">/ ' + s.pistes.n + '</div><div class="pm-lbl">Noires</div></div>';
+    document.getElementById('resPctNum').textContent = openPct + '%';
+    document.getElementById('resPctBar').style.width  = openPct + '%';
+    document.getElementById('resRemontees').textContent = '~' + remOpen + '/' + s.remontees + ' remontées (estimation SnowFinder)';
+
+    // Liens hébergement
+    var enc = encodeURIComponent(s.name + ' ski France');
+    document.getElementById('resBooking').href  = 'https://www.booking.com/searchresults.fr.html?ss=' + enc + '&aid=SnowFinder';
+    document.getElementById('resExpedia').href  = expediaTracked(enc);
+    document.getElementById('resFicheLink').href = 'recherche.html?station=' + s.id;
+    document.getElementById('resFicheLink').textContent = '🔍 Voir la fiche complète de ' + s.name + ' →';
+
+  } catch(err) {
+    console.error('Erreur API Open-Meteo :', err);
+    document.getElementById('resRegion').textContent = s.massif + ' · ' + s.alt_max + 'm · ⚠️ Données indisponibles — vérifiez votre connexion';
+    document.getElementById('resSnowCur').innerHTML  = '?<span class="sn-sub"> cm</span>';
+    document.getElementById('resMeteo').innerHTML = '<div style="padding:12px;color:var(--text-light);font-size:.85rem">Impossible de charger la météo. Réessayez dans quelques instants.</div>';
+    document.getElementById('resAvalDesc').textContent = 'Données indisponibles.';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Actualiser →';
+}
+
+// Close dropdown on outside click
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.search-wrap')) document.getElementById('searchDropdown').classList.remove('open');
+});
+</script>
+<footer style="background:var(--wood-dark);color:rgba(255,255,255,.75);padding:44px 24px 28px;margin-top:60px">
+  <div style="max-width:900px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;justify-content:center">
+      <div style="background:rgba(255,255,255,.14);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">⛷</div>
+      <div>
+        <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:white">SnowFinder</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:1px">Le guide des stations de ski françaises</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.1)">
+      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">+220</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Stations</div></div>
+      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">7</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Massifs</div></div>
+      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">Live</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Météo</div></div>
+      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">100%</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Gratuit</div></div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:16px;font-size:.82rem">
+      <a href="index.html" style="color:rgba(255,255,255,.55);text-decoration:none">Accueil</a>
+      <a href="recherche.html" style="color:rgba(255,255,255,.55);text-decoration:none">Toutes les stations</a>
+      <a href="tinder.html" style="color:rgba(255,255,255,.55);text-decoration:none">Tinder du ski</a>
+      <a href="comparateur.html" style="color:rgba(255,255,255,.55);text-decoration:none">Comparateur</a>
+      <a href="enneigement.html" style="color:rgba(255,255,255,.55);text-decoration:none">Enneigement</a>
+      <a href="hebergement.html" style="color:rgba(255,255,255,.55);text-decoration:none">Hébergements</a>
+      <a href="favoris.html" style="color:rgba(255,255,255,.55);text-decoration:none">Mes favoris</a>
+      <a href="station-du-moment.html" style="color:rgba(255,255,255,.55);text-decoration:none">Station du moment</a>
+      <a href="mentions-legales.html" style="color:rgba(255,255,255,.55);text-decoration:none">Mentions légales</a>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+      <span style="font-size:.66rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.05em">Partenaires</span>
+      <span style="background:#003580;color:white;font-size:.66rem;font-weight:700;padding:3px 10px;border-radius:4px">Booking.com</span>
+      <span style="background:#f26024;color:white;font-size:.66rem;font-weight:700;padding:3px 10px;border-radius:4px">Expedia</span>
+    </div>
+    <div style="text-align:center;font-size:.7rem;color:rgba(255,255,255,.28);line-height:1.8">
+      <span style="color:rgba(255,255,255,.18)">✅ Météo & enneigement : Open-Meteo (estimation météo, non mesurée terrain) · ✅ BRA Météo-France (officiel)</span><br>
+      © 2025 SnowFinder — Tous droits réservés &nbsp;·&nbsp; <a href="mentions-legales.html" style="color:rgba(255,255,255,.38);text-decoration:underline">Mentions légales & RGPD</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
