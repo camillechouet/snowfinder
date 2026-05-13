@@ -186,13 +186,14 @@
 
     /* BOUTON SITE OFFICIEL */
     .official-btn{
-      width:100%;border:2px solid var(--wood-light);background:var(--wood-pale);
-      border-radius:var(--radius);padding:14px 16px;cursor:pointer;
-      text-align:left;font-family:"DM Sans",sans-serif;font-size:.88rem;
-      font-weight:700;color:var(--text-mid);margin-bottom:16px;
-      transition:background .15s,border-color .15s;line-height:1.3
+      width:100%;border:2px solid var(--blue-mid);background:var(--blue-light);
+      border-radius:var(--radius);padding:18px 20px;cursor:pointer;
+      text-align:left;font-family:"DM Sans",sans-serif;
+      color:var(--text);margin-bottom:16px;
+      transition:background .15s,border-color .15s,transform .15s;
+      line-height:1.4;box-shadow:0 2px 12px rgba(58,125,184,.15)
     }
-    .official-btn:hover{background:var(--wood-light);border-color:var(--wood)}
+    .official-btn:hover{background:#d4eaf8;border-color:var(--blue-dark);transform:translateY(-1px)}
 
     /* FOOTER */
     .footer{background:var(--blue-dark);color:rgba(255,255,255,.65);text-align:center;padding:26px 20px;font-size:.78rem;margin-top:40px;line-height:1.8}
@@ -504,8 +505,8 @@
 
       <!-- SITE OFFICIEL (avec interstitiel) -->
       <button onclick="showOfficialSheet()" class="official-btn">
-        🎿 Site officiel de Albiez-Montrond
-        <span style="font-size:.72rem;opacity:.7;display:block;margin-top:2px">Pistes · Forfaits · Webcams</span>
+        <div style="font-size:1.05rem;font-weight:800;margin-bottom:4px">Webcams · Plan des pistes · Infos officielles</div>
+        <div style="font-size:.85rem;font-weight:600;color:var(--blue-mid)">C'est par ici → Site officiel Albiez-Montrond</div>
       </button>
 
       <!-- EXPLORER -->
@@ -551,7 +552,7 @@
       <span style="color:#003580;font-size:.68rem;opacity:.75">Comparer les prix</span>
     </a>
   </div>
-  <a id="officialLink" href="https://www.google.com/search?q=Albiez-Montrond+station+ski+site+officiel" target="_blank" rel="noopener" onclick="hideOfficialSheet()" style="display:block;text-align:center;font-size:.8rem;color:#8a7060;text-decoration:underline;padding:8px">
+  <a id="officialLink" href="https://www.albiez-montrond.com" target="_blank" rel="noopener" onclick="hideOfficialSheet()" style="display:block;text-align:center;font-size:.8rem;color:#8a7060;text-decoration:underline;padding:8px">
     Non merci, continuer vers le site officiel →
   </a>
 </div>
