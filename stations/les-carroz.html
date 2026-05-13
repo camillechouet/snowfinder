@@ -164,6 +164,26 @@
     .big-cta-btn{font-weight:700;padding:13px 28px;border-radius:28px;font-size:.9rem;transition:transform .15s,box-shadow .15s}
     .big-cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2)}
 
+    /* BARRE MOBILE FIXE */
+    .mobile-bar{
+      display:none;position:fixed;bottom:0;left:0;right:0;
+      background:white;border-top:1.5px solid var(--wood-light);
+      padding:10px 14px 18px;gap:10px;z-index:80;
+      box-shadow:0 -4px 20px rgba(0,0,0,.1)
+    }
+    @media(max-width:800px){
+      .mobile-bar{display:flex}
+      body{padding-bottom:80px}
+    }
+    .mobile-bar-btn{
+      flex:1;padding:12px 8px;border-radius:12px;font-weight:700;
+      font-size:.88rem;text-align:center;cursor:pointer;border:none;
+      font-family:"DM Sans",sans-serif;text-decoration:none;display:flex;
+      align-items:center;justify-content:center;gap:6px
+    }
+    .mobile-bar-official{background:var(--wood-pale);color:var(--text-mid);border:2px solid var(--wood-light)}
+    .mobile-bar-booking{background:#003580;color:white}
+
     /* BOUTON SITE OFFICIEL */
     .official-btn{
       width:100%;border:2px solid var(--wood-light);background:var(--wood-pale);
@@ -526,8 +546,18 @@
       <span style="color:#003580;font-size:.68rem;opacity:.75">Comparer les prix</span>
     </a>
   </div>
-  <a id="officialLink" href="https://www.google.com/search?q=Les+Carroz+station+ski+site+officiel" target="_blank" rel="noopener" onclick="hideOfficialSheet()" style="display:block;text-align:center;font-size:.8rem;color:#8a7060;text-decoration:underline;padding:8px">
+  <a id="officialLink" href="https://www.lescarroz.com" target="_blank" rel="noopener" onclick="hideOfficialSheet()" style="display:block;text-align:center;font-size:.8rem;color:#8a7060;text-decoration:underline;padding:8px">
     Non merci, continuer vers le site officiel →
+  </a>
+</div>
+
+<!-- BARRE MOBILE FIXE (visible uniquement sur mobile) -->
+<div class="mobile-bar">
+  <button onclick="showOfficialSheet()" class="mobile-bar-btn mobile-bar-official">
+    🎿 Site officiel
+  </button>
+  <a href="https://www.booking.com/searchresults.fr.html?ss=Les+Carroz+ski+france&aid=SnowFinder&sid=station-les-carroz" target="_blank" rel="noopener sponsored" class="mobile-bar-btn mobile-bar-booking">
+    🏨 Réserver
   </a>
 </div>
 
