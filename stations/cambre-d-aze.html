@@ -186,14 +186,27 @@
 
     /* BOUTON SITE OFFICIEL */
     .official-btn{
-      width:100%;border:2px solid var(--blue-mid);background:var(--blue-light);
-      border-radius:var(--radius);padding:18px 20px;cursor:pointer;
-      text-align:left;font-family:"DM Sans",sans-serif;
-      color:var(--text);margin-bottom:16px;
-      transition:background .15s,border-color .15s,transform .15s;
-      line-height:1.4;box-shadow:0 2px 12px rgba(58,125,184,.15)
+      width:100%;border:none;border-radius:var(--radius);
+      padding:0;cursor:pointer;overflow:hidden;
+      margin-bottom:16px;position:relative;
+      box-shadow:0 4px 20px rgba(0,0,0,.25);
+      display:block;min-height:110px;
+      transition:transform .15s,box-shadow .15s
     }
-    .official-btn:hover{background:#d4eaf8;border-color:var(--blue-dark);transform:translateY(-1px)}
+    .official-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.3)}
+    .official-btn-bg{
+      position:absolute;inset:0;
+      background-image:url('https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=800&q=80');
+      background-size:cover;background-position:center;
+    }
+    .official-btn-bg::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(135deg,rgba(26,90,138,.88) 0%,rgba(196,154,108,.75) 100%);
+    }
+    .official-btn-content{
+      position:relative;z-index:1;padding:20px 18px;
+      text-align:left;color:white;
+    }
 
     /* FOOTER */
     .footer{background:var(--blue-dark);color:rgba(255,255,255,.65);text-align:center;padding:26px 20px;font-size:.78rem;margin-top:40px;line-height:1.8}
@@ -500,8 +513,12 @@
 
       <!-- SITE OFFICIEL (avec interstitiel) -->
       <button onclick="showOfficialSheet()" class="official-btn">
-        <div style="font-size:1.05rem;font-weight:800;margin-bottom:4px">Webcams · Plan des pistes · Infos officielles</div>
-        <div style="font-size:.85rem;font-weight:600;color:var(--blue-mid)">C'est par ici → Site officiel Cambre d'Aze</div>
+        <div class="official-btn-bg"></div>
+        <div class="official-btn-content">
+          <div style="font-size:2rem;margin-bottom:6px">🏔️</div>
+          <div style="font-size:1.1rem;font-weight:900;letter-spacing:-.01em;margin-bottom:5px">Webcams · Plan des pistes · Infos officielles</div>
+          <div style="font-size:.95rem;font-weight:700;opacity:.9">Site officiel de Cambre d'Aze → C'est par ici</div>
+        </div>
       </button>
 
       <!-- EXPLORER -->
@@ -529,30 +546,66 @@
 </div>
 
 <!-- BOTTOM SHEET INTERSTITIEL -->
-<div id="officialOverlay" onclick="hideOfficialSheet()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:900;backdrop-filter:blur(3px)"></div>
-<div id="officialSheet" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:901;background:white;border-radius:22px 22px 0 0;padding:28px 24px 36px;box-shadow:0 -8px 40px rgba(0,0,0,.2);transform:translateY(100%);transition:transform .35s cubic-bezier(.32,.72,0,1)">
-  <div style="width:40px;height:4px;background:#ddd;border-radius:2px;margin:0 auto 20px"></div>
-  <div style="font-size:1.4rem;margin-bottom:6px">🏔️ Hop, une seconde !</div>
-  <p style="font-size:.95rem;color:#2a1f14;font-weight:600;margin-bottom:4px">T'as pensé à dormir où à <strong>Cambre d'Aze</strong> ?</p>
-  <p style="font-size:.82rem;color:#8a7060;line-height:1.6;margin-bottom:20px">Les hébergements à 2408m d'altitude partent vite... surtout pendant les vacances scolaires. Deux clics maintenant, t'éviteras de dormir dans ta voiture. 🚗❄️</p>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
-    <a href="https://www.booking.com/searchresults.fr.html?ss=Cambre+d'Aze+ski+france&aid=SnowFinder&sid=station-cambre-d-aze" target="_blank" rel="noopener sponsored" onclick="hideOfficialSheet()" style="display:flex;flex-direction:column;align-items:center;padding:14px 10px;background:#003580;border-radius:12px;text-decoration:none;gap:3px">
-      <span style="font-size:1.3rem">🏨</span>
-      <span style="color:white;font-weight:700;font-size:.85rem">Booking.com</span>
-      <span style="color:rgba(255,255,255,.7);font-size:.68rem">Dès ~53€/nuit</span>
+<div id="officialOverlay" onclick="hideOfficialSheet()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:900;backdrop-filter:blur(4px)"></div>
+<div id="officialSheet" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:901;background:#f5f1ec;border-radius:26px 26px 0 0;padding:0 0 36px;box-shadow:0 -12px 50px rgba(0,0,0,.3);transform:translateY(100%);transition:transform .38s cubic-bezier(.32,.72,0,1);max-height:92vh;overflow-y:auto">
+
+  <!-- Poignée -->
+  <div style="padding:14px 0 0;display:flex;justify-content:center">
+    <div style="width:44px;height:5px;background:#ddd;border-radius:3px"></div>
+  </div>
+
+  <!-- Header -->
+  <div style="padding:18px 24px 14px;text-align:center">
+    <div style="font-size:1.7rem;font-weight:900;color:#2a1f14;margin-bottom:6px">🏔️ Hop, une seconde !</div>
+    <p style="font-size:1.05rem;font-weight:700;color:#2a1f14;margin-bottom:8px">T'as pensé à dormir où à <span style="color:#1a5a8a">Cambre d'Aze</span> ?</p>
+    <p style="font-size:.9rem;color:#5c4a35;line-height:1.7">Les hébergements à Cambre d'Aze partent vite en haute saison — surtout pendant les vacances scolaires.<br>Deux clics maintenant, et t'éviteras de dormir dans ta voiture. 🚗❄️</p>
+  </div>
+
+  <!-- Cards hébergement -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px 16px">
+
+    <!-- Booking -->
+    <a href="https://www.booking.com/searchresults.fr.html?ss=Cambre+d'Aze+ski+france&aid=SnowFinder&sid=station-cambre-d-aze" target="_blank" rel="noopener sponsored" onclick="hideOfficialSheet()" style="text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.15);display:block">
+      <div style="position:relative;height:120px;overflow:hidden">
+        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80" alt="Chalet ski" style="width:100%;height:100%;object-fit:cover">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,35,128,.9) 0%,rgba(0,35,128,.3) 60%,transparent 100%)"></div>
+        <div style="position:absolute;bottom:10px;left:12px;right:8px">
+          <div style="color:white;font-weight:900;font-size:1rem">🏨 Booking</div>
+          <div style="color:rgba(255,255,255,.85);font-size:.72rem;font-weight:600">Dès ~53€/nuit</div>
+        </div>
+      </div>
+      <div style="background:#003580;padding:11px 12px;text-align:center">
+        <span style="color:white;font-weight:800;font-size:.88rem">Voir les offres →</span>
+      </div>
     </a>
-    <a href="http://www.dpbolvw.net/click-7570830-101709262?sid=station-cambre-d-aze&url=https%3A//www.expedia.fr/go/hotel/search/Destination/%3FCityName%3DCambre%2520d%2527Aze%26City%3DCambre%2520d%2527Aze%26SortBy%3Ddistance%26NumRoom%3D1%26NumAdult1%3D1" target="_blank" rel="noopener sponsored" onclick="hideOfficialSheet()" style="display:flex;flex-direction:column;align-items:center;padding:14px 10px;background:#ffcc00;border-radius:12px;text-decoration:none;gap:3px">
-      <span style="font-size:1.3rem">✈️</span>
-      <span style="color:#003580;font-weight:700;font-size:.85rem">Expedia</span>
-      <span style="color:#003580;font-size:.68rem;opacity:.75">Comparer les prix</span>
+
+    <!-- Expedia -->
+    <a href="http://www.dpbolvw.net/click-7570830-101709262?sid=station-cambre-d-aze&url=https%3A//www.expedia.fr/go/hotel/search/Destination/%3FCityName%3DCambre%2520d%2527Aze%26City%3DCambre%2520d%2527Aze%26SortBy%3Ddistance%26NumRoom%3D1%26NumAdult1%3D1" target="_blank" rel="noopener sponsored" onclick="hideOfficialSheet()" style="text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.15);display:block">
+      <div style="position:relative;height:120px;overflow:hidden">
+        <img src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=400&q=80" alt="Hébergement montagne" style="width:100%;height:100%;object-fit:cover">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,35,100,.85) 0%,rgba(0,0,0,.2) 60%,transparent 100%)"></div>
+        <div style="position:absolute;bottom:10px;left:12px;right:8px">
+          <div style="color:white;font-weight:900;font-size:1rem">✈️ Expedia</div>
+          <div style="color:rgba(255,255,255,.85);font-size:.72rem;font-weight:600">Comparer les prix</div>
+        </div>
+      </div>
+      <div style="background:#ffcc00;padding:11px 12px;text-align:center">
+        <span style="color:#003580;font-weight:800;font-size:.88rem">Réserver →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Lien site officiel -->
+  <div style="text-align:center;padding:0 24px">
+    <a href="https://www.cambred-aze.com" target="_blank" rel="noopener" onclick="hideOfficialSheet()" style="display:inline-block;font-size:.88rem;color:#5c4a35;font-weight:600;text-decoration:underline;padding:8px 16px">
+      Non merci — continuer vers le site officiel de Cambre d'Aze →
     </a>
   </div>
-  <a id="officialLink" href="https://www.cambred-aze.com" target="_blank" rel="noopener" onclick="hideOfficialSheet()" style="display:block;text-align:center;font-size:.8rem;color:#8a7060;text-decoration:underline;padding:8px">
-    Non merci, continuer vers le site officiel →
-  </a>
+
 </div>
 
-<!-- BARRE MOBILE FIXE (visible uniquement sur mobile) -->
+<!-- BARRE MOBILE FIXE -->
 <div class="mobile-bar">
   <button onclick="showOfficialSheet()" class="mobile-bar-btn mobile-bar-official">
     🎿 Site officiel
@@ -579,9 +632,11 @@ function hideOfficialSheet(){
   s.style.transform='translateY(100%)';
   document.getElementById('officialOverlay').style.display='none';
   document.body.style.overflow='';
-  setTimeout(function(){ s.style.display='none'; }, 350);
+  setTimeout(function(){ s.style.display='none'; }, 380);
 }
 </script>
+
+<footer class="footer">
   <strong>SnowFinder</strong> — Le guide complet des stations de ski françaises<br>
   <a href="../index.html">Accueil</a> · <a href="../recherche.html">Recherche</a> · <a href="../comparateur.html">Comparateur</a> · <a href="../mentions-legales.html">Mentions légales</a><br>
   <span style="font-size:.7rem;opacity:.7">Données indicatives · Forfaits haute saison adulte · À vérifier sur le site officiel de chaque station</span>
