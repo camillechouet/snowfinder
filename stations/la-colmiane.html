@@ -17,6 +17,18 @@
   <meta name="twitter:title" content="La Colmiane — Station de ski | SnowFinder">
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1601024445121-e5b82f020549?w=1280&q=80">
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TouristAttraction", "@id": "https://snowfinder.fr/stations/la-colmiane.html#attraction", "name": "La Colmiane", "description": "Station familiale des Alpes-Maritimes au-dessus de Saint-Martin-Vésubie. Ski débutant accessible.", "url": "https://snowfinder.fr/stations/la-colmiane.html", "image": "https://images.unsplash.com/photo-1601024445121-e5b82f020549?w=1280&q=80", "touristType": "Skier", "address": {"@type": "PostalAddress", "addressCountry": "FR", "addressRegion": "Alpes-Maritimes"}, "aggregateRating": {"@type": "AggregateRating", "ratingValue": "3.0", "bestRating": "5", "worstRating": "1", "ratingCount": "50"}, "amenityFeature": [{"@type": "LocationFeatureSpecification", "name": "Pistes de ski", "value": "25 km"}, {"@type": "LocationFeatureSpecification", "name": "Remontees mecaniques", "value": "8"}, {"@type": "LocationFeatureSpecification", "name": "Altitude maximale", "value": "1800 m"}, {"@type": "LocationFeatureSpecification", "name": "Altitude minimale", "value": "1500 m"}]}, {"@type": "WebPage", "@id": "https://snowfinder.fr/stations/la-colmiane.html#webpage", "url": "https://snowfinder.fr/stations/la-colmiane.html", "name": "La Colmiane — Station de ski : pistes, enneigement, hébergements | SnowFinder", "isPartOf": {"@id": "https://snowfinder.fr/#website"}, "inLanguage": "fr-FR", "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://snowfinder.fr/"}, {"@type": "ListItem", "position": 2, "name": "Stations de ski", "item": "https://snowfinder.fr/recherche.html"}, {"@type": "ListItem", "position": 3, "name": "Alpes du Sud", "item": "https://snowfinder.fr/recherche.html"}, {"@type": "ListItem", "position": 4, "name": "La Colmiane", "item": "https://snowfinder.fr/stations/la-colmiane.html"}]}}, {"@type": "Offer", "@id": "https://snowfinder.fr/stations/la-colmiane.html#offer", "name": "Forfait ski La Colmiane", "price": "22", "priceCurrency": "EUR", "description": "Forfait journée adulte", "url": "https://snowfinder.fr/stations/la-colmiane.html"}]}</script>
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      await OneSignal.init({
+        appId: "9530c745-8578-41e9-ad9f-2fa5348ad0b8",
+        safari_web_id: "web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",
+        serviceWorkerPath: "../sw.js",
+        notifyButton: { enable: true },
+      });
+    });
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -27,7 +39,11 @@
       --text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;
       --white:#fff;--bg:#f5f1ec;--radius:14px;
     }
-    body{font-family:"DM Sans",sans-serif;color:var(--text);background:var(--bg);min-height:100vh}
+    body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;position:relative}
+    /* Le canvas des flocons est au-dessus du fond mais sous tout contenu */
+    #snowCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:1;mix-blend-mode:screen}
+    /* Tout le reste passe au-dessus du canvas */
+    .nav,.hero,.container,.mobile-bar,.footer,#officialSheet,#officialOverlay{position:relative;z-index:2}
     a{color:inherit;text-decoration:none}
 
     /* NAV */
@@ -152,6 +168,39 @@
     /* SIDEBAR STICKY */
     .sidebar{position:sticky;top:74px}
 
+    /* WIDGET MÉTÉO */
+    .meteo-widget{
+      background:linear-gradient(135deg,#1a5a8a 0%,#3a7db8 100%);
+      border-radius:var(--radius);padding:22px 26px;margin-bottom:16px;
+      color:white;box-shadow:0 6px 22px rgba(26,90,138,.25);position:relative;overflow:hidden
+    }
+    .meteo-widget::before{
+      content:"";position:absolute;top:-20px;right:-20px;width:140px;height:140px;
+      background:radial-gradient(circle,rgba(255,255,255,.18) 0%,transparent 70%);pointer-events:none
+    }
+    .meteo-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:12px}
+    .meteo-title{font-family:"DM Serif Display",serif;font-size:1.15rem;line-height:1.2;color:white}
+    .meteo-sub{font-size:.78rem;color:rgba(255,255,255,.72);margin-top:3px}
+    .meteo-now{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border-radius:12px;padding:8px 14px;backdrop-filter:blur(6px)}
+    .meteo-now-temp{font-family:"DM Serif Display",serif;font-size:1.7rem;line-height:1;color:white}
+    .meteo-now-ico{font-size:1.7rem;line-height:1}
+    .meteo-now-snow{font-size:.72rem;color:rgba(255,255,255,.78);margin-top:2px}
+    .meteo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+    .meteo-day{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:9px 4px;text-align:center;transition:background .15s}
+    .meteo-day:hover{background:rgba(255,255,255,.18)}
+    .meteo-day-lbl{font-size:.68rem;font-weight:700;color:rgba(255,255,255,.82);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+    .meteo-day-ico{font-size:1.2rem;margin-bottom:3px}
+    .meteo-day-t{font-size:.78rem;font-weight:700;color:white}
+    .meteo-day-snow{font-size:.65rem;color:#a8d8ff;margin-top:3px;font-weight:600}
+    .meteo-loading{text-align:center;padding:14px 0;font-size:.85rem;color:rgba(255,255,255,.7)}
+    .meteo-error{text-align:center;padding:14px 0;font-size:.82rem;color:rgba(255,255,255,.7)}
+    @media(max-width:520px){
+      .meteo-grid{grid-template-columns:repeat(5,1fr);gap:4px}
+      .meteo-day{padding:7px 2px}
+      .meteo-day-lbl{font-size:.6rem}
+      .meteo-day-t{font-size:.72rem}
+    }
+
     /* BIG CTA BOTTOM */
     .big-cta{
       background:linear-gradient(135deg,#1a5a8a,#3a7db8);
@@ -164,7 +213,32 @@
     .big-cta-btn{font-weight:700;padding:13px 28px;border-radius:28px;font-size:.9rem;transition:transform .15s,box-shadow .15s}
     .big-cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2)}
 
-    /* BARRE MOBILE FIXE */
+    /* ÉTOILE FAVORIS */
+    .fav-star{
+      position:absolute;top:18px;left:18px;z-index:15;
+      background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+      border:2.5px solid #ffd451;border-radius:50%;
+      width:58px;height:58px;display:flex;align-items:center;justify-content:center;
+      cursor:pointer;font-size:1.7rem;transition:all .2s;
+      box-shadow:0 4px 14px rgba(0,0,0,.25);color:#d49b00;
+    }
+    .fav-star:hover{background:#fff7d6;border-color:#ffb900;transform:scale(1.08)}
+    .fav-star.active{background:#ffd451;border-color:#d49b00;color:#5c3d00;}
+
+    /* BOUTON FAVORIS SECONDAIRE (dans le corps de la page) */
+    .fav-cta{
+      display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#fff8e1 0%,#ffecb3 100%);
+      border:2px solid #ffd451;border-radius:14px;padding:14px 18px;margin:18px 0;cursor:pointer;
+      transition:all .2s;font-family:"DM Sans",sans-serif;width:100%;text-align:left
+    }
+    .fav-cta:hover{background:linear-gradient(135deg,#ffecb3 0%,#ffd451 100%);transform:translateY(-1px);box-shadow:0 6px 18px rgba(255,180,0,.25)}
+    .fav-cta.active{background:linear-gradient(135deg,#ffd451 0%,#ffb900 100%);border-color:#d49b00}
+    .fav-cta-icon{font-size:2rem;flex-shrink:0}
+    .fav-cta-txt{flex:1}
+    .fav-cta-title{font-weight:800;color:#5c3d00;font-size:1rem;margin-bottom:2px}
+    .fav-cta-sub{font-size:.78rem;color:#7a5500;line-height:1.4}
+
+    /* FOOTER */
     .mobile-bar{
       display:none;position:fixed;bottom:0;left:0;right:0;
       background:white;border-top:1.5px solid var(--wood-light);
@@ -215,6 +289,42 @@
   </style>
 </head>
 <body>
+<canvas id="snowCanvas"></canvas>
+<script>
+(function(){
+  var canvas=document.getElementById('snowCanvas');
+  if(!canvas) return;
+  var ctx=canvas.getContext('2d');
+  var W,H,flakes=[];
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+  function init(){
+    flakes=[];
+    var N=Math.min(120,Math.round(W*H/14000));
+    for(var i=0;i<N;i++){
+      flakes.push({x:Math.random()*W,y:Math.random()*H,r:1+Math.random()*2.6,vy:0.3+Math.random()*1.1,vx:-0.4+Math.random()*0.8,o:0.35+Math.random()*0.5});
+    }
+  }
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<flakes.length;i++){
+      var f=flakes[i];
+      f.y+=f.vy;f.x+=f.vx;
+      if(f.y>H+5){f.y=-5;f.x=Math.random()*W;}
+      if(f.x>W+5)f.x=-5;
+      if(f.x<-5)f.x=W+5;
+      ctx.globalAlpha=f.o;
+      ctx.beginPath();
+      ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
+      ctx.fillStyle='#ffffff';
+      ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    requestAnimationFrame(tick);
+  }
+  resize();init();tick();
+  window.addEventListener('resize',function(){resize();init();});
+})();
+</script>
 
 <nav class="nav">
   <a href="../index.html" class="nav-logo">
@@ -228,12 +338,137 @@
   <img src="https://images.unsplash.com/photo-1601024445121-e5b82f020549?w=1280&q=80" alt="La Colmiane station de ski" loading="eager">
   <div class="hero-overlay"></div>
   <div class="hero-score">3.0 ⭐</div>
+  <button class="fav-star" id="favBtn" onclick="toggleFav()" title="Ajouter aux favoris">☆</button>
   <div class="hero-content">
     <div class="hero-massif">⛷ Alpes du Sud</div>
     <h1>La Colmiane</h1>
     <div class="hero-region">📍 Alpes-Maritimes</div>
   </div>
 </div>
+
+<script>
+var STATION_ID = 114;
+function getFavs(){return JSON.parse(localStorage.getItem('sf_favorites')||'[]');}
+function saveFavs(f){localStorage.setItem('sf_favorites',JSON.stringify(f));}
+function updateStar(){
+  var favs=getFavs();
+  var isFav=favs.indexOf(STATION_ID)!==-1;
+  var btn=document.getElementById('favBtn');
+  var btn2=document.getElementById('favBtn2');
+  if(isFav){
+    if(btn){btn.textContent='⭐';btn.classList.add('active');btn.title='Retirer des favoris';}
+    if(btn2){btn2.classList.add('active');btn2.querySelector('.fav-cta-title').textContent='⭐ Dans tes favoris';btn2.querySelector('.fav-cta-sub').textContent='Clique pour retirer';}
+  }else{
+    if(btn){btn.textContent='☆';btn.classList.remove('active');btn.title='Ajouter aux favoris';}
+    if(btn2){btn2.classList.remove('active');btn2.querySelector('.fav-cta-title').textContent='☆ Ajouter aux favoris';btn2.querySelector('.fav-cta-sub').textContent='Garde un œil sur cette station — neige, prix, dispos';}
+  }
+}
+function toggleFav(){
+  var favs=getFavs();
+  var idx=favs.indexOf(STATION_ID);
+  if(idx===-1){
+    favs.push(STATION_ID);
+    showFavToast(true);
+    checkSnowForNewFav();
+    if(typeof OneSignal!=='undefined') OneSignal.User.addTag('fav_'+STATION_ID,'1');
+  }else{
+    favs.splice(idx,1);
+    showFavToast(false);
+    if(typeof OneSignal!=='undefined') OneSignal.User.removeTag('fav_'+STATION_ID);
+  }
+  saveFavs(favs);updateStar();
+}
+function checkSnowForNewFav(){
+  var coords={lat:44.0736,lon:7.1036};
+  if(!coords.lat) return;
+  fetch('https://api.open-meteo.com/v1/forecast?latitude='+coords.lat+'&longitude='+coords.lon+'&daily=snowfall_sum&forecast_days=5&timezone=Europe%2FParis')
+    .then(function(r){return r.json();})
+    .then(function(data){
+      var maxSnow=Math.round(Math.max.apply(null,data.daily.snowfall_sum.map(function(v){return v||0;})));
+      if(maxSnow>=15){
+        setTimeout(function(){
+          var t=document.createElement('div');
+          t.innerHTML='🌨️ <strong>'+maxSnow+'cm de neige prévus à La Colmiane !</strong><br><span style="font-size:.78rem;opacity:.85">Va vite réserver avant que les prix montent !</span>';
+          t.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#1a3f6e;color:white;padding:14px 22px;border-radius:16px;font-size:.88rem;font-weight:700;z-index:999;box-shadow:0 6px 28px rgba(0,0,0,.35);pointer-events:none;text-align:center;max-width:280px;line-height:1.5;transition:opacity .4s';
+          document.body.appendChild(t);
+          setTimeout(function(){t.style.opacity='0';},3500);
+          setTimeout(function(){t.remove();},4000);
+        },500);
+      }
+    }).catch(function(){});
+}
+function showFavToast(added){
+  var t=document.createElement('div');
+  t.textContent=added?'⭐ Ajouté aux favoris !':'☆ Retiré des favoris';
+  t.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#2a1f14;color:white;padding:12px 22px;border-radius:30px;font-size:.88rem;font-weight:700;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,.3);pointer-events:none;transition:opacity .3s';
+  document.body.appendChild(t);
+  setTimeout(function(){t.style.opacity='0';},1800);
+  setTimeout(function(){t.remove();},2100);
+}
+updateStar();
+
+// ── MÉTÉO LIVE (Open-Meteo) ──
+(function loadMeteo(){
+  var lat=44.0736, lon=7.1036;
+  if(lat===null||lon===null||isNaN(parseFloat(lat))){
+    var ld=document.getElementById('meteoLoading');
+    if(ld) ld.textContent='Météo indisponible pour cette station';
+    return;
+  }
+  var url='https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,weathercode,snow_depth,wind_speed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,snowfall_sum&timezone=Europe%2FParis&forecast_days=5';
+  function ico(c){
+    if(c==null) return '☁️';
+    if(c===0) return '☀️';
+    if(c<=3) return '🌤️';
+    if(c<=48) return '🌫️';
+    if(c<=57) return '🌦️';
+    if(c<=67) return '🌧️';
+    if(c<=77) return '❄️';
+    if(c<=82) return '🌧️';
+    if(c<=86) return '🌨️';
+    return '⛈️';
+  }
+  var DAY_LBL=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  fetch(url).then(function(r){return r.json();}).then(function(d){
+    var ld=document.getElementById('meteoLoading');
+    if(ld) ld.style.display='none';
+    if(d.current){
+      var nowEl=document.getElementById('meteoNow');
+      var t=Math.round(d.current.temperature_2m);
+      document.getElementById('meteoNowTemp').textContent=t+'°';
+      document.getElementById('meteoNowIco').textContent=ico(d.current.weathercode);
+      var sd=d.current.snow_depth;
+      var sub='';
+      if(sd!=null&&sd>0) sub='Neige au sol : '+Math.round(sd*100)+' cm';
+      else if(d.current.wind_speed_10m!=null) sub='Vent '+Math.round(d.current.wind_speed_10m)+' km/h';
+      document.getElementById('meteoNowSnow').textContent=sub;
+      nowEl.style.display='flex';
+    }
+    if(d.daily&&d.daily.time){
+      var g=document.getElementById('meteoGrid');
+      var h='';
+      for(var i=0;i<d.daily.time.length;i++){
+        var dt=new Date(d.daily.time[i]+'T12:00:00');
+        var lbl=i===0?'Auj.':DAY_LBL[dt.getDay()];
+        var tmax=Math.round(d.daily.temperature_2m_max[i]);
+        var tmin=Math.round(d.daily.temperature_2m_min[i]);
+        var sf=Math.round(d.daily.snowfall_sum[i]||0);
+        h+='<div class="meteo-day">'
+          +'<div class="meteo-day-lbl">'+lbl+'</div>'
+          +'<div class="meteo-day-ico">'+ico(d.daily.weathercode[i])+'</div>'
+          +'<div class="meteo-day-t">'+tmax+'° / '+tmin+'°</div>'
+          +(sf>0?'<div class="meteo-day-snow">❄ '+sf+'cm</div>':'')
+          +'</div>';
+      }
+      g.innerHTML=h;
+      g.style.display='grid';
+    }
+  }).catch(function(){
+    var ld=document.getElementById('meteoLoading');
+    if(ld) ld.textContent='Météo momentanément indisponible';
+  });
+})();
+</script>
 
 <div class="container">
 
@@ -264,10 +499,38 @@
     </div>
   </div>
 
+  <!-- BOUTON FAVORI BIEN VISIBLE -->
+  <button class="fav-cta" id="favBtn2" onclick="toggleFav()" type="button">
+    <span class="fav-cta-icon">☆</span>
+    <div class="fav-cta-txt">
+      <div class="fav-cta-title">☆ Ajouter aux favoris</div>
+      <div class="fav-cta-sub">Garde un œil sur cette station — neige, prix, dispos</div>
+    </div>
+  </button>
+
   <div class="main-grid">
 
     <!-- COLONNE PRINCIPALE -->
     <div>
+
+      <!-- MÉTÉO LIVE -->
+      <div class="meteo-widget" id="meteoWidget">
+        <div class="meteo-head">
+          <div>
+            <div class="meteo-title">❄️ Météo à La Colmiane</div>
+            <div class="meteo-sub">Conditions actuelles & prévisions 5 jours</div>
+          </div>
+          <div class="meteo-now" id="meteoNow" style="display:none">
+            <span class="meteo-now-ico" id="meteoNowIco">☁️</span>
+            <div>
+              <div class="meteo-now-temp" id="meteoNowTemp">—°</div>
+              <div class="meteo-now-snow" id="meteoNowSnow"></div>
+            </div>
+          </div>
+        </div>
+        <div class="meteo-loading" id="meteoLoading">Chargement…</div>
+        <div class="meteo-grid" id="meteoGrid" style="display:none"></div>
+      </div>
 
       <!-- NOTRE AVIS -->
       <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%)">
@@ -567,7 +830,7 @@
     <!-- Booking -->
     <a href="https://www.booking.com/searchresults.fr.html?ss=La+Colmiane+ski+france&aid=SnowFinder&sid=station-la-colmiane" target="_blank" rel="noopener sponsored" onclick="hideOfficialSheet()" style="text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.15);display:block">
       <div style="position:relative;height:120px;overflow:hidden">
-        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80" alt="Chalet ski" style="width:100%;height:100%;object-fit:cover">
+        <img src="../img/chalet-booking.jpg" alt="Chalet ski Booking" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=400&q=80'" style="width:100%;height:100%;object-fit:cover">
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,35,128,.9) 0%,rgba(0,35,128,.3) 60%,transparent 100%)"></div>
         <div style="position:absolute;bottom:10px;left:12px;right:8px">
           <div style="color:white;font-weight:900;font-size:1rem">🏨 Booking</div>
@@ -582,7 +845,7 @@
     <!-- Expedia -->
     <a href="http://www.dpbolvw.net/click-7570830-101709262?sid=station-la-colmiane&url=https%3A//www.expedia.fr/go/hotel/search/Destination/%3FCityName%3DLa%2520Colmiane%26City%3DLa%2520Colmiane%26SortBy%3Ddistance%26NumRoom%3D1%26NumAdult1%3D1" target="_blank" rel="noopener sponsored" onclick="hideOfficialSheet()" style="text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.15);display:block">
       <div style="position:relative;height:120px;overflow:hidden">
-        <img src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=400&q=80" alt="Hébergement montagne" style="width:100%;height:100%;object-fit:cover">
+        <img src="../img/chalet-expedia.jpg" alt="Chalet montagne Expedia" onerror="this.src='https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80'" style="width:100%;height:100%;object-fit:cover">
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,35,100,.85) 0%,rgba(0,0,0,.2) 60%,transparent 100%)"></div>
         <div style="position:absolute;bottom:10px;left:12px;right:8px">
           <div style="color:white;font-weight:900;font-size:1rem">✈️ Expedia</div>
