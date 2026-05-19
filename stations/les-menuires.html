@@ -124,6 +124,53 @@
     /* PHOTO STATION */
     .photo-station{width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:16px;display:block}
 
+    /* GALERIE PHOTOS (3+ photos supplémentaires) */
+    .photo-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+    .photo-gallery-item{position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;cursor:pointer;background:#e8f3fb;transition:transform .2s,box-shadow .2s}
+    .photo-gallery-item:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(26,90,138,.25)}
+    .photo-gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+    .photo-gallery-item:hover img{transform:scale(1.06)}
+    .photo-gallery-item::after{
+      content:"🔍";position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.55);color:white;
+      width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:.78rem;opacity:0;transition:opacity .2s;backdrop-filter:blur(4px)
+    }
+    .photo-gallery-item:hover::after{opacity:1}
+    @media(max-width:600px){.photo-gallery{grid-template-columns:repeat(2,1fr);gap:6px}}
+
+    /* LIGHTBOX */
+    .lightbox{
+      position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:1000;display:none;
+      align-items:center;justify-content:center;padding:20px;
+      animation:lbFadeIn .25s ease
+    }
+    .lightbox.open{display:flex}
+    @keyframes lbFadeIn{from{opacity:0}to{opacity:1}}
+    .lightbox-img{max-width:100%;max-height:88vh;object-fit:contain;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+    .lightbox-close{
+      position:absolute;top:18px;right:20px;width:44px;height:44px;border-radius:50%;
+      background:rgba(255,255,255,.16);border:none;color:white;font-size:1.5rem;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);transition:background .15s
+    }
+    .lightbox-close:hover{background:rgba(255,255,255,.28)}
+    .lightbox-nav{
+      position:absolute;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;
+      background:rgba(255,255,255,.14);border:none;color:white;font-size:1.6rem;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);transition:background .15s
+    }
+    .lightbox-nav:hover{background:rgba(255,255,255,.26)}
+    .lightbox-prev{left:20px}
+    .lightbox-next{right:20px}
+    .lightbox-count{
+      position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.85);
+      font-size:.85rem;font-weight:600;background:rgba(0,0,0,.45);padding:6px 14px;border-radius:20px;backdrop-filter:blur(8px)
+    }
+    @media(max-width:600px){
+      .lightbox-nav{width:42px;height:42px;font-size:1.2rem}
+      .lightbox-prev{left:8px}
+      .lightbox-next{right:8px}
+    }
+
     /* BOOKING CTA */
     .booking-cta{
       background:linear-gradient(135deg,#1a5a8a 0%,#2e7ab5 100%);
@@ -538,6 +585,7 @@ updateStar();
         <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Avec ses 600 km de pistes, Les Menuires figure parmi les plus grands domaines skiables de France — une semaine n'y suffit pas pour tout explorer. C'est l'une des stations les plus adaptées aux familles avec enfants : pistes douces, garderies bien organisées et ambiance chaleureuse au pied des remontées. L'altitude maximale de 3230m assure un enneigement fiable de décembre à avril, même lors des hivers doux — c'est l'un des gros atouts de la station.</p>
       </div>
 
+
       <!-- À PROPOS -->
       <div class="section">
         <div class="section-title">À propos de Les Menuires</div>
@@ -914,6 +962,49 @@ function hideOfficialSheet(){
   <a href="../index.html">Accueil</a> · <a href="../recherche.html">Recherche</a> · <a href="../comparateur.html">Comparateur</a> · <a href="../mentions-legales.html">Mentions légales</a><br>
   <span style="font-size:.7rem;opacity:.7">Données indicatives · Forfaits haute saison adulte · À vérifier sur le site officiel de chaque station</span>
 </footer>
+
+<!-- LIGHTBOX GALERIE -->
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Fermer">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lightboxPrev()" aria-label="Précédente">‹</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" onclick="lightboxNext()" aria-label="Suivante">›</button>
+  <div class="lightbox-count" id="lightboxCount"></div>
+</div>
+<script>
+var GALLERY_URLS = [];
+var lbIdx = 0;
+function openLightbox(i){
+  if(!GALLERY_URLS.length) return;
+  lbIdx = i;
+  document.getElementById('lightboxImg').src = GALLERY_URLS[lbIdx];
+  document.getElementById('lightboxCount').textContent = (lbIdx+1)+' / '+GALLERY_URLS.length;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lightboxPrev(){
+  if(!GALLERY_URLS.length) return;
+  lbIdx = (lbIdx - 1 + GALLERY_URLS.length) % GALLERY_URLS.length;
+  document.getElementById('lightboxImg').src = GALLERY_URLS[lbIdx];
+  document.getElementById('lightboxCount').textContent = (lbIdx+1)+' / '+GALLERY_URLS.length;
+}
+function lightboxNext(){
+  if(!GALLERY_URLS.length) return;
+  lbIdx = (lbIdx + 1) % GALLERY_URLS.length;
+  document.getElementById('lightboxImg').src = GALLERY_URLS[lbIdx];
+  document.getElementById('lightboxCount').textContent = (lbIdx+1)+' / '+GALLERY_URLS.length;
+}
+document.addEventListener('keydown', function(e){
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key==='Escape') closeLightbox();
+  else if(e.key==='ArrowLeft') lightboxPrev();
+  else if(e.key==='ArrowRight') lightboxNext();
+});
+</script>
 
 </body>
 </html>
