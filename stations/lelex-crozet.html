@@ -66,7 +66,7 @@
     .hero{position:relative;height:clamp(320px,52vh,560px);overflow:hidden}
     /* CARROUSEL HERO */
     .hero-slides{position:absolute;inset:0;width:100%;height:100%}
-    .hero-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .9s ease-in-out;cursor:zoom-in}
+    .hero-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .45s ease-in-out;cursor:zoom-in}
     .hero-slide.active{opacity:1;z-index:1}
     .hero-nav{
       position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;
@@ -97,7 +97,7 @@
     .hero-close:hover{background:rgba(0,0,0,.75);transform:scale(1.08)}
     /* Décaler le score pour pas chevaucher la croix */
     .hero-overlay{
-      position:absolute;inset:0;
+      position:absolute;inset:0;z-index:3;
       background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.3) 45%,rgba(0,0,0,.05) 100%)
     }
     .hero-score{
@@ -105,7 +105,7 @@
       background:var(--wood);color:white;font-weight:700;font-size:.95rem;
       padding:6px 13px;border-radius:9px;box-shadow:0 2px 8px rgba(0,0,0,.25)
     }
-    .hero-content{position:absolute;bottom:0;left:0;right:0;padding:28px 28px 32px}
+    .hero-content{position:absolute;bottom:0;left:0;right:0;padding:28px 28px 32px;z-index:10}
     .hero-massif{
       display:inline-block;background:rgba(255,255,255,.16);
       border:1px solid rgba(255,255,255,.28);border-radius:22px;
@@ -124,8 +124,26 @@
     .breadcrumb a:hover{text-decoration:underline}
 
     /* STATS */
-    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px}
-    @media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+    .stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px}
+    @media(max-width:700px){.stats-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:420px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+
+    /* ONGLETS */
+    .tab-nav{display:flex;gap:4px;margin-bottom:0;flex-wrap:wrap;background:white;border-radius:14px 14px 0 0;padding:10px 10px 0;border:1px solid var(--border);border-bottom:none;overflow:hidden}
+    .tab-btn{padding:9px 14px;border:none;background:none;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.8rem;font-weight:700;color:var(--text-light);border-radius:10px 10px 0 0;transition:all .15s;letter-spacing:.01em;white-space:nowrap}
+    .tab-btn.active{background:var(--blue-mid);color:white}
+    .tab-btn:hover:not(.active){background:var(--blue-light);color:var(--blue-dark)}
+    .tab-content{display:none;background:white;border:1px solid var(--border);border-radius:0 0 14px 14px;padding:22px 20px;min-height:200px}
+    .tab-content.active{display:block}
+
+    /* BOOKING/EXPEDIA INLINE */
+    .be-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+    .be-card{border-radius:12px;overflow:hidden;text-decoration:none;display:block;transition:transform .18s,box-shadow .18s}
+    .be-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.14)}
+    .be-card-img{width:100%;height:90px;object-fit:cover}
+    .be-card-body{padding:10px 12px;background:#f8f6f3}
+    .be-card-brand{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light)}
+    .be-card-txt{font-size:.82rem;font-weight:700;color:var(--text);margin-top:2px;line-height:1.3}
     .stat-box{
       background:var(--white);border-radius:var(--radius);
       padding:18px 12px;text-align:center;
@@ -489,6 +507,14 @@ function showFavToast(added){
 }
 updateStar();
 
+// ── ONGLETS ──
+function switchTab(name, btn){
+  document.querySelectorAll('.tab-content').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
 // ── MÉTÉO LIVE (Open-Meteo) ──
 (function loadMeteo(){
   var lat=null, lon=null;
@@ -525,6 +551,13 @@ updateStar();
       else if(d.current.wind_speed_10m!=null) sub='Vent '+Math.round(d.current.wind_speed_10m)+' km/h';
       document.getElementById('meteoNowSnow').textContent=sub;
       nowEl.style.display='flex';
+      // Mettre à jour l'onglet Enneigement
+      var sdEl=document.getElementById('snowDepthVal');
+      if(sdEl){
+        if(sd!=null&&sd>0) sdEl.textContent=Math.round(sd*100)+' cm';
+        else sdEl.textContent='Pas de neige détectée actuellement';
+        sdEl.style.color='#1a5a8a';
+      }
     }
     if(d.daily&&d.daily.time){
       var g=document.getElementById('meteoGrid');
@@ -615,19 +648,23 @@ function closeStation(){
     <span>Lélex-Crozet</span>
   </nav>
 
-  <!-- STATS 4 colonnes -->
+  <!-- STATS 5 colonnes -->
   <div class="stats-grid">
     <div class="stat-box">
       <div class="stat-val">30 km</div>
       <div class="stat-lbl">Pistes skiables</div>
     </div>
     <div class="stat-box">
+      <div class="stat-val">900m</div>
+      <div class="stat-lbl">Village</div>
+    </div>
+    <div class="stat-box">
       <div class="stat-val">1680m</div>
-      <div class="stat-lbl">Altitude max</div>
+      <div class="stat-lbl">Sommet</div>
     </div>
     <div class="stat-box">
       <div class="stat-val">12</div>
-      <div class="stat-lbl">Remontées mécaniques</div>
+      <div class="stat-lbl">Remontées</div>
     </div>
     <div class="stat-box">
       <div class="stat-val">24€</div>
@@ -646,77 +683,100 @@ function closeStation(){
 
   <div class="main-grid">
 
-    <!-- COLONNE PRINCIPALE -->
+    <!-- COLONNE PRINCIPALE : 5 ONGLETS -->
     <div>
 
-      <!-- MÉTÉO LIVE -->
-      <div class="meteo-widget" id="meteoWidget">
-        <div class="meteo-head">
-          <div>
-            <div class="meteo-title">❄️ Météo à Lélex-Crozet</div>
-            <div class="meteo-sub">Conditions actuelles & prévisions 5 jours</div>
+      <!-- NAVIGATION ONGLETS -->
+      <div class="tab-nav">
+        <button class="tab-btn active" onclick="switchTab('infos',this)">🎿 Infos</button>
+        <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
+        <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo</button>
+        <button class="tab-btn" onclick="switchTab('neige',this)">❄️ Enneigement</button>
+        <button class="tab-btn" onclick="switchTab('avis',this)">✍️ Notre avis</button>
+      </div>
+
+      <!-- ONGLET 1 : INFOS -->
+      <div class="tab-content active" id="tab-infos">
+
+        <!-- BOOKING / EXPEDIA EN HAUT -->
+        <div style="margin-bottom:20px">
+          <div style="font-family:'DM Serif Display',serif;font-size:1rem;color:var(--text-mid);margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid var(--wood-pale)">🏨 Réserver un hébergement à Lélex-Crozet</div>
+          <div class="be-cards">
+            <a href="https://www.booking.com/searchresults.fr.html?ss=Lélex-Crozet+ski+france&aid=SnowFinder&sid=station-lelex-crozet" target="_blank" rel="noopener sponsored" class="be-card">
+              <img src="../img/chalet-booking.jpg" alt="Chalet Booking" class="be-card-img" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=400&q=80'">
+              <div class="be-card-body">
+                <div class="be-card-brand">Booking.com</div>
+                <div class="be-card-txt">Voir les hébergements à Lélex-Crozet → Dès ~58€/nuit</div>
+              </div>
+            </a>
+            <a href="http://www.dpbolvw.net/click-7570830-101709262?sid=station-lelex-crozet&url=https%3A//www.expedia.fr/go/hotel/search/Destination/%3FCityName%3DL%25C3%25A9lex-Crozet%26City%3DL%25C3%25A9lex-Crozet%26SortBy%3Ddistance%26NumRoom%3D1%26NumAdult1%3D1" target="_blank" rel="noopener sponsored" class="be-card">
+              <img src="../img/chalet-expedia.jpg" alt="Chalet Expedia" class="be-card-img" onerror="this.src='https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80'">
+              <div class="be-card-body">
+                <div class="be-card-brand">Expedia</div>
+                <div class="be-card-txt">Comparer les prix à Lélex-Crozet → Voir les offres</div>
+              </div>
+            </a>
           </div>
-          <div class="meteo-now" id="meteoNow" style="display:none">
-            <span class="meteo-now-ico" id="meteoNowIco">☁️</span>
-            <div>
-              <div class="meteo-now-temp" id="meteoNowTemp">—°</div>
-              <div class="meteo-now-snow" id="meteoNowSnow"></div>
-            </div>
-          </div>
         </div>
-        <div class="meteo-loading" id="meteoLoading">Chargement…</div>
-        <div class="meteo-grid" id="meteoGrid" style="display:none"></div>
-      </div>
 
-      <!-- NOTRE AVIS -->
-      <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%)">
-        <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Lélex-Crozet</div>
-        <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Station à taille humaine avec ses 30 km de pistes, Lélex-Crozet mise sur la qualité plutôt que la quantité — une adresse sincère, loin de l'usine à ski. C'est l'une des stations les plus adaptées aux familles avec enfants : pistes douces, garderies bien organisées et ambiance chaleureuse au pied des remontées. L'altitude modérée (1680m) peut rendre les conditions aléatoires en début et fin de saison. Janvier et février restent les mois les plus sûrs pour un enneigement optimal.</p>
-      </div>
-
-
-      <!-- À PROPOS -->
-      <div class="section">
-        <div class="section-title">À propos de Lélex-Crozet</div>
-        
-        <p style="font-size:.92rem;line-height:1.78;color:var(--text-mid)">Lélex-Crozet est une station à 900 m dans l'Ain, avec 30 km de pistes offrant une vue magnifique sur le Léman et les Alpes. Facilement accessible depuis Genève, elle est prisée des frontaliers. Ambiance familiale et décontractée dans le Haut-Jura.</p>
-        
-      </div>
-
-      <!-- PISTES -->
-      <div class="section">
-        <div class="section-title">Domaine skiable — 30 km · 900m à 1680m</div>
-        <div class="piste-row">
-          <div class="piste-dot" style="background:#2ea84e"></div>
-          <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Vertes</span>
-          <div class="piste-bar-wrap"><div class="piste-bar" style="background:#2ea84e;width:40%"></div></div>
-          <span class="piste-count">8</span>
-        </div>
-        <div class="piste-row">
-          <div class="piste-dot" style="background:#3a7db8"></div>
-          <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Bleues</span>
-          <div class="piste-bar-wrap"><div class="piste-bar" style="background:#3a7db8;width:36%"></div></div>
-          <span class="piste-count">12</span>
-        </div>
-        <div class="piste-row">
-          <div class="piste-dot" style="background:#cc2200"></div>
-          <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Rouges</span>
-          <div class="piste-bar-wrap"><div class="piste-bar" style="background:#cc2200;width:18%"></div></div>
-          <span class="piste-count">6</span>
-        </div>
-        <div class="piste-row">
-          <div class="piste-dot" style="background:#222"></div>
-          <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Noires</span>
-          <div class="piste-bar-wrap"><div class="piste-bar" style="background:#333;width:6%"></div></div>
-          <span class="piste-count">1</span>
-        </div>
-      </div>
-
-      <!-- PROFIL — Ambiance -->
-      <div class="section">
-        <div class="section-title">Ambiance & caractère</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:4px">
+        <!-- À PROPOS -->
+        <div class="section">
+          <div class="section-title">À propos de Lélex-Crozet</div>
           
+          <p style="font-size:.92rem;line-height:1.78;color:var(--text-mid)">Lélex-Crozet est une station à 900 m dans l'Ain, avec 30 km de pistes offrant une vue magnifique sur le Léman et les Alpes. Facilement accessible depuis Genève, elle est prisée des frontaliers. Ambiance familiale et décontractée dans le Haut-Jura.</p>
+          
+        </div>
+
+        <!-- PISTES -->
+        <div class="section">
+          <div class="section-title">Domaine skiable — 30 km · 900m à 1680m</div>
+          <div class="piste-row">
+            <div class="piste-dot" style="background:#2ea84e"></div>
+            <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Vertes</span>
+            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#2ea84e;width:40%"></div></div>
+            <span class="piste-count">8</span>
+          </div>
+          <div class="piste-row">
+            <div class="piste-dot" style="background:#3a7db8"></div>
+            <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Bleues</span>
+            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#3a7db8;width:36%"></div></div>
+            <span class="piste-count">12</span>
+          </div>
+          <div class="piste-row">
+            <div class="piste-dot" style="background:#cc2200"></div>
+            <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Rouges</span>
+            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#cc2200;width:18%"></div></div>
+            <span class="piste-count">6</span>
+          </div>
+          <div class="piste-row">
+            <div class="piste-dot" style="background:#222"></div>
+            <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Noires</span>
+            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#333;width:6%"></div></div>
+            <span class="piste-count">1</span>
+          </div>
+        </div>
+
+        <!-- INFOS PRATIQUES -->
+        <div class="section" style="margin-bottom:0">
+          <div class="section-title">Informations pratiques</div>
+          <p style="font-size:.88rem;line-height:1.72;color:var(--text-mid)">
+            <strong>Lélex-Crozet</strong> est une station de ski du massif <strong>Jura</strong>,
+            en <strong>Ain</strong>. Le domaine s'étend sur
+            <strong>30 km de pistes</strong> entre 900 m et 1680 m,
+            desservi par 12 remontées mécaniques. Forfait journée à partir de
+            <strong>24€</strong> par adulte.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- ONGLET 2 : POUR QUI ? -->
+      <div class="tab-content" id="tab-pourqui">
+
+        <div class="section">
+          <div class="section-title">Ambiance &amp; caractère</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:4px">
+            
       <div style="background:var(--wood-pale);border-radius:12px;padding:14px 12px;text-align:center;border:1.5px solid var(--wood-light)">
         <div style="font-size:1.8rem;margin-bottom:5px">🌿</div>
         <div style="font-weight:700;font-size:.82rem;color:var(--text-mid);margin-bottom:3px">Nature</div>
@@ -727,14 +787,13 @@ function closeStation(){
         <div style="font-weight:700;font-size:.82rem;color:var(--text-mid);margin-bottom:3px">Famille</div>
         <div style="font-size:.68rem;color:var(--text-light);line-height:1.4">Infrastructures pensées pour les enfants, pistes douces</div>
       </div>
+          </div>
         </div>
-      </div>
 
-      <!-- PROFIL — Niveaux -->
-      <div class="section">
-        <div class="section-title">Niveaux recommandés</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px">
-          
+        <div class="section">
+          <div class="section-title">Niveaux recommandés</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px">
+            
       <div style="background:var(--blue-light);border-radius:12px;padding:14px 12px;text-align:center;border:1.5px solid #c8dff0">
         <div style="font-size:1.5rem;margin-bottom:5px">🟢</div>
         <div style="font-weight:700;font-size:.82rem;color:var(--blue-dark);margin-bottom:3px">Débutant</div>
@@ -745,14 +804,12 @@ function closeStation(){
         <div style="font-weight:700;font-size:.82rem;color:var(--blue-dark);margin-bottom:3px">Intermédiaire</div>
         <div style="font-size:.68rem;color:#4a7a9b;line-height:1.4">Beau choix de bleues et rouges variées</div>
       </div>
+          </div>
         </div>
-      </div>
 
-      <!-- POUR QUI ? -->
-      <div class="section">
-        <div class="section-title">Pour qui ?</div>
-        <div style="padding-top:4px">
-          
+        <div class="section">
+          <div class="section-title">Pour qui ?</div>
+          <div style="padding-top:4px">
       <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--wood-pale)">
         <span style="font-size:1.6rem;flex-shrink:0">👨‍👩‍👧</span>
         <div>
@@ -773,15 +830,12 @@ function closeStation(){
           <div style="font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:2px">Skieurs intermédiaires</div>
           <div style="font-size:.78rem;color:var(--text-light)">Beau choix de bleues et rouges</div>
         </div>
-      </div>
+      </div></div>
         </div>
-      </div>
 
-      <!-- MEILLEURE PÉRIODE -->
-      <div class="section">
-        <div class="section-title">Meilleure période pour skier</div>
-        <div style="display:flex;gap:4px;margin-top:4px">
-          
+        <div class="section" style="margin-bottom:0">
+          <div class="section-title">Meilleure période pour skier</div>
+          <div style="display:flex;gap:4px;margin-top:4px">
       <div style="text-align:center;flex:1">
         <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Décembre</div>
         <div style="font-size:.7rem">⭐⭐</div>
@@ -801,24 +855,74 @@ function closeStation(){
       <div style="text-align:center;flex:1">
         <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Avril</div>
         <div style="font-size:.7rem">⭐</div>
-      </div>
+      </div></div>
+          <p style="font-size:.73rem;color:var(--text-light);margin-top:10px">Basé sur l'altitude et l'enneigement historique de la station</p>
         </div>
-        <p style="font-size:.73rem;color:var(--text-light);margin-top:10px">Basé sur l'altitude et l'enneigement historique de la station</p>
+
       </div>
 
-      <!-- INFOS PRATIQUES -->
-      <div class="section">
-        <div class="section-title">Informations pratiques</div>
-        <p style="font-size:.88rem;line-height:1.72;color:var(--text-mid)">
-          <strong>Lélex-Crozet</strong> est une station de ski du massif <strong>Jura</strong>,
-          située en <strong>Ain</strong>. Le domaine skiable s'étend sur
-          <strong>30 km de pistes</strong> entre 900 et 1680 mètres d'altitude,
-          desservi par 12 remontées mécaniques. Le forfait journée est affiché à partir de
-          <strong>24€</strong> par adulte. Station recommandée pour les niveaux débutant, intermédiaire.
-        </p>
+      <!-- ONGLET 3 : MÉTÉO -->
+      <div class="tab-content" id="tab-meteo">
+        <div class="meteo-widget" id="meteoWidget">
+          <div class="meteo-head">
+            <div>
+              <div class="meteo-title">❄️ Météo à Lélex-Crozet</div>
+              <div class="meteo-sub">Conditions actuelles &amp; prévisions 5 jours</div>
+            </div>
+            <div class="meteo-now" id="meteoNow" style="display:none">
+              <span class="meteo-now-ico" id="meteoNowIco">☁️</span>
+              <div>
+                <div class="meteo-now-temp" id="meteoNowTemp">—°</div>
+                <div class="meteo-now-snow" id="meteoNowSnow"></div>
+              </div>
+            </div>
+          </div>
+          <div class="meteo-loading" id="meteoLoading">Chargement…</div>
+          <div class="meteo-grid" id="meteoGrid" style="display:none"></div>
+        </div>
+        <p style="font-size:.75rem;color:rgba(255,255,255,.6);text-align:center;margin-top:10px">Source : Open-Meteo.com · Données actualisées en temps réel</p>
       </div>
 
-      
+      <!-- ONGLET 4 : ENNEIGEMENT -->
+      <div class="tab-content" id="tab-neige">
+
+        <!-- Enneigement de référence -->
+        <div class="section" style="background:linear-gradient(135deg,#e8f3fb,#d0e7f5);border-radius:12px;border:none">
+          <div class="section-title">❄️ Enneigement moyen de référence</div>
+          <div style="display:flex;align-items:flex-end;gap:6px;margin-bottom:8px">
+            <div style="font-family:'DM Serif Display',serif;font-size:3rem;color:#1a5a8a;line-height:1">75</div>
+            <div style="font-size:.9rem;color:#3a7db8;font-weight:700;padding-bottom:8px">cm</div>
+          </div>
+          <p style="font-size:.82rem;color:var(--text-mid);line-height:1.6">Hauteur de neige moyenne en pleine saison (décembre–février) basée sur les données historiques. Indicatif.</p>
+        </div>
+
+        <!-- Altitude et garantie neige -->
+        <div class="section" style="margin-bottom:0">
+          <div class="section-title">Fiabilité de l'enneigement</div>
+          <p style="font-size:.88rem;line-height:1.72;color:var(--text-mid)">
+            Lélex-Crozet est situé entre <strong>900 m</strong> (village) et
+            <strong>1680 m</strong> (sommet).
+            A cette altitude, l'enneigement dépend des conditions de l'année. Vérifiez l'état des pistes avant de partir.
+          </p>
+          <div id="snowDepthLive" style="margin-top:14px;padding:12px 16px;background:#fff;border-radius:10px;border:1px solid var(--border)">
+            <div style="font-size:.72rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Neige au sol en ce moment</div>
+            <div id="snowDepthVal" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:#1a5a8a">Chargement…</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ONGLET 5 : NOTRE AVIS -->
+      <div class="tab-content" id="tab-avis">
+
+        <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%)">
+          <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Lélex-Crozet</div>
+          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Station à taille humaine avec ses 30 km de pistes, Lélex-Crozet mise sur la qualité plutôt que la quantité — une adresse sincère, loin de l'usine à ski. C'est l'une des stations les plus adaptées aux familles avec enfants : pistes douces, garderies bien organisées et ambiance chaleureuse au pied des remontées. L'altitude modérée (1680m) peut rendre les conditions aléatoires en début et fin de saison. Janvier et février restent les mois les plus sûrs pour un enneigement optimal.</p>
+        </div>
+
+
+
+        
   <div style="margin-top:20px">
     <div style="font-family:'DM Serif Display',serif;font-size:1rem;color:#8a7060;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid #f7efe2">
       ⛷ Autres stations Jura
@@ -878,6 +982,8 @@ function closeStation(){
       Voir toutes les stations Jura →
     </a>
   </div>
+
+      </div>
 
     </div>
 
