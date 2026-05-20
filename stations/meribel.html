@@ -64,13 +64,44 @@
 
     /* HERO */
     .hero{position:relative;height:clamp(320px,52vh,560px);overflow:hidden}
-    .hero img{width:100%;height:100%;object-fit:cover;display:block}
+    /* CARROUSEL HERO */
+    .hero-slides{position:absolute;inset:0;width:100%;height:100%}
+    .hero-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .9s ease-in-out;cursor:zoom-in}
+    .hero-slide.active{opacity:1;z-index:1}
+    .hero-nav{
+      position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;
+      background:rgba(255,255,255,.18);border:none;color:white;font-size:1.7rem;cursor:pointer;z-index:6;
+      display:flex;align-items:center;justify-content:space-around;backdrop-filter:blur(6px);
+      transition:background .15s,transform .15s;line-height:1;padding-bottom:4px
+    }
+    .hero-nav:hover{background:rgba(255,255,255,.32);transform:translateY(-50%) scale(1.06)}
+    .hero-prev{left:14px}
+    .hero-next{right:14px}
+    .hero-dots{
+      position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:6;
+      display:flex;gap:7px;background:rgba(0,0,0,.32);padding:6px 12px;border-radius:20px;backdrop-filter:blur(6px)
+    }
+    .hero-dot{
+      width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.45);border:none;cursor:pointer;
+      padding:0;transition:background .2s,transform .2s
+    }
+    .hero-dot.active{background:white;transform:scale(1.3)}
+    .hero-dot:hover{background:rgba(255,255,255,.75)}
+    /* CROIX DE FERMETURE */
+    .hero-close{
+      position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;
+      background:rgba(0,0,0,.5);backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,.35);
+      color:white;font-size:1.1rem;cursor:pointer;z-index:20;
+      display:flex;align-items:center;justify-content:center;transition:all .15s
+    }
+    .hero-close:hover{background:rgba(0,0,0,.75);transform:scale(1.08)}
+    /* Décaler le score pour pas chevaucher la croix */
     .hero-overlay{
       position:absolute;inset:0;
       background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.3) 45%,rgba(0,0,0,.05) 100%)
     }
     .hero-score{
-      position:absolute;top:18px;right:18px;
+      position:absolute;top:22px;right:74px;z-index:15;
       background:var(--wood);color:white;font-weight:700;font-size:.95rem;
       padding:6px 13px;border-radius:9px;box-shadow:0 2px 8px rgba(0,0,0,.25)
     }
@@ -382,10 +413,22 @@
 </nav>
 
 <div class="hero">
-  <img src="../img/meribel1.jpg" alt="Méribel station de ski" loading="eager">
+  <div class="hero-slides">
+    <img class="hero-slide active" data-idx="0" src="../img/meribel1.jpg" alt="Méribel photo 1" loading="eager" onclick="heroLightbox(0)">
+    <img class="hero-slide" data-idx="1" src="../img/meribel2.jpg" alt="Méribel photo 2" loading="lazy" onclick="heroLightbox(1)">
+    <img class="hero-slide" data-idx="2" src="../img/meribel3.jpg" alt="Méribel photo 3" loading="lazy" onclick="heroLightbox(2)">
+  </div>
   <div class="hero-overlay"></div>
+  <button class="hero-close" onclick="closeStation()" title="Retour" aria-label="Retour">✕</button>
   <div class="hero-score">4.6 ⭐</div>
   <button class="fav-star" id="favBtn" onclick="toggleFav()" title="Ajouter aux favoris">☆</button>
+  <button class="hero-nav hero-prev" onclick="heroPrev()" aria-label="Précédente">‹</button>
+  <button class="hero-nav hero-next" onclick="heroNext()" aria-label="Suivante">›</button>
+  <div class="hero-dots">
+      <button class="hero-dot active" data-idx="0" onclick="heroGoTo(0)" aria-label="Photo 1"></button>
+      <button class="hero-dot" data-idx="1" onclick="heroGoTo(1)" aria-label="Photo 2"></button>
+      <button class="hero-dot" data-idx="2" onclick="heroGoTo(2)" aria-label="Photo 3"></button>
+  </div>
   <div class="hero-content">
     <div class="hero-massif">⛷ Alpes du Nord</div>
     <h1>Méribel</h1>
@@ -515,6 +558,60 @@ updateStar();
     if(ld) ld.textContent='Météo momentanément indisponible';
   });
 })();
+
+// ── CARROUSEL HERO ──
+var HERO_URLS = ["../img/meribel1.jpg","../img/meribel2.jpg","../img/meribel3.jpg"];
+var heroIdx = 0;
+var heroAuto = null;
+function heroShow(i){
+  if(!HERO_URLS.length) return;
+  heroIdx = (i + HERO_URLS.length) % HERO_URLS.length;
+  document.querySelectorAll('.hero-slide').forEach(function(el){
+    el.classList.toggle('active', parseInt(el.dataset.idx) === heroIdx);
+  });
+  document.querySelectorAll('.hero-dot').forEach(function(el){
+    el.classList.toggle('active', parseInt(el.dataset.idx) === heroIdx);
+  });
+}
+function heroNext(){ heroShow(heroIdx + 1); resetHeroAuto(); }
+function heroPrev(){ heroShow(heroIdx - 1); resetHeroAuto(); }
+function heroGoTo(i){ heroShow(i); resetHeroAuto(); }
+function resetHeroAuto(){
+  if(heroAuto) clearInterval(heroAuto);
+  if(HERO_URLS.length > 1) heroAuto = setInterval(function(){ heroShow(heroIdx + 1); }, 5000);
+}
+// Démarrer le défilement auto si plus d'1 photo
+if(HERO_URLS.length > 1) resetHeroAuto();
+// Pause au survol (desktop)
+var heroEl = document.querySelector('.hero');
+if(heroEl && HERO_URLS.length > 1){
+  heroEl.addEventListener('mouseenter', function(){ if(heroAuto) clearInterval(heroAuto); });
+  heroEl.addEventListener('mouseleave', resetHeroAuto);
+}
+// Swipe sur mobile
+if(heroEl && HERO_URLS.length > 1){
+  var sx = 0;
+  heroEl.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; }, {passive:true});
+  heroEl.addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - sx;
+    if(dx > 50) heroPrev();
+    else if(dx < -50) heroNext();
+  });
+}
+
+// Clic sur slide = ouvrir lightbox
+function heroLightbox(i){
+  if(typeof openLightbox === 'function') openLightbox(i);
+}
+
+// CROIX DE FERMETURE : retour à la page précédente (filtres préservés via sessionStorage côté recherche.html)
+function closeStation(){
+  if(document.referrer && document.referrer.indexOf(window.location.origin) === 0){
+    history.back();
+  } else {
+    window.location.href = '../recherche.html';
+  }
+}
 </script>
 
 <div class="container">
@@ -585,13 +682,6 @@ updateStar();
         <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Le domaine de Méribel et ses 150 km offrent assez de variété pour skier toute une semaine sans jamais repasser deux fois sur la même piste. C'est clairement une destination haut de gamme : le forfait à 60€/jour et les hébergements premium font que le budget peut vite grimper, surtout en vacances scolaires. Avec un point culminant à 2952m, les conditions restent bonnes de janvier à fin mars et les risques de manque de neige en milieu de saison sont limités.</p>
       </div>
 
-      <!-- GALERIE PHOTOS -->
-      <div class="section">
-        <div class="section-title">📷 La station en images</div>
-        <div class="photo-gallery">
-        <div class="photo-gallery-item" data-idx="0" onclick="openLightbox(0)"><img src="../img/meribel3.jpg" alt="Méribel photo 1" loading="lazy"></div>
-        </div>
-      </div>
 
       <!-- À PROPOS -->
       <div class="section">
@@ -969,7 +1059,7 @@ function hideOfficialSheet(){
   <div class="lightbox-count" id="lightboxCount"></div>
 </div>
 <script>
-var GALLERY_URLS = ["../img/meribel3.jpg"];
+var GALLERY_URLS = ["../img/meribel1.jpg","../img/meribel2.jpg","../img/meribel3.jpg"];
 var lbIdx = 0;
 function openLightbox(i){
   if(!GALLERY_URLS.length) return;
