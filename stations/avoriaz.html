@@ -415,12 +415,22 @@
 <div class="hero">
   <div class="hero-slides">
     <img class="hero-slide active" data-idx="0" src="../img/avoriaz1.jpg" alt="Avoriaz photo 1" loading="eager" onclick="heroLightbox(0)">
+    <img class="hero-slide" data-idx="1" src="../img/avoriaz2.jpg" alt="Avoriaz photo 2" loading="lazy" onclick="heroLightbox(1)">
+    <img class="hero-slide" data-idx="2" src="../img/avoriaz3.jpg" alt="Avoriaz photo 3" loading="lazy" onclick="heroLightbox(2)">
+    <img class="hero-slide" data-idx="3" src="../img/avoriaz4.jpg" alt="Avoriaz photo 4" loading="lazy" onclick="heroLightbox(3)">
   </div>
   <div class="hero-overlay"></div>
   <button class="hero-close" onclick="closeStation()" title="Retour" aria-label="Retour">✕</button>
   <div class="hero-score">4.5 ⭐</div>
   <button class="fav-star" id="favBtn" onclick="toggleFav()" title="Ajouter aux favoris">☆</button>
-
+  <button class="hero-nav hero-prev" onclick="heroPrev()" aria-label="Précédente">‹</button>
+  <button class="hero-nav hero-next" onclick="heroNext()" aria-label="Suivante">›</button>
+  <div class="hero-dots">
+      <button class="hero-dot active" data-idx="0" onclick="heroGoTo(0)" aria-label="Photo 1"></button>
+      <button class="hero-dot" data-idx="1" onclick="heroGoTo(1)" aria-label="Photo 2"></button>
+      <button class="hero-dot" data-idx="2" onclick="heroGoTo(2)" aria-label="Photo 3"></button>
+      <button class="hero-dot" data-idx="3" onclick="heroGoTo(3)" aria-label="Photo 4"></button>
+  </div>
   <div class="hero-content">
     <div class="hero-massif">⛷ Alpes du Nord</div>
     <h1>Avoriaz</h1>
@@ -552,7 +562,7 @@ updateStar();
 })();
 
 // ── CARROUSEL HERO ──
-var HERO_URLS = ["../img/avoriaz1.jpg"];
+var HERO_URLS = ["../img/avoriaz1.jpg","../img/avoriaz2.jpg","../img/avoriaz3.jpg","../img/avoriaz4.jpg"];
 var heroIdx = 0;
 var heroAuto = null;
 function heroShow(i){
@@ -678,7 +688,7 @@ function closeStation(){
       <!-- À PROPOS -->
       <div class="section">
         <div class="section-title">À propos de Avoriaz</div>
-        
+        <img src="../img/avoriaz2.jpg" alt="Avoriaz pistes de ski" class="photo-station" loading="lazy">
         <p style="font-size:.92rem;line-height:1.78;color:var(--text-mid)">Avoriaz est une station 100% piétonne perchée à 1800 m, imaginée par l'architecte Jacques Labro avec ses immeubles en bois brun accrochés aux falaises. Porte principale des Portes du Soleil (650 km, 12 stations franco-suisses), elle est l'une des stations les plus animées des Alpes. Pas de voitures : traîneaux à chevaux et navettes assurent les déplacements.</p>
         <ul style="margin-top:14px;padding-left:0;list-style:none"><li style="padding:5px 0;border-bottom:1px solid #f7efe2">Portes du Soleil 650 km</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Station 100% piétonne</li>
@@ -1056,7 +1066,7 @@ function hideOfficialSheet(){
   <div class="lightbox-count" id="lightboxCount"></div>
 </div>
 <script>
-var GALLERY_URLS = ["../img/avoriaz1.jpg"];
+var GALLERY_URLS = ["../img/avoriaz1.jpg","../img/avoriaz2.jpg","../img/avoriaz3.jpg","../img/avoriaz4.jpg"];
 var lbIdx = 0;
 function openLightbox(i){
   if(!GALLERY_URLS.length) return;
