@@ -1520,6 +1520,8 @@ document.getElementById("eteOverlay").addEventListener("click", e => {
       <button class="mg-btn prev" id="mgPrev" onclick="mgNav(-1)" style="display:none">‹</button>
       <button class="mg-btn next" id="mgNext" onclick="mgNav(1)" style="display:none">›</button>
       <div class="mg-caption hidden" id="mgCaption"></div>
+      <!-- Score visible en haut à droite (sur l'image) -->
+      <div id="modalScoreTop" style="position:absolute;top:14px;right:52px;z-index:10;background:linear-gradient(135deg,#d4a017,#b8860b);color:white;border-radius:8px;padding:4px 10px;font-weight:700;font-size:.88rem;box-shadow:0 2px 8px rgba(0,0,0,.35)"></div>
       <!-- Overlay et infos -->
       <div class="modal-top-overlay"></div>
       <div class="modal-top-emoji" id="modalEmoji"></div>
@@ -1527,19 +1529,13 @@ document.getElementById("eteOverlay").addEventListener("click", e => {
       <div class="modal-name-wrap" style="position:relative;z-index:3">
         <div class="modal-massif-lbl" id="modalMassif"></div>
         <div class="modal-name" id="modalName"></div>
+        <div id="modalAltLine" style="font-size:.78rem;color:rgba(255,255,255,.82);margin-top:5px;font-weight:600;letter-spacing:.02em"></div>
       </div>
     </div>
     <div class="modal-body">
-      <div class="modal-meta-row">
-        <div class="modal-score" id="modalScore"></div>
-        <div class="modal-region" id="modalRegion"></div>
-      </div>
       <div class="modal-desc" id="modalDesc"></div>
       <div class="modal-sec"><div class="modal-sec-title">Chiffres clés</div><div class="stats-g" id="modalStats"></div></div>
       <div class="modal-sec"><div class="modal-sec-title">Pistes</div><div class="pistes-r" id="modalPistes"></div></div>
-      <div class="modal-sec"><div class="modal-sec-title">Points forts</div><ul class="pts-l" id="modalPts"></ul></div>
-      <div class="modal-sec"><div class="modal-sec-title">Niveaux & Ambiances</div><div class="tags-r" id="modalTags"></div></div>
-      <div class="modal-sec"><div class="modal-sec-title">Équipements</div><div class="tags-r" id="modalEquip"></div></div>
       <div id="modalFoliesDouces" style="display:none">
         <div class="fd-modal-sec">
           <div class="fd-modal-icon">🎶</div>
@@ -2142,12 +2138,17 @@ function openModal(id){
   document.getElementById("modalEmoji").textContent=em;
   document.getElementById("modalMassif").textContent=s.massif;
   document.getElementById("modalName").textContent=s.name;
-  document.getElementById("modalScore").textContent=s.score.toFixed(1)+" ⭐";
-  document.getElementById("modalRegion").textContent="📍 "+s.region;
+  // Score visible sur l'image (haut droite)
+  const scoreTopEl=document.getElementById("modalScoreTop");
+  if(scoreTopEl) scoreTopEl.textContent=s.score.toFixed(1)+" ⭐";
+  // Altitudes village → sommet sous le nom (dans l'image)
+  const altLineEl=document.getElementById("modalAltLine");
+  if(altLineEl) altLineEl.textContent="🏘 "+s.alt_min+"m  →  ⛰ "+s.alt_max+"m";
+  // Supprimer les sections dynamiques obsolètes si encore présentes
+  ["eteModalSection","hebergModalSection","meteoSection","modalDescLong"].forEach(function(id){
+    const el=document.getElementById(id); if(el) el.remove();
+  });
   document.getElementById("modalDesc").textContent=s.desc;
-  let dlEl=document.getElementById("modalDescLong");
-  if(!dlEl){dlEl=document.createElement("div");dlEl.id="modalDescLong";dlEl.className="modal-desc-long";const descEl=document.getElementById("modalDesc");descEl.parentNode.insertBefore(dlEl,descEl.nextSibling);}
-  if(s.desc_long){dlEl.textContent=s.desc_long;dlEl.style.display="";}else{dlEl.style.display="none";}
   document.getElementById("modalStats").innerHTML=`<div class="sc"><div class="sc-val">${s.alt_min}m</div><div class="sc-lbl">Village</div></div><div class="sc"><div class="sc-val">${s.alt_max}m</div><div class="sc-lbl">Sommet</div></div><div class="sc"><div class="sc-val">${s.remontees}</div><div class="sc-lbl">Remontées</div></div><div class="sc"><div class="sc-val">${s.forfait}€</div><div class="sc-lbl">Forfait/j</div></div>${s.snow ? '<div class="sc" title="Hauteur de neige moyenne en pleine saison (janvier–février), données historiques"><div class="sc-val">❄️ ~'+s.snow+'cm</div><div class="sc-lbl">Neige moy. saison</div></div>' : ''}`;
   const modalGd = GRAND_DOMAINS[s.name];
   const pisteHTML = (p, label, km, remontees, bgStyle) => `
@@ -2502,20 +2503,9 @@ window.openModal = async function(id) {
   const oldHeb = document.getElementById('hebergModalSection');
   if(oldHeb) oldHeb.remove();
 
-  // ── SECTION ÉTÉ ──
+  // Sections été supprimées de la modal
   const oldEte = document.getElementById('eteModalSection');
   if(oldEte) oldEte.remove();
-  const eteActivities = getEteActivities(s);
-  const eteDiv = document.createElement('div');
-  eteDiv.id = 'eteModalSection';
-  eteDiv.className = 'modal-sec';
-  eteDiv.innerHTML = `
-    <div style="border-radius:var(--radius);background:linear-gradient(135deg,#f0faf3,#e6f7ec);border:1.5px solid #b8e8c6;padding:13px 14px">
-      <div style="font-family:'DM Serif Display',serif;font-size:1rem;color:#1a6a2a;margin-bottom:7px">🌿 Et l'été ?</div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px">${eteActivities.map(function(a){return '<span style="background:rgba(42,138,58,.12);color:#1a6a2a;border-radius:20px;padding:3px 10px;font-size:.78rem;font-weight:600">'+a+'</span>';}).join('')}</div>
-    </div>
-  `;
-  modalBody.appendChild(eteDiv);
 
   // Météo et BRA supprimés de la modal — disponibles sur la fiche station dédiée
 };
@@ -3007,25 +2997,6 @@ window.openModal = async function(id) {
           <div class="ete-activity-desc">${a.desc}</div>
         </div>
       `).join('')}
-    </div>
-    <div class="modal-heberg-section">
-      <div class="modal-heberg-title">🏡 Où dormir à ${s.name}</div>
-      <div class="modal-heberg-cards">
-        <a class="modal-heb-card" href="https://www.booking.com/searchresults.fr.html?ss=${stationSlug}&aid=SnowFinder" target="_blank" rel="noopener">
-          <img class="modal-heb-img" src="/img/chalet-booking.jpg" alt="Chalet enneigé Booking" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=400&q=80'">
-          <div class="modal-heb-body">
-            <div class="modal-heb-name">🏨 Booking.com</div>
-            <div class="modal-heb-desc">Voir les prix →</div>
-          </div>
-        </a>
-        <a class="modal-heb-card" href="http://www.dpbolvw.net/click-7570830-101709262?sid=recherche&url=${encodeURIComponent('https://www.expedia.fr/go/hotel/search/Destination/?CityName='+stationSlug+'&City='+stationSlug+'&SortBy=distance&NumRoom=1&NumAdult1=1')}" target="_blank" rel="noopener">
-          <img class="modal-heb-img" src="/img/chalet-expedia.jpg" alt="Intérieur chalet Expedia" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80'">
-          <div class="modal-heb-body">
-            <div class="modal-heb-name">✈️ Expedia</div>
-            <div class="modal-heb-desc">Réserver maintenant →</div>
-          </div>
-        </a>
-      </div>
     </div>
   `;
   modalBody.insertBefore(eteDiv, modalBody.firstChild);
