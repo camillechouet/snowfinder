@@ -1,0 +1,43 @@
+name: Régénérer sitemap.xml
+
+on:
+  # Bouton "Run workflow" manuel dans l'onglet Actions
+  workflow_dispatch:
+
+  # Auto-déclenchement quand le contenu pertinent change
+  push:
+    branches: [main]
+    paths:
+      - 'recherche.html'
+      - 'stations/**'
+      - '_scripts/generate_sitemap.py'
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Régénérer le sitemap
+        run: python3 _scripts/generate_sitemap.py
+
+      - name: Commit si changement
+        run: |
+          git config user.name "SnowFinder Bot"
+          git config user.email "bot@snowfinder.fr"
+          if git diff --quiet sitemap.xml; then
+            echo "✓ Sitemap inchangé, rien à commit"
+          else
+            git add sitemap.xml
+            git commit -m "🤖 Régénération automatique du sitemap"
+            git push
+          fi
