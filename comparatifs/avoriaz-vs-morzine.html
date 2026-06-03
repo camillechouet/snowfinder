@@ -135,19 +135,59 @@ h2 {
 }
 .book-cta h2 { margin-top:0; border:none; padding-bottom:0; text-align:center; }
 .book-cta p { text-align:center; color:var(--text-mid); margin:0 0 22px; }
-.book-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.book-station { background:var(--wood-pale); border-radius:var(--radius); padding:18px; }
-.book-station h3 { margin:0 0 12px; color:var(--wood-dark); font-family:"DM Serif Display",serif; }
-.book-buttons { display:flex; gap:10px; }
-.book-buttons a {
-  flex:1; padding:11px 12px; border-radius:10px; text-align:center;
-  text-decoration:none; font-size:.85rem; font-weight:700;
+.book-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.book-station h3 {
+  margin:0 0 12px; color:var(--wood-dark); font-family:"DM Serif Display",serif;
+  font-size:1.25rem; text-align:center;
 }
-.btn-booking { background:#003580; color:#fff; }
-.btn-expedia { background:#ffcc00; color:#003580; }
+.book-stack {
+  border-radius:14px; overflow:hidden;
+  box-shadow:0 6px 20px rgba(13,34,64,.14); margin-bottom:10px;
+}
+.book-card {
+  display:block; text-decoration:none; overflow:hidden;
+  position:relative; transition:transform .15s;
+}
+.book-card + .book-card { border-top:2px solid white; }
+.book-card .img-wrap { position:relative; overflow:hidden; height:120px; }
+.book-card img {
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform .5s ease;
+}
+.book-card:hover img { transform:scale(1.05); }
+.book-card .overlay {
+  position:absolute; inset:0; display:flex; align-items:center;
+  padding:0 18px; gap:12px;
+}
+.book-card .icon {
+  font-size:1.7rem; filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));
+}
+.book-card .text { flex:1; }
+.book-card .title {
+  color:white; font-weight:800; font-size:.95rem;
+  text-shadow:0 1px 5px rgba(0,0,0,.6);
+}
+.book-card .sub {
+  color:rgba(255,255,255,.82); font-size:.72rem; margin-top:2px;
+}
+.book-card .btn-pill {
+  background:white; color:#003d96; font-size:.78rem; font-weight:800;
+  padding:7px 14px; border-radius:20px; white-space:nowrap;
+  box-shadow:0 3px 10px rgba(0,0,0,.25);
+}
+.book-card.expedia .btn-pill { background:#ffcc00; color:#1a2060; }
+.book-card.booking .overlay {
+  background:linear-gradient(to right,rgba(0,35,110,.78) 0%,rgba(0,35,110,.38) 55%,transparent 100%);
+}
+.book-card.expedia .overlay {
+  background:linear-gradient(to right,rgba(140,95,0,.8) 0%,rgba(140,95,0,.38) 55%,transparent 100%);
+}
+.book-disclaimer {
+  text-align:center; font-size:.62rem; color:var(--text-light); margin-top:6px;
+}
 .detail-link {
-  display:block; text-align:center; margin-top:14px; font-size:.85rem;
-  color:var(--blue-dark); text-decoration:none;
+  display:block; text-align:center; margin-top:14px; font-size:.88rem;
+  color:var(--blue-dark); text-decoration:none; font-weight:600;
 }
 .detail-link:hover { text-decoration:underline; }
 @media (max-width:700px) { .book-grid { grid-template-columns:1fr; } }
@@ -298,23 +338,72 @@ footer a { color:var(--text-light); }
   <h2>🏨 Réserver votre séjour</h2>
   <p>Comparez les hébergements sur Booking et Expedia, ou découvrez la fiche détaillée de chaque station.</p>
   <div class="book-grid">
-    <div class="book-station">
+    <div>
       <h3>Avoriaz</h3>
-      <div class="book-buttons">
-        <a href="https://www.booking.com/searchresults.fr.html?ss=avoriaz+france&aid=SnowFinder&nflt=review_score%3D80" target="_blank" rel="noopener sponsored" class="btn-booking">🏨 Booking</a>
-        <a href="https://www.expedia.fr/go/hotel/search/Destination/?CityName=Avoriaz&City=Avoriaz&SortBy=distance&NumRoom=1&NumAdult1=1" target="_blank" rel="noopener sponsored" class="btn-expedia">✈️ Expedia</a>
+      <div class="book-stack">
+        <a href="https://www.booking.com/searchresults.fr.html?ss=avoriaz+france&aid=SnowFinder&nflt=review_score%3D80" target="_blank" rel="noopener sponsored" class="book-card booking">
+          <div class="img-wrap">
+            <img src="/img/chalet-booking.jpg" alt="Réserver sur Booking" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=600&q=80'">
+            <div class="overlay">
+              <span class="icon">🏨</span>
+              <div class="text">
+                <div class="title">Réserver sur Booking.com</div>
+                <div class="sub">Hôtels · Chalets · Appartements</div>
+              </div>
+              <div class="btn-pill">Voir les offres →</div>
+            </div>
+          </div>
+        </a>
+        <a href="https://www.jdoqocy.com/click-101709262-13904689?sid=comparatif-avoriaz&url=https%3A%2F%2Fwww.expedia.fr%2Fgo%2Fhotel%2Fsearch%2FDestination%2F%3FCityName%3DAvoriaz%26City%3DAvoriaz%26SortBy%3Ddistance%26NumRoom%3D1%26NumAdult1%3D1" target="_blank" rel="noopener sponsored" class="book-card expedia">
+          <div class="img-wrap">
+            <img src="/img/chalet-expedia.jpg" alt="Réserver sur Expedia" onerror="this.src='https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80'">
+            <div class="overlay">
+              <span class="icon">✈️</span>
+              <div class="text">
+                <div class="title">Vol + Hôtel sur Expedia</div>
+                <div class="sub">Packs ski · Économisez jusqu'à 30%</div>
+              </div>
+              <div class="btn-pill">Réserver →</div>
+            </div>
+          </div>
+        </a>
       </div>
       <a href="/stations/avoriaz.html" class="detail-link">→ Fiche complète de Avoriaz</a>
     </div>
-    <div class="book-station">
+    <div>
       <h3>Morzine</h3>
-      <div class="book-buttons">
-        <a href="https://www.booking.com/searchresults.fr.html?ss=morzine+france&aid=SnowFinder&nflt=review_score%3D80" target="_blank" rel="noopener sponsored" class="btn-booking">🏨 Booking</a>
-        <a href="https://www.expedia.fr/go/hotel/search/Destination/?CityName=Morzine&City=Morzine&SortBy=distance&NumRoom=1&NumAdult1=1" target="_blank" rel="noopener sponsored" class="btn-expedia">✈️ Expedia</a>
+      <div class="book-stack">
+        <a href="https://www.booking.com/searchresults.fr.html?ss=morzine+france&aid=SnowFinder&nflt=review_score%3D80" target="_blank" rel="noopener sponsored" class="book-card booking">
+          <div class="img-wrap">
+            <img src="/img/chalet-booking.jpg" alt="Réserver sur Booking" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=600&q=80'">
+            <div class="overlay">
+              <span class="icon">🏨</span>
+              <div class="text">
+                <div class="title">Réserver sur Booking.com</div>
+                <div class="sub">Hôtels · Chalets · Appartements</div>
+              </div>
+              <div class="btn-pill">Voir les offres →</div>
+            </div>
+          </div>
+        </a>
+        <a href="https://www.jdoqocy.com/click-101709262-13904689?sid=comparatif-morzine&url=https%3A%2F%2Fwww.expedia.fr%2Fgo%2Fhotel%2Fsearch%2FDestination%2F%3FCityName%3DMorzine%26City%3DMorzine%26SortBy%3Ddistance%26NumRoom%3D1%26NumAdult1%3D1" target="_blank" rel="noopener sponsored" class="book-card expedia">
+          <div class="img-wrap">
+            <img src="/img/chalet-expedia.jpg" alt="Réserver sur Expedia" onerror="this.src='https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80'">
+            <div class="overlay">
+              <span class="icon">✈️</span>
+              <div class="text">
+                <div class="title">Vol + Hôtel sur Expedia</div>
+                <div class="sub">Packs ski · Économisez jusqu'à 30%</div>
+              </div>
+              <div class="btn-pill">Réserver →</div>
+            </div>
+          </div>
+        </a>
       </div>
       <a href="/stations/morzine.html" class="detail-link">→ Fiche complète de Morzine</a>
     </div>
   </div>
+  <div class="book-disclaimer">Liens affiliés — prix identiques, aucune commission prélevée sur vous</div>
 </div>
 
 </main>
