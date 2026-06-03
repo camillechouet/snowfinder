@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La Plagne vs Les Arcs : quelle station choisir ? — SnowFinder</title>
+<meta name="description" content="La Plagne ou Les Arcs ? Comparatif complet : enneigement, prix, ambiance, domaine skiable. Notre avis pour vous aider à choisir la station idéale.">
+<link rel="canonical" href="https://snowfinder.fr/comparatifs/la-plagne-vs-les-arcs.html">
+<meta property="og:title" content="La Plagne vs Les Arcs : le comparatif complet">
+<meta property="og:description" content="Quelle station choisir entre La Plagne et Les Arcs ? Le guide SnowFinder.">
+<meta property="og:image" content="https://snowfinder.fr/img/laplagne1.jpg">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#faf6f0;
+  --wood-dark:#8b5e3c;
+  --wood:#a87547;
+  --wood-light:#eddcbf;
+  --wood-pale:#f7efe2;
+  --text:#2a1f14;
+  --text-mid:#5c4a35;
+  --text-light:#8a7060;
+  --border:#e8d8c4;
+  --blue-dark:#1a5a8a;
+  --blue:#5b9fd4;
+  --shadow:0 1px 4px rgba(0,0,0,.08);
+  --shadow-md:0 6px 20px rgba(0,0,0,.12);
+  --radius:14px;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:'DM Sans',-apple-system,sans-serif; line-height:1.6;
+}
+.nav {
+  background:#fff; border-bottom:1px solid var(--border); padding:14px 20px;
+  display:flex; align-items:center; gap:18px; position:sticky; top:0; z-index:10;
+}
+.nav a.brand { font-family:"DM Serif Display",serif; font-size:1.4rem; color:var(--text); text-decoration:none; }
+.nav .navlinks { display:flex; gap:18px; margin-left:auto; }
+.nav .navlinks a { color:var(--text-mid); text-decoration:none; font-size:.95rem; }
+.nav .navlinks a:hover { color:var(--wood-dark); }
+
+.page { max-width:1100px; margin:0 auto; padding:36px 24px 80px; }
+.crumbs { font-size:.85rem; color:var(--text-light); margin-bottom:14px; }
+.crumbs a { color:var(--text-light); text-decoration:none; }
+.crumbs a:hover { color:var(--wood-dark); }
+
+h1 {
+  font-family:"DM Serif Display",serif; font-size:2.4rem; line-height:1.15;
+  margin:0 0 12px; color:var(--text);
+}
+.subtitle { font-size:1.05rem; color:var(--text-mid); margin-bottom:32px; }
+
+.hero-pair {
+  display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:0 0 32px;
+}
+.hero-card {
+  position:relative; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
+  background:#fff; aspect-ratio:16/10;
+}
+.hero-card img { width:100%; height:100%; object-fit:cover; display:block; }
+.hero-card .tag {
+  position:absolute; left:14px; top:14px; background:rgba(255,255,255,.92);
+  padding:6px 12px; border-radius:8px; font-weight:700; font-size:.95rem;
+  color:var(--text); box-shadow:var(--shadow);
+}
+@media (max-width:700px) {
+  .hero-pair { grid-template-columns:1fr; }
+  h1 { font-size:1.7rem; }
+  .page { padding:24px 16px 60px; }
+}
+
+.teaser {
+  background:var(--wood-pale); border-left:4px solid var(--wood-dark);
+  padding:18px 22px; border-radius:0 var(--radius) var(--radius) 0;
+  margin:0 0 36px; font-size:1.02rem;
+}
+
+h2 {
+  font-family:"DM Serif Display",serif; font-size:1.7rem;
+  margin:48px 0 18px; color:var(--text); border-bottom:1px solid var(--border); padding-bottom:10px;
+}
+
+.specs {
+  display:grid; grid-template-columns:1fr 1fr; gap:14px;
+}
+.spec-card {
+  background:#fff; border:1px solid var(--border); border-radius:var(--radius);
+  padding:22px; box-shadow:var(--shadow);
+}
+.spec-card h3 { margin:0 0 14px; font-family:"DM Serif Display",serif; font-size:1.3rem; color:var(--wood-dark); }
+.spec-card .row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dotted var(--border); font-size:.95rem; }
+.spec-card .row:last-child { border-bottom:none; }
+.spec-card .row span:first-child { color:var(--text-light); }
+.spec-card .row span:last-child { font-weight:600; color:var(--text); }
+@media (max-width:700px) { .specs { grid-template-columns:1fr; } }
+
+.winner-table {
+  background:#fff; border:1px solid var(--border); border-radius:var(--radius);
+  overflow:hidden; box-shadow:var(--shadow);
+}
+.winner-row {
+  display:grid; grid-template-columns:1fr 1.2fr; padding:14px 20px;
+  border-bottom:1px solid var(--border); align-items:center; gap:12px;
+}
+.winner-row:last-child { border-bottom:none; }
+.winner-row:nth-child(even) { background:var(--wood-pale); }
+.winner-criterion { font-weight:500; color:var(--text-mid); font-size:.95rem; }
+.winner-pick { font-weight:700; color:var(--wood-dark); font-size:.95rem; }
+.winner-pick::before { content:"🏆 "; }
+
+.verdict {
+  background:linear-gradient(135deg,#fff 0%,var(--wood-pale) 100%);
+  border:2px solid var(--wood-light); border-radius:var(--radius);
+  padding:28px 30px; box-shadow:var(--shadow-md); font-size:1.05rem; margin:30px 0;
+}
+.verdict h2 { margin-top:0; border:none; padding-bottom:0; color:var(--wood-dark); }
+
+.faq-item {
+  background:#fff; border:1px solid var(--border); border-radius:var(--radius);
+  margin-bottom:12px; padding:18px 22px; box-shadow:var(--shadow);
+}
+.faq-item h3 { margin:0 0 8px; font-size:1.05rem; color:var(--text); }
+.faq-item p { margin:0; color:var(--text-mid); }
+
+.book-cta {
+  background:#fff; border:1px solid var(--border); border-radius:var(--radius);
+  padding:24px; box-shadow:var(--shadow-md); margin:40px 0 0;
+}
+.book-cta h2 { margin-top:0; border:none; padding-bottom:0; text-align:center; }
+.book-cta p { text-align:center; color:var(--text-mid); margin:0 0 22px; }
+.book-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.book-station { background:var(--wood-pale); border-radius:var(--radius); padding:18px; }
+.book-station h3 { margin:0 0 12px; color:var(--wood-dark); font-family:"DM Serif Display",serif; }
+.book-buttons { display:flex; gap:10px; }
+.book-buttons a {
+  flex:1; padding:11px 12px; border-radius:10px; text-align:center;
+  text-decoration:none; font-size:.85rem; font-weight:700;
+}
+.btn-booking { background:#003580; color:#fff; }
+.btn-expedia { background:#ffcc00; color:#003580; }
+.detail-link {
+  display:block; text-align:center; margin-top:14px; font-size:.85rem;
+  color:var(--blue-dark); text-decoration:none;
+}
+.detail-link:hover { text-decoration:underline; }
+@media (max-width:700px) { .book-grid { grid-template-columns:1fr; } }
+
+footer {
+  text-align:center; padding:30px 20px; color:var(--text-light); font-size:.85rem;
+  border-top:1px solid var(--border); margin-top:40px;
+}
+footer a { color:var(--text-light); }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "La Plagne et Les Arcs sont-elles reliées à ski ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui, via le Vanoise Express, télécabine impressionnante (1800 m de portée) qui relie les deux domaines en 4 minutes. L'ensemble forme Paradiski, 3e plus grand domaine skiable du monde avec 425 km de pistes. Le forfait Paradiski couvre l'ensemble."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quelle station choisir pour une première semaine de ski ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "La Plagne, sans hésiter. Plagne Centre ou Belle Plagne sont conçues pour les débutants : front de neige adapté, tapis roulants, écoles ESF nombreuses. Les Arcs proposent aussi des espaces débutants mais le relief général est plus marqué."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Arc 1950 vaut-elle le détour ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui, c'est une réussite architecturale rare : station piétonne récente conçue dans un style village savoyard contemporain, sans voitures dans les rues, avec une vraie âme. C'est l'argument fort des Arcs face aux stations cubes des années 70."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quel est le meilleur ski hors-piste, La Plagne ou Les Arcs ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Les Arcs prennent l'avantage avec l'Aiguille Rouge (3226 m) et ses descentes vers Villaroger ou Le Pré qui offrent un dénivelé impressionnant. Le hors-piste y est plus engagé. La Plagne propose des itinéraires plus accessibles côté Bellecôte et Roche de Mio."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "headline": "La Plagne vs Les Arcs : quelle station choisir ?",
+      "image": "https://snowfinder.fr/img/laplagne1.jpg",
+      "datePublished": "2026-06-03",
+      "author": {
+        "@type": "Organization",
+        "name": "SnowFinder"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="brand">SnowFinder</a>
+  <div class="navlinks">
+    <a href="/recherche.html">Stations</a>
+    <a href="/comparatifs/">Comparatifs</a>
+    <a href="/tinder.html">Découvrir</a>
+  </div>
+</nav>
+
+<main class="page">
+
+<div class="crumbs">
+  <a href="/">Accueil</a> · <a href="/comparatifs/">Comparatifs</a> · La Plagne vs Les Arcs
+</div>
+
+<h1>La Plagne vs Les Arcs : quelle station choisir ?</h1>
+<div class="subtitle">Comparatif complet : domaine, enneigement, ambiance, budget. Notre verdict pour vous aider à trancher.</div>
+
+<div class="hero-pair">
+  <div class="hero-card">
+    <img src="/img/laplagne1.jpg" alt="La Plagne" loading="eager">
+    <div class="tag">La Plagne</div>
+  </div>
+  <div class="hero-card">
+    <img src="/img/lesarcs1.jpg" alt="Les Arcs" loading="eager">
+    <div class="tag">Les Arcs</div>
+  </div>
+</div>
+
+<div class="teaser">Les deux mastodontes de Paradiski (425 km) sont reliés par le Vanoise Express, mais incarnent deux conceptions très différentes du ski. La Plagne, archétype de la station 100% familiale. Les Arcs, plus sportive et architecturalement audacieuse, du village d'Arc 1950 aux pistes mythiques.</div>
+
+<h2>📊 Les chiffres face à face</h2>
+<div class="specs">
+  <div class="spec-card">
+    <h3>La Plagne</h3>
+    <div class="row"><span>Altitude</span><span>1250 – 3250 m</span></div>
+    <div class="row"><span>Domaine skiable</span><span>225 km</span></div>
+    <div class="row"><span>Remontées</span><span>73</span></div>
+    <div class="row"><span>Pistes (V/B/R/N)</span><span>19/61/39/11</span></div>
+    <div class="row"><span>Forfait journée</span><span>53 €</span></div>
+    <div class="row"><span>Note SnowFinder</span><span>4.6 / 5</span></div>
+    <div class="row"><span>Région</span><span>Tarentaise, Savoie</span></div>
+  </div>
+  <div class="spec-card">
+    <h3>Les Arcs</h3>
+    <div class="row"><span>Altitude</span><span>1200 – 3226 m</span></div>
+    <div class="row"><span>Domaine skiable</span><span>200 km</span></div>
+    <div class="row"><span>Remontées</span><span>53</span></div>
+    <div class="row"><span>Pistes (V/B/R/N)</span><span>11/41/31/17</span></div>
+    <div class="row"><span>Forfait journée</span><span>55 €</span></div>
+    <div class="row"><span>Note SnowFinder</span><span>4.6 / 5</span></div>
+    <div class="row"><span>Région</span><span>Tarentaise, Savoie</span></div>
+  </div>
+</div>
+
+<h2>🏆 Quel critère pour quelle station ?</h2>
+<div class="winner-table">
+<div class="winner-row"><div class="winner-criterion">Famille avec jeunes enfants</div><div class="winner-pick">La Plagne</div></div>
+<div class="winner-row"><div class="winner-criterion">Skieurs intermédiaires / confirmés</div><div class="winner-pick">Les Arcs</div></div>
+<div class="winner-row"><div class="winner-criterion">Variété du domaine en intra-station</div><div class="winner-pick">Les Arcs</div></div>
+<div class="winner-row"><div class="winner-criterion">Architecture village (Arc 1950)</div><div class="winner-pick">Les Arcs</div></div>
+<div class="winner-row"><div class="winner-criterion">Animation enfants</div><div class="winner-pick">La Plagne</div></div>
+<div class="winner-row"><div class="winner-criterion">Bobsleigh olympique</div><div class="winner-pick">La Plagne</div></div>
+<div class="winner-row"><div class="winner-criterion">Vue sur le Mont-Blanc</div><div class="winner-pick">Les Arcs</div></div>
+<div class="winner-row"><div class="winner-criterion">Hors-piste</div><div class="winner-pick">Les Arcs (Aiguille Rouge)</div></div>
+</div>
+
+<div class="verdict">
+  <h2>💡 Notre verdict</h2>
+  <p><strong>La Plagne</strong> est le choix le plus sûr pour une famille avec enfants : domaine très progressif, garderies omniprésentes, hébergement « ski aux pieds » dans presque tous les villages, et activités annexes (bob, luge). <strong>Les Arcs</strong> conviendra mieux à des skieurs déjà autonomes qui cherchent des pistes variées et techniques, et apprécient le cachet d'Arc 1950.</p>
+</div>
+
+<h2>❓ Questions fréquentes</h2>
+<div class="faq-item"><h3>La Plagne et Les Arcs sont-elles reliées à ski ?</h3><p>Oui, via le Vanoise Express, télécabine impressionnante (1800 m de portée) qui relie les deux domaines en 4 minutes. L'ensemble forme Paradiski, 3e plus grand domaine skiable du monde avec 425 km de pistes. Le forfait Paradiski couvre l'ensemble.</p></div>
+<div class="faq-item"><h3>Quelle station choisir pour une première semaine de ski ?</h3><p>La Plagne, sans hésiter. Plagne Centre ou Belle Plagne sont conçues pour les débutants : front de neige adapté, tapis roulants, écoles ESF nombreuses. Les Arcs proposent aussi des espaces débutants mais le relief général est plus marqué.</p></div>
+<div class="faq-item"><h3>Arc 1950 vaut-elle le détour ?</h3><p>Oui, c'est une réussite architecturale rare : station piétonne récente conçue dans un style village savoyard contemporain, sans voitures dans les rues, avec une vraie âme. C'est l'argument fort des Arcs face aux stations cubes des années 70.</p></div>
+<div class="faq-item"><h3>Quel est le meilleur ski hors-piste, La Plagne ou Les Arcs ?</h3><p>Les Arcs prennent l'avantage avec l'Aiguille Rouge (3226 m) et ses descentes vers Villaroger ou Le Pré qui offrent un dénivelé impressionnant. Le hors-piste y est plus engagé. La Plagne propose des itinéraires plus accessibles côté Bellecôte et Roche de Mio.</p></div>
+
+<div class="book-cta">
+  <h2>🏨 Réserver votre séjour</h2>
+  <p>Comparez les hébergements sur Booking et Expedia, ou découvrez la fiche détaillée de chaque station.</p>
+  <div class="book-grid">
+    <div class="book-station">
+      <h3>La Plagne</h3>
+      <div class="book-buttons">
+        <a href="https://www.booking.com/searchresults.fr.html?ss=la+plagne+france&aid=SnowFinder&nflt=review_score%3D80" target="_blank" rel="noopener sponsored" class="btn-booking">🏨 Booking</a>
+        <a href="https://www.expedia.fr/go/hotel/search/Destination/?CityName=La%20Plagne&City=La%20Plagne&SortBy=distance&NumRoom=1&NumAdult1=1" target="_blank" rel="noopener sponsored" class="btn-expedia">✈️ Expedia</a>
+      </div>
+      <a href="/stations/la-plagne.html" class="detail-link">→ Fiche complète de La Plagne</a>
+    </div>
+    <div class="book-station">
+      <h3>Les Arcs</h3>
+      <div class="book-buttons">
+        <a href="https://www.booking.com/searchresults.fr.html?ss=les+arcs+france&aid=SnowFinder&nflt=review_score%3D80" target="_blank" rel="noopener sponsored" class="btn-booking">🏨 Booking</a>
+        <a href="https://www.expedia.fr/go/hotel/search/Destination/?CityName=Les%20Arcs&City=Les%20Arcs&SortBy=distance&NumRoom=1&NumAdult1=1" target="_blank" rel="noopener sponsored" class="btn-expedia">✈️ Expedia</a>
+      </div>
+      <a href="/stations/les-arcs.html" class="detail-link">→ Fiche complète de Les Arcs</a>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  © 2026 SnowFinder &nbsp;·&nbsp; <a href="/mentions-legales.html">Mentions légales</a> &nbsp;·&nbsp; <a href="/">Accueil</a>
+</footer>
+
+</body>
+</html>
