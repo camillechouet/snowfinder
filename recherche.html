@@ -57,7 +57,7 @@
 .sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:250}
 .sb-overlay.open{display:block}
 .page-wrap{margin-left:var(--sb-w);transition:margin-left .3s}
-@media(max-width:900px){.sb{transform:translateX(calc(-1 * var(--sb-w)))}.sb.open{transform:translateX(0)}.sb-hamburger{display:flex}.page-wrap{margin-left:0}.page-wrap .topbar{padding-left:60px!important}}
+@media(max-width:900px){.sb{display:none;transform:translateX(calc(-1 * var(--sb-w)))}.sb.open{display:flex;transform:translateX(0)}.sb-hamburger{display:flex!important}.page-wrap{margin-left:0}.page-wrap .topbar{padding-left:60px!important}}
 
 
 
@@ -1409,67 +1409,8 @@ document.getElementById("eteOverlay").addEventListener("click", e => {
 </div>
 
 
-<!-- BOUTON FILTRES MOBILE -->
-<div id="mobileFilterBar" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--white);border-bottom:1px solid var(--wood-light)">
-  <span style="font-size:.85rem;color:var(--text-light)" id="filterBarCount">226 stations</span>
-  <button class="btn-filters-mobile" id="btnFilters" style="display:flex">⚙ Filtres</button>
-</div>
 
-<!-- FILTRES EXPRESS MOBILE (3 critères) -->
-<div id="mobileQuickFilters" style="display:none;padding:10px 12px 8px;background:var(--white);border-bottom:1px solid var(--wood-light);overflow-x:auto;-webkit-overflow-scrolling:touch">
-  <div style="display:flex;gap:7px;min-width:max-content">
-    <div style="font-size:.72rem;font-weight:700;color:var(--text-light);align-self:center;white-space:nowrap;margin-right:2px">Niveau</div>
-    <button class="mqf-btn active" data-f="niv" data-v="" onclick="mqfSelect(this,'niv','')">Tous</button>
-    <button class="mqf-btn" data-f="niv" data-v="debutant" onclick="mqfSelect(this,'niv','debutant')">🟢 Débutant</button>
-    <button class="mqf-btn" data-f="niv" data-v="intermediaire" onclick="mqfSelect(this,'niv','intermediaire')">🔵 Intermédiaire</button>
-    <button class="mqf-btn" data-f="niv" data-v="avance" onclick="mqfSelect(this,'niv','avance')">🔴 Avancé</button>
-    <div style="width:1px;background:var(--border);flex-shrink:0;margin:0 2px"></div>
-    <div style="font-size:.72rem;font-weight:700;color:var(--text-light);align-self:center;white-space:nowrap">Budget</div>
-    <button class="mqf-btn active" data-f="budget" data-v="" onclick="mqfSelect(this,'budget','')">Tous</button>
-    <button class="mqf-btn" data-f="budget" data-v="eco" onclick="mqfSelect(this,'budget','eco')">💚 &lt;25€</button>
-    <button class="mqf-btn" data-f="budget" data-v="mid" onclick="mqfSelect(this,'budget','mid')">🔵 25–40€</button>
-    <button class="mqf-btn" data-f="budget" data-v="prem" onclick="mqfSelect(this,'budget','prem')">🟠 &gt;40€</button>
-    <div style="width:1px;background:var(--border);flex-shrink:0;margin:0 2px"></div>
-    <div style="font-size:.72rem;font-weight:700;color:var(--text-light);align-self:center;white-space:nowrap">Massif</div>
-    <button class="mqf-btn active" data-f="massif" data-v="" onclick="mqfSelect(this,'massif','')">Tous</button>
-    <button class="mqf-btn" data-f="massif" data-v="Alpes du Nord" onclick="mqfSelect(this,'massif','Alpes du Nord')">🏔 Alpes N.</button>
-    <button class="mqf-btn" data-f="massif" data-v="Alpes du Sud" onclick="mqfSelect(this,'massif','Alpes du Sud')">☀️ Alpes S.</button>
-    <button class="mqf-btn" data-f="massif" data-v="Pyrénées" onclick="mqfSelect(this,'massif','Pyrénées')">🗻 Pyrénées</button>
-  </div>
-  <div style="text-align:right;margin-top:8px">
-    <button onclick="document.getElementById('btnFilters').click()" style="font-size:.72rem;color:var(--blue-mid);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600">+ Tous les filtres →</button>
-  </div>
-</div>
-<style>
-.mqf-btn{padding:5px 11px;border-radius:16px;border:1.5px solid var(--border);background:var(--white);font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;cursor:pointer;color:var(--text-mid);white-space:nowrap;transition:all .15s}
-.mqf-btn.active{background:var(--blue-dark);color:white;border-color:var(--blue-dark)}
-@media(max-width:900px){#mobileQuickFilters{display:block!important}}
-</style>
-<script>
-function mqfSelect(btn, filterType, val){
-  // Mettre à jour le bouton actif dans ce groupe
-  document.querySelectorAll('.mqf-btn[data-f="'+filterType+'"]').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active');
-  // Synchroniser avec les filtres principaux
-  if(filterType === 'niv'){
-    F.niv = val ? [val] : [];
-    document.querySelectorAll('.fr[data-f="niv"]').forEach(function(el){
-      el.classList.toggle('active', el.dataset.v === val);
-    });
-  } else if(filterType === 'budget'){
-    F.budget = val ? [val] : [];
-    document.querySelectorAll('.fr[data-f="budget"]').forEach(function(el){
-      el.classList.toggle('active', el.dataset.v === val);
-    });
-  } else if(filterType === 'massif'){
-    F.massif = val ? [val] : [];
-    document.querySelectorAll('.fr[data-f="massif"]').forEach(function(el){
-      el.classList.toggle('active', el.dataset.v === val);
-    });
-  }
-  applyFilters();
-}
-</script>
+
 
 <div class="search-hero">
   <div class="search-hero-inner">
@@ -1486,6 +1427,70 @@ function mqfSelect(btn, filterType, val){
     </a>
   </div>
 </div>
+
+
+
+
+<!-- BARRE MOBILE : TRI + FILTRES + CRITÈRES EXPRESS (visible uniquement ≤900px) -->
+<div id="mobileToolbar" style="display:none;flex-direction:column;background:var(--white);border-bottom:2px solid var(--wood-light)">
+  <!-- Ligne 1 : compteur + tri rapide + bouton filtres -->
+  <div style="display:flex;align-items:center;gap:8px;padding:10px 14px">
+    <span style="font-size:.82rem;color:var(--text-light);flex:1" id="filterBarCount">226 stations</span>
+    <select id="mobileSortSelect" onchange="SORT=this.value;document.getElementById('sortSelect').value=this.value;applyFilters()"
+      style="padding:7px 10px;border:1.5px solid var(--border);border-radius:18px;font-family:'DM Sans',sans-serif;font-size:.78rem;background:var(--bg);color:var(--text);outline:none">
+      <option value="score">⭐ Meilleure note</option>
+      <option value="name">🔤 Nom A–Z</option>
+      <option value="km">🎿 Plus grand domaine</option>
+      <option value="alt">⛰ Altitude sommet</option>
+      <option value="snow">❄️ Meilleur enneigement</option>
+      <option value="price_asc">💶 Forfait croissant</option>
+      <option value="price_desc">💰 Forfait décroissant</option>
+      <option value="denivele">🗻 Dénivelé max</option>
+    </select>
+    <button id="btnFilters" onclick="openDrawer()"
+      style="display:flex;align-items:center;gap:6px;padding:8px 14px;background:var(--blue-mid);color:white;border:none;border-radius:20px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap">
+      ⚙ Filtres
+    </button>
+  </div>
+  <!-- Ligne 2 : critères express horizontaux scrollables -->
+  <div style="padding:0 12px 10px;overflow-x:auto;-webkit-overflow-scrolling:touch">
+    <div style="display:flex;gap:6px;min-width:max-content">
+      <span style="font-size:.7rem;font-weight:700;color:var(--text-light);align-self:center;white-space:nowrap">Niveau</span>
+      <button class="mqf-btn active" data-f="niv" data-v="" onclick="mqfSelect(this,'niv','')">Tous</button>
+      <button class="mqf-btn" data-f="niv" data-v="debutant" onclick="mqfSelect(this,'niv','debutant')">🟢 Débutant</button>
+      <button class="mqf-btn" data-f="niv" data-v="intermediaire" onclick="mqfSelect(this,'niv','intermediaire')">🔵 Intermédiaire</button>
+      <button class="mqf-btn" data-f="niv" data-v="avance" onclick="mqfSelect(this,'niv','avance')">🔴 Avancé</button>
+      <div style="width:1px;background:var(--border);flex-shrink:0;margin:0 2px"></div>
+      <span style="font-size:.7rem;font-weight:700;color:var(--text-light);align-self:center;white-space:nowrap">Budget</span>
+      <button class="mqf-btn active" data-f="budget" data-v="" onclick="mqfSelect(this,'budget','')">Tous</button>
+      <button class="mqf-btn" data-f="budget" data-v="eco" onclick="mqfSelect(this,'budget','eco')">💚 &lt;25€</button>
+      <button class="mqf-btn" data-f="budget" data-v="mid" onclick="mqfSelect(this,'budget','mid')">🔵 25–40€</button>
+      <button class="mqf-btn" data-f="budget" data-v="prem" onclick="mqfSelect(this,'budget','prem')">🟠 &gt;40€</button>
+      <div style="width:1px;background:var(--border);flex-shrink:0;margin:0 2px"></div>
+      <span style="font-size:.7rem;font-weight:700;color:var(--text-light);align-self:center;white-space:nowrap">Massif</span>
+      <button class="mqf-btn active" data-f="massif" data-v="" onclick="mqfSelect(this,'massif','')">Tous</button>
+      <button class="mqf-btn" data-f="massif" data-v="Alpes du Nord" onclick="mqfSelect(this,'massif','Alpes du Nord')">🏔 Alpes N.</button>
+      <button class="mqf-btn" data-f="massif" data-v="Alpes du Sud" onclick="mqfSelect(this,'massif','Alpes du Sud')">☀️ Alpes S.</button>
+      <button class="mqf-btn" data-f="massif" data-v="Pyrénées" onclick="mqfSelect(this,'massif','Pyrénées')">🗻 Pyrénées</button>
+    </div>
+  </div>
+</div>
+<style>
+.mqf-btn{padding:5px 11px;border-radius:16px;border:1.5px solid var(--border);background:var(--white);font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;cursor:pointer;color:var(--text-mid);white-space:nowrap;transition:all .15s}
+.mqf-btn.active{background:var(--blue-dark);color:white;border-color:var(--blue-dark)}
+@media(max-width:900px){#mobileToolbar{display:flex!important}}
+@media(min-width:901px){#mobileToolbar{display:none!important}#btnFilters{display:none!important}}
+</style>
+<script>
+function mqfSelect(btn, filterType, val){
+  document.querySelectorAll('.mqf-btn[data-f="'+filterType+'"]').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  if(filterType === 'niv'){ F.niv = val ? [val] : []; document.querySelectorAll('.fr[data-f="niv"]').forEach(function(el){ el.classList.toggle('active', el.dataset.v === val); }); }
+  else if(filterType === 'budget'){ F.budget = val ? [val] : []; document.querySelectorAll('.fr[data-f="budget"]').forEach(function(el){ el.classList.toggle('active', el.dataset.v === val); }); }
+  else if(filterType === 'massif'){ F.massif = val ? [val] : []; document.querySelectorAll('.fr[data-f="massif"]').forEach(function(el){ el.classList.toggle('active', el.dataset.v === val); }); }
+  applyFilters();
+}
+</script>
 
 <div class="layout">
 
@@ -1966,6 +1971,7 @@ function applyFilters(){
   renderGrid(r);
   document.getElementById("resultsCount").textContent=r.length;
   document.getElementById("navCount").textContent=r.length+" station"+(r.length!==1?"s":"");
+  var fbc=document.getElementById("filterBarCount"); if(fbc) fbc.textContent=r.length+" station"+(r.length!==1?"s":"");
 }
 // Affiche un petit point bleu sur le titre des filter-box qui ont au moins un filtre actif
 function updateFilterBoxBadges(){
@@ -2602,7 +2608,7 @@ function openDrawer(){
   document.body.style.overflow = "hidden";
 }
 function closeDrawer(){document.getElementById("drawer").classList.remove("open");document.getElementById("drawerOverlay").classList.remove("open");document.body.style.overflow="";}
-document.getElementById("btnFilters").onclick=openDrawer;
+// btnFilters wired via inline onclick
 document.getElementById("drawerClose").onclick=closeDrawer;
 document.getElementById("drawerOverlay").onclick=closeDrawer;
 
