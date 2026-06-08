@@ -101,19 +101,30 @@ h2 {
 .spec-card .row span:last-child { font-weight:600; color:var(--text); }
 @media (max-width:700px) { .specs { grid-template-columns:1fr; } }
 
-.winner-table {
+.profil-grid {
+  display:grid; grid-template-columns:1fr; gap:12px;
+}
+.profil-card {
   background:#fff; border:1px solid var(--border); border-radius:var(--radius);
-  overflow:hidden; box-shadow:var(--shadow);
+  padding:18px 22px; box-shadow:var(--shadow);
+  border-left:4px solid var(--wood-dark);
 }
-.winner-row {
-  display:grid; grid-template-columns:1fr 1.2fr; padding:14px 20px;
-  border-bottom:1px solid var(--border); align-items:center; gap:12px;
+.profil-head {
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  margin-bottom:6px; flex-wrap:wrap;
 }
-.winner-row:last-child { border-bottom:none; }
-.winner-row:nth-child(even) { background:var(--wood-pale); }
-.winner-criterion { font-weight:500; color:var(--text-mid); font-size:.95rem; }
-.winner-pick { font-weight:700; color:var(--wood-dark); font-size:.95rem; }
-.winner-pick::before { content:"🏆 "; }
+.profil-label {
+  font-weight:700; color:var(--text); font-size:1rem;
+}
+.profil-pick {
+  background:var(--wood-pale); color:var(--wood-dark);
+  padding:5px 12px; border-radius:14px; font-weight:700;
+  font-size:.88rem; white-space:nowrap;
+}
+.profil-pick::before { content:"→ "; opacity:.6; }
+.profil-reason {
+  color:var(--text-mid); font-size:.93rem; margin:0; line-height:1.55;
+}
 
 .verdict {
   background:linear-gradient(135deg,#fff 0%,var(--wood-pale) 100%);
@@ -186,10 +197,18 @@ h2 {
   text-align:center; font-size:.62rem; color:var(--text-light); margin-top:6px;
 }
 .detail-link {
-  display:block; text-align:center; margin-top:14px; font-size:.88rem;
+  display:block; text-align:center; margin-top:10px; font-size:.88rem;
   color:var(--blue-dark); text-decoration:none; font-weight:600;
 }
 .detail-link:hover { text-decoration:underline; }
+.officiel-link {
+  display:block; text-align:center; margin-top:12px; padding:9px 14px;
+  background:var(--wood-pale); color:var(--wood-dark); border-radius:10px;
+  font-size:.88rem; font-weight:700; text-decoration:none;
+  border:1px solid var(--wood-light);
+  transition:background .15s;
+}
+.officiel-link:hover { background:var(--wood-light); }
 @media (max-width:700px) { .book-grid { grid-template-columns:1fr; } }
 
 footer {
@@ -211,7 +230,7 @@ footer a { color:var(--text-light); }
           "name": "Peut-on skier entre l'Alpe d'Huez et Les Deux Alpes ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Une liaison à skis via le col du Lac Blanc existe mais elle n'est plus opérationnelle de façon fiable depuis plusieurs années. Concrètement, on choisit l'une ou l'autre. Une navette routière permet de passer de l'une à l'autre en 1h-1h30."
+            "text": "Une liaison à skis via le col du Lac Blanc existe mais n'est plus opérationnelle de façon fiable depuis plusieurs années. Concrètement, on choisit l'une ou l'autre. Une navette routière permet de passer de l'une à l'autre en 1h-1h30."
           }
         },
         {
@@ -219,7 +238,7 @@ footer a { color:var(--text-light); }
           "name": "Quelle station a le meilleur snowpark ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Les Deux Alpes, c'est même l'une de ses signatures. Le snowpark, perché sur le glacier, fonctionne en hiver comme en été et accueille régulièrement les pros mondiaux. L'Alpe d'Huez a un snowpark correct mais sans la même réputation."
+            "text": "Les Deux Alpes, c'est même l'une de ses signatures. Le snowpark, perché sur le glacier, fonctionne en hiver comme en été et accueille régulièrement les pros mondiaux."
           }
         },
         {
@@ -227,7 +246,7 @@ footer a { color:var(--text-light); }
           "name": "La piste de la Sarenne est-elle vraiment la plus longue noire d'Europe ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui, 16 km depuis le Pic Blanc (3330 m) jusqu'à Sarenne, soit 2 000 m de dénivelé. Attention, malgré son label « noire », la majorité du parcours est rouge — seul le départ et quelques sections sont vraiment exigeants. Accessible à un bon skieur."
+            "text": "Oui, 16 km depuis le Pic Blanc (3330 m) jusqu'à Sarenne, soit 2 000 m de dénivelé. Attention, malgré son label noire, la majorité du parcours est rouge — accessible à un bon skieur."
           }
         },
         {
@@ -235,7 +254,7 @@ footer a { color:var(--text-light); }
           "name": "Peut-on skier sur le glacier des Deux Alpes en été ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui, c'est le plus grand glacier skiable d'Europe accessible l'été (de mi-juin à fin août en général). Idéal pour les amateurs de ski estival, les stages de freestyle et les équipes nationales qui viennent s'entraîner. L'Alpe d'Huez ferme son glacier de Sarenne en avril."
+            "text": "Oui, c'est le plus grand glacier skiable d'Europe accessible l'été (de mi-juin à fin août en général). Idéal pour les amateurs de ski estival et les stages de freestyle."
           }
         }
       ]
@@ -244,7 +263,7 @@ footer a { color:var(--text-light); }
       "@type": "Article",
       "headline": "Alpe d'Huez vs Les Deux Alpes : quelle station choisir ?",
       "image": "https://snowfinder.fr/img/alpedhuez1.jpg",
-      "datePublished": "2026-06-04",
+      "datePublished": "2026-06-08",
       "author": {
         "@type": "Organization",
         "name": "SnowFinder"
@@ -276,16 +295,18 @@ footer a { color:var(--text-light); }
 
 <div class="hero-pair">
   <div class="hero-card">
-    <img src="/img/alpedhuez1.jpg" alt="Alpe d'Huez" loading="eager">
+    <img src="/img/alpedhuez1.jpg" alt="Alpe d'Huez" loading="eager"
+         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800&q=80'">
     <div class="tag">Alpe d'Huez</div>
   </div>
   <div class="hero-card">
-    <img src="/img/lesdeuxalpes1.jpg" alt="Les Deux Alpes" loading="eager">
+    <img src="/img/lesdeuxalpes1.jpg" alt="Les Deux Alpes" loading="eager"
+         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&q=80'">
     <div class="tag">Les Deux Alpes</div>
   </div>
 </div>
 
-<div class="teaser">Les deux stars de l'Oisans, à seulement 30 km à vol d'oiseau, s'opposent presque en tout. L'Alpe d'Huez mise sur le soleil (300 jours/an), la longue piste noire Sarenne et une ambiance familiale. Les Deux Alpes joue le glacier, le snowpark et l'after-ski endiablé.</div>
+<div class="teaser">Les deux stars de l'Oisans, à 30 km à vol d'oiseau, s'opposent presque en tout. L'Alpe d'Huez mise sur le soleil et la famille. Les Deux Alpes sur le glacier et l'after-ski.</div>
 
 <h2>📊 Les chiffres face à face</h2>
 <div class="specs">
@@ -311,28 +332,26 @@ footer a { color:var(--text-light); }
   </div>
 </div>
 
-<h2>🏆 Quel critère pour quelle station ?</h2>
-<div class="winner-table">
-<div class="winner-row"><div class="winner-criterion">Soleil et ensoleillement</div><div class="winner-pick">Alpe d'Huez</div></div>
-<div class="winner-row"><div class="winner-criterion">Ski d'été</div><div class="winner-pick">Les Deux Alpes (glacier)</div></div>
-<div class="winner-row"><div class="winner-criterion">Famille avec enfants</div><div class="winner-pick">Alpe d'Huez</div></div>
-<div class="winner-row"><div class="winner-criterion">Snowpark & freestyle</div><div class="winner-pick">Les Deux Alpes</div></div>
-<div class="winner-row"><div class="winner-criterion">Ambiance soirée jeune</div><div class="winner-pick">Les Deux Alpes</div></div>
-<div class="winner-row"><div class="winner-criterion">Longue piste noire (Sarenne 16 km)</div><div class="winner-pick">Alpe d'Huez</div></div>
-<div class="winner-row"><div class="winner-criterion">Vue à 360°</div><div class="winner-pick">Les Deux Alpes (Dôme de la Lauze)</div></div>
-<div class="winner-row"><div class="winner-criterion">Domaine débutant à l'arrivée</div><div class="winner-pick">Alpe d'Huez</div></div>
+<h2>👤 Pour quel profil quelle station ?</h2>
+<div class="profil-grid">
+<div class="profil-card"><div class="profil-head"><div class="profil-label">👨‍👩‍👧‍👦 Famille équilibrée</div><div class="profil-pick">Alpe d'Huez</div></div><p class="profil-reason">Label Famille Plus, grand domaine progressif, 300 jours de soleil par an, plus d'animations enfants. La station idéale pour une semaine sans stress.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">☀️ Skieurs qui détestent le froid</div><div class="profil-pick">Alpe d'Huez</div></div><p class="profil-reason">L'ensoleillement record (record en France) rend les journées beaucoup plus agréables. Les Deux Alpes, plus encaissée, voit moins le soleil.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🏂 Freestylers</div><div class="profil-pick">Les Deux Alpes</div></div><p class="profil-reason">Le snowpark perché sur le glacier est l'une des références mondiales, ouvert hiver ET été. Les pros y viennent.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🎉 Ambiance jeune / fêtard</div><div class="profil-pick">Les Deux Alpes</div></div><p class="profil-reason">Vie de soirée intense, public plus jeune, bars qui ferment tard. L'Alpe d'Huez est plus posée.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">☃️ Ski d'été</div><div class="profil-pick">Les Deux Alpes</div></div><p class="profil-reason">Le plus grand glacier skiable d'Europe accessible l'été (mi-juin à fin août). L'Alpe d'Huez ferme son glacier de Sarenne en avril.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🏔️ Skieurs expérimentés cherchant LA descente</div><div class="profil-pick">Alpe d'Huez</div></div><p class="profil-reason">La Sarenne : 16 km depuis le Pic Blanc (3330 m), la plus longue piste noire d'Europe. Une expérience à vivre.</p></div>
 </div>
 
 <div class="verdict">
   <h2>💡 Notre verdict</h2>
-  <p><strong>L'Alpe d'Huez</strong> est l'option famille équilibrée : soleil garanti, domaine large et progressif, label Famille Plus, plus la mythique Sarenne pour les skieurs aguerris. <strong>Les Deux Alpes</strong> attirera les freestyleurs, les amateurs de ski sur glacier et les groupes d'amis qui veulent enchaîner les soirées. Astuce : pas besoin de choisir si vous y allez en été — seule Les Deux Alpes a son glacier ouvert.</p>
+  <p><strong>L'Alpe d'Huez</strong> est l'option famille équilibrée : soleil garanti, domaine large, label Famille Plus. <strong>Les Deux Alpes</strong> attirent les freestyleurs, les amateurs de ski sur glacier et les fêtards. Pas besoin de choisir si vous y allez en été — seule Les Deux Alpes a son glacier ouvert.</p>
 </div>
 
 <h2>❓ Questions fréquentes</h2>
-<div class="faq-item"><h3>Peut-on skier entre l'Alpe d'Huez et Les Deux Alpes ?</h3><p>Une liaison à skis via le col du Lac Blanc existe mais elle n'est plus opérationnelle de façon fiable depuis plusieurs années. Concrètement, on choisit l'une ou l'autre. Une navette routière permet de passer de l'une à l'autre en 1h-1h30.</p></div>
-<div class="faq-item"><h3>Quelle station a le meilleur snowpark ?</h3><p>Les Deux Alpes, c'est même l'une de ses signatures. Le snowpark, perché sur le glacier, fonctionne en hiver comme en été et accueille régulièrement les pros mondiaux. L'Alpe d'Huez a un snowpark correct mais sans la même réputation.</p></div>
-<div class="faq-item"><h3>La piste de la Sarenne est-elle vraiment la plus longue noire d'Europe ?</h3><p>Oui, 16 km depuis le Pic Blanc (3330 m) jusqu'à Sarenne, soit 2 000 m de dénivelé. Attention, malgré son label « noire », la majorité du parcours est rouge — seul le départ et quelques sections sont vraiment exigeants. Accessible à un bon skieur.</p></div>
-<div class="faq-item"><h3>Peut-on skier sur le glacier des Deux Alpes en été ?</h3><p>Oui, c'est le plus grand glacier skiable d'Europe accessible l'été (de mi-juin à fin août en général). Idéal pour les amateurs de ski estival, les stages de freestyle et les équipes nationales qui viennent s'entraîner. L'Alpe d'Huez ferme son glacier de Sarenne en avril.</p></div>
+<div class="faq-item"><h3>Peut-on skier entre l'Alpe d'Huez et Les Deux Alpes ?</h3><p>Une liaison à skis via le col du Lac Blanc existe mais n'est plus opérationnelle de façon fiable depuis plusieurs années. Concrètement, on choisit l'une ou l'autre. Une navette routière permet de passer de l'une à l'autre en 1h-1h30.</p></div>
+<div class="faq-item"><h3>Quelle station a le meilleur snowpark ?</h3><p>Les Deux Alpes, c'est même l'une de ses signatures. Le snowpark, perché sur le glacier, fonctionne en hiver comme en été et accueille régulièrement les pros mondiaux.</p></div>
+<div class="faq-item"><h3>La piste de la Sarenne est-elle vraiment la plus longue noire d'Europe ?</h3><p>Oui, 16 km depuis le Pic Blanc (3330 m) jusqu'à Sarenne, soit 2 000 m de dénivelé. Attention, malgré son label noire, la majorité du parcours est rouge — accessible à un bon skieur.</p></div>
+<div class="faq-item"><h3>Peut-on skier sur le glacier des Deux Alpes en été ?</h3><p>Oui, c'est le plus grand glacier skiable d'Europe accessible l'été (de mi-juin à fin août en général). Idéal pour les amateurs de ski estival et les stages de freestyle.</p></div>
 
 <div class="book-cta">
   <h2>🏨 Réserver votre séjour</h2>
@@ -368,6 +387,7 @@ footer a { color:var(--text-light); }
           </div>
         </a>
       </div>
+      <a href="https://www.alpedhuez.com" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel de Alpe d'Huez</a>
       <a href="/stations/alpe-d-huez.html" class="detail-link">→ Fiche complète de Alpe d'Huez</a>
     </div>
     <div>
@@ -400,6 +420,7 @@ footer a { color:var(--text-light); }
           </div>
         </a>
       </div>
+      <a href="https://www.les2alpes.com" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel de Les Deux Alpes</a>
       <a href="/stations/les-deux-alpes.html" class="detail-link">→ Fiche complète de Les Deux Alpes</a>
     </div>
   </div>

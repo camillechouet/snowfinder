@@ -101,19 +101,30 @@ h2 {
 .spec-card .row span:last-child { font-weight:600; color:var(--text); }
 @media (max-width:700px) { .specs { grid-template-columns:1fr; } }
 
-.winner-table {
+.profil-grid {
+  display:grid; grid-template-columns:1fr; gap:12px;
+}
+.profil-card {
   background:#fff; border:1px solid var(--border); border-radius:var(--radius);
-  overflow:hidden; box-shadow:var(--shadow);
+  padding:18px 22px; box-shadow:var(--shadow);
+  border-left:4px solid var(--wood-dark);
 }
-.winner-row {
-  display:grid; grid-template-columns:1fr 1.2fr; padding:14px 20px;
-  border-bottom:1px solid var(--border); align-items:center; gap:12px;
+.profil-head {
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  margin-bottom:6px; flex-wrap:wrap;
 }
-.winner-row:last-child { border-bottom:none; }
-.winner-row:nth-child(even) { background:var(--wood-pale); }
-.winner-criterion { font-weight:500; color:var(--text-mid); font-size:.95rem; }
-.winner-pick { font-weight:700; color:var(--wood-dark); font-size:.95rem; }
-.winner-pick::before { content:"🏆 "; }
+.profil-label {
+  font-weight:700; color:var(--text); font-size:1rem;
+}
+.profil-pick {
+  background:var(--wood-pale); color:var(--wood-dark);
+  padding:5px 12px; border-radius:14px; font-weight:700;
+  font-size:.88rem; white-space:nowrap;
+}
+.profil-pick::before { content:"→ "; opacity:.6; }
+.profil-reason {
+  color:var(--text-mid); font-size:.93rem; margin:0; line-height:1.55;
+}
 
 .verdict {
   background:linear-gradient(135deg,#fff 0%,var(--wood-pale) 100%);
@@ -186,10 +197,18 @@ h2 {
   text-align:center; font-size:.62rem; color:var(--text-light); margin-top:6px;
 }
 .detail-link {
-  display:block; text-align:center; margin-top:14px; font-size:.88rem;
+  display:block; text-align:center; margin-top:10px; font-size:.88rem;
   color:var(--blue-dark); text-decoration:none; font-weight:600;
 }
 .detail-link:hover { text-decoration:underline; }
+.officiel-link {
+  display:block; text-align:center; margin-top:12px; padding:9px 14px;
+  background:var(--wood-pale); color:var(--wood-dark); border-radius:10px;
+  font-size:.88rem; font-weight:700; text-decoration:none;
+  border:1px solid var(--wood-light);
+  transition:background .15s;
+}
+.officiel-link:hover { background:var(--wood-light); }
 @media (max-width:700px) { .book-grid { grid-template-columns:1fr; } }
 
 footer {
@@ -211,7 +230,7 @@ footer a { color:var(--text-light); }
           "name": "Morzine et Avoriaz partagent-elles le même domaine skiable ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui. Les deux stations donnent accès aux 650 km des Portes du Soleil, le domaine franco-suisse qui relie 12 stations dont Châtel, Les Gets, Champéry et Champoussin. Depuis Morzine, la télécabine du Pléney ou celle d'Avoriaz vous amènent au cœur du domaine en quelques minutes."
+            "text": "Oui. Les deux donnent accès aux 650 km des Portes du Soleil, le domaine franco-suisse qui relie 12 stations dont Châtel, Les Gets, Champéry et Champoussin. Depuis Morzine, la télécabine du Pléney ou celle d'Avoriaz vous amènent au cœur du domaine en quelques minutes."
           }
         },
         {
@@ -219,7 +238,7 @@ footer a { color:var(--text-light); }
           "name": "Avoriaz est-elle vraiment 100% piétonne ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui, totalement. Les voitures restent au parking en entrée de station, les déplacements se font à pied, en luge, en traîneau à chevaux ou en navette. C'est un atout majeur pour les familles avec enfants en bas âge — pas de risque de circulation, et tous les hébergements sont à skis aux pieds."
+            "text": "Oui, totalement. Les voitures restent au parking en entrée de station, les déplacements se font à pied, en luge, en traîneau à chevaux ou en navette. C'est un atout majeur pour les familles avec enfants en bas âge."
           }
         },
         {
@@ -227,7 +246,7 @@ footer a { color:var(--text-light); }
           "name": "Quelle station choisir si je ne suis pas skieur tous les jours ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Morzine sans hésiter. Le village vit toute l'année, propose de nombreux restaurants, des balades autour du lac de Montriond, un cinéma, un palais des sports avec patinoire et piscine. Avoriaz, plus minérale et tournée 100% ski, est moins agréable pour les non-skieurs."
+            "text": "Morzine sans hésiter. Le village vit toute l'année, propose de nombreux restaurants, des balades autour du lac de Montriond, un cinéma, un palais des sports avec patinoire et piscine. Avoriaz est moins agréable pour les non-skieurs."
           }
         },
         {
@@ -235,7 +254,7 @@ footer a { color:var(--text-light); }
           "name": "Avoriaz est-elle adaptée aux débutants ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui, très bien. La station dispose d'un grand espace débutants au cœur de la station et de pistes vertes/bleues parfaitement adaptées sur le plateau d'Avoriaz. Les écoles ESF et internationale sont reconnues. Morzine fait aussi très bien le job côté débutants avec le Pléney."
+            "text": "Oui, très bien. Grand espace débutants au cœur de la station et pistes vertes/bleues parfaitement adaptées. Les écoles ESF et internationale sont reconnues. Morzine fait aussi très bien le job côté débutants avec le Pléney."
           }
         }
       ]
@@ -244,7 +263,7 @@ footer a { color:var(--text-light); }
       "@type": "Article",
       "headline": "Avoriaz vs Morzine : quelle station choisir ?",
       "image": "https://snowfinder.fr/img/avoriaz1.jpg",
-      "datePublished": "2026-06-04",
+      "datePublished": "2026-06-08",
       "author": {
         "@type": "Organization",
         "name": "SnowFinder"
@@ -276,16 +295,18 @@ footer a { color:var(--text-light); }
 
 <div class="hero-pair">
   <div class="hero-card">
-    <img src="/img/avoriaz1.jpg" alt="Avoriaz" loading="eager">
+    <img src="/img/avoriaz1.jpg" alt="Avoriaz" loading="eager"
+         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800&q=80'">
     <div class="tag">Avoriaz</div>
   </div>
   <div class="hero-card">
-    <img src="/img/morzine1.jpg" alt="Morzine" loading="eager">
+    <img src="/img/morzine1.jpg" alt="Morzine" loading="eager"
+         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&q=80'">
     <div class="tag">Morzine</div>
   </div>
 </div>
 
-<div class="teaser">Deux poids lourds des Portes du Soleil, deux philosophies opposées. Avoriaz, station piétonne à 1800 m d'altitude, sort tout droit des années 60 et garantit la neige. Morzine, village savoyard authentique à 1000 m, séduit par son charme et son ambiance toute l'année.</div>
+<div class="teaser">Deux poids lourds des Portes du Soleil, deux philosophies opposées. Avoriaz, station piétonne à 1800 m, garantit la neige et le ski aux pieds. Morzine, village savoyard authentique à 1000 m, séduit par son charme toute l'année.</div>
 
 <h2>📊 Les chiffres face à face</h2>
 <div class="specs">
@@ -311,28 +332,26 @@ footer a { color:var(--text-light); }
   </div>
 </div>
 
-<h2>🏆 Quel critère pour quelle station ?</h2>
-<div class="winner-table">
-<div class="winner-row"><div class="winner-criterion">Ski aux pieds</div><div class="winner-pick">Avoriaz</div></div>
-<div class="winner-row"><div class="winner-criterion">Charme d'un village authentique</div><div class="winner-pick">Morzine</div></div>
-<div class="winner-row"><div class="winner-criterion">Neige garantie</div><div class="winner-pick">Avoriaz</div></div>
-<div class="winner-row"><div class="winner-criterion">Sortir au restaurant le soir</div><div class="winner-pick">Morzine</div></div>
-<div class="winner-row"><div class="winner-criterion">Famille avec enfants en bas âge</div><div class="winner-pick">Avoriaz (piétonne)</div></div>
-<div class="winner-row"><div class="winner-criterion">Ski freestyle & snowparks</div><div class="winner-pick">Avoriaz</div></div>
-<div class="winner-row"><div class="winner-criterion">Budget hébergement</div><div class="winner-pick">Morzine</div></div>
-<div class="winner-row"><div class="winner-criterion">Accessibilité depuis Genève</div><div class="winner-pick">Morzine (1h)</div></div>
+<h2>👤 Pour quel profil quelle station ?</h2>
+<div class="profil-grid">
+<div class="profil-card"><div class="profil-head"><div class="profil-label">👨‍👩‍👧‍👦 Famille avec enfants en bas âge</div><div class="profil-pick">Avoriaz</div></div><p class="profil-reason">Station 100% piétonne — aucune voiture, hébergement skis aux pieds, traîneaux à cheval. Sécurité totale et logistique simplifiée.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🎿 Skieurs intermédiaires/confirmés</div><div class="profil-pick">Avoriaz</div></div><p class="profil-reason">Position centrale dans les Portes du Soleil (650 km), neige fiable à 1800 m, accès direct aux pistes mythiques (Hauts-Forts, Chavanette).</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🛹 Freestylers et riders</div><div class="profil-pick">Avoriaz</div></div><p class="profil-reason">Le Stash et Lil'Stash sont des références mondiales. Plusieurs zones freestyle au cœur du domaine.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🍷 Couples / non-skieurs / vie de village</div><div class="profil-pick">Morzine</div></div><p class="profil-reason">Vraie vie de village toute l'année : restaurants, cinéma, palais des sports, balades autour du lac de Montriond. Avoriaz est minérale et tournée 100% ski.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">💰 Budget hébergement</div><div class="profil-pick">Morzine</div></div><p class="profil-reason">Hôtels et locations 20-30% moins chers qu'à Avoriaz pour un domaine skiable identique (le forfait Portes du Soleil est commun).</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🚗 Week-end depuis Genève</div><div class="profil-pick">Morzine</div></div><p class="profil-reason">1h depuis l'aéroport, accès rapide. Avoriaz demande de monter ensuite à la station via télécabine ou route fermée.</p></div>
 </div>
 
 <div class="verdict">
   <h2>💡 Notre verdict</h2>
-  <p><strong>Avoriaz</strong> gagne haut la main si vos critères sont : ski aux pieds, enneigement garanti, snowpark, et zéro voiture autour des enfants. <strong>Morzine</strong> l'emporte si vous voulez retrouver l'âme d'un vrai village savoyard, varier les soirées, et profiter d'un domaine identique (les 650 km des Portes du Soleil) à un tarif d'hébergement plus doux.</p>
+  <p><strong>Avoriaz</strong> est conçue pour les skieurs : piétonne, en altitude, ski aux pieds, snowpark de classe mondiale. <strong>Morzine</strong> est conçue pour les vacances : vraie vie de village, accessible, polyvalente. Bonne nouvelle : le domaine skiable est le même (650 km des Portes du Soleil), vous ne perdez rien à choisir l'une ou l'autre.</p>
 </div>
 
 <h2>❓ Questions fréquentes</h2>
-<div class="faq-item"><h3>Morzine et Avoriaz partagent-elles le même domaine skiable ?</h3><p>Oui. Les deux stations donnent accès aux 650 km des Portes du Soleil, le domaine franco-suisse qui relie 12 stations dont Châtel, Les Gets, Champéry et Champoussin. Depuis Morzine, la télécabine du Pléney ou celle d'Avoriaz vous amènent au cœur du domaine en quelques minutes.</p></div>
-<div class="faq-item"><h3>Avoriaz est-elle vraiment 100% piétonne ?</h3><p>Oui, totalement. Les voitures restent au parking en entrée de station, les déplacements se font à pied, en luge, en traîneau à chevaux ou en navette. C'est un atout majeur pour les familles avec enfants en bas âge — pas de risque de circulation, et tous les hébergements sont à skis aux pieds.</p></div>
-<div class="faq-item"><h3>Quelle station choisir si je ne suis pas skieur tous les jours ?</h3><p>Morzine sans hésiter. Le village vit toute l'année, propose de nombreux restaurants, des balades autour du lac de Montriond, un cinéma, un palais des sports avec patinoire et piscine. Avoriaz, plus minérale et tournée 100% ski, est moins agréable pour les non-skieurs.</p></div>
-<div class="faq-item"><h3>Avoriaz est-elle adaptée aux débutants ?</h3><p>Oui, très bien. La station dispose d'un grand espace débutants au cœur de la station et de pistes vertes/bleues parfaitement adaptées sur le plateau d'Avoriaz. Les écoles ESF et internationale sont reconnues. Morzine fait aussi très bien le job côté débutants avec le Pléney.</p></div>
+<div class="faq-item"><h3>Morzine et Avoriaz partagent-elles le même domaine skiable ?</h3><p>Oui. Les deux donnent accès aux 650 km des Portes du Soleil, le domaine franco-suisse qui relie 12 stations dont Châtel, Les Gets, Champéry et Champoussin. Depuis Morzine, la télécabine du Pléney ou celle d'Avoriaz vous amènent au cœur du domaine en quelques minutes.</p></div>
+<div class="faq-item"><h3>Avoriaz est-elle vraiment 100% piétonne ?</h3><p>Oui, totalement. Les voitures restent au parking en entrée de station, les déplacements se font à pied, en luge, en traîneau à chevaux ou en navette. C'est un atout majeur pour les familles avec enfants en bas âge.</p></div>
+<div class="faq-item"><h3>Quelle station choisir si je ne suis pas skieur tous les jours ?</h3><p>Morzine sans hésiter. Le village vit toute l'année, propose de nombreux restaurants, des balades autour du lac de Montriond, un cinéma, un palais des sports avec patinoire et piscine. Avoriaz est moins agréable pour les non-skieurs.</p></div>
+<div class="faq-item"><h3>Avoriaz est-elle adaptée aux débutants ?</h3><p>Oui, très bien. Grand espace débutants au cœur de la station et pistes vertes/bleues parfaitement adaptées. Les écoles ESF et internationale sont reconnues. Morzine fait aussi très bien le job côté débutants avec le Pléney.</p></div>
 
 <div class="book-cta">
   <h2>🏨 Réserver votre séjour</h2>
@@ -368,6 +387,7 @@ footer a { color:var(--text-light); }
           </div>
         </a>
       </div>
+      <a href="https://www.avoriaz.com" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel de Avoriaz</a>
       <a href="/stations/avoriaz.html" class="detail-link">→ Fiche complète de Avoriaz</a>
     </div>
     <div>
@@ -400,6 +420,7 @@ footer a { color:var(--text-light); }
           </div>
         </a>
       </div>
+      <a href="https://www.morzine.com" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel de Morzine</a>
       <a href="/stations/morzine.html" class="detail-link">→ Fiche complète de Morzine</a>
     </div>
   </div>

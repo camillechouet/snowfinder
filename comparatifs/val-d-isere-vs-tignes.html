@@ -101,19 +101,30 @@ h2 {
 .spec-card .row span:last-child { font-weight:600; color:var(--text); }
 @media (max-width:700px) { .specs { grid-template-columns:1fr; } }
 
-.winner-table {
+.profil-grid {
+  display:grid; grid-template-columns:1fr; gap:12px;
+}
+.profil-card {
   background:#fff; border:1px solid var(--border); border-radius:var(--radius);
-  overflow:hidden; box-shadow:var(--shadow);
+  padding:18px 22px; box-shadow:var(--shadow);
+  border-left:4px solid var(--wood-dark);
 }
-.winner-row {
-  display:grid; grid-template-columns:1fr 1.2fr; padding:14px 20px;
-  border-bottom:1px solid var(--border); align-items:center; gap:12px;
+.profil-head {
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  margin-bottom:6px; flex-wrap:wrap;
 }
-.winner-row:last-child { border-bottom:none; }
-.winner-row:nth-child(even) { background:var(--wood-pale); }
-.winner-criterion { font-weight:500; color:var(--text-mid); font-size:.95rem; }
-.winner-pick { font-weight:700; color:var(--wood-dark); font-size:.95rem; }
-.winner-pick::before { content:"🏆 "; }
+.profil-label {
+  font-weight:700; color:var(--text); font-size:1rem;
+}
+.profil-pick {
+  background:var(--wood-pale); color:var(--wood-dark);
+  padding:5px 12px; border-radius:14px; font-weight:700;
+  font-size:.88rem; white-space:nowrap;
+}
+.profil-pick::before { content:"→ "; opacity:.6; }
+.profil-reason {
+  color:var(--text-mid); font-size:.93rem; margin:0; line-height:1.55;
+}
 
 .verdict {
   background:linear-gradient(135deg,#fff 0%,var(--wood-pale) 100%);
@@ -186,10 +197,18 @@ h2 {
   text-align:center; font-size:.62rem; color:var(--text-light); margin-top:6px;
 }
 .detail-link {
-  display:block; text-align:center; margin-top:14px; font-size:.88rem;
+  display:block; text-align:center; margin-top:10px; font-size:.88rem;
   color:var(--blue-dark); text-decoration:none; font-weight:600;
 }
 .detail-link:hover { text-decoration:underline; }
+.officiel-link {
+  display:block; text-align:center; margin-top:12px; padding:9px 14px;
+  background:var(--wood-pale); color:var(--wood-dark); border-radius:10px;
+  font-size:.88rem; font-weight:700; text-decoration:none;
+  border:1px solid var(--wood-light);
+  transition:background .15s;
+}
+.officiel-link:hover { background:var(--wood-light); }
 @media (max-width:700px) { .book-grid { grid-template-columns:1fr; } }
 
 footer {
@@ -211,7 +230,7 @@ footer a { color:var(--text-light); }
           "name": "Val d'Isère et Tignes partagent-elles le même forfait ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui, le forfait Espace Killy donne accès aux 300 km de pistes communes aux deux stations, incluant le glacier de la Grande Motte et le mythique Pisaillas. Il est en revanche possible de prendre un forfait limité à une seule des deux stations si vous restez sur place."
+            "text": "Oui, le forfait Espace Killy donne accès aux 300 km communs aux deux stations, incluant le glacier de la Grande Motte et le mythique Pisaillas."
           }
         },
         {
@@ -219,15 +238,7 @@ footer a { color:var(--text-light); }
           "name": "Quelle station a le meilleur enneigement ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Les deux affichent un enneigement très fiable grâce à l'altitude (Val d'Isère 1850 m, Tignes 1550-2100 m). Tignes a un avantage sur la saison étendue : le glacier de la Grande Motte permet de skier d'octobre à mai. Val d'Isère ferme classiquement début mai."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Tignes est-elle vraiment moins chic que Val d'Isère ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Architecturalement oui — Tignes a été construite dans les années 60-70 en bord de lac avec un look station d'altitude assumé. Val d'Isère a gardé son centre-village historique avec église baroque et chalets. Côté hôtellerie haut de gamme, les deux ont leurs palaces, mais Val d'Isère concentre plus de tables étoilées."
+            "text": "Les deux affichent un enneigement très fiable grâce à l'altitude (Val d'Isère 1850 m, Tignes 1550-2100 m). Tignes a l'avantage du glacier qui permet de skier d'octobre à mai."
           }
         },
         {
@@ -235,7 +246,15 @@ footer a { color:var(--text-light); }
           "name": "Pour un freestyleur, laquelle choisir ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Tignes sans débat. Le snowpark de Tignes (Val Claret) est régulièrement classé parmi les meilleurs au monde, avec plusieurs lignes adaptées à tous les niveaux et un airbag. Val d'Isère a un snowpark correct mais c'est son terrain freeride (off-piste, couloirs) qui fait sa réputation."
+            "text": "Tignes sans débat. Le snowpark de Tignes (Val Claret) est régulièrement classé parmi les meilleurs au monde, avec plusieurs lignes adaptées à tous les niveaux."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Tignes est-elle vraiment moins chic que Val d'Isère ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Architecturalement oui — Tignes a été construite dans les années 60-70. Val d'Isère a gardé son centre-village historique. Côté hôtellerie haut de gamme, les deux ont leurs palaces, mais Val d'Isère concentre plus de tables étoilées."
           }
         }
       ]
@@ -244,7 +263,7 @@ footer a { color:var(--text-light); }
       "@type": "Article",
       "headline": "Val d'Isère vs Tignes : quelle station choisir ?",
       "image": "https://snowfinder.fr/img/valdisere1.jpg",
-      "datePublished": "2026-06-04",
+      "datePublished": "2026-06-08",
       "author": {
         "@type": "Organization",
         "name": "SnowFinder"
@@ -276,16 +295,18 @@ footer a { color:var(--text-light); }
 
 <div class="hero-pair">
   <div class="hero-card">
-    <img src="/img/valdisere1.jpg" alt="Val d'Isère" loading="eager">
+    <img src="/img/valdisere1.jpg" alt="Val d'Isère" loading="eager"
+         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800&q=80'">
     <div class="tag">Val d'Isère</div>
   </div>
   <div class="hero-card">
-    <img src="/img/tignes1.jpg" alt="Tignes" loading="eager">
+    <img src="/img/tignes1.jpg" alt="Tignes" loading="eager"
+         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&q=80'">
     <div class="tag">Tignes</div>
   </div>
 </div>
 
-<div class="teaser">Le duo mythique de l'Espace Killy partage 300 km de pistes mais cultive deux identités farouches. Val d'Isère, village historique chic au cachet préservé. Tignes, station d'altitude moderne, glacier ouvert presque toute l'année et ambiance plus jeune.</div>
+<div class="teaser">Le duo mythique de l'Espace Killy partage 300 km de pistes mais cultive deux identités farouches. Val d'Isère, village historique chic au cachet préservé. Tignes, station d'altitude moderne avec glacier.</div>
 
 <h2>📊 Les chiffres face à face</h2>
 <div class="specs">
@@ -311,28 +332,26 @@ footer a { color:var(--text-light); }
   </div>
 </div>
 
-<h2>🏆 Quel critère pour quelle station ?</h2>
-<div class="winner-table">
-<div class="winner-row"><div class="winner-criterion">Charme et architecture</div><div class="winner-pick">Val d'Isère</div></div>
-<div class="winner-row"><div class="winner-criterion">Enneigement record (glacier)</div><div class="winner-pick">Tignes</div></div>
-<div class="winner-row"><div class="winner-criterion">Restaurants gastronomiques</div><div class="winner-pick">Val d'Isère</div></div>
-<div class="winner-row"><div class="winner-criterion">Snowpark de référence mondiale</div><div class="winner-pick">Tignes</div></div>
-<div class="winner-row"><div class="winner-criterion">Famille</div><div class="winner-pick">Val d'Isère</div></div>
-<div class="winner-row"><div class="winner-criterion">Budget hébergement</div><div class="winner-pick">Tignes</div></div>
-<div class="winner-row"><div class="winner-criterion">Ski d'été</div><div class="winner-pick">Tignes (Grande Motte)</div></div>
-<div class="winner-row"><div class="winner-criterion">Freeride légendaire</div><div class="winner-pick">Val d'Isère (Face de Bellevarde)</div></div>
+<h2>👤 Pour quel profil quelle station ?</h2>
+<div class="profil-grid">
+<div class="profil-card"><div class="profil-head"><div class="profil-label">✨ Voyageurs haut de gamme / gastronomes</div><div class="profil-pick">Val d'Isère</div></div><p class="profil-reason">Centre-village historique avec église baroque, palaces, tables étoilées (L'Atelier d'Edmond, La Table de l'Ours). Ambiance grand chic alpin.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🎿 Riders et amateurs de poudreuse</div><div class="profil-pick">Val d'Isère</div></div><p class="profil-reason">La Face de Bellevarde et les couloirs du Solaise sont des terrains de jeu mythiques. Plus de spots freeride engagés qu'à Tignes.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🏂 Freestylers et snowparkers</div><div class="profil-pick">Tignes</div></div><p class="profil-reason">Le snowpark de Tignes (Val Claret) est régulièrement classé parmi les meilleurs au monde — pros mondiaux y viennent s'entraîner.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">☀️ Skieurs qui veulent skier longtemps</div><div class="profil-pick">Tignes</div></div><p class="profil-reason">Glacier de la Grande Motte ouvert d'octobre à mai. Val d'Isère ferme classiquement début mai.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">💰 Budget plus accessible</div><div class="profil-pick">Tignes</div></div><p class="profil-reason">Tignes le Lac et Val Claret sont 15-25% moins chers que le centre de Val d'Isère pour un domaine commun (Espace Killy).</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">👨‍👩‍👧‍👦 Famille avec jeunes enfants</div><div class="profil-pick">Val d'Isère</div></div><p class="profil-reason">Village plus à taille humaine, garderies de qualité, espaces débutants accessibles. Tignes est aussi familiale mais l'architecture moins chaleureuse.</p></div>
 </div>
 
 <div class="verdict">
   <h2>💡 Notre verdict</h2>
-  <p><strong>Val d'Isère</strong> est le choix évident si vous cherchez une expérience haut de gamme : village vivant, gastronomie, freeride mythique, ambiance « grande station historique ». <strong>Tignes</strong> séduira ceux qui veulent skier le plus longtemps possible (glacier ouvert d'octobre à mai), accéder à un snowpark de classe mondiale, ou simplement payer moins cher leur hébergement pour le même domaine.</p>
+  <p>Aucune des deux ne gagne dans l'absolu : elles ciblent des profils différents. <strong>Val d'Isère</strong> est faite pour ceux qui veulent une expérience village haut de gamme, du freeride engagé et de la gastronomie. <strong>Tignes</strong> est faite pour ceux qui veulent skier longtemps, freestyler et payer moins cher.</p>
 </div>
 
 <h2>❓ Questions fréquentes</h2>
-<div class="faq-item"><h3>Val d'Isère et Tignes partagent-elles le même forfait ?</h3><p>Oui, le forfait Espace Killy donne accès aux 300 km de pistes communes aux deux stations, incluant le glacier de la Grande Motte et le mythique Pisaillas. Il est en revanche possible de prendre un forfait limité à une seule des deux stations si vous restez sur place.</p></div>
-<div class="faq-item"><h3>Quelle station a le meilleur enneigement ?</h3><p>Les deux affichent un enneigement très fiable grâce à l'altitude (Val d'Isère 1850 m, Tignes 1550-2100 m). Tignes a un avantage sur la saison étendue : le glacier de la Grande Motte permet de skier d'octobre à mai. Val d'Isère ferme classiquement début mai.</p></div>
-<div class="faq-item"><h3>Tignes est-elle vraiment moins chic que Val d'Isère ?</h3><p>Architecturalement oui — Tignes a été construite dans les années 60-70 en bord de lac avec un look station d'altitude assumé. Val d'Isère a gardé son centre-village historique avec église baroque et chalets. Côté hôtellerie haut de gamme, les deux ont leurs palaces, mais Val d'Isère concentre plus de tables étoilées.</p></div>
-<div class="faq-item"><h3>Pour un freestyleur, laquelle choisir ?</h3><p>Tignes sans débat. Le snowpark de Tignes (Val Claret) est régulièrement classé parmi les meilleurs au monde, avec plusieurs lignes adaptées à tous les niveaux et un airbag. Val d'Isère a un snowpark correct mais c'est son terrain freeride (off-piste, couloirs) qui fait sa réputation.</p></div>
+<div class="faq-item"><h3>Val d'Isère et Tignes partagent-elles le même forfait ?</h3><p>Oui, le forfait Espace Killy donne accès aux 300 km communs aux deux stations, incluant le glacier de la Grande Motte et le mythique Pisaillas.</p></div>
+<div class="faq-item"><h3>Quelle station a le meilleur enneigement ?</h3><p>Les deux affichent un enneigement très fiable grâce à l'altitude (Val d'Isère 1850 m, Tignes 1550-2100 m). Tignes a l'avantage du glacier qui permet de skier d'octobre à mai.</p></div>
+<div class="faq-item"><h3>Pour un freestyleur, laquelle choisir ?</h3><p>Tignes sans débat. Le snowpark de Tignes (Val Claret) est régulièrement classé parmi les meilleurs au monde, avec plusieurs lignes adaptées à tous les niveaux.</p></div>
+<div class="faq-item"><h3>Tignes est-elle vraiment moins chic que Val d'Isère ?</h3><p>Architecturalement oui — Tignes a été construite dans les années 60-70. Val d'Isère a gardé son centre-village historique. Côté hôtellerie haut de gamme, les deux ont leurs palaces, mais Val d'Isère concentre plus de tables étoilées.</p></div>
 
 <div class="book-cta">
   <h2>🏨 Réserver votre séjour</h2>
@@ -368,6 +387,7 @@ footer a { color:var(--text-light); }
           </div>
         </a>
       </div>
+      <a href="https://www.valdisere.com" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel de Val d'Isère</a>
       <a href="/stations/val-d-isere.html" class="detail-link">→ Fiche complète de Val d'Isère</a>
     </div>
     <div>
@@ -400,6 +420,7 @@ footer a { color:var(--text-light); }
           </div>
         </a>
       </div>
+      <a href="https://www.tignes.net" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel de Tignes</a>
       <a href="/stations/tignes.html" class="detail-link">→ Fiche complète de Tignes</a>
     </div>
   </div>

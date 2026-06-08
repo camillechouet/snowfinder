@@ -101,19 +101,30 @@ h2 {
 .spec-card .row span:last-child { font-weight:600; color:var(--text); }
 @media (max-width:700px) { .specs { grid-template-columns:1fr; } }
 
-.winner-table {
+.profil-grid {
+  display:grid; grid-template-columns:1fr; gap:12px;
+}
+.profil-card {
   background:#fff; border:1px solid var(--border); border-radius:var(--radius);
-  overflow:hidden; box-shadow:var(--shadow);
+  padding:18px 22px; box-shadow:var(--shadow);
+  border-left:4px solid var(--wood-dark);
 }
-.winner-row {
-  display:grid; grid-template-columns:1fr 1.2fr; padding:14px 20px;
-  border-bottom:1px solid var(--border); align-items:center; gap:12px;
+.profil-head {
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  margin-bottom:6px; flex-wrap:wrap;
 }
-.winner-row:last-child { border-bottom:none; }
-.winner-row:nth-child(even) { background:var(--wood-pale); }
-.winner-criterion { font-weight:500; color:var(--text-mid); font-size:.95rem; }
-.winner-pick { font-weight:700; color:var(--wood-dark); font-size:.95rem; }
-.winner-pick::before { content:"🏆 "; }
+.profil-label {
+  font-weight:700; color:var(--text); font-size:1rem;
+}
+.profil-pick {
+  background:var(--wood-pale); color:var(--wood-dark);
+  padding:5px 12px; border-radius:14px; font-weight:700;
+  font-size:.88rem; white-space:nowrap;
+}
+.profil-pick::before { content:"→ "; opacity:.6; }
+.profil-reason {
+  color:var(--text-mid); font-size:.93rem; margin:0; line-height:1.55;
+}
 
 .verdict {
   background:linear-gradient(135deg,#fff 0%,var(--wood-pale) 100%);
@@ -186,10 +197,18 @@ h2 {
   text-align:center; font-size:.62rem; color:var(--text-light); margin-top:6px;
 }
 .detail-link {
-  display:block; text-align:center; margin-top:14px; font-size:.88rem;
+  display:block; text-align:center; margin-top:10px; font-size:.88rem;
   color:var(--blue-dark); text-decoration:none; font-weight:600;
 }
 .detail-link:hover { text-decoration:underline; }
+.officiel-link {
+  display:block; text-align:center; margin-top:12px; padding:9px 14px;
+  background:var(--wood-pale); color:var(--wood-dark); border-radius:10px;
+  font-size:.88rem; font-weight:700; text-decoration:none;
+  border:1px solid var(--wood-light);
+  transition:background .15s;
+}
+.officiel-link:hover { background:var(--wood-light); }
 @media (max-width:700px) { .book-grid { grid-template-columns:1fr; } }
 
 footer {
@@ -211,7 +230,7 @@ footer a { color:var(--text-light); }
           "name": "Val Thorens ou Les Menuires : laquelle est la moins chère ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Les Menuires reste 25 à 35% moins chère que Val Thorens sur l'hébergement, avec des forfaits comparables (le forfait 3 Vallées étant commun). En janvier hors vacances scolaires, on trouve facilement des appartements à 350-450 € la semaine aux Menuires contre 600 € minimum à Val Thorens."
+            "text": "Les Menuires reste 25 à 35% moins chère que Val Thorens sur l'hébergement, avec un forfait 3 Vallées commun. En janvier hors vacances scolaires, on trouve des appartements à 350-450 € la semaine aux Menuires contre 600 € minimum à Val Thorens."
           }
         },
         {
@@ -227,15 +246,15 @@ footer a { color:var(--text-light); }
           "name": "Val Thorens est-elle vraiment la plus haute station d'Europe ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui, Val Thorens culmine à 2300 m avec un domaine montant jusqu'à 3230 m via le glacier de la Cime Caron. C'est ce qui lui garantit un enneigement fiable de fin novembre à début mai, là où Les Menuires (1800 m) reste également bien enneigée mais sur une fenêtre plus classique."
+            "text": "Oui, Val Thorens culmine à 2300 m avec un domaine montant jusqu'à 3230 m via la Cime Caron. C'est ce qui lui garantit un enneigement fiable de fin novembre à début mai."
           }
         },
         {
           "@type": "Question",
-          "name": "Les Menuires est-elle adaptée aux enfants débutants ?",
+          "name": "Les Menuires sont-elles adaptées aux enfants débutants ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Très bien adaptée : la station dispose du label « Espaces ludiques », d'un grand front de neige doux côté La Croisette, de plusieurs zones débutants ainsi que de garderies. Val Thorens accueille aussi les familles mais l'altitude (vents, froid, dénivelé immédiat) la rend moins évidente pour les tout-petits."
+            "text": "Très bien adaptées : label Espaces ludiques, grand front de neige doux côté La Croisette, plusieurs zones débutants et garderies. Val Thorens accueille aussi les familles mais l'altitude la rend moins évidente pour les tout-petits."
           }
         }
       ]
@@ -244,7 +263,7 @@ footer a { color:var(--text-light); }
       "@type": "Article",
       "headline": "Val Thorens vs Les Menuires : quelle station choisir ?",
       "image": "https://snowfinder.fr/img/valthorens1.jpg",
-      "datePublished": "2026-06-04",
+      "datePublished": "2026-06-08",
       "author": {
         "@type": "Organization",
         "name": "SnowFinder"
@@ -276,11 +295,13 @@ footer a { color:var(--text-light); }
 
 <div class="hero-pair">
   <div class="hero-card">
-    <img src="/img/valthorens1.jpg" alt="Val Thorens" loading="eager">
+    <img src="/img/valthorens1.jpg" alt="Val Thorens" loading="eager"
+         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800&q=80'">
     <div class="tag">Val Thorens</div>
   </div>
   <div class="hero-card">
-    <img src="/img/lesmenuires1.jpg" alt="Les Menuires" loading="eager">
+    <img src="/img/lesmenuires1.jpg" alt="Les Menuires" loading="eager"
+         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&q=80'">
     <div class="tag">Les Menuires</div>
   </div>
 </div>
@@ -311,28 +332,25 @@ footer a { color:var(--text-light); }
   </div>
 </div>
 
-<h2>🏆 Quel critère pour quelle station ?</h2>
-<div class="winner-table">
-<div class="winner-row"><div class="winner-criterion">Famille avec jeunes enfants</div><div class="winner-pick">Les Menuires</div></div>
-<div class="winner-row"><div class="winner-criterion">Budget serré</div><div class="winner-pick">Les Menuires</div></div>
-<div class="winner-row"><div class="winner-criterion">Neige garantie toute la saison</div><div class="winner-pick">Val Thorens</div></div>
-<div class="winner-row"><div class="winner-criterion">Ambiance festive & après-ski</div><div class="winner-pick">Val Thorens</div></div>
-<div class="winner-row"><div class="winner-criterion">Ski freeride et hors-piste</div><div class="winner-pick">Val Thorens</div></div>
-<div class="winner-row"><div class="winner-criterion">Village authentique</div><div class="winner-pick">Les Menuires (Saint-Martin proche)</div></div>
-<div class="winner-row"><div class="winner-criterion">Skieurs débutants</div><div class="winner-pick">Les Menuires</div></div>
-<div class="winner-row"><div class="winner-criterion">Glacier en avril-mai</div><div class="winner-pick">Val Thorens</div></div>
+<h2>👤 Pour quel profil quelle station ?</h2>
+<div class="profil-grid">
+<div class="profil-card"><div class="profil-head"><div class="profil-label">👨‍👩‍👧‍👦 Famille avec jeunes enfants</div><div class="profil-pick">Les Menuires</div></div><p class="profil-reason">Front de neige doux à La Croisette, label Espaces ludiques, garderies, et tarif d'hébergement 25-35% inférieur.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🎿 Skieurs confirmés en quête de grand domaine</div><div class="profil-pick">Val Thorens</div></div><p class="profil-reason">Altitude 2300-3230 m, neige fiable de novembre à mai, accès direct aux 600 km des 3 Vallées.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🎉 Fêtards et après-ski animé</div><div class="profil-pick">Val Thorens</div></div><p class="profil-reason">La Folie Douce historique, La Cabane, ambiance qui ne dort jamais. Les Menuires reste plus calme côté soirées.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">💰 Budget serré</div><div class="profil-pick">Les Menuires</div></div><p class="profil-reason">Même forfait 3 Vallées, hébergement bien moins cher. Astuce : loger aux Menuires et faire 1 journée à Val Tho via la liaison.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🏘️ Authenticité de village</div><div class="profil-pick">Les Menuires</div></div><p class="profil-reason">Saint-Martin-de-Belleville (relié à ski) garde un charme de vieux village savoyard que Val Thorens, station d'altitude pure, n'a pas.</p></div>
 </div>
 
 <div class="verdict">
   <h2>💡 Notre verdict</h2>
-  <p>Si la priorité est l'enneigement à toute épreuve et une ambiance qui ne dort jamais, <strong>Val Thorens</strong> reste imbattable. Mais pour une semaine en famille avec des enfants à équiper ou un budget contraint, <strong>Les Menuires</strong> offre exactement le même domaine 3 Vallées à 25-30% moins cher. Astuce : loger aux Menuires et passer une journée à Val Thorens via la liaison.</p>
+  <p>Pas de gagnant universel : tout dépend de votre profil. <strong>Val Thorens</strong> est imbattable pour l'altitude, le grand ski et la fête. <strong>Les Menuires</strong> sont parfaites pour la famille, le budget et le charme du village. Astuce maligne : loger aux Menuires (moins cher) et profiter du domaine 3 Vallées commun.</p>
 </div>
 
 <h2>❓ Questions fréquentes</h2>
-<div class="faq-item"><h3>Val Thorens ou Les Menuires : laquelle est la moins chère ?</h3><p>Les Menuires reste 25 à 35% moins chère que Val Thorens sur l'hébergement, avec des forfaits comparables (le forfait 3 Vallées étant commun). En janvier hors vacances scolaires, on trouve facilement des appartements à 350-450 € la semaine aux Menuires contre 600 € minimum à Val Thorens.</p></div>
+<div class="faq-item"><h3>Val Thorens ou Les Menuires : laquelle est la moins chère ?</h3><p>Les Menuires reste 25 à 35% moins chère que Val Thorens sur l'hébergement, avec un forfait 3 Vallées commun. En janvier hors vacances scolaires, on trouve des appartements à 350-450 € la semaine aux Menuires contre 600 € minimum à Val Thorens.</p></div>
 <div class="faq-item"><h3>Peut-on skier dans tout le domaine des 3 Vallées depuis les deux stations ?</h3><p>Oui, avec un forfait 3 Vallées (600 km, 170 remontées), depuis Val Thorens comme depuis Les Menuires vous avez accès à Courchevel, Méribel, La Tania et toutes les stations du domaine. La liaison Menuires-Val Thorens prend une trentaine de minutes à ski.</p></div>
-<div class="faq-item"><h3>Val Thorens est-elle vraiment la plus haute station d'Europe ?</h3><p>Oui, Val Thorens culmine à 2300 m avec un domaine montant jusqu'à 3230 m via le glacier de la Cime Caron. C'est ce qui lui garantit un enneigement fiable de fin novembre à début mai, là où Les Menuires (1800 m) reste également bien enneigée mais sur une fenêtre plus classique.</p></div>
-<div class="faq-item"><h3>Les Menuires est-elle adaptée aux enfants débutants ?</h3><p>Très bien adaptée : la station dispose du label « Espaces ludiques », d'un grand front de neige doux côté La Croisette, de plusieurs zones débutants ainsi que de garderies. Val Thorens accueille aussi les familles mais l'altitude (vents, froid, dénivelé immédiat) la rend moins évidente pour les tout-petits.</p></div>
+<div class="faq-item"><h3>Val Thorens est-elle vraiment la plus haute station d'Europe ?</h3><p>Oui, Val Thorens culmine à 2300 m avec un domaine montant jusqu'à 3230 m via la Cime Caron. C'est ce qui lui garantit un enneigement fiable de fin novembre à début mai.</p></div>
+<div class="faq-item"><h3>Les Menuires sont-elles adaptées aux enfants débutants ?</h3><p>Très bien adaptées : label Espaces ludiques, grand front de neige doux côté La Croisette, plusieurs zones débutants et garderies. Val Thorens accueille aussi les familles mais l'altitude la rend moins évidente pour les tout-petits.</p></div>
 
 <div class="book-cta">
   <h2>🏨 Réserver votre séjour</h2>
@@ -368,6 +386,7 @@ footer a { color:var(--text-light); }
           </div>
         </a>
       </div>
+      <a href="https://www.valthorens.com" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel de Val Thorens</a>
       <a href="/stations/val-thorens.html" class="detail-link">→ Fiche complète de Val Thorens</a>
     </div>
     <div>
@@ -400,6 +419,7 @@ footer a { color:var(--text-light); }
           </div>
         </a>
       </div>
+      <a href="https://www.lesmenuires.com" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel de Les Menuires</a>
       <a href="/stations/les-menuires.html" class="detail-link">→ Fiche complète de Les Menuires</a>
     </div>
   </div>
