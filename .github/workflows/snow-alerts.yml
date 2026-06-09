@@ -1,0 +1,22 @@
+name: Snow Alerts
+
+on:
+  schedule:
+    - cron: '0 16 * * *'   # Tous les jours à 18h (UTC+2) — logique lun/jeu dans le script
+  workflow_dispatch:
+
+jobs:
+  check-snow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Vérification enneigement & alertes push
+        env:
+          ONESIGNAL_APP_ID:  ${{ secrets.ONESIGNAL_APP_ID }}
+          ONESIGNAL_API_KEY: ${{ secrets.ONESIGNAL_API_KEY }}
+        run: python _scripts/onesignal_snow_check.py
