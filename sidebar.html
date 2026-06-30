@@ -1,0 +1,61 @@
+<button class="sb-hamburger" id="sbHamburger" onclick="toggleSidebar()">
+  <span></span><span></span><span></span>
+</button>
+<div class="sb-overlay" id="sbOverlay" onclick="closeSidebar()"></div>
+
+<nav class="sb" id="sidebar">
+  <a class="sb-logo" href="index.html">
+    <img src="logo.png" alt="SnowFinder" style="width:72px;height:72px;object-fit:contain">
+    <div class="sb-logo-text" style="font-size:1.25rem">SnowFinder<small style="font-size:.72rem">Le guide ski français</small></div>
+  </a>
+
+  <div class="sb-divider"></div>
+
+  <div class="sb-links">
+    <a class="sb-link" href="index.html"         data-page="index.html">        <span class="sb-icon">🏠</span> Chalet d'accueil</a>
+    <a class="sb-link" href="favoris.html"        data-page="favoris.html">       <span class="sb-icon">⭐</span> Mes favoris</a>
+    <a class="sb-link" href="recherche.html"      data-page="recherche.html">     <span class="sb-icon">🔍</span> Trouver ma station</a>
+    <a class="sb-link" href="station-du-moment.html" data-page="station-du-moment.html"><span class="sb-icon">🏔</span> Station du moment</a>
+    <a class="sb-link" href="comparateur.html"   data-page="comparateur.html">   <span class="sb-icon">⚖️</span> Comparer les stations</a>
+    <div class="sb-divider"></div>
+    <a class="sb-link" href="enneigement.html"   data-page="enneigement.html">   <span class="sb-icon">❄️</span> Météo/Enneigement <span class="sb-new">Live</span></a>
+    <a class="sb-link" href="hebergement.html"  data-page="hebergement.html">   <span class="sb-icon">🏨</span> Hébergements</a>
+    <a class="sb-link" href="tinder.html" data-page="tinder.html" style="background:linear-gradient(135deg,#fff0f3,#ffe4ea);border-left:3px solid #e05a7a;color:#c0294f;font-weight:700"><span class="sb-icon">❤️</span> Tinder du ski <span class="sb-new" style="background:#e05a7a">Fun</span></a>
+    <button class="sb-link" onclick="openContact()"><span class="sb-icon">📧</span> Nous contacter</button>
+  </div>
+
+  <div class="sb-app-teaser">
+    <div class="sb-app-teaser-bg">
+      <span class="sb-flake" style="left:10%;animation-delay:0s">❄</span>
+      <span class="sb-flake" style="left:30%;animation-delay:1.2s">❄</span>
+      <span class="sb-flake" style="left:55%;animation-delay:.6s">❄</span>
+      <span class="sb-flake" style="left:75%;animation-delay:1.8s">❄</span>
+      <span class="sb-flake" style="left:90%;animation-delay:.3s">❄</span>
+    </div>
+    <div class="sb-app-teaser-content">
+      <div class="sb-app-teaser-icon">📱</div>
+      <div class="sb-app-teaser-title">L'app arrive !</div>
+      <div class="sb-app-teaser-sub">SnowFinder bientôt sur ton mobile</div>
+    </div>
+  </div>
+
+  <div class="sb-footer">
+    <div class="sb-footer-txt">
+      <strong>SnowFinder</strong> — +220 stations<br>
+      Météo : Open-Meteo · BRA : Météo-France<br>
+      <a href="mentions-legales.html" style="color:var(--text-light);font-size:.68rem">Mentions légales</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+.sb-app-teaser{position:relative;margin:14px 16px 4px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#1a5a8a 0%,#2c7ab8 55%,#4a9fd8 100%);padding:16px 14px;text-align:center}
+.sb-app-teaser-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.sb-flake{position:absolute;top:-10%;font-size:.85rem;color:rgba(255,255,255,.55);animation:sbSnowFall 4.5s linear infinite}
+@keyframes sbSnowFall{0%{transform:translateY(-10%) rotate(0deg);opacity:0}10%{opacity:1}100%{transform:translateY(220%) rotate(180deg);opacity:.2}}
+.sb-app-teaser-content{position:relative;z-index:1}
+.sb-app-teaser-icon{font-size:1.7rem;margin-bottom:4px;animation:sbBounce 2.2s ease-in-out infinite}
+@keyframes sbBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.sb-app-teaser-title{font-family:"DM Serif Display",serif;color:white;font-size:.95rem;margin-bottom:2px}
+.sb-app-teaser-sub{color:rgba(255,255,255,.78);font-size:.7rem}
+</style>
