@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>Les Aillons-Margeriaz — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
   <meta name="description" content="Les Aillons-Margeriaz : 18 km de pistes, altitude 1000-1600m, forfait 22€/jour. Dans le massif des Bauges. Petite station familiale à 30 min de Chambéry.">
   <link rel="canonical" href="https://snowfinder.fr/stations/les-aillons-margeriaz.html">
@@ -39,6 +39,7 @@
       --text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;
       --white:#fff;--bg:#f5f1ec;--radius:14px;
     }
+    html,body{touch-action:pan-x pan-y}
     body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;position:relative;padding-top:58px;padding-bottom:66px}
     /* Le canvas des flocons est au-dessus du fond mais sous tout contenu */
     #snowCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:1;mix-blend-mode:screen}
@@ -350,20 +351,7 @@
       box-shadow:0 4px 14px rgba(0,0,0,.25);color:#d49b00;
     }
     .fav-star:hover{background:#fff7d6;border-color:#ffb900;transform:scale(1.08)}
-    .fav-star.active{background:#ffd451;border-color:#d49b00;color:#5c3d00;}
-
-    /* BOUTON FAVORIS SECONDAIRE (dans le corps de la page) */
-    .fav-cta{
-      display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#fff8e1 0%,#ffecb3 100%);
-      border:2px solid #ffd451;border-radius:14px;padding:14px 18px;margin:18px 0;cursor:pointer;
-      transition:all .2s;font-family:"DM Sans",sans-serif;width:100%;text-align:left
-    }
-    .fav-cta:hover{background:linear-gradient(135deg,#ffecb3 0%,#ffd451 100%);transform:translateY(-1px);box-shadow:0 6px 18px rgba(255,180,0,.25)}
-    .fav-cta.active{background:linear-gradient(135deg,#ffd451 0%,#ffb900 100%);border-color:#d49b00}
-    .fav-cta-icon{font-size:2rem;flex-shrink:0}
-    .fav-cta-txt{flex:1}
-    .fav-cta-title{font-weight:800;color:#5c3d00;font-size:1rem;margin-bottom:2px}
-    .fav-cta-sub{font-size:.78rem;color:#7a5500;line-height:1.4}
+    .fav-star.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
 
     /* FOOTER */
     .mobile-bar{
@@ -526,13 +514,10 @@ function updateStar(){
   var favs=getFavs();
   var isFav=favs.indexOf(STATION_ID)!==-1;
   var btn=document.getElementById('favBtn');
-  var btn2=document.getElementById('favBtn2');
   if(isFav){
     if(btn){btn.textContent='⭐';btn.classList.add('active');btn.title='Retirer des favoris';}
-    if(btn2){btn2.classList.add('active');btn2.querySelector('.fav-cta-title').textContent='⭐ Dans tes favoris';btn2.querySelector('.fav-cta-sub').textContent='Clique pour retirer';}
   }else{
     if(btn){btn.textContent='☆';btn.classList.remove('active');btn.title='Ajouter aux favoris';}
-    if(btn2){btn2.classList.remove('active');btn2.querySelector('.fav-cta-title').textContent='☆ Ajouter aux favoris';btn2.querySelector('.fav-cta-sub').textContent='Garde un œil sur cette station — neige, prix, dispos';}
   }
 }
 function toggleFav(){
@@ -812,15 +797,6 @@ function closeStation(){
       <div class="stat-lbl">Forfait / jour</div>
     </div>
   </div>
-
-  <!-- BOUTON FAVORI BIEN VISIBLE -->
-  <button class="fav-cta" id="favBtn2" onclick="toggleFav()" type="button">
-    <span class="fav-cta-icon">☆</span>
-    <div class="fav-cta-txt">
-      <div class="fav-cta-title">☆ Ajouter aux favoris</div>
-      <div class="fav-cta-sub">Garde un œil sur cette station — neige, prix, dispos</div>
-    </div>
-  </button>
 
   <div class="main-grid">
 
