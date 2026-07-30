@@ -118,6 +118,12 @@
 
     /* CONTAINER */
     .container{max-width:980px;margin:0 auto;padding:32px 20px 60px}
+    @media(min-width:1200px){
+      .container{max-width:1240px}
+      .main-grid{grid-template-columns:1fr 400px;gap:28px}
+      .hero{border-radius:22px}
+      .stats-grid{gap:14px}
+    }
 
     /* BREADCRUMB */
     .breadcrumb{font-size:.75rem;color:var(--text-light);margin-bottom:24px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
@@ -353,29 +359,46 @@
     .fav-star:hover{background:#fff7d6;border-color:#ffb900;transform:scale(1.08)}
     .fav-star.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
 
-    /* DOMAINE SKIABLE RELIÉ */
-    .domaine-badge{
-      display:flex;align-items:center;justify-content:center;gap:8px;
-      background:linear-gradient(135deg,#0d3a6e 0%,#1a5a8a 100%);color:white;
-      border-radius:14px;padding:13px 18px;margin:18px 0;text-decoration:none;
-      font-weight:700;font-size:.88rem;text-align:center;transition:transform .15s,box-shadow .15s;
-      box-shadow:0 4px 14px rgba(13,58,110,.25)
+    /* DOMAINE SKIABLE RELIÉ — encadré riche, couleur distincte (ambre/or) */
+    .domaine-box{
+      display:block;text-decoration:none;color:inherit;margin:18px 0;border-radius:18px;overflow:hidden;
+      background:linear-gradient(145deg,#fff8ec 0%,#fdecc8 100%);border:1.5px solid #f0c869;
+      box-shadow:0 4px 18px rgba(212,155,0,.15);transition:transform .15s,box-shadow .15s
     }
-    .domaine-badge:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(13,58,110,.35)}
-    .domaine-stats-mini{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
-    .domaine-stats-mini div{flex:1;min-width:90px;background:#f0f6fb;border-radius:10px;padding:10px 8px;text-align:center}
+    .domaine-box:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(212,155,0,.25)}
+    .domaine-box-head{padding:16px 20px 10px;display:flex;flex-direction:column;gap:3px}
+    .domaine-box-tag{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#a0720a}
+    .domaine-box-name{font-family:"DM Serif Display",serif;font-size:1.35rem;color:#5c3d00;display:flex;align-items:center;gap:8px}
+    .domaine-box-arrow{font-size:1.1rem;color:#a0720a}
+    .domaine-box-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0 12px;border-top:1px solid rgba(160,114,10,.15);border-bottom:1px solid rgba(160,114,10,.15)}
+    .domaine-box-stats>div{text-align:center;padding:12px 6px}
+    .dbs-val{font-family:"DM Serif Display",serif;font-size:1.15rem;color:#5c3d00;line-height:1.1}
+    .dbs-lbl{font-size:.63rem;color:#a0720a;text-transform:uppercase;letter-spacing:.04em;margin-top:3px}
+    .domaine-box-foot{padding:10px 20px;font-size:.76rem;color:#a0720a;font-weight:600}
+    @media(max-width:480px){.domaine-box-stats{grid-template-columns:repeat(2,1fr)}}
+
+    /* Onglet Domaine */
+    .dt-hero{background:linear-gradient(145deg,#fff8ec 0%,#fdecc8 100%);border:1.5px solid #f0c869;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+    .dt-hero h3{font-family:"DM Serif Display",serif;font-size:1.3rem;color:#5c3d00;margin-bottom:6px}
+    .dt-hero p{color:#8a6512;font-size:.88rem;line-height:1.6}
+    .dt-warn{font-size:.8rem;color:#a05a2c;background:#fff4e6;padding:8px 12px;border-radius:8px;margin:12px 0}
+    .dt-subtitle{margin:22px 0 12px;font-size:1.02rem;font-family:"DM Serif Display",serif;color:var(--text)}
+    .domaine-stats-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+    .domaine-stats-mini div{background:#f0f6fb;border-radius:10px;padding:12px 8px;text-align:center}
     .domaine-stats-mini strong{display:block;font-size:1.15rem;color:#0d3a6e;font-family:"DM Serif Display",serif}
-    .domaine-stats-mini span{font-size:.68rem;color:var(--text-mid);text-transform:uppercase;letter-spacing:.04em}
-    .domaine-see-all{display:inline-block;margin-top:6px;color:#1a5a8a;font-weight:700;text-decoration:none;font-size:.85rem}
+    .domaine-stats-mini span{font-size:.65rem;color:var(--text-mid);text-transform:uppercase;letter-spacing:.04em}
+    @media(max-width:480px){.domaine-stats-mini{grid-template-columns:repeat(2,1fr)}}
+    .domaine-see-all{display:inline-block;margin-top:2px;color:#1a5a8a;font-weight:700;text-decoration:none;font-size:.85rem}
     .domaine-see-all:hover{text-decoration:underline}
-    .domaine-soeurs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+    .domaine-soeurs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
     .domaine-soeur-card{
-      display:block;background:#f7efe2;border-radius:10px;padding:12px 14px;text-decoration:none;
-      transition:transform .15s,box-shadow .15s
+      display:block;background:var(--white);border:1px solid var(--wood-light);border-radius:12px;padding:14px 16px;text-decoration:none;
+      transition:transform .15s,box-shadow .15s;box-shadow:0 2px 8px rgba(0,0,0,.04)
     }
-    .domaine-soeur-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
-    .domaine-soeur-name{font-weight:800;color:var(--text);font-size:.9rem}
-    .domaine-soeur-sub{font-size:.72rem;color:#1a5a8a;font-weight:700;margin-top:2px}
+    .domaine-soeur-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1);border-color:#1a5a8a}
+    .domaine-soeur-name{font-weight:800;color:var(--text);font-size:.92rem;margin-bottom:6px}
+    .domaine-soeur-stats{display:flex;gap:10px;font-size:.75rem;color:var(--text-mid);margin-bottom:6px}
+    .domaine-soeur-sub{font-size:.72rem;color:#1a5a8a;font-weight:700}
 
     /* FOOTER */
     .mobile-bar{
@@ -822,8 +845,18 @@ function closeStation(){
     </div>
   </div>
 
-  <a href="../domaines/portes-du-soleil.html" class="domaine-badge">
-    🏔️ Fait partie du domaine <strong>Les Portes du Soleil</strong> — 600 km reliés →
+  <a href="../domaines/portes-du-soleil.html" class="domaine-box">
+    <div class="domaine-box-head">
+      <div class="domaine-box-tag">🏔️ Domaine skiable relié</div>
+      <div class="domaine-box-name">Les Portes du Soleil <span class="domaine-box-arrow">→</span></div>
+    </div>
+    <div class="domaine-box-stats">
+      <div><div class="dbs-val">600 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
+      <div><div class="dbs-val">930-2466m</div><div class="dbs-lbl">Altitude</div></div>
+      <div><div class="dbs-val">197</div><div class="dbs-lbl">Remontées</div></div>
+      <div><div class="dbs-val">58€</div><div class="dbs-lbl">Forfait domaine/j</div></div>
+    </div>
+    <div class="domaine-box-foot">8 stations reliées, dont Châtel · voir la fiche complète du domaine</div>
   </a>
 
   <div class="main-grid">
@@ -1006,41 +1039,72 @@ function closeStation(){
       </div>
 
       <div class="tab-content" id="tab-domaine">
-        <h3 style="font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:10px">🏔️ Les Portes du Soleil</h3>
-        <p style="color:var(--text-mid);margin-bottom:16px;line-height:1.6">Le plus grand domaine skiable transfrontalier au monde, 12 stations françaises et suisses reliées skis aux pieds autour du Chablais.</p>
+        <div class="dt-hero">
+          <h3>🏔️ Les Portes du Soleil</h3>
+          <p>Le plus grand domaine skiable transfrontalier au monde, 12 stations françaises et suisses reliées skis aux pieds autour du Chablais.</p>
+        </div>
         <div class="domaine-stats-mini">
           <div><strong>600 km</strong><span>de pistes reliées</span></div>
           <div><strong>197</strong><span>remontées</span></div>
           <div><strong>58€</strong><span>forfait domaine/j</span></div>
+          <div><strong>930-2466m</strong><span>altitude</span></div>
         </div>
         
         <a href="../domaines/portes-du-soleil.html" class="domaine-see-all">Voir la fiche complète du domaine →</a>
-        <h4 style="margin:20px 0 10px;font-size:1rem">Les autres stations du domaine</h4><div class="domaine-soeurs-grid"><a href="avoriaz.html" class="domaine-soeur-card">
+        <h4 class="dt-subtitle">Les autres stations du domaine</h4><div class="domaine-soeurs-grid"><a href="avoriaz.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">Avoriaz</div>
+        <div class="domaine-soeur-stats">
+          <span>🏘 1800m</span>
+          <span>🎿 80 km</span>
+        </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
 <a href="morzine.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">Morzine</div>
+        <div class="domaine-soeur-stats">
+          <span>🏘 1000m</span>
+          <span>🎿 50 km</span>
+        </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
 <a href="montriond.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">Montriond</div>
+        <div class="domaine-soeur-stats">
+          <span>🏘 ?m</span>
+          <span>🎿 —</span>
+        </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
 <a href="les-gets.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">Les Gets</div>
+        <div class="domaine-soeur-stats">
+          <span>🏘 1172m</span>
+          <span>🎿 120 km</span>
+        </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
 <a href="saint-jean-d-aulps.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">Saint-Jean-d'Aulps</div>
+        <div class="domaine-soeur-stats">
+          <span>🏘 ?m</span>
+          <span>🎿 —</span>
+        </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
 <a href="abondance.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">Abondance</div>
+        <div class="domaine-soeur-stats">
+          <span>🏘 ?m</span>
+          <span>🎿 —</span>
+        </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
 <a href="la-chapelle-d-abondance.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">La Chapelle d'Abondance</div>
+        <div class="domaine-soeur-stats">
+          <span>🏘 ?m</span>
+          <span>🎿 —</span>
+        </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a></div>
       </div>
