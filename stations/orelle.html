@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>Orelle — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
-  <meta name="description" content="Orelle : 600 km de pistes, altitude 580-3230m, forfait 42€/jour. Porte d'entrée confidentielle des 3 Vallées depuis la Maurienne. Télécabine express vers Val Thorens">
+  <meta name="description" content="Orelle : 35 km de pistes, altitude 900-3230m, forfait 42€/jour. Porte d'entrée confidentielle des 3 Vallées depuis la Maurienne. Télécabine express vers Val Thorens">
   <link rel="canonical" href="https://snowfinder.fr/stations/orelle.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SnowFinder">
   <meta property="og:url" content="https://snowfinder.fr/stations/orelle.html">
   <meta property="og:title" content="Orelle — Station de ski | SnowFinder">
-  <meta property="og:description" content="600 km · 3230m · 42€/j · Alpes du Nord">
+  <meta property="og:description" content="35 km · 3230m · 42€/j · Alpes du Nord">
   <meta property="og:image" content="https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1200&q=80">
   <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
@@ -25,7 +25,7 @@
         appId: "9530c745-8578-41e9-ad9f-2fa5348ad0b8",
         safari_web_id: "web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",
         serviceWorkerPath: "../sw.js",
-        notifyButton: { enable: true },
+        notifyButton: { enable: false },
       });
     });
   </script>
@@ -39,7 +39,7 @@
       --text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;
       --white:#fff;--bg:#f5f1ec;--radius:14px;
     }
-    html,body{touch-action:pan-x pan-y}
+    html,body{touch-action:pan-x pan-y;overflow-x:hidden;max-width:100%}
     body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;position:relative;padding-top:58px;padding-bottom:66px}
     /* Le canvas des flocons est au-dessus du fond mais sous tout contenu */
     #snowCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:1;mix-blend-mode:screen}
@@ -371,11 +371,11 @@
     .domaine-box-name{font-family:"DM Serif Display",serif;font-size:1.35rem;color:#5c3d00;display:flex;align-items:center;gap:8px}
     .domaine-box-arrow{font-size:1.1rem;color:#a0720a}
     .domaine-box-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0 12px;border-top:1px solid rgba(160,114,10,.15);border-bottom:1px solid rgba(160,114,10,.15)}
-    .domaine-box-stats>div{text-align:center;padding:12px 6px}
-    .dbs-val{font-family:"DM Serif Display",serif;font-size:1.15rem;color:#5c3d00;line-height:1.1}
-    .dbs-lbl{font-size:.63rem;color:#a0720a;text-transform:uppercase;letter-spacing:.04em;margin-top:3px}
+    .domaine-box-stats>div{text-align:center;padding:12px 4px;min-width:0}
+    .dbs-val{font-family:"DM Serif Display",serif;font-size:1.05rem;color:#5c3d00;line-height:1.15;word-break:break-word;overflow-wrap:break-word}
+    .dbs-lbl{font-size:.6rem;color:#a0720a;text-transform:uppercase;letter-spacing:.03em;margin-top:3px}
+    @media(max-width:600px){.domaine-box-stats{grid-template-columns:repeat(2,1fr)}}
     .domaine-box-foot{padding:10px 20px;font-size:.76rem;color:#a0720a;font-weight:600}
-    @media(max-width:480px){.domaine-box-stats{grid-template-columns:repeat(2,1fr)}}
 
     /* Onglet Domaine */
     .dt-hero{background:linear-gradient(145deg,#fff8ec 0%,#fdecc8 100%);border:1.5px solid #f0c869;border-radius:14px;padding:16px 18px;margin-bottom:16px}
@@ -824,11 +824,11 @@ function closeStation(){
   <!-- STATS 5 colonnes -->
   <div class="stats-grid">
     <div class="stat-box">
-      <div class="stat-val">600 km</div>
+      <div class="stat-val">35 km</div>
       <div class="stat-lbl">Pistes skiables</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val">580m</div>
+      <div class="stat-val">900m</div>
       <div class="stat-lbl">Village</div>
     </div>
     <div class="stat-box">
@@ -901,7 +901,7 @@ function closeStation(){
 
         <!-- PISTES -->
         <div class="section">
-          <div class="section-title">Domaine skiable — 600 km · 580m à 3230m</div>
+          <div class="section-title">Domaine skiable — 35 km · 900m à 3230m</div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#2ea84e"></div>
             <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Vertes</span>
@@ -934,7 +934,7 @@ function closeStation(){
           <p style="font-size:.88rem;line-height:1.72;color:var(--text-mid)">
             <strong>Orelle</strong> est une station de ski du massif <strong>Alpes du Nord</strong>,
             en <strong>Maurienne, Savoie</strong>. Le domaine s'étend sur
-            <strong>600 km de pistes</strong> entre 580 m et 3230 m,
+            <strong>35 km de pistes</strong> entre 900 m et 3230 m,
             desservi par 170 remontées mécaniques. Forfait journée à partir de
             <strong>42€</strong> par adulte.
           </p>
@@ -1083,7 +1083,7 @@ function closeStation(){
 <a href="brides-les-bains.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">Brides-les-Bains</div>
         <div class="domaine-soeur-stats">
-          <span>🏘 ?m</span>
+          <span>🏘 600m</span>
           <span>🎿 —</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
@@ -1176,7 +1176,7 @@ function closeStation(){
 
         <!-- Village vs Sommet : informatif, pas de faux chiffres -->
         <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px">
-          <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:12px">📍 Village (580 m) vs Sommet (3230 m)</div>
+          <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:12px">📍 Village (900 m) vs Sommet (3230 m)</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
             <div style="padding:12px;background:#f8f9ff;border-radius:10px">
               <div style="font-size:.72rem;font-weight:700;color:var(--text);margin-bottom:6px">🏘 Au village</div>
@@ -1216,7 +1216,7 @@ function closeStation(){
             </div>
             <div>
               <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Altitude de départ</div>
-              <div style="font-size:.85rem;font-weight:700;color:var(--text)">580 m ⚠️</div>
+              <div style="font-size:.85rem;font-weight:700;color:var(--text)">900 m ⚠️</div>
             </div>
             <div>
               <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Enneigement pic saison</div>
@@ -1233,7 +1233,7 @@ function closeStation(){
 
         <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%)">
           <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Orelle</div>
-          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Orelle fait partie des rares stations à offrir plus de 600 km de pistes skiables — un domaine colossal que même les skieurs les plus rapides ne parcourent pas en une semaine. Avec 170 remontées mécaniques et 166 pistes répertoriées, c'est une destination qui peut absorber tous les flux touristiques sans jamais donner l'impression d'être bondée. Le terrain technique est roi à Orelle : avec 21 pistes noires et 49 rouges au programme, les skieurs confirmés trouveront de quoi se challenger sérieusement. Le hors-piste et le freeride y sont pratiqués dans des conditions souvent excellentes grâce à l'altitude et l'exposition des versants. Côté enneigement, Orelle est en position de force avec son point culminant à 3230 m — même lors des hivers capricieux, les pistes du haut tiennent bien jusqu'en avril. Le village à 580 m est également bien situé pour garantir des conditions confortables du départ dès la mi-décembre. Le forfait journée à 42€ place Orelle dans la catégorie des stations intermédiaires côté budget — ni donné, ni exorbitant. La qualité du domaine et des équipements justifie ce tarif pour la plupart des skieurs. Au final, Orelle est une valeur sûre du ski français : grand domaine, bon enneigement et tarifs encore justifiés. Une destination qui mérite sa réputation.</p>
+          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Station à dimension humaine, Orelle mise sur la qualité de l'accueil et la proximité plutôt que sur les chiffres impressionnants. Ses 35 km de pistes conviennent parfaitement pour un séjour de 3 à 4 jours, surtout en famille ou pour les skieurs qui n'ont pas besoin de renouveler constamment leur terrain de jeu. Le terrain technique est roi à Orelle : avec 21 pistes noires et 49 rouges au programme, les skieurs confirmés trouveront de quoi se challenger sérieusement. Le hors-piste et le freeride y sont pratiqués dans des conditions souvent excellentes grâce à l'altitude et l'exposition des versants. Côté enneigement, Orelle est en position de force avec son point culminant à 3230 m — même lors des hivers capricieux, les pistes du haut tiennent bien jusqu'en avril. Le village à 900 m est également bien situé pour garantir des conditions confortables du départ dès la mi-décembre. Le forfait journée à 42€ place Orelle dans la catégorie des stations intermédiaires côté budget — ni donné, ni exorbitant. La qualité du domaine et des équipements justifie ce tarif pour la plupart des skieurs. En résumé : Orelle ne rivalise pas avec les géants du ski mais ne le prétend pas. C'est une destination honnête, souvent sous-estimée, qui mérite d'être (re)découverte.</p>
         </div>
 
 

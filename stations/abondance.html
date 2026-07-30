@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>Abondance — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
-  <meta name="description" content="Abondance : 17 km de pistes, altitude 900-1730m, forfait 22€/jour. Station village au pied de l'abbaye médiévale classée. Petit domaine familial, fromage d'Abondance A">
+  <meta name="description" content="Abondance : 17 km de pistes, altitude 930-1730m, forfait 22€/jour. Station village au pied de l'abbaye médiévale classée. Petit domaine familial, fromage d'Abondance A">
   <link rel="canonical" href="https://snowfinder.fr/stations/abondance.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SnowFinder">
@@ -25,7 +25,7 @@
         appId: "9530c745-8578-41e9-ad9f-2fa5348ad0b8",
         safari_web_id: "web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",
         serviceWorkerPath: "../sw.js",
-        notifyButton: { enable: true },
+        notifyButton: { enable: false },
       });
     });
   </script>
@@ -39,7 +39,7 @@
       --text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;
       --white:#fff;--bg:#f5f1ec;--radius:14px;
     }
-    html,body{touch-action:pan-x pan-y}
+    html,body{touch-action:pan-x pan-y;overflow-x:hidden;max-width:100%}
     body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;position:relative;padding-top:58px;padding-bottom:66px}
     /* Le canvas des flocons est au-dessus du fond mais sous tout contenu */
     #snowCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:1;mix-blend-mode:screen}
@@ -371,11 +371,11 @@
     .domaine-box-name{font-family:"DM Serif Display",serif;font-size:1.35rem;color:#5c3d00;display:flex;align-items:center;gap:8px}
     .domaine-box-arrow{font-size:1.1rem;color:#a0720a}
     .domaine-box-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0 12px;border-top:1px solid rgba(160,114,10,.15);border-bottom:1px solid rgba(160,114,10,.15)}
-    .domaine-box-stats>div{text-align:center;padding:12px 6px}
-    .dbs-val{font-family:"DM Serif Display",serif;font-size:1.15rem;color:#5c3d00;line-height:1.1}
-    .dbs-lbl{font-size:.63rem;color:#a0720a;text-transform:uppercase;letter-spacing:.04em;margin-top:3px}
+    .domaine-box-stats>div{text-align:center;padding:12px 4px;min-width:0}
+    .dbs-val{font-family:"DM Serif Display",serif;font-size:1.05rem;color:#5c3d00;line-height:1.15;word-break:break-word;overflow-wrap:break-word}
+    .dbs-lbl{font-size:.6rem;color:#a0720a;text-transform:uppercase;letter-spacing:.03em;margin-top:3px}
+    @media(max-width:600px){.domaine-box-stats{grid-template-columns:repeat(2,1fr)}}
     .domaine-box-foot{padding:10px 20px;font-size:.76rem;color:#a0720a;font-weight:600}
-    @media(max-width:480px){.domaine-box-stats{grid-template-columns:repeat(2,1fr)}}
 
     /* Onglet Domaine */
     .dt-hero{background:linear-gradient(145deg,#fff8ec 0%,#fdecc8 100%);border:1.5px solid #f0c869;border-radius:14px;padding:16px 18px;margin-bottom:16px}
@@ -825,10 +825,10 @@ function closeStation(){
   <div class="stats-grid">
     <div class="stat-box">
       <div class="stat-val">17 km</div>
-      <div class="stat-lbl">Pistes skiables</div>
+      <div class="stat-lbl">Pistes (secteur)</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val">900m</div>
+      <div class="stat-val">930m</div>
       <div class="stat-lbl">Village</div>
     </div>
     <div class="stat-box">
@@ -901,7 +901,7 @@ function closeStation(){
 
         <!-- PISTES -->
         <div class="section">
-          <div class="section-title">Domaine skiable — 17 km · 900m à 1730m</div>
+          <div class="section-title">Domaine skiable — 17 km · 930m à 1730m</div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#2ea84e"></div>
             <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Vertes</span>
@@ -934,7 +934,7 @@ function closeStation(){
           <p style="font-size:.88rem;line-height:1.72;color:var(--text-mid)">
             <strong>Abondance</strong> est une station de ski du massif <strong>Alpes du Nord</strong>,
             en <strong>Haute-Savoie</strong>. Le domaine s'étend sur
-            <strong>17 km de pistes</strong> entre 900 m et 1730 m,
+            <strong>17 km de pistes</strong> entre 930 m et 1730 m,
             desservi par 8 remontées mécaniques. Forfait journée à partir de
             <strong>22€</strong> par adulte.
           </p>
@@ -1070,7 +1070,7 @@ function closeStation(){
 <a href="montriond.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">Montriond</div>
         <div class="domaine-soeur-stats">
-          <span>🏘 ?m</span>
+          <span>🏘 1049m</span>
           <span>🎿 —</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
@@ -1086,7 +1086,7 @@ function closeStation(){
 <a href="saint-jean-d-aulps.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">Saint-Jean-d'Aulps</div>
         <div class="domaine-soeur-stats">
-          <span>🏘 ?m</span>
+          <span>🏘 820m</span>
           <span>🎿 —</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
@@ -1094,7 +1094,7 @@ function closeStation(){
 <a href="la-chapelle-d-abondance.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">La Chapelle d'Abondance</div>
         <div class="domaine-soeur-stats">
-          <span>🏘 ?m</span>
+          <span>🏘 1010m</span>
           <span>🎿 —</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
@@ -1171,7 +1171,7 @@ function closeStation(){
 
         <!-- Village vs Sommet : informatif, pas de faux chiffres -->
         <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px">
-          <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:12px">📍 Village (900 m) vs Sommet (1730 m)</div>
+          <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:12px">📍 Village (930 m) vs Sommet (1730 m)</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
             <div style="padding:12px;background:#f8f9ff;border-radius:10px">
               <div style="font-size:.72rem;font-weight:700;color:var(--text);margin-bottom:6px">🏘 Au village</div>
@@ -1211,7 +1211,7 @@ function closeStation(){
             </div>
             <div>
               <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Altitude de départ</div>
-              <div style="font-size:.85rem;font-weight:700;color:var(--text)">900 m ⚠️</div>
+              <div style="font-size:.85rem;font-weight:700;color:var(--text)">930 m ⚠️</div>
             </div>
             <div>
               <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Enneigement pic saison</div>
@@ -1228,7 +1228,7 @@ function closeStation(){
 
         <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%)">
           <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Abondance</div>
-          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Abondance est une station confidentielle à l'échelle modeste — 17 km de pistes pour une expérience de ski intimiste, loin de l'agitation des grandes stations. C'est ici qu'on vient chercher le calme, l'authenticité et des files d'attente inexistantes aux remontées. La réputation familiale de Abondance n'est pas usurpée : espaces débutants dédiés, garderie bien organisée, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Alpes du Nord pour poser les bases du ski avec des enfants. L'altitude modérée de Abondance — départ à 900 m, sommet à 1730 m — la rend sensible aux variations climatiques. Les mois de janvier et février restent les plus sûrs pour un enneigement optimal. En dehors de cette fenêtre, le suivi des bulletins d'enneigement avant le départ est fortement conseillé. Avec un forfait journée à seulement 22€, Abondance est l'une des destinations les plus accessibles de France. Pour les familles à budget maîtrisé ou les skieurs qui veulent multiplier les sorties sans se ruiner, c'est une adresse sincère et souvent méconnue. En résumé : Abondance est une de ces rares stations qui réunit un vrai village, une ambiance familiale sincère et des pistes adaptées à tous. Difficile de rater son séjour ici.</p>
+          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Abondance est une station confidentielle à l'échelle modeste — 17 km de pistes pour une expérience de ski intimiste, loin de l'agitation des grandes stations. C'est ici qu'on vient chercher le calme, l'authenticité et des files d'attente inexistantes aux remontées. La réputation familiale de Abondance n'est pas usurpée : espaces débutants dédiés, garderie bien organisée, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Alpes du Nord pour poser les bases du ski avec des enfants. L'altitude modérée de Abondance — départ à 930 m, sommet à 1730 m — la rend sensible aux variations climatiques. Les mois de janvier et février restent les plus sûrs pour un enneigement optimal. En dehors de cette fenêtre, le suivi des bulletins d'enneigement avant le départ est fortement conseillé. Avec un forfait journée à seulement 22€, Abondance est l'une des destinations les plus accessibles de France. Pour les familles à budget maîtrisé ou les skieurs qui veulent multiplier les sorties sans se ruiner, c'est une adresse sincère et souvent méconnue. En résumé : Abondance est une de ces rares stations qui réunit un vrai village, une ambiance familiale sincère et des pistes adaptées à tous. Difficile de rater son séjour ici.</p>
         </div>
 
 

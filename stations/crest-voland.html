@@ -25,7 +25,7 @@
         appId: "9530c745-8578-41e9-ad9f-2fa5348ad0b8",
         safari_web_id: "web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",
         serviceWorkerPath: "../sw.js",
-        notifyButton: { enable: true },
+        notifyButton: { enable: false },
       });
     });
   </script>
@@ -39,7 +39,7 @@
       --text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;
       --white:#fff;--bg:#f5f1ec;--radius:14px;
     }
-    html,body{touch-action:pan-x pan-y}
+    html,body{touch-action:pan-x pan-y;overflow-x:hidden;max-width:100%}
     body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;position:relative;padding-top:58px;padding-bottom:66px}
     /* Le canvas des flocons est au-dessus du fond mais sous tout contenu */
     #snowCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:1;mix-blend-mode:screen}
@@ -371,11 +371,11 @@
     .domaine-box-name{font-family:"DM Serif Display",serif;font-size:1.35rem;color:#5c3d00;display:flex;align-items:center;gap:8px}
     .domaine-box-arrow{font-size:1.1rem;color:#a0720a}
     .domaine-box-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0 12px;border-top:1px solid rgba(160,114,10,.15);border-bottom:1px solid rgba(160,114,10,.15)}
-    .domaine-box-stats>div{text-align:center;padding:12px 6px}
-    .dbs-val{font-family:"DM Serif Display",serif;font-size:1.15rem;color:#5c3d00;line-height:1.1}
-    .dbs-lbl{font-size:.63rem;color:#a0720a;text-transform:uppercase;letter-spacing:.04em;margin-top:3px}
+    .domaine-box-stats>div{text-align:center;padding:12px 4px;min-width:0}
+    .dbs-val{font-family:"DM Serif Display",serif;font-size:1.05rem;color:#5c3d00;line-height:1.15;word-break:break-word;overflow-wrap:break-word}
+    .dbs-lbl{font-size:.6rem;color:#a0720a;text-transform:uppercase;letter-spacing:.03em;margin-top:3px}
+    @media(max-width:600px){.domaine-box-stats{grid-template-columns:repeat(2,1fr)}}
     .domaine-box-foot{padding:10px 20px;font-size:.76rem;color:#a0720a;font-weight:600}
-    @media(max-width:480px){.domaine-box-stats{grid-template-columns:repeat(2,1fr)}}
 
     /* Onglet Domaine */
     .dt-hero{background:linear-gradient(145deg,#fff8ec 0%,#fdecc8 100%);border:1.5px solid #f0c869;border-radius:14px;padding:16px 18px;margin-bottom:16px}
@@ -825,7 +825,7 @@ function closeStation(){
   <div class="stats-grid">
     <div class="stat-box">
       <div class="stat-val">66 km</div>
-      <div class="stat-lbl">Pistes skiables</div>
+      <div class="stat-lbl">Pistes (secteur)</div>
     </div>
     <div class="stat-box">
       <div class="stat-val">1230m</div>
@@ -1049,7 +1049,7 @@ function closeStation(){
         <h4 class="dt-subtitle">Les autres stations du domaine</h4><div class="domaine-soeurs-grid"><a href="les-saisies.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">Les Saisies</div>
         <div class="domaine-soeur-stats">
-          <span>🏘 ?m</span>
+          <span>🏘 1650m</span>
           <span>🎿 —</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
@@ -1057,7 +1057,7 @@ function closeStation(){
 <a href="notre-dame-de-bellecombe.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">Notre-Dame-de-Bellecombe</div>
         <div class="domaine-soeur-stats">
-          <span>🏘 ?m</span>
+          <span>🏘 1150m</span>
           <span>🎿 —</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
@@ -1065,7 +1065,7 @@ function closeStation(){
 <a href="flumet.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">Flumet</div>
         <div class="domaine-soeur-stats">
-          <span>🏘 ?m</span>
+          <span>🏘 1000m</span>
           <span>🎿 —</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
@@ -1073,7 +1073,7 @@ function closeStation(){
 <a href="praz-sur-arly.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">Praz-sur-Arly</div>
         <div class="domaine-soeur-stats">
-          <span>🏘 ?m</span>
+          <span>🏘 1036m</span>
           <span>🎿 —</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
@@ -1081,7 +1081,7 @@ function closeStation(){
 <a href="hauteluce.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">Hauteluce</div>
         <div class="domaine-soeur-stats">
-          <span>🏘 ?m</span>
+          <span>🏘 1150m</span>
           <span>🎿 —</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>

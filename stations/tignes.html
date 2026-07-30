@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>Tignes — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
-  <meta name="description" content="Tignes : 300 km de pistes, altitude 1550-3456m, forfait 60€/jour. Altitude garantissant la neige toute saison. Glacier du Grande Motte ouvert en été. Snowpark parmi l">
+  <meta name="description" content="Tignes : 150 km de pistes, altitude 2100-3456m, forfait 60€/jour. Altitude garantissant la neige toute saison. Glacier du Grande Motte ouvert en été. Snowpark parmi l">
   <link rel="canonical" href="https://snowfinder.fr/stations/tignes.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SnowFinder">
   <meta property="og:url" content="https://snowfinder.fr/stations/tignes.html">
   <meta property="og:title" content="Tignes — Station de ski | SnowFinder">
-  <meta property="og:description" content="300 km · 3456m · 60€/j · Alpes du Nord">
+  <meta property="og:description" content="150 km · 3456m · 60€/j · Alpes du Nord">
   <meta property="og:image" content="../img/tignes1.jpg">
   <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
@@ -25,7 +25,7 @@
         appId: "9530c745-8578-41e9-ad9f-2fa5348ad0b8",
         safari_web_id: "web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",
         serviceWorkerPath: "../sw.js",
-        notifyButton: { enable: true },
+        notifyButton: { enable: false },
       });
     });
   </script>
@@ -39,7 +39,7 @@
       --text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;
       --white:#fff;--bg:#f5f1ec;--radius:14px;
     }
-    html,body{touch-action:pan-x pan-y}
+    html,body{touch-action:pan-x pan-y;overflow-x:hidden;max-width:100%}
     body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;position:relative;padding-top:58px;padding-bottom:66px}
     /* Le canvas des flocons est au-dessus du fond mais sous tout contenu */
     #snowCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:1;mix-blend-mode:screen}
@@ -371,11 +371,11 @@
     .domaine-box-name{font-family:"DM Serif Display",serif;font-size:1.35rem;color:#5c3d00;display:flex;align-items:center;gap:8px}
     .domaine-box-arrow{font-size:1.1rem;color:#a0720a}
     .domaine-box-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0 12px;border-top:1px solid rgba(160,114,10,.15);border-bottom:1px solid rgba(160,114,10,.15)}
-    .domaine-box-stats>div{text-align:center;padding:12px 6px}
-    .dbs-val{font-family:"DM Serif Display",serif;font-size:1.15rem;color:#5c3d00;line-height:1.1}
-    .dbs-lbl{font-size:.63rem;color:#a0720a;text-transform:uppercase;letter-spacing:.04em;margin-top:3px}
+    .domaine-box-stats>div{text-align:center;padding:12px 4px;min-width:0}
+    .dbs-val{font-family:"DM Serif Display",serif;font-size:1.05rem;color:#5c3d00;line-height:1.15;word-break:break-word;overflow-wrap:break-word}
+    .dbs-lbl{font-size:.6rem;color:#a0720a;text-transform:uppercase;letter-spacing:.03em;margin-top:3px}
+    @media(max-width:600px){.domaine-box-stats{grid-template-columns:repeat(2,1fr)}}
     .domaine-box-foot{padding:10px 20px;font-size:.76rem;color:#a0720a;font-weight:600}
-    @media(max-width:480px){.domaine-box-stats{grid-template-columns:repeat(2,1fr)}}
 
     /* Onglet Domaine */
     .dt-hero{background:linear-gradient(145deg,#fff8ec 0%,#fdecc8 100%);border:1.5px solid #f0c869;border-radius:14px;padding:16px 18px;margin-bottom:16px}
@@ -834,11 +834,11 @@ function closeStation(){
   <!-- STATS 5 colonnes -->
   <div class="stats-grid">
     <div class="stat-box">
-      <div class="stat-val">300 km</div>
+      <div class="stat-val">150 km</div>
       <div class="stat-lbl">Pistes skiables</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val">1550m</div>
+      <div class="stat-val">2100m</div>
       <div class="stat-lbl">Village</div>
     </div>
     <div class="stat-box">
@@ -911,7 +911,7 @@ function closeStation(){
 
         <!-- PISTES -->
         <div class="section">
-          <div class="section-title">Domaine skiable — 300 km · 1550m à 3456m</div>
+          <div class="section-title">Domaine skiable — 150 km · 2100m à 3456m</div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#2ea84e"></div>
             <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Vertes</span>
@@ -944,7 +944,7 @@ function closeStation(){
           <p style="font-size:.88rem;line-height:1.72;color:var(--text-mid)">
             <strong>Tignes</strong> est une station de ski du massif <strong>Alpes du Nord</strong>,
             en <strong>Tarentaise, Savoie</strong>. Le domaine s'étend sur
-            <strong>300 km de pistes</strong> entre 1550 m et 3456 m,
+            <strong>150 km de pistes</strong> entre 2100 m et 3456 m,
             desservi par 91 remontées mécaniques. Forfait journée à partir de
             <strong>60€</strong> par adulte.
           </p>
@@ -1133,12 +1133,12 @@ function closeStation(){
 
         <!-- Village vs Sommet : informatif, pas de faux chiffres -->
         <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px">
-          <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:12px">📍 Village (1550 m) vs Sommet (3456 m)</div>
+          <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:12px">📍 Village (2100 m) vs Sommet (3456 m)</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
             <div style="padding:12px;background:#f8f9ff;border-radius:10px">
               <div style="font-size:.72rem;font-weight:700;color:var(--text);margin-bottom:6px">🏘 Au village</div>
               <div style="font-size:.8rem;color:var(--text-mid);line-height:1.5">
-                Bonne couverture de janvier à mars en moyenne.
+                Neige garantie dès novembre — village à haute altitude.
               </div>
             </div>
             <div style="padding:12px;background:#e8f3fb;border-radius:10px">
@@ -1173,7 +1173,7 @@ function closeStation(){
             </div>
             <div>
               <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Altitude de départ</div>
-              <div style="font-size:.85rem;font-weight:700;color:var(--text)">1550 m ✓</div>
+              <div style="font-size:.85rem;font-weight:700;color:var(--text)">2100 m ✓</div>
             </div>
             <div>
               <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Enneigement pic saison</div>
@@ -1190,7 +1190,7 @@ function closeStation(){
 
         <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%)">
           <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Tignes</div>
-          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Tignes fait partie des rares stations à offrir plus de 300 km de pistes skiables — un domaine colossal que même les skieurs les plus rapides ne parcourent pas en une semaine. Avec 91 remontées mécaniques et 73 pistes répertoriées, c'est une destination qui peut absorber tous les flux touristiques sans jamais donner l'impression d'être bondée. La station est reconnue pour son après-ski animé — bars, concerts au pied des pistes, ambiance internationale dès que les remontées ferment. Si tu cherches autant à profiter de la montagne le jour que des soirées le soir, Tignes est clairement l'une des meilleures options de son massif. Côté enneigement, Tignes est en position de force avec son point culminant à 3456 m — même lors des hivers capricieux, les pistes du haut tiennent bien jusqu'en avril. Le village à 1550 m est également bien situé pour garantir des conditions confortables du départ dès la mi-décembre. Le budget séjour à Tignes est clairement élevé : 60€ le forfait journée, auxquels s'ajoutent des hébergements et des restaurants d'altitude parmi les plus chers des Alpes. C'est le prix de l'excellence — mais il faut en avoir conscience avant de partir. En résumé : Tignes tient bien ses promesses. Une station du Alpes du Nord qui saura convenir à la majorité des profils sans décevoir.</p>
+          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Le domaine de Tignes avec ses 150 km de pistes représente une belle offre pour tous les profils : suffisamment grand pour ne pas tourner en rond pendant une semaine, mais aussi assez compact pour retrouver ses secteurs favoris facilement. Les 91 remontées mécaniques permettent d'enchaîner les descentes sans longues attentes. La station est reconnue pour son après-ski animé — bars, concerts au pied des pistes, ambiance internationale dès que les remontées ferment. Si tu cherches autant à profiter de la montagne le jour que des soirées le soir, Tignes est clairement l'une des meilleures options de son massif. Côté enneigement, Tignes est en position de force avec son point culminant à 3456 m — même lors des hivers capricieux, les pistes du haut tiennent bien jusqu'en avril. Le village à 2100 m est également bien situé pour garantir des conditions confortables du départ dès la mi-décembre. Le budget séjour à Tignes est clairement élevé : 60€ le forfait journée, auxquels s'ajoutent des hébergements et des restaurants d'altitude parmi les plus chers des Alpes. C'est le prix de l'excellence — mais il faut en avoir conscience avant de partir. En résumé : Tignes tient bien ses promesses. Une station du Alpes du Nord qui saura convenir à la majorité des profils sans décevoir.</p>
         </div>
 
 

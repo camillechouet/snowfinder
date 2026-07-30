@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>Vars — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
-  <meta name="description" content="Vars : 185 km de pistes, altitude 1650-2750m, forfait 38€/jour. Domaine de La Forêt Blanche avec Risoul (185 km). 83% des pistes au-dessus de 2000m. Enneigement exc">
+  <meta name="description" content="Vars : 185 km de pistes, altitude 1850-2750m, forfait 38€/jour. Domaine de La Forêt Blanche avec Risoul (185 km). 83% des pistes au-dessus de 2000m. Enneigement exc">
   <link rel="canonical" href="https://snowfinder.fr/stations/vars.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SnowFinder">
@@ -25,7 +25,7 @@
         appId: "9530c745-8578-41e9-ad9f-2fa5348ad0b8",
         safari_web_id: "web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",
         serviceWorkerPath: "../sw.js",
-        notifyButton: { enable: true },
+        notifyButton: { enable: false },
       });
     });
   </script>
@@ -39,7 +39,7 @@
       --text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;
       --white:#fff;--bg:#f5f1ec;--radius:14px;
     }
-    html,body{touch-action:pan-x pan-y}
+    html,body{touch-action:pan-x pan-y;overflow-x:hidden;max-width:100%}
     body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;position:relative;padding-top:58px;padding-bottom:66px}
     /* Le canvas des flocons est au-dessus du fond mais sous tout contenu */
     #snowCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:1;mix-blend-mode:screen}
@@ -371,11 +371,11 @@
     .domaine-box-name{font-family:"DM Serif Display",serif;font-size:1.35rem;color:#5c3d00;display:flex;align-items:center;gap:8px}
     .domaine-box-arrow{font-size:1.1rem;color:#a0720a}
     .domaine-box-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0 12px;border-top:1px solid rgba(160,114,10,.15);border-bottom:1px solid rgba(160,114,10,.15)}
-    .domaine-box-stats>div{text-align:center;padding:12px 6px}
-    .dbs-val{font-family:"DM Serif Display",serif;font-size:1.15rem;color:#5c3d00;line-height:1.1}
-    .dbs-lbl{font-size:.63rem;color:#a0720a;text-transform:uppercase;letter-spacing:.04em;margin-top:3px}
+    .domaine-box-stats>div{text-align:center;padding:12px 4px;min-width:0}
+    .dbs-val{font-family:"DM Serif Display",serif;font-size:1.05rem;color:#5c3d00;line-height:1.15;word-break:break-word;overflow-wrap:break-word}
+    .dbs-lbl{font-size:.6rem;color:#a0720a;text-transform:uppercase;letter-spacing:.03em;margin-top:3px}
+    @media(max-width:600px){.domaine-box-stats{grid-template-columns:repeat(2,1fr)}}
     .domaine-box-foot{padding:10px 20px;font-size:.76rem;color:#a0720a;font-weight:600}
-    @media(max-width:480px){.domaine-box-stats{grid-template-columns:repeat(2,1fr)}}
 
     /* Onglet Domaine */
     .dt-hero{background:linear-gradient(145deg,#fff8ec 0%,#fdecc8 100%);border:1.5px solid #f0c869;border-radius:14px;padding:16px 18px;margin-bottom:16px}
@@ -825,10 +825,10 @@ function closeStation(){
   <div class="stats-grid">
     <div class="stat-box">
       <div class="stat-val">185 km</div>
-      <div class="stat-lbl">Pistes skiables</div>
+      <div class="stat-lbl">Pistes (secteur)</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val">1650m</div>
+      <div class="stat-val">1850m</div>
       <div class="stat-lbl">Village</div>
     </div>
     <div class="stat-box">
@@ -901,7 +901,7 @@ function closeStation(){
 
         <!-- PISTES -->
         <div class="section">
-          <div class="section-title">Domaine skiable — 185 km · 1650m à 2750m</div>
+          <div class="section-title">Domaine skiable — 185 km · 1850m à 2750m</div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#2ea84e"></div>
             <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Vertes</span>
@@ -934,7 +934,7 @@ function closeStation(){
           <p style="font-size:.88rem;line-height:1.72;color:var(--text-mid)">
             <strong>Vars</strong> est une station de ski du massif <strong>Alpes du Sud</strong>,
             en <strong>Hautes-Alpes</strong>. Le domaine s'étend sur
-            <strong>185 km de pistes</strong> entre 1650 m et 2750 m,
+            <strong>185 km de pistes</strong> entre 1850 m et 2750 m,
             desservi par 51 remontées mécaniques. Forfait journée à partir de
             <strong>38€</strong> par adulte.
           </p>
@@ -1123,12 +1123,12 @@ function closeStation(){
 
         <!-- Village vs Sommet : informatif, pas de faux chiffres -->
         <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px">
-          <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:12px">📍 Village (1650 m) vs Sommet (2750 m)</div>
+          <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:12px">📍 Village (1850 m) vs Sommet (2750 m)</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
             <div style="padding:12px;background:#f8f9ff;border-radius:10px">
               <div style="font-size:.72rem;font-weight:700;color:var(--text);margin-bottom:6px">🏘 Au village</div>
               <div style="font-size:.8rem;color:var(--text-mid);line-height:1.5">
-                Bonne couverture de janvier à mars en moyenne.
+                Neige garantie dès novembre — village à haute altitude.
               </div>
             </div>
             <div style="padding:12px;background:#e8f3fb;border-radius:10px">
@@ -1163,7 +1163,7 @@ function closeStation(){
             </div>
             <div>
               <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Altitude de départ</div>
-              <div style="font-size:.85rem;font-weight:700;color:var(--text)">1650 m ✓</div>
+              <div style="font-size:.85rem;font-weight:700;color:var(--text)">1850 m ✓</div>
             </div>
             <div>
               <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Enneigement pic saison</div>
@@ -1180,7 +1180,7 @@ function closeStation(){
 
         <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%)">
           <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Vars</div>
-          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Le domaine de Vars avec ses 185 km de pistes représente une belle offre pour tous les profils : suffisamment grand pour ne pas tourner en rond pendant une semaine, mais aussi assez compact pour retrouver ses secteurs favoris facilement. Les 51 remontées mécaniques permettent d'enchaîner les descentes sans longues attentes. Le terrain technique est roi à Vars : avec 8 pistes noires et 26 rouges au programme, les skieurs confirmés trouveront de quoi se challenger sérieusement. Le hors-piste et le freeride y sont pratiqués dans des conditions souvent excellentes grâce à l'altitude et l'exposition des versants. Avec un sommet à 2750 m et un village à 1650 m, l'enneigement de Vars est globalement fiable de janvier à fin mars. Quelques hivers exceptionnellement doux peuvent créer des tensions en début de saison, mais la situation se rétablit rapidement dès les premières chutes sérieuses. Le forfait journée à 38€ place Vars dans la catégorie des stations intermédiaires côté budget — ni donné, ni exorbitant. La qualité du domaine et des équipements justifie ce tarif pour la plupart des skieurs. Au final, Vars est une valeur sûre du ski français : grand domaine, bon enneigement et tarifs encore justifiés. Une destination qui mérite sa réputation.</p>
+          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Le domaine de Vars avec ses 185 km de pistes représente une belle offre pour tous les profils : suffisamment grand pour ne pas tourner en rond pendant une semaine, mais aussi assez compact pour retrouver ses secteurs favoris facilement. Les 51 remontées mécaniques permettent d'enchaîner les descentes sans longues attentes. Le terrain technique est roi à Vars : avec 8 pistes noires et 26 rouges au programme, les skieurs confirmés trouveront de quoi se challenger sérieusement. Le hors-piste et le freeride y sont pratiqués dans des conditions souvent excellentes grâce à l'altitude et l'exposition des versants. Avec un sommet à 2750 m et un village à 1850 m, l'enneigement de Vars est globalement fiable de janvier à fin mars. Quelques hivers exceptionnellement doux peuvent créer des tensions en début de saison, mais la situation se rétablit rapidement dès les premières chutes sérieuses. Le forfait journée à 38€ place Vars dans la catégorie des stations intermédiaires côté budget — ni donné, ni exorbitant. La qualité du domaine et des équipements justifie ce tarif pour la plupart des skieurs. Au final, Vars est une valeur sûre du ski français : grand domaine, bon enneigement et tarifs encore justifiés. Une destination qui mérite sa réputation.</p>
         </div>
 
 
