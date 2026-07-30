@@ -353,6 +353,30 @@
     .fav-star:hover{background:#fff7d6;border-color:#ffb900;transform:scale(1.08)}
     .fav-star.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
 
+    /* DOMAINE SKIABLE RELIÉ */
+    .domaine-badge{
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      background:linear-gradient(135deg,#0d3a6e 0%,#1a5a8a 100%);color:white;
+      border-radius:14px;padding:13px 18px;margin:18px 0;text-decoration:none;
+      font-weight:700;font-size:.88rem;text-align:center;transition:transform .15s,box-shadow .15s;
+      box-shadow:0 4px 14px rgba(13,58,110,.25)
+    }
+    .domaine-badge:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(13,58,110,.35)}
+    .domaine-stats-mini{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+    .domaine-stats-mini div{flex:1;min-width:90px;background:#f0f6fb;border-radius:10px;padding:10px 8px;text-align:center}
+    .domaine-stats-mini strong{display:block;font-size:1.15rem;color:#0d3a6e;font-family:"DM Serif Display",serif}
+    .domaine-stats-mini span{font-size:.68rem;color:var(--text-mid);text-transform:uppercase;letter-spacing:.04em}
+    .domaine-see-all{display:inline-block;margin-top:6px;color:#1a5a8a;font-weight:700;text-decoration:none;font-size:.85rem}
+    .domaine-see-all:hover{text-decoration:underline}
+    .domaine-soeurs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+    .domaine-soeur-card{
+      display:block;background:#f7efe2;border-radius:10px;padding:12px 14px;text-decoration:none;
+      transition:transform .15s,box-shadow .15s
+    }
+    .domaine-soeur-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
+    .domaine-soeur-name{font-weight:800;color:var(--text);font-size:.9rem}
+    .domaine-soeur-sub{font-size:.72rem;color:#1a5a8a;font-weight:700;margin-top:2px}
+
     /* FOOTER */
     .mobile-bar{
       display:none;position:fixed;bottom:52px;left:0;right:0;
@@ -804,6 +828,8 @@ function closeStation(){
     </div>
   </div>
 
+  
+
   <div class="main-grid">
 
     <!-- COLONNE PRINCIPALE : 5 ONGLETS -->
@@ -814,6 +840,7 @@ function closeStation(){
         <div class="tab-nav" id="tabNav">
           <button class="tab-btn active" onclick="switchTab('infos',this)">🎿 Infos</button>
           <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
+          
           
           <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo</button>
           <button class="tab-btn" onclick="switchTab('neige',this)">❄️ Enneigement</button>
@@ -981,6 +1008,8 @@ function closeStation(){
         </div>
 
       </div>
+
+      
 
       <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
       
