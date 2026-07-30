@@ -39,7 +39,7 @@
       --text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;
       --white:#fff;--bg:#f5f1ec;--radius:14px;
     }
-    body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;position:relative}
+    body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;position:relative;padding-top:58px;padding-bottom:66px}
     /* Le canvas des flocons est au-dessus du fond mais sous tout contenu */
     #snowCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:1;mix-blend-mode:screen}
     /* Tout le reste passe au-dessus du canvas */
@@ -367,14 +367,14 @@
 
     /* FOOTER */
     .mobile-bar{
-      display:none;position:fixed;bottom:0;left:0;right:0;
+      display:none;position:fixed;bottom:52px;left:0;right:0;
       background:white;border-top:1.5px solid var(--wood-light);
-      padding:10px 14px 18px;gap:10px;z-index:80;
+      padding:10px 14px 12px;gap:10px;z-index:80;
       box-shadow:0 -4px 20px rgba(0,0,0,.1)
     }
     @media(max-width:800px){
       .mobile-bar{display:flex}
-      body{padding-bottom:80px}
+      body{padding-bottom:132px}
     }
     .mobile-bar-btn{
       flex:1;padding:12px 8px;border-radius:12px;font-weight:700;
@@ -413,6 +413,20 @@
     .footer{background:var(--blue-dark);color:rgba(255,255,255,.65);text-align:center;padding:26px 20px;font-size:.78rem;margin-top:40px;line-height:1.8}
     .footer a{color:rgba(255,255,255,.85);font-weight:600}
     .footer a:hover{color:white}
+
+    /* ══ TOPBAR / BOTTOM NAV APP ══ */
+    .sf-topbar{position:fixed;top:0;left:0;right:0;height:58px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:600;transition:transform .28s ease;overflow:visible}
+    .sf-topbar.sf-hide{transform:translateY(-100%)}
+    .sf-topbar-logo{display:flex;align-items:center;gap:7px;text-decoration:none;flex-shrink:0}
+    .sf-topbar-logo img{width:42px;height:42px;border-radius:10px;object-fit:contain;box-shadow:0 4px 12px rgba(0,0,0,.18);background:white;flex-shrink:0}
+    .sf-topbar-logo span{font-family:"DM Serif Display",serif;font-size:1.02rem;color:var(--blue-dark);white-space:nowrap}
+    .sf-topbar-app{display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--blue-light),#eaf4ff);border:1px solid var(--blue-mid);border-radius:16px;padding:5px 12px;font-size:.72rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18)}
+    .sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
+    @media(max-width:480px){.sf-topbar-logo span{display:none}.sf-topbar-app{font-size:.68rem;padding:5px 9px}}
+    .sf-bottomnav{position:fixed;bottom:0;left:0;right:0;height:52px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08);padding-bottom:env(safe-area-inset-bottom)}
+    .sf-bn-item{flex:1;display:flex;align-items:center;justify-content:center;height:52px;font-size:1.25rem;text-decoration:none;color:var(--text-mid);position:relative}
+    .sf-bn-home{flex:0 0 52px;margin-top:-20px}
+    .sf-bn-home-circle{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 6px 18px rgba(26,90,138,.4);border:3px solid var(--white)}
   </style>
 </head>
 <body>
@@ -453,13 +467,40 @@
 })();
 </script>
 
-<nav class="nav">
-  <a href="../index.html" class="nav-logo">
+<div class="sf-topbar" id="sfTopbar">
+  <a href="../index.html" class="sf-topbar-logo">
     <img src="../logo.png" alt="SnowFinder">
     <span>SnowFinder</span>
   </a>
-  <a href="../recherche.html" class="nav-back">← Toutes les stations</a>
-</nav>
+  <a href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" class="sf-topbar-app">📲 L'app est dispo !</a>
+  <a href="../favoris.html" class="sf-topbar-fav">⭐ <span id="sfFavCount">0</span></a>
+</div>
+<script>
+(function(){
+  var bar = document.getElementById("sfTopbar");
+  var lastY = window.scrollY, ticking = false;
+  window.addEventListener("scroll", function(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY;
+      if(y > lastY && y > 60) bar.classList.add("sf-hide");
+      else bar.classList.remove("sf-hide");
+      lastY = y;
+      ticking = false;
+    });
+  }, {passive:true});
+  function updateFavCount(){
+    var favs = [];
+    try { favs = JSON.parse(localStorage.getItem("sf_favorites")||"[]"); } catch(e){}
+    var el = document.getElementById("sfFavCount");
+    if(el) el.textContent = favs.length;
+  }
+  updateFavCount();
+  window.addEventListener("storage", updateFavCount);
+  window.addEventListener("focus", updateFavCount);
+})();
+</script>
 
 <div class="hero">
   <div class="hero-slides">
@@ -1359,6 +1400,14 @@ document.addEventListener('keydown', function(e){
   else if(e.key==='ArrowRight') lightboxNext();
 });
 </script>
+
+<nav class="sf-bottomnav">
+  <a href="../recherche.html" class="sf-bn-item" title="Trouver ma station">🔍</a>
+  <a href="../enneigement.html" class="sf-bn-item" title="Météo & enneigement">❄️</a>
+  <a href="../index.html" class="sf-bn-item sf-bn-home" title="Accueil"><span class="sf-bn-home-circle">🏡</span></a>
+  <a href="../tinder.html" class="sf-bn-item" title="Tinder du ski">💕</a>
+  <a href="../hebergement.html" class="sf-bn-item" title="Hébergement">🛏️</a>
+</nav>
 
 </body>
 </html>
