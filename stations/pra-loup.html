@@ -832,7 +832,7 @@ function closeStation(){
   <div class="stats-grid">
     <div class="stat-box">
       <div class="stat-val">180 km</div>
-      <div class="stat-lbl">Pistes skiables</div>
+      <div class="stat-lbl">Pistes (domaine partagé)</div>
     </div>
     <div class="stat-box">
       <div class="stat-val">1500m</div>
@@ -844,7 +844,7 @@ function closeStation(){
     </div>
     <div class="stat-box">
       <div class="stat-val">53</div>
-      <div class="stat-lbl">Remontées</div>
+      <div class="stat-lbl">Remontées (partagées)</div>
     </div>
     <div class="stat-box">
       <div class="stat-val">36€</div>
@@ -852,7 +852,19 @@ function closeStation(){
     </div>
   </div>
 
-  
+  <a href="../domaines/espace-lumiere.html" class="domaine-box">
+    <div class="domaine-box-head">
+      <div class="domaine-box-tag">🏔️ Domaine skiable relié</div>
+      <div class="domaine-box-name">Espace Lumière <span class="domaine-box-arrow">→</span></div>
+    </div>
+    <div class="domaine-box-stats">
+      <div><div class="dbs-val">180 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
+      <div><div class="dbs-val">1500-2600m</div><div class="dbs-lbl">Altitude</div></div>
+      <div><div class="dbs-val">53</div><div class="dbs-lbl">Remontées</div></div>
+      <div><div class="dbs-val">47€</div><div class="dbs-lbl">Forfait domaine/j</div></div>
+    </div>
+    <div class="domaine-box-foot">2 stations reliées, dont Pra-Loup · voir la fiche complète du domaine</div>
+  </a>
 
   <div class="main-grid">
 
@@ -864,7 +876,7 @@ function closeStation(){
         <div class="tab-nav" id="tabNav">
           <button class="tab-btn active" onclick="switchTab('infos',this)">🎿 Infos</button>
           <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
-          
+          <button class="tab-btn" onclick="switchTab('domaine',this)">🏔️ Domaine</button>
           
           <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo</button>
           <button class="tab-btn" onclick="switchTab('neige',this)">❄️ Enneigement</button>
@@ -1033,7 +1045,28 @@ function closeStation(){
 
       </div>
 
-      
+      <div class="tab-content" id="tab-domaine">
+        <div class="dt-hero">
+          <h3>🏔️ Espace Lumière</h3>
+          <p>Pra-Loup et Val d'Allos La Foux reliées au-dessus de la vallée de l'Ubaye — l'un des plus grands domaines des Alpes du Sud.</p>
+        </div>
+        <div class="domaine-stats-mini">
+          <div><strong>180 km</strong><span>de pistes reliées</span></div>
+          <div><strong>53</strong><span>remontées</span></div>
+          <div><strong>47€</strong><span>forfait domaine/j</span></div>
+          <div><strong>1500-2600m</strong><span>altitude</span></div>
+        </div>
+        
+        <a href="../domaines/espace-lumiere.html" class="domaine-see-all">Voir la fiche complète du domaine →</a>
+        <h4 class="dt-subtitle">Les autres stations du domaine</h4><div class="domaine-soeurs-grid"><a href="val-d-allos.html" class="domaine-soeur-card">
+        <div class="domaine-soeur-name">Val d'Allos</div>
+        <div class="domaine-soeur-stats">
+          <span>🏘 ?m</span>
+          <span>🎿 —</span>
+        </div>
+        <div class="domaine-soeur-sub">Voir la fiche →</div>
+      </a></div>
+      </div>
 
       <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
       
