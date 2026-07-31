@@ -134,6 +134,11 @@
     .stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px}
     @media(max-width:700px){.stats-grid{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:420px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+    /* Grille de tuiles (ambiance, niveaux) : colonnes fixes et prévisibles,
+       jamais d'auto-fill dont le calcul peut déborder dans certaines WebView */
+    .tile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    @media(min-width:480px) and (max-width:700px){.tile-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(min-width:700px){.tile-grid{grid-template-columns:repeat(4,1fr)}}
 
     /* ONGLETS */
     .tab-nav-wrap{position:relative;border-radius:14px 14px 0 0;background:var(--wood-pale)}
@@ -390,7 +395,9 @@
     @media(max-width:480px){.domaine-stats-mini{grid-template-columns:repeat(2,1fr)}}
     .domaine-see-all{display:inline-block;margin-top:2px;color:#1a5a8a;font-weight:700;text-decoration:none;font-size:.85rem}
     .domaine-see-all:hover{text-decoration:underline}
-    .domaine-soeurs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+    .domaine-soeurs-grid{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:420px){.domaine-soeurs-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:700px){.domaine-soeurs-grid{grid-template-columns:repeat(3,1fr)}}
     .domaine-soeur-card{
       display:block;background:var(--white);border:1px solid var(--wood-light);border-radius:12px;padding:14px 16px;text-decoration:none;
       transition:transform .15s,box-shadow .15s;box-shadow:0 2px 8px rgba(0,0,0,.04)
@@ -935,7 +942,7 @@ function closeStation(){
 
         <div class="section">
           <div class="section-title">Ambiance &amp; caractère</div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:4px">
+          <div class="tile-grid" style="margin-bottom:4px">
             
       <div style="background:var(--wood-pale);border-radius:12px;padding:14px 12px;text-align:center;border:1.5px solid var(--wood-light)">
         <div style="font-size:1.8rem;margin-bottom:5px">👨‍👩‍👧</div>
@@ -957,7 +964,7 @@ function closeStation(){
 
         <div class="section">
           <div class="section-title">Niveaux recommandés</div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px">
+          <div class="tile-grid">
             
       <div style="background:var(--blue-light);border-radius:12px;padding:14px 12px;text-align:center;border:1.5px solid #c8dff0">
         <div style="font-size:1.5rem;margin-bottom:5px">🟢</div>

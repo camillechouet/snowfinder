@@ -134,6 +134,11 @@
     .stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px}
     @media(max-width:700px){.stats-grid{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:420px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+    /* Grille de tuiles (ambiance, niveaux) : colonnes fixes et prévisibles,
+       jamais d'auto-fill dont le calcul peut déborder dans certaines WebView */
+    .tile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    @media(min-width:480px) and (max-width:700px){.tile-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(min-width:700px){.tile-grid{grid-template-columns:repeat(4,1fr)}}
 
     /* ONGLETS */
     .tab-nav-wrap{position:relative;border-radius:14px 14px 0 0;background:var(--wood-pale)}
@@ -390,7 +395,9 @@
     @media(max-width:480px){.domaine-stats-mini{grid-template-columns:repeat(2,1fr)}}
     .domaine-see-all{display:inline-block;margin-top:2px;color:#1a5a8a;font-weight:700;text-decoration:none;font-size:.85rem}
     .domaine-see-all:hover{text-decoration:underline}
-    .domaine-soeurs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+    .domaine-soeurs-grid{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:420px){.domaine-soeurs-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:700px){.domaine-soeurs-grid{grid-template-columns:repeat(3,1fr)}}
     .domaine-soeur-card{
       display:block;background:var(--white);border:1px solid var(--wood-light);border-radius:12px;padding:14px 16px;text-decoration:none;
       transition:transform .15s,box-shadow .15s;box-shadow:0 2px 8px rgba(0,0,0,.04)
@@ -839,11 +846,11 @@ function closeStation(){
     </div>
     <div class="stat-box">
       <div class="stat-val">1852m</div>
-      <div class="stat-lbl">Sommet</div>
+      <div class="stat-lbl">Sommet (domaine)</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val">196</div>
-      <div class="stat-lbl">Remontées</div>
+      <div class="stat-val">39</div>
+      <div class="stat-lbl">Remontées (estim.)</div>
     </div>
     <div class="stat-box">
       <div class="stat-val">46€</div>
@@ -941,7 +948,7 @@ function closeStation(){
             <strong>Les Gets</strong> est une station de ski du massif <strong>Alpes du Nord</strong>,
             en <strong>Portes du Soleil, Haute-Savoie</strong>. Le domaine s'étend sur
             <strong>120 km de pistes</strong> entre 1172 m et 1852 m,
-            desservi par 196 remontées mécaniques. Forfait journée à partir de
+            desservi par 39 remontées mécaniques. Forfait journée à partir de
             <strong>46€</strong> par adulte.
           </p>
         </div>
@@ -953,7 +960,7 @@ function closeStation(){
 
         <div class="section">
           <div class="section-title">Ambiance &amp; caractère</div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:4px">
+          <div class="tile-grid" style="margin-bottom:4px">
             
       <div style="background:var(--wood-pale);border-radius:12px;padding:14px 12px;text-align:center;border:1.5px solid var(--wood-light)">
         <div style="font-size:1.8rem;margin-bottom:5px">👨‍👩‍👧</div>
@@ -970,7 +977,7 @@ function closeStation(){
 
         <div class="section">
           <div class="section-title">Niveaux recommandés</div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px">
+          <div class="tile-grid">
             
       <div style="background:var(--blue-light);border-radius:12px;padding:14px 12px;text-align:center;border:1.5px solid #c8dff0">
         <div style="font-size:1.5rem;margin-bottom:5px">🟢</div>
@@ -1229,7 +1236,7 @@ function closeStation(){
 
         <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%)">
           <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Les Gets</div>
-          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Les Gets propose 120 km de pistes bien balisées — un domaine de taille intermédiaire idéal pour passer 4 à 5 jours sans jamais faire deux fois exactement la même chose. Les 196 remontées mécaniques sont généralement suffisantes pour absorber le débit en haute saison. La réputation familiale de Les Gets n'est pas usurpée : espaces débutants dédiés, garderie bien organisée, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Alpes du Nord pour poser les bases du ski avec des enfants. L'altitude modérée de Les Gets — départ à 1172 m, sommet à 1852 m — la rend sensible aux variations climatiques. Les mois de janvier et février restent les plus sûrs pour un enneigement optimal. En dehors de cette fenêtre, le suivi des bulletins d'enneigement avant le départ est fortement conseillé. Le forfait journée à 46€ place Les Gets dans la catégorie des stations intermédiaires côté budget — ni donné, ni exorbitant. La qualité du domaine et des équipements justifie ce tarif pour la plupart des skieurs. En résumé : Les Gets est une de ces rares stations qui réunit un vrai village, une ambiance familiale sincère et des pistes adaptées à tous. Difficile de rater son séjour ici.</p>
+          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Les Gets propose 120 km de pistes bien balisées — un domaine de taille intermédiaire idéal pour passer 4 à 5 jours sans jamais faire deux fois exactement la même chose. Les 39 remontées mécaniques sont généralement suffisantes pour absorber le débit en haute saison. La réputation familiale de Les Gets n'est pas usurpée : espaces débutants dédiés, garderie bien organisée, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Alpes du Nord pour poser les bases du ski avec des enfants. L'altitude modérée de Les Gets — départ à 1172 m, sommet à 1852 m — la rend sensible aux variations climatiques. Les mois de janvier et février restent les plus sûrs pour un enneigement optimal. En dehors de cette fenêtre, le suivi des bulletins d'enneigement avant le départ est fortement conseillé. Le forfait journée à 46€ place Les Gets dans la catégorie des stations intermédiaires côté budget — ni donné, ni exorbitant. La qualité du domaine et des équipements justifie ce tarif pour la plupart des skieurs. En résumé : Les Gets est une de ces rares stations qui réunit un vrai village, une ambiance familiale sincère et des pistes adaptées à tous. Difficile de rater son séjour ici.</p>
         </div>
 
 
