@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Les grands domaines skiables reliés de France | SnowFinder</title>
+<meta name="description" content="Les 19 grands domaines skiables reliés de France : Portes du Soleil, 3 Vallées, Paradiski, Grand Massif... Kilomètres de pistes, stations membres, forfaits et altitudes.">
+<link rel="canonical" href="https://snowfinder.fr/domaines.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SnowFinder">
+<meta property="og:title" content="Les grands domaines skiables reliés de France">
+<meta property="og:description" content="19 domaines, 61 stations reliées. Comparez les kilomètres de pistes, forfaits et altitudes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root{--wood-pale:#f0f6fb;--text:#1a2942;--text-mid:#5a6a80;--text-light:#8a97a8;--navy:#0d3a6e;--border:#dbe6f0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{touch-action:pan-x pan-y;overflow-x:hidden;max-width:100%}
+  body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;padding-bottom:76px}
+  a{color:inherit}
+  .di-hero{background:linear-gradient(135deg,var(--navy) 0%,#1a5a8a 100%);color:white;padding:40px 20px 32px;text-align:center;position:relative}
+  .di-hero h1{font-family:"DM Serif Display",serif;font-size:2rem;margin-bottom:9px;line-height:1.15}
+  .di-hero p{opacity:.88;font-size:.9rem;max-width:560px;margin:0 auto}
+  .di-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:white;font-size:1.05rem;display:flex;align-items:center;justify-content:center;text-decoration:none}
+  .di-tot{display:flex;justify-content:center;gap:22px;margin-top:16px;flex-wrap:wrap}
+  .di-tot div{text-align:center}
+  .di-tot b{display:block;font-family:"DM Serif Display",serif;font-size:1.35rem}
+  .di-tot span{font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;opacity:.8}
+  .di-wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .di-filters{display:flex;gap:8px;flex-wrap:wrap;padding:20px 0 6px}
+  .di-f{padding:8px 15px;border-radius:20px;border:1.5px solid var(--border);background:white;
+    font-family:"DM Sans",sans-serif;font-size:.8rem;font-weight:700;color:var(--text-mid);cursor:pointer;transition:all .15s}
+  .di-f:hover{border-color:#1a5a8a;color:#1a5a8a}
+  .di-f.on{background:var(--navy);border-color:var(--navy);color:white}
+  .di-count{font-size:.78rem;color:var(--text-mid);padding:6px 0 14px}
+  .di-grid{display:grid;grid-template-columns:1fr;gap:14px;padding-bottom:30px}
+  @media(min-width:640px){.di-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1000px){.di-grid{grid-template-columns:repeat(3,1fr)}}
+  .di-card{display:block;background:white;border-radius:16px;padding:17px 19px;text-decoration:none;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .15s,box-shadow .15s;border:1px solid transparent}
+  .di-card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.11);border-color:#eccb7d}
+  .di-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:11px}
+  .di-titles{flex:1 1 auto;min-width:0}
+  .di-massif{font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--text-light)}
+  .di-name{font-family:"DM Serif Display",serif;font-size:1.2rem;color:var(--navy);line-height:1.2;margin-top:2px}
+  .di-km{flex:0 0 auto;text-align:right;background:linear-gradient(135deg,#fffaf0,#fbe9c4);
+    border:1px solid #eccb7d;border-radius:11px;padding:7px 11px;line-height:1}
+  .di-km-v{display:block;font-family:"DM Serif Display",serif;font-size:1.25rem;color:#5c3d00}
+  .di-km-u{display:block;font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#a8791a;margin-top:1px}
+  .di-stats{display:flex;flex-wrap:wrap;gap:5px 12px;font-size:.74rem;color:var(--text-mid);margin-bottom:9px}
+  .di-flags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px}
+  .di-flag{font-size:.66rem;font-weight:700;background:#eaf3ff;color:#0d3a6e;padding:3px 9px;border-radius:20px}
+  .di-flag-warn{background:#fff4e6;color:#a05a2c}
+  .di-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px}
+  .di-chip{font-size:.68rem;font-weight:600;background:var(--wood-pale);color:var(--text-mid);padding:3px 9px;border-radius:20px}
+  .di-chip-more{background:var(--navy);color:white;font-weight:800}
+  .di-go{font-size:.78rem;font-weight:800;color:var(--navy)}
+  .di-empty{text-align:center;padding:40px 20px;color:var(--text-mid);font-size:.9rem}
+  .footer{text-align:center;padding:26px 20px 20px;font-size:.8rem;color:var(--text-mid)}
+  .footer a{color:#1a5a8a;text-decoration:none;font-weight:600}
+  .sf-bottomnav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;align-items:center;padding:8px 0;box-shadow:0 -2px 10px rgba(0,0,0,.08);z-index:80}
+  .sf-bn-item{text-decoration:none;font-size:1.3rem;padding:6px 10px}
+  .sf-bn-home-circle{background:var(--navy);color:white;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+</style>
+</head>
+<body>
+
+<div class="di-hero">
+  <a href="recherche.html" class="di-close" aria-label="Retour">✕</a>
+  <h1>🏔️ Les grands domaines reliés</h1>
+  <p>Plusieurs stations connectées skis aux pieds, sous un seul forfait. Le vrai critère quand on cherche du grand ski.</p>
+  <div class="di-tot">
+    <div><b>19</b><span>domaines</span></div>
+    <div><b>61</b><span>stations reliées</span></div>
+    <div><b>4985</b><span>km cumulés</span></div>
+  </div>
+</div>
+
+<div class="di-wrap">
+  <div class="di-filters">
+    <button class="di-f on" data-m="">Tous</button>
+    <button class="di-f" data-m="Alpes du Nord">Alpes du Nord</button><button class="di-f" data-m="Alpes du Sud">Alpes du Sud</button><button class="di-f" data-m="Massif Central">Massif Central</button><button class="di-f" data-m="Pyrénées">Pyrénées</button>
+  </div>
+  <div class="di-count" id="diCount"></div>
+  <div class="di-grid" id="diGrid">
+    <a href="domaines/portes-du-soleil.html" class="di-card" data-m="Alpes du Nord">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Nord</div>
+          <div class="di-name">Les Portes du Soleil</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">600</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 8 stations</span>
+        <span>🚡 197 remontées</span>
+        <span>💶 58€/j</span>
+        <span>⛰ 930-2466m</span>
+        <span>⭐ 4.0</span>
+      </div>
+      <div class="di-flags"><span class="di-flag">🌍 France · Suisse</span></div>
+      <div class="di-chips"><span class="di-chip">Avoriaz</span><span class="di-chip">Morzine</span><span class="di-chip">Montriond</span><span class="di-chip">Les Gets</span><span class="di-chip">Saint-Jean-d'Aulps</span><span class="di-chip">Abondance</span><span class="di-chip di-chip-more">+2</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/3-vallees.html" class="di-card" data-m="Alpes du Nord">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Nord</div>
+          <div class="di-name">Les 3 Vallées</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">600</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 8 stations</span>
+        <span>🚡 170 remontées</span>
+        <span>💶 82€/j</span>
+        <span>⛰ 1100-3230m</span>
+        <span>⭐ 4.3</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">Courchevel</span><span class="di-chip">La Tania</span><span class="di-chip">Méribel</span><span class="di-chip">Brides-les-Bains</span><span class="di-chip">Saint-Martin-de-Belleville</span><span class="di-chip">Les Menuires</span><span class="di-chip di-chip-more">+2</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/paradiski.html" class="di-card" data-m="Alpes du Nord">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Nord</div>
+          <div class="di-name">Paradiski</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">425</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 4 stations</span>
+        <span>🚡 160 remontées</span>
+        <span>💶 68€/j</span>
+        <span>⛰ 1200-3250m</span>
+        <span>⭐ 4.3</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">La Plagne</span><span class="di-chip">Les Arcs</span><span class="di-chip">Peisey-Vallandry</span><span class="di-chip">Montchavin-Les Coches</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/voie-lactee.html" class="di-card" data-m="Alpes du Sud">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Sud</div>
+          <div class="di-name">La Voie Lactée (Via Lattea)</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">400</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 1 station</span>
+        <span>🚡 70 remontées</span>
+        <span>💶 57€/j</span>
+        <span>⛰ 1380-2823m</span>
+        <span>⭐ 4.0</span>
+      </div>
+      <div class="di-flags"><span class="di-flag">🌍 France · Italie</span></div>
+      <div class="di-chips"><span class="di-chip">Montgenèvre</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/sybelles.html" class="di-card" data-m="Alpes du Nord">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Nord</div>
+          <div class="di-name">Les Sybelles</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">310</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 6 stations</span>
+        <span>🚡 68 remontées</span>
+        <span>💶 50€/j</span>
+        <span>⛰ 1100-2620m</span>
+        <span>⭐ 3.7</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">La Toussuire</span><span class="di-chip">Le Corbier</span><span class="di-chip">Saint-Sorlin-d'Arves</span><span class="di-chip">Saint-Jean-d'Arves</span><span class="di-chip">Les Bottières</span><span class="di-chip">Saint-Colomban-des-Villards</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/espace-killy.html" class="di-card" data-m="Alpes du Nord">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Nord</div>
+          <div class="di-name">Tignes – Val d'Isère (Espace Killy)</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">300</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 2 stations</span>
+        <span>🚡 91 remontées</span>
+        <span>💶 75€/j</span>
+        <span>⛰ 1550-3456m</span>
+        <span>⭐ 4.8</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">Val d'Isère</span><span class="di-chip">Tignes</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/grand-massif.html" class="di-card" data-m="Alpes du Nord">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Nord</div>
+          <div class="di-name">Le Grand Massif</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">265</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 5 stations</span>
+        <span>🚡 62 remontées</span>
+        <span>💶 51€/j</span>
+        <span>⛰ 700-2500m</span>
+        <span>⭐ 3.9</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">Flaine</span><span class="di-chip">Les Carroz</span><span class="di-chip">Morillon</span><span class="di-chip">Samoëns</span><span class="di-chip">Sixt-Fer-à-Cheval</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/evasion-mont-blanc.html" class="di-card" data-m="Alpes du Nord">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Nord</div>
+          <div class="di-name">Évasion Mont-Blanc</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">263</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 5 stations</span>
+        <span>🚡 107 remontées</span>
+        <span>💶 50€/j</span>
+        <span>⛰ 850-2353m</span>
+        <span>⭐ 4.1</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">Megève</span><span class="di-chip">Saint-Gervais</span><span class="di-chip">Combloux</span><span class="di-chip">La Giettaz</span><span class="di-chip">Les Contamines-Montjoie</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/alpe-dhuez-grand-domaine.html" class="di-card" data-m="Alpes du Nord">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Nord</div>
+          <div class="di-name">Alpe d'Huez Grand Domaine Ski</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">250</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 2 stations</span>
+        <span>🚡 67 remontées</span>
+        <span>💶 62€/j</span>
+        <span>⛰ 1130-3330m</span>
+        <span>⭐ 4.2</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">Alpe d'Huez</span><span class="di-chip">Auris-en-Oisans</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/serre-chevalier-vallee.html" class="di-card" data-m="Alpes du Sud">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Sud</div>
+          <div class="di-name">Serre Chevalier Vallée</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">250</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 1 station</span>
+        <span>🚡 60 remontées</span>
+        <span>💶 63€/j</span>
+        <span>⛰ 1200-2830m</span>
+        <span>⭐ 4.6</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">Serre Chevalier</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/espace-diamant.html" class="di-card" data-m="Alpes du Nord">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Nord</div>
+          <div class="di-name">Espace Diamant</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">192</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 6 stations</span>
+        <span>🚡 81 remontées</span>
+        <span>💶 46€/j</span>
+        <span>⛰ 910-2069m</span>
+        <span>⭐ 3.8</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">Les Saisies</span><span class="di-chip">Crest-Voland</span><span class="di-chip">Notre-Dame-de-Bellecombe</span><span class="di-chip">Flumet</span><span class="di-chip">Praz-sur-Arly</span><span class="di-chip">Hauteluce</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/foret-blanche.html" class="di-card" data-m="Alpes du Sud">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Sud</div>
+          <div class="di-name">La Forêt Blanche</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">185</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 2 stations</span>
+        <span>🚡 51 remontées</span>
+        <span>💶 46€/j</span>
+        <span>⛰ 1650-2750m</span>
+        <span>⭐ 4.1</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">Vars</span><span class="di-chip">Risoul</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/espace-lumiere.html" class="di-card" data-m="Alpes du Sud">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Sud</div>
+          <div class="di-name">Espace Lumière</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">180</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 2 stations</span>
+        <span>🚡 53 remontées</span>
+        <span>💶 47€/j</span>
+        <span>⛰ 1500-2600m</span>
+        <span>⭐ 3.8</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">Pra-Loup</span><span class="di-chip">Val d'Allos</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/grand-domaine-valmorel.html" class="di-card" data-m="Alpes du Nord">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Nord</div>
+          <div class="di-name">Le Grand Domaine</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">165</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 1 station</span>
+        <span>🚡 47 remontées</span>
+        <span>💶 58€/j</span>
+        <span>⛰ 1200-2550m</span>
+        <span>⭐ 4.2</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">Saint-François-Longchamp</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/galibier-thabor.html" class="di-card" data-m="Alpes du Nord">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Nord</div>
+          <div class="di-name">Galibier-Thabor</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">160</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 2 stations</span>
+        <span>🚡 33 remontées</span>
+        <span>💶 54€/j</span>
+        <span>⛰ 1430-2750m</span>
+        <span>⭐ 4.1</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">Valloire</span><span class="di-chip">Valmeinier</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/espace-san-bernardo.html" class="di-card" data-m="Alpes du Nord">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Nord</div>
+          <div class="di-name">Espace San Bernardo</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">156</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 1 station</span>
+        <span>🚡 38 remontées</span>
+        <span>💶 54€/j</span>
+        <span>⛰ 1190-2800m</span>
+        <span>⭐ 4.1</span>
+      </div>
+      <div class="di-flags"><span class="di-flag">🌍 France · Italie</span></div>
+      <div class="di-chips"><span class="di-chip">La Rosière</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/grand-tourmalet.html" class="di-card" data-m="Pyrénées">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Pyrénées</div>
+          <div class="di-name">Grand Tourmalet – Pic du Midi</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">100</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 1 station</span>
+        <span>🚡 28 remontées</span>
+        <span>💶 46€/j</span>
+        <span>⛰ 1250-2500m</span>
+        <span>⭐ 4.2</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">La Mongie-Barèges (Tourmalet)</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/le-devoluy.html" class="di-card" data-m="Alpes du Sud">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Alpes du Sud</div>
+          <div class="di-name">Le Dévoluy</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">100</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 2 stations</span>
+        <span>🚡 26 remontées</span>
+        <span>💶 40€/j</span>
+        <span>⛰ 1500-2500m</span>
+        <span>⭐ 4.0</span>
+      </div>
+      
+      <div class="di-chips"><span class="di-chip">Superdévoluy</span><span class="di-chip">La Joue du Loup</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+<a href="domaines/grand-sancy.html" class="di-card" data-m="Massif Central">
+      <div class="di-head">
+        <div class="di-titles">
+          <div class="di-massif">⛷ Massif Central</div>
+          <div class="di-name">Le Grand Sancy</div>
+        </div>
+        <div class="di-km"><span class="di-km-v">84</span><span class="di-km-u">km</span></div>
+      </div>
+      <div class="di-stats">
+        <span>🎿 2 stations</span>
+        <span>🚡 35 remontées</span>
+        <span>💶 43€/j</span>
+        <span>⛰ 1050-1850m</span>
+        <span>⭐ 3.8</span>
+      </div>
+      <div class="di-flags"><span class="di-flag di-flag-warn">⚠️ Liaison selon enneigement</span></div>
+      <div class="di-chips"><span class="di-chip">Super Besse</span><span class="di-chip">Le Mont Dore</span></div>
+      <div class="di-go">Voir le domaine →</div>
+    </a>
+  </div>
+  <div class="di-empty" id="diEmpty" style="display:none">Aucun domaine dans ce massif.</div>
+</div>
+
+<footer class="footer">
+  <strong>SnowFinder</strong> — Le guide complet des stations de ski françaises<br>
+  <a href="index.html">Accueil</a> · <a href="recherche.html">Recherche</a> · <a href="comparateur.html">Comparateur</a> · <a href="mentions-legales.html">Mentions légales</a><br>
+  <span style="font-size:.7rem;opacity:.7">Données indicatives · Forfaits haute saison adulte · À vérifier sur le site officiel du domaine</span>
+</footer>
+
+<nav class="sf-bottomnav">
+  <a href="recherche.html" class="sf-bn-item" title="Trouver ma station">🔍</a>
+  <a href="enneigement.html" class="sf-bn-item" title="Météo &amp; enneigement">❄️</a>
+  <a href="index.html" class="sf-bn-item sf-bn-home" title="Accueil"><span class="sf-bn-home-circle">🏡</span></a>
+  <a href="tinder.html" class="sf-bn-item" title="Tinder du ski">💕</a>
+  <a href="hebergement.html" class="sf-bn-item" title="Hébergement">🛏️</a>
+</nav>
+
+<script>
+(function(){
+  var cards = [].slice.call(document.querySelectorAll('.di-card'));
+  var btns  = [].slice.call(document.querySelectorAll('.di-f'));
+  var count = document.getElementById('diCount');
+  var empty = document.getElementById('diEmpty');
+  function apply(m){
+    var n = 0;
+    cards.forEach(function(c){
+      var ok = !m || c.dataset.m === m;
+      c.style.display = ok ? '' : 'none';
+      if (ok) n++;
+    });
+    count.textContent = n + (n > 1 ? ' domaines' : ' domaine');
+    empty.style.display = n ? 'none' : 'block';
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      btns.forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      apply(b.dataset.m);
+    });
+  });
+  apply('');
+})();
+</script>
+
+</body>
+</html>

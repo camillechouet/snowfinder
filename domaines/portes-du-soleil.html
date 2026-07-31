@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SkiResort","name":"Les Portes du Soleil","url":"https://snowfinder.fr/domaines/portes-du-soleil.html",
-"description":"Le plus grand domaine skiable transfrontalier au monde, 12 stations françaises et suisses reliées skis aux pieds autour du Chablais.","containedInPlace":{"@type":"Place","name":"Alpes du Nord"}}
+"description":"Douze stations, deux pays, un seul forfait : les Portes du Soleil sont nées en 1964 d'une poignée de maires français et suisses qui ont eu l'idée un peu folle de relier leurs villages par-dessus la frontière. Le résultat tient de l'aire de jeu géante — on part d'Avoriaz le matin, on déjeune en Suisse, on rentre par Châtel le soir sans jamais déchausser. Le domaine est plus rural que ses voisins savoyards : beaucoup de pistes en forêt, des villages qui ont gardé leur clocher et leurs fermes, et le fameux Mur suisse à Chavanette pour ceux qui aiment se faire peur. Attention, tout n'est pas relié à 100 % skis aux pieds : quelques navettes complètent le maillage.","containedInPlace":{"@type":"Place","name":"Alpes du Nord"}}
 </script>
 <style>
   :root{--wood:#2d5a8a;--wood-light:#e8f0f8;--wood-pale:#f0f6fb;--text:#1a2942;--text-mid:#5a6a80;--text-light:#8a97a8;--navy:#0d3a6e;--border:#dbe6f0}
@@ -30,6 +30,11 @@
   .dm-hero h1{font-family:"DM Serif Display",serif;font-size:2.1rem;margin-bottom:8px;line-height:1.15}
   .dm-hero p{opacity:.88;font-size:.92rem;max-width:560px;margin:0 auto}
   .dm-rank{display:inline-block;margin-top:12px;background:linear-gradient(135deg,#ffd451,#ffb900);color:#5c3d00;font-weight:900;font-size:.78rem;padding:6px 14px;border-radius:20px}
+  .dm-fav{position:absolute;top:16px;left:16px;width:40px;height:40px;border-radius:50%;
+    background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#ffd451;
+    font-size:1.25rem;line-height:1;cursor:pointer;transition:transform .15s,background .15s}
+  .dm-fav:hover{transform:scale(1.1)}
+  .dm-fav.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
   .dm-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:white;font-size:1.05rem;display:flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer}
   .dm-breadcrumb{padding:14px 20px 0;font-size:.78rem;color:var(--text-mid)}
   .dm-breadcrumb a{text-decoration:none;color:#1a5a8a;font-weight:600}
@@ -75,6 +80,8 @@
   .dm-table tbody tr:hover{background:var(--wood-pale)}
   .dm-t-name{font-weight:800;color:var(--text)}
   .dm-t-go{color:var(--navy);font-weight:800;text-align:right}
+  .dm-t-tags{white-space:nowrap}
+  .dm-tag{display:inline-block;background:var(--wood-pale);color:var(--text-mid);border-radius:20px;padding:3px 9px;font-size:.68rem;font-weight:700;margin-right:4px}
   .dm-stations-grid{display:grid;grid-template-columns:1fr;gap:12px}
   @media(min-width:460px){.dm-stations-grid{grid-template-columns:repeat(2,1fr)}}
   @media(min-width:760px){.dm-stations-grid{grid-template-columns:repeat(3,1fr)}}
@@ -99,6 +106,7 @@
 
 <div class="dm-hero">
   <a href="#" class="dm-close" id="dmClose" aria-label="Retour">✕</a>
+  <button class="dm-fav" id="dmFav" type="button" aria-label="Ajouter aux favoris">☆</button>
   <div class="dm-hero-massif">⛷ Alpes du Nord</div>
   <h1>🏔️ Les Portes du Soleil</h1>
   <p>600 km de pistes reliées · 8 stations · 58€ le forfait domaine/jour</p>
@@ -124,7 +132,7 @@
 
 <div class="dm-section">
   <div class="dm-section-title">À propos du domaine</div>
-  <div class="dm-card dm-desc">Le plus grand domaine skiable transfrontalier au monde, 12 stations françaises et suisses reliées skis aux pieds autour du Chablais.</div>
+  <div class="dm-card dm-desc">Douze stations, deux pays, un seul forfait : les Portes du Soleil sont nées en 1964 d'une poignée de maires français et suisses qui ont eu l'idée un peu folle de relier leurs villages par-dessus la frontière. Le résultat tient de l'aire de jeu géante — on part d'Avoriaz le matin, on déjeune en Suisse, on rentre par Châtel le soir sans jamais déchausser. Le domaine est plus rural que ses voisins savoyards : beaucoup de pistes en forêt, des villages qui ont gardé leur clocher et leurs fermes, et le fameux Mur suisse à Chavanette pour ceux qui aiment se faire peur. Attention, tout n'est pas relié à 100 % skis aux pieds : quelques navettes complètent le maillage.</div>
 </div>
 
 <div class="dm-section">
@@ -158,63 +166,58 @@
 </div>
 
 <div class="dm-section">
-  <div class="dm-section-title">Quelle station choisir ?</div>
-  <div class="dm-reco-grid"><a href="../stations/les-gets.html" class="dm-reco">
-        <div class="dm-reco-t">🟢 Pour débuter</div>
-        <div class="dm-reco-n">Les Gets</div>
-        <div class="dm-reco-w">pistes douces et écoles de ski</div>
-      </a><a href="../stations/avoriaz.html" class="dm-reco">
-        <div class="dm-reco-t">⚫ Pour les experts</div>
-        <div class="dm-reco-n">Avoriaz</div>
-        <div class="dm-reco-w">terrain technique et pentes raides</div>
-      </a><a href="../stations/les-gets.html" class="dm-reco">
-        <div class="dm-reco-t">👨‍👩‍👧 En famille</div>
-        <div class="dm-reco-n">Les Gets</div>
-        <div class="dm-reco-w">infrastructures pensées pour les enfants</div>
-      </a><a href="../stations/avoriaz.html" class="dm-reco">
-        <div class="dm-reco-t">🎉 Pour l'ambiance</div>
-        <div class="dm-reco-n">Avoriaz</div>
-        <div class="dm-reco-w">après-ski animé et vie nocturne</div>
-      </a></div>
-</div>
-
-<div class="dm-section">
   <div class="dm-section-title">Les 8 stations du domaine</div>
   <div class="dm-card dm-table-wrap">
     <table class="dm-table">
-      <thead><tr><th>Station</th><th>Village</th><th>Pistes</th><th>Forfait</th><th>Note</th><th></th></tr></thead>
+      <thead><tr><th>Station</th><th>Village</th><th>Pistes</th><th>Forfait</th><th>Note</th><th>Ambiance</th><th></th></tr></thead>
       <tbody><tr onclick="location.href='../stations/les-gets.html'">
       <td class="dm-t-name">Les Gets</td>
       <td>1172m</td><td>120 km</td><td>46€</td>
-      <td>⭐4.5</td><td class="dm-t-go">→</td>
+      <td>⭐4.5</td>
+      <td class="dm-t-tags"><span class="dm-tag">Famille</span><span class="dm-tag">Village</span></td>
+      <td class="dm-t-go">→</td>
     </tr><tr onclick="location.href='../stations/chatel.html'">
       <td class="dm-t-name">Châtel</td>
       <td>1200m</td><td>85 km</td><td>44€</td>
-      <td>⭐4.3</td><td class="dm-t-go">→</td>
+      <td>⭐4.3</td>
+      <td class="dm-t-tags"><span class="dm-tag">Famille</span><span class="dm-tag">Village</span></td>
+      <td class="dm-t-go">→</td>
     </tr><tr onclick="location.href='../stations/avoriaz.html'">
       <td class="dm-t-name">Avoriaz</td>
       <td>1800m</td><td>80 km</td><td>52€</td>
-      <td>⭐4.5</td><td class="dm-t-go">→</td>
+      <td>⭐4.5</td>
+      <td class="dm-t-tags"><span class="dm-tag">Famille</span><span class="dm-tag">Festif</span></td>
+      <td class="dm-t-go">→</td>
     </tr><tr onclick="location.href='../stations/morzine.html'">
       <td class="dm-t-name">Morzine</td>
       <td>1000m</td><td>50 km</td><td>48€</td>
-      <td>⭐4.5</td><td class="dm-t-go">→</td>
+      <td>⭐4.5</td>
+      <td class="dm-t-tags"><span class="dm-tag">Village</span><span class="dm-tag">Festif</span><span class="dm-tag">Famille</span></td>
+      <td class="dm-t-go">→</td>
     </tr><tr onclick="location.href='../stations/la-chapelle-d-abondance.html'">
       <td class="dm-t-name">La Chapelle d'Abondance</td>
       <td>1010m</td><td>40 km</td><td>28€</td>
-      <td>⭐3.8</td><td class="dm-t-go">→</td>
+      <td>⭐3.8</td>
+      <td class="dm-t-tags"><span class="dm-tag">Village</span><span class="dm-tag">Nature</span><span class="dm-tag">Famille</span></td>
+      <td class="dm-t-go">→</td>
     </tr><tr onclick="location.href='../stations/saint-jean-d-aulps.html'">
       <td class="dm-t-name">Saint-Jean-d'Aulps</td>
       <td>820m</td><td>40 km</td><td>24€</td>
-      <td>⭐3.5</td><td class="dm-t-go">→</td>
+      <td>⭐3.5</td>
+      <td class="dm-t-tags"><span class="dm-tag">Village</span><span class="dm-tag">Famille</span><span class="dm-tag">Nature</span></td>
+      <td class="dm-t-go">→</td>
     </tr><tr onclick="location.href='../stations/abondance.html'">
       <td class="dm-t-name">Abondance</td>
       <td>930m</td><td>25 km</td><td>22€</td>
-      <td>⭐3.5</td><td class="dm-t-go">→</td>
+      <td>⭐3.5</td>
+      <td class="dm-t-tags"><span class="dm-tag">Village</span><span class="dm-tag">Nature</span><span class="dm-tag">Famille</span></td>
+      <td class="dm-t-go">→</td>
     </tr><tr onclick="location.href='../stations/montriond.html'">
       <td class="dm-t-name">Montriond</td>
       <td>1049m</td><td>15 km</td><td>28€</td>
-      <td>⭐3.7</td><td class="dm-t-go">→</td>
+      <td>⭐3.7</td>
+      <td class="dm-t-tags"><span class="dm-tag">Village</span><span class="dm-tag">Famille</span></td>
+      <td class="dm-t-go">→</td>
     </tr></tbody>
     </table>
   </div>
@@ -296,6 +299,27 @@
 </nav>
 
 <script>
+// ── Favoris DOMAINES (clé séparée des favoris stations) ──
+var DOM_SLUG = "portes-du-soleil";
+function domFavs(){
+  try { return JSON.parse(localStorage.getItem('sf_fav_domaines') || '[]'); }
+  catch(e) { return []; }
+}
+function renderDomFav(){
+  var b = document.getElementById('dmFav');
+  var on = domFavs().indexOf(DOM_SLUG) !== -1;
+  b.textContent = on ? '⭐' : '☆';
+  b.classList.toggle('active', on);
+  b.title = on ? 'Retirer des favoris' : 'Ajouter aux favoris';
+}
+document.getElementById('dmFav').addEventListener('click', function(){
+  var f = domFavs(), i = f.indexOf(DOM_SLUG);
+  if (i === -1) f.push(DOM_SLUG); else f.splice(i, 1);
+  try { localStorage.setItem('sf_fav_domaines', JSON.stringify(f)); } catch(e) {}
+  renderDomFav();
+});
+renderDomFav();
+
 // La croix revient à la page précédente (fiche station d'origine),
 // avec repli sur la recherche si on est arrivé directement sur cette page.
 document.getElementById('dmClose').addEventListener('click', function(e){
