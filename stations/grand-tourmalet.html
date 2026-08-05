@@ -836,7 +836,7 @@ function closeStation(){
   <div class="stats-grid">
     <div class="stat-box">
       <div class="stat-val">100 km</div>
-      <div class="stat-lbl">Pistes skiables</div>
+      <div class="stat-lbl">Pistes (domaine partagé)</div>
     </div>
     <div class="stat-box">
       <div class="stat-val">1250m</div>
@@ -847,8 +847,8 @@ function closeStation(){
       <div class="stat-lbl">Sommet</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val">30</div>
-      <div class="stat-lbl">Remontées</div>
+      <div class="stat-val">28</div>
+      <div class="stat-lbl">Remontées (partagées)</div>
     </div>
     <div class="stat-box">
       <div class="stat-val">38€</div>
@@ -856,7 +856,19 @@ function closeStation(){
     </div>
   </div>
 
-  
+  <a href="../domaines/grand-tourmalet.html" class="domaine-box">
+    <div class="domaine-box-head">
+      <div class="domaine-box-tag">🏔️ Domaine skiable relié</div>
+      <div class="domaine-box-name">Grand Tourmalet – Pic du Midi <span class="domaine-box-arrow">→</span></div>
+    </div>
+    <div class="domaine-box-stats">
+      <div><div class="dbs-val">100 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
+      <div><div class="dbs-val">1250-2500m</div><div class="dbs-lbl">Altitude</div></div>
+      <div><div class="dbs-val">28</div><div class="dbs-lbl">Remontées</div></div>
+      <div><div class="dbs-val">46€</div><div class="dbs-lbl">Forfait domaine/j</div></div>
+    </div>
+    <div class="domaine-box-foot">1 stations reliées, dont Grand Tourmalet · voir la fiche complète du domaine</div>
+  </a>
 
   <div class="main-grid">
 
@@ -868,7 +880,7 @@ function closeStation(){
         <div class="tab-nav" id="tabNav">
           <button class="tab-btn active" onclick="switchTab('infos',this)">🎿 Infos</button>
           <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
-          
+          <button class="tab-btn" onclick="switchTab('domaine',this)">🏔️ Domaine</button>
           
           <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo</button>
           <button class="tab-btn" onclick="switchTab('neige',this)">❄️ Enneigement</button>
@@ -893,7 +905,7 @@ function closeStation(){
             <div class="ab-icon">💡</div>
             <div>
               <div class="ab-label">Le saviez-vous ?</div>
-              <div class="ab-text">Le col du Tourmalet (2 115 m), au cœur du domaine, est le col le plus franchi de toute l'histoire du Tour de France : plus de 80 passages depuis sa première ascension en 1910 par Octave Lapize, à qui une statue rend hommage au sommet.</div><div class="ab-text">La Mongie a aussi accueilli trois arrivées d'étape du Tour de France sur ses pentes : en 1970 (victoire de Bernard Thévenet), 2002 (Lance Armstrong) et 2004 (Ivan Basso).</div><div class="ab-text">Avec 100 km de pistes, c'est le plus grand domaine skiable des Pyrénées françaises.</div>
+              <div class="ab-text">Le col du Tourmalet (2 115 m), au cœur du domaine, est le col le plus franchi de toute l'histoire du Tour de France : plus de 80 passages depuis sa première ascension en 1910 par Octave Lapize, à qui une statue rend hommage au sommet.</div><div class="ab-text">La Mongie a aussi accueilli trois arrivées d'étape du Tour de France sur ses pentes : en 1970 (victoire de Bernard Thévenet), 2002 (Lance Armstrong) et 2004 (Ivan Basso).</div>
             </div>
           </div>
         </div>
@@ -934,7 +946,7 @@ function closeStation(){
             <strong>Grand Tourmalet</strong> est une station de ski du massif <strong>Pyrénées</strong>,
             en <strong>Hautes-Pyrénées</strong>. Le domaine s'étend sur
             <strong>100 km de pistes</strong> entre 1250 m et 2500 m,
-            desservi par 30 remontées mécaniques. Forfait journée à partir de
+            desservi par 28 remontées mécaniques. Forfait journée à partir de
             <strong>38€</strong> par adulte.
           </p>
         </div>
@@ -1030,7 +1042,21 @@ function closeStation(){
 
       </div>
 
-      
+      <div class="tab-content" id="tab-domaine">
+        <div class="dt-hero">
+          <h3>🏔️ Grand Tourmalet – Pic du Midi</h3>
+          <p>Le plus grand domaine des Pyrénées françaises, réparti sur les deux versants du col du Tourmalet — Barèges d'un côté, La Mongie de l'autre. Barèges est un village thermal historique dont les eaux soignaient déjà les soldats de Louis XIV ; La Mongie, construite dans les années 60, offre un accès direct aux pistes et au Pic du Midi. Ce dernier est l'attraction unique du domaine : téléphérique jusqu'à 2877 m, observatoire astronomique centenaire, et une descente hors-piste de 1700 m de dénivelé pour skieurs aguerris. Le Tourmalet est aussi le col le plus emprunté de l'histoire du Tour de France.</p>
+        </div>
+        <div class="domaine-stats-mini">
+          <div><strong>100 km</strong><span>de pistes reliées</span></div>
+          <div><strong>28</strong><span>remontées</span></div>
+          <div><strong>46€</strong><span>forfait domaine/j</span></div>
+          <div><strong>1250-2500m</strong><span>altitude</span></div>
+        </div>
+        
+        <a href="../domaines/grand-tourmalet.html" class="domaine-see-all">Voir la fiche complète du domaine →</a>
+        
+      </div>
 
       <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
       
@@ -1175,30 +1201,6 @@ function closeStation(){
             <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~84€/nuit</span>
           </div>
         </a>
-        <a href="la-mongie-bareges-tourmalet.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
-          <div style="position:relative;height:90px;overflow:hidden">
-            <img src="https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=400&q=80" alt="La Mongie-Barèges (Tourmalet)" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
-            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">La Mongie-Barèges (Tourmalet)</div>
-            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.2 ⭐</div>
-          </div>
-          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">100 km · 2877m</span>
-            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~91€/nuit</span>
-          </div>
-        </a>
-        <a href="saint-lary-village.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
-          <div style="position:relative;height:90px;overflow:hidden">
-            <img src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=400&q=80" alt="Saint-Lary-Village" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
-            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Saint-Lary-Village</div>
-            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.1 ⭐</div>
-          </div>
-          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">100 km · 2515m</span>
-            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~84€/nuit</span>
-          </div>
-        </a>
         <a href="ax-3-domaines.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
           <div style="position:relative;height:90px;overflow:hidden">
             <img src="https://images.unsplash.com/photo-1528659862616-22886eb53642?w=400&q=80" alt="Ax-3-Domaines" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
@@ -1209,6 +1211,30 @@ function closeStation(){
           <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
             <span style="font-size:.75rem;color:#5c4a35;font-weight:600">80 km · 2400m</span>
             <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~67€/nuit</span>
+          </div>
+        </a>
+        <a href="piau-engaly.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
+          <div style="position:relative;height:90px;overflow:hidden">
+            <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&q=80" alt="Piau-Engaly" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
+            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Piau-Engaly</div>
+            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">3.9 ⭐</div>
+          </div>
+          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">65 km · 2500m</span>
+            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~77€/nuit</span>
+          </div>
+        </a>
+        <a href="peyragudes.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
+          <div style="position:relative;height:90px;overflow:hidden">
+            <img src="https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=400&q=80" alt="Peyragudes" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
+            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Peyragudes</div>
+            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">3.9 ⭐</div>
+          </div>
+          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">60 km · 2400m</span>
+            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~77€/nuit</span>
           </div>
         </a>
     </div>

@@ -1129,6 +1129,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/orcieres-merlette-1850.html</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/orcieres-merlette.html</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
