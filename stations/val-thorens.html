@@ -16,7 +16,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Val Thorens — Station de ski | SnowFinder">
   <meta name="twitter:image" content="../img/valthorens1.jpg">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TouristAttraction", "@id": "https://snowfinder.fr/stations/val-thorens.html#attraction", "name": "Val Thorens", "description": "La plus haute station d'Europe (2300m). Neige garantie toute la saison, accès aux 3 Vallées 600 km.", "url": "https://snowfinder.fr/stations/val-thorens.html", "image": "../img/valthorens1.jpg", "touristType": "Skier", "address": {"@type": "PostalAddress", "addressCountry": "FR", "addressRegion": "Les 3 Vallées, Savoie"}, "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "worstRating": "1", "ratingCount": "50"}, "amenityFeature": [{"@type": "LocationFeatureSpecification", "name": "Pistes de ski", "value": "150 km"}, {"@type": "LocationFeatureSpecification", "name": "Remontees mecaniques", "value": "170"}, {"@type": "LocationFeatureSpecification", "name": "Altitude maximale", "value": "3230 m"}, {"@type": "LocationFeatureSpecification", "name": "Altitude minimale", "value": "2300 m"}]}, {"@type": "WebPage", "@id": "https://snowfinder.fr/stations/val-thorens.html#webpage", "url": "https://snowfinder.fr/stations/val-thorens.html", "name": "Val Thorens — Station de ski : pistes, enneigement, hébergements | SnowFinder", "isPartOf": {"@id": "https://snowfinder.fr/#website"}, "inLanguage": "fr-FR", "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://snowfinder.fr/"}, {"@type": "ListItem", "position": 2, "name": "Stations de ski", "item": "https://snowfinder.fr/recherche.html"}, {"@type": "ListItem", "position": 3, "name": "Alpes du Nord", "item": "https://snowfinder.fr/recherche.html"}, {"@type": "ListItem", "position": 4, "name": "Val Thorens", "item": "https://snowfinder.fr/stations/val-thorens.html"}]}}, {"@type": "Offer", "@id": "https://snowfinder.fr/stations/val-thorens.html#offer", "name": "Forfait ski Val Thorens", "price": "60", "priceCurrency": "EUR", "description": "Forfait journée adulte", "url": "https://snowfinder.fr/stations/val-thorens.html"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TouristAttraction", "@id": "https://snowfinder.fr/stations/val-thorens.html#attraction", "name": "Val Thorens", "description": "La plus haute station d'Europe (2300m). Neige garantie toute la saison, accès aux 3 Vallées 600 km.", "url": "https://snowfinder.fr/stations/val-thorens.html", "image": "../img/valthorens1.jpg", "touristType": "Skier", "address": {"@type": "PostalAddress", "addressCountry": "FR", "addressRegion": "Les 3 Vallées, Savoie"}, "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "worstRating": "1", "ratingCount": "50"}, "amenityFeature": [{"@type": "LocationFeatureSpecification", "name": "Pistes de ski", "value": "132 km"}, {"@type": "LocationFeatureSpecification", "name": "Remontees mecaniques", "value": "37"}, {"@type": "LocationFeatureSpecification", "name": "Altitude maximale", "value": "3230 m"}, {"@type": "LocationFeatureSpecification", "name": "Altitude minimale", "value": "2300 m"}]}, {"@type": "WebPage", "@id": "https://snowfinder.fr/stations/val-thorens.html#webpage", "url": "https://snowfinder.fr/stations/val-thorens.html", "name": "Val Thorens — Station de ski : pistes, enneigement, hébergements | SnowFinder", "isPartOf": {"@id": "https://snowfinder.fr/#website"}, "inLanguage": "fr-FR", "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://snowfinder.fr/"}, {"@type": "ListItem", "position": 2, "name": "Stations de ski", "item": "https://snowfinder.fr/recherche.html"}, {"@type": "ListItem", "position": 3, "name": "Alpes du Nord", "item": "https://snowfinder.fr/recherche.html"}, {"@type": "ListItem", "position": 4, "name": "Val Thorens", "item": "https://snowfinder.fr/stations/val-thorens.html"}]}}, {"@type": "Offer", "@id": "https://snowfinder.fr/stations/val-thorens.html#offer", "name": "Forfait ski Val Thorens", "price": "60", "priceCurrency": "EUR", "description": "Forfait journée adulte", "url": "https://snowfinder.fr/stations/val-thorens.html"}]}</script>
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
   <script>
     window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -369,7 +369,10 @@
     .fav-star.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
 
     /* DOMAINE SKIABLE RELIÉ — encadré riche, couleur distincte (ambre/or) */
-    .domaine-box{
+    .station-fermee{background:#fff4e5;border:1.5px solid #f0b429;border-left:5px solid #f0b429;border-radius:12px;padding:16px 18px;margin:0 0 20px}
+.sf-titre{font-family:"DM Sans",sans-serif;font-weight:700;font-size:1rem;color:#8a5a00;margin-bottom:6px}
+.sf-texte{font-size:.88rem;line-height:1.55;color:#6b4a05}
+.domaine-box{
       display:block;text-decoration:none;color:inherit;margin:18px 0;border-radius:18px;overflow:hidden;
       background:linear-gradient(145deg,#0d3a6e 0%,#1a5a8a 100%);border:1px solid #0d3a6e;color:#fff;
       box-shadow:0 4px 18px rgba(13,58,110,.22);transition:transform .15s,box-shadow .15s
@@ -864,6 +867,8 @@ function closeStation(){
     </div>
   </div>
 
+  
+
   <a href="../domaines/3-vallees.html" class="domaine-box">
     <div class="domaine-box-head">
       <div class="domaine-box-tag">🏔️ Domaine skiable relié</div>
@@ -904,7 +909,7 @@ function closeStation(){
         <div class="section">
           <div class="section-title">À propos de Val Thorens</div>
           <img src="../img/valthorens2.jpg" alt="Val Thorens pistes de ski" class="photo-station" loading="lazy">
-          <p style="font-size:.92rem;line-height:1.78;color:var(--text-mid)">Val Thorens est la plus haute station d'Europe à 2300 m, au sommet des Trois Vallées (600 km). Cette altitude garantit une neige de qualité de novembre à mai. Station moderne, festive et très fréquentée, elle est prisée des jeunes skieurs avec ses nombreux bars et clubs au pied des pistes.</p>
+          <p style="font-size:.92rem;line-height:1.78;color:var(--text-mid)">Val Thorens est la plus haute station d'Europe à 2300 m, au sommet des Trois Vallées (600 km). Cette altitude garantit une neige de qualité de novembre à mai. Station moderne, festive et très fréquentée, elle est prisée des jeunes skieurs avec ses nombreux bars et clubs au pied des pistes. Son domaine propre compte 88 pistes sur 150 km.</p>
           <ul style="margin-top:14px;padding-left:0;list-style:none"><li style="padding:5px 0;border-bottom:1px solid #f7efe2">Plus haute station d'Europe à 2300m</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Neige garantie de novembre à mai</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">3 Vallées 600 km au départ des pistes</li></ul>
@@ -924,26 +929,26 @@ function closeStation(){
           <div class="piste-row">
             <div class="piste-dot" style="background:#2ea84e"></div>
             <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Vertes</span>
-            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#2ea84e;width:100%"></div></div>
-            <span class="piste-count">20</span>
+            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#2ea84e;width:55%"></div></div>
+            <span class="piste-count">11</span>
           </div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#3a7db8"></div>
             <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Bleues</span>
             <div class="piste-bar-wrap"><div class="piste-bar" style="background:#3a7db8;width:100%"></div></div>
-            <span class="piste-count">89</span>
+            <span class="piste-count">39</span>
           </div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#cc2200"></div>
             <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Rouges</span>
-            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#cc2200;width:100%"></div></div>
-            <span class="piste-count">69</span>
+            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#cc2200;width:90%"></div></div>
+            <span class="piste-count">30</span>
           </div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#222"></div>
             <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Noires</span>
-            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#333;width:100%"></div></div>
-            <span class="piste-count">22</span>
+            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#333;width:48%"></div></div>
+            <span class="piste-count">8</span>
           </div>
         </div>
 
@@ -1308,7 +1313,7 @@ function closeStation(){
             <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.7 ⭐</div>
           </div>
           <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">150 km · 3230m</span>
+            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">164 km · 2738m</span>
             <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~173€/nuit</span>
           </div>
         </a>
