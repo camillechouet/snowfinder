@@ -1,0 +1,47 @@
+name: Notification manuelle
+
+on:
+  workflow_dispatch:
+    inputs:
+      type:
+        description: 'Type de notif'
+        required: true
+        type: choice
+        options:
+          - station_du_moment
+          - bon_plan
+          - article
+          - autre
+      titre:
+        description: 'Titre de la notif'
+        required: true
+        type: string
+      corps:
+        description: 'Texte de la notif'
+        required: true
+        type: string
+      url:
+        description: 'Lien au clic (page station, article...)'
+        required: false
+        type: string
+        default: 'https://snowfinder.fr/'
+
+jobs:
+  send-notif:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Envoi de la notification
+        env:
+          ONESIGNAL_APP_ID:  ${{ secrets.ONESIGNAL_APP_ID }}
+          ONESIGNAL_API_KEY: ${{ secrets.ONESIGNAL_API_KEY }}
+          NOTIF_TYPE:  ${{ inputs.type }}
+          NOTIF_TITRE: ${{ inputs.titre }}
+          NOTIF_CORPS: ${{ inputs.corps }}
+          NOTIF_URL:   ${{ inputs.url }}
+        run: python _scripts/onesignal_manual_notif.py
