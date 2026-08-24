@@ -10,7 +10,7 @@
 <meta property="og:site_name" content="SnowFinder">
 <meta property="og:url" content="https://snowfinder.fr/domaines/espace-killy.html">
 <meta property="og:title" content="Tignes – Val d'Isère (Espace Killy) — 300 km reliés">
-<meta property="og:description" content="300 km · 78 remontées · 75€/j · 2 stations reliées">
+<meta property="og:description" content="300 km · 91 remontées · 75€/j · 2 stations reliées">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <script type="application/ld+json">
@@ -120,12 +120,18 @@
 
 <div class="dm-hero">
   <div class="hero-slides">
-  <img class="hero-slide active" data-idx="0" src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&q=80" alt="Tignes – Val d'Isère (Espace Killy) photo 1" loading="eager">
+  <img class="hero-slide active" data-idx="0" src="../img/valdisere1.jpg" alt="Tignes – Val d'Isère (Espace Killy) photo 1" loading="eager">
+  <img class="hero-slide" data-idx="1" src="../img/tignes1.jpg" alt="Tignes – Val d'Isère (Espace Killy) photo 2" loading="lazy">
   </div>
   <div class="dm-hero-overlay"></div>
   <a href="#" class="dm-close" id="dmClose" aria-label="Retour">✕</a>
   <button class="dm-fav" id="dmFav" type="button" aria-label="Ajouter aux favoris">☆</button>
-  
+  <button class="hero-nav hero-prev" onclick="dmHeroPrev()" aria-label="Précédente">‹</button>
+<button class="hero-nav hero-next" onclick="dmHeroNext()" aria-label="Suivante">›</button>
+<div class="hero-dots">
+    <button class="hero-dot active" data-idx="0" onclick="dmHeroGoTo(0)" aria-label="Photo 1"></button>
+    <button class="hero-dot" data-idx="1" onclick="dmHeroGoTo(1)" aria-label="Photo 2"></button>
+</div>
   <div class="dm-hero-content">
     <div class="dm-hero-massif">⛷ Alpes du Nord</div>
     <h1>🏔️ Tignes – Val d'Isère (Espace Killy)</h1>
@@ -146,7 +152,7 @@
 
 <div class="dm-stats">
   <div class="dm-stat"><div class="dm-stat-val">300 km</div><div class="dm-stat-lbl">Pistes reliées</div></div>
-  <div class="dm-stat"><div class="dm-stat-val">78</div><div class="dm-stat-lbl">Remontées</div></div>
+  <div class="dm-stat"><div class="dm-stat-val">91</div><div class="dm-stat-lbl">Remontées</div></div>
   <div class="dm-stat"><div class="dm-stat-val">75€</div><div class="dm-stat-lbl">Forfait / jour</div></div>
   <div class="dm-stat"><div class="dm-stat-val">1550-3456m</div><div class="dm-stat-lbl">Altitude</div></div>
 </div>
@@ -162,27 +168,27 @@
 </div>
 
 <div class="dm-section">
-  <div class="dm-section-title">Les 161 pistes du domaine</div>
+  <div class="dm-section-title">Les 155 pistes du domaine</div>
   <div class="dm-card"><div class="dm-piste-row">
         <span class="dm-piste-dot" style="background:#2ea84e"></span>
         <span class="dm-piste-lbl">Vertes</span>
-        <span class="dm-piste-bar"><i style="background:#2ea84e;width:13%"></i></span>
-        <span class="dm-piste-n">21</span>
+        <span class="dm-piste-bar"><i style="background:#2ea84e;width:5%"></i></span>
+        <span class="dm-piste-n">8</span>
       </div><div class="dm-piste-row">
         <span class="dm-piste-dot" style="background:#3a7db8"></span>
         <span class="dm-piste-lbl">Bleues</span>
-        <span class="dm-piste-bar"><i style="background:#3a7db8;width:44%"></i></span>
-        <span class="dm-piste-n">71</span>
+        <span class="dm-piste-bar"><i style="background:#3a7db8;width:26%"></i></span>
+        <span class="dm-piste-n">41</span>
       </div><div class="dm-piste-row">
         <span class="dm-piste-dot" style="background:#cc2200"></span>
         <span class="dm-piste-lbl">Rouges</span>
-        <span class="dm-piste-bar"><i style="background:#cc2200;width:26%"></i></span>
-        <span class="dm-piste-n">42</span>
+        <span class="dm-piste-bar"><i style="background:#cc2200;width:45%"></i></span>
+        <span class="dm-piste-n">70</span>
       </div><div class="dm-piste-row">
         <span class="dm-piste-dot" style="background:#333"></span>
         <span class="dm-piste-lbl">Noires</span>
-        <span class="dm-piste-bar"><i style="background:#333;width:17%"></i></span>
-        <span class="dm-piste-n">27</span>
+        <span class="dm-piste-bar"><i style="background:#333;width:23%"></i></span>
+        <span class="dm-piste-n">36</span>
       </div></div>
 </div>
 
@@ -228,7 +234,7 @@
 
 <div class="dm-section">
   <div class="dm-section-title">Autres domaines — Alpes du Nord</div>
-  <div class="dm-other-grid"><a href="portes-du-soleil.html" class="dm-other">Les Portes du Soleil<span>624 km</span></a><a href="3-vallees.html" class="dm-other">Les 3 Vallées<span>600 km</span></a><a href="paradiski.html" class="dm-other">Paradiski<span>520 km</span></a><a href="evasion-mont-blanc.html" class="dm-other">Évasion Mont-Blanc<span>458 km</span></a><a href="grand-massif.html" class="dm-other">Le Grand Massif<span>291 km</span></a><a href="alpe-dhuez-grand-domaine.html" class="dm-other">Alpe d'Huez Grand Domaine Ski<span>250 km</span></a></div>
+  <div class="dm-other-grid"><a href="portes-du-soleil.html" class="dm-other">Les Portes du Soleil<span>600 km</span></a><a href="3-vallees.html" class="dm-other">Les 3 Vallées<span>600 km</span></a><a href="paradiski.html" class="dm-other">Paradiski<span>425 km</span></a><a href="sybelles.html" class="dm-other">Les Sybelles<span>310 km</span></a><a href="grand-massif.html" class="dm-other">Le Grand Massif<span>265 km</span></a><a href="evasion-mont-blanc.html" class="dm-other">Évasion Mont-Blanc<span>263 km</span></a></div>
 </div>
 
 <footer class="footer">
@@ -249,7 +255,7 @@
 
 <script>
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&q=80"];
+var DM_HERO_URLS = ["../img/valdisere1.jpg","../img/tignes1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;

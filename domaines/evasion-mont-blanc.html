@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Évasion Mont-Blanc — Domaine skiable 458 km, 5 stations | SnowFinder</title>
-<meta name="description" content="Évasion Mont-Blanc : 458 km de pistes reliées, 5 stations (Megève, Saint-Gervais, Combloux, La Giettaz...). Forfait 50€/jour, altitude 850-2353m.">
+<title>Évasion Mont-Blanc — Domaine skiable 263 km, 5 stations | SnowFinder</title>
+<meta name="description" content="Évasion Mont-Blanc : 263 km de pistes reliées, 5 stations (Megève, Saint-Gervais, Combloux, La Giettaz...). Forfait 50€/jour, altitude 850-2353m.">
 <link rel="canonical" href="https://snowfinder.fr/domaines/evasion-mont-blanc.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SnowFinder">
 <meta property="og:url" content="https://snowfinder.fr/domaines/evasion-mont-blanc.html">
-<meta property="og:title" content="Évasion Mont-Blanc — 458 km reliés">
-<meta property="og:description" content="458 km · 146 remontées · 50€/j · 5 stations reliées">
+<meta property="og:title" content="Évasion Mont-Blanc — 263 km reliés">
+<meta property="og:description" content="263 km · 107 remontées · 50€/j · 5 stations reliées">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SkiResort","name":"Évasion Mont-Blanc","url":"https://snowfinder.fr/domaines/evasion-mont-blanc.html",
-"description":"Megève, Saint-Gervais, Combloux, La Giettaz et Les Contamines-Montjoie, réunies au pied du toit de l'Europe. Megève, inventée dans les années 20 par la baronne de Rothschild qui voulait un Saint-Moritz français, reste la station de l'élégance à la française : village médiéval, calèches, tables étoilées. Le ski y est plutôt doux, sur de longues pistes en forêt à l'exposition généreuse. Attention à une subtilité : sur les 445 km annoncés par le forfait, une partie seulement est réellement reliée skis aux pieds — Les Contamines nécessite un transfert, et Megève/Combloux/La Giettaz se partagent des massifs communs (Rochebrune-Mont d'Arbois côté Megève-Saint-Gervais, Portes du Mont-Blanc côté Combloux-Giettaz) qui ne se répartissent pas proprement station par station. Le panorama sur le Mont-Blanc, lui, est constant.","containedInPlace":{"@type":"Place","name":"Alpes du Nord"}}
+"description":"Megève, Saint-Gervais, Combloux, La Giettaz et Les Contamines-Montjoie, réunies au pied du toit de l'Europe. Megève, inventée dans les années 20 par la baronne de Rothschild qui voulait un Saint-Moritz français, reste la station de l'élégance à la française : village médiéval, calèches, tables étoilées. Le ski y est plutôt doux, sur de longues pistes en forêt à l'exposition généreuse. Attention à une subtilité : sur les 445 km annoncés par le forfait, 263 km seulement sont réellement reliés par remontées — Les Contamines et Cordon nécessitent un transfert. Le panorama sur le Mont-Blanc, lui, est constant.","containedInPlace":{"@type":"Place","name":"Alpes du Nord"}}
 </script>
 <style>
   :root{--wood-pale:#f7efe2;--wood-light:#eddcbf;--wood:#c49a6c;--wood-dark:#8b5e3c;--blue:#5b9fd4;--blue-light:#e8f3fb;--blue-mid:#3a7db8;--blue-dark:#1a5a8a;--text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;--navy:#1a5a8a;--border:#e8d8c4;--bg:#f5f1ec}
@@ -120,17 +120,23 @@
 
 <div class="dm-hero">
   <div class="hero-slides">
-  <img class="hero-slide active" data-idx="0" src="https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=1400&q=80" alt="Évasion Mont-Blanc photo 1" loading="eager">
+  <img class="hero-slide active" data-idx="0" src="../img/megeve1.jpg" alt="Évasion Mont-Blanc photo 1" loading="eager">
+  <img class="hero-slide" data-idx="1" src="../img/saintgervais1.jpg" alt="Évasion Mont-Blanc photo 2" loading="lazy">
   </div>
   <div class="dm-hero-overlay"></div>
   <a href="#" class="dm-close" id="dmClose" aria-label="Retour">✕</a>
   <button class="dm-fav" id="dmFav" type="button" aria-label="Ajouter aux favoris">☆</button>
-  
+  <button class="hero-nav hero-prev" onclick="dmHeroPrev()" aria-label="Précédente">‹</button>
+<button class="hero-nav hero-next" onclick="dmHeroNext()" aria-label="Suivante">›</button>
+<div class="hero-dots">
+    <button class="hero-dot active" data-idx="0" onclick="dmHeroGoTo(0)" aria-label="Photo 1"></button>
+    <button class="hero-dot" data-idx="1" onclick="dmHeroGoTo(1)" aria-label="Photo 2"></button>
+</div>
   <div class="dm-hero-content">
     <div class="dm-hero-massif">⛷ Alpes du Nord</div>
     <h1>🏔️ Évasion Mont-Blanc</h1>
-    <p>458 km de pistes reliées · 5 stations · 50€ le forfait domaine/jour</p>
-    <div class="dm-rank">4e plus grand domaine référencé</div>
+    <p>263 km de pistes reliées · 5 stations · 50€ le forfait domaine/jour</p>
+    <div class="dm-rank">8e plus grand domaine référencé</div>
   </div>
 </div>
 
@@ -142,18 +148,18 @@
 
 
 
-<div class="dm-note">ℹ️ Les stations de ce domaine partagent le même domaine skiable : les kilomètres de pistes ne sont pas répartis village par village.</div>
+
 
 <div class="dm-stats">
-  <div class="dm-stat"><div class="dm-stat-val">458 km</div><div class="dm-stat-lbl">Pistes reliées</div></div>
-  <div class="dm-stat"><div class="dm-stat-val">146</div><div class="dm-stat-lbl">Remontées</div></div>
+  <div class="dm-stat"><div class="dm-stat-val">263 km</div><div class="dm-stat-lbl">Pistes reliées</div></div>
+  <div class="dm-stat"><div class="dm-stat-val">107</div><div class="dm-stat-lbl">Remontées</div></div>
   <div class="dm-stat"><div class="dm-stat-val">50€</div><div class="dm-stat-lbl">Forfait / jour</div></div>
   <div class="dm-stat"><div class="dm-stat-val">850-2353m</div><div class="dm-stat-lbl">Altitude</div></div>
 </div>
 
 <div class="dm-section">
   <div class="dm-section-title">À propos du domaine</div>
-  <div class="dm-card dm-desc">Megève, Saint-Gervais, Combloux, La Giettaz et Les Contamines-Montjoie, réunies au pied du toit de l'Europe. Megève, inventée dans les années 20 par la baronne de Rothschild qui voulait un Saint-Moritz français, reste la station de l'élégance à la française : village médiéval, calèches, tables étoilées. Le ski y est plutôt doux, sur de longues pistes en forêt à l'exposition généreuse. Attention à une subtilité : sur les 445 km annoncés par le forfait, une partie seulement est réellement reliée skis aux pieds — Les Contamines nécessite un transfert, et Megève/Combloux/La Giettaz se partagent des massifs communs (Rochebrune-Mont d'Arbois côté Megève-Saint-Gervais, Portes du Mont-Blanc côté Combloux-Giettaz) qui ne se répartissent pas proprement station par station. Le panorama sur le Mont-Blanc, lui, est constant.</div>
+  <div class="dm-card dm-desc">Megève, Saint-Gervais, Combloux, La Giettaz et Les Contamines-Montjoie, réunies au pied du toit de l'Europe. Megève, inventée dans les années 20 par la baronne de Rothschild qui voulait un Saint-Moritz français, reste la station de l'élégance à la française : village médiéval, calèches, tables étoilées. Le ski y est plutôt doux, sur de longues pistes en forêt à l'exposition généreuse. Attention à une subtilité : sur les 445 km annoncés par le forfait, 263 km seulement sont réellement reliés par remontées — Les Contamines et Cordon nécessitent un transfert. Le panorama sur le Mont-Blanc, lui, est constant.</div>
 </div>
 
 <div class="dm-section">
@@ -162,27 +168,27 @@
 </div>
 
 <div class="dm-section">
-  <div class="dm-section-title">Les 310 pistes du domaine</div>
+  <div class="dm-section-title">Les 230 pistes du domaine</div>
   <div class="dm-card"><div class="dm-piste-row">
         <span class="dm-piste-dot" style="background:#2ea84e"></span>
         <span class="dm-piste-lbl">Vertes</span>
-        <span class="dm-piste-bar"><i style="background:#2ea84e;width:19%"></i></span>
-        <span class="dm-piste-n">60</span>
+        <span class="dm-piste-bar"><i style="background:#2ea84e;width:17%"></i></span>
+        <span class="dm-piste-n">39</span>
       </div><div class="dm-piste-row">
         <span class="dm-piste-dot" style="background:#3a7db8"></span>
         <span class="dm-piste-lbl">Bleues</span>
-        <span class="dm-piste-bar"><i style="background:#3a7db8;width:33%"></i></span>
-        <span class="dm-piste-n">102</span>
+        <span class="dm-piste-bar"><i style="background:#3a7db8;width:38%"></i></span>
+        <span class="dm-piste-n">87</span>
       </div><div class="dm-piste-row">
         <span class="dm-piste-dot" style="background:#cc2200"></span>
         <span class="dm-piste-lbl">Rouges</span>
-        <span class="dm-piste-bar"><i style="background:#cc2200;width:34%"></i></span>
-        <span class="dm-piste-n">106</span>
+        <span class="dm-piste-bar"><i style="background:#cc2200;width:33%"></i></span>
+        <span class="dm-piste-n">76</span>
       </div><div class="dm-piste-row">
         <span class="dm-piste-dot" style="background:#333"></span>
         <span class="dm-piste-lbl">Noires</span>
-        <span class="dm-piste-bar"><i style="background:#333;width:14%"></i></span>
-        <span class="dm-piste-n">42</span>
+        <span class="dm-piste-bar"><i style="background:#333;width:12%"></i></span>
+        <span class="dm-piste-n">28</span>
       </div></div>
 </div>
 
@@ -193,7 +199,7 @@
       <thead><tr><th>Station</th><th>Village</th><th>Pistes</th><th>Forfait</th><th>Note</th><th>Ambiance</th><th></th></tr></thead>
       <tbody><tr onclick="location.href='../stations/megeve.html'">
       <td class="dm-t-name">Megève</td>
-      <td>1113m</td><td>220 km</td><td>65€</td>
+      <td>1113m</td><td>230 km</td><td>65€</td>
       <td>⭐4.7</td>
       <td class="dm-t-tags"><span class="dm-tag">Luxe</span><span class="dm-tag">Village</span></td>
       <td class="dm-t-go">→</td>
@@ -203,16 +209,16 @@
       <td>⭐4.1</td>
       <td class="dm-t-tags"><span class="dm-tag">Famille</span><span class="dm-tag">Nature</span></td>
       <td class="dm-t-go">→</td>
-    </tr><tr onclick="location.href='../stations/saint-gervais.html'">
-      <td class="dm-t-name">Saint-Gervais</td>
-      <td>850m</td><td>53 km</td><td>52€</td>
-      <td>⭐4.2</td>
-      <td class="dm-t-tags"><span class="dm-tag">Famille</span><span class="dm-tag">Village</span></td>
-      <td class="dm-t-go">→</td>
     </tr><tr onclick="location.href='../stations/combloux.html'">
       <td class="dm-t-name">Combloux</td>
-      <td>1000m</td><td>45 km</td><td>28€</td>
+      <td>1000m</td><td>60 km</td><td>28€</td>
       <td>⭐4.0</td>
+      <td class="dm-t-tags"><span class="dm-tag">Famille</span><span class="dm-tag">Village</span></td>
+      <td class="dm-t-go">→</td>
+    </tr><tr onclick="location.href='../stations/saint-gervais.html'">
+      <td class="dm-t-name">Saint-Gervais</td>
+      <td>850m</td><td>45 km</td><td>52€</td>
+      <td>⭐4.2</td>
       <td class="dm-t-tags"><span class="dm-tag">Famille</span><span class="dm-tag">Village</span></td>
       <td class="dm-t-go">→</td>
     </tr><tr onclick="location.href='../stations/la-giettaz.html'">
@@ -232,7 +238,7 @@
     <a href="../stations/megeve.html" class="dm-station-card">
       <div class="dm-station-name">Megève</div>
       <div class="dm-station-meta">🏘 1113m · ⛰ 2350m · 💶 65€</div>
-      <div class="dm-station-km">🎿 220 km propres</div>
+      <div class="dm-station-km">🎿 230 km propres</div>
       <div class="dm-station-cta">Voir la fiche →</div>
     </a>
 <a href="../stations/les-contamines-montjoie.html" class="dm-station-card">
@@ -241,15 +247,15 @@
       <div class="dm-station-km">🎿 120 km propres</div>
       <div class="dm-station-cta">Voir la fiche →</div>
     </a>
-<a href="../stations/saint-gervais.html" class="dm-station-card">
-      <div class="dm-station-name">Saint-Gervais</div>
-      <div class="dm-station-meta">🏘 850m · ⛰ 2350m · 💶 52€</div>
-      <div class="dm-station-km">🎿 53 km propres</div>
-      <div class="dm-station-cta">Voir la fiche →</div>
-    </a>
 <a href="../stations/combloux.html" class="dm-station-card">
       <div class="dm-station-name">Combloux</div>
       <div class="dm-station-meta">🏘 1000m · ⛰ 1852m · 💶 28€</div>
+      <div class="dm-station-km">🎿 60 km propres</div>
+      <div class="dm-station-cta">Voir la fiche →</div>
+    </a>
+<a href="../stations/saint-gervais.html" class="dm-station-card">
+      <div class="dm-station-name">Saint-Gervais</div>
+      <div class="dm-station-meta">🏘 850m · ⛰ 2350m · 💶 52€</div>
       <div class="dm-station-km">🎿 45 km propres</div>
       <div class="dm-station-cta">Voir la fiche →</div>
     </a>
@@ -264,7 +270,7 @@
 
 <div class="dm-section">
   <div class="dm-section-title">Autres domaines — Alpes du Nord</div>
-  <div class="dm-other-grid"><a href="portes-du-soleil.html" class="dm-other">Les Portes du Soleil<span>624 km</span></a><a href="3-vallees.html" class="dm-other">Les 3 Vallées<span>600 km</span></a><a href="paradiski.html" class="dm-other">Paradiski<span>520 km</span></a><a href="espace-killy.html" class="dm-other">Tignes – Val d'Isère (Espace Killy)<span>300 km</span></a><a href="grand-massif.html" class="dm-other">Le Grand Massif<span>291 km</span></a><a href="alpe-dhuez-grand-domaine.html" class="dm-other">Alpe d'Huez Grand Domaine Ski<span>250 km</span></a></div>
+  <div class="dm-other-grid"><a href="portes-du-soleil.html" class="dm-other">Les Portes du Soleil<span>600 km</span></a><a href="3-vallees.html" class="dm-other">Les 3 Vallées<span>600 km</span></a><a href="paradiski.html" class="dm-other">Paradiski<span>425 km</span></a><a href="sybelles.html" class="dm-other">Les Sybelles<span>310 km</span></a><a href="espace-killy.html" class="dm-other">Tignes – Val d'Isère (Espace Killy)<span>300 km</span></a><a href="grand-massif.html" class="dm-other">Le Grand Massif<span>265 km</span></a></div>
 </div>
 
 <footer class="footer">
@@ -285,7 +291,7 @@
 
 <script>
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=1400&q=80"];
+var DM_HERO_URLS = ["../img/megeve1.jpg","../img/saintgervais1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;
