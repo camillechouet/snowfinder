@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>Combloux — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
-  <meta name="description" content="Combloux : 60 km de pistes, altitude 1000-1852m, forfait 28€/jour. Surnommé le balcon du Mont-Blanc. Vue panoramique à 360° sur les massifs alpins. Village avec chapel">
+  <meta name="description" content="Combloux : 45 km de pistes, altitude 1000-1852m, forfait 28€/jour. Surnommé le balcon du Mont-Blanc. Vue panoramique à 360° sur les massifs alpins. Village avec chapel">
   <link rel="canonical" href="https://snowfinder.fr/stations/combloux.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SnowFinder">
   <meta property="og:url" content="https://snowfinder.fr/stations/combloux.html">
   <meta property="og:title" content="Combloux — Station de ski | SnowFinder">
-  <meta property="og:description" content="60 km · 1852m · 28€/j · Alpes du Nord">
+  <meta property="og:description" content="45 km · 1852m · 28€/j · Alpes du Nord">
   <meta property="og:image" content="https://images.unsplash.com/photo-1528659862616-22886eb53642?w=1200&q=80">
   <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
@@ -369,7 +369,10 @@
     .fav-star.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
 
     /* DOMAINE SKIABLE RELIÉ — encadré riche, couleur distincte (ambre/or) */
-    .domaine-box{
+    .station-fermee{background:#fff4e5;border:1.5px solid #f0b429;border-left:5px solid #f0b429;border-radius:12px;padding:16px 18px;margin:0 0 20px}
+.sf-titre{font-family:"DM Sans",sans-serif;font-weight:700;font-size:1rem;color:#8a5a00;margin-bottom:6px}
+.sf-texte{font-size:.88rem;line-height:1.55;color:#6b4a05}
+.domaine-box{
       display:block;text-decoration:none;color:inherit;margin:18px 0;border-radius:18px;overflow:hidden;
       background:linear-gradient(145deg,#0d3a6e 0%,#1a5a8a 100%);border:1px solid #0d3a6e;color:#fff;
       box-shadow:0 4px 18px rgba(13,58,110,.22);transition:transform .15s,box-shadow .15s
@@ -835,7 +838,7 @@ function closeStation(){
   <!-- STATS 5 colonnes -->
   <div class="stats-grid">
     <div class="stat-box">
-      <div class="stat-val">60 km</div>
+      <div class="stat-val">45 km</div>
       <div class="stat-lbl">Pistes skiables</div>
     </div>
     <div class="stat-box">
@@ -844,10 +847,10 @@ function closeStation(){
     </div>
     <div class="stat-box">
       <div class="stat-val">1852m</div>
-      <div class="stat-lbl">Sommet (domaine)</div>
+      <div class="stat-lbl">Sommet</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val">24</div>
+      <div class="stat-val">14</div>
       <div class="stat-lbl">Remontées (estim.)</div>
     </div>
     <div class="stat-box">
@@ -856,15 +859,17 @@ function closeStation(){
     </div>
   </div>
 
+  
+
   <a href="../domaines/evasion-mont-blanc.html" class="domaine-box">
     <div class="domaine-box-head">
       <div class="domaine-box-tag">🏔️ Domaine skiable relié</div>
       <div class="domaine-box-name">Évasion Mont-Blanc <span class="domaine-box-arrow">→</span></div>
     </div>
     <div class="domaine-box-stats">
-      <div><div class="dbs-val">263 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
+      <div><div class="dbs-val">458 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
       <div><div class="dbs-val">850-2353m</div><div class="dbs-lbl">Altitude</div></div>
-      <div><div class="dbs-val">107</div><div class="dbs-lbl">Remontées</div></div>
+      <div><div class="dbs-val">146</div><div class="dbs-lbl">Remontées</div></div>
       <div><div class="dbs-val">50€</div><div class="dbs-lbl">Forfait domaine/j</div></div>
     </div>
     <div class="domaine-box-foot">5 stations reliées, dont Combloux · voir la fiche complète du domaine</div>
@@ -912,7 +917,7 @@ function closeStation(){
 
         <!-- PISTES -->
         <div class="section">
-          <div class="section-title">Domaine skiable — 60 km · 1000m à 1852m</div>
+          <div class="section-title">Domaine skiable — 45 km · 1000m à 1852m</div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#2ea84e"></div>
             <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Vertes</span>
@@ -945,8 +950,8 @@ function closeStation(){
           <p style="font-size:.88rem;line-height:1.72;color:var(--text-mid)">
             <strong>Combloux</strong> est une station de ski du massif <strong>Alpes du Nord</strong>,
             en <strong>Évasion Mont-Blanc, Haute-Savoie</strong>. Le domaine s'étend sur
-            <strong>60 km de pistes</strong> entre 1000 m et 1852 m,
-            desservi par 24 remontées mécaniques. Forfait journée à partir de
+            <strong>45 km de pistes</strong> entre 1000 m et 1852 m,
+            desservi par 14 remontées mécaniques. Forfait journée à partir de
             <strong>28€</strong> par adulte.
           </p>
         </div>
@@ -1047,11 +1052,11 @@ function closeStation(){
       <div class="tab-content" id="tab-domaine">
         <div class="dt-hero">
           <h3>🏔️ Évasion Mont-Blanc</h3>
-          <p>Megève, Saint-Gervais, Combloux, La Giettaz et Les Contamines-Montjoie, réunies au pied du toit de l'Europe. Megève, inventée dans les années 20 par la baronne de Rothschild qui voulait un Saint-Moritz français, reste la station de l'élégance à la française : village médiéval, calèches, tables étoilées. Le ski y est plutôt doux, sur de longues pistes en forêt à l'exposition généreuse. Attention à une subtilité : sur les 445 km annoncés par le forfait, 263 km seulement sont réellement reliés par remontées — Les Contamines et Cordon nécessitent un transfert. Le panorama sur le Mont-Blanc, lui, est constant.</p>
+          <p>Megève, Saint-Gervais, Combloux, La Giettaz et Les Contamines-Montjoie, réunies au pied du toit de l'Europe. Megève, inventée dans les années 20 par la baronne de Rothschild qui voulait un Saint-Moritz français, reste la station de l'élégance à la française : village médiéval, calèches, tables étoilées. Le ski y est plutôt doux, sur de longues pistes en forêt à l'exposition généreuse. Attention à une subtilité : sur les 445 km annoncés par le forfait, une partie seulement est réellement reliée skis aux pieds — Les Contamines nécessite un transfert, et Megève/Combloux/La Giettaz se partagent des massifs communs (Rochebrune-Mont d'Arbois côté Megève-Saint-Gervais, Portes du Mont-Blanc côté Combloux-Giettaz) qui ne se répartissent pas proprement station par station. Le panorama sur le Mont-Blanc, lui, est constant.</p>
         </div>
         <div class="domaine-stats-mini">
-          <div><strong>263 km</strong><span>de pistes reliées</span></div>
-          <div><strong>107</strong><span>remontées</span></div>
+          <div><strong>458 km</strong><span>de pistes reliées</span></div>
+          <div><strong>146</strong><span>remontées</span></div>
           <div><strong>50€</strong><span>forfait domaine/j</span></div>
           <div><strong>850-2353m</strong><span>altitude</span></div>
         </div>
@@ -1061,7 +1066,7 @@ function closeStation(){
         <div class="domaine-soeur-name">Megève</div>
         <div class="domaine-soeur-stats">
           <span>🏘 1113m</span>
-          <span>🎿 230 km</span>
+          <span>🎿 220 km</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
@@ -1069,7 +1074,7 @@ function closeStation(){
         <div class="domaine-soeur-name">Saint-Gervais</div>
         <div class="domaine-soeur-stats">
           <span>🏘 850m</span>
-          <span>🎿 45 km</span>
+          <span>🎿 53 km</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
@@ -1210,7 +1215,7 @@ function closeStation(){
 
         <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%)">
           <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Combloux</div>
-          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Station à dimension humaine, Combloux mise sur la qualité de l'accueil et la proximité plutôt que sur les chiffres impressionnants. Ses 60 km de pistes conviennent parfaitement pour un séjour de 3 à 4 jours, surtout en famille ou pour les skieurs qui n'ont pas besoin de renouveler constamment leur terrain de jeu. La réputation familiale de Combloux n'est pas usurpée : espaces débutants dédiés, garderie bien organisée, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Alpes du Nord pour poser les bases du ski avec des enfants. L'altitude modérée de Combloux — départ à 1000 m, sommet à 1852 m — la rend sensible aux variations climatiques. Les mois de janvier et février restent les plus sûrs pour un enneigement optimal. En dehors de cette fenêtre, le suivi des bulletins d'enneigement avant le départ est fortement conseillé. Le forfait journée à 28€ reste raisonnable pour la qualité du domaine offert. En comptant hébergement, ski et repas, Combloux s'adresse à ceux qui veulent passer une belle semaine sans que la note finale ne les fasse tomber de leur chaise. En résumé : Combloux est une de ces rares stations qui réunit un vrai village, une ambiance familiale sincère et des pistes adaptées à tous. Difficile de rater son séjour ici.</p>
+          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Station à dimension humaine, Combloux mise sur la qualité de l'accueil et la proximité plutôt que sur les chiffres impressionnants. Ses 45 km de pistes conviennent parfaitement pour un séjour de 3 à 4 jours, surtout en famille ou pour les skieurs qui n'ont pas besoin de renouveler constamment leur terrain de jeu. La réputation familiale de Combloux n'est pas usurpée : espaces débutants dédiés, garderie bien organisée, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Alpes du Nord pour poser les bases du ski avec des enfants. L'altitude modérée de Combloux — départ à 1000 m, sommet à 1852 m — la rend sensible aux variations climatiques. Les mois de janvier et février restent les plus sûrs pour un enneigement optimal. En dehors de cette fenêtre, le suivi des bulletins d'enneigement avant le départ est fortement conseillé. Le forfait journée à 28€ reste raisonnable pour la qualité du domaine offert. En comptant hébergement, ski et repas, Combloux s'adresse à ceux qui veulent passer une belle semaine sans que la note finale ne les fasse tomber de leur chaise. En résumé : Combloux est une de ces rares stations qui réunit un vrai village, une ambiance familiale sincère et des pistes adaptées à tous. Difficile de rater son séjour ici.</p>
         </div>
 
 

@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>Praz-sur-Arly — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
-  <meta name="description" content="Praz-sur-Arly : 192 km de pistes, altitude 1036-2070m, forfait 30€/jour. Station tranquille du Val d'Arly reliée à l'Espace Diamant. Village préservé à 30 min de Megève.">
+  <meta name="description" content="Praz-sur-Arly : 30 km de pistes, altitude 1036-2070m, forfait 30€/jour. Station tranquille du Val d'Arly reliée à l'Espace Diamant. Village préservé à 30 min de Megève.">
   <link rel="canonical" href="https://snowfinder.fr/stations/praz-sur-arly.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SnowFinder">
   <meta property="og:url" content="https://snowfinder.fr/stations/praz-sur-arly.html">
   <meta property="og:title" content="Praz-sur-Arly — Station de ski | SnowFinder">
-  <meta property="og:description" content="192 km · 2070m · 30€/j · Alpes du Nord">
+  <meta property="og:description" content="30 km · 2070m · 30€/j · Alpes du Nord">
   <meta property="og:image" content="https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1200&q=80">
   <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
@@ -369,7 +369,10 @@
     .fav-star.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
 
     /* DOMAINE SKIABLE RELIÉ — encadré riche, couleur distincte (ambre/or) */
-    .domaine-box{
+    .station-fermee{background:#fff4e5;border:1.5px solid #f0b429;border-left:5px solid #f0b429;border-radius:12px;padding:16px 18px;margin:0 0 20px}
+.sf-titre{font-family:"DM Sans",sans-serif;font-weight:700;font-size:1rem;color:#8a5a00;margin-bottom:6px}
+.sf-texte{font-size:.88rem;line-height:1.55;color:#6b4a05}
+.domaine-box{
       display:block;text-decoration:none;color:inherit;margin:18px 0;border-radius:18px;overflow:hidden;
       background:linear-gradient(145deg,#0d3a6e 0%,#1a5a8a 100%);border:1px solid #0d3a6e;color:#fff;
       box-shadow:0 4px 18px rgba(13,58,110,.22);transition:transform .15s,box-shadow .15s
@@ -835,8 +838,8 @@ function closeStation(){
   <!-- STATS 5 colonnes -->
   <div class="stats-grid">
     <div class="stat-box">
-      <div class="stat-val">192 km</div>
-      <div class="stat-lbl">Pistes (domaine partagé)</div>
+      <div class="stat-val">30 km</div>
+      <div class="stat-lbl">Pistes skiables</div>
     </div>
     <div class="stat-box">
       <div class="stat-val">1036m</div>
@@ -844,17 +847,19 @@ function closeStation(){
     </div>
     <div class="stat-box">
       <div class="stat-val">2070m</div>
-      <div class="stat-lbl">Sommet</div>
+      <div class="stat-lbl">Sommet (domaine)</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val">81</div>
-      <div class="stat-lbl">Remontées (partagées)</div>
+      <div class="stat-val">10</div>
+      <div class="stat-lbl">Remontées (estim.)</div>
     </div>
     <div class="stat-box">
       <div class="stat-val">30€</div>
       <div class="stat-lbl">Forfait / jour</div>
     </div>
   </div>
+
+  
 
   <a href="../domaines/espace-diamant.html" class="domaine-box">
     <div class="domaine-box-head">
@@ -864,7 +869,7 @@ function closeStation(){
     <div class="domaine-box-stats">
       <div><div class="dbs-val">192 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
       <div><div class="dbs-val">910-2069m</div><div class="dbs-lbl">Altitude</div></div>
-      <div><div class="dbs-val">81</div><div class="dbs-lbl">Remontées</div></div>
+      <div><div class="dbs-val">66</div><div class="dbs-lbl">Remontées</div></div>
       <div><div class="dbs-val">46€</div><div class="dbs-lbl">Forfait domaine/j</div></div>
     </div>
     <div class="domaine-box-foot">6 stations reliées, dont Praz-sur-Arly · voir la fiche complète du domaine</div>
@@ -912,7 +917,7 @@ function closeStation(){
 
         <!-- PISTES -->
         <div class="section">
-          <div class="section-title">Domaine skiable — 192 km · 1036m à 2070m</div>
+          <div class="section-title">Domaine skiable — 30 km · 1036m à 2070m</div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#2ea84e"></div>
             <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Vertes</span>
@@ -945,8 +950,8 @@ function closeStation(){
           <p style="font-size:.88rem;line-height:1.72;color:var(--text-mid)">
             <strong>Praz-sur-Arly</strong> est une station de ski du massif <strong>Alpes du Nord</strong>,
             en <strong>Val d'Arly, Haute-Savoie</strong>. Le domaine s'étend sur
-            <strong>192 km de pistes</strong> entre 1036 m et 2070 m,
-            desservi par 81 remontées mécaniques. Forfait journée à partir de
+            <strong>30 km de pistes</strong> entre 1036 m et 2070 m,
+            desservi par 10 remontées mécaniques. Forfait journée à partir de
             <strong>30€</strong> par adulte.
           </p>
         </div>
@@ -1056,7 +1061,7 @@ function closeStation(){
         </div>
         <div class="domaine-stats-mini">
           <div><strong>192 km</strong><span>de pistes reliées</span></div>
-          <div><strong>81</strong><span>remontées</span></div>
+          <div><strong>66</strong><span>remontées</span></div>
           <div><strong>46€</strong><span>forfait domaine/j</span></div>
           <div><strong>910-2069m</strong><span>altitude</span></div>
         </div>
@@ -1066,7 +1071,7 @@ function closeStation(){
         <div class="domaine-soeur-name">Les Saisies</div>
         <div class="domaine-soeur-stats">
           <span>🏘 1650m</span>
-          <span>🎿 —</span>
+          <span>🎿 77 km</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
@@ -1074,7 +1079,7 @@ function closeStation(){
         <div class="domaine-soeur-name">Crest-Voland</div>
         <div class="domaine-soeur-stats">
           <span>🏘 1230m</span>
-          <span>🎿 —</span>
+          <span>🎿 35 km</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
@@ -1082,7 +1087,7 @@ function closeStation(){
         <div class="domaine-soeur-name">Notre-Dame-de-Bellecombe</div>
         <div class="domaine-soeur-stats">
           <span>🏘 1150m</span>
-          <span>🎿 —</span>
+          <span>🎿 25 km</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
@@ -1090,7 +1095,7 @@ function closeStation(){
         <div class="domaine-soeur-name">Flumet</div>
         <div class="domaine-soeur-stats">
           <span>🏘 1000m</span>
-          <span>🎿 —</span>
+          <span>🎿 15 km</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
@@ -1098,7 +1103,7 @@ function closeStation(){
         <div class="domaine-soeur-name">Hauteluce</div>
         <div class="domaine-soeur-stats">
           <span>🏘 1150m</span>
-          <span>🎿 —</span>
+          <span>🎿 10 km</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a></div>

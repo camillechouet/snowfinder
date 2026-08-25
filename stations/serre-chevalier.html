@@ -369,7 +369,10 @@
     .fav-star.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
 
     /* DOMAINE SKIABLE RELIÉ — encadré riche, couleur distincte (ambre/or) */
-    .domaine-box{
+    .station-fermee{background:#fff4e5;border:1.5px solid #f0b429;border-left:5px solid #f0b429;border-radius:12px;padding:16px 18px;margin:0 0 20px}
+.sf-titre{font-family:"DM Sans",sans-serif;font-weight:700;font-size:1rem;color:#8a5a00;margin-bottom:6px}
+.sf-texte{font-size:.88rem;line-height:1.55;color:#6b4a05}
+.domaine-box{
       display:block;text-decoration:none;color:inherit;margin:18px 0;border-radius:18px;overflow:hidden;
       background:linear-gradient(145deg,#0d3a6e 0%,#1a5a8a 100%);border:1px solid #0d3a6e;color:#fff;
       box-shadow:0 4px 18px rgba(13,58,110,.22);transition:transform .15s,box-shadow .15s
@@ -836,7 +839,7 @@ function closeStation(){
   <div class="stats-grid">
     <div class="stat-box">
       <div class="stat-val">250 km</div>
-      <div class="stat-lbl">Pistes (domaine partagé)</div>
+      <div class="stat-lbl">Pistes skiables</div>
     </div>
     <div class="stat-box">
       <div class="stat-val">1350m</div>
@@ -844,17 +847,19 @@ function closeStation(){
     </div>
     <div class="stat-box">
       <div class="stat-val">2800m</div>
-      <div class="stat-lbl">Sommet</div>
+      <div class="stat-lbl">Sommet (domaine)</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val">60</div>
-      <div class="stat-lbl">Remontées (partagées)</div>
+      <div class="stat-val">59</div>
+      <div class="stat-lbl">Remontées (estim.)</div>
     </div>
     <div class="stat-box">
       <div class="stat-val">50€</div>
       <div class="stat-lbl">Forfait / jour</div>
     </div>
   </div>
+
+  
 
   <a href="../domaines/serre-chevalier-vallee.html" class="domaine-box">
     <div class="domaine-box-head">
@@ -864,7 +869,7 @@ function closeStation(){
     <div class="domaine-box-stats">
       <div><div class="dbs-val">250 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
       <div><div class="dbs-val">1200-2830m</div><div class="dbs-lbl">Altitude</div></div>
-      <div><div class="dbs-val">60</div><div class="dbs-lbl">Remontées</div></div>
+      <div><div class="dbs-val">59</div><div class="dbs-lbl">Remontées</div></div>
       <div><div class="dbs-val">63€</div><div class="dbs-lbl">Forfait domaine/j</div></div>
     </div>
     <div class="domaine-box-foot">1 stations reliées, dont Serre Chevalier · voir la fiche complète du domaine</div>
@@ -946,7 +951,7 @@ function closeStation(){
             <strong>Serre Chevalier</strong> est une station de ski du massif <strong>Alpes du Sud</strong>,
             en <strong>Hautes-Alpes</strong>. Le domaine s'étend sur
             <strong>250 km de pistes</strong> entre 1350 m et 2800 m,
-            desservi par 60 remontées mécaniques. Forfait journée à partir de
+            desservi par 59 remontées mécaniques. Forfait journée à partir de
             <strong>50€</strong> par adulte.
           </p>
         </div>
@@ -1066,7 +1071,7 @@ function closeStation(){
         </div>
         <div class="domaine-stats-mini">
           <div><strong>250 km</strong><span>de pistes reliées</span></div>
-          <div><strong>60</strong><span>remontées</span></div>
+          <div><strong>59</strong><span>remontées</span></div>
           <div><strong>63€</strong><span>forfait domaine/j</span></div>
           <div><strong>1200-2830m</strong><span>altitude</span></div>
         </div>

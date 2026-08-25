@@ -369,7 +369,10 @@
     .fav-star.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
 
     /* DOMAINE SKIABLE RELIÉ — encadré riche, couleur distincte (ambre/or) */
-    .domaine-box{
+    .station-fermee{background:#fff4e5;border:1.5px solid #f0b429;border-left:5px solid #f0b429;border-radius:12px;padding:16px 18px;margin:0 0 20px}
+.sf-titre{font-family:"DM Sans",sans-serif;font-weight:700;font-size:1rem;color:#8a5a00;margin-bottom:6px}
+.sf-texte{font-size:.88rem;line-height:1.55;color:#6b4a05}
+.domaine-box{
       display:block;text-decoration:none;color:inherit;margin:18px 0;border-radius:18px;overflow:hidden;
       background:linear-gradient(145deg,#0d3a6e 0%,#1a5a8a 100%);border:1px solid #0d3a6e;color:#fff;
       box-shadow:0 4px 18px rgba(13,58,110,.22);transition:transform .15s,box-shadow .15s
@@ -844,10 +847,10 @@ function closeStation(){
     </div>
     <div class="stat-box">
       <div class="stat-val">2809m</div>
-      <div class="stat-lbl">Sommet</div>
+      <div class="stat-lbl">Sommet (domaine)</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val">16</div>
+      <div class="stat-val">17</div>
       <div class="stat-lbl">Remontées (estim.)</div>
     </div>
     <div class="stat-box">
@@ -856,18 +859,20 @@ function closeStation(){
     </div>
   </div>
 
+  
+
   <a href="../domaines/espace-san-bernardo.html" class="domaine-box">
     <div class="domaine-box-head">
       <div class="domaine-box-tag">🏔️ Domaine skiable relié</div>
       <div class="domaine-box-name">Espace San Bernardo <span class="domaine-box-arrow">→</span></div>
     </div>
     <div class="domaine-box-stats">
-      <div><div class="dbs-val">156 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
+      <div><div class="dbs-val">143 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
       <div><div class="dbs-val">1190-2800m</div><div class="dbs-lbl">Altitude</div></div>
       <div><div class="dbs-val">38</div><div class="dbs-lbl">Remontées</div></div>
       <div><div class="dbs-val">54€</div><div class="dbs-lbl">Forfait domaine/j</div></div>
     </div>
-    <div class="domaine-box-foot">1 stations reliées, dont La Rosière · voir la fiche complète du domaine</div>
+    <div class="domaine-box-foot">2 stations reliées, dont La Rosière · voir la fiche complète du domaine</div>
   </a>
 
   <div class="main-grid">
@@ -946,7 +951,7 @@ function closeStation(){
             <strong>La Rosière</strong> est une station de ski du massif <strong>Alpes du Nord</strong>,
             en <strong>Espace San Bernardo, Savoie</strong>. Le domaine s'étend sur
             <strong>65 km de pistes</strong> entre 1850 m et 2809 m,
-            desservi par 16 remontées mécaniques. Forfait journée à partir de
+            desservi par 17 remontées mécaniques. Forfait journée à partir de
             <strong>38€</strong> par adulte.
           </p>
         </div>
@@ -1055,14 +1060,21 @@ function closeStation(){
           <p>La Rosière côté français, La Thuile côté italien, reliées par le col du Petit-Saint-Bernard — le même que franchissait Hannibal avec ses éléphants, dit la légende. C'est le seul domaine international des Alpes du Nord, et l'un des rares endroits où l'on peut déjeuner d'une assiette de pâtes en Vallée d'Aoste avant de rentrer skier en Savoie l'après-midi. La Rosière est plein sud, face au massif du Mont-Blanc, avec un ensoleillement remarquable ; La Thuile est plus ombragée et plus raide, avec la fameuse piste Franco Berthod qui accueille la Coupe du monde féminine. Vent au col : la liaison ferme parfois.</p>
         </div>
         <div class="domaine-stats-mini">
-          <div><strong>156 km</strong><span>de pistes reliées</span></div>
+          <div><strong>143 km</strong><span>de pistes reliées</span></div>
           <div><strong>38</strong><span>remontées</span></div>
           <div><strong>54€</strong><span>forfait domaine/j</span></div>
           <div><strong>1190-2800m</strong><span>altitude</span></div>
         </div>
         
         <a href="../domaines/espace-san-bernardo.html" class="domaine-see-all">Voir la fiche complète du domaine →</a>
-        
+        <h4 class="dt-subtitle">Les autres stations du domaine</h4><div class="domaine-soeurs-grid"><a href="la-thuile.html" class="domaine-soeur-card">
+        <div class="domaine-soeur-name">La Thuile</div>
+        <div class="domaine-soeur-stats">
+          <span>🏘 ?m</span>
+          <span>🎿 78 km</span>
+        </div>
+        <div class="domaine-soeur-sub">Voir la fiche →</div>
+      </a></div>
       </div>
 
       <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->

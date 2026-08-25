@@ -369,7 +369,10 @@
     .fav-star.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
 
     /* DOMAINE SKIABLE RELIÉ — encadré riche, couleur distincte (ambre/or) */
-    .domaine-box{
+    .station-fermee{background:#fff4e5;border:1.5px solid #f0b429;border-left:5px solid #f0b429;border-radius:12px;padding:16px 18px;margin:0 0 20px}
+.sf-titre{font-family:"DM Sans",sans-serif;font-weight:700;font-size:1rem;color:#8a5a00;margin-bottom:6px}
+.sf-texte{font-size:.88rem;line-height:1.55;color:#6b4a05}
+.domaine-box{
       display:block;text-decoration:none;color:inherit;margin:18px 0;border-radius:18px;overflow:hidden;
       background:linear-gradient(145deg,#0d3a6e 0%,#1a5a8a 100%);border:1px solid #0d3a6e;color:#fff;
       box-shadow:0 4px 18px rgba(13,58,110,.22);transition:transform .15s,box-shadow .15s
@@ -858,6 +861,8 @@ function closeStation(){
 
   
 
+  
+
   <div class="main-grid">
 
     <!-- COLONNE PRINCIPALE : 5 ONGLETS -->
@@ -889,6 +894,13 @@ function closeStation(){
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Champsaur ensoleillé</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Parfaite pour les familles</li></ul>
           
+          <div class="anecdote-box">
+            <div class="ab-icon">💡</div>
+            <div>
+              <div class="ab-label">Le saviez-vous ?</div>
+              <div class="ab-text">Le 8 juillet 1971, l'Espagnol Luis Ocaña y a réalisé l'un des plus grands exploits de l'histoire du Tour de France : 60 km d'échappée en solitaire pour reléguer Eddy Merckx à 8 min 42 s — le seul jour où le « Cannibale » fut réellement humilié en montagne. Merckx dira après sa victoire finale : « J'ai perdu le Tour à Orcières ».</div><div class="ab-text">Station pionnière à plusieurs titres : premier jardin des neiges de France (1967) et premier télémix de France (2003).</div>
+            </div>
+          </div>
         </div>
 
         <!-- PISTES -->
@@ -1345,7 +1357,7 @@ function closeStation(){
 
   <!-- Lien site officiel -->
   <div style="text-align:center;padding:0 24px">
-    <a href="https://www.google.com/search?q=Orcières+Merlette+1850+station+ski+site+officiel" target="_blank" rel="noopener" onclick="hideOfficialSheet()" style="display:inline-block;font-size:.88rem;color:#5c4a35;font-weight:600;text-decoration:underline;padding:8px 16px">
+    <a href="https://www.orcieres.com" target="_blank" rel="noopener" onclick="hideOfficialSheet()" style="display:inline-block;font-size:.88rem;color:#5c4a35;font-weight:600;text-decoration:underline;padding:8px 16px">
       Non merci — continuer vers le site officiel de Orcières Merlette 1850 →
     </a>
   </div>
