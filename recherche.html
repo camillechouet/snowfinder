@@ -807,11 +807,14 @@ body.ete .fr.active .dot { border-color: #4aaa5a; background: #4aaa5a; }
 .ia-panel {
   background: white; border-radius: 20px 20px 0 0;
   width: 100%; max-width: 640px;
-  max-height: 90vh; overflow-y: auto;
+  max-height: 94vh; overflow-y: auto;
   box-shadow: 0 -8px 40px rgba(0,0,0,.2);
   transform: translateY(100%);
   transition: transform .4s cubic-bezier(.34,1.56,.64,1);
   padding-bottom: env(safe-area-inset-bottom);
+}
+@media (min-width: 768px) {
+  .ia-panel { max-width: 860px; max-height: 90vh; }
 }
 .ia-panel-overlay.open .ia-panel { transform: translateY(0); }
 
