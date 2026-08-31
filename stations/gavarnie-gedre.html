@@ -145,12 +145,17 @@
 
     /* ONGLETS — pleine largeur sous le hero, TOUT est visible (pas de scroll horizontal) */
     .tab-nav-wrap{position:relative;background:white;border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.04)}
-    .tab-nav{display:flex;flex-wrap:wrap;gap:0;max-width:1240px;margin:0 auto;padding:0 8px}
-    .tab-btn{flex:1 1 auto;padding:13px 10px 11px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.76rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:.005em;white-space:nowrap;border-bottom:3px solid transparent;text-align:center}
+    .tab-nav{display:flex;flex-wrap:nowrap;gap:0;max-width:1240px;margin:0 auto;padding:0 2px}
+    .tab-btn{flex:1 1 0;min-width:0;padding:10px 2px 8px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.62rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:0;white-space:normal;word-break:normal;overflow-wrap:break-word;border-bottom:3px solid transparent;text-align:center;line-height:1.15}
     .tab-btn.active{color:var(--blue-dark);border-bottom-color:var(--blue-mid);background:transparent}
     .tab-btn:hover:not(.active){color:var(--blue-mid)}
     .tab-content{display:none;background:white;border:1px solid var(--border);border-radius:14px;padding:18px 14px;min-height:200px}
     .tab-content.active{display:block}
+    /* LIRE PLUS / VOIR MOINS — textes longs (avis, description) */
+    .readmore-wrap{position:relative;max-height:118px;overflow:hidden;transition:max-height .35s ease}
+    .readmore-wrap.expanded{max-height:3000px}
+    .readmore-wrap:not(.expanded)::after{content:'';position:absolute;bottom:0;left:0;right:0;height:38px;background:linear-gradient(transparent,var(--rm-bg,white))}
+    .readmore-btn{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:10px;font-size:.78rem;font-weight:800;color:var(--blue-mid);cursor:pointer;padding:6px;user-select:none}
 
     /* ORIENTATION / EXPOSITION */
     .compass-card{display:flex;align-items:center;gap:22px;background:linear-gradient(135deg,var(--blue-light),var(--wood-pale));border-radius:14px;padding:22px;margin-bottom:18px;flex-wrap:wrap}
@@ -658,7 +663,11 @@ function switchTab(name, btn){
   document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
   document.getElementById('tab-'+name).classList.add('active');
   btn.classList.add('active');
-  btn.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+}
+function toggleReadMore(id, btn){
+  var el = document.getElementById(id);
+  var expanded = el.classList.toggle('expanded');
+  btn.textContent = expanded ? 'Voir moins ▲' : 'Lire plus ▼';
 }
 (function(){
   var nav = document.getElementById('tabNav'), wrap = document.getElementById('tabNavWrap'), hint = document.getElementById('tabScrollHint');
@@ -900,7 +909,10 @@ function closeStation(){
         <div class="section">
           <div class="section-title">À propos de Gavarnie-Gèdre</div>
           
-          <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Gavarnie-Gèdre est une station au pied du Cirque de Gavarnie, classé UNESCO, à 1350 m. Ses 30 km de pistes offrent une vue unique sur ce cirque glaciaire de 1500 m de hauteur. Station familiale dans un cadre naturel grandiose, classé parmi les plus beaux sites naturels d'Europe.</p>
+          <div class="readmore-wrap" id="rm-desc">
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Gavarnie-Gèdre est une station au pied du Cirque de Gavarnie, classé UNESCO, à 1350 m. Ses 30 km de pistes offrent une vue unique sur ce cirque glaciaire de 1500 m de hauteur. Station familiale dans un cadre naturel grandiose, classé parmi les plus beaux sites naturels d'Europe.</p>
+          </div>
+          <div class="readmore-btn" onclick="toggleReadMore('rm-desc',this)">Lire plus ▼</div>
           <ul style="margin-top:14px;padding-left:0;list-style:none"><li style="padding:5px 0;border-bottom:1px solid #f7efe2">Face au cirque de Gavarnie UNESCO</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Cascade de Gavarnie 422m</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Paysage pyrénéen exceptionnel</li></ul>
@@ -1172,9 +1184,12 @@ function closeStation(){
       <!-- ONGLET 5 : NOTRE AVIS -->
       <div class="tab-content" id="tab-avis">
 
-        <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%)">
+        <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%);--rm-bg:var(--blue-light)">
           <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Gavarnie-Gèdre</div>
-          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Station à dimension humaine, Gavarnie-Gèdre mise sur la qualité de l'accueil et la proximité plutôt que sur les chiffres impressionnants. Ses 32 km de pistes conviennent parfaitement pour un séjour de 3 à 4 jours, surtout en famille ou pour les skieurs qui n'ont pas besoin de renouveler constamment leur terrain de jeu. La réputation familiale de Gavarnie-Gèdre n'est pas usurpée : espaces débutants dédiés, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Pyrénées pour poser les bases du ski avec des enfants. L'altitude de Gavarnie-Gèdre (1350 m au départ, 2400 m en haut) lui permet de maintenir un enneigement correct en plein hiver. Les mois de janvier et février sont les plus fiables ; en décembre et mars, il vaut mieux vérifier les conditions avant de finaliser une réservation. Le forfait journée à 28€ reste raisonnable pour la qualité du domaine offert. En comptant hébergement, ski et repas, Gavarnie-Gèdre s'adresse à ceux qui veulent passer une belle semaine sans que la note finale ne les fasse tomber de leur chaise. En résumé : Gavarnie-Gèdre est une de ces rares stations qui réunit un vrai village, une ambiance familiale sincère et des pistes adaptées à tous. Difficile de rater son séjour ici.</p>
+          <div class="readmore-wrap" id="rm-avis">
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Station à dimension humaine, Gavarnie-Gèdre mise sur la qualité de l'accueil et la proximité plutôt que sur les chiffres impressionnants. Ses 32 km de pistes conviennent parfaitement pour un séjour de 3 à 4 jours, surtout en famille ou pour les skieurs qui n'ont pas besoin de renouveler constamment leur terrain de jeu. La réputation familiale de Gavarnie-Gèdre n'est pas usurpée : espaces débutants dédiés, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Pyrénées pour poser les bases du ski avec des enfants. L'altitude de Gavarnie-Gèdre (1350 m au départ, 2400 m en haut) lui permet de maintenir un enneigement correct en plein hiver. Les mois de janvier et février sont les plus fiables ; en décembre et mars, il vaut mieux vérifier les conditions avant de finaliser une réservation. Le forfait journée à 28€ reste raisonnable pour la qualité du domaine offert. En comptant hébergement, ski et repas, Gavarnie-Gèdre s'adresse à ceux qui veulent passer une belle semaine sans que la note finale ne les fasse tomber de leur chaise. En résumé : Gavarnie-Gèdre est une de ces rares stations qui réunit un vrai village, une ambiance familiale sincère et des pistes adaptées à tous. Difficile de rater son séjour ici.</p>
+          </div>
+          <div class="readmore-btn" onclick="toggleReadMore('rm-avis',this)">Lire plus ▼</div>
         </div>
 
 

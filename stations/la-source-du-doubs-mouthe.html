@@ -145,12 +145,17 @@
 
     /* ONGLETS — pleine largeur sous le hero, TOUT est visible (pas de scroll horizontal) */
     .tab-nav-wrap{position:relative;background:white;border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.04)}
-    .tab-nav{display:flex;flex-wrap:wrap;gap:0;max-width:1240px;margin:0 auto;padding:0 8px}
-    .tab-btn{flex:1 1 auto;padding:13px 10px 11px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.76rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:.005em;white-space:nowrap;border-bottom:3px solid transparent;text-align:center}
+    .tab-nav{display:flex;flex-wrap:nowrap;gap:0;max-width:1240px;margin:0 auto;padding:0 2px}
+    .tab-btn{flex:1 1 0;min-width:0;padding:10px 2px 8px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.62rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:0;white-space:normal;word-break:normal;overflow-wrap:break-word;border-bottom:3px solid transparent;text-align:center;line-height:1.15}
     .tab-btn.active{color:var(--blue-dark);border-bottom-color:var(--blue-mid);background:transparent}
     .tab-btn:hover:not(.active){color:var(--blue-mid)}
     .tab-content{display:none;background:white;border:1px solid var(--border);border-radius:14px;padding:18px 14px;min-height:200px}
     .tab-content.active{display:block}
+    /* LIRE PLUS / VOIR MOINS — textes longs (avis, description) */
+    .readmore-wrap{position:relative;max-height:118px;overflow:hidden;transition:max-height .35s ease}
+    .readmore-wrap.expanded{max-height:3000px}
+    .readmore-wrap:not(.expanded)::after{content:'';position:absolute;bottom:0;left:0;right:0;height:38px;background:linear-gradient(transparent,var(--rm-bg,white))}
+    .readmore-btn{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:10px;font-size:.78rem;font-weight:800;color:var(--blue-mid);cursor:pointer;padding:6px;user-select:none}
 
     /* ORIENTATION / EXPOSITION */
     .compass-card{display:flex;align-items:center;gap:22px;background:linear-gradient(135deg,var(--blue-light),var(--wood-pale));border-radius:14px;padding:22px;margin-bottom:18px;flex-wrap:wrap}
@@ -658,7 +663,11 @@ function switchTab(name, btn){
   document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
   document.getElementById('tab-'+name).classList.add('active');
   btn.classList.add('active');
-  btn.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+}
+function toggleReadMore(id, btn){
+  var el = document.getElementById(id);
+  var expanded = el.classList.toggle('expanded');
+  btn.textContent = expanded ? 'Voir moins ▲' : 'Lire plus ▼';
 }
 (function(){
   var nav = document.getElementById('tabNav'), wrap = document.getElementById('tabNavWrap'), hint = document.getElementById('tabScrollHint');
@@ -900,7 +909,10 @@ function closeStation(){
         <div class="section">
           <div class="section-title">À propos de La Source du Doubs-Mouthe</div>
           
-          <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Mouthe est le village le plus froid de France, souvent surnommé la 'Sibérie française', niché à 941 m dans un creux du Haut-Doubs. Sa station de ski, la Source du Doubs, propose 3 pistes (une verte, une bleue, une rouge) entre 927 et 1172 m, desservies par 3 téléskis. Le froid intense y garantit une neige de culture de qualité.</p>
+          <div class="readmore-wrap" id="rm-desc">
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Mouthe est le village le plus froid de France, souvent surnommé la 'Sibérie française', niché à 941 m dans un creux du Haut-Doubs. Sa station de ski, la Source du Doubs, propose 3 pistes (une verte, une bleue, une rouge) entre 927 et 1172 m, desservies par 3 téléskis. Le froid intense y garantit une neige de culture de qualité.</p>
+          </div>
+          <div class="readmore-btn" onclick="toggleReadMore('rm-desc',this)">Lire plus ▼</div>
           <ul style="margin-top:14px;padding-left:0;list-style:none"><li style="padding:5px 0;border-bottom:1px solid #f7efe2">Ville la plus froide de France</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Source du Doubs mythique</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Ski nordique voisin réputé</li></ul>
@@ -1155,9 +1167,12 @@ function closeStation(){
       <!-- ONGLET 5 : NOTRE AVIS -->
       <div class="tab-content" id="tab-avis">
 
-        <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%)">
+        <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%);--rm-bg:var(--blue-light)">
           <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur La Source du Doubs-Mouthe</div>
-          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">La Source du Doubs-Mouthe est une station confidentielle à l'échelle modeste — 3 km de pistes pour une expérience de ski intimiste, loin de l'agitation des grandes stations. C'est ici qu'on vient chercher le calme, l'authenticité et des files d'attente inexistantes aux remontées. La réputation familiale de La Source du Doubs-Mouthe n'est pas usurpée : espaces débutants dédiés, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Jura pour poser les bases du ski avec des enfants. L'altitude modérée de La Source du Doubs-Mouthe — départ à 927 m, sommet à 1172 m — la rend sensible aux variations climatiques. Les mois de janvier et février restent les plus sûrs pour un enneigement optimal. En dehors de cette fenêtre, le suivi des bulletins d'enneigement avant le départ est fortement conseillé. Avec un forfait journée à seulement 18€, La Source du Doubs-Mouthe est l'une des destinations les plus accessibles de France. Pour les familles à budget maîtrisé ou les skieurs qui veulent multiplier les sorties sans se ruiner, c'est une adresse sincère et souvent méconnue. En résumé : La Source du Doubs-Mouthe ne rivalise pas avec les géants du ski mais ne le prétend pas. C'est une destination honnête, souvent sous-estimée, qui mérite d'être (re)découverte.</p>
+          <div class="readmore-wrap" id="rm-avis">
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">La Source du Doubs-Mouthe est une station confidentielle à l'échelle modeste — 3 km de pistes pour une expérience de ski intimiste, loin de l'agitation des grandes stations. C'est ici qu'on vient chercher le calme, l'authenticité et des files d'attente inexistantes aux remontées. La réputation familiale de La Source du Doubs-Mouthe n'est pas usurpée : espaces débutants dédiés, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Jura pour poser les bases du ski avec des enfants. L'altitude modérée de La Source du Doubs-Mouthe — départ à 927 m, sommet à 1172 m — la rend sensible aux variations climatiques. Les mois de janvier et février restent les plus sûrs pour un enneigement optimal. En dehors de cette fenêtre, le suivi des bulletins d'enneigement avant le départ est fortement conseillé. Avec un forfait journée à seulement 18€, La Source du Doubs-Mouthe est l'une des destinations les plus accessibles de France. Pour les familles à budget maîtrisé ou les skieurs qui veulent multiplier les sorties sans se ruiner, c'est une adresse sincère et souvent méconnue. En résumé : La Source du Doubs-Mouthe ne rivalise pas avec les géants du ski mais ne le prétend pas. C'est une destination honnête, souvent sous-estimée, qui mérite d'être (re)découverte.</p>
+          </div>
+          <div class="readmore-btn" onclick="toggleReadMore('rm-avis',this)">Lire plus ▼</div>
         </div>
 
 

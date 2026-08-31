@@ -145,12 +145,17 @@
 
     /* ONGLETS — pleine largeur sous le hero, TOUT est visible (pas de scroll horizontal) */
     .tab-nav-wrap{position:relative;background:white;border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.04)}
-    .tab-nav{display:flex;flex-wrap:wrap;gap:0;max-width:1240px;margin:0 auto;padding:0 8px}
-    .tab-btn{flex:1 1 auto;padding:13px 10px 11px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.76rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:.005em;white-space:nowrap;border-bottom:3px solid transparent;text-align:center}
+    .tab-nav{display:flex;flex-wrap:nowrap;gap:0;max-width:1240px;margin:0 auto;padding:0 2px}
+    .tab-btn{flex:1 1 0;min-width:0;padding:10px 2px 8px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.62rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:0;white-space:normal;word-break:normal;overflow-wrap:break-word;border-bottom:3px solid transparent;text-align:center;line-height:1.15}
     .tab-btn.active{color:var(--blue-dark);border-bottom-color:var(--blue-mid);background:transparent}
     .tab-btn:hover:not(.active){color:var(--blue-mid)}
     .tab-content{display:none;background:white;border:1px solid var(--border);border-radius:14px;padding:18px 14px;min-height:200px}
     .tab-content.active{display:block}
+    /* LIRE PLUS / VOIR MOINS — textes longs (avis, description) */
+    .readmore-wrap{position:relative;max-height:118px;overflow:hidden;transition:max-height .35s ease}
+    .readmore-wrap.expanded{max-height:3000px}
+    .readmore-wrap:not(.expanded)::after{content:'';position:absolute;bottom:0;left:0;right:0;height:38px;background:linear-gradient(transparent,var(--rm-bg,white))}
+    .readmore-btn{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:10px;font-size:.78rem;font-weight:800;color:var(--blue-mid);cursor:pointer;padding:6px;user-select:none}
 
     /* ORIENTATION / EXPOSITION */
     .compass-card{display:flex;align-items:center;gap:22px;background:linear-gradient(135deg,var(--blue-light),var(--wood-pale));border-radius:14px;padding:22px;margin-bottom:18px;flex-wrap:wrap}
@@ -664,7 +669,11 @@ function switchTab(name, btn){
   document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
   document.getElementById('tab-'+name).classList.add('active');
   btn.classList.add('active');
-  btn.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+}
+function toggleReadMore(id, btn){
+  var el = document.getElementById(id);
+  var expanded = el.classList.toggle('expanded');
+  btn.textContent = expanded ? 'Voir moins ▲' : 'Lire plus ▼';
 }
 (function(){
   var nav = document.getElementById('tabNav'), wrap = document.getElementById('tabNavWrap'), hint = document.getElementById('tabScrollHint');
@@ -918,7 +927,10 @@ function closeStation(){
         <div class="section">
           <div class="section-title">À propos de Les Gets</div>
           <img src="../img/lesgets2.jpg" alt="Les Gets pistes de ski" class="photo-station" loading="lazy">
-          <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Les Gets est un charmant village savoyard à 1172 m, intégré aux Portes du Soleil (600 km). Station familiale par excellence, elle abrite l'unique Musée de la Musique Mécanique de France. Ses pistes bien damées conviennent à tous les niveaux, dans un cadre de village authentique sans architecture de béton.</p>
+          <div class="readmore-wrap" id="rm-desc">
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Les Gets est un charmant village savoyard à 1172 m, intégré aux Portes du Soleil (600 km). Station familiale par excellence, elle abrite l'unique Musée de la Musique Mécanique de France. Ses pistes bien damées conviennent à tous les niveaux, dans un cadre de village authentique sans architecture de béton.</p>
+          </div>
+          <div class="readmore-btn" onclick="toggleReadMore('rm-desc',this)">Lire plus ▼</div>
           <ul style="margin-top:14px;padding-left:0;list-style:none"><li style="padding:5px 0;border-bottom:1px solid #f7efe2">Village authentique architecture savoyarde</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Portes du Soleil 600 km</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Label Famille Plus idéal enfants</li></ul>
@@ -1254,9 +1266,12 @@ function closeStation(){
       <!-- ONGLET 5 : NOTRE AVIS -->
       <div class="tab-content" id="tab-avis">
 
-        <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%)">
+        <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%);--rm-bg:var(--blue-light)">
           <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Les Gets</div>
-          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Les Gets propose 120 km de pistes bien balisées — un domaine de taille intermédiaire idéal pour passer 4 à 5 jours sans jamais faire deux fois exactement la même chose. Les 39 remontées mécaniques sont généralement suffisantes pour absorber le débit en haute saison. La réputation familiale de Les Gets n'est pas usurpée : espaces débutants dédiés, garderie bien organisée, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Alpes du Nord pour poser les bases du ski avec des enfants. L'altitude de Les Gets (1172 m au départ, 2002 m en haut) lui permet de maintenir un enneigement correct en plein hiver. Les mois de janvier et février sont les plus fiables ; en décembre et mars, il vaut mieux vérifier les conditions avant de finaliser une réservation. Le budget séjour à Les Gets est clairement élevé : 54€ le forfait journée, auxquels s'ajoutent des hébergements et des restaurants d'altitude parmi les plus chers des Alpes. C'est le prix de l'excellence — mais il faut en avoir conscience avant de partir. En résumé : Les Gets est une de ces rares stations qui réunit un vrai village, une ambiance familiale sincère et des pistes adaptées à tous. Difficile de rater son séjour ici.</p>
+          <div class="readmore-wrap" id="rm-avis">
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Les Gets propose 120 km de pistes bien balisées — un domaine de taille intermédiaire idéal pour passer 4 à 5 jours sans jamais faire deux fois exactement la même chose. Les 39 remontées mécaniques sont généralement suffisantes pour absorber le débit en haute saison. La réputation familiale de Les Gets n'est pas usurpée : espaces débutants dédiés, garderie bien organisée, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Alpes du Nord pour poser les bases du ski avec des enfants. L'altitude de Les Gets (1172 m au départ, 2002 m en haut) lui permet de maintenir un enneigement correct en plein hiver. Les mois de janvier et février sont les plus fiables ; en décembre et mars, il vaut mieux vérifier les conditions avant de finaliser une réservation. Le budget séjour à Les Gets est clairement élevé : 54€ le forfait journée, auxquels s'ajoutent des hébergements et des restaurants d'altitude parmi les plus chers des Alpes. C'est le prix de l'excellence — mais il faut en avoir conscience avant de partir. En résumé : Les Gets est une de ces rares stations qui réunit un vrai village, une ambiance familiale sincère et des pistes adaptées à tous. Difficile de rater son séjour ici.</p>
+          </div>
+          <div class="readmore-btn" onclick="toggleReadMore('rm-avis',this)">Lire plus ▼</div>
         </div>
 
 

@@ -145,12 +145,17 @@
 
     /* ONGLETS — pleine largeur sous le hero, TOUT est visible (pas de scroll horizontal) */
     .tab-nav-wrap{position:relative;background:white;border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.04)}
-    .tab-nav{display:flex;flex-wrap:wrap;gap:0;max-width:1240px;margin:0 auto;padding:0 8px}
-    .tab-btn{flex:1 1 auto;padding:13px 10px 11px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.76rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:.005em;white-space:nowrap;border-bottom:3px solid transparent;text-align:center}
+    .tab-nav{display:flex;flex-wrap:nowrap;gap:0;max-width:1240px;margin:0 auto;padding:0 2px}
+    .tab-btn{flex:1 1 0;min-width:0;padding:10px 2px 8px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.62rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:0;white-space:normal;word-break:normal;overflow-wrap:break-word;border-bottom:3px solid transparent;text-align:center;line-height:1.15}
     .tab-btn.active{color:var(--blue-dark);border-bottom-color:var(--blue-mid);background:transparent}
     .tab-btn:hover:not(.active){color:var(--blue-mid)}
     .tab-content{display:none;background:white;border:1px solid var(--border);border-radius:14px;padding:18px 14px;min-height:200px}
     .tab-content.active{display:block}
+    /* LIRE PLUS / VOIR MOINS — textes longs (avis, description) */
+    .readmore-wrap{position:relative;max-height:118px;overflow:hidden;transition:max-height .35s ease}
+    .readmore-wrap.expanded{max-height:3000px}
+    .readmore-wrap:not(.expanded)::after{content:'';position:absolute;bottom:0;left:0;right:0;height:38px;background:linear-gradient(transparent,var(--rm-bg,white))}
+    .readmore-btn{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:10px;font-size:.78rem;font-weight:800;color:var(--blue-mid);cursor:pointer;padding:6px;user-select:none}
 
     /* ORIENTATION / EXPOSITION */
     .compass-card{display:flex;align-items:center;gap:22px;background:linear-gradient(135deg,var(--blue-light),var(--wood-pale));border-radius:14px;padding:22px;margin-bottom:18px;flex-wrap:wrap}
@@ -668,7 +673,11 @@ function switchTab(name, btn){
   document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
   document.getElementById('tab-'+name).classList.add('active');
   btn.classList.add('active');
-  btn.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+}
+function toggleReadMore(id, btn){
+  var el = document.getElementById(id);
+  var expanded = el.classList.toggle('expanded');
+  btn.textContent = expanded ? 'Voir moins ▲' : 'Lire plus ▼';
 }
 (function(){
   var nav = document.getElementById('tabNav'), wrap = document.getElementById('tabNavWrap'), hint = document.getElementById('tabScrollHint');
@@ -910,7 +919,10 @@ function closeStation(){
         <div class="section">
           <div class="section-title">À propos de Chamonix</div>
           <img src="../img/chamonix2.jpg" alt="Chamonix pistes de ski" class="photo-station" loading="lazy">
-          <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Chamonix-Mont-Blanc est la capitale mondiale de l'alpinisme, nichée à 1035 m au pied du Mont-Blanc (4808 m). Son domaine de 170 km est réparti entre les Grands Montets, le Brévent et La Flégère. La Vallée Blanche (24 km hors-piste) est la descente glaciaire la plus mythique du monde. Une destination exigeante, plus sauvage que les grandes stations intégrées.</p>
+          <div class="readmore-wrap" id="rm-desc">
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Chamonix-Mont-Blanc est la capitale mondiale de l'alpinisme, nichée à 1035 m au pied du Mont-Blanc (4808 m). Son domaine de 170 km est réparti entre les Grands Montets, le Brévent et La Flégère. La Vallée Blanche (24 km hors-piste) est la descente glaciaire la plus mythique du monde. Une destination exigeante, plus sauvage que les grandes stations intégrées.</p>
+          </div>
+          <div class="readmore-btn" onclick="toggleReadMore('rm-desc',this)">Lire plus ▼</div>
           <ul style="margin-top:14px;padding-left:0;list-style:none"><li style="padding:5px 0;border-bottom:1px solid #f7efe2">Vallée Blanche 24 km hors-piste mythique</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Mont-Blanc 4808m en toile de fond</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Destination freeride #1 en Europe</li></ul>
@@ -1170,9 +1182,12 @@ function closeStation(){
       <!-- ONGLET 5 : NOTRE AVIS -->
       <div class="tab-content" id="tab-avis">
 
-        <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%)">
+        <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%);--rm-bg:var(--blue-light)">
           <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Chamonix</div>
-          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Chamonix propose 110 km de pistes bien balisées — un domaine de taille intermédiaire idéal pour passer 4 à 5 jours sans jamais faire deux fois exactement la même chose. Les 67 remontées mécaniques sont généralement suffisantes pour absorber le débit en haute saison. Le terrain technique est roi à Chamonix : avec 16 pistes noires et 44 rouges au programme, les skieurs confirmés trouveront de quoi se challenger sérieusement. Le hors-piste et le freeride y sont pratiqués dans des conditions souvent excellentes grâce à l'altitude et l'exposition des versants. Côté enneigement, Chamonix est en position de force avec son point culminant à 3842 m — même lors des hivers capricieux, les pistes du haut tiennent bien jusqu'en avril. Le village à 1035 m est également bien situé pour garantir des conditions confortables du départ dès la mi-décembre. Le budget séjour à Chamonix est clairement élevé : 58€ le forfait journée, auxquels s'ajoutent des hébergements et des restaurants d'altitude parmi les plus chers des Alpes. C'est le prix de l'excellence — mais il faut en avoir conscience avant de partir. En résumé : Chamonix tient bien ses promesses. Une station du Alpes du Nord qui saura convenir à la majorité des profils sans décevoir.</p>
+          <div class="readmore-wrap" id="rm-avis">
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Chamonix propose 110 km de pistes bien balisées — un domaine de taille intermédiaire idéal pour passer 4 à 5 jours sans jamais faire deux fois exactement la même chose. Les 67 remontées mécaniques sont généralement suffisantes pour absorber le débit en haute saison. Le terrain technique est roi à Chamonix : avec 16 pistes noires et 44 rouges au programme, les skieurs confirmés trouveront de quoi se challenger sérieusement. Le hors-piste et le freeride y sont pratiqués dans des conditions souvent excellentes grâce à l'altitude et l'exposition des versants. Côté enneigement, Chamonix est en position de force avec son point culminant à 3842 m — même lors des hivers capricieux, les pistes du haut tiennent bien jusqu'en avril. Le village à 1035 m est également bien situé pour garantir des conditions confortables du départ dès la mi-décembre. Le budget séjour à Chamonix est clairement élevé : 58€ le forfait journée, auxquels s'ajoutent des hébergements et des restaurants d'altitude parmi les plus chers des Alpes. C'est le prix de l'excellence — mais il faut en avoir conscience avant de partir. En résumé : Chamonix tient bien ses promesses. Une station du Alpes du Nord qui saura convenir à la majorité des profils sans décevoir.</p>
+          </div>
+          <div class="readmore-btn" onclick="toggleReadMore('rm-avis',this)">Lire plus ▼</div>
         </div>
 
 

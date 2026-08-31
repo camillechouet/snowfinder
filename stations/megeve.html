@@ -145,12 +145,17 @@
 
     /* ONGLETS — pleine largeur sous le hero, TOUT est visible (pas de scroll horizontal) */
     .tab-nav-wrap{position:relative;background:white;border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.04)}
-    .tab-nav{display:flex;flex-wrap:wrap;gap:0;max-width:1240px;margin:0 auto;padding:0 8px}
-    .tab-btn{flex:1 1 auto;padding:13px 10px 11px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.76rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:.005em;white-space:nowrap;border-bottom:3px solid transparent;text-align:center}
+    .tab-nav{display:flex;flex-wrap:nowrap;gap:0;max-width:1240px;margin:0 auto;padding:0 2px}
+    .tab-btn{flex:1 1 0;min-width:0;padding:10px 2px 8px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.62rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:0;white-space:normal;word-break:normal;overflow-wrap:break-word;border-bottom:3px solid transparent;text-align:center;line-height:1.15}
     .tab-btn.active{color:var(--blue-dark);border-bottom-color:var(--blue-mid);background:transparent}
     .tab-btn:hover:not(.active){color:var(--blue-mid)}
     .tab-content{display:none;background:white;border:1px solid var(--border);border-radius:14px;padding:18px 14px;min-height:200px}
     .tab-content.active{display:block}
+    /* LIRE PLUS / VOIR MOINS — textes longs (avis, description) */
+    .readmore-wrap{position:relative;max-height:118px;overflow:hidden;transition:max-height .35s ease}
+    .readmore-wrap.expanded{max-height:3000px}
+    .readmore-wrap:not(.expanded)::after{content:'';position:absolute;bottom:0;left:0;right:0;height:38px;background:linear-gradient(transparent,var(--rm-bg,white))}
+    .readmore-btn{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:10px;font-size:.78rem;font-weight:800;color:var(--blue-mid);cursor:pointer;padding:6px;user-select:none}
 
     /* ORIENTATION / EXPOSITION */
     .compass-card{display:flex;align-items:center;gap:22px;background:linear-gradient(135deg,var(--blue-light),var(--wood-pale));border-radius:14px;padding:22px;margin-bottom:18px;flex-wrap:wrap}
@@ -668,7 +673,11 @@ function switchTab(name, btn){
   document.querySelectorAll('.tab-btn').forEach(function(el){el.classList.remove('active');});
   document.getElementById('tab-'+name).classList.add('active');
   btn.classList.add('active');
-  btn.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+}
+function toggleReadMore(id, btn){
+  var el = document.getElementById(id);
+  var expanded = el.classList.toggle('expanded');
+  btn.textContent = expanded ? 'Voir moins ▲' : 'Lire plus ▼';
 }
 (function(){
   var nav = document.getElementById('tabNav'), wrap = document.getElementById('tabNavWrap'), hint = document.getElementById('tabScrollHint');
@@ -922,7 +931,10 @@ function closeStation(){
         <div class="section">
           <div class="section-title">À propos de Megève</div>
           <img src="../img/megeve2.jpg" alt="Megève pistes de ski" class="photo-station" loading="lazy">
-          <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Megève est l'une des stations les plus élégantes des Alpes, fondée en 1916 par la Baronne de Rothschild pour concurrencer Saint-Moritz. Ce village savoyard authentique à 1113 m est connu autant pour son ambiance chic et son centre piéton que pour son ski (325 km avec le Pays du Mont-Blanc). Clientèle aisée dans un cadre d'exception.</p>
+          <div class="readmore-wrap" id="rm-desc">
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Megève est l'une des stations les plus élégantes des Alpes, fondée en 1916 par la Baronne de Rothschild pour concurrencer Saint-Moritz. Ce village savoyard authentique à 1113 m est connu autant pour son ambiance chic et son centre piéton que pour son ski (325 km avec le Pays du Mont-Blanc). Clientèle aisée dans un cadre d'exception.</p>
+          </div>
+          <div class="readmore-btn" onclick="toggleReadMore('rm-desc',this)">Lire plus ▼</div>
           <ul style="margin-top:14px;padding-left:0;list-style:none"><li style="padding:5px 0;border-bottom:1px solid #f7efe2">Village de charme fondé en 1916</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Gastronomie étoilée restaurants Michelin</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">325 km de pistes pour tous niveaux</li></ul>
@@ -1239,9 +1251,12 @@ function closeStation(){
       <!-- ONGLET 5 : NOTRE AVIS -->
       <div class="tab-content" id="tab-avis">
 
-        <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%)">
+        <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%);--rm-bg:var(--blue-light)">
           <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Megève</div>
-          <p style="font-size:.97rem;line-height:1.85;color:var(--text-mid);font-style:italic">Le domaine de Megève avec ses 230 km de pistes représente une belle offre pour tous les profils : suffisamment grand pour ne pas tourner en rond pendant une semaine, mais aussi assez compact pour retrouver ses secteurs favoris facilement. Les 94 remontées mécaniques permettent d'enchaîner les descentes sans longues attentes. L'ADN de Megève, c'est le haut de gamme : les hébergements, les restaurants d'altitude et les services en station reflètent une clientèle qui ne compte pas. Avec un forfait journée à 65€, le séjour a un prix, mais l'expérience est à la hauteur pour qui veut se faire plaisir sans compromis. L'altitude de Megève (1113 m au départ, 2350 m en haut) lui permet de maintenir un enneigement correct en plein hiver. Les mois de janvier et février sont les plus fiables ; en décembre et mars, il vaut mieux vérifier les conditions avant de finaliser une réservation. Le budget séjour à Megève est clairement élevé : 65€ le forfait journée, auxquels s'ajoutent des hébergements et des restaurants d'altitude parmi les plus chers des Alpes. C'est le prix de l'excellence — mais il faut en avoir conscience avant de partir. En résumé : Megève n'est pas pour tout le monde, mais pour qui peut se l'offrir, c'est probablement l'une des meilleures expériences de ski en Europe.</p>
+          <div class="readmore-wrap" id="rm-avis">
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Le domaine de Megève avec ses 230 km de pistes représente une belle offre pour tous les profils : suffisamment grand pour ne pas tourner en rond pendant une semaine, mais aussi assez compact pour retrouver ses secteurs favoris facilement. Les 94 remontées mécaniques permettent d'enchaîner les descentes sans longues attentes. L'ADN de Megève, c'est le haut de gamme : les hébergements, les restaurants d'altitude et les services en station reflètent une clientèle qui ne compte pas. Avec un forfait journée à 65€, le séjour a un prix, mais l'expérience est à la hauteur pour qui veut se faire plaisir sans compromis. L'altitude de Megève (1113 m au départ, 2350 m en haut) lui permet de maintenir un enneigement correct en plein hiver. Les mois de janvier et février sont les plus fiables ; en décembre et mars, il vaut mieux vérifier les conditions avant de finaliser une réservation. Le budget séjour à Megève est clairement élevé : 65€ le forfait journée, auxquels s'ajoutent des hébergements et des restaurants d'altitude parmi les plus chers des Alpes. C'est le prix de l'excellence — mais il faut en avoir conscience avant de partir. En résumé : Megève n'est pas pour tout le monde, mais pour qui peut se l'offrir, c'est probablement l'une des meilleures expériences de ski en Europe.</p>
+          </div>
+          <div class="readmore-btn" onclick="toggleReadMore('rm-avis',this)">Lire plus ▼</div>
         </div>
 
 
