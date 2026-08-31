@@ -117,6 +117,7 @@
     }
     h1{font-family:"DM Serif Display",serif;font-size:clamp(2rem,6vw,3.2rem);color:white;line-height:1.05;margin-bottom:6px}
     .hero-region{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px}
+    .hero-illu-note{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
 
     /* CONTAINER */
     .container{max-width:980px;margin:0 auto;padding:32px 20px 60px}
@@ -369,10 +370,7 @@
     .fav-star.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
 
     /* DOMAINE SKIABLE RELIÉ — encadré riche, couleur distincte (ambre/or) */
-    .station-fermee{background:#fff4e5;border:1.5px solid #f0b429;border-left:5px solid #f0b429;border-radius:12px;padding:16px 18px;margin:0 0 20px}
-.sf-titre{font-family:"DM Sans",sans-serif;font-weight:700;font-size:1rem;color:#8a5a00;margin-bottom:6px}
-.sf-texte{font-size:.88rem;line-height:1.55;color:#6b4a05}
-.domaine-box{
+    .domaine-box{
       display:block;text-decoration:none;color:inherit;margin:18px 0;border-radius:18px;overflow:hidden;
       background:linear-gradient(145deg,#0d3a6e 0%,#1a5a8a 100%);border:1px solid #0d3a6e;color:#fff;
       box-shadow:0 4px 18px rgba(13,58,110,.22);transition:transform .15s,box-shadow .15s
@@ -565,6 +563,7 @@
     <h1>La Giettaz</h1>
     <div class="hero-region">📍 Évasion Mont-Blanc, Savoie</div>
   </div>
+  <div class="hero-illu-note">Photo d'illustration</div>
 </div>
 
 <script>
@@ -847,10 +846,10 @@ function closeStation(){
     </div>
     <div class="stat-box">
       <div class="stat-val">2440m</div>
-      <div class="stat-lbl">Sommet</div>
+      <div class="stat-lbl">Sommet (domaine)</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val">6</div>
+      <div class="stat-val">8</div>
       <div class="stat-lbl">Remontées (estim.)</div>
     </div>
     <div class="stat-box">
@@ -859,17 +858,15 @@ function closeStation(){
     </div>
   </div>
 
-  
-
   <a href="../domaines/evasion-mont-blanc.html" class="domaine-box">
     <div class="domaine-box-head">
       <div class="domaine-box-tag">🏔️ Domaine skiable relié</div>
       <div class="domaine-box-name">Évasion Mont-Blanc <span class="domaine-box-arrow">→</span></div>
     </div>
     <div class="domaine-box-stats">
-      <div><div class="dbs-val">458 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
+      <div><div class="dbs-val">263 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
       <div><div class="dbs-val">850-2353m</div><div class="dbs-lbl">Altitude</div></div>
-      <div><div class="dbs-val">146</div><div class="dbs-lbl">Remontées</div></div>
+      <div><div class="dbs-val">107</div><div class="dbs-lbl">Remontées</div></div>
       <div><div class="dbs-val">50€</div><div class="dbs-lbl">Forfait domaine/j</div></div>
     </div>
     <div class="domaine-box-foot">5 stations reliées, dont La Giettaz · voir la fiche complète du domaine</div>
@@ -951,7 +948,7 @@ function closeStation(){
             <strong>La Giettaz</strong> est une station de ski du massif <strong>Alpes du Nord</strong>,
             en <strong>Évasion Mont-Blanc, Savoie</strong>. Le domaine s'étend sur
             <strong>20 km de pistes</strong> entre 1123 m et 2440 m,
-            desservi par 6 remontées mécaniques. Forfait journée à partir de
+            desservi par 8 remontées mécaniques. Forfait journée à partir de
             <strong>35€</strong> par adulte.
           </p>
         </div>
@@ -1057,11 +1054,11 @@ function closeStation(){
       <div class="tab-content" id="tab-domaine">
         <div class="dt-hero">
           <h3>🏔️ Évasion Mont-Blanc</h3>
-          <p>Megève, Saint-Gervais, Combloux, La Giettaz et Les Contamines-Montjoie, réunies au pied du toit de l'Europe. Megève, inventée dans les années 20 par la baronne de Rothschild qui voulait un Saint-Moritz français, reste la station de l'élégance à la française : village médiéval, calèches, tables étoilées. Le ski y est plutôt doux, sur de longues pistes en forêt à l'exposition généreuse. Attention à une subtilité : sur les 445 km annoncés par le forfait, une partie seulement est réellement reliée skis aux pieds — Les Contamines nécessite un transfert, et Megève/Combloux/La Giettaz se partagent des massifs communs (Rochebrune-Mont d'Arbois côté Megève-Saint-Gervais, Portes du Mont-Blanc côté Combloux-Giettaz) qui ne se répartissent pas proprement station par station. Le panorama sur le Mont-Blanc, lui, est constant.</p>
+          <p>Megève, Saint-Gervais, Combloux, La Giettaz et Les Contamines-Montjoie, réunies au pied du toit de l'Europe. Megève, inventée dans les années 20 par la baronne de Rothschild qui voulait un Saint-Moritz français, reste la station de l'élégance à la française : village médiéval, calèches, tables étoilées. Le ski y est plutôt doux, sur de longues pistes en forêt à l'exposition généreuse. Attention à une subtilité : sur les 445 km annoncés par le forfait, 263 km seulement sont réellement reliés par remontées — Les Contamines et Cordon nécessitent un transfert. Le panorama sur le Mont-Blanc, lui, est constant.</p>
         </div>
         <div class="domaine-stats-mini">
-          <div><strong>458 km</strong><span>de pistes reliées</span></div>
-          <div><strong>146</strong><span>remontées</span></div>
+          <div><strong>263 km</strong><span>de pistes reliées</span></div>
+          <div><strong>107</strong><span>remontées</span></div>
           <div><strong>50€</strong><span>forfait domaine/j</span></div>
           <div><strong>850-2353m</strong><span>altitude</span></div>
         </div>
@@ -1071,7 +1068,7 @@ function closeStation(){
         <div class="domaine-soeur-name">Megève</div>
         <div class="domaine-soeur-stats">
           <span>🏘 1113m</span>
-          <span>🎿 220 km</span>
+          <span>🎿 230 km</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
@@ -1079,7 +1076,7 @@ function closeStation(){
         <div class="domaine-soeur-name">Saint-Gervais</div>
         <div class="domaine-soeur-stats">
           <span>🏘 850m</span>
-          <span>🎿 53 km</span>
+          <span>🎿 45 km</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
@@ -1087,7 +1084,7 @@ function closeStation(){
         <div class="domaine-soeur-name">Combloux</div>
         <div class="domaine-soeur-stats">
           <span>🏘 1000m</span>
-          <span>🎿 45 km</span>
+          <span>🎿 60 km</span>
         </div>
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>

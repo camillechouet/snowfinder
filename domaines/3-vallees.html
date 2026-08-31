@@ -42,6 +42,7 @@
   .dm-hero-massif{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:5px 14px;font-size:.75rem;font-weight:700;margin-bottom:10px}
   .dm-hero h1{font-family:"DM Serif Display",serif;font-size:clamp(1.8rem,5vw,2.4rem);margin-bottom:8px;line-height:1.15;text-shadow:0 2px 12px rgba(0,0,0,.5)}
   .dm-hero p{opacity:.92;font-size:.92rem;max-width:560px;margin:0 auto;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+  .hero-illu-note{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
   .dm-rank{display:inline-block;margin-top:12px;background:linear-gradient(135deg,#d4a017,#b8860b);color:white;font-weight:700;font-size:.78rem;padding:6px 14px;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
   .dm-fav{position:absolute;top:18px;left:18px;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
     border:2.5px solid #ffd451;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;
@@ -120,18 +121,33 @@
 
 <div class="dm-hero">
   <div class="hero-slides">
-  <img class="hero-slide active" data-idx="0" src="https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&q=80" alt="Les 3 Vallées photo 1" loading="eager">
+  <img class="hero-slide active" data-idx="0" src="../img/courchevel1.jpg" alt="Les 3 Vallées photo 1" loading="eager">
+  <img class="hero-slide" data-idx="1" src="../img/latania1.jpg" alt="Les 3 Vallées photo 2" loading="lazy">
+  <img class="hero-slide" data-idx="2" src="../img/meribel1.jpg" alt="Les 3 Vallées photo 3" loading="lazy">
+  <img class="hero-slide" data-idx="3" src="../img/saintmartindebelleville1.jpg" alt="Les 3 Vallées photo 4" loading="lazy">
+  <img class="hero-slide" data-idx="4" src="../img/lesmenuires1.jpg" alt="Les 3 Vallées photo 5" loading="lazy">
+  <img class="hero-slide" data-idx="5" src="../img/valthorens1.jpg" alt="Les 3 Vallées photo 6" loading="lazy">
   </div>
   <div class="dm-hero-overlay"></div>
   <a href="#" class="dm-close" id="dmClose" aria-label="Retour">✕</a>
   <button class="dm-fav" id="dmFav" type="button" aria-label="Ajouter aux favoris">☆</button>
-  
+  <button class="hero-nav hero-prev" onclick="dmHeroPrev()" aria-label="Précédente">‹</button>
+<button class="hero-nav hero-next" onclick="dmHeroNext()" aria-label="Suivante">›</button>
+<div class="hero-dots">
+    <button class="hero-dot active" data-idx="0" onclick="dmHeroGoTo(0)" aria-label="Photo 1"></button>
+    <button class="hero-dot" data-idx="1" onclick="dmHeroGoTo(1)" aria-label="Photo 2"></button>
+    <button class="hero-dot" data-idx="2" onclick="dmHeroGoTo(2)" aria-label="Photo 3"></button>
+    <button class="hero-dot" data-idx="3" onclick="dmHeroGoTo(3)" aria-label="Photo 4"></button>
+    <button class="hero-dot" data-idx="4" onclick="dmHeroGoTo(4)" aria-label="Photo 5"></button>
+    <button class="hero-dot" data-idx="5" onclick="dmHeroGoTo(5)" aria-label="Photo 6"></button>
+</div>
   <div class="dm-hero-content">
     <div class="dm-hero-massif">⛷ Alpes du Nord</div>
     <h1>🏔️ Les 3 Vallées</h1>
     <p>600 km de pistes reliées · 8 stations · 82€ le forfait domaine/jour</p>
     <div class="dm-rank">Top 3 des plus grands domaines de France</div>
   </div>
+  
 </div>
 
 <div class="dm-wrap">
@@ -300,7 +316,7 @@
 
 <div class="dm-section">
   <div class="dm-section-title">Autres domaines — Alpes du Nord</div>
-  <div class="dm-other-grid"><a href="portes-du-soleil.html" class="dm-other">Les Portes du Soleil<span>624 km</span></a><a href="paradiski.html" class="dm-other">Paradiski<span>520 km</span></a><a href="evasion-mont-blanc.html" class="dm-other">Évasion Mont-Blanc<span>458 km</span></a><a href="espace-killy.html" class="dm-other">Tignes – Val d'Isère (Espace Killy)<span>300 km</span></a><a href="grand-massif.html" class="dm-other">Le Grand Massif<span>291 km</span></a><a href="alpe-dhuez-grand-domaine.html" class="dm-other">Alpe d'Huez Grand Domaine Ski<span>250 km</span></a></div>
+  <div class="dm-other-grid"><a href="portes-du-soleil.html" class="dm-other">Les Portes du Soleil<span>600 km</span></a><a href="paradiski.html" class="dm-other">Paradiski<span>425 km</span></a><a href="sybelles.html" class="dm-other">Les Sybelles<span>310 km</span></a><a href="espace-killy.html" class="dm-other">Tignes – Val d'Isère (Espace Killy)<span>300 km</span></a><a href="grand-massif.html" class="dm-other">Le Grand Massif<span>265 km</span></a><a href="evasion-mont-blanc.html" class="dm-other">Évasion Mont-Blanc<span>263 km</span></a></div>
 </div>
 
 <footer class="footer">
@@ -321,7 +337,7 @@
 
 <script>
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&q=80"];
+var DM_HERO_URLS = ["../img/courchevel1.jpg","../img/latania1.jpg","../img/meribel1.jpg","../img/saintmartindebelleville1.jpg","../img/lesmenuires1.jpg","../img/valthorens1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;

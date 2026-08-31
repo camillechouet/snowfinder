@@ -117,6 +117,7 @@
     }
     h1{font-family:"DM Serif Display",serif;font-size:clamp(2rem,6vw,3.2rem);color:white;line-height:1.05;margin-bottom:6px}
     .hero-region{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px}
+    .hero-illu-note{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
 
     /* CONTAINER */
     .container{max-width:980px;margin:0 auto;padding:32px 20px 60px}
@@ -369,10 +370,7 @@
     .fav-star.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
 
     /* DOMAINE SKIABLE RELIÉ — encadré riche, couleur distincte (ambre/or) */
-    .station-fermee{background:#fff4e5;border:1.5px solid #f0b429;border-left:5px solid #f0b429;border-radius:12px;padding:16px 18px;margin:0 0 20px}
-.sf-titre{font-family:"DM Sans",sans-serif;font-weight:700;font-size:1rem;color:#8a5a00;margin-bottom:6px}
-.sf-texte{font-size:.88rem;line-height:1.55;color:#6b4a05}
-.domaine-box{
+    .domaine-box{
       display:block;text-decoration:none;color:inherit;margin:18px 0;border-radius:18px;overflow:hidden;
       background:linear-gradient(145deg,#0d3a6e 0%,#1a5a8a 100%);border:1px solid #0d3a6e;color:#fff;
       box-shadow:0 4px 18px rgba(13,58,110,.22);transition:transform .15s,box-shadow .15s
@@ -565,6 +563,7 @@
     <h1>Grand Tourmalet</h1>
     <div class="hero-region">📍 Hautes-Pyrénées</div>
   </div>
+  
 </div>
 
 <script>
@@ -847,11 +846,11 @@ function closeStation(){
     </div>
     <div class="stat-box">
       <div class="stat-val">2500m</div>
-      <div class="stat-lbl">Sommet (domaine)</div>
+      <div class="stat-lbl">Sommet</div>
     </div>
     <div class="stat-box">
       <div class="stat-val">30</div>
-      <div class="stat-lbl">Remontées (estim.)</div>
+      <div class="stat-lbl">Remontées</div>
     </div>
     <div class="stat-box">
       <div class="stat-val">38€</div>
@@ -860,20 +859,6 @@ function closeStation(){
   </div>
 
   
-
-  <a href="../domaines/grand-tourmalet.html" class="domaine-box">
-    <div class="domaine-box-head">
-      <div class="domaine-box-tag">🏔️ Domaine skiable relié</div>
-      <div class="domaine-box-name">Grand Tourmalet – Pic du Midi <span class="domaine-box-arrow">→</span></div>
-    </div>
-    <div class="domaine-box-stats">
-      <div><div class="dbs-val">100 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
-      <div><div class="dbs-val">1250-2500m</div><div class="dbs-lbl">Altitude</div></div>
-      <div><div class="dbs-val">30</div><div class="dbs-lbl">Remontées</div></div>
-      <div><div class="dbs-val">46€</div><div class="dbs-lbl">Forfait domaine/j</div></div>
-    </div>
-    <div class="domaine-box-foot">1 stations reliées, dont Grand Tourmalet · voir la fiche complète du domaine</div>
-  </a>
 
   <div class="main-grid">
 
@@ -885,7 +870,7 @@ function closeStation(){
         <div class="tab-nav" id="tabNav">
           <button class="tab-btn active" onclick="switchTab('infos',this)">🎿 Infos</button>
           <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
-          <button class="tab-btn" onclick="switchTab('domaine',this)">🏔️ Domaine</button>
+          
           
           <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo</button>
           <button class="tab-btn" onclick="switchTab('neige',this)">❄️ Enneigement</button>
@@ -910,7 +895,7 @@ function closeStation(){
             <div class="ab-icon">💡</div>
             <div>
               <div class="ab-label">Le saviez-vous ?</div>
-              <div class="ab-text">Le col du Tourmalet (2 115 m), au cœur du domaine, est le col le plus franchi de toute l'histoire du Tour de France : plus de 80 passages depuis sa première ascension en 1910 par Octave Lapize, à qui une statue rend hommage au sommet.</div><div class="ab-text">La Mongie a aussi accueilli trois arrivées d'étape du Tour de France sur ses pentes : en 1970 (victoire de Bernard Thévenet), 2002 (Lance Armstrong) et 2004 (Ivan Basso).</div>
+              <div class="ab-text">Le col du Tourmalet (2 115 m), au cœur du domaine, est le col le plus franchi de toute l'histoire du Tour de France : plus de 80 passages depuis sa première ascension en 1910 par Octave Lapize, à qui une statue rend hommage au sommet.</div><div class="ab-text">La Mongie a aussi accueilli trois arrivées d'étape du Tour de France sur ses pentes : en 1970 (victoire de Bernard Thévenet), 2002 (Lance Armstrong) et 2004 (Ivan Basso).</div><div class="ab-text">Avec 100 km de pistes, c'est le plus grand domaine skiable des Pyrénées françaises.</div>
             </div>
           </div>
         </div>
@@ -1047,21 +1032,7 @@ function closeStation(){
 
       </div>
 
-      <div class="tab-content" id="tab-domaine">
-        <div class="dt-hero">
-          <h3>🏔️ Grand Tourmalet – Pic du Midi</h3>
-          <p>Le plus grand domaine des Pyrénées françaises, réparti sur les deux versants du col du Tourmalet — Barèges d'un côté, La Mongie de l'autre. Barèges est un village thermal historique dont les eaux soignaient déjà les soldats de Louis XIV ; La Mongie, construite dans les années 60, offre un accès direct aux pistes et au Pic du Midi. Ce dernier est l'attraction unique du domaine : téléphérique jusqu'à 2877 m, observatoire astronomique centenaire, et une descente hors-piste de 1700 m de dénivelé pour skieurs aguerris. Le Tourmalet est aussi le col le plus emprunté de l'histoire du Tour de France.</p>
-        </div>
-        <div class="domaine-stats-mini">
-          <div><strong>100 km</strong><span>de pistes reliées</span></div>
-          <div><strong>30</strong><span>remontées</span></div>
-          <div><strong>46€</strong><span>forfait domaine/j</span></div>
-          <div><strong>1250-2500m</strong><span>altitude</span></div>
-        </div>
-        
-        <a href="../domaines/grand-tourmalet.html" class="domaine-see-all">Voir la fiche complète du domaine →</a>
-        
-      </div>
+      
 
       <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
       

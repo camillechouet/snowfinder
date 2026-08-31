@@ -117,6 +117,7 @@
     }
     h1{font-family:"DM Serif Display",serif;font-size:clamp(2rem,6vw,3.2rem);color:white;line-height:1.05;margin-bottom:6px}
     .hero-region{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px}
+    .hero-illu-note{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
 
     /* CONTAINER */
     .container{max-width:980px;margin:0 auto;padding:32px 20px 60px}
@@ -369,10 +370,7 @@
     .fav-star.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
 
     /* DOMAINE SKIABLE RELIÉ — encadré riche, couleur distincte (ambre/or) */
-    .station-fermee{background:#fff4e5;border:1.5px solid #f0b429;border-left:5px solid #f0b429;border-radius:12px;padding:16px 18px;margin:0 0 20px}
-.sf-titre{font-family:"DM Sans",sans-serif;font-weight:700;font-size:1rem;color:#8a5a00;margin-bottom:6px}
-.sf-texte{font-size:.88rem;line-height:1.55;color:#6b4a05}
-.domaine-box{
+    .domaine-box{
       display:block;text-decoration:none;color:inherit;margin:18px 0;border-radius:18px;overflow:hidden;
       background:linear-gradient(145deg,#0d3a6e 0%,#1a5a8a 100%);border:1px solid #0d3a6e;color:#fff;
       box-shadow:0 4px 18px rgba(13,58,110,.22);transition:transform .15s,box-shadow .15s
@@ -565,6 +563,7 @@
     <h1>Le Mont Dore</h1>
     <div class="hero-region">📍 Puy-de-Dôme</div>
   </div>
+  <div class="hero-illu-note">Photo d'illustration</div>
 </div>
 
 <script>
@@ -850,7 +849,7 @@ function closeStation(){
       <div class="stat-lbl">Sommet (domaine)</div>
     </div>
     <div class="stat-box">
-      <div class="stat-val">16</div>
+      <div class="stat-val">17</div>
       <div class="stat-lbl">Remontées (estim.)</div>
     </div>
     <div class="stat-box">
@@ -858,8 +857,6 @@ function closeStation(){
       <div class="stat-lbl">Forfait / jour</div>
     </div>
   </div>
-
-  
 
   <a href="../domaines/grand-sancy.html" class="domaine-box">
     <div class="domaine-box-head">
@@ -869,7 +866,7 @@ function closeStation(){
     <div class="domaine-box-stats">
       <div><div class="dbs-val">84 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
       <div><div class="dbs-val">1050-1850m</div><div class="dbs-lbl">Altitude</div></div>
-      <div><div class="dbs-val">32</div><div class="dbs-lbl">Remontées</div></div>
+      <div><div class="dbs-val">35</div><div class="dbs-lbl">Remontées</div></div>
       <div><div class="dbs-val">43€</div><div class="dbs-lbl">Forfait domaine/j</div></div>
     </div>
     <div class="domaine-box-foot">2 stations reliées, dont Le Mont Dore · voir la fiche complète du domaine</div>
@@ -951,7 +948,7 @@ function closeStation(){
             <strong>Le Mont Dore</strong> est une station de ski du massif <strong>Massif Central</strong>,
             en <strong>Puy-de-Dôme</strong>. Le domaine s'étend sur
             <strong>41 km de pistes</strong> entre 1050 m et 1850 m,
-            desservi par 16 remontées mécaniques. Forfait journée à partir de
+            desservi par 17 remontées mécaniques. Forfait journée à partir de
             <strong>25€</strong> par adulte.
           </p>
         </div>
@@ -1061,7 +1058,7 @@ function closeStation(){
         </div>
         <div class="domaine-stats-mini">
           <div><strong>84 km</strong><span>de pistes reliées</span></div>
-          <div><strong>32</strong><span>remontées</span></div>
+          <div><strong>35</strong><span>remontées</span></div>
           <div><strong>43€</strong><span>forfait domaine/j</span></div>
           <div><strong>1050-1850m</strong><span>altitude</span></div>
         </div>
