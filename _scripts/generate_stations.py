@@ -25,7 +25,7 @@ BOOKING_CJ = 'https://www.tkqlhce.com/click-101709262-15734710'  # Booking.com v
 # Sélection déterministe par hash MD5 du nom de station :
 # chaque station sans photo aura toujours le même placeholder, mais l'ensemble
 # est réparti uniformément sur les 9 URLs ci-dessous.
-PLACEHOLDER_URLS = [
+PLACEHOLDER_URLS_ALPES_PYRENEES = [
     "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22",  # Lauterbrunnen, Suisse - forêt + montagnes
     "https://images.unsplash.com/photo-1551698618-1dfe5d97d256",     # Autriche - skieur en piste
     "https://images.unsplash.com/photo-1528659862616-22886eb53642",  # Dragobrat, Ukraine - téléphérique hiver
@@ -37,11 +37,32 @@ PLACEHOLDER_URLS = [
     "https://images.unsplash.com/photo-1579525006336-c8919e3dc770",  # La Clusaz, France - station de ski
 ]
 
-def pick_placeholder(name, w=1200):
+PLACEHOLDER_URLS_AUTRES_MASSIFS = [
+    "https://images.unsplash.com/photo-1641886378875-b05544457b6a",  # Lélex, France (Jura) - skieur sur pente enneigée
+    "https://images.unsplash.com/photo-1672588337559-d2ce3ad82682",  # Lettonie - paysage enneigé, arbres, ciel bleu
+    "https://images.unsplash.com/photo-1612099452850-ed8efe7d58ff",  # Arbres enneigés en pleine journée
+    "https://images.unsplash.com/photo-1517035993793-ab229c7faf72",  # Jura - pins enneigés, vue aérienne
+    "https://images.unsplash.com/photo-1714036983985-6f6906043ba6",  # Corse - montagne enneigée près d'une forêt
+    "https://images.unsplash.com/photo-1644281264389-ba63575e4c1c",  # Roumanie - montagne enneigée, forêt en arrière-plan
+    "https://images.unsplash.com/photo-1490008446666-6c0841b7c060",  # Photo aérienne de pins enneigés
+    "https://images.unsplash.com/photo-1701614753266-9ad5ba4f86ad",  # Tchéquie - paysage enneigé, arbres, soleil
+    "https://images.unsplash.com/photo-1490701838674-320383cf293a",  # Roumanie - pins enneigés sur la montagne
+    "https://images.unsplash.com/photo-1622139673657-13ba4a23918a",  # Serbie - champ enneigé et arbres
+    "https://images.unsplash.com/photo-1748075048085-ed1910c3a8cc",  # Forêt-Noire, Allemagne - paysage enneigé, ciel nuageux
+]
+
+# Massifs considérés comme "Alpes/Pyrénées" (valeurs exactes du champ 'massif' dans DATA/DOMAINES)
+MASSIFS_ALPES_PYRENEES = {"Alpes du Nord", "Alpes du Sud", "Pyrénées"}
+
+def pick_placeholder(name, massif=None, w=1200):
     """Sélection déterministe d'une URL placeholder Unsplash via hash MD5 du nom.
-    Chaque station sans photo locale aura toujours le même placeholder."""
-    idx = int(hashlib.md5(name.encode('utf-8')).hexdigest(), 16) % len(PLACEHOLDER_URLS)
-    return f"{PLACEHOLDER_URLS[idx]}?w={w}&q=80"
+    Chaque station/domaine sans photo locale aura toujours le même placeholder.
+    Le pool utilisé dépend du massif : Alpes/Pyrénées piochent dans les 9 photos
+    d'origine, tous les autres massifs (Jura, Vosges, Massif Central, Corse...)
+    piochent dans le pool de 11 photos dédié."""
+    pool = PLACEHOLDER_URLS_ALPES_PYRENEES if massif in MASSIFS_ALPES_PYRENEES else PLACEHOLDER_URLS_AUTRES_MASSIFS
+    idx = int(hashlib.md5(name.encode('utf-8')).hexdigest(), 16) % len(pool)
+    return f"{pool[idx]}?w={w}&q=80"
 
 NIV = {"debutant":"Débutant","intermediaire":"Intermédiaire","avance":"Avancé","expert":"Expert"}
 AMB = {"luxe":"Luxe","festif":"Festif","famille":"Famille","nature":"Nature","village":"Village","avance":"Technique","soleil":"Ensoleillé"}
@@ -1325,7 +1346,7 @@ def get_domaine_photos_smart(slug, d):
             break
     if borrowed:
         return borrowed, 'borrowed'
-    return [pick_placeholder(d['name'], w=1400)], 'placeholder'
+    return [pick_placeholder(d['name'], massif=d.get('massif'), w=1400)], 'placeholder'
 
 DATA = json.loads(m.group(1))
 print(f"✓ {len(DATA)} stations chargées")
@@ -1371,7 +1392,7 @@ def render_similar_section(s):
             # (visages, gratte-ciels, couchers de soleil). Seules les photos uploadées
             # localement dans img/ sont conservées ; sinon, placeholder Unsplash réparti
             # de façon déterministe sur les 9 photos de PLACEHOLDER_URLS.
-            photo = pick_placeholder(sim['name'], w=400)
+            photo = pick_placeholder(sim['name'], massif=sim.get('massif'), w=400)
         prix_nuit = round(sim['forfait'] * 2.4)
         cards += f"""
         <a href="{sim_slug}.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
@@ -1859,7 +1880,7 @@ def render_page(s):
         # (visages, gratte-ciels, couchers de soleil). Seules les photos uploadées
         # localement dans img/ sont conservées ; sinon, placeholder Unsplash réparti
         # de façon déterministe sur les 9 photos de PLACEHOLDER_URLS.
-        photo = pick_placeholder(s['name'], w=1200)
+        photo = pick_placeholder(s['name'], massif=s.get('massif'), w=1200)
     # Photo 2 (utilisée dans "Notre avis" comme aujourd'hui)
     photo_station = all_photos[1] if len(all_photos) >= 2 else None
     # Toutes les photos pour le carrousel (au moins 1 — la photo hero ou fallback)
