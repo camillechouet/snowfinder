@@ -143,12 +143,19 @@
     @media(min-width:480px) and (max-width:700px){.tile-grid{grid-template-columns:repeat(3,1fr)}}
     @media(min-width:700px){.tile-grid{grid-template-columns:repeat(4,1fr)}}
 
-    /* ONGLETS — pleine largeur sous le hero, TOUT est visible (pas de scroll horizontal) */
+    /* ONGLETS — navigation coulissante horizontale, avec indice de scroll visible */
     .tab-nav-wrap{position:relative;background:white;border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.04)}
-    .tab-nav{display:flex;flex-wrap:nowrap;gap:0;max-width:1240px;margin:0 auto;padding:0 2px}
-    .tab-btn{flex:1 1 0;min-width:0;padding:10px 2px 8px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.62rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:0;white-space:normal;word-break:normal;overflow-wrap:break-word;border-bottom:3px solid transparent;text-align:center;line-height:1.15}
+    .tab-nav{display:flex;flex-wrap:nowrap;gap:2px;max-width:1240px;margin:0 auto;padding:0 2px;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .tab-nav::-webkit-scrollbar{display:none}
+    .tab-btn{flex:0 0 auto;min-width:88px;padding:12px 14px 10px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.74rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:0;white-space:nowrap;border-bottom:3px solid transparent;text-align:center;line-height:1.2}
     .tab-btn.active{color:var(--blue-dark);border-bottom-color:var(--blue-mid);background:transparent}
     .tab-btn:hover:not(.active){color:var(--blue-mid)}
+    /* Indice visuel : dégradé + flèche animée tant qu'il reste du contenu à faire défiler */
+    .tab-scroll-hint{position:absolute;top:0;right:0;bottom:0;width:38px;display:none;align-items:center;justify-content:flex-end;pointer-events:none;background:linear-gradient(to right,rgba(255,255,255,0),rgba(255,255,255,.94) 55%);z-index:2}
+    .tab-scroll-hint.show{display:flex}
+    .tab-scroll-hint span{font-size:1rem;color:var(--blue-mid);margin-right:4px;animation:tabHintPulse 1.4s ease-in-out infinite}
+    .tab-nav-wrap.scrolled-end .tab-scroll-hint{display:none}
+    @keyframes tabHintPulse{0%,100%{transform:translateX(0);opacity:.55}50%{transform:translateX(3px);opacity:1}}
     .tab-content{display:none;background:white;border:1px solid var(--border);border-radius:14px;padding:18px 14px;min-height:200px}
     .tab-content.active{display:block}
     /* LIRE PLUS / VOIR MOINS — textes longs (avis, description) */
@@ -592,17 +599,18 @@
   
 </div>
 
-<!-- NAVIGATION ONGLETS — pleine largeur, juste sous le hero, tout visible -->
+<!-- NAVIGATION ONGLETS — coulissante horizontalement, avec indice de scroll visible -->
 <div class="tab-nav-wrap" id="tabNavWrap">
   <div class="tab-nav" id="tabNav">
-    <button class="tab-btn active" onclick="switchTab('infos',this)">🎿 Infos</button>
+    <button class="tab-btn active" onclick="switchTab('domaineski',this)">🎿 Domaine skiable</button>
+    <button class="tab-btn" onclick="switchTab('infos',this)">📖 La station</button>
     <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
-    <button class="tab-btn" onclick="switchTab('domaine',this)">🏔️ Domaine</button>
+    <button class="tab-btn" onclick="switchTab('domaine',this)">🔗 Grand domaine</button>
     
     <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo</button>
     <button class="tab-btn" onclick="switchTab('neige',this)">❄️ Enneigement</button>
-    <button class="tab-btn" onclick="switchTab('avis',this)">✍️ Notre avis</button>
   </div>
+  <div class="tab-scroll-hint" id="tabScrollHint"><span>▶</span></div>
 </div>
 
 <script>
@@ -917,36 +925,25 @@ function closeStation(){
 
   <div class="main-grid">
 
-    <!-- COLONNE PRINCIPALE : 5 ONGLETS -->
+    <!-- COLONNE PRINCIPALE : ONGLETS -->
     <div>
 
-      <!-- ONGLET 1 : INFOS -->
-      <div class="tab-content active" id="tab-infos">
+      <!-- ONGLET 1 : DOMAINE SKIABLE — tous les chiffres de la station regroupés ici -->
+      <div class="tab-content active" id="tab-domaineski">
 
-        <!-- À PROPOS -->
         <div class="section">
-          <div class="section-title">À propos de Valmorel</div>
-          <img src="../img/valmorel2.jpg" alt="Valmorel pistes de ski" class="photo-station" loading="lazy">
-          <div class="readmore-wrap" id="rm-desc">
-            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Valmorel est une station de charme construite dans les années 1970 en respectant l'architecture savoyarde traditionnelle — un modèle du genre. À 1400 m en Tarentaise, son domaine de 165 km s'étend jusqu'au Grand Domaine. Station piétonne et familiale, appréciée pour son ambiance conviviale et son architecture soignée.</p>
-          </div>
-          <div class="readmore-btn" onclick="toggleReadMore('rm-desc',this)">Lire plus ▼</div>
-          <ul style="margin-top:14px;padding-left:0;list-style:none"><li style="padding:5px 0;border-bottom:1px solid #f7efe2">Station piétonne de charme</li>
-<li style="padding:5px 0;border-bottom:1px solid #f7efe2">Architecture savoyarde respectée</li>
-<li style="padding:5px 0;border-bottom:1px solid #f7efe2">Label Famille Plus</li></ul>
-          
-          <div class="anecdote-box">
-            <div class="ab-icon">💡</div>
-            <div>
-              <div class="ab-label">Le saviez-vous ?</div>
-              <div class="ab-text">Née en 1976 sur les plans de l'architecte Michel Bezançon, Valmorel a inauguré un genre nouveau : la « station de 4e génération », conçue comme un village savoyard traditionnel — bois, pierre, toits de lauze, fresques en trompe-l'œil et rue du Bourg entièrement piétonne. Son succès a lancé la mode de l'architecture néo-régionale en montagne.</div><div class="ab-text">Le projet est né de l'association de deux communes voulant enrayer le dépeuplement de la vallée. La station est aujourd'hui reliée à Saint-François-Longchamp, Doucy et Celliers au sein du Grand Domaine.</div>
-            </div>
+          <div class="section-title">Valmorel en chiffres</div>
+          <div class="domaine-stats-mini">
+            <div><strong>95 km</strong><span>de pistes</span></div>
+            <div><strong>27</strong><span>remontées</span></div>
+            <div><strong>1400-2550m</strong><span>altitude</span></div>
+            <div><strong>38€</strong><span>forfait/jour</span></div>
           </div>
         </div>
 
         <!-- PISTES -->
         <div class="section">
-          <div class="section-title">Domaine skiable — 95 km · 1400m à 2550m</div>
+          <div class="section-title">Répartition des pistes</div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#2ea84e"></div>
             <span style="flex:0 0 76px;font-size:.88rem;font-weight:600;color:var(--text-mid)">Vertes</span>
@@ -987,7 +984,32 @@ function closeStation(){
 
       </div>
 
-      <!-- ONGLET 2 : POUR QUI ? -->
+      <!-- ONGLET 2 : LA STATION — présentation éditoriale -->
+      <div class="tab-content" id="tab-infos">
+
+        <div class="section" style="margin-bottom:0">
+          <div class="section-title">À propos de Valmorel</div>
+          <img src="../img/valmorel2.jpg" alt="Valmorel pistes de ski" class="photo-station" loading="lazy">
+          <div class="readmore-wrap" id="rm-desc">
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Valmorel est une station de charme construite dans les années 1970 en respectant l'architecture savoyarde traditionnelle — un modèle du genre. À 1400 m en Tarentaise, son domaine de 165 km s'étend jusqu'au Grand Domaine. Station piétonne et familiale, appréciée pour son ambiance conviviale et son architecture soignée.</p>
+          </div>
+          <div class="readmore-btn" onclick="toggleReadMore('rm-desc',this)">Lire plus ▼</div>
+          <ul style="margin-top:14px;padding-left:0;list-style:none"><li style="padding:5px 0;border-bottom:1px solid #f7efe2">Station piétonne de charme</li>
+<li style="padding:5px 0;border-bottom:1px solid #f7efe2">Architecture savoyarde respectée</li>
+<li style="padding:5px 0;border-bottom:1px solid #f7efe2">Label Famille Plus</li></ul>
+          
+          <div class="anecdote-box">
+            <div class="ab-icon">💡</div>
+            <div>
+              <div class="ab-label">Le saviez-vous ?</div>
+              <div class="ab-text">Née en 1976 sur les plans de l'architecte Michel Bezançon, Valmorel a inauguré un genre nouveau : la « station de 4e génération », conçue comme un village savoyard traditionnel — bois, pierre, toits de lauze, fresques en trompe-l'œil et rue du Bourg entièrement piétonne. Son succès a lancé la mode de l'architecture néo-régionale en montagne.</div><div class="ab-text">Le projet est né de l'association de deux communes voulant enrayer le dépeuplement de la vallée. La station est aujourd'hui reliée à Saint-François-Longchamp, Doucy et Celliers au sein du Grand Domaine.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ONGLET 3 : POUR QUI ? (+ notre avis) -->
       <div class="tab-content" id="tab-pourqui">
 
         <div class="section">
@@ -1055,7 +1077,7 @@ function closeStation(){
       </div></div>
         </div>
 
-        <div class="section" style="margin-bottom:0">
+        <div class="section">
           <div class="section-title">Meilleure période pour skier</div>
           <div style="display:flex;gap:4px;margin-top:4px">
       <div style="text-align:center;flex:1">
@@ -1080,6 +1102,77 @@ function closeStation(){
       </div></div>
           <p style="font-size:.73rem;color:var(--text-light);margin-top:10px">Basé sur l'altitude et l'enneigement historique de la station</p>
         </div>
+
+        <div class="section" style="margin-bottom:0;border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%);--rm-bg:var(--blue-light)">
+          <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Valmorel</div>
+          <div class="readmore-wrap" id="rm-avis">
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Valmorel propose 95 km de pistes bien balisées — un domaine de taille intermédiaire idéal pour passer 4 à 5 jours sans jamais faire deux fois exactement la même chose. Les 27 remontées mécaniques sont généralement suffisantes pour absorber le débit en haute saison. La réputation familiale de Valmorel n'est pas usurpée : espaces débutants dédiés, garderie bien organisée, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Alpes du Nord pour poser les bases du ski avec des enfants. Avec un sommet à 2550 m et un village à 1400 m, l'enneigement de Valmorel est globalement fiable de janvier à fin mars. Quelques hivers exceptionnellement doux peuvent créer des tensions en début de saison, mais la situation se rétablit rapidement dès les premières chutes sérieuses. Le forfait journée à 38€ place Valmorel dans la catégorie des stations intermédiaires côté budget — ni donné, ni exorbitant. La qualité du domaine et des équipements justifie ce tarif pour la plupart des skieurs. En résumé : Valmorel est une de ces rares stations qui réunit un vrai village, une ambiance familiale sincère et des pistes adaptées à tous. Difficile de rater son séjour ici.</p>
+          </div>
+          <div class="readmore-btn" onclick="toggleReadMore('rm-avis',this)">Lire plus ▼</div>
+        </div>
+
+
+
+        
+  <div style="margin-top:20px">
+    <div style="font-family:'DM Serif Display',serif;font-size:1rem;color:#8a7060;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid #f7efe2">
+      ⛷ Autres stations Alpes du Nord
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
+      
+        <a href="chamonix.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
+          <div style="position:relative;height:90px;overflow:hidden">
+            <img src="../img/chamonix1.jpg" alt="Chamonix" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
+            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Chamonix</div>
+            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.9 ⭐</div>
+          </div>
+          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">110 km · 3842m</span>
+            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~139€/nuit</span>
+          </div>
+        </a>
+        <a href="val-thorens.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
+          <div style="position:relative;height:90px;overflow:hidden">
+            <img src="https://images.unsplash.com/photo-1528659862616-22886eb53642?w=400&q=80" alt="Val Thorens" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
+            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Val Thorens</div>
+            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.9 ⭐</div>
+          </div>
+          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">132 km · 3230m</span>
+            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~144€/nuit</span>
+          </div>
+        </a>
+        <a href="val-d-isere.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
+          <div style="position:relative;height:90px;overflow:hidden">
+            <img src="https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=400&q=80" alt="Val d'Isère" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
+            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Val d'Isère</div>
+            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.8 ⭐</div>
+          </div>
+          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">150 km · 3456m</span>
+            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~149€/nuit</span>
+          </div>
+        </a>
+        <a href="tignes.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
+          <div style="position:relative;height:90px;overflow:hidden">
+            <img src="../img/tignes1.jpg" alt="Tignes" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
+            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Tignes</div>
+            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.7 ⭐</div>
+          </div>
+          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">150 km · 3456m</span>
+            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~144€/nuit</span>
+          </div>
+        </a>
+    </div>
+    <a href="../recherche.html" style="display:block;text-align:center;margin-top:12px;padding:9px;background:#f7efe2;border-radius:8px;font-size:.82rem;font-weight:600;color:#3a7db8;border:1.5px solid #eddcbf">
+      Voir toutes les stations Alpes du Nord →
+    </a>
+  </div>
 
       </div>
 
@@ -1109,7 +1202,7 @@ function closeStation(){
       <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
       
 
-      <!-- ONGLET 3 : MÉTÉO -->
+      <!-- ONGLET 4 : MÉTÉO -->
       <div class="tab-content" id="tab-meteo">
         <div class="meteo-widget" id="meteoWidget">
           <div class="meteo-head">
@@ -1131,7 +1224,7 @@ function closeStation(){
         <p style="font-size:.75rem;color:rgba(255,255,255,.6);text-align:center;margin-top:10px">Source : Open-Meteo.com · Données actualisées en temps réel</p>
       </div>
 
-      <!-- ONGLET 4 : ENNEIGEMENT -->
+      <!-- ONGLET 5 : ENNEIGEMENT -->
       <div class="tab-content" id="tab-neige">
 
         <!-- Lecture principale : actuel vs période -->
@@ -1217,82 +1310,6 @@ function closeStation(){
           </div>
           <p style="font-size:.68rem;color:var(--text-light);margin-top:10px;line-height:1.5">Au-dessus de 2 000 m, la neige est generalement garantie de mi-decembre a fin mars. Données en temps réel : Open-Meteo (modèle météo). Moyennes mensuelles : estimations basées sur les données historiques de la station.</p>
         </div>
-
-      </div>
-
-      <!-- ONGLET 5 : NOTRE AVIS -->
-      <div class="tab-content" id="tab-avis">
-
-        <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%);--rm-bg:var(--blue-light)">
-          <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Valmorel</div>
-          <div class="readmore-wrap" id="rm-avis">
-            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Valmorel propose 95 km de pistes bien balisées — un domaine de taille intermédiaire idéal pour passer 4 à 5 jours sans jamais faire deux fois exactement la même chose. Les 27 remontées mécaniques sont généralement suffisantes pour absorber le débit en haute saison. La réputation familiale de Valmorel n'est pas usurpée : espaces débutants dédiés, garderie bien organisée, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Alpes du Nord pour poser les bases du ski avec des enfants. Avec un sommet à 2550 m et un village à 1400 m, l'enneigement de Valmorel est globalement fiable de janvier à fin mars. Quelques hivers exceptionnellement doux peuvent créer des tensions en début de saison, mais la situation se rétablit rapidement dès les premières chutes sérieuses. Le forfait journée à 38€ place Valmorel dans la catégorie des stations intermédiaires côté budget — ni donné, ni exorbitant. La qualité du domaine et des équipements justifie ce tarif pour la plupart des skieurs. En résumé : Valmorel est une de ces rares stations qui réunit un vrai village, une ambiance familiale sincère et des pistes adaptées à tous. Difficile de rater son séjour ici.</p>
-          </div>
-          <div class="readmore-btn" onclick="toggleReadMore('rm-avis',this)">Lire plus ▼</div>
-        </div>
-
-
-
-        
-  <div style="margin-top:20px">
-    <div style="font-family:'DM Serif Display',serif;font-size:1rem;color:#8a7060;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid #f7efe2">
-      ⛷ Autres stations Alpes du Nord
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
-      
-        <a href="chamonix.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
-          <div style="position:relative;height:90px;overflow:hidden">
-            <img src="../img/chamonix1.jpg" alt="Chamonix" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
-            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Chamonix</div>
-            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.9 ⭐</div>
-          </div>
-          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">110 km · 3842m</span>
-            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~139€/nuit</span>
-          </div>
-        </a>
-        <a href="val-thorens.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
-          <div style="position:relative;height:90px;overflow:hidden">
-            <img src="https://images.unsplash.com/photo-1528659862616-22886eb53642?w=400&q=80" alt="Val Thorens" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
-            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Val Thorens</div>
-            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.9 ⭐</div>
-          </div>
-          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">132 km · 3230m</span>
-            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~144€/nuit</span>
-          </div>
-        </a>
-        <a href="val-d-isere.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
-          <div style="position:relative;height:90px;overflow:hidden">
-            <img src="https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=400&q=80" alt="Val d'Isère" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
-            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Val d'Isère</div>
-            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.8 ⭐</div>
-          </div>
-          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">150 km · 3456m</span>
-            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~149€/nuit</span>
-          </div>
-        </a>
-        <a href="tignes.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
-          <div style="position:relative;height:90px;overflow:hidden">
-            <img src="../img/tignes1.jpg" alt="Tignes" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
-            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Tignes</div>
-            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.7 ⭐</div>
-          </div>
-          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">150 km · 3456m</span>
-            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~144€/nuit</span>
-          </div>
-        </a>
-    </div>
-    <a href="../recherche.html" style="display:block;text-align:center;margin-top:12px;padding:9px;background:#f7efe2;border-radius:8px;font-size:.82rem;font-weight:600;color:#3a7db8;border:1.5px solid #eddcbf">
-      Voir toutes les stations Alpes du Nord →
-    </a>
-  </div>
 
       </div>
 

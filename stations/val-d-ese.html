@@ -143,12 +143,19 @@
     @media(min-width:480px) and (max-width:700px){.tile-grid{grid-template-columns:repeat(3,1fr)}}
     @media(min-width:700px){.tile-grid{grid-template-columns:repeat(4,1fr)}}
 
-    /* ONGLETS — pleine largeur sous le hero, TOUT est visible (pas de scroll horizontal) */
+    /* ONGLETS — navigation coulissante horizontale, avec indice de scroll visible */
     .tab-nav-wrap{position:relative;background:white;border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.04)}
-    .tab-nav{display:flex;flex-wrap:nowrap;gap:0;max-width:1240px;margin:0 auto;padding:0 2px}
-    .tab-btn{flex:1 1 0;min-width:0;padding:10px 2px 8px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.62rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:0;white-space:normal;word-break:normal;overflow-wrap:break-word;border-bottom:3px solid transparent;text-align:center;line-height:1.15}
+    .tab-nav{display:flex;flex-wrap:nowrap;gap:2px;max-width:1240px;margin:0 auto;padding:0 2px;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .tab-nav::-webkit-scrollbar{display:none}
+    .tab-btn{flex:0 0 auto;min-width:88px;padding:12px 14px 10px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.74rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:0;white-space:nowrap;border-bottom:3px solid transparent;text-align:center;line-height:1.2}
     .tab-btn.active{color:var(--blue-dark);border-bottom-color:var(--blue-mid);background:transparent}
     .tab-btn:hover:not(.active){color:var(--blue-mid)}
+    /* Indice visuel : dégradé + flèche animée tant qu'il reste du contenu à faire défiler */
+    .tab-scroll-hint{position:absolute;top:0;right:0;bottom:0;width:38px;display:none;align-items:center;justify-content:flex-end;pointer-events:none;background:linear-gradient(to right,rgba(255,255,255,0),rgba(255,255,255,.94) 55%);z-index:2}
+    .tab-scroll-hint.show{display:flex}
+    .tab-scroll-hint span{font-size:1rem;color:var(--blue-mid);margin-right:4px;animation:tabHintPulse 1.4s ease-in-out infinite}
+    .tab-nav-wrap.scrolled-end .tab-scroll-hint{display:none}
+    @keyframes tabHintPulse{0%,100%{transform:translateX(0);opacity:.55}50%{transform:translateX(3px);opacity:1}}
     .tab-content{display:none;background:white;border:1px solid var(--border);border-radius:14px;padding:18px 14px;min-height:200px}
     .tab-content.active{display:block}
     /* LIRE PLUS / VOIR MOINS — textes longs (avis, description) */
@@ -586,17 +593,18 @@
   <div class="hero-illu-note">Photo d'illustration</div>
 </div>
 
-<!-- NAVIGATION ONGLETS — pleine largeur, juste sous le hero, tout visible -->
+<!-- NAVIGATION ONGLETS — coulissante horizontalement, avec indice de scroll visible -->
 <div class="tab-nav-wrap" id="tabNavWrap">
   <div class="tab-nav" id="tabNav">
-    <button class="tab-btn active" onclick="switchTab('infos',this)">🎿 Infos</button>
+    <button class="tab-btn active" onclick="switchTab('domaineski',this)">🎿 Domaine skiable</button>
+    <button class="tab-btn" onclick="switchTab('infos',this)">📖 La station</button>
     <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
     
     
     <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo</button>
     <button class="tab-btn" onclick="switchTab('neige',this)">❄️ Enneigement</button>
-    <button class="tab-btn" onclick="switchTab('avis',this)">✍️ Notre avis</button>
   </div>
+  <div class="tab-scroll-hint" id="tabScrollHint"><span>▶</span></div>
 </div>
 
 <script>
@@ -899,36 +907,25 @@ function closeStation(){
 
   <div class="main-grid">
 
-    <!-- COLONNE PRINCIPALE : 5 ONGLETS -->
+    <!-- COLONNE PRINCIPALE : ONGLETS -->
     <div>
 
-      <!-- ONGLET 1 : INFOS -->
-      <div class="tab-content active" id="tab-infos">
+      <!-- ONGLET 1 : DOMAINE SKIABLE — tous les chiffres de la station regroupés ici -->
+      <div class="tab-content active" id="tab-domaineski">
 
-        <!-- À PROPOS -->
         <div class="section">
-          <div class="section-title">À propos de Val d'Ese</div>
-          
-          <div class="readmore-wrap" id="rm-desc">
-            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Val d'Ese est une station corse à 1620-1940 m, sur le plateau d'Ese au-dessus de Bastelica, à 51 km d'Ajaccio. Ses 6 pistes (1 verte, 1 bleue, 4 rouges) sont desservies par 4 téléskis. Depuis la remontée la plus haute, la vue porte jusqu'à la mer et au golfe d'Ajaccio.</p>
-          </div>
-          <div class="readmore-btn" onclick="toggleReadMore('rm-desc',this)">Lire plus ▼</div>
-          <ul style="margin-top:14px;padding-left:0;list-style:none"><li style="padding:5px 0;border-bottom:1px solid #f7efe2">Vue sur le golfe d'Ajaccio depuis les pistes</li>
-<li style="padding:5px 0;border-bottom:1px solid #f7efe2">6 pistes dont 4 rouges</li>
-<li style="padding:5px 0;border-bottom:1px solid #f7efe2">Une heure d'Ajaccio</li></ul>
-          
-          <div class="anecdote-box">
-            <div class="ab-icon">💡</div>
-            <div>
-              <div class="ab-label">Le saviez-vous ?</div>
-              <div class="ab-text">Depuis le sommet du téléski de Tarmini, le plus haut de la station, on aperçoit la mer et le golfe d'Ajaccio par temps clair — un panorama rare pour une station de ski.</div><div class="ab-text">Les premières remontées mécaniques ont été installées en 1976, sur le plateau d'Ese, entre les vallées du Prunelli et du Taravo.</div>
-            </div>
+          <div class="section-title">Val d'Ese en chiffres</div>
+          <div class="domaine-stats-mini">
+            <div><strong>4 km</strong><span>de pistes</span></div>
+            <div><strong>4</strong><span>remontées</span></div>
+            <div><strong>1620-1940m</strong><span>altitude</span></div>
+            <div><strong>16€</strong><span>forfait/jour</span></div>
           </div>
         </div>
 
         <!-- PISTES -->
         <div class="section">
-          <div class="section-title">Domaine skiable — 4 km · 1620m à 1940m</div>
+          <div class="section-title">Répartition des pistes</div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#2ea84e"></div>
             <span style="flex:0 0 76px;font-size:.88rem;font-weight:600;color:var(--text-mid)">Vertes</span>
@@ -969,7 +966,32 @@ function closeStation(){
 
       </div>
 
-      <!-- ONGLET 2 : POUR QUI ? -->
+      <!-- ONGLET 2 : LA STATION — présentation éditoriale -->
+      <div class="tab-content" id="tab-infos">
+
+        <div class="section" style="margin-bottom:0">
+          <div class="section-title">À propos de Val d'Ese</div>
+          
+          <div class="readmore-wrap" id="rm-desc">
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Val d'Ese est une station corse à 1620-1940 m, sur le plateau d'Ese au-dessus de Bastelica, à 51 km d'Ajaccio. Ses 6 pistes (1 verte, 1 bleue, 4 rouges) sont desservies par 4 téléskis. Depuis la remontée la plus haute, la vue porte jusqu'à la mer et au golfe d'Ajaccio.</p>
+          </div>
+          <div class="readmore-btn" onclick="toggleReadMore('rm-desc',this)">Lire plus ▼</div>
+          <ul style="margin-top:14px;padding-left:0;list-style:none"><li style="padding:5px 0;border-bottom:1px solid #f7efe2">Vue sur le golfe d'Ajaccio depuis les pistes</li>
+<li style="padding:5px 0;border-bottom:1px solid #f7efe2">6 pistes dont 4 rouges</li>
+<li style="padding:5px 0;border-bottom:1px solid #f7efe2">Une heure d'Ajaccio</li></ul>
+          
+          <div class="anecdote-box">
+            <div class="ab-icon">💡</div>
+            <div>
+              <div class="ab-label">Le saviez-vous ?</div>
+              <div class="ab-text">Depuis le sommet du téléski de Tarmini, le plus haut de la station, on aperçoit la mer et le golfe d'Ajaccio par temps clair — un panorama rare pour une station de ski.</div><div class="ab-text">Les premières remontées mécaniques ont été installées en 1976, sur le plateau d'Ese, entre les vallées du Prunelli et du Taravo.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ONGLET 3 : POUR QUI ? (+ notre avis) -->
       <div class="tab-content" id="tab-pourqui">
 
         <div class="section">
@@ -1037,7 +1059,7 @@ function closeStation(){
       </div></div>
         </div>
 
-        <div class="section" style="margin-bottom:0">
+        <div class="section">
           <div class="section-title">Meilleure période pour skier</div>
           <div style="display:flex;gap:4px;margin-top:4px">
       <div style="text-align:center;flex:1">
@@ -1063,6 +1085,53 @@ function closeStation(){
           <p style="font-size:.73rem;color:var(--text-light);margin-top:10px">Basé sur l'altitude et l'enneigement historique de la station</p>
         </div>
 
+        <div class="section" style="margin-bottom:0;border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%);--rm-bg:var(--blue-light)">
+          <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Val d'Ese</div>
+          <div class="readmore-wrap" id="rm-avis">
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Val d'Ese est une station confidentielle à l'échelle modeste — 4 km de pistes pour une expérience de ski intimiste, loin de l'agitation des grandes stations. C'est ici qu'on vient chercher le calme, l'authenticité et des files d'attente inexistantes aux remontées. La réputation familiale de Val d'Ese n'est pas usurpée : espaces débutants dédiés, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Corse pour poser les bases du ski avec des enfants. L'altitude modérée de Val d'Ese — départ à 1620 m, sommet à 1940 m — la rend sensible aux variations climatiques. Les mois de janvier et février restent les plus sûrs pour un enneigement optimal. En dehors de cette fenêtre, le suivi des bulletins d'enneigement avant le départ est fortement conseillé. Avec un forfait journée à seulement 16€, Val d'Ese est l'une des destinations les plus accessibles de France. Pour les familles à budget maîtrisé ou les skieurs qui veulent multiplier les sorties sans se ruiner, c'est une adresse sincère et souvent méconnue. En résumé : Val d'Ese ne rivalise pas avec les géants du ski mais ne le prétend pas. C'est une destination honnête, souvent sous-estimée, qui mérite d'être (re)découverte.</p>
+          </div>
+          <div class="readmore-btn" onclick="toggleReadMore('rm-avis',this)">Lire plus ▼</div>
+        </div>
+
+
+
+        
+  <div style="margin-top:20px">
+    <div style="font-family:'DM Serif Display',serif;font-size:1rem;color:#8a7060;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid #f7efe2">
+      ⛷ Autres stations Corse
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
+      
+        <a href="ghisoni-capanelle.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
+          <div style="position:relative;height:90px;overflow:hidden">
+            <img src="https://images.unsplash.com/photo-1612099452850-ed8efe7d58ff?w=400&q=80" alt="Ghisoni - Capanelle" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
+            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Ghisoni - Capanelle</div>
+            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">3.5 ⭐</div>
+          </div>
+          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">3 km · 1870m</span>
+            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~43€/nuit</span>
+          </div>
+        </a>
+        <a href="haut-asco.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
+          <div style="position:relative;height:90px;overflow:hidden">
+            <img src="https://images.unsplash.com/photo-1490008446666-6c0841b7c060?w=400&q=80" alt="Haut Asco" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
+            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Haut Asco</div>
+            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">3.3 ⭐</div>
+          </div>
+          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">1 km · 1510m</span>
+            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~48€/nuit</span>
+          </div>
+        </a>
+    </div>
+    <a href="../recherche.html" style="display:block;text-align:center;margin-top:12px;padding:9px;background:#f7efe2;border-radius:8px;font-size:.82rem;font-weight:600;color:#3a7db8;border:1.5px solid #eddcbf">
+      Voir toutes les stations Corse →
+    </a>
+  </div>
+
       </div>
 
       
@@ -1070,7 +1139,7 @@ function closeStation(){
       <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
       
 
-      <!-- ONGLET 3 : MÉTÉO -->
+      <!-- ONGLET 4 : MÉTÉO -->
       <div class="tab-content" id="tab-meteo">
         <div class="meteo-widget" id="meteoWidget">
           <div class="meteo-head">
@@ -1092,7 +1161,7 @@ function closeStation(){
         <p style="font-size:.75rem;color:rgba(255,255,255,.6);text-align:center;margin-top:10px">Source : Open-Meteo.com · Données actualisées en temps réel</p>
       </div>
 
-      <!-- ONGLET 4 : ENNEIGEMENT -->
+      <!-- ONGLET 5 : ENNEIGEMENT -->
       <div class="tab-content" id="tab-neige">
 
         <!-- Lecture principale : actuel vs période -->
@@ -1178,58 +1247,6 @@ function closeStation(){
           </div>
           <p style="font-size:.68rem;color:var(--text-light);margin-top:10px;line-height:1.5">A cette altitude, l'enneigement depend des conditions de l'annee. Verifiez l'etat des pistes avant de partir. Données en temps réel : Open-Meteo (modèle météo). Moyennes mensuelles : estimations basées sur les données historiques de la station.</p>
         </div>
-
-      </div>
-
-      <!-- ONGLET 5 : NOTRE AVIS -->
-      <div class="tab-content" id="tab-avis">
-
-        <div class="section" style="border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%);--rm-bg:var(--blue-light)">
-          <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Val d'Ese</div>
-          <div class="readmore-wrap" id="rm-avis">
-            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Val d'Ese est une station confidentielle à l'échelle modeste — 4 km de pistes pour une expérience de ski intimiste, loin de l'agitation des grandes stations. C'est ici qu'on vient chercher le calme, l'authenticité et des files d'attente inexistantes aux remontées. La réputation familiale de Val d'Ese n'est pas usurpée : espaces débutants dédiés, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Corse pour poser les bases du ski avec des enfants. L'altitude modérée de Val d'Ese — départ à 1620 m, sommet à 1940 m — la rend sensible aux variations climatiques. Les mois de janvier et février restent les plus sûrs pour un enneigement optimal. En dehors de cette fenêtre, le suivi des bulletins d'enneigement avant le départ est fortement conseillé. Avec un forfait journée à seulement 16€, Val d'Ese est l'une des destinations les plus accessibles de France. Pour les familles à budget maîtrisé ou les skieurs qui veulent multiplier les sorties sans se ruiner, c'est une adresse sincère et souvent méconnue. En résumé : Val d'Ese ne rivalise pas avec les géants du ski mais ne le prétend pas. C'est une destination honnête, souvent sous-estimée, qui mérite d'être (re)découverte.</p>
-          </div>
-          <div class="readmore-btn" onclick="toggleReadMore('rm-avis',this)">Lire plus ▼</div>
-        </div>
-
-
-
-        
-  <div style="margin-top:20px">
-    <div style="font-family:'DM Serif Display',serif;font-size:1rem;color:#8a7060;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid #f7efe2">
-      ⛷ Autres stations Corse
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
-      
-        <a href="ghisoni-capanelle.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
-          <div style="position:relative;height:90px;overflow:hidden">
-            <img src="https://images.unsplash.com/photo-1612099452850-ed8efe7d58ff?w=400&q=80" alt="Ghisoni - Capanelle" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
-            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Ghisoni - Capanelle</div>
-            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">3.5 ⭐</div>
-          </div>
-          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">3 km · 1870m</span>
-            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~43€/nuit</span>
-          </div>
-        </a>
-        <a href="haut-asco.html" style="display:block;border-radius:10px;overflow:hidden;background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">
-          <div style="position:relative;height:90px;overflow:hidden">
-            <img src="https://images.unsplash.com/photo-1490008446666-6c0841b7c060?w=400&q=80" alt="Haut Asco" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&q=80'">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
-            <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Haut Asco</div>
-            <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">3.3 ⭐</div>
-          </div>
-          <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">1 km · 1510m</span>
-            <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~48€/nuit</span>
-          </div>
-        </a>
-    </div>
-    <a href="../recherche.html" style="display:block;text-align:center;margin-top:12px;padding:9px;background:#f7efe2;border-radius:8px;font-size:.82rem;font-weight:600;color:#3a7db8;border:1.5px solid #eddcbf">
-      Voir toutes les stations Corse →
-    </a>
-  </div>
 
       </div>
 
