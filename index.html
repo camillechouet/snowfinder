@@ -441,11 +441,14 @@ footer a{color:rgba(255,255,255,.6);text-decoration:none}
 .ia-panel {
   background: white; border-radius: 20px 20px 0 0;
   width: 100%; max-width: 640px;
-  max-height: 90vh; overflow-y: auto;
+  max-height: 94vh; overflow-y: auto;
   box-shadow: 0 -8px 40px rgba(0,0,0,.2);
   transform: translateY(100%);
   transition: transform .4s cubic-bezier(.34,1.56,.64,1);
   padding-bottom: env(safe-area-inset-bottom);
+}
+@media (min-width: 768px) {
+  .ia-panel { max-width: 860px; max-height: 90vh; }
 }
 .ia-panel-overlay.open .ia-panel { transform: translateY(0); }
 
@@ -1205,6 +1208,8 @@ function toggleCompareStation(id){
 
   <!-- Filtre léger -->
   <div style="position:absolute;inset:0;background:linear-gradient(160deg,rgba(5,18,45,.60) 0%,rgba(12,45,85,.35) 50%,rgba(0,0,0,.08) 100%);z-index:1"></div>
+  <!-- Voile renforcé en bas pour la lisibilité des bandeaux et des stats -->
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,transparent 42%,rgba(4,14,32,.32) 70%,rgba(3,12,28,.55) 100%);z-index:1"></div>
 
   <!-- Points navigation dynamiques -->
   <div class="hero-dots" id="heroDots"></div>
@@ -1301,18 +1306,44 @@ function toggleCompareStation(id){
       + de 200 stations. Dis-nous ce que tu veux — on te trouve la bonne.
     </p>
 
-    <!-- 2 CTAs principaux -->
-    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeInUp .6s .3s ease both">
-      <a href="recherche.html" style="display:inline-flex;align-items:center;gap:9px;background:white;color:var(--blue-dark);padding:15px 30px;border-radius:32px;font-weight:700;font-size:1rem;text-decoration:none;transition:all .22s;box-shadow:0 6px 28px rgba(0,0,0,.22)" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 36px rgba(0,0,0,.28)'" onmouseout="this.style.transform='';this.style.boxShadow='0 6px 28px rgba(0,0,0,.22)'">
-        🔍 Trouver ma station
-      </a>
-      <a href="tinder.html" style="display:inline-flex;align-items:center;gap:9px;background:#e05a7a;border:1.5px solid #f08aa3;color:white;padding:15px 30px;border-radius:32px;font-weight:700;font-size:1rem;text-decoration:none;transition:all .22s;box-shadow:0 6px 28px rgba(224,90,122,.45)" onmouseover="this.style.background='#c0294f';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#e05a7a';this.style.transform=''">
-        ❤️ Tinder du ski
-      </a>
+    <!-- 2 chemins clairs, empilés en bandeaux -->
+    <style>
+      .hero-cta-card{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between;border-radius:22px;padding:15px 20px}
+      .hero-cta-info{display:flex;align-items:center;gap:13px;text-align:left}
+      @media (max-width:520px){
+        .hero-cta-card{flex-direction:column;justify-content:center}
+        .hero-cta-info{justify-content:center}
+        .hero-cta-card a{width:100%;justify-content:center}
+      }
+    </style>
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:640px;margin:0 auto;animation:fadeInUp .6s .3s ease both">
+
+      <div class="hero-cta-card" style="background:rgba(15,35,60,.4);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1.5px solid rgba(255,255,255,.3);box-shadow:0 8px 28px rgba(0,0,0,.22)">
+        <div class="hero-cta-info">
+          <div style="width:40px;height:40px;flex-shrink:0;border-radius:50%;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;font-size:1.2rem">🔍</div>
+          <span style="color:#fff;font-size:.98rem;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,.45)">Recherche manuelle ?</span>
+        </div>
+        <a href="recherche.html" style="flex-shrink:0;display:inline-flex;align-items:center;gap:8px;background:white;color:var(--blue-dark);padding:13px 24px;border-radius:26px;font-weight:700;font-size:.92rem;text-decoration:none;transition:all .22s;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.18)" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+          Trouver ma station →
+        </a>
+      </div>
+
+      <div class="hero-cta-card" style="background:linear-gradient(120deg,rgba(26,90,138,.42),rgba(13,58,110,.46));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1.5px solid rgba(245,197,24,.45);box-shadow:0 8px 28px rgba(13,58,110,.3)">
+        <div class="hero-cta-info">
+          <div style="width:40px;height:40px;flex-shrink:0;border-radius:50%;background:rgba(245,197,24,.2);border:1px solid rgba(245,197,24,.45);display:flex;align-items:center;justify-content:center;font-size:1.2rem">✨</div>
+          <span style="color:#fff;font-size:.98rem;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,.45)">Une envie précise en tête ?</span>
+        </div>
+        <a href="javascript:void(0)" onclick="openIaPanel()" style="flex-shrink:0;display:inline-flex;align-items:center;gap:8px;background:white;color:var(--blue-dark);padding:13px 24px;border-radius:26px;font-weight:700;font-size:.92rem;text-decoration:none;transition:all .22s;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.18)" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+          Demander au Conseiller →
+        </a>
+      </div>
+
     </div>
 
+
+
     <!-- Stats rassurants -->
-    <div class="hero-stats" style="margin-top:48px;animation:fadeInUp .6s .4s ease both;gap:36px">
+    <div class="hero-stats" style="margin-top:40px;animation:fadeInUp .6s .4s ease both;gap:36px">
       <div class="hero-stat">
         <div class="hero-stat-val">+ de 200</div>
         <div class="hero-stat-lbl">Stations comparées</div>
@@ -1338,53 +1369,28 @@ function toggleCompareStation(id){
 
 <style>
 @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.hero-stat-val{color:white!important}.hero-stat-lbl{color:rgba(255,255,255,.75)!important}
+.hero-stat-val{background:rgba(255,255,255,.72);color:var(--blue-dark)!important;padding:5px 16px;border-radius:20px;display:inline-block;box-shadow:0 4px 16px rgba(0,0,0,.28);font-size:1.35rem}.hero-stat-lbl{color:rgba(255,255,255,.9)!important;text-shadow:0 1px 8px rgba(0,0,0,.5);margin-top:8px}
 </style>
 
-<!-- BARRE CONFIANCE -->
-<div style="background:var(--white);border-bottom:2px solid var(--wood-light);padding:10px 0;overflow:hidden">
-  <div style="display:flex;align-items:center;justify-content:center;gap:0;width:100%">
-    <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--text-mid);white-space:nowrap;padding:0 18px">
-      <span>🏔️</span><span><strong style="color:var(--text)">+ de 200 stations</strong> référencées</span>
-    </div>
-    <div style="width:1px;height:16px;background:var(--border);flex-shrink:0"></div>
-    <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--text-mid);white-space:nowrap;padding:0 18px">
-      <span>👥</span><span><strong style="color:var(--text)">Des milliers</strong> de skieurs utilisent SnowFinder</span>
-    </div>
-    <div style="width:1px;height:16px;background:var(--border);flex-shrink:0" class="barre-sep-hide"></div>
-    <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--text-mid);white-space:nowrap;padding:0 18px" class="barre-sep-hide">
-      <span style="width:7px;height:7px;background:var(--green);border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>
-      <span>Enneigement <strong style="color:var(--green)">mis à jour en direct</strong></span>
-    </div>
-    <div style="width:1px;height:16px;background:var(--border);flex-shrink:0" class="barre-sep-hide"></div>
-    <div style="display:flex;align-items:center;gap:7px;white-space:nowrap;padding:0 18px" class="barre-sep-hide">
-      <span style="font-size:.67rem;color:var(--text-light);font-weight:600;text-transform:uppercase;letter-spacing:.05em">Partenaires</span>
-      <span style="background:#003580;color:white;font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:4px">Booking</span>
-      <span style="background:#f26024;color:white;font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:4px">Expedia</span>
-      <span style="background:var(--blue-light);border:1px solid var(--border);color:var(--blue-dark);font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:4px">Open-Meteo</span>
-    </div>
-  </div>
-</div>
-<style>@media(max-width:700px){.barre-sep-hide{display:none!important}}</style>
 
 <!-- RACCOURCIS 1-CLIC -->
 <div style="background:var(--bg);border-bottom:2px solid var(--wood-light);padding:18px 24px">
   <div style="max-width:960px;margin:0 auto">
     <div style="text-align:center;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:12px">⚡ Trouver rapidement</div>
-    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-      <a href="recherche.html?budget=eco" style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.88rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
+    <div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap">
+      <a href="recherche.html?budget=eco" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
         💰 <span>Petit budget</span>
       </a>
-      <a href="recherche.html?amb=famille" style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.88rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
+      <a href="recherche.html?amb=famille" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
         👨‍👩‍👧 <span>En famille</span>
       </a>
-      <a href="recherche.html?niv=avance,expert" style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.88rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
+      <a href="recherche.html?niv=avance,expert" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
         🎿 <span>Ski expert</span>
       </a>
-      <a href="recherche.html?alt_sommet=high,vhigh" style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.88rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
+      <a href="recherche.html?alt_sommet=high,vhigh" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
         ❄️ <span>Neige garantie</span>
       </a>
-      <a href="recherche.html?amb=luxe" style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.88rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
+      <a href="recherche.html?amb=luxe" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
         💎 <span>Station luxe</span>
       </a>
     </div>
@@ -1967,11 +1973,14 @@ window.addEventListener('appinstalled', () => {
 .iac-crit-chip{font-size:.66rem;font-weight:700;background:#fff;border:1.5px solid var(--blue-mid);color:var(--blue-dark);padding:3px 9px;border-radius:20px}
 .iac-cards{margin-left:37px;display:flex;flex-direction:column;gap:10px}
 .iac-cards .ia-result-card{margin-bottom:0}
-.iac-card-actions{display:flex;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--wood-light)}
-.iac-card-btn{flex:1;padding:7px 9px;border-radius:9px;border:1.5px solid var(--wood-light);background:#fff;font-family:"DM Sans",sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;color:var(--text-mid);display:flex;align-items:center;justify-content:center;gap:4px;transition:all .15s}
+.iac-card-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid var(--wood-light)}
+.iac-card-btn{flex:1;min-width:44%;padding:7px 8px;border-radius:9px;border:1.5px solid var(--wood-light);background:#fff;font-family:"DM Sans",sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;color:var(--text-mid);display:flex;align-items:center;justify-content:center;gap:4px;transition:all .15s;text-decoration:none}
 .iac-card-btn:hover{border-color:var(--blue-mid);color:var(--blue-dark)}
 .iac-card-btn.active{background:var(--blue-dark);border-color:var(--blue-dark);color:#fff}
 .iac-card-btn.active-compare{background:var(--navy,#0d3a6e);border-color:var(--navy,#0d3a6e);color:#fff}
+.iac-card-btn.booking{background:#003580;border-color:#003580;color:#fff}
+.iac-card-btn.fiche{background:var(--wood-pale)}
+.iac-bubble-err{background:#fdeeee!important;color:#a33!important;border:1px solid #f0c8c8}
 .iac-compare-note{margin-left:37px;background:#fff;border:1.5px dashed var(--blue-mid);border-radius:12px;padding:10px 12px;font-size:.78rem;color:var(--text-mid);line-height:1.5}
 .iac-compare-note b{color:var(--blue-dark)}
 .iac-chips{margin-left:37px;display:flex;flex-wrap:wrap;gap:7px}
@@ -2043,10 +2052,11 @@ function refuseCookies() {
 </script>
 
 <script>
-/* ══ CONSEILLER IA — MOTEUR CONVERSATIONNEL ══ */
-/* S'appuie sur DATA (source unique, cf. plus haut dans ce fichier) et sur les
-   fonctions favoris/comparateur globales du site : toggleFav(), isFav(),
-   toggleCompareStation(), isInCompare(). Rien n'est dupliqué. */
+/* ══ CONSEILLER IA — VRAIE IA (via Cloudflare Worker) ══ */
+/* Le Worker (https://snowfinder-ia.camillechouet.workers.dev) porte le prompt système,
+   la clé API et l'appel à Claude. Ce script ne fait que dialoguer avec lui et
+   afficher les cartes stations à partir de DATA (source unique, déjà chargée
+   plus haut dans ce fichier) et des ids renvoyés par l'IA. */
 (function(){
   // Favoris : index.html n'a pas de toggleFav/isFav globaux comme recherche.html,
   // on les définit ici avec la même signature (même clé localStorage sf_favorites).
@@ -2062,238 +2072,17 @@ function refuseCookies() {
     return isFav(id);
   }
 
-  function nrm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");}
+  const WORKER_URL = "https://snowfinder-ia.camillechouet.workers.dev";
+  const CJ_ID = "101709262";
 
-  var CRIT = { budget:null, budgetExclude:[], groupe:null, groupeExclude:[], niveau:null, niveauExclude:[],
-               massif:null, massifExclude:[], priorites:[], prioritesExclude:[], horsSki:[], horsSkiExclude:[],
-               askedMassif:false, askedNiveau:false, askedExtra:false };
+  var HISTORY = [];   // historique envoyé au Worker à chaque tour
   var TURN = 0;
-  var LAST_PAIR = []; // dernières stations proposées, pour répondre aux questions de suivi ("laquelle a le plus de neige ?")
 
-  var QWORD_RE = /\blequel\b|\blaquelle\b|\blesquel\w*\b|\bquel\b|\bquelle\b|\bquels\b|\bquelles\b|\ble plus\b|\bla plus\b|\ble moins\b|\bla moins\b/;
-  var METRICS = [
-    { test:/neige|enneig|altitude|\bhaut\b|\bhaute\b/, field:"alt_max", dir:"desc", unit:"m", label:"la meilleure garantie neige (altitude la plus haute)" },
-    { test:/cher|prix|budget|forfait|couteux|abordable/, field:"forfait", dir:"asc", unit:"€", label:"le prix le plus bas" },
-    { test:/pistes|\bkm\b|domaine|grand/, field:"km", dir:"desc", unit:" km", label:"le plus grand domaine" },
-    { test:/note|avis|mieux note|classement/, field:"score", dir:"desc", unit:"/5", label:"la meilleure note" }
-  ];
-  function detectMetaQuestion(t){
-    if(!QWORD_RE.test(t)) return null;
-    for(var i=0;i<METRICS.length;i++){ if(METRICS[i].test.test(t)) return METRICS[i]; }
-    return null;
-  }
-  function fmtMetric(metric, val){ return val + metric.unit; }
-  function answerMetaQuestion(metric){
-    var sorted = LAST_PAIR.slice().sort(function(a,b){
-      return metric.dir==="asc" ? a.s[metric.field]-b.s[metric.field] : b.s[metric.field]-a.s[metric.field];
-    });
-    var top = sorted[0].s[metric.field];
-    var winners = sorted.filter(function(x){ return x.s[metric.field]===top; });
-    if(winners.length>1){
-      var names = winners.map(function(x){ return "<b>"+x.s.name+"</b>"; }).join(" et ");
-      return names+" se valent exactement sur ce point ("+fmtMetric(metric, top)+").";
-    }
-    var winner = sorted[0].s;
-    var othersTxt = sorted.slice(1).map(function(x){ return x.s.name+" ("+fmtMetric(metric, x.s[metric.field])+")"; }).join(", ");
-    return "<b>"+winner.name+"</b> a "+metric.label+" : "+fmtMetric(metric, winner[metric.field])+" (contre "+othersTxt+").";
-  }
-  var NEG_RE = /\b(sans|pas|surtout pas|jamais|sauf|hormis|hors|excepte|exclu\w*|evite\w*|a part|apart)\b\s*(de\s+|d'|du\s+|des\s+|le\s+|la\s+|les\s+|l'|un\s+|une\s+)?$/;
-
-  // Chaque option scalaire/multi : [regex, clé, libellé positif]
-  var BUDGET_OPTS = [
-    [/pas trop cher|pas cher|petit budget|abordable|economique|bon marche|prix doux|low cost/, "eco", "💶 petit budget"],
-    [/luxe|haut de gamme|premium|sans limite|prestige|chic/, "luxe", "💎 haut de gamme"]
-  ];
-  var GROUPE_OPTS = [
-    [/famille|enfant|enfants|gosse|gamin|bebe|poussette|garderie/, "famille", "👨‍👩‍👧 famille"],
-    [/couple|romantique|amoureu/, "couple", "💑 couple"],
-    [/amis|potes|bande|entre ami/, "amis", "🎉 entre amis"],
-    [/\bsolo\b|\bseul(e)?\b/, "solo", "🎒 solo"]
-  ];
-  var NIVEAU_OPTS = [
-    [/debutant|debute|jamais skie|premiere fois|initiation|pistes vertes/, "debutant", "🎿 débutant"],
-    [/expert|hors.?piste|freeride|poudreuse|pistes noires/, "expert", "🎿 expert"],
-    [/confirme|bon skieur|avance|pistes rouges/, "avance", "🎿 avancé"],
-    [/intermediaire|niveau moyen|pistes bleues/, "intermediaire", "🎿 intermédiaire"]
-  ];
-  var PRIO_OPTS = [
-    [/neige garantie|neige assur|assurance neige|assur\w* neige|garantie neige|il faut de la neige|bien enneig|enneigement fiable/, "neige", "❄️ neige garantie"],
-    [/village au soleil|ensoleill|bien expose|plein sud|expose sud|\bau soleil\b/, "soleil", "☀️ village ensoleillé"],
-    [/village typique|authentique|charmant|village de charme|petit village/, "village", "🏘️ village de charme"],
-    [/grand domaine|beaucoup de pistes|grand espace/, "domaine", "🎿 grand domaine"],
-    [/festif|apres.ski|ambiance animee|\bfete\b/, "festif", "🎉 ambiance festive"],
-    [/\bnature\b|\bcalme\b|tranquille|au vert|hors du monde|rando/, "nature", "🌲 nature/calme"]
-  ];
-  var HORSSKI_OPTS = [
-    [/\bspa\b|bien.etre|detente|hammam/, "spa", "🧖 spa/bien-être"],
-    [/restaurant|bonne table|gastro/, "restaurants", "🍽️ bonne table"]
-  ];
-
-  // Détecte la négation ("sauf", "pas", "évite"...) juste avant un match
-  function isNegatedAt(t, idx){
-    var before = t.slice(Math.max(0, idx-25), idx);
-    return NEG_RE.test(before);
-  }
-
-  // Critère à valeur unique (budget / groupe / niveau) : gère inclusion ET exclusion
-  function processScalar(t, opts, critKey, excludeKey, found){
-    opts.forEach(function(opt){
-      var re = opt[0], key = opt[1], label = opt[2];
-      var m = re.exec(t);
-      if(!m) return;
-      if(isNegatedAt(t, m.index)){
-        if(CRIT[excludeKey].indexOf(key)===-1){
-          CRIT[excludeKey].push(key);
-          if(CRIT[critKey]===key) CRIT[critKey] = null;
-          found.push("🚫 pas "+label.replace(/^\S+\s/,""));
-        }
-      } else if(CRIT[critKey]!==key){
-        CRIT[critKey] = key;
-        var exIdx = CRIT[excludeKey].indexOf(key);
-        if(exIdx>-1) CRIT[excludeKey].splice(exIdx,1);
-        found.push(label);
-      }
-    });
-  }
-
-  // Critère à valeurs multiples (priorités / hors-ski / massif) : liste d'inclusions + liste d'exclusions
-  function processMulti(t, opts, includeKey, excludeKey, found, singleValue){
-    opts.forEach(function(opt){
-      var re = opt[0], key = opt[1], label = opt[2];
-      var m = re.exec(t);
-      if(!m) return;
-      if(isNegatedAt(t, m.index)){
-        if(CRIT[excludeKey].indexOf(key)===-1){
-          CRIT[excludeKey].push(key);
-          if(singleValue && CRIT[includeKey]===key) CRIT[includeKey] = null;
-          else if(!singleValue){ var ii=CRIT[includeKey].indexOf(key); if(ii>-1) CRIT[includeKey].splice(ii,1); }
-          found.push("🚫 pas "+label.replace(/^\S+\s/,""));
-        }
-      } else {
-        var already = singleValue ? CRIT[includeKey]===key : CRIT[includeKey].indexOf(key)>-1;
-        if(!already){
-          if(singleValue) CRIT[includeKey] = key; else CRIT[includeKey].push(key);
-          var exIdx = CRIT[excludeKey].indexOf(key);
-          if(exIdx>-1) CRIT[excludeKey].splice(exIdx,1);
-          found.push(label);
-        }
-      }
-    });
-  }
-
-  var MASSIFS = [
-    [/pyrenees|pyrenee|pyrennees|ariege|hautes pyrenees|catalan|pays basque/, "Pyrénées", "⛰️ Pyrénées"],
-    [/alpes du nord|tarentaise|savoie|haute savoie|mont blanc|beaufortain|maurienne|bauges|chablais|3 vallees|trois vallees|portes du soleil/, "Alpes du Nord", "⛰️ Alpes du Nord"],
-    [/alpes du sud|alpes maritimes|hautes alpes|haute provence|ubaye|queyras|briancon|devoluy/, "Alpes du Sud", "⛰️ Alpes du Sud"],
-    [/jura\b|jurassien/, "Jura", "⛰️ Jura"],
-    [/vosges|vosgienne/, "Vosges", "⛰️ Vosges"],
-    [/massif central|auvergne|cantal|sancy/, "Massif Central", "⛰️ Massif Central"],
-    [/corse/, "Corse", "⛰️ Corse"]
-  ];
-
-  function parseAndMerge(text){
-    var t = nrm(text);
-    var found = [];
-
-    processScalar(t, BUDGET_OPTS, "budget", "budgetExclude", found);
-    processScalar(t, GROUPE_OPTS, "groupe", "groupeExclude", found);
-    processScalar(t, NIVEAU_OPTS, "niveau", "niveauExclude", found);
-    processMulti(t, MASSIFS, "massif", "massifExclude", found, true);
-    processMulti(t, PRIO_OPTS, "priorites", "prioritesExclude", found, false);
-    processMulti(t, HORSSKI_OPTS, "horsSki", "horsSkiExclude", found, false);
-
-    return found;
-  }
-
-  function scoreStation(s){
-    var sc = 0, reasons = [];
-    if(CRIT.budget==="eco"){
-      if(s.forfait<=25){ sc+=25; reasons.push("petit prix ("+s.forfait+"€)"); }
-      else if(s.forfait<=32){ sc+=14; }
-      else if(s.forfait>=42){ sc-=15; }
-    }
-    if(CRIT.budget==="luxe" && s.amb && s.amb.indexOf("luxe")>-1){ sc+=25; reasons.push("station haut de gamme"); }
-    if(CRIT.budgetExclude.indexOf("luxe")>-1 && s.amb && s.amb.indexOf("luxe")>-1) sc-=15;
-    if(CRIT.budgetExclude.indexOf("eco")>-1 && s.forfait<=25) sc-=8;
-
-    if(CRIT.groupe==="famille" && s.amb && s.amb.indexOf("famille")>-1){ sc+=25; reasons.push("station familiale"); }
-    if(CRIT.groupe==="couple" && s.amb && (s.amb.indexOf("village")>-1||s.amb.indexOf("nature")>-1)){ sc+=15; reasons.push("cadre romantique"); }
-    if(CRIT.groupe==="amis" && s.amb && s.amb.indexOf("festif")>-1){ sc+=15; reasons.push("bonne ambiance"); }
-    if(CRIT.groupeExclude.indexOf("famille")>-1 && s.amb && s.amb.indexOf("famille")>-1) sc-=12;
-    if(CRIT.groupeExclude.indexOf("amis")>-1 && s.amb && s.amb.indexOf("festif")>-1) sc-=8;
-
-    if(CRIT.niveau && s.niv && s.niv.indexOf(CRIT.niveau)>-1){ sc+=15; }
-    CRIT.niveauExclude.forEach(function(n){ if(s.niv && s.niv.indexOf(n)>-1) sc-=10; });
-
-    CRIT.priorites.forEach(function(p){
-      if(p==="neige"){
-        if(s.alt_max>=2400){ sc+=28; reasons.push("culmine à "+s.alt_max+"m — bonne garantie neige"); }
-        else if(s.alt_max>=2000){ sc+=12; }
-        else { sc-=8; }
-      }
-      if(p==="soleil"){
-        if(s.amb && s.amb.indexOf("soleil")>-1){ sc+=35; reasons.push("village très ensoleillé"); }
-        else if(s.tags && s.tags.indexOf("ensoleillee")>-1){ sc+=22; reasons.push("réputée bien exposée"); }
-        else if(s.amb && s.amb.indexOf("village")>-1){ sc+=6; }
-      }
-      if(p==="village" && s.amb && s.amb.indexOf("village")>-1){ sc+=18; reasons.push("village de caractère"); }
-      if(p==="domaine" && s.km>=100){ sc+=18; reasons.push(s.km+" km de pistes"); }
-      if(p==="festif" && s.amb && s.amb.indexOf("festif")>-1){ sc+=18; reasons.push("ambiance festive"); }
-      if(p==="nature" && s.amb && s.amb.indexOf("nature")>-1){ sc+=14; reasons.push("cadre nature préservé"); }
-    });
-    CRIT.prioritesExclude.forEach(function(p){
-      if(p==="soleil" && s.amb && s.amb.indexOf("soleil")>-1) sc-=20;
-      if(p==="village" && s.amb && s.amb.indexOf("village")>-1) sc-=15;
-      if(p==="domaine" && s.km>=100) sc-=15;
-      if(p==="festif" && s.amb && s.amb.indexOf("festif")>-1) sc-=20;
-      if(p==="nature" && s.amb && s.amb.indexOf("nature")>-1) sc-=12;
-    });
-
-    CRIT.horsSki.forEach(function(h){
-      if(s.equip && s.equip.indexOf(h)>-1){ sc+=10; reasons.push(h==="spa"?"spa/bien-être":"bonne table"); }
-    });
-    CRIT.horsSkiExclude.forEach(function(h){
-      if(s.equip && s.equip.indexOf(h)>-1) sc-=8;
-    });
-
-    sc += (s.score||3.5)*2;
-    return { sc: sc, reasons: reasons.slice(0,3) };
-  }
-
-  function getCandidates(){
-    var source = (typeof DATA!=="undefined") ? DATA : [];
-    var pool = source.slice();
-    if(CRIT.massif) pool = pool.filter(function(s){ return s.massif===CRIT.massif; });
-    else if(CRIT.massifExclude.length) pool = pool.filter(function(s){ return CRIT.massifExclude.indexOf(s.massif)===-1; });
-    var scored = pool.map(function(s){ var r = scoreStation(s); return { s:s, sc:r.sc, reasons:r.reasons }; });
-    scored.sort(function(a,b){ return b.sc-a.sc; });
-    return scored;
-  }
-
-  function nextQuestion(){
-    if(!CRIT.massif && !CRIT.massifExclude.length && !CRIT.askedMassif){
-      CRIT.askedMassif = true;
-      return { text:"Autre critère qui t'intéresserait ? As-tu un massif souhaité ?",
-               chips:["Alpes du Nord","Alpes du Sud","Pyrénées","Jura","Vosges","Massif Central"] };
-    }
-    if(!CRIT.niveau && !CRIT.askedNiveau){
-      CRIT.askedNiveau = true;
-      return { text:"Et niveau ski, plutôt quel profil dans le groupe ?",
-               chips:["Débutant","Intermédiaire","Avancé","Expert / hors-piste"] };
-    }
-    if(CRIT.horsSki.length===0 && !CRIT.askedExtra){
-      CRIT.askedExtra = true;
-      return { text:"Un dernier point : besoin d'un spa, d'une bonne table, ou plutôt l'essentiel sans fioritures ?",
-               chips:["Spa / bien-être","Bonne table","L'essentiel suffit"] };
-    }
-    return { text:"Je pense avoir une bonne image de ce que tu cherches. Autre chose à ajuster (massif, budget, ambiance) ou ça te va ?",
-             chips:["Ça me va, merci !","Autre chose à préciser"] };
-  }
-
-  function el(html){ var d = document.createElement("div"); d.innerHTML = html.trim(); return d.firstChild; }
+  function nrm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");}
+  function el(html){ var d=document.createElement("div"); d.innerHTML=html.trim(); return d.firstChild; }
   function escapeHtml(s){ return (s||"").replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
   function chatEl(){ return document.getElementById("iacChat"); }
-  function scrollBottom(){ var p = document.getElementById("iaPanel"); if(p) p.scrollTop = p.scrollHeight; }
+  function scrollBottom(){ var p=document.getElementById("iaPanel"); if(p) p.scrollTop=p.scrollHeight; }
 
   function addUserBubble(text){
     chatEl().appendChild(el('<div class="iac-row user"><div class="iac-avatar user">🙂</div><div class="iac-bubble user">'+escapeHtml(text)+'</div></div>'));
@@ -2301,74 +2090,27 @@ function refuseCookies() {
   }
   function addTyping(){
     var row = el('<div class="iac-row ia" id="iacTypingRow"><div class="iac-avatar ia">✨</div><div class="iac-bubble ia"><div class="iac-typing"><span></span><span></span><span></span></div></div></div>');
-    chatEl().appendChild(row);
+    chatEl().appendChild(row); scrollBottom(); return row;
+  }
+  function iaBubble(text, isError){
+    chatEl().appendChild(el('<div class="iac-row ia"><div class="iac-avatar ia">✨</div><div class="iac-bubble ia'+(isError?' iac-bubble-err':'')+'">'+text+'</div></div>'));
     scrollBottom();
-    return row;
-  }
-  function iaBubble(html){
-    chatEl().appendChild(el('<div class="iac-row ia"><div class="iac-avatar ia">✨</div><div class="iac-bubble ia">'+html+'</div></div>'));
   }
 
-  function compareNote(items){
-    if(items.length<2) return "";
-    var n = items.length;
-    var mot = n===3 ? "trois" : "deux";
-    var parts = [];
-
-    var byAlt = items.slice().sort(function(a,b){ return b.s.alt_max-a.s.alt_max; });
-    if(byAlt[0].s.alt_max - byAlt[byAlt.length-1].s.alt_max >= 150){
-      parts.push("<b>"+byAlt[0].s.name+"</b> culmine plus haut — meilleure garantie neige");
-    }
-
-    var byPrice = items.slice().sort(function(a,b){ return a.s.forfait-b.s.forfait; });
-    if(byPrice[byPrice.length-1].s.forfait - byPrice[0].s.forfait >= 3){
-      parts.push("<b>"+byPrice[0].s.name+"</b> est la moins chère des "+mot);
-    }
-
-    if(n===3){
-      var byKm = items.slice().sort(function(a,b){ return b.s.km-a.s.km; });
-      if(byKm[0].s.km - byKm[byKm.length-1].s.km >= 40){
-        parts.push("<b>"+byKm[0].s.name+"</b> offre le plus grand domaine");
-      }
-    }
-
-    if(!parts.length) return "Les "+mot+" se valent sur le papier — le choix se fera surtout sur l'ambiance du village. Autre critère qui t'intéresserait ?";
-    return parts.slice(0,3).join(". ") + ". Autre critère qui t'intéresserait ?";
+  function bookingLink(stationName){
+    var base = "https://www.booking.com/searchresults.fr.html?ss="+encodeURIComponent(stationName+" ski")+"&lang=fr";
+    return "https://www.tkqlhce.com/click-"+CJ_ID+"-15734710?sid=conseiller-ia&url="+encodeURIComponent(base);
   }
+  function ficheLink(id){ return "recherche.html?station="+id; }
 
-  function critChipsHtml(){
-    var chips = [];
-    if(CRIT.budget==="eco") chips.push("💶 petit budget");
-    if(CRIT.budget==="luxe") chips.push("💎 haut de gamme");
-    CRIT.budgetExclude.forEach(function(b){ chips.push("🚫 pas "+(b==="luxe"?"haut de gamme":"petit budget")); });
-    if(CRIT.groupe) chips.push({famille:"👨‍👩‍👧 famille",couple:"💑 couple",amis:"🎉 amis",solo:"🎒 solo"}[CRIT.groupe]);
-    CRIT.groupeExclude.forEach(function(g){ chips.push("🚫 pas "+({famille:"famille",couple:"couple",amis:"amis",solo:"solo"}[g]||g)); });
-    if(CRIT.niveau) chips.push("🎿 "+CRIT.niveau);
-    CRIT.niveauExclude.forEach(function(n){ chips.push("🚫 pas "+n); });
-    if(CRIT.massif) chips.push("⛰️ "+CRIT.massif);
-    CRIT.massifExclude.forEach(function(m){ chips.push("🚫 pas "+m); });
-    var prioLbl = {neige:"❄️ neige garantie",soleil:"☀️ village ensoleillé",village:"🏘️ village de charme",domaine:"🎿 grand domaine",festif:"🎉 festif",nature:"🌲 nature"};
-    var prioTxt = {neige:"neige garantie",soleil:"village ensoleillé",village:"village de charme",domaine:"grand domaine",festif:"festif",nature:"nature"};
-    CRIT.priorites.forEach(function(p){ if(prioLbl[p]) chips.push(prioLbl[p]); });
-    CRIT.prioritesExclude.forEach(function(p){ if(prioTxt[p]) chips.push("🚫 pas "+prioTxt[p]); });
-    var hsLbl = {spa:"🧖 spa",restaurants:"🍽️ bonne table"};
-    var hsTxt = {spa:"spa",restaurants:"restaurant"};
-    CRIT.horsSki.forEach(function(h){ if(hsLbl[h]) chips.push(hsLbl[h]); });
-    CRIT.horsSkiExclude.forEach(function(h){ if(hsTxt[h]) chips.push("🚫 pas de "+hsTxt[h]); });
-    return chips.map(function(c){ return '<span class="iac-crit-chip">'+c+'</span>'; }).join("");
-  }
-
-  function renderResults(pair){
-    if(!pair.length) return;
-    var chat = chatEl();
-    chat.appendChild(el('<div class="iac-crit-bar">'+critChipsHtml()+'</div>'));
-
+  function renderStationCards(ids){
+    var source = (typeof DATA!=="undefined") ? DATA : [];
+    var stations = ids.map(function(id){ return source.find(function(s){ return s.id===id; }); }).filter(Boolean);
+    if(!stations.length) return;
     var wrap = el('<div class="iac-cards"></div>');
     var nivLabels = {debutant:"débutant",intermediaire:"intermédiaire",avance:"avancé",expert:"expert"};
 
-    pair.forEach(function(item, i){
-      var s = item.s;
-      var reasonsHtml = item.reasons.map(function(r){ return '<span class="ia-result-reason">'+r+'</span>'; }).join("");
+    stations.forEach(function(s, i){
       var nivStr = (s.niv||[]).slice(0,2).map(function(n){ return nivLabels[n]||n; }).join(" · ");
       var favActive = (typeof isFav==="function" && isFav(s.id));
       var cmpActive = (typeof isInCompare==="function" && isInCompare(s.id));
@@ -2379,25 +2121,23 @@ function refuseCookies() {
             '<div class="ia-result-body" style="cursor:pointer" onclick="window.location.href=\'recherche.html?station='+s.id+'\'">'+
               '<div class="ia-result-name">'+s.name+'</div>'+
               '<div class="ia-result-meta">'+(s.massif||'')+' · '+(s.region||'')+'</div>'+
-              (reasonsHtml ? '<div class="ia-result-reasons">'+reasonsHtml+'</div>' : '')+
               '<div class="ia-result-stats">'+
-                '<span>🎿 '+s.km+' km</span>'+
-                '<span>🏔️ '+s.alt_min+'-'+s.alt_max+'m</span>'+
-                '<span>🎫 '+s.forfait+'€</span>'+
-                '<span>⭐ '+s.score+'</span>'+
-                (nivStr ? '<span>🎯 '+nivStr+'</span>' : '')+
+                '<span>🎿 '+s.km+' km</span><span>🏔️ '+s.alt_min+'-'+s.alt_max+'m</span><span>🎫 '+s.forfait+'€</span><span>⭐ '+s.score+'</span>'+
+                (nivStr?'<span>🎯 '+nivStr+'</span>':'')+
               '</div>'+
             '</div>'+
           '</div>'+
           '<div class="iac-card-actions">'+
             '<button class="iac-card-btn'+(favActive?' active':'')+'" data-fav="'+s.id+'">'+(favActive?'★ Favori':'☆ Favoris')+'</button>'+
             '<button class="iac-card-btn'+(cmpActive?' active-compare':'')+'" data-cmp="'+s.id+'">'+(cmpActive?'✓ Comparateur':'⇄ Comparateur')+'</button>'+
+            '<a class="iac-card-btn fiche" href="'+ficheLink(s.id)+'">📄 Fiche</a>'+
+            '<a class="iac-card-btn booking" href="'+bookingLink(s.name)+'" target="_blank" rel="noopener">🛏️ Booking</a>'+
           '</div>'+
         '</div>'
       );
       wrap.appendChild(card);
     });
-    chat.appendChild(wrap);
+    chatEl().appendChild(wrap);
 
     wrap.querySelectorAll("[data-fav]").forEach(function(b){
       b.addEventListener("click", function(e){
@@ -2420,92 +2160,57 @@ function refuseCookies() {
         showToast(nowIn ? "⇄ Ajouté au comparateur" : "Retiré du comparateur");
       });
     });
-
-    if(pair.length>=2){
-      chat.appendChild(el('<div class="iac-compare-note">'+compareNote(pair)+'</div>'));
-    }
-    scrollBottom();
-  }
-
-  function renderFollowUp(){
-    var q = nextQuestion();
-    iaBubble(q.text);
-    var chipsWrap = el('<div class="iac-chips"></div>');
-    q.chips.forEach(function(c){
-      var chip = el('<button type="button" class="iac-chip">'+c+'</button>');
-      chip.addEventListener("click", function(){ document.getElementById("iacInput").value = c; iacSend(); });
-      chipsWrap.appendChild(chip);
-    });
-    chatEl().appendChild(chipsWrap);
     scrollBottom();
   }
 
   function showToast(msg){
     var t = document.getElementById("iacToast");
     if(!t) return;
-    t.textContent = msg;
-    t.classList.add("show");
+    t.textContent = msg; t.classList.add("show");
     clearTimeout(window._iacToastT);
     window._iacToastT = setTimeout(function(){ t.classList.remove("show"); }, 1800);
   }
 
-  window.iacSend = function(){
+  async function callWorker(){
+    var res = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: HISTORY })
+    });
+    var data = await res.json();
+    if(!res.ok || data.error) throw new Error(data.error || ("HTTP "+res.status));
+    return data;
+  }
+
+  window.iacSend = async function(){
     var input = document.getElementById("iacInput");
     var text = (input.value||"").trim();
     if(!text) return;
-    input.value = "";
-    TURN++;
+    input.value = ""; TURN++;
 
     addUserBubble(text);
-    var tNorm = nrm(text);
-    var metric = LAST_PAIR.length ? detectMetaQuestion(tNorm) : null;
+    HISTORY.push({ role:"user", content: text });
     var typingRow = addTyping();
 
-    setTimeout(function(){
+    try{
+      var result = await callWorker();
       if(typingRow && typingRow.parentNode) typingRow.remove();
-
-      // Question de suivi sur les propositions déjà affichées ("laquelle a le plus de neige ?")
-      // → on répond directement, sans relancer une recherche ni polluer les critères.
-      if(metric){
-        iaBubble(answerMetaQuestion(metric));
-        scrollBottom();
-        return;
-      }
-
-      var found = parseAndMerge(text);
-      var candidates = getCandidates();
-      var pair = candidates.slice(0,3);
-      LAST_PAIR = pair;
-
-      var n = pair.length;
-      var mot = n===3 ? "trois" : n===2 ? "deux" : "une";
-
-      var intro;
-      if(TURN===1){
-        intro = candidates.length ? "Voici "+mot+" piste"+(n>1?"s":"")+" sérieuse"+(n>1?"s":"")+" pour toi :" : "Hmm, je n'ai pas assez d'infos — dis-m'en un peu plus (budget, ambiance, massif…).";
-      } else {
-        var ack = found.length ? "D'accord, avec "+found.join(" + ")+" en plus, je resserre le tir." : "Ok, je garde ça en tête.";
-        intro = ack + " Nouvelle proposition :";
-      }
-      iaBubble(intro);
-
-      if(pair.length) renderResults(pair);
-
-      if(/ca me va|ça me va|\bmerci\b/.test(tNorm) && TURN>1){
-        iaBubble("Parfait ! Tu peux comparer tes favoris directement depuis le comparateur, ou me redonner un critère si tu veux affiner encore. 🏔️");
-        scrollBottom();
-        return;
-      }
-      renderFollowUp();
-    }, 650 + Math.random()*350);
+      iaBubble(result.reply || "…");
+      HISTORY.push({ role:"assistant", content: JSON.stringify(result) });
+      if(result.station_ids && result.station_ids.length) renderStationCards(result.station_ids);
+    }catch(err){
+      if(typingRow && typingRow.parentNode) typingRow.remove();
+      iaBubble("Petit souci de connexion, tu peux réessayer ? 🙏", true);
+      console.error("Conseiller IA:", err);
+    }
   };
 
   function bootIntro(){
     var chat = chatEl();
     chat.innerHTML = "";
-    iaBubble("Salut ! Décris-moi ton séjour idéal — budget, ambiance, avec qui tu pars, massif si tu en as un en tête. Je m'occupe du reste, et on affine ensemble au fil de la discussion. 🏔️");
+    iaBubble("Salut ! Décris-moi ton séjour idéal, pose-moi n'importe quelle question sur les stations (orientation, enneigement, ambiance...) — je comprends le langage naturel et je vais chercher les infos vérifiées quand il le faut. 🏔️");
     var chipsWrap = el('<div class="iac-chips"></div>');
-    ["Station pas trop chère et familiale, avec de la neige et un village au soleil","Grand domaine pour rider entre potes, budget libre","Semaine tranquille en couple, village authentique"].forEach(function(c){
+    ["Famille, pas trop cher, neige garantie, village au soleil, tout sauf les Pyrénées","Quel est le meilleur rapport qualité-prix des Alpes ?","Le village de Val d'Isère est-il ensoleillé le soir ?"].forEach(function(c){
       var chip = el('<button type="button" class="iac-chip">'+c+'</button>');
       chip.addEventListener("click", function(){ document.getElementById("iacInput").value = c; iacSend(); });
       chipsWrap.appendChild(chip);
@@ -2533,10 +2238,11 @@ function refuseCookies() {
     });
   });
 
-  // Compat : anciens liens/scripts qui appelaient iaGoStation(id)
   window.iaGoStation = function(id){ closeIaPanel(); window.location.href = "recherche.html?station=" + id; };
 })();
 </script>
+
+
 
 
 
