@@ -120,7 +120,8 @@
     .hero-illu-note{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
 
     /* CONTAINER */
-    .container{max-width:980px;margin:0 auto;padding:32px 20px 60px}
+    .container{max-width:980px;margin:0 auto;padding:20px 14px 50px}
+    @media(max-width:480px){.container{padding:16px 10px 40px}}
     @media(min-width:1200px){
       .container{max-width:1240px}
       .main-grid{grid-template-columns:minmax(0,1fr) 400px;gap:28px}
@@ -134,33 +135,22 @@
     .breadcrumb a:hover{text-decoration:underline}
 
     /* STATS */
-    .stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px}
-    @media(max-width:700px){.stats-grid{grid-template-columns:repeat(3,1fr);gap:8px}}
-    @media(max-width:420px){
-      .stats-grid{grid-template-columns:repeat(3,1fr);gap:6px}
-      .stat-box{padding:10px 4px}
-      .stat-val{font-size:1.05rem}
-      .stat-lbl{font-size:.56rem;letter-spacing:.02em;margin-top:3px}
-    }
+    .stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+    @media(max-width:700px){.stats-grid{grid-template-columns:repeat(3,1fr);gap:6px}}
     /* Grille de tuiles (ambiance, niveaux) : colonnes fixes et prévisibles,
        jamais d'auto-fill dont le calcul peut déborder dans certaines WebView */
     .tile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
     @media(min-width:480px) and (max-width:700px){.tile-grid{grid-template-columns:repeat(3,1fr)}}
     @media(min-width:700px){.tile-grid{grid-template-columns:repeat(4,1fr)}}
 
-    /* ONGLETS — style "menu souligné", plus visible et plus aéré */
-    .tab-nav-wrap{position:relative;border-radius:14px 14px 0 0;background:white;border:1px solid var(--border);border-bottom:2px solid var(--wood-pale);overflow:hidden}
-    .tab-nav{display:flex;gap:2px;margin-bottom:0;flex-wrap:nowrap;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;background:white;border-radius:14px 14px 0 0;padding:0 8px}
-    .tab-nav::-webkit-scrollbar{display:none}
-    .tab-nav-wrap::after{content:'';position:absolute;top:0;right:0;bottom:0;width:32px;background:linear-gradient(to right,transparent,white 75%);border-radius:0 14px 0 0;pointer-events:none;opacity:1;transition:opacity .2s}
-    .tab-nav-wrap.scrolled-end::after{opacity:0}
-    .tab-btn{flex:0 0 auto;padding:17px 16px 14px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.9rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:.005em;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px}
+    /* ONGLETS — pleine largeur sous le hero, TOUT est visible (pas de scroll horizontal) */
+    .tab-nav-wrap{position:relative;background:white;border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+    .tab-nav{display:flex;flex-wrap:wrap;gap:0;max-width:1240px;margin:0 auto;padding:0 8px}
+    .tab-btn{flex:1 1 auto;padding:13px 10px 11px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.76rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:.005em;white-space:nowrap;border-bottom:3px solid transparent;text-align:center}
     .tab-btn.active{color:var(--blue-dark);border-bottom-color:var(--blue-mid);background:transparent}
     .tab-btn:hover:not(.active){color:var(--blue-mid)}
-    .tab-content{display:none;background:white;border:1px solid var(--border);border-top:none;border-radius:0 0 14px 14px;padding:28px 24px;min-height:200px}
+    .tab-content{display:none;background:white;border:1px solid var(--border);border-radius:14px;padding:18px 14px;min-height:200px}
     .tab-content.active{display:block}
-    .tab-scroll-hint{display:none;align-items:center;justify-content:center;gap:4px;font-size:.68rem;color:var(--text-light);padding:6px 0 2px;text-align:center}
-    @media(max-width:640px){.tab-scroll-hint.show{display:flex}}
 
     /* ORIENTATION / EXPOSITION */
     .compass-card{display:flex;align-items:center;gap:22px;background:linear-gradient(135deg,var(--blue-light),var(--wood-pale));border-radius:14px;padding:22px;margin-bottom:18px;flex-wrap:wrap}
@@ -196,16 +186,16 @@
     .be-card-brand{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light)}
     .be-card-txt{font-size:.82rem;font-weight:700;color:var(--text);margin-top:2px;line-height:1.3}
     .stat-box{
-      background:var(--white);border-radius:var(--radius);
-      padding:18px 12px;text-align:center;
-      box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light)
+      background:var(--white);border-radius:10px;
+      padding:9px 4px;text-align:center;
+      box-shadow:0 2px 8px rgba(0,0,0,.05);border:1px solid var(--wood-light)
     }
-    .stat-val{font-family:"DM Serif Display",serif;font-size:1.55rem;color:var(--blue-dark);line-height:1}
-    .stat-lbl{font-size:.67rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.05em;margin-top:5px}
+    .stat-val{font-family:"DM Serif Display",serif;font-size:1.05rem;color:var(--blue-dark);line-height:1}
+    .stat-lbl{font-size:.56rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.02em;margin-top:3px;line-height:1.2}
 
     /* SECTIONS */
-    .section{background:var(--white);border-radius:var(--radius);padding:26px 24px;min-width:0;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light)}
-    .section-title{font-family:"DM Serif Display",serif;font-size:1.1rem;color:var(--text-mid);margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--wood-pale)}
+    .section{background:var(--white);border-radius:var(--radius);padding:18px 16px;min-width:0;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light)}
+    .section-title{font-family:"DM Serif Display",serif;font-size:1rem;color:var(--text-mid);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--wood-pale)}
 
     /* PISTES */
     .piste-row{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--wood-pale)}
@@ -591,6 +581,19 @@
   <div class="hero-illu-note">Photo d'illustration</div>
 </div>
 
+<!-- NAVIGATION ONGLETS — pleine largeur, juste sous le hero, tout visible -->
+<div class="tab-nav-wrap" id="tabNavWrap">
+  <div class="tab-nav" id="tabNav">
+    <button class="tab-btn active" onclick="switchTab('infos',this)">🎿 Infos</button>
+    <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
+    
+    
+    <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo</button>
+    <button class="tab-btn" onclick="switchTab('neige',this)">❄️ Enneigement</button>
+    <button class="tab-btn" onclick="switchTab('avis',this)">✍️ Notre avis</button>
+  </div>
+</div>
+
 <script>
 var STATION_ID = 119;
 function getFavs(){return JSON.parse(localStorage.getItem('sf_favorites')||'[]');}
@@ -890,20 +893,6 @@ function closeStation(){
     <!-- COLONNE PRINCIPALE : 5 ONGLETS -->
     <div>
 
-      <!-- NAVIGATION ONGLETS -->
-      <div class="tab-nav-wrap" id="tabNavWrap">
-        <div class="tab-nav" id="tabNav">
-          <button class="tab-btn active" onclick="switchTab('infos',this)">🎿 Infos</button>
-          <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
-          
-          
-          <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo</button>
-          <button class="tab-btn" onclick="switchTab('neige',this)">❄️ Enneigement</button>
-          <button class="tab-btn" onclick="switchTab('avis',this)">✍️ Notre avis</button>
-        </div>
-      </div>
-      <div class="tab-scroll-hint" id="tabScrollHint">← glissez pour voir tous les onglets →</div>
-
       <!-- ONGLET 1 : INFOS -->
       <div class="tab-content active" id="tab-infos">
 
@@ -911,7 +900,7 @@ function closeStation(){
         <div class="section">
           <div class="section-title">À propos de Ceillac-en-Queyras</div>
           
-          <p style="font-size:.9rem;line-height:1.9;color:var(--text-mid)">Ceillac est un village authentique du Queyras à 1640 m, avec 30 km de pistes familiales. Son cadre naturel exceptionnel dans le Parc Naturel Régional du Queyras, ses forêts de mélèzes et ses sommets de plus de 3000 m en font une destination ski-nature de premier choix.</p>
+          <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Ceillac est un village authentique du Queyras à 1640 m, avec 30 km de pistes familiales. Son cadre naturel exceptionnel dans le Parc Naturel Régional du Queyras, ses forêts de mélèzes et ses sommets de plus de 3000 m en font une destination ski-nature de premier choix.</p>
           <ul style="margin-top:14px;padding-left:0;list-style:none"><li style="padding:5px 0;border-bottom:1px solid #f7efe2">Ski nordique 48 km réputé</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Village confidentiel du Queyras</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Parfait pour familles cherchant calme</li></ul>
@@ -957,7 +946,7 @@ function closeStation(){
         <!-- INFOS PRATIQUES -->
         <div class="section" style="margin-bottom:0">
           <div class="section-title">Informations pratiques</div>
-          <p style="font-size:.87rem;line-height:1.85;color:var(--text-mid)">
+          <p style="font-size:.83rem;line-height:1.65;color:var(--text-mid)">
             <strong>Ceillac-en-Queyras</strong> est une station de ski du massif <strong>Alpes du Sud</strong>,
             en <strong>Queyras, Hautes-Alpes</strong>. Le domaine s'étend sur
             <strong>14 km de pistes</strong> entre 1640 m et 2450 m,
