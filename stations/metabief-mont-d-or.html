@@ -148,16 +148,16 @@
     @media(min-width:480px) and (max-width:700px){.tile-grid{grid-template-columns:repeat(3,1fr)}}
     @media(min-width:700px){.tile-grid{grid-template-columns:repeat(4,1fr)}}
 
-    /* ONGLETS */
-    .tab-nav-wrap{position:relative;border-radius:14px 14px 0 0;background:var(--wood-pale);overflow:hidden}
-    .tab-nav{display:flex;gap:6px;margin-bottom:0;flex-wrap:nowrap;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;background:var(--wood-pale);border-radius:14px 14px 0 0;padding:10px 10px 0;border:1px solid var(--border);border-bottom:none}
+    /* ONGLETS — style "menu souligné", plus visible et plus aéré */
+    .tab-nav-wrap{position:relative;border-radius:14px 14px 0 0;background:white;border:1px solid var(--border);border-bottom:2px solid var(--wood-pale);overflow:hidden}
+    .tab-nav{display:flex;gap:2px;margin-bottom:0;flex-wrap:nowrap;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;background:white;border-radius:14px 14px 0 0;padding:0 8px}
     .tab-nav::-webkit-scrollbar{display:none}
-    .tab-nav-wrap::after{content:'';position:absolute;top:0;right:0;bottom:0;width:28px;background:linear-gradient(to right,transparent,var(--wood-pale) 75%);border-radius:0 14px 0 0;pointer-events:none;opacity:1;transition:opacity .2s}
+    .tab-nav-wrap::after{content:'';position:absolute;top:0;right:0;bottom:0;width:32px;background:linear-gradient(to right,transparent,white 75%);border-radius:0 14px 0 0;pointer-events:none;opacity:1;transition:opacity .2s}
     .tab-nav-wrap.scrolled-end::after{opacity:0}
-    .tab-btn{flex:0 0 auto;padding:10px 15px;border:1.5px solid var(--border);background:white;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.8rem;font-weight:700;color:var(--text-mid);border-radius:10px 10px 0 0;border-bottom:none;transition:all .15s;letter-spacing:.01em;white-space:nowrap;box-shadow:0 -1px 3px rgba(0,0,0,.03)}
-    .tab-btn.active{background:var(--blue-mid);color:white;border-color:var(--blue-mid)}
-    .tab-btn:hover:not(.active){background:var(--blue-light);color:var(--blue-dark);border-color:var(--blue)}
-    .tab-content{display:none;background:white;border:1px solid var(--border);border-radius:0 0 14px 14px;padding:22px 20px;min-height:200px}
+    .tab-btn{flex:0 0 auto;padding:17px 16px 14px;border:none;background:transparent;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.9rem;font-weight:700;color:var(--text-light);transition:color .15s,border-color .15s;letter-spacing:.005em;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px}
+    .tab-btn.active{color:var(--blue-dark);border-bottom-color:var(--blue-mid);background:transparent}
+    .tab-btn:hover:not(.active){color:var(--blue-mid)}
+    .tab-content{display:none;background:white;border:1px solid var(--border);border-top:none;border-radius:0 0 14px 14px;padding:28px 24px;min-height:200px}
     .tab-content.active{display:block}
     .tab-scroll-hint{display:none;align-items:center;justify-content:center;gap:4px;font-size:.68rem;color:var(--text-light);padding:6px 0 2px;text-align:center}
     @media(max-width:640px){.tab-scroll-hint.show{display:flex}}
@@ -204,16 +204,16 @@
     .stat-lbl{font-size:.67rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.05em;margin-top:5px}
 
     /* SECTIONS */
-    .section{background:var(--white);border-radius:var(--radius);padding:24px 28px;min-width:0;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light)}
-    .section-title{font-family:"DM Serif Display",serif;font-size:1.05rem;color:var(--text-mid);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--wood-pale)}
+    .section{background:var(--white);border-radius:var(--radius);padding:26px 24px;min-width:0;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light)}
+    .section-title{font-family:"DM Serif Display",serif;font-size:1.1rem;color:var(--text-mid);margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--wood-pale)}
 
     /* PISTES */
-    .piste-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--wood-pale)}
+    .piste-row{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--wood-pale)}
     .piste-row:last-child{border-bottom:none}
-    .piste-dot{width:13px;height:13px;border-radius:50%;flex-shrink:0}
-    .piste-bar-wrap{flex:1;height:6px;background:var(--wood-pale);border-radius:3px;overflow:hidden}
-    .piste-bar{height:100%;border-radius:3px;transition:width .4s ease}
-    .piste-count{font-weight:700;font-size:.92rem;min-width:28px;text-align:right}
+    .piste-dot{width:15px;height:15px;border-radius:50%;flex-shrink:0}
+    .piste-bar-wrap{flex:1;height:7px;background:var(--wood-pale);border-radius:4px;overflow:hidden}
+    .piste-bar{height:100%;border-radius:4px;transition:width .4s ease}
+    .piste-count{font-weight:800;font-size:1rem;min-width:30px;text-align:right;color:var(--text)}
 
     /* TAGS */
     .tag{display:inline-block;border-radius:22px;padding:4px 12px;font-size:.73rem;font-weight:600;margin:3px 2px}
@@ -917,7 +917,7 @@ function closeStation(){
         <div class="section">
           <div class="section-title">À propos de Métabief Mont d'Or</div>
           <img src="../img/metabiefmontdor2.jpg" alt="Métabief Mont d'Or pistes de ski" class="photo-station" loading="lazy">
-          <p style="font-size:.92rem;line-height:1.78;color:var(--text-mid)">Métabief Mont d'Or est la station principale du Jura franco-suisse, à 1000 m sous le Mont d'Or (1463 m). Ses 40 km de pistes offrent une vue unique sur le lac Léman et les Alpes suisses. Station familiale et nordique, avec un enneigement fiable grâce à l'altitude et l'humidité jurassienne.</p>
+          <p style="font-size:.9rem;line-height:1.9;color:var(--text-mid)">Métabief Mont d'Or est la station principale du Jura franco-suisse, à 1000 m sous le Mont d'Or (1463 m). Ses 40 km de pistes offrent une vue unique sur le lac Léman et les Alpes suisses. Station familiale et nordique, avec un enneigement fiable grâce à l'altitude et l'humidité jurassienne.</p>
           <ul style="margin-top:14px;padding-left:0;list-style:none"><li style="padding:5px 0;border-bottom:1px solid #f7efe2">Plus grande station du Jura</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Vue sur les Alpes par temps clair</li>
 <li style="padding:5px 0;border-bottom:1px solid #f7efe2">Label Famille Plus</li></ul>
@@ -936,25 +936,25 @@ function closeStation(){
           <div class="section-title">Domaine skiable — 26 km · 900m à 1423m</div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#2ea84e"></div>
-            <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Vertes</span>
+            <span style="flex:0 0 76px;font-size:.88rem;font-weight:600;color:var(--text-mid)">Vertes</span>
             <div class="piste-bar-wrap"><div class="piste-bar" style="background:#2ea84e;width:35%"></div></div>
             <span class="piste-count">7</span>
           </div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#3a7db8"></div>
-            <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Bleues</span>
+            <span style="flex:0 0 76px;font-size:.88rem;font-weight:600;color:var(--text-mid)">Bleues</span>
             <div class="piste-bar-wrap"><div class="piste-bar" style="background:#3a7db8;width:30%"></div></div>
             <span class="piste-count">10</span>
           </div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#cc2200"></div>
-            <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Rouges</span>
+            <span style="flex:0 0 76px;font-size:.88rem;font-weight:600;color:var(--text-mid)">Rouges</span>
             <div class="piste-bar-wrap"><div class="piste-bar" style="background:#cc2200;width:24%"></div></div>
             <span class="piste-count">8</span>
           </div>
           <div class="piste-row">
             <div class="piste-dot" style="background:#222"></div>
-            <span style="flex:0 0 70px;font-size:.85rem;color:var(--text-mid)">Noires</span>
+            <span style="flex:0 0 76px;font-size:.88rem;font-weight:600;color:var(--text-mid)">Noires</span>
             <div class="piste-bar-wrap"><div class="piste-bar" style="background:#333;width:6%"></div></div>
             <span class="piste-count">1</span>
           </div>
@@ -963,7 +963,7 @@ function closeStation(){
         <!-- INFOS PRATIQUES -->
         <div class="section" style="margin-bottom:0">
           <div class="section-title">Informations pratiques</div>
-          <p style="font-size:.88rem;line-height:1.72;color:var(--text-mid)">
+          <p style="font-size:.87rem;line-height:1.85;color:var(--text-mid)">
             <strong>Métabief Mont d'Or</strong> est une station de ski du massif <strong>Jura</strong>,
             en <strong>Doubs</strong>. Le domaine s'étend sur
             <strong>26 km de pistes</strong> entre 900 m et 1423 m,
