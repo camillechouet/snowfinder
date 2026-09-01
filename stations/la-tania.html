@@ -22,7 +22,7 @@
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     OneSignalDeferred.push(async function(OneSignal) {
       await OneSignal.init({
-        appId: "df4757f7-ed59-4973-8a3d-782547295c9c",
+        appId: "9530c745-8578-41e9-ad9f-2fa5348ad0b8",
         safari_web_id: "web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",
         serviceWorkerPath: "../sw.js",
         notifyButton: { enable: false },
@@ -596,13 +596,11 @@
 <!-- NAVIGATION ONGLETS — coulissante horizontalement, avec indice de scroll visible -->
 <div class="tab-nav-wrap" id="tabNavWrap">
   <div class="tab-nav" id="tabNav">
-    <button class="tab-btn active" onclick="switchTab('domaineski',this)">🎿 Domaine skiable</button>
-    <button class="tab-btn" onclick="switchTab('infos',this)">📖 La station</button>
-    <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
+    <button class="tab-btn active" onclick="switchTab('infos',this)">📖 La station</button>
     <button class="tab-btn" onclick="switchTab('domaine',this)">🔗 Grand domaine</button>
     
-    <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo</button>
-    <button class="tab-btn" onclick="switchTab('neige',this)">❄️ Enneigement</button>
+    <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
+    <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo &amp; enneigement</button>
   </div>
   <div class="tab-scroll-hint" id="tabScrollHint"><span>▶</span></div>
 </div>
@@ -879,59 +877,40 @@ function closeStation(){
     <span>La Tania</span>
   </nav>
 
-  <!-- STATS 5 colonnes -->
-  <div class="stats-grid">
-    <div class="stat-box">
-      <div class="stat-val">25 km</div>
-      <div class="stat-lbl">Pistes skiables</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val">1350m</div>
-      <div class="stat-lbl">Village</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val">2732m</div>
-      <div class="stat-lbl">Sommet (domaine)</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val">7</div>
-      <div class="stat-lbl">Remontées (estim.)</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val">55€</div>
-      <div class="stat-lbl">Forfait / jour</div>
-    </div>
-  </div>
-
-  <a href="../domaines/3-vallees.html" class="domaine-box">
-    <div class="domaine-box-head">
-      <div class="domaine-box-tag">🏔️ Domaine skiable relié</div>
-      <div class="domaine-box-name">Les 3 Vallées <span class="domaine-box-arrow">→</span></div>
-    </div>
-    <div class="domaine-box-stats">
-      <div><div class="dbs-val">600 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
-      <div><div class="dbs-val">1100-3230m</div><div class="dbs-lbl">Altitude</div></div>
-      <div><div class="dbs-val">170</div><div class="dbs-lbl">Remontées</div></div>
-      <div><div class="dbs-val">82€</div><div class="dbs-lbl">Forfait domaine/j</div></div>
-    </div>
-    <div class="domaine-box-foot">8 stations reliées, dont La Tania · voir la fiche complète du domaine</div>
-  </a>
+  <!-- Les statistiques de la station et l'encadré du grand domaine relié vivent désormais
+       chacun dans leur propre onglet (La station / Grand domaine), plus jamais affichés
+       ici de façon permanente au-dessus des onglets. -->
 
   <div class="main-grid">
 
     <!-- COLONNE PRINCIPALE : ONGLETS -->
     <div>
 
-      <!-- ONGLET 1 : DOMAINE SKIABLE — tous les chiffres de la station regroupés ici -->
-      <div class="tab-content active" id="tab-domaineski">
+      <!-- ONGLET 1 : LA STATION — chiffres + présentation éditoriale -->
+      <div class="tab-content active" id="tab-infos">
 
         <div class="section">
-          <div class="section-title">La Tania en chiffres</div>
-          <div class="domaine-stats-mini">
-            <div><strong>25 km</strong><span>de pistes</span></div>
-            <div><strong>7</strong><span>remontées</span></div>
-            <div><strong>1350-2732m</strong><span>altitude</span></div>
-            <div><strong>55€</strong><span>forfait/jour</span></div>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-val">25 km</div>
+              <div class="stat-lbl">Pistes skiables</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">1350m</div>
+              <div class="stat-lbl">Village</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">2732m</div>
+              <div class="stat-lbl">Sommet (domaine)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">7</div>
+              <div class="stat-lbl">Remontées (estim.)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">55€</div>
+              <div class="stat-lbl">Forfait / jour</div>
+            </div>
           </div>
         </div>
 
@@ -965,7 +944,7 @@ function closeStation(){
         </div>
 
         <!-- INFOS PRATIQUES -->
-        <div class="section" style="margin-bottom:0">
+        <div class="section">
           <div class="section-title">Informations pratiques</div>
           <p style="font-size:.83rem;line-height:1.65;color:var(--text-mid)">
             <strong>La Tania</strong> est une station de ski du massif <strong>Alpes du Nord</strong>,
@@ -976,11 +955,7 @@ function closeStation(){
           </p>
         </div>
 
-      </div>
-
-      <!-- ONGLET 2 : LA STATION — présentation éditoriale -->
-      <div class="tab-content" id="tab-infos">
-
+        <!-- À PROPOS -->
         <div class="section" style="margin-bottom:0">
           <div class="section-title">À propos de La Tania</div>
           
@@ -1171,6 +1146,19 @@ function closeStation(){
       </div>
 
       <div class="tab-content" id="tab-domaine">
+        <a href="../domaines/3-vallees.html" class="domaine-box">
+    <div class="domaine-box-head">
+      <div class="domaine-box-tag">🏔️ Domaine skiable relié</div>
+      <div class="domaine-box-name">Les 3 Vallées <span class="domaine-box-arrow">→</span></div>
+    </div>
+    <div class="domaine-box-stats">
+      <div><div class="dbs-val">600 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
+      <div><div class="dbs-val">1100-3230m</div><div class="dbs-lbl">Altitude</div></div>
+      <div><div class="dbs-val">170</div><div class="dbs-lbl">Remontées</div></div>
+      <div><div class="dbs-val">82€</div><div class="dbs-lbl">Forfait domaine/j</div></div>
+    </div>
+    <div class="domaine-box-foot">8 stations reliées, dont La Tania · voir la fiche complète du domaine</div>
+  </a>
         <div class="dt-hero">
           <h3>🏔️ Les 3 Vallées</h3>
           <p>Le plus grand domaine skiable du monde, et ce n'est pas un slogan : 600 km de pistes qui s'enchaînent sans jamais reprendre la voiture, de Courchevel à Val Thorens en passant par Méribel et Les Menuires. Trois vallées à l'origine — Saint-Bon, Allues, Belleville — auxquelles s'est greffée Orelle côté Maurienne. C'est le royaume du ski d'altitude : Val Thorens culmine à 2300 m au village, la Cime Caron dépasse 3200 m, et la neige tient de novembre à mai. Chaque station a sa personnalité tranchée, du luxe assumé de Courchevel 1850 à l'esprit familial des Menuires. Prévoir plusieurs jours : personne ne fait le tour du domaine en une journée.</p>
@@ -1244,7 +1232,7 @@ function closeStation(){
       <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
       
 
-      <!-- ONGLET 4 : MÉTÉO -->
+      <!-- ONGLET MÉTÉO & ENNEIGEMENT (fusionnés) -->
       <div class="tab-content" id="tab-meteo">
         <div class="meteo-widget" id="meteoWidget">
           <div class="meteo-head">
@@ -1264,12 +1252,8 @@ function closeStation(){
           <div class="meteo-grid" id="meteoGrid" style="display:none"></div>
         </div>
         <p style="font-size:.75rem;color:rgba(255,255,255,.6);text-align:center;margin-top:10px">Source : Open-Meteo.com · Données actualisées en temps réel</p>
-      </div>
 
-      <!-- ONGLET 5 : ENNEIGEMENT -->
-      <div class="tab-content" id="tab-neige">
-
-        <!-- Lecture principale : actuel vs période -->
+        <!-- Enneigement, juste en dessous de la météo -->
         <div style="background:linear-gradient(135deg,#e8f3fb,#d0e7f5);border-radius:14px;padding:20px;margin-bottom:14px">
           <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#3a7db8;margin-bottom:14px">❄️ Enneigement en ce moment (altitude station)</div>
 
