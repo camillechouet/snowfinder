@@ -1,4 +1,9 @@
 // SnowFinder Service Worker
+// Import du code OneSignal (push notifications) — DOIT être fusionné ici
+// plutôt qu'enregistré comme worker séparé, sinon conflit de scope '/'
+// entre sw.js et OneSignalSDKWorker.js (un seul SW actif possible par scope).
+importScripts("https://cdn.onesignal.com/sdks/OneSignalSDK.sw.js");
+
 const CACHE_NAME = 'snowfinder-v3';
 const STATIC_ASSETS = [
   '/',
