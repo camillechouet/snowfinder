@@ -2271,6 +2271,31 @@ function refuseCookies() {
   </div>
 </div>
 
+<!-- SDK OneSignal chargé sans condition à chaque visite (comme favoris.html) -->
+<!-- Nécessaire pour que les visiteurs ayant DÉJÀ accordé la permission notif -->
+<!-- (avant même de voir le popup ci-dessous, ou lors d'une visite précédente) -->
+<!-- soient bien enregistrés comme abonnés OneSignal, même si le popup custom -->
+<!-- ne se réaffiche jamais pour eux (shouldShow() le bloque à raison). -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "df4757f7-ed59-4973-8a3d-782547295c9c",
+      safari_web_id: "web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",
+      serviceWorkerPath: "sw.js",
+      notifyButton: { enable: false },
+      welcomeNotification: { disable: true },
+    });
+    var favs = JSON.parse(localStorage.getItem('sf_favorites') || '[]');
+    if(favs.length) {
+      favs.forEach(function(id) {
+        try { OneSignal.User.addTag('fav_' + id, '1'); } catch(e) {}
+      });
+    }
+  });
+</script>
+
 <script>
 (function(){
   function shouldShow() {
@@ -2306,45 +2331,18 @@ function refuseCookies() {
     setTimeout(function(){ sheet.style.display = 'none'; }, 380);
   };
 
+  // Le SDK OneSignal est déjà chargé et initialisé (voir bloc ci-dessus).
+  // Ici on déclenche juste la demande de permission native.
   window.acceptNotifPopup = function() {
     localStorage.setItem('sf_notif_ask', Date.now());
     dismissNotifPopup();
 
-    var s = document.createElement('script');
-    s.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
-    s.onload = function() {
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      OneSignalDeferred.push(async function(OneSignal) {
-        await OneSignal.init({
-          appId: "df4757f7-ed59-4973-8a3d-782547295c9c",
-          safari_web_id: "web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",
-          serviceWorkerPath: "sw.js",
-          notifyButton: { enable: false },
-          welcomeNotification: { disable: true },
-          promptOptions: {
-            slidedown: {
-              prompts: [{
-                type: "push",
-                autoPrompt: true,
-                text: {
-                  actionMessage: "Derni\u00e8re \u00e9tape \u2014 confirme dans la fen\u00eatre qui va s'ouvrir !",
-                  acceptButton: "Confirmer",
-                  cancelButton: "Annuler",
-                },
-                delay: { timeDelay: 0, pageViews: 1 }
-              }]
-            }
-          }
-        });
-        var favs = JSON.parse(localStorage.getItem('sf_favorites') || '[]');
-        if(favs.length) {
-          favs.forEach(function(id) {
-            try { OneSignal.User.addTag('fav_' + id, '1'); } catch(e) {}
-          });
-        }
-      });
-    };
-    document.head.appendChild(s);
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      try {
+        await OneSignal.Notifications.requestPermission();
+      } catch(e) {}
+    });
   };
 })();
 </script>
