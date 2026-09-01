@@ -117,7 +117,11 @@
     }
     h1{font-family:"DM Serif Display",serif;font-size:clamp(2rem,6vw,3.2rem);color:white;line-height:1.05;margin-bottom:6px}
     .hero-region{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px}
-    .hero-illu-note{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
+    .hero-illu-note{font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
+    .hero-bottom-right{position:absolute;bottom:10px;right:14px;z-index:6;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+    .hero-domaine-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(13,34,64,.6);backdrop-filter:blur(8px);color:white;font-size:.72rem;font-weight:700;padding:6px 13px;border-radius:20px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);transition:background .15s}
+    .hero-domaine-badge:hover{background:rgba(13,34,64,.8)}
+    .hero-domaine-badge span{opacity:.8;font-weight:800}
 
     /* CONTAINER */
     .container{max-width:980px;margin:0 auto;padding:20px 14px 50px}
@@ -216,6 +220,22 @@
     .piste-bar-wrap{flex:1;height:7px;background:var(--wood-pale);border-radius:4px;overflow:hidden}
     .piste-bar{height:100%;border-radius:4px;transition:width .4s ease}
     .piste-count{font-weight:800;font-size:1rem;min-width:30px;text-align:right;color:var(--text)}
+
+    /* RÉPARTITION DES PISTES — cercles + pourcentages (façon appli des stations) */
+    .piste-circles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
+    @media(max-width:420px){.piste-circles{grid-template-columns:repeat(2,1fr);row-gap:16px}}
+    .piste-circle-item{text-align:center}
+    .piste-circle{width:48px;height:48px;border-radius:50%;margin:0 auto 9px;box-shadow:0 3px 10px rgba(0,0,0,.14)}
+    .piste-circle-pct{font-family:"DM Serif Display",serif;font-size:1.3rem;color:var(--text);line-height:1}
+    .piste-circle-lbl{font-size:.7rem;color:var(--text-mid);font-weight:600;margin-top:4px}
+
+    /* TUILES CHIFFRES DU DOMAINE — icône + valeur, façon appli des stations */
+    .icon-stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:2px}
+    @media(min-width:480px){.icon-stat-grid{grid-template-columns:repeat(3,1fr)}}
+    .icon-stat-tile{background:var(--blue-light);border-radius:12px;padding:16px 10px;text-align:center}
+    .icon-stat-ico{font-size:1.35rem;display:block;margin-bottom:7px}
+    .icon-stat-val{font-family:"DM Serif Display",serif;font-size:1.3rem;color:var(--blue-dark);line-height:1}
+    .icon-stat-lbl{font-size:.7rem;color:var(--text-mid);font-weight:600;margin-top:4px}
 
     /* TAGS */
     .tag{display:inline-block;border-radius:22px;padding:4px 12px;font-size:.73rem;font-weight:600;margin:3px 2px}
@@ -590,7 +610,10 @@
     <h1>Aussois</h1>
     <div class="hero-region">📍 Haute-Maurienne, Savoie</div>
   </div>
-  <div class="hero-illu-note">Photo d'illustration</div>
+  <div class="hero-bottom-right">
+    <div class="hero-illu-note">Photo d'illustration</div>
+    
+  </div>
 </div>
 
 <!-- NAVIGATION ONGLETS — coulissante horizontalement, avec indice de scroll visible -->
@@ -889,57 +912,62 @@ function closeStation(){
       <!-- ONGLET 1 : LA STATION — chiffres + présentation éditoriale -->
       <div class="tab-content active" id="tab-infos">
 
+        <!-- PISTES — cercles colorés + pourcentages, façon appli des stations -->
         <div class="section">
-          <div class="stats-grid">
-            <div class="stat-box">
-              <div class="stat-val">55 km</div>
-              <div class="stat-lbl">Pistes skiables</div>
+          <div class="section-title">Aperçu du domaine skiable</div>
+          <div class="piste-circles">
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#2ea84e"></div>
+              <div class="piste-circle-pct">24%</div>
+              <div class="piste-circle-lbl">Pistes vertes</div>
             </div>
-            <div class="stat-box">
-              <div class="stat-val">1500m</div>
-              <div class="stat-lbl">Village</div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#3a7db8"></div>
+              <div class="piste-circle-pct">29%</div>
+              <div class="piste-circle-lbl">Pistes bleues</div>
             </div>
-            <div class="stat-box">
-              <div class="stat-val">2750m</div>
-              <div class="stat-lbl">Sommet</div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#cc2200"></div>
+              <div class="piste-circle-pct">33%</div>
+              <div class="piste-circle-lbl">Pistes rouges</div>
             </div>
-            <div class="stat-box">
-              <div class="stat-val">8</div>
-              <div class="stat-lbl">Remontées</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-val">26€</div>
-              <div class="stat-lbl">Forfait / jour</div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#222"></div>
+              <div class="piste-circle-pct">14%</div>
+              <div class="piste-circle-lbl">Pistes noires</div>
             </div>
           </div>
-        </div>
-
-        <!-- PISTES -->
-        <div class="section">
-          <div class="section-title">Répartition des pistes</div>
-          <div class="piste-row">
-            <div class="piste-dot" style="background:#2ea84e"></div>
-            <span style="flex:0 0 76px;font-size:.88rem;font-weight:600;color:var(--text-mid)">Vertes</span>
-            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#2ea84e;width:25%"></div></div>
-            <span class="piste-count">5</span>
-          </div>
-          <div class="piste-row">
-            <div class="piste-dot" style="background:#3a7db8"></div>
-            <span style="flex:0 0 76px;font-size:.88rem;font-weight:600;color:var(--text-mid)">Bleues</span>
-            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#3a7db8;width:18%"></div></div>
-            <span class="piste-count">6</span>
-          </div>
-          <div class="piste-row">
-            <div class="piste-dot" style="background:#cc2200"></div>
-            <span style="flex:0 0 76px;font-size:.88rem;font-weight:600;color:var(--text-mid)">Rouges</span>
-            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#cc2200;width:21%"></div></div>
-            <span class="piste-count">7</span>
-          </div>
-          <div class="piste-row">
-            <div class="piste-dot" style="background:#222"></div>
-            <span style="flex:0 0 76px;font-size:.88rem;font-weight:600;color:var(--text-mid)">Noires</span>
-            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#333;width:18%"></div></div>
-            <span class="piste-count">3</span>
+          <div class="icon-stat-grid">
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🎿</span>
+              <div class="icon-stat-val">21</div>
+              <div class="icon-stat-lbl">Nombre de pistes</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">⛰️</span>
+              <div class="icon-stat-val">55 km</div>
+              <div class="icon-stat-lbl">Pistes skiables</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🏘️</span>
+              <div class="icon-stat-val">1500m</div>
+              <div class="icon-stat-lbl">Altitude village</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🗻</span>
+              <div class="icon-stat-val">2750m</div>
+              <div class="icon-stat-lbl">Sommet</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🚡</span>
+              <div class="icon-stat-val">8</div>
+              <div class="icon-stat-lbl">Remontées</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">💶</span>
+              <div class="icon-stat-val">26€</div>
+              <div class="icon-stat-lbl">Forfait / jour</div>
+            </div>
           </div>
         </div>
 
