@@ -108,7 +108,7 @@
       background:var(--wood);color:white;font-weight:700;font-size:.95rem;
       padding:6px 13px;border-radius:9px;box-shadow:0 2px 8px rgba(0,0,0,.25)
     }
-    .hero-content{position:absolute;bottom:0;left:0;right:0;padding:28px 28px 32px;z-index:10}
+    .hero-content{position:absolute;bottom:0;left:0;right:0;padding:28px 28px 32px;z-index:10;pointer-events:none}
     .hero-massif{
       display:inline-block;background:rgba(255,255,255,.16);
       border:1px solid rgba(255,255,255,.28);border-radius:22px;
@@ -118,10 +118,10 @@
     h1{font-family:"DM Serif Display",serif;font-size:clamp(2rem,6vw,3.2rem);color:white;line-height:1.05;margin-bottom:6px}
     .hero-region{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px}
     .hero-illu-note{font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
-    .hero-bottom-right{position:absolute;bottom:10px;right:14px;z-index:6;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-    .hero-domaine-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(13,34,64,.6);backdrop-filter:blur(8px);color:white;font-size:.72rem;font-weight:700;padding:6px 13px;border-radius:20px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);transition:background .15s}
-    .hero-domaine-badge:hover{background:rgba(13,34,64,.8)}
-    .hero-domaine-badge span{opacity:.8;font-weight:800}
+    .hero-bottom-right{position:absolute;bottom:14px;right:14px;z-index:12;display:flex;flex-direction:column;align-items:flex-end;gap:6px;pointer-events:none}
+    .hero-domaine-badge{pointer-events:auto;display:inline-flex;align-items:center;gap:6px;background:rgba(13,34,64,.68);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(8px);color:white;font-size:.7rem;font-weight:700;letter-spacing:.02em;padding:7px 14px;border-radius:20px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.28);transition:background .15s,transform .15s}
+    .hero-domaine-badge:hover{background:rgba(13,34,64,.85);transform:translateY(-1px)}
+    .hero-domaine-badge span{opacity:.75;font-weight:800}
 
     /* CONTAINER */
     .container{max-width:980px;margin:0 auto;padding:20px 14px 50px}
@@ -222,20 +222,22 @@
     .piste-count{font-weight:800;font-size:1rem;min-width:30px;text-align:right;color:var(--text)}
 
     /* RÉPARTITION DES PISTES — cercles + pourcentages (façon appli des stations) */
-    .piste-circles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
-    @media(max-width:420px){.piste-circles{grid-template-columns:repeat(2,1fr);row-gap:16px}}
+    .piste-circles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px}
+    @media(max-width:380px){.piste-circles{grid-template-columns:repeat(4,1fr);gap:4px}}
     .piste-circle-item{text-align:center}
-    .piste-circle{width:48px;height:48px;border-radius:50%;margin:0 auto 9px;box-shadow:0 3px 10px rgba(0,0,0,.14)}
-    .piste-circle-pct{font-family:"DM Serif Display",serif;font-size:1.3rem;color:var(--text);line-height:1}
-    .piste-circle-lbl{font-size:.7rem;color:var(--text-mid);font-weight:600;margin-top:4px}
+    .piste-circle{width:30px;height:30px;border-radius:50%;margin:0 auto 6px;box-shadow:0 2px 6px rgba(0,0,0,.14)}
+    .piste-circle-val{font-family:"DM Serif Display",serif;font-size:.92rem;color:var(--text);line-height:1.2}
+    .piste-circle-val b{font-size:1.05rem}
+    .piste-circle-pct{font-size:.66rem;color:var(--text-light);font-weight:600}
+    .piste-circle-lbl{font-size:.62rem;color:var(--text-mid);font-weight:600;margin-top:3px}
 
     /* TUILES CHIFFRES DU DOMAINE — icône + valeur, façon appli des stations */
     .icon-stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:2px}
     @media(min-width:480px){.icon-stat-grid{grid-template-columns:repeat(3,1fr)}}
-    .icon-stat-tile{background:var(--blue-light);border-radius:12px;padding:16px 10px;text-align:center}
-    .icon-stat-ico{font-size:1.35rem;display:block;margin-bottom:7px}
-    .icon-stat-val{font-family:"DM Serif Display",serif;font-size:1.3rem;color:var(--blue-dark);line-height:1}
-    .icon-stat-lbl{font-size:.7rem;color:var(--text-mid);font-weight:600;margin-top:4px}
+    .icon-stat-tile{background:var(--blue-light);border-radius:11px;padding:12px 8px;text-align:center}
+    .icon-stat-ico{font-size:1.15rem;display:block;margin-bottom:5px}
+    .icon-stat-val{font-family:"DM Serif Display",serif;font-size:1.1rem;color:var(--blue-dark);line-height:1}
+    .icon-stat-lbl{font-size:.65rem;color:var(--text-mid);font-weight:600;margin-top:3px}
 
     /* TAGS */
     .tag{display:inline-block;border-radius:22px;padding:4px 12px;font-size:.73rem;font-weight:600;margin:3px 2px}
@@ -918,23 +920,27 @@ function closeStation(){
           <div class="piste-circles">
             <div class="piste-circle-item">
               <div class="piste-circle" style="background:#2ea84e"></div>
+              <div class="piste-circle-val"><b>9</b></div>
               <div class="piste-circle-pct">26%</div>
-              <div class="piste-circle-lbl">Pistes vertes</div>
+              <div class="piste-circle-lbl">Vertes</div>
             </div>
             <div class="piste-circle-item">
               <div class="piste-circle" style="background:#3a7db8"></div>
+              <div class="piste-circle-val"><b>17</b></div>
               <div class="piste-circle-pct">49%</div>
-              <div class="piste-circle-lbl">Pistes bleues</div>
+              <div class="piste-circle-lbl">Bleues</div>
             </div>
             <div class="piste-circle-item">
               <div class="piste-circle" style="background:#cc2200"></div>
+              <div class="piste-circle-val"><b>7</b></div>
               <div class="piste-circle-pct">20%</div>
-              <div class="piste-circle-lbl">Pistes rouges</div>
+              <div class="piste-circle-lbl">Rouges</div>
             </div>
             <div class="piste-circle-item">
               <div class="piste-circle" style="background:#222"></div>
+              <div class="piste-circle-val"><b>2</b></div>
               <div class="piste-circle-pct">6%</div>
-              <div class="piste-circle-lbl">Pistes noires</div>
+              <div class="piste-circle-lbl">Noires</div>
             </div>
           </div>
           <div class="icon-stat-grid">
