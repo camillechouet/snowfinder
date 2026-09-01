@@ -1915,6 +1915,12 @@ def render_page(s):
         pass
     prix_nuit = round(s['forfait'] * 2.4)
     niveaux = ", ".join(NIV.get(n, n) for n in s.get('niv', []))
+    # Répartition des pistes en pourcentage + nombre total (dérivés des chiffres vérifiés v/b/r/n)
+    _pistes_total = sum(s['pistes'].values()) or 1
+    pct_v = round(s['pistes']['v'] * 100 / _pistes_total)
+    pct_b = round(s['pistes']['b'] * 100 / _pistes_total)
+    pct_r = round(s['pistes']['r'] * 100 / _pistes_total)
+    pct_n = round(s['pistes']['n'] * 100 / _pistes_total)
     pts = s.get('pts', [])
     pts_html = "\n".join(f'<li style="padding:5px 0;border-bottom:1px solid #f7efe2">{p}</li>' for p in pts)
     anecdote_html = render_anecdote_html(s['name'])
@@ -1939,6 +1945,7 @@ def render_page(s):
     <div class="domaine-box-foot">{len(domaine['stations'])} stations reliées, dont {s['name']} · voir la fiche complète du domaine</div>
   </a>'''
         domaine_tab_btn = '<button class="tab-btn" onclick="switchTab(\'domaine\',this)">🔗 Grand domaine</button>'
+        hero_domaine_html = f'<a href="{domaine_url}" class="hero-domaine-badge">🏔️ {domaine["short"]} <span>→</span></a>'
         soeurs_cards = "\n".join(
             f'''<a href="{slugify(n)}.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">{n}</div>
@@ -1971,6 +1978,7 @@ def render_page(s):
     else:
         domaine_tab_btn = ''
         domaine_tab_html = ''
+        hero_domaine_html = ''
     # Valeurs affichées dans les stat-box principales : on privilégie le chiffre
     # PROPRE à la station quand il est connu (domaine['km_propre'] / alt_village),
     # pour ne pas confondre "km de la station" et "km du domaine entier"
@@ -2254,7 +2262,11 @@ def render_page(s):
     }}
     h1{{font-family:"DM Serif Display",serif;font-size:clamp(2rem,6vw,3.2rem);color:white;line-height:1.05;margin-bottom:6px}}
     .hero-region{{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px}}
-    .hero-illu-note{{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}}
+    .hero-illu-note{{font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}}
+    .hero-bottom-right{{position:absolute;bottom:10px;right:14px;z-index:6;display:flex;flex-direction:column;align-items:flex-end;gap:6px}}
+    .hero-domaine-badge{{display:inline-flex;align-items:center;gap:5px;background:rgba(13,34,64,.6);backdrop-filter:blur(8px);color:white;font-size:.72rem;font-weight:700;padding:6px 13px;border-radius:20px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);transition:background .15s}}
+    .hero-domaine-badge:hover{{background:rgba(13,34,64,.8)}}
+    .hero-domaine-badge span{{opacity:.8;font-weight:800}}
 
     /* CONTAINER */
     .container{{max-width:980px;margin:0 auto;padding:20px 14px 50px}}
@@ -2353,6 +2365,22 @@ def render_page(s):
     .piste-bar-wrap{{flex:1;height:7px;background:var(--wood-pale);border-radius:4px;overflow:hidden}}
     .piste-bar{{height:100%;border-radius:4px;transition:width .4s ease}}
     .piste-count{{font-weight:800;font-size:1rem;min-width:30px;text-align:right;color:var(--text)}}
+
+    /* RÉPARTITION DES PISTES — cercles + pourcentages (façon appli des stations) */
+    .piste-circles{{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}}
+    @media(max-width:420px){{.piste-circles{{grid-template-columns:repeat(2,1fr);row-gap:16px}}}}
+    .piste-circle-item{{text-align:center}}
+    .piste-circle{{width:48px;height:48px;border-radius:50%;margin:0 auto 9px;box-shadow:0 3px 10px rgba(0,0,0,.14)}}
+    .piste-circle-pct{{font-family:"DM Serif Display",serif;font-size:1.3rem;color:var(--text);line-height:1}}
+    .piste-circle-lbl{{font-size:.7rem;color:var(--text-mid);font-weight:600;margin-top:4px}}
+
+    /* TUILES CHIFFRES DU DOMAINE — icône + valeur, façon appli des stations */
+    .icon-stat-grid{{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:2px}}
+    @media(min-width:480px){{.icon-stat-grid{{grid-template-columns:repeat(3,1fr)}}}}
+    .icon-stat-tile{{background:var(--blue-light);border-radius:12px;padding:16px 10px;text-align:center}}
+    .icon-stat-ico{{font-size:1.35rem;display:block;margin-bottom:7px}}
+    .icon-stat-val{{font-family:"DM Serif Display",serif;font-size:1.3rem;color:var(--blue-dark);line-height:1}}
+    .icon-stat-lbl{{font-size:.7rem;color:var(--text-mid);font-weight:600;margin-top:4px}}
 
     /* TAGS */
     .tag{{display:inline-block;border-radius:22px;padding:4px 12px;font-size:.73rem;font-weight:600;margin:3px 2px}}
@@ -2727,7 +2755,10 @@ def render_page(s):
     <h1>{s['name']}</h1>
     <div class="hero-region">📍 {s['region']}</div>
   </div>
-  {hero_illu_note}
+  <div class="hero-bottom-right">
+    {hero_illu_note}
+    {hero_domaine_html}
+  </div>
 </div>
 
 <!-- NAVIGATION ONGLETS — coulissante horizontalement, avec indice de scroll visible -->
@@ -3026,57 +3057,62 @@ function closeStation(){{
       <!-- ONGLET 1 : LA STATION — chiffres + présentation éditoriale -->
       <div class="tab-content active" id="tab-infos">
 
+        <!-- PISTES — cercles colorés + pourcentages, façon appli des stations -->
         <div class="section">
-          <div class="stats-grid">
-            <div class="stat-box">
-              <div class="stat-val">{display_km} km</div>
-              <div class="stat-lbl">{km_lbl}</div>
+          <div class="section-title">Aperçu du domaine skiable</div>
+          <div class="piste-circles">
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#2ea84e"></div>
+              <div class="piste-circle-pct">{pct_v}%</div>
+              <div class="piste-circle-lbl">Pistes vertes</div>
             </div>
-            <div class="stat-box">
-              <div class="stat-val">{display_alt_min}m</div>
-              <div class="stat-lbl">Village</div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#3a7db8"></div>
+              <div class="piste-circle-pct">{pct_b}%</div>
+              <div class="piste-circle-lbl">Pistes bleues</div>
             </div>
-            <div class="stat-box">
-              <div class="stat-val">{display_alt_max}m</div>
-              <div class="stat-lbl">{alt_max_lbl}</div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#cc2200"></div>
+              <div class="piste-circle-pct">{pct_r}%</div>
+              <div class="piste-circle-lbl">Pistes rouges</div>
             </div>
-            <div class="stat-box">
-              <div class="stat-val">{display_remontees}</div>
-              <div class="stat-lbl">{remontees_lbl}</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-val">{s['forfait']}€</div>
-              <div class="stat-lbl">Forfait / jour</div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#222"></div>
+              <div class="piste-circle-pct">{pct_n}%</div>
+              <div class="piste-circle-lbl">Pistes noires</div>
             </div>
           </div>
-        </div>
-
-        <!-- PISTES -->
-        <div class="section">
-          <div class="section-title">Répartition des pistes</div>
-          <div class="piste-row">
-            <div class="piste-dot" style="background:#2ea84e"></div>
-            <span style="flex:0 0 76px;font-size:.88rem;font-weight:600;color:var(--text-mid)">Vertes</span>
-            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#2ea84e;width:{min(100, s['pistes']['v']*5)}%"></div></div>
-            <span class="piste-count">{s['pistes']['v']}</span>
-          </div>
-          <div class="piste-row">
-            <div class="piste-dot" style="background:#3a7db8"></div>
-            <span style="flex:0 0 76px;font-size:.88rem;font-weight:600;color:var(--text-mid)">Bleues</span>
-            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#3a7db8;width:{min(100, s['pistes']['b']*3)}%"></div></div>
-            <span class="piste-count">{s['pistes']['b']}</span>
-          </div>
-          <div class="piste-row">
-            <div class="piste-dot" style="background:#cc2200"></div>
-            <span style="flex:0 0 76px;font-size:.88rem;font-weight:600;color:var(--text-mid)">Rouges</span>
-            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#cc2200;width:{min(100, s['pistes']['r']*3)}%"></div></div>
-            <span class="piste-count">{s['pistes']['r']}</span>
-          </div>
-          <div class="piste-row">
-            <div class="piste-dot" style="background:#222"></div>
-            <span style="flex:0 0 76px;font-size:.88rem;font-weight:600;color:var(--text-mid)">Noires</span>
-            <div class="piste-bar-wrap"><div class="piste-bar" style="background:#333;width:{min(100, s['pistes']['n']*6)}%"></div></div>
-            <span class="piste-count">{s['pistes']['n']}</span>
+          <div class="icon-stat-grid">
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🎿</span>
+              <div class="icon-stat-val">{_pistes_total}</div>
+              <div class="icon-stat-lbl">Nombre de pistes</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">⛰️</span>
+              <div class="icon-stat-val">{display_km} km</div>
+              <div class="icon-stat-lbl">{km_lbl}</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🏘️</span>
+              <div class="icon-stat-val">{display_alt_min}m</div>
+              <div class="icon-stat-lbl">Altitude village</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🗻</span>
+              <div class="icon-stat-val">{display_alt_max}m</div>
+              <div class="icon-stat-lbl">{alt_max_lbl}</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🚡</span>
+              <div class="icon-stat-val">{display_remontees}</div>
+              <div class="icon-stat-lbl">{remontees_lbl}</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">💶</span>
+              <div class="icon-stat-val">{s['forfait']}€</div>
+              <div class="icon-stat-lbl">Forfait / jour</div>
+            </div>
           </div>
         </div>
 
