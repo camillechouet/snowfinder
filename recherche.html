@@ -1497,13 +1497,31 @@ function closeContact() {
   document.getElementById("contactSuccess").style.display = "none";
   document.body.style.overflow = "";
 }
-function sendContact() {
+async function sendContact() {
   const email = document.getElementById("contactEmail").value;
   const msg = document.getElementById("contactMessage").value;
+  const subject = document.getElementById("contactSubject") ? document.getElementById("contactSubject").value : "";
   if(!email || !msg) { alert("Merci de remplir tous les champs."); return; }
-  // Simulation envoi (à connecter à un vrai service ex: Formspree)
-  document.getElementById("contactForm").style.display = "none";
-  document.getElementById("contactSuccess").style.display = "block";
+  const btn = document.querySelector(".contact-btn-send");
+  const originalLabel = btn ? btn.textContent : "";
+  if(btn) { btn.disabled = true; btn.textContent = "Envoi..."; }
+  try {
+    const res = await fetch("https://formspree.io/f/mnjggdvy", {
+      method: "POST",
+      headers: { "Accept": "application/json" },
+      body: new URLSearchParams({ email: email, message: msg, subject: subject })
+    });
+    if(res.ok) {
+      document.getElementById("contactForm").style.display = "none";
+      document.getElementById("contactSuccess").style.display = "block";
+    } else {
+      alert("Erreur lors de l'envoi, réessaie dans un instant.");
+    }
+  } catch(e) {
+    alert("Erreur réseau, vérifie ta connexion et réessaie.");
+  } finally {
+    if(btn) { btn.disabled = false; btn.textContent = originalLabel; }
+  }
 }
 document.getElementById("contactOverlay").addEventListener("click", e => {
   if(e.target === document.getElementById("contactOverlay")) closeContact();
