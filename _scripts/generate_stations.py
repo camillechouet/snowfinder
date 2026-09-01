@@ -1925,7 +1925,7 @@ def render_page(s):
     if domaine:
         domaine_url = f"../domaines/{domaine_slug}.html"
         soeurs = [n for n in domaine['stations'] if n != s['name']]
-        domaine_badge_html = f'''<a href="{domaine_url}" class="domaine-box">
+        domaine_highlight_box = f'''<a href="{domaine_url}" class="domaine-box">
     <div class="domaine-box-head">
       <div class="domaine-box-tag">🏔️ Domaine skiable relié</div>
       <div class="domaine-box-name">{domaine['name']} <span class="domaine-box-arrow">→</span></div>
@@ -1949,7 +1949,11 @@ def render_page(s):
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>''' for n in soeurs
         )
+        # Le "gros encadré" du domaine relié (nom, chiffres, lien vers la fiche complète)
+        # n'apparaît QUE dans l'onglet Grand domaine — jamais en haut de la page,
+        # quel que soit l'onglet actif.
         domaine_tab_html = f'''<div class="tab-content" id="tab-domaine">
+        {domaine_highlight_box}
         <div class="dt-hero">
           <h3>🏔️ {domaine['name']}</h3>
           <p>{domaine['desc']}</p>
@@ -1965,7 +1969,6 @@ def render_page(s):
         {f'<h4 class="dt-subtitle">Les autres stations du domaine</h4><div class="domaine-soeurs-grid">{soeurs_cards}</div>' if soeurs else ''}
       </div>'''
     else:
-        domaine_badge_html = ''
         domaine_tab_btn = ''
         domaine_tab_html = ''
     # Valeurs affichées dans les stat-box principales : on privilégie le chiffre
@@ -2156,7 +2159,7 @@ def render_page(s):
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     OneSignalDeferred.push(async function(OneSignal) {{
       await OneSignal.init({{
-        appId: "df4757f7-ed59-4973-8a3d-782547295c9c",
+        appId: "9530c745-8578-41e9-ad9f-2fa5348ad0b8",
         safari_web_id: "web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",
         serviceWorkerPath: "../sw.js",
         notifyButton: {{ enable: false }},
@@ -2730,13 +2733,11 @@ def render_page(s):
 <!-- NAVIGATION ONGLETS — coulissante horizontalement, avec indice de scroll visible -->
 <div class="tab-nav-wrap" id="tabNavWrap">
   <div class="tab-nav" id="tabNav">
-    <button class="tab-btn active" onclick="switchTab('domaineski',this)">🎿 Domaine skiable</button>
-    <button class="tab-btn" onclick="switchTab('infos',this)">📖 La station</button>
-    <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
+    <button class="tab-btn active" onclick="switchTab('infos',this)">📖 La station</button>
     {domaine_tab_btn}
     {expo_tab_btn}
-    <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo</button>
-    <button class="tab-btn" onclick="switchTab('neige',this)">❄️ Enneigement</button>
+    <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
+    <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo &amp; enneigement</button>
   </div>
   <div class="tab-scroll-hint" id="tabScrollHint"><span>▶</span></div>
 </div>
@@ -3013,47 +3014,40 @@ function closeStation(){{
     <span>{s['name']}</span>
   </nav>
 
-  <!-- STATS 5 colonnes -->
-  <div class="stats-grid">
-    <div class="stat-box">
-      <div class="stat-val">{display_km} km</div>
-      <div class="stat-lbl">{km_lbl}</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val">{display_alt_min}m</div>
-      <div class="stat-lbl">Village</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val">{display_alt_max}m</div>
-      <div class="stat-lbl">{alt_max_lbl}</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val">{display_remontees}</div>
-      <div class="stat-lbl">{remontees_lbl}</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val">{s['forfait']}€</div>
-      <div class="stat-lbl">Forfait / jour</div>
-    </div>
-  </div>
-
-  {domaine_badge_html}
+  <!-- Les statistiques de la station et l'encadré du grand domaine relié vivent désormais
+       chacun dans leur propre onglet (La station / Grand domaine), plus jamais affichés
+       ici de façon permanente au-dessus des onglets. -->
 
   <div class="main-grid">
 
     <!-- COLONNE PRINCIPALE : ONGLETS -->
     <div>
 
-      <!-- ONGLET 1 : DOMAINE SKIABLE — tous les chiffres de la station regroupés ici -->
-      <div class="tab-content active" id="tab-domaineski">
+      <!-- ONGLET 1 : LA STATION — chiffres + présentation éditoriale -->
+      <div class="tab-content active" id="tab-infos">
 
         <div class="section">
-          <div class="section-title">{s['name']} en chiffres</div>
-          <div class="domaine-stats-mini">
-            <div><strong>{display_km} km</strong><span>de pistes</span></div>
-            <div><strong>{display_remontees}</strong><span>remontées</span></div>
-            <div><strong>{display_alt_min}-{display_alt_max}m</strong><span>altitude</span></div>
-            <div><strong>{s['forfait']}€</strong><span>forfait/jour</span></div>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-val">{display_km} km</div>
+              <div class="stat-lbl">{km_lbl}</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">{display_alt_min}m</div>
+              <div class="stat-lbl">Village</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">{display_alt_max}m</div>
+              <div class="stat-lbl">{alt_max_lbl}</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">{display_remontees}</div>
+              <div class="stat-lbl">{remontees_lbl}</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">{s['forfait']}€</div>
+              <div class="stat-lbl">Forfait / jour</div>
+            </div>
           </div>
         </div>
 
@@ -3087,7 +3081,7 @@ function closeStation(){{
         </div>
 
         <!-- INFOS PRATIQUES -->
-        <div class="section" style="margin-bottom:0">
+        <div class="section">
           <div class="section-title">Informations pratiques</div>
           <p style="font-size:.83rem;line-height:1.65;color:var(--text-mid)">
             <strong>{s['name']}</strong> est une station de ski du massif <strong>{s['massif']}</strong>,
@@ -3098,11 +3092,7 @@ function closeStation(){{
           </p>
         </div>
 
-      </div>
-
-      <!-- ONGLET 2 : LA STATION — présentation éditoriale -->
-      <div class="tab-content" id="tab-infos">
-
+        <!-- À PROPOS -->
         <div class="section" style="margin-bottom:0">
           <div class="section-title">À propos de {s['name']}</div>
           {f'<img src="{photo_station}" alt="{s["name"]} pistes de ski" class="photo-station" loading="lazy">' if photo_station else ''}
@@ -3163,7 +3153,7 @@ function closeStation(){{
       <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
       {f'<div class="tab-content" id="tab-expo">{expo_html}</div>' if expo_html else ''}
 
-      <!-- ONGLET 4 : MÉTÉO -->
+      <!-- ONGLET MÉTÉO & ENNEIGEMENT (fusionnés) -->
       <div class="tab-content" id="tab-meteo">
         <div class="meteo-widget" id="meteoWidget">
           <div class="meteo-head">
@@ -3183,12 +3173,8 @@ function closeStation(){{
           <div class="meteo-grid" id="meteoGrid" style="display:none"></div>
         </div>
         <p style="font-size:.75rem;color:rgba(255,255,255,.6);text-align:center;margin-top:10px">Source : Open-Meteo.com · Données actualisées en temps réel</p>
-      </div>
 
-      <!-- ONGLET 5 : ENNEIGEMENT -->
-      <div class="tab-content" id="tab-neige">
-
-        <!-- Lecture principale : actuel vs période -->
+        <!-- Enneigement, juste en dessous de la météo -->
         <div style="background:linear-gradient(135deg,#e8f3fb,#d0e7f5);border-radius:14px;padding:20px;margin-bottom:14px">
           <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#3a7db8;margin-bottom:14px">❄️ Enneigement en ce moment (altitude station)</div>
 
