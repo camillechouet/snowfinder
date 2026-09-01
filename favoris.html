@@ -266,14 +266,15 @@ function expediaUrl(station, sid) {
 .sf-topbar-logo img{width:50px;height:50px;border-radius:12px;object-fit:contain;box-shadow:0 4px 12px rgba(0,0,0,.18);background:white;flex-shrink:0}
 .sf-topbar-logo span{font-family:"DM Serif Display",serif;font-size:1.05rem;color:var(--blue-dark);white-space:nowrap}
 .sf-topbar-right{display:flex;align-items:center;gap:7px;margin-left:auto}
-.sf-topbar-app{display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--blue-light),#eaf4ff);border:1px solid var(--blue-mid);border-radius:16px;padding:6px 11px;font-size:.7rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18);flex-shrink:0}
-.sf-play-badge{display:flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:4px;background:var(--blue-dark);flex-shrink:0}
-.sf-play-badge svg{width:8px;height:8px}
-.sf-topbar-fav{display:flex;align-items:center;gap:3px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.82rem;flex-shrink:0;padding:6px 9px;border-radius:16px;background:var(--wood-pale,#f5f1ec)}
+.sf-topbar-app{display:flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--blue-light),#eaf4ff);border:1.5px solid var(--blue-mid);border-radius:18px;padding:6px 13px 6px 6px;font-size:.72rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.2);flex-shrink:0;letter-spacing:.01em}
+.sf-play-badge{display:flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));flex-shrink:0;box-shadow:0 1px 4px rgba(26,90,138,.35)}
+.sf-play-badge svg{width:10px;height:10px}
+.sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.82rem;flex-shrink:0;padding:6px 10px;border-radius:16px;background:var(--wood-pale,#f7efe2);border:1.5px solid var(--wood-light,#eddcbf)}
 .sf-topbar-fav:active{background:var(--wood-light)}
 .sf-topbar-menu{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;border:1.5px solid var(--wood-light);background:var(--white);font-size:1rem;line-height:1;color:var(--blue-dark);cursor:pointer;flex-shrink:0;padding:0}
 .sf-topbar-menu:active{background:var(--wood-pale)}
-@media(max-width:480px){.sf-topbar-logo span{display:none}.sf-topbar-app span{display:none}.sf-topbar-app{padding:6px 7px}.sf-topbar-right{gap:5px}}
+.sf-app-text-short{display:none}
+@media(max-width:480px){.sf-topbar-logo span{display:none}.sf-app-text-full{display:none}.sf-app-text-short{display:inline}.sf-topbar-app{padding:5px 11px 5px 5px}.sf-topbar-right{gap:5px}}
 .sf-bottomnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08);padding-bottom:env(safe-area-inset-bottom);}
 .sf-bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px;font-size:1.18rem;text-decoration:none;color:var(--text-mid);position:relative;gap:1px}
 .sf-bn-item.active{color:var(--blue-dark)}
@@ -295,7 +296,7 @@ function expediaUrl(station, sid) {
   <div class="sf-topbar-right">
     <a href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" class="sf-topbar-app">
       <span class="sf-play-badge"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 3.5v17a1 1 0 0 0 1.5.87l14-8.5a1 1 0 0 0 0-1.74l-14-8.5A1 1 0 0 0 4 3.5z" fill="#fff"/></svg></span>
-      <span>Sur Google Play</span>
+      <span class="sf-app-text sf-app-text-full">Dispo sur Play Store !</span><span class="sf-app-text sf-app-text-short">Play Store</span>
     </a>
     <a href="comparateur.html" class="sf-topbar-fav">⚖️<span id="sfCompareCount">0</span></a>
     <a href="favoris.html" class="sf-topbar-fav">⭐<span id="sfFavCount">0</span></a>
