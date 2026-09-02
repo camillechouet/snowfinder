@@ -407,23 +407,18 @@
     .fav-star:hover{background:#fff7d6;border-color:#ffb900;transform:scale(1.08)}
     .fav-star.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
 
-    /* DOMAINE SKIABLE RELIÉ — encadré riche, couleur distincte (ambre/or) */
+    /* DOMAINE SKIABLE RELIÉ — bandeau photo, sobre, juste le lien vers la fiche complète */
     .domaine-box{
       display:block;text-decoration:none;color:inherit;margin:18px 0;border-radius:18px;overflow:hidden;
-      background:linear-gradient(145deg,#0d3a6e 0%,#1a5a8a 100%);border:1px solid #0d3a6e;color:#fff;
-      box-shadow:0 4px 18px rgba(13,58,110,.22);transition:transform .15s,box-shadow .15s
+      position:relative;height:150px;border:1px solid #0d3a6e;
+      box-shadow:0 6px 20px rgba(13,58,110,.26);transition:transform .15s,box-shadow .15s
     }
-    .domaine-box:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(13,58,110,.32)}
-    .domaine-box-head{padding:16px 20px 10px;display:flex;flex-direction:column;gap:3px}
-    .domaine-box-tag{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.7)}
-    .domaine-box-name{font-family:"DM Serif Display",serif;font-size:1.35rem;color:#fff;display:flex;align-items:center;gap:8px}
-    .domaine-box-arrow{font-size:1.1rem;color:rgba(255,255,255,.75)}
-    .domaine-box-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0 12px;border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.18)}
-    .domaine-box-stats>div{text-align:center;padding:12px 4px;min-width:0}
-    .dbs-val{font-family:"DM Serif Display",serif;font-size:1.05rem;color:#fff;line-height:1.15;word-break:break-word;overflow-wrap:break-word}
-    .dbs-lbl{font-size:.6rem;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.03em;margin-top:3px}
-    @media(max-width:600px){.domaine-box-stats{grid-template-columns:repeat(2,1fr)}}
-    .domaine-box-foot{padding:10px 20px;font-size:.76rem;color:rgba(255,255,255,.78);font-weight:600}
+    .domaine-box:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(13,58,110,.36)}
+    .domaine-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .domaine-box-overlay{position:absolute;inset:0;background:linear-gradient(120deg,rgba(9,26,49,.9) 0%,rgba(13,58,110,.5) 55%,rgba(13,58,110,.25) 100%);display:flex;flex-direction:column;justify-content:center;padding:20px 26px}
+    .domaine-box-tag{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#e4c766;margin-bottom:5px}
+    .domaine-box-name{font-family:"DM Serif Display",serif;font-size:1.55rem;color:#fff;display:flex;align-items:center;gap:9px;text-shadow:0 2px 10px rgba(0,0,0,.35)}
+    .domaine-box-arrow{font-size:1.2rem;color:#e4c766}
 
     /* Onglet Domaine */
     .dt-hero{background:linear-gradient(145deg,#0d3a6e 0%,#1a5a8a 100%);border:1px solid #0d3a6e;border-radius:14px;padding:16px 18px;margin-bottom:16px}
@@ -442,13 +437,15 @@
     @media(min-width:420px){.domaine-soeurs-grid{grid-template-columns:repeat(2,1fr)}}
     @media(min-width:700px){.domaine-soeurs-grid{grid-template-columns:repeat(3,1fr)}}
     .domaine-soeur-card{
-      display:block;background:var(--white);border:1px solid var(--wood-light);border-radius:12px;padding:14px 16px;text-decoration:none;
-      transition:transform .15s,box-shadow .15s;box-shadow:0 2px 8px rgba(0,0,0,.04)
+      display:block;position:relative;height:148px;border-radius:13px;overflow:hidden;text-decoration:none;
+      transition:transform .15s,box-shadow .15s;box-shadow:0 3px 12px rgba(0,0,0,.14)
     }
-    .domaine-soeur-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1);border-color:#1a5a8a}
-    .domaine-soeur-name{font-weight:800;color:var(--text);font-size:.92rem;margin-bottom:6px}
-    .domaine-soeur-stats{display:flex;gap:10px;font-size:.75rem;color:var(--text-mid);margin-bottom:6px}
-    .domaine-soeur-sub{font-size:.72rem;color:#1a5a8a;font-weight:700}
+    .domaine-soeur-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.22)}
+    .domaine-soeur-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .domaine-soeur-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,34,64,.94) 0%,rgba(13,34,64,.4) 55%,rgba(13,34,64,.08) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:12px 14px}
+    .domaine-soeur-name{font-weight:800;color:#fff;font-size:.95rem;margin-bottom:5px;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+    .domaine-soeur-stats{display:flex;gap:10px;font-size:.72rem;color:rgba(255,255,255,.88);margin-bottom:5px}
+    .domaine-soeur-sub{font-size:.72rem;color:#e4c766;font-weight:700}
 
     /* FOOTER */
     .mobile-bar{
@@ -1198,17 +1195,11 @@ function closeStation(){
 
       <div class="tab-content" id="tab-domaine">
         <a href="../domaines/3-vallees.html" class="domaine-box">
-    <div class="domaine-box-head">
+    <img src="../img/courchevel1.jpg" alt="Les 3 Vallées" loading="lazy">
+    <div class="domaine-box-overlay">
       <div class="domaine-box-tag">🏔️ Domaine skiable relié</div>
       <div class="domaine-box-name">Les 3 Vallées <span class="domaine-box-arrow">→</span></div>
     </div>
-    <div class="domaine-box-stats">
-      <div><div class="dbs-val">600 km</div><div class="dbs-lbl">Pistes du domaine</div></div>
-      <div><div class="dbs-val">1100-3230m</div><div class="dbs-lbl">Altitude</div></div>
-      <div><div class="dbs-val">170</div><div class="dbs-lbl">Remontées</div></div>
-      <div><div class="dbs-val">82€</div><div class="dbs-lbl">Forfait domaine/j</div></div>
-    </div>
-    <div class="domaine-box-foot">8 stations reliées, dont Brides-les-Bains · voir la fiche complète du domaine</div>
   </a>
         <div class="dt-hero">
           <h3>🏔️ Les 3 Vallées</h3>
@@ -1278,60 +1269,81 @@ function closeStation(){
         
         <a href="../domaines/3-vallees.html" class="domaine-see-all">Voir la fiche complète du domaine →</a>
         <h4 class="dt-subtitle">Les autres stations du domaine</h4><div class="domaine-soeurs-grid"><a href="courchevel.html" class="domaine-soeur-card">
-        <div class="domaine-soeur-name">Courchevel</div>
-        <div class="domaine-soeur-stats">
-          <span>🏘 1850m</span>
-          <span>🎿 150 km</span>
+        <img src="../img/courchevel1.jpg" alt="Courchevel" loading="lazy">
+        <div class="domaine-soeur-overlay">
+          <div class="domaine-soeur-name">Courchevel</div>
+          <div class="domaine-soeur-stats">
+            <span>🏘 1850m</span>
+            <span>🎿 150 km</span>
+          </div>
+          <div class="domaine-soeur-sub">Voir la fiche →</div>
         </div>
-        <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
 <a href="la-tania.html" class="domaine-soeur-card">
-        <div class="domaine-soeur-name">La Tania</div>
-        <div class="domaine-soeur-stats">
-          <span>🏘 1350m</span>
-          <span>🎿 25 km</span>
+        <img src="../img/latania1.jpg" alt="La Tania" loading="lazy">
+        <div class="domaine-soeur-overlay">
+          <div class="domaine-soeur-name">La Tania</div>
+          <div class="domaine-soeur-stats">
+            <span>🏘 1350m</span>
+            <span>🎿 25 km</span>
+          </div>
+          <div class="domaine-soeur-sub">Voir la fiche →</div>
         </div>
-        <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
 <a href="meribel.html" class="domaine-soeur-card">
-        <div class="domaine-soeur-name">Méribel</div>
-        <div class="domaine-soeur-stats">
-          <span>🏘 1450m</span>
-          <span>🎿 160 km</span>
+        <img src="../img/meribel1.jpg" alt="Méribel" loading="lazy">
+        <div class="domaine-soeur-overlay">
+          <div class="domaine-soeur-name">Méribel</div>
+          <div class="domaine-soeur-stats">
+            <span>🏘 1450m</span>
+            <span>🎿 160 km</span>
+          </div>
+          <div class="domaine-soeur-sub">Voir la fiche →</div>
         </div>
-        <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
 <a href="saint-martin-de-belleville.html" class="domaine-soeur-card">
-        <div class="domaine-soeur-name">Saint-Martin-de-Belleville</div>
-        <div class="domaine-soeur-stats">
-          <span>🏘 1450m</span>
-          <span>🎿 40 km</span>
+        <img src="../img/saintmartindebelleville1.jpg" alt="Saint-Martin-de-Belleville" loading="lazy">
+        <div class="domaine-soeur-overlay">
+          <div class="domaine-soeur-name">Saint-Martin-de-Belleville</div>
+          <div class="domaine-soeur-stats">
+            <span>🏘 1450m</span>
+            <span>🎿 40 km</span>
+          </div>
+          <div class="domaine-soeur-sub">Voir la fiche →</div>
         </div>
-        <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
 <a href="les-menuires.html" class="domaine-soeur-card">
-        <div class="domaine-soeur-name">Les Menuires</div>
-        <div class="domaine-soeur-stats">
-          <span>🏘 1800m</span>
-          <span>🎿 160 km</span>
+        <img src="../img/lesmenuires1.jpg" alt="Les Menuires" loading="lazy">
+        <div class="domaine-soeur-overlay">
+          <div class="domaine-soeur-name">Les Menuires</div>
+          <div class="domaine-soeur-stats">
+            <span>🏘 1800m</span>
+            <span>🎿 160 km</span>
+          </div>
+          <div class="domaine-soeur-sub">Voir la fiche →</div>
         </div>
-        <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
 <a href="val-thorens.html" class="domaine-soeur-card">
-        <div class="domaine-soeur-name">Val Thorens</div>
-        <div class="domaine-soeur-stats">
-          <span>🏘 2300m</span>
-          <span>🎿 150 km</span>
+        <img src="../img/valthorens1.jpg" alt="Val Thorens" loading="lazy">
+        <div class="domaine-soeur-overlay">
+          <div class="domaine-soeur-name">Val Thorens</div>
+          <div class="domaine-soeur-stats">
+            <span>🏘 2300m</span>
+            <span>🎿 150 km</span>
+          </div>
+          <div class="domaine-soeur-sub">Voir la fiche →</div>
         </div>
-        <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>
 <a href="orelle.html" class="domaine-soeur-card">
-        <div class="domaine-soeur-name">Orelle</div>
-        <div class="domaine-soeur-stats">
-          <span>🏘 900m</span>
-          <span>🎿 35 km</span>
+        <img src="https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=600&q=80" alt="Orelle" loading="lazy">
+        <div class="domaine-soeur-overlay">
+          <div class="domaine-soeur-name">Orelle</div>
+          <div class="domaine-soeur-stats">
+            <span>🏘 900m</span>
+            <span>🎿 35 km</span>
+          </div>
+          <div class="domaine-soeur-sub">Voir la fiche →</div>
         </div>
-        <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a></div>
       </div>
 
