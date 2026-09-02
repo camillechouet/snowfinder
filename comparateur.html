@@ -561,11 +561,24 @@ function selectStation(n, id) {
   document.getElementById('result').style.display = 'none';
 }
 function clearStation(n) {
+  var removedId = sel[n-1] ? sel[n-1].id : null;
   sel[n-1] = null;
   document.getElementById('search'+n).value = '';
   document.getElementById('pill'+n).innerHTML = '';
   if (n !== 3) document.getElementById('compareBtn').disabled = true;
   document.getElementById('result').style.display = 'none';
+  // Retire aussi la station de la liste persistante sf_compare, sinon elle
+  // reste dans le compteur ⚖️ et reréapparaît au prochain chargement de la page.
+  if (removedId !== null) {
+    var c = getCompareList();
+    var idx = c.indexOf(removedId);
+    if (idx !== -1) {
+      c.splice(idx, 1);
+      saveCompareList(c);
+    }
+    var el = document.getElementById("sfCompareCount");
+    if (el) el.textContent = c.length;
+  }
 }
 
 // ── Pré-remplissage depuis la liste "Comparer" (⚖️) ──
