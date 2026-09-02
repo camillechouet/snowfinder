@@ -79,6 +79,21 @@
   .dm-piste-bar{flex:1;height:8px;background:var(--wood-pale);border-radius:5px;overflow:hidden}
   .dm-piste-bar i{display:block;height:100%;border-radius:5px}
   .dm-piste-n{flex:0 0 30px;text-align:right;font-weight:800;font-size:.85rem}
+
+  /* Cercles + tuiles chiffrées — même identité visuelle que les fiches station */
+  .piste-circles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px}
+  .piste-circle-item{text-align:center}
+  .piste-circle{width:30px;height:30px;border-radius:50%;margin:0 auto 6px;box-shadow:0 2px 6px rgba(0,0,0,.14)}
+  .piste-circle-val{font-family:"DM Serif Display",serif;font-size:.92rem;color:var(--text);line-height:1.2}
+  .piste-circle-val b{font-size:1.05rem}
+  .piste-circle-pct{font-size:.66rem;color:var(--text-light);font-weight:600}
+  .piste-circle-lbl{font-size:.62rem;color:var(--text-mid);font-weight:600;margin-top:3px}
+  .icon-stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:2px}
+  @media(min-width:480px){.icon-stat-grid{grid-template-columns:repeat(3,1fr)}}
+  .icon-stat-tile{background:var(--blue-light);border-radius:11px;padding:12px 8px;text-align:center}
+  .icon-stat-ico{font-size:1.15rem;display:block;margin-bottom:5px}
+  .icon-stat-val{font-family:"DM Serif Display",serif;font-size:1.1rem;color:var(--blue-dark);line-height:1}
+  .icon-stat-lbl{font-size:.65rem;color:var(--text-mid);font-weight:600;margin-top:3px}
   .dm-reco-grid{display:grid;grid-template-columns:1fr;gap:11px}
   @media(min-width:520px){.dm-reco-grid{grid-template-columns:repeat(2,1fr)}}
   .dm-reco{display:block;background:white;border-radius:12px;padding:14px 16px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.05);border:1px solid var(--wood-light);border-left:4px solid var(--blue-dark);transition:transform .15s}
@@ -159,11 +174,44 @@
 </div>
 
 <div class="dm-section">
+  <div class="dm-section-title">Aperçu du domaine skiable</div>
+  <div class="dm-card">
+    
+    <div class="icon-stat-grid">
+      
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">⛰️</span>
+        <div class="icon-stat-val">400 km</div>
+        <div class="icon-stat-lbl">Pistes skiables</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">🏘️</span>
+        <div class="icon-stat-val">1380m</div>
+        <div class="icon-stat-lbl">Altitude mini</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">🗻</span>
+        <div class="icon-stat-val">2823m</div>
+        <div class="icon-stat-lbl">Altitude maxi</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">🚡</span>
+        <div class="icon-stat-val">70</div>
+        <div class="icon-stat-lbl">Remontées</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">💶</span>
+        <div class="icon-stat-val">57€</div>
+        <div class="icon-stat-lbl">Forfait domaine/j</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dm-section">
   <div class="dm-section-title">Chiffres clés</div>
   <div class="dm-faits"><div class="dm-fait"><span class="dm-fait-ico">💶</span><span class="dm-fait-val">38€</span><span class="dm-fait-lbl">Forfait le moins cher — Montgenèvre</span></div><div class="dm-fait"><span class="dm-fait-ico">🏔️</span><span class="dm-fait-val">1860m</span><span class="dm-fait-lbl">Village le plus haut — Montgenèvre</span></div><div class="dm-fait"><span class="dm-fait-ico">⭐</span><span class="dm-fait-val">4.0/5</span><span class="dm-fait-lbl">Mieux notée — Montgenèvre</span></div><div class="dm-fait"><span class="dm-fait-ico">📏</span><span class="dm-fait-val">1443m</span><span class="dm-fait-lbl">Dénivelé total du domaine</span></div></div>
 </div>
-
-
 
 <div class="dm-section">
   <div class="dm-section-title">Les 1 stations du domaine</div>

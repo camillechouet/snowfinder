@@ -79,6 +79,21 @@
   .dm-piste-bar{flex:1;height:8px;background:var(--wood-pale);border-radius:5px;overflow:hidden}
   .dm-piste-bar i{display:block;height:100%;border-radius:5px}
   .dm-piste-n{flex:0 0 30px;text-align:right;font-weight:800;font-size:.85rem}
+
+  /* Cercles + tuiles chiffrées — même identité visuelle que les fiches station */
+  .piste-circles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px}
+  .piste-circle-item{text-align:center}
+  .piste-circle{width:30px;height:30px;border-radius:50%;margin:0 auto 6px;box-shadow:0 2px 6px rgba(0,0,0,.14)}
+  .piste-circle-val{font-family:"DM Serif Display",serif;font-size:.92rem;color:var(--text);line-height:1.2}
+  .piste-circle-val b{font-size:1.05rem}
+  .piste-circle-pct{font-size:.66rem;color:var(--text-light);font-weight:600}
+  .piste-circle-lbl{font-size:.62rem;color:var(--text-mid);font-weight:600;margin-top:3px}
+  .icon-stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:2px}
+  @media(min-width:480px){.icon-stat-grid{grid-template-columns:repeat(3,1fr)}}
+  .icon-stat-tile{background:var(--blue-light);border-radius:11px;padding:12px 8px;text-align:center}
+  .icon-stat-ico{font-size:1.15rem;display:block;margin-bottom:5px}
+  .icon-stat-val{font-family:"DM Serif Display",serif;font-size:1.1rem;color:var(--blue-dark);line-height:1}
+  .icon-stat-lbl{font-size:.65rem;color:var(--text-mid);font-weight:600;margin-top:3px}
   .dm-reco-grid{display:grid;grid-template-columns:1fr;gap:11px}
   @media(min-width:520px){.dm-reco-grid{grid-template-columns:repeat(2,1fr)}}
   .dm-reco{display:block;background:white;border-radius:12px;padding:14px 16px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.05);border:1px solid var(--wood-light);border-left:4px solid var(--blue-dark);transition:transform .15s}
@@ -173,33 +188,67 @@
 </div>
 
 <div class="dm-section">
-  <div class="dm-section-title">Chiffres clés</div>
-  <div class="dm-faits"><div class="dm-fait"><span class="dm-fait-ico">💶</span><span class="dm-fait-val">40€</span><span class="dm-fait-lbl">Forfait le moins cher — Brides-les-Bains</span></div><div class="dm-fait"><span class="dm-fait-ico">🏔️</span><span class="dm-fait-val">2300m</span><span class="dm-fait-lbl">Village le plus haut — Val Thorens</span></div><div class="dm-fait"><span class="dm-fait-ico">⭐</span><span class="dm-fait-val">4.9/5</span><span class="dm-fait-lbl">Mieux notée — Val Thorens</span></div><div class="dm-fait"><span class="dm-fait-ico">📏</span><span class="dm-fait-val">2130m</span><span class="dm-fait-lbl">Dénivelé total du domaine</span></div></div>
+  <div class="dm-section-title">Aperçu du domaine skiable</div>
+  <div class="dm-card">
+    <div class="piste-circles"><div class="piste-circle-item">
+      <div class="piste-circle" style="background:#2ea84e"></div>
+      <div class="piste-circle-val"><b>55</b></div>
+      <div class="piste-circle-pct">14%</div>
+      <div class="piste-circle-lbl">Vertes</div>
+    </div><div class="piste-circle-item">
+      <div class="piste-circle" style="background:#3a7db8"></div>
+      <div class="piste-circle-val"><b>178</b></div>
+      <div class="piste-circle-pct">44%</div>
+      <div class="piste-circle-lbl">Bleues</div>
+    </div><div class="piste-circle-item">
+      <div class="piste-circle" style="background:#cc2200"></div>
+      <div class="piste-circle-val"><b>113</b></div>
+      <div class="piste-circle-pct">28%</div>
+      <div class="piste-circle-lbl">Rouges</div>
+    </div><div class="piste-circle-item">
+      <div class="piste-circle" style="background:#222"></div>
+      <div class="piste-circle-val"><b>54</b></div>
+      <div class="piste-circle-pct">14%</div>
+      <div class="piste-circle-lbl">Noires</div>
+    </div></div>
+    <div class="icon-stat-grid">
+      <div class="icon-stat-tile">
+      <span class="icon-stat-ico">🎿</span>
+      <div class="icon-stat-val">400</div>
+      <div class="icon-stat-lbl">Nombre de pistes</div>
+    </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">⛰️</span>
+        <div class="icon-stat-val">600 km</div>
+        <div class="icon-stat-lbl">Pistes skiables</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">🏘️</span>
+        <div class="icon-stat-val">1100m</div>
+        <div class="icon-stat-lbl">Altitude mini</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">🗻</span>
+        <div class="icon-stat-val">3230m</div>
+        <div class="icon-stat-lbl">Altitude maxi</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">🚡</span>
+        <div class="icon-stat-val">170</div>
+        <div class="icon-stat-lbl">Remontées</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">💶</span>
+        <div class="icon-stat-val">82€</div>
+        <div class="icon-stat-lbl">Forfait domaine/j</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="dm-section">
-  <div class="dm-section-title">Les 400 pistes du domaine</div>
-  <div class="dm-card"><div class="dm-piste-row">
-        <span class="dm-piste-dot" style="background:#2ea84e"></span>
-        <span class="dm-piste-lbl">Vertes</span>
-        <span class="dm-piste-bar"><i style="background:#2ea84e;width:14%"></i></span>
-        <span class="dm-piste-n">55</span>
-      </div><div class="dm-piste-row">
-        <span class="dm-piste-dot" style="background:#3a7db8"></span>
-        <span class="dm-piste-lbl">Bleues</span>
-        <span class="dm-piste-bar"><i style="background:#3a7db8;width:44%"></i></span>
-        <span class="dm-piste-n">178</span>
-      </div><div class="dm-piste-row">
-        <span class="dm-piste-dot" style="background:#cc2200"></span>
-        <span class="dm-piste-lbl">Rouges</span>
-        <span class="dm-piste-bar"><i style="background:#cc2200;width:28%"></i></span>
-        <span class="dm-piste-n">113</span>
-      </div><div class="dm-piste-row">
-        <span class="dm-piste-dot" style="background:#333"></span>
-        <span class="dm-piste-lbl">Noires</span>
-        <span class="dm-piste-bar"><i style="background:#333;width:14%"></i></span>
-        <span class="dm-piste-n">54</span>
-      </div></div>
+  <div class="dm-section-title">Chiffres clés</div>
+  <div class="dm-faits"><div class="dm-fait"><span class="dm-fait-ico">💶</span><span class="dm-fait-val">40€</span><span class="dm-fait-lbl">Forfait le moins cher — Brides-les-Bains</span></div><div class="dm-fait"><span class="dm-fait-ico">🏔️</span><span class="dm-fait-val">2300m</span><span class="dm-fait-lbl">Village le plus haut — Val Thorens</span></div><div class="dm-fait"><span class="dm-fait-ico">⭐</span><span class="dm-fait-val">4.9/5</span><span class="dm-fait-lbl">Mieux notée — Val Thorens</span></div><div class="dm-fait"><span class="dm-fait-ico">📏</span><span class="dm-fait-val">2130m</span><span class="dm-fait-lbl">Dénivelé total du domaine</span></div></div>
 </div>
 
 <div class="dm-section">
