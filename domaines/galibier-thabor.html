@@ -21,8 +21,17 @@
   :root{--wood-pale:#f7efe2;--wood-light:#eddcbf;--wood:#c49a6c;--wood-dark:#8b5e3c;--blue:#5b9fd4;--blue-light:#e8f3fb;--blue-mid:#3a7db8;--blue-dark:#1a5a8a;--text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;--navy:#1a5a8a;--border:#e8d8c4;--bg:#f5f1ec}
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{touch-action:pan-x pan-y;overflow-x:hidden;max-width:100%}
-  body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;padding-bottom:76px}
+  body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;padding-top:58px;padding-bottom:76px}
   a{color:inherit}
+  /* BARRE DU HAUT — identique aux fiches station */
+  .sf-topbar{position:fixed;top:0;left:0;right:0;height:58px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:600;transition:transform .28s ease;overflow:visible}
+  .sf-topbar.sf-hide{transform:translateY(-100%)}
+  .sf-topbar-logo{display:flex;align-items:center;gap:7px;text-decoration:none;flex-shrink:0}
+  .sf-topbar-logo img{width:42px;height:42px;border-radius:10px;object-fit:contain;box-shadow:0 4px 12px rgba(0,0,0,.18);background:white;flex-shrink:0}
+  .sf-topbar-logo span{font-family:"DM Serif Display",serif;font-size:1.02rem;color:var(--blue-dark);white-space:nowrap}
+  .sf-topbar-app{display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--blue-light),#eaf4ff);border:1px solid var(--blue-mid);border-radius:16px;padding:5px 12px;font-size:.72rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18)}
+  .sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
+  @media(max-width:480px){.sf-topbar-logo span{display:none}.sf-topbar-app{font-size:.68rem;padding:5px 9px}}
   .dm-wrap{max-width:980px;margin:0 auto}
   @media(min-width:1200px){.dm-wrap{max-width:1180px}}
   .dm-hero{position:relative;overflow:hidden;height:clamp(300px,46vh,480px);display:flex;align-items:flex-end;color:white}
@@ -44,11 +53,16 @@
   .dm-hero p{opacity:.92;font-size:.92rem;max-width:560px;margin:0 auto;text-shadow:0 1px 8px rgba(0,0,0,.4)}
   .hero-illu-note{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
   .dm-rank{display:inline-block;margin-top:12px;background:linear-gradient(135deg,#d4a017,#b8860b);color:white;font-weight:700;font-size:.78rem;padding:6px 14px;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
-  .dm-fav{position:absolute;top:18px;left:18px;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
-    border:2.5px solid #ffd451;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;
-    cursor:pointer;font-size:1.3rem;transition:all .2s;box-shadow:0 4px 14px rgba(0,0,0,.25);color:#d49b00}
+  .dm-fav{position:absolute;top:16px;left:16px;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+    border:2px solid #ffd451;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;font-size:1.35rem;transition:all .2s;box-shadow:0 4px 14px rgba(0,0,0,.25);color:#d49b00}
   .dm-fav:hover{background:#fff7d6;border-color:#ffb900;transform:scale(1.08)}
   .dm-fav.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
+  .dm-compare{position:absolute;top:16px;left:70px;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+    border:2px solid #3a7db8;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;font-size:1.15rem;transition:all .2s;box-shadow:0 4px 14px rgba(0,0,0,.25);color:#1a5a8a}
+  .dm-compare:hover{background:#eaf4ff;border-color:#1a5a8a;transform:scale(1.08)}
+  .dm-compare.active{background:#1a5a8a;border-color:#0d3a6e;box-shadow:0 4px 16px rgba(26,90,138,.5)}
   .dm-close{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,.35);color:white;font-size:1.1rem;display:flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer;z-index:20;transition:all .15s}
   .dm-close:hover{background:rgba(0,0,0,.75);transform:scale(1.08)}
   .dm-breadcrumb{padding:14px 20px 0;font-size:.78rem;color:var(--text-mid)}
@@ -134,6 +148,49 @@
 </head>
 <body>
 
+<div class="sf-topbar" id="sfTopbar">
+  <a href="../index.html" class="sf-topbar-logo">
+    <img src="../logo.png" alt="SnowFinder">
+    <span>SnowFinder</span>
+  </a>
+  <a href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" class="sf-topbar-app">📲 L'app est dispo !</a>
+  <a href="../comparateur.html" class="sf-topbar-fav">⚖️ <span id="sfCompareCount">0</span></a>
+  <a href="../favoris.html" class="sf-topbar-fav">⭐ <span id="sfFavCount">0</span></a>
+</div>
+<script>
+(function(){
+  var bar = document.getElementById("sfTopbar");
+  var lastY = window.scrollY, ticking = false;
+  window.addEventListener("scroll", function(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY;
+      if(y > lastY && y > 60) bar.classList.add("sf-hide");
+      else bar.classList.remove("sf-hide");
+      lastY = y;
+      ticking = false;
+    });
+  }, {passive:true});
+  function updateFavCount(){
+    var favs = [];
+    try { favs = JSON.parse(localStorage.getItem("sf_favorites")||"[]"); } catch(e){}
+    var el = document.getElementById("sfFavCount");
+    if(el) el.textContent = favs.length;
+  }
+  function updateCompareCount(){
+    var c = [];
+    try { c = JSON.parse(localStorage.getItem("sf_compare")||"[]"); } catch(e){}
+    var el = document.getElementById("sfCompareCount");
+    if(el) el.textContent = c.length;
+  }
+  updateFavCount();
+  updateCompareCount();
+  window.addEventListener("storage", function(){updateFavCount();updateCompareCount();});
+  window.addEventListener("focus", function(){updateFavCount();updateCompareCount();});
+})();
+</script>
+
 <div class="dm-hero">
   <div class="hero-slides">
   <img class="hero-slide active" data-idx="0" src="../img/valloire1.jpg" alt="Galibier-Thabor photo 1" loading="eager">
@@ -141,6 +198,51 @@
   <div class="dm-hero-overlay"></div>
   <a href="#" class="dm-close" id="dmClose" aria-label="Retour">✕</a>
   <button class="dm-fav" id="dmFav" type="button" aria-label="Ajouter aux favoris">☆</button>
+  <button class="dm-compare" id="dmCompare" type="button" aria-label="Ajouter au comparateur">⚖️</button>
+</div>
+<script>
+// ── Favoris & comparateur DOMAINES — script autonome, indépendant du reste du hero ──
+// (clés séparées des favoris/comparateur stations : sf_fav_domaines / sf_compare_domaines)
+(function(){
+  var DOM_SLUG = "galibier-thabor";
+  function domFavs(){try{return JSON.parse(localStorage.getItem('sf_fav_domaines')||'[]');}catch(e){return [];}}
+  function saveDomFavs(f){try{localStorage.setItem('sf_fav_domaines',JSON.stringify(f));}catch(e){}}
+  function domCompares(){try{return JSON.parse(localStorage.getItem('sf_compare_domaines')||'[]');}catch(e){return [];}}
+  function saveDomCompares(c){try{localStorage.setItem('sf_compare_domaines',JSON.stringify(c));}catch(e){}}
+  function renderDomFav(){
+    var b=document.getElementById('dmFav');
+    if(!b)return;
+    var on=domFavs().indexOf(DOM_SLUG)!==-1;
+    b.textContent=on?'⭐':'☆';
+    b.classList.toggle('active',on);
+    b.title=on?'Retirer des favoris':'Ajouter aux favoris';
+  }
+  function renderDomCompare(){
+    var b=document.getElementById('dmCompare');
+    if(!b)return;
+    var on=domCompares().indexOf(DOM_SLUG)!==-1;
+    b.classList.toggle('active',on);
+    b.title=on?'Retirer du comparateur':'Ajouter au comparateur';
+  }
+  var favBtn=document.getElementById('dmFav');
+  if(favBtn) favBtn.addEventListener('click',function(){
+    var f=domFavs(),i=f.indexOf(DOM_SLUG);
+    if(i===-1) f.push(DOM_SLUG); else f.splice(i,1);
+    saveDomFavs(f);renderDomFav();
+  });
+  var cmpBtn=document.getElementById('dmCompare');
+  if(cmpBtn) cmpBtn.addEventListener('click',function(){
+    var c=domCompares(),i=c.indexOf(DOM_SLUG);
+    if(i===-1){
+      if(c.length>=3){alert("Vous pouvez comparer 3 domaines maximum. Retirez-en un avant d'en ajouter un nouveau.");return;}
+      c.push(DOM_SLUG);
+    }else{c.splice(i,1);}
+    saveDomCompares(c);renderDomCompare();
+  });
+  renderDomFav();
+  renderDomCompare();
+})();
+</script>
   
   <div class="dm-hero-content">
     <div class="dm-hero-massif">⛷ Alpes du Nord</div>
@@ -332,26 +434,8 @@ if(dmHeroEl && DM_HERO_URLS.length > 1){
   });
 }
 
-// ── Favoris DOMAINES (clé séparée des favoris stations) ──
-var DOM_SLUG = "galibier-thabor";
-function domFavs(){
-  try { return JSON.parse(localStorage.getItem('sf_fav_domaines') || '[]'); }
-  catch(e) { return []; }
-}
-function renderDomFav(){
-  var b = document.getElementById('dmFav');
-  var on = domFavs().indexOf(DOM_SLUG) !== -1;
-  b.textContent = on ? '⭐' : '☆';
-  b.classList.toggle('active', on);
-  b.title = on ? 'Retirer des favoris' : 'Ajouter aux favoris';
-}
-document.getElementById('dmFav').addEventListener('click', function(){
-  var f = domFavs(), i = f.indexOf(DOM_SLUG);
-  if (i === -1) f.push(DOM_SLUG); else f.splice(i, 1);
-  try { localStorage.setItem('sf_fav_domaines', JSON.stringify(f)); } catch(e) {}
-  renderDomFav();
-});
-renderDomFav();
+// (Favoris & comparateur domaines : voir le script autonome juste après les
+// boutons dans le hero, plus haut — indépendant de ce bloc.)
 
 // La croix revient à la page précédente (fiche station d'origine),
 // avec repli sur la recherche si on est arrivé directement sur cette page.
