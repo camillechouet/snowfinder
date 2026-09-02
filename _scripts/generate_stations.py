@@ -1956,6 +1956,48 @@ def render_page(s):
         <div class="domaine-soeur-sub">Voir la fiche →</div>
       </a>''' for n in soeurs
         )
+        # ── Répartition des pistes du domaine (agrégée depuis DOMAINES['pistes'], si renseignée) ──
+        _dP = domaine.get('pistes')
+        if _dP and sum(_dP.values()) > 0:
+            _dTot = sum(_dP.values())
+            _dPctV = round(_dP['v'] * 100 / _dTot)
+            _dPctB = round(_dP['b'] * 100 / _dTot)
+            _dPctR = round(_dP['r'] * 100 / _dTot)
+            _dPctN = round(_dP['n'] * 100 / _dTot)
+            domaine_circles_html = f'''<div class="piste-circles">
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#2ea84e"></div>
+              <div class="piste-circle-val"><b>{_dP['v']}</b></div>
+              <div class="piste-circle-pct">{_dPctV}%</div>
+              <div class="piste-circle-lbl">Vertes</div>
+            </div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#3a7db8"></div>
+              <div class="piste-circle-val"><b>{_dP['b']}</b></div>
+              <div class="piste-circle-pct">{_dPctB}%</div>
+              <div class="piste-circle-lbl">Bleues</div>
+            </div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#cc2200"></div>
+              <div class="piste-circle-val"><b>{_dP['r']}</b></div>
+              <div class="piste-circle-pct">{_dPctR}%</div>
+              <div class="piste-circle-lbl">Rouges</div>
+            </div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#222"></div>
+              <div class="piste-circle-val"><b>{_dP['n']}</b></div>
+              <div class="piste-circle-pct">{_dPctN}%</div>
+              <div class="piste-circle-lbl">Noires</div>
+            </div>
+          </div>'''
+            domaine_pistes_tile = f'''<div class="icon-stat-tile">
+              <span class="icon-stat-ico">🎿</span>
+              <div class="icon-stat-val">{_dTot}</div>
+              <div class="icon-stat-lbl">Nombre de pistes</div>
+            </div>'''
+        else:
+            domaine_circles_html = ''
+            domaine_pistes_tile = ''
         # Le "gros encadré" du domaine relié (nom, chiffres, lien vers la fiche complète)
         # n'apparaît QUE dans l'onglet Grand domaine — jamais en haut de la page,
         # quel que soit l'onglet actif.
@@ -1965,11 +2007,37 @@ def render_page(s):
           <h3>🏔️ {domaine['name']}</h3>
           <p>{domaine['desc']}</p>
         </div>
-        <div class="domaine-stats-mini">
-          <div><strong>{domaine['km_total']} km</strong><span>de pistes reliées</span></div>
-          <div><strong>{domaine['remontees_total']}</strong><span>remontées</span></div>
-          <div><strong>{domaine['forfait_domaine']}€</strong><span>forfait domaine/j</span></div>
-          <div><strong>{domaine['alt_min']}-{domaine['alt_max']}m</strong><span>altitude</span></div>
+        <div class="section" style="margin-top:16px">
+          <div class="section-title">Aperçu du domaine skiable</div>
+          {domaine_circles_html}
+          <div class="icon-stat-grid">
+            {domaine_pistes_tile}
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">⛰️</span>
+              <div class="icon-stat-val">{domaine['km_total']} km</div>
+              <div class="icon-stat-lbl">Pistes skiables</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🏘️</span>
+              <div class="icon-stat-val">{domaine['alt_min']}m</div>
+              <div class="icon-stat-lbl">Altitude mini</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🗻</span>
+              <div class="icon-stat-val">{domaine['alt_max']}m</div>
+              <div class="icon-stat-lbl">Altitude maxi</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🚡</span>
+              <div class="icon-stat-val">{domaine['remontees_total']}</div>
+              <div class="icon-stat-lbl">Remontées</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">💶</span>
+              <div class="icon-stat-val">{domaine['forfait_domaine']}€</div>
+              <div class="icon-stat-lbl">Forfait domaine/j</div>
+            </div>
+          </div>
         </div>
         {'<p class="dt-warn">⚠️ Liaison ouverte selon enneigement uniquement.</p>' if domaine.get('conditionnel') else ''}
         <a href="{domaine_url}" class="domaine-see-all">Voir la fiche complète du domaine →</a>
@@ -3585,24 +3653,62 @@ def render_domaine_page(slug, d):
         if d.get('unifie') and len(d['stations']) > 1 else ''
     )
 
-    # ── Répartition des pistes ──
-    pistes_html = ''
+    # ── Aperçu du domaine skiable : cercles + tuiles chiffrées (même identité que les fiches station) ──
     P = d.get('pistes')
     if P and sum(P.values()) > 0:
         tot = sum(P.values())
-        rows = []
+        circle_items = []
         for key, lbl, col in (("v","Vertes","#2ea84e"),("b","Bleues","#3a7db8"),
-                              ("r","Rouges","#cc2200"),("n","Noires","#333")):
+                              ("r","Rouges","#cc2200"),("n","Noires","#222")):
             pc = round(P[key] / tot * 100)
-            rows.append(f'''<div class="dm-piste-row">
-        <span class="dm-piste-dot" style="background:{col}"></span>
-        <span class="dm-piste-lbl">{lbl}</span>
-        <span class="dm-piste-bar"><i style="background:{col};width:{pc}%"></i></span>
-        <span class="dm-piste-n">{P[key]}</span>
-      </div>''')
-        pistes_html = f'''<div class="dm-section">
-  <div class="dm-section-title">Les {tot} pistes du domaine</div>
-  <div class="dm-card">{"".join(rows)}</div>
+            circle_items.append(f'''<div class="piste-circle-item">
+      <div class="piste-circle" style="background:{col}"></div>
+      <div class="piste-circle-val"><b>{P[key]}</b></div>
+      <div class="piste-circle-pct">{pc}%</div>
+      <div class="piste-circle-lbl">{lbl}</div>
+    </div>''')
+        circles_html = f'<div class="piste-circles">{"".join(circle_items)}</div>'
+        pistes_tile = f'''<div class="icon-stat-tile">
+      <span class="icon-stat-ico">🎿</span>
+      <div class="icon-stat-val">{tot}</div>
+      <div class="icon-stat-lbl">Nombre de pistes</div>
+    </div>'''
+    else:
+        circles_html = ''
+        pistes_tile = ''
+    apercu_html = f'''<div class="dm-section">
+  <div class="dm-section-title">Aperçu du domaine skiable</div>
+  <div class="dm-card">
+    {circles_html}
+    <div class="icon-stat-grid">
+      {pistes_tile}
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">⛰️</span>
+        <div class="icon-stat-val">{d['km_total']} km</div>
+        <div class="icon-stat-lbl">Pistes skiables</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">🏘️</span>
+        <div class="icon-stat-val">{d['alt_min']}m</div>
+        <div class="icon-stat-lbl">Altitude mini</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">🗻</span>
+        <div class="icon-stat-val">{d['alt_max']}m</div>
+        <div class="icon-stat-lbl">Altitude maxi</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">🚡</span>
+        <div class="icon-stat-val">{d['remontees_total']}</div>
+        <div class="icon-stat-lbl">Remontées</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">💶</span>
+        <div class="icon-stat-val">{d['forfait_domaine']}€</div>
+        <div class="icon-stat-lbl">Forfait domaine/j</div>
+      </div>
+    </div>
+  </div>
 </div>'''
 
     # ── Chiffres clés dérivés ──
@@ -3755,6 +3861,21 @@ def render_domaine_page(slug, d):
   .dm-piste-bar{{flex:1;height:8px;background:var(--wood-pale);border-radius:5px;overflow:hidden}}
   .dm-piste-bar i{{display:block;height:100%;border-radius:5px}}
   .dm-piste-n{{flex:0 0 30px;text-align:right;font-weight:800;font-size:.85rem}}
+
+  /* Cercles + tuiles chiffrées — même identité visuelle que les fiches station */
+  .piste-circles{{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px}}
+  .piste-circle-item{{text-align:center}}
+  .piste-circle{{width:30px;height:30px;border-radius:50%;margin:0 auto 6px;box-shadow:0 2px 6px rgba(0,0,0,.14)}}
+  .piste-circle-val{{font-family:"DM Serif Display",serif;font-size:.92rem;color:var(--text);line-height:1.2}}
+  .piste-circle-val b{{font-size:1.05rem}}
+  .piste-circle-pct{{font-size:.66rem;color:var(--text-light);font-weight:600}}
+  .piste-circle-lbl{{font-size:.62rem;color:var(--text-mid);font-weight:600;margin-top:3px}}
+  .icon-stat-grid{{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:2px}}
+  @media(min-width:480px){{.icon-stat-grid{{grid-template-columns:repeat(3,1fr)}}}}
+  .icon-stat-tile{{background:var(--blue-light);border-radius:11px;padding:12px 8px;text-align:center}}
+  .icon-stat-ico{{font-size:1.15rem;display:block;margin-bottom:5px}}
+  .icon-stat-val{{font-family:"DM Serif Display",serif;font-size:1.1rem;color:var(--blue-dark);line-height:1}}
+  .icon-stat-lbl{{font-size:.65rem;color:var(--text-mid);font-weight:600;margin-top:3px}}
   .dm-reco-grid{{display:grid;grid-template-columns:1fr;gap:11px}}
   @media(min-width:520px){{.dm-reco-grid{{grid-template-columns:repeat(2,1fr)}}}}
   .dm-reco{{display:block;background:white;border-radius:12px;padding:14px 16px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.05);border:1px solid var(--wood-light);border-left:4px solid var(--blue-dark);transition:transform .15s}}
@@ -3834,12 +3955,12 @@ def render_domaine_page(slug, d):
   <div class="dm-card dm-desc">{d['desc']}</div>
 </div>
 
+{apercu_html}
+
 <div class="dm-section">
   <div class="dm-section-title">Chiffres clés</div>
   <div class="dm-faits">{faits_html}</div>
 </div>
-
-{pistes_html}
 
 {tableau_html}
 
