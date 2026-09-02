@@ -3837,29 +3837,48 @@ def render_domaine_page(slug, d):
   </div>
 </div>'''
 
-    # ── Cartes stations (visuel) ──
+    # ── Cartes stations (visuel) — avec photo, et favoris/comparateur en un clic ──
     cards = []
     for st in membres:
         km_p = d.get('km_propre', {}).get(st['name'])
         km_line = f"🎿 {km_p} km propres" if km_p else "🎿 domaine partagé"
         av = d.get('alt_village', {}).get(st['name'], st['alt_min'])
+        st_photos = get_station_photos(st['name'])
+        st_photo = st_photos[0] if st_photos else pick_placeholder(st['name'], massif=st.get('massif'), w=700)
         cards.append(f'''<a href="../stations/{slugify(st['name'])}.html" class="dm-station-card">
-      <div class="dm-station-name">{st['name']}</div>
-      <div class="dm-station-meta">🏘 {av}m · ⛰ {st['alt_max']}m · 💶 {st['forfait']}€</div>
-      <div class="dm-station-km">{km_line}</div>
-      <div class="dm-station-cta">Voir la fiche →</div>
+      <div class="dm-sc-photo" style="background-image:url('{st_photo}')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="{st['id']}" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="{st['id']}" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">{st['name']}</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 {av}m · ⛰ {st['alt_max']}m · 💶 {st['forfait']}€</div>
+        <div class="dm-station-km">{km_line}</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
     </a>''')
     stations_html = "\n".join(cards)
 
-    # ── Autres domaines du même massif ──
+    # ── Autres domaines du même massif — avec photo, et favoris/comparateur en un clic ──
     autres = [(s2, d2) for s2, d2 in DOMAINES.items()
               if d2['massif'] == d['massif'] and s2 != slug]
     autres_html = ''
     if autres:
-        links = "".join(
-            f'<a href="{s2}.html" class="dm-other">{d2["name"]}<span>{d2["km_total"]} km</span></a>'
-            for s2, d2 in sorted(autres, key=lambda x: -x[1]['km_total'])[:6]
-        )
+        other_cards = []
+        for s2, d2 in sorted(autres, key=lambda x: -x[1]['km_total'])[:6]:
+            o_photos, _o_src = get_domaine_photos_smart(s2, d2)
+            o_photo = o_photos[0]
+            other_cards.append(f'''<a href="{s2}.html" class="dm-other">
+      <div class="dm-other-photo" style="background-image:url('{o_photo}')">
+        <div class="dm-other-overlay"></div>
+        <button type="button" class="dm-other-fav" data-dslug="{s2}" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-other-cmp" data-dslug="{s2}" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-other-name">{d2["name"]}</div>
+      </div>
+      <div class="dm-other-foot"><span>{d2["km_total"]} km</span></div>
+    </a>''')
+        links = "\n".join(other_cards)
         autres_html = f'''<div class="dm-section">
   <div class="dm-section-title">Autres domaines — {d['massif']}</div>
   <div class="dm-other-grid">{links}</div>
@@ -3995,16 +4014,37 @@ def render_domaine_page(slug, d):
   .dm-stations-grid{{display:grid;grid-template-columns:1fr;gap:12px}}
   @media(min-width:460px){{.dm-stations-grid{{grid-template-columns:repeat(2,1fr)}}}}
   @media(min-width:760px){{.dm-stations-grid{{grid-template-columns:repeat(3,1fr)}}}}
-  .dm-station-card{{display:block;background:white;border-radius:14px;padding:15px 17px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light);transition:transform .15s,box-shadow .15s}}
+  .dm-station-card{{display:block;background:white;border-radius:14px;overflow:hidden;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light);transition:transform .15s,box-shadow .15s;position:relative}}
   .dm-station-card:hover{{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.1)}}
-  .dm-station-name{{font-weight:800;font-size:1.03rem;margin-bottom:4px}}
+  .dm-sc-photo{{height:118px;position:relative;background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:9px 12px}}
+  .dm-sc-overlay{{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,26,49,.88) 0%,rgba(9,26,49,.2) 55%,transparent 100%)}}
+  .dm-sc-name{{position:relative;z-index:1;color:white;font-weight:800;font-size:.98rem;text-shadow:0 2px 8px rgba(0,0,0,.6);line-height:1.15}}
+  .dm-sc-fav,.dm-sc-cmp{{position:absolute;top:8px;z-index:2;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.92rem;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:all .15s}}
+  .dm-sc-fav{{right:44px;border:1.5px solid #ffd451;color:#d49b00}}
+  .dm-sc-fav:hover{{background:#fff7d6}}
+  .dm-sc-fav.active{{background:rgba(255,255,255,.98);border-color:#ffb900;box-shadow:0 2px 10px rgba(255,180,0,.5)}}
+  .dm-sc-cmp{{right:8px;border:1.5px solid #3a7db8;color:#1a5a8a}}
+  .dm-sc-cmp:hover{{background:#eaf4ff}}
+  .dm-sc-cmp.active{{background:#1a5a8a;border-color:#0d3a6e;box-shadow:0 2px 10px rgba(26,90,138,.5)}}
+  .dm-station-body{{padding:12px 15px 14px}}
   .dm-station-meta{{font-size:.76rem;color:var(--text-mid);margin-bottom:5px}}
   .dm-station-km{{font-size:.74rem;color:#1a5a8a;font-weight:700}}
   .dm-station-cta{{margin-top:8px;font-size:.78rem;font-weight:800;color:var(--navy)}}
-  .dm-other-grid{{display:grid;grid-template-columns:1fr;gap:9px}}
+  .dm-other-grid{{display:grid;grid-template-columns:1fr;gap:11px}}
   @media(min-width:520px){{.dm-other-grid{{grid-template-columns:repeat(2,1fr)}}}}
-  .dm-other{{display:flex;justify-content:space-between;align-items:center;background:white;border-radius:10px;padding:12px 15px;text-decoration:none;font-weight:700;font-size:.87rem;box-shadow:0 2px 8px rgba(0,0,0,.04);border:1px solid var(--wood-light)}}
-  .dm-other span{{color:var(--text-light);font-size:.78rem;font-weight:800}}
+  .dm-other{{display:block;position:relative;background:white;border-radius:12px;overflow:hidden;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.04);border:1px solid var(--wood-light);transition:transform .15s,box-shadow .15s}}
+  .dm-other:hover{{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.09)}}
+  .dm-other-photo{{height:82px;position:relative;background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:7px 10px}}
+  .dm-other-overlay{{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,26,49,.85) 0%,rgba(9,26,49,.15) 60%,transparent 100%)}}
+  .dm-other-name{{position:relative;z-index:1;color:white;font-weight:800;font-size:.85rem;text-shadow:0 2px 6px rgba(0,0,0,.6);line-height:1.15}}
+  .dm-other-fav,.dm-other-cmp{{position:absolute;top:6px;z-index:2;width:25px;height:25px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.76rem;box-shadow:0 2px 6px rgba(0,0,0,.22);transition:all .15s}}
+  .dm-other-fav{{right:35px;border:1.3px solid #ffd451;color:#d49b00}}
+  .dm-other-fav:hover{{background:#fff7d6}}
+  .dm-other-fav.active{{background:rgba(255,255,255,.98);border-color:#ffb900}}
+  .dm-other-cmp{{right:6px;border:1.3px solid #3a7db8;color:#1a5a8a}}
+  .dm-other-cmp:hover{{background:#eaf4ff}}
+  .dm-other-cmp.active{{background:#1a5a8a;border-color:#0d3a6e}}
+  .dm-other-foot{{display:flex;justify-content:flex-end;padding:6px 10px;font-size:.72rem;color:var(--text-light);font-weight:800}}
   .footer{{text-align:center;padding:30px 20px 20px;font-size:.8rem;color:var(--text-mid)}}
   .footer a{{color:#1a5a8a;text-decoration:none;font-weight:600}}
   .sf-bottomnav{{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;align-items:center;padding:8px 0;box-shadow:0 -2px 10px rgba(0,0,0,.08);z-index:80}}
@@ -4161,6 +4201,54 @@ def render_domaine_page(slug, d):
 </div>
 
 {autres_html}
+
+<script>
+// ── Favoris & comparateur directement depuis les vignettes (stations + autres domaines) ──
+(function(){{
+  function getList(k){{try{{return JSON.parse(localStorage.getItem(k)||'[]');}}catch(e){{return [];}}}}
+  function saveList(k,arr){{try{{localStorage.setItem(k,JSON.stringify(arr));}}catch(e){{}}}}
+  function refreshTopbar(){{
+    if(window.sfUpdateFavCount) window.sfUpdateFavCount();
+    if(window.sfUpdateCompareCount) window.sfUpdateCompareCount();
+  }}
+  function render(btn,on,isFav){{
+    if(isFav){{
+      btn.textContent = on ? '⭐' : '☆';
+      btn.title = on ? 'Retirer des favoris' : 'Ajouter aux favoris';
+    }} else {{
+      btn.title = on ? 'Retirer du comparateur' : 'Ajouter au comparateur';
+    }}
+    btn.classList.toggle('active', on);
+  }}
+  function wire(selector, storageKey, isFav, maxN, idFromBtn, noun){{
+    document.querySelectorAll(selector).forEach(function(btn){{
+      var id = idFromBtn(btn);
+      render(btn, getList(storageKey).indexOf(id) !== -1, isFav);
+      btn.addEventListener('click', function(e){{
+        e.preventDefault(); e.stopPropagation();
+        var list = getList(storageKey);
+        var i = list.indexOf(id);
+        if(i === -1){{
+          if(!isFav && list.length >= maxN){{
+            alert('Vous pouvez comparer ' + maxN + ' ' + noun + ' maximum. Retirez-en un avant d\\'en ajouter un nouveau.');
+            return;
+          }}
+          list.push(id);
+        }} else {{
+          list.splice(i,1);
+        }}
+        saveList(storageKey, list);
+        render(btn, list.indexOf(id) !== -1, isFav);
+        refreshTopbar();
+      }});
+    }});
+  }}
+  wire('.dm-sc-fav', 'sf_favorites', true, 0, function(b){{return parseInt(b.dataset.sid,10);}}, 'stations');
+  wire('.dm-sc-cmp', 'sf_compare', false, 3, function(b){{return parseInt(b.dataset.sid,10);}}, 'stations');
+  wire('.dm-other-fav', 'sf_fav_domaines', true, 0, function(b){{return b.dataset.dslug;}}, 'domaines');
+  wire('.dm-other-cmp', 'sf_compare_domaines', false, 3, function(b){{return b.dataset.dslug;}}, 'domaines');
+}})();
+</script>
 
 <footer class="footer">
   <strong>SnowFinder</strong> — Le guide complet des stations de ski françaises<br>
