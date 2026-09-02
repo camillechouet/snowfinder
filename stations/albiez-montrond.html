@@ -108,7 +108,8 @@
       background:var(--wood);color:white;font-weight:700;font-size:.95rem;
       padding:6px 13px;border-radius:9px;box-shadow:0 2px 8px rgba(0,0,0,.25)
     }
-    .hero-content{position:absolute;bottom:0;left:0;right:0;padding:28px 28px 32px;z-index:10;pointer-events:none}
+    .hero-content{position:absolute;bottom:0;left:0;right:0;padding:28px 194px 32px 28px;z-index:10;pointer-events:none}
+    @media(max-width:400px){.hero-content{padding-right:154px}}
     .hero-massif{
       display:inline-block;background:rgba(255,255,255,.16);
       border:1px solid rgba(255,255,255,.28);border-radius:22px;
@@ -119,18 +120,18 @@
     .hero-region{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px}
     .hero-illu-note{font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
     .hero-illu-note{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
-    /* Vignette "Grand domaine" — centrée verticalement sur le bord droit, à l'écart
-       du texte (bas-gauche) et des badges note/fermeture (haut-droite), pour une
-       mise en page à 4 zones équilibrée quelle que soit la largeur d'écran. */
-    .hero-link-card{position:absolute;top:50%;right:14px;transform:translateY(-50%);z-index:12;pointer-events:auto;width:168px;border-radius:14px;overflow:hidden;text-decoration:none;display:block;box-shadow:0 8px 22px rgba(0,0,0,.4);border:2px solid rgba(212,175,55,.7);background:#0d3a6e;transition:transform .15s,box-shadow .15s}
-    .hero-link-card:hover{transform:translateY(-52%);box-shadow:0 12px 28px rgba(0,0,0,.48)}
+    /* Vignette "Grand domaine" — en bas à droite. Le padding-droit de .hero-content
+       (ci-dessus) réserve toujours assez de place pour qu'elle ne chevauche jamais
+       le titre / la région, quelle que soit la largeur d'écran. */
+    .hero-link-card{position:absolute;bottom:14px;right:14px;z-index:12;pointer-events:auto;width:168px;border-radius:14px;overflow:hidden;text-decoration:none;display:block;box-shadow:0 8px 22px rgba(0,0,0,.4);border:2px solid rgba(212,175,55,.7);background:#0d3a6e;transition:transform .15s,box-shadow .15s}
+    .hero-link-card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.48)}
     .hero-link-card img{width:100%;height:66px;object-fit:cover;display:block;opacity:.8}
     .hero-link-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,26,49,.96) 0%,rgba(9,26,49,.32) 62%,rgba(9,26,49,.05) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:8px 12px 10px}
     .hero-link-card-tag{font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;color:#e4c766;font-weight:800;margin-bottom:2px}
     .hero-link-card-name{font-family:"DM Serif Display",serif;font-size:.98rem;color:white;line-height:1.2;display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .hero-link-card-name span{font-size:.8rem;color:#e4c766;flex-shrink:0}
     @media(max-width:400px){
-      .hero-link-card{width:132px;right:10px}
+      .hero-link-card{width:132px;right:10px;bottom:10px}
       .hero-link-card img{height:54px}
       .hero-link-card-name{font-size:.86rem}
     }
@@ -464,13 +465,19 @@
       body{padding-bottom:132px}
     }
     .mobile-bar-btn{
-      flex:1;padding:12px 8px;border-radius:12px;font-weight:700;
-      font-size:.88rem;text-align:center;cursor:pointer;border:none;
-      font-family:"DM Sans",sans-serif;text-decoration:none;display:flex;
-      align-items:center;justify-content:center;gap:6px
+      flex:1;position:relative;overflow:hidden;border-radius:13px;padding:0;
+      height:58px;border:1.5px solid rgba(212,175,55,.55);cursor:pointer;
+      font-family:"DM Sans",sans-serif;text-decoration:none;display:block;
+      box-shadow:0 4px 14px rgba(0,0,0,.18)
     }
-    .mobile-bar-official{background:var(--wood-pale);color:var(--text-mid);border:2px solid var(--wood-light)}
-    .mobile-bar-booking{background:#003580;color:white}
+    .mobile-bar-btn img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .mobile-bar-btn-overlay{
+      position:relative;z-index:1;height:100%;display:flex;align-items:center;
+      justify-content:center;gap:6px;font-weight:800;font-size:.86rem;color:white;
+      text-shadow:0 1px 5px rgba(0,0,0,.55)
+    }
+    .mobile-bar-official .mobile-bar-btn-overlay{background:linear-gradient(rgba(9,26,49,.4),rgba(9,26,49,.72))}
+    .mobile-bar-booking .mobile-bar-btn-overlay{background:linear-gradient(rgba(0,53,128,.5),rgba(0,53,128,.8))}
 
     /* BOUTON SITE OFFICIEL */
     .official-btn{
@@ -1443,10 +1450,12 @@ function closeStation(){
 <!-- BARRE MOBILE FIXE -->
 <div class="mobile-bar">
   <button onclick="showOfficialSheet()" class="mobile-bar-btn mobile-bar-official">
-    🎿 Site officiel
+    <img src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1200&q=80" alt="" loading="lazy">
+    <span class="mobile-bar-btn-overlay">🎿 Site officiel</span>
   </button>
   <a href="https://www.tkqlhce.com/click-101709262-15734710?sid=station-albiez-montrond&url=https%3A//www.booking.com/searchresults.fr.html%3Fss%3DAlbiez-Montrond%2520ski%2520france%26lang%3Dfr" target="_blank" rel="noopener sponsored" class="mobile-bar-btn mobile-bar-booking">
-    🏨 Réserver
+    <img src="../img/chalet-booking.jpg" alt="" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=400&q=80'">
+    <span class="mobile-bar-btn-overlay">🏨 Réserver</span>
   </a>
 </div>
 
