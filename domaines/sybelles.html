@@ -128,16 +128,37 @@
   .dm-stations-grid{display:grid;grid-template-columns:1fr;gap:12px}
   @media(min-width:460px){.dm-stations-grid{grid-template-columns:repeat(2,1fr)}}
   @media(min-width:760px){.dm-stations-grid{grid-template-columns:repeat(3,1fr)}}
-  .dm-station-card{display:block;background:white;border-radius:14px;padding:15px 17px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light);transition:transform .15s,box-shadow .15s}
+  .dm-station-card{display:block;background:white;border-radius:14px;overflow:hidden;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light);transition:transform .15s,box-shadow .15s;position:relative}
   .dm-station-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.1)}
-  .dm-station-name{font-weight:800;font-size:1.03rem;margin-bottom:4px}
+  .dm-sc-photo{height:118px;position:relative;background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:9px 12px}
+  .dm-sc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,26,49,.88) 0%,rgba(9,26,49,.2) 55%,transparent 100%)}
+  .dm-sc-name{position:relative;z-index:1;color:white;font-weight:800;font-size:.98rem;text-shadow:0 2px 8px rgba(0,0,0,.6);line-height:1.15}
+  .dm-sc-fav,.dm-sc-cmp{position:absolute;top:8px;z-index:2;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.92rem;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:all .15s}
+  .dm-sc-fav{right:44px;border:1.5px solid #ffd451;color:#d49b00}
+  .dm-sc-fav:hover{background:#fff7d6}
+  .dm-sc-fav.active{background:rgba(255,255,255,.98);border-color:#ffb900;box-shadow:0 2px 10px rgba(255,180,0,.5)}
+  .dm-sc-cmp{right:8px;border:1.5px solid #3a7db8;color:#1a5a8a}
+  .dm-sc-cmp:hover{background:#eaf4ff}
+  .dm-sc-cmp.active{background:#1a5a8a;border-color:#0d3a6e;box-shadow:0 2px 10px rgba(26,90,138,.5)}
+  .dm-station-body{padding:12px 15px 14px}
   .dm-station-meta{font-size:.76rem;color:var(--text-mid);margin-bottom:5px}
   .dm-station-km{font-size:.74rem;color:#1a5a8a;font-weight:700}
   .dm-station-cta{margin-top:8px;font-size:.78rem;font-weight:800;color:var(--navy)}
-  .dm-other-grid{display:grid;grid-template-columns:1fr;gap:9px}
+  .dm-other-grid{display:grid;grid-template-columns:1fr;gap:11px}
   @media(min-width:520px){.dm-other-grid{grid-template-columns:repeat(2,1fr)}}
-  .dm-other{display:flex;justify-content:space-between;align-items:center;background:white;border-radius:10px;padding:12px 15px;text-decoration:none;font-weight:700;font-size:.87rem;box-shadow:0 2px 8px rgba(0,0,0,.04);border:1px solid var(--wood-light)}
-  .dm-other span{color:var(--text-light);font-size:.78rem;font-weight:800}
+  .dm-other{display:block;position:relative;background:white;border-radius:12px;overflow:hidden;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.04);border:1px solid var(--wood-light);transition:transform .15s,box-shadow .15s}
+  .dm-other:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.09)}
+  .dm-other-photo{height:82px;position:relative;background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:7px 10px}
+  .dm-other-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,26,49,.85) 0%,rgba(9,26,49,.15) 60%,transparent 100%)}
+  .dm-other-name{position:relative;z-index:1;color:white;font-weight:800;font-size:.85rem;text-shadow:0 2px 6px rgba(0,0,0,.6);line-height:1.15}
+  .dm-other-fav,.dm-other-cmp{position:absolute;top:6px;z-index:2;width:25px;height:25px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.76rem;box-shadow:0 2px 6px rgba(0,0,0,.22);transition:all .15s}
+  .dm-other-fav{right:35px;border:1.3px solid #ffd451;color:#d49b00}
+  .dm-other-fav:hover{background:#fff7d6}
+  .dm-other-fav.active{background:rgba(255,255,255,.98);border-color:#ffb900}
+  .dm-other-cmp{right:6px;border:1.3px solid #3a7db8;color:#1a5a8a}
+  .dm-other-cmp:hover{background:#eaf4ff}
+  .dm-other-cmp.active{background:#1a5a8a;border-color:#0d3a6e}
+  .dm-other-foot{display:flex;justify-content:flex-end;padding:6px 10px;font-size:.72rem;color:var(--text-light);font-weight:800}
   .footer{text-align:center;padding:30px 20px 20px;font-size:.8rem;color:var(--text-mid)}
   .footer a{color:#1a5a8a;text-decoration:none;font-weight:600}
   .sf-bottomnav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;align-items:center;padding:8px 0;box-shadow:0 -2px 10px rgba(0,0,0,.08);z-index:80}
@@ -391,48 +412,191 @@
   <div class="dm-section-title">Explorer les stations</div>
   <div class="dm-stations-grid">
     <a href="../stations/la-toussuire.html" class="dm-station-card">
-      <div class="dm-station-name">La Toussuire</div>
-      <div class="dm-station-meta">🏘 1750m · ⛰ 2620m · 💶 35€</div>
-      <div class="dm-station-km">🎿 domaine partagé</div>
-      <div class="dm-station-cta">Voir la fiche →</div>
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="50" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="50" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">La Toussuire</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 1750m · ⛰ 2620m · 💶 35€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
     </a>
 <a href="../stations/le-corbier.html" class="dm-station-card">
-      <div class="dm-station-name">Le Corbier</div>
-      <div class="dm-station-meta">🏘 1550m · ⛰ 2265m · 💶 30€</div>
-      <div class="dm-station-km">🎿 domaine partagé</div>
-      <div class="dm-station-cta">Voir la fiche →</div>
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="51" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="51" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Le Corbier</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 1550m · ⛰ 2265m · 💶 30€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
     </a>
 <a href="../stations/saint-sorlin-d-arves.html" class="dm-station-card">
-      <div class="dm-station-name">Saint-Sorlin-d'Arves</div>
-      <div class="dm-station-meta">🏘 1600m · ⛰ 2620m · 💶 32€</div>
-      <div class="dm-station-km">🎿 domaine partagé</div>
-      <div class="dm-station-cta">Voir la fiche →</div>
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="52" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="52" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Saint-Sorlin-d'Arves</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 1600m · ⛰ 2620m · 💶 32€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
     </a>
 <a href="../stations/saint-jean-d-arves.html" class="dm-station-card">
-      <div class="dm-station-name">Saint-Jean-d'Arves</div>
-      <div class="dm-station-meta">🏘 1200m · ⛰ 2620m · 💶 30€</div>
-      <div class="dm-station-km">🎿 domaine partagé</div>
-      <div class="dm-station-cta">Voir la fiche →</div>
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="53" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="53" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Saint-Jean-d'Arves</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 1200m · ⛰ 2620m · 💶 30€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
     </a>
 <a href="../stations/saint-colomban-des-villards.html" class="dm-station-card">
-      <div class="dm-station-name">Saint-Colomban-des-Villards</div>
-      <div class="dm-station-meta">🏘 1100m · ⛰ 1600m · 💶 0€</div>
-      <div class="dm-station-km">🎿 domaine partagé</div>
-      <div class="dm-station-cta">Voir la fiche →</div>
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="54" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="54" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Saint-Colomban-des-Villards</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 1100m · ⛰ 1600m · 💶 0€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
     </a>
 <a href="../stations/les-bottieres.html" class="dm-station-card">
-      <div class="dm-station-name">Les Bottières</div>
-      <div class="dm-station-meta">🏘 1450m · ⛰ 2400m · 💶 28€</div>
-      <div class="dm-station-km">🎿 domaine partagé</div>
-      <div class="dm-station-cta">Voir la fiche →</div>
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="55" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="55" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Les Bottières</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 1450m · ⛰ 2400m · 💶 28€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
     </a>
   </div>
 </div>
 
 <div class="dm-section">
   <div class="dm-section-title">Autres domaines — Alpes du Nord</div>
-  <div class="dm-other-grid"><a href="portes-du-soleil.html" class="dm-other">Les Portes du Soleil<span>600 km</span></a><a href="3-vallees.html" class="dm-other">Les 3 Vallées<span>600 km</span></a><a href="paradiski.html" class="dm-other">Paradiski<span>425 km</span></a><a href="espace-killy.html" class="dm-other">Tignes – Val d'Isère (Espace Killy)<span>300 km</span></a><a href="grand-massif.html" class="dm-other">Le Grand Massif<span>265 km</span></a><a href="evasion-mont-blanc.html" class="dm-other">Évasion Mont-Blanc<span>263 km</span></a></div>
+  <div class="dm-other-grid"><a href="portes-du-soleil.html" class="dm-other">
+      <div class="dm-other-photo" style="background-image:url('../img/avoriaz1.jpg')">
+        <div class="dm-other-overlay"></div>
+        <button type="button" class="dm-other-fav" data-dslug="portes-du-soleil" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-other-cmp" data-dslug="portes-du-soleil" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-other-name">Les Portes du Soleil</div>
+      </div>
+      <div class="dm-other-foot"><span>600 km</span></div>
+    </a>
+<a href="3-vallees.html" class="dm-other">
+      <div class="dm-other-photo" style="background-image:url('../img/courchevel1.jpg')">
+        <div class="dm-other-overlay"></div>
+        <button type="button" class="dm-other-fav" data-dslug="3-vallees" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-other-cmp" data-dslug="3-vallees" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-other-name">Les 3 Vallées</div>
+      </div>
+      <div class="dm-other-foot"><span>600 km</span></div>
+    </a>
+<a href="paradiski.html" class="dm-other">
+      <div class="dm-other-photo" style="background-image:url('../img/laplagne1.jpg')">
+        <div class="dm-other-overlay"></div>
+        <button type="button" class="dm-other-fav" data-dslug="paradiski" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-other-cmp" data-dslug="paradiski" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-other-name">Paradiski</div>
+      </div>
+      <div class="dm-other-foot"><span>425 km</span></div>
+    </a>
+<a href="espace-killy.html" class="dm-other">
+      <div class="dm-other-photo" style="background-image:url('../img/valdisere1.jpg')">
+        <div class="dm-other-overlay"></div>
+        <button type="button" class="dm-other-fav" data-dslug="espace-killy" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-other-cmp" data-dslug="espace-killy" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-other-name">Tignes – Val d'Isère (Espace Killy)</div>
+      </div>
+      <div class="dm-other-foot"><span>300 km</span></div>
+    </a>
+<a href="grand-massif.html" class="dm-other">
+      <div class="dm-other-photo" style="background-image:url('../img/flaine1.jpg')">
+        <div class="dm-other-overlay"></div>
+        <button type="button" class="dm-other-fav" data-dslug="grand-massif" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-other-cmp" data-dslug="grand-massif" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-other-name">Le Grand Massif</div>
+      </div>
+      <div class="dm-other-foot"><span>265 km</span></div>
+    </a>
+<a href="evasion-mont-blanc.html" class="dm-other">
+      <div class="dm-other-photo" style="background-image:url('../img/megeve1.jpg')">
+        <div class="dm-other-overlay"></div>
+        <button type="button" class="dm-other-fav" data-dslug="evasion-mont-blanc" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-other-cmp" data-dslug="evasion-mont-blanc" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-other-name">Évasion Mont-Blanc</div>
+      </div>
+      <div class="dm-other-foot"><span>263 km</span></div>
+    </a></div>
 </div>
+
+<script>
+// ── Favoris & comparateur directement depuis les vignettes (stations + autres domaines) ──
+(function(){
+  function getList(k){try{return JSON.parse(localStorage.getItem(k)||'[]');}catch(e){return [];}}
+  function saveList(k,arr){try{localStorage.setItem(k,JSON.stringify(arr));}catch(e){}}
+  function refreshTopbar(){
+    if(window.sfUpdateFavCount) window.sfUpdateFavCount();
+    if(window.sfUpdateCompareCount) window.sfUpdateCompareCount();
+  }
+  function render(btn,on,isFav){
+    if(isFav){
+      btn.textContent = on ? '⭐' : '☆';
+      btn.title = on ? 'Retirer des favoris' : 'Ajouter aux favoris';
+    } else {
+      btn.title = on ? 'Retirer du comparateur' : 'Ajouter au comparateur';
+    }
+    btn.classList.toggle('active', on);
+  }
+  function wire(selector, storageKey, isFav, maxN, idFromBtn, noun){
+    document.querySelectorAll(selector).forEach(function(btn){
+      var id = idFromBtn(btn);
+      render(btn, getList(storageKey).indexOf(id) !== -1, isFav);
+      btn.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var list = getList(storageKey);
+        var i = list.indexOf(id);
+        if(i === -1){
+          if(!isFav && list.length >= maxN){
+            alert('Vous pouvez comparer ' + maxN + ' ' + noun + ' maximum. Retirez-en un avant d\'en ajouter un nouveau.');
+            return;
+          }
+          list.push(id);
+        } else {
+          list.splice(i,1);
+        }
+        saveList(storageKey, list);
+        render(btn, list.indexOf(id) !== -1, isFav);
+        refreshTopbar();
+      });
+    });
+  }
+  wire('.dm-sc-fav', 'sf_favorites', true, 0, function(b){return parseInt(b.dataset.sid,10);}, 'stations');
+  wire('.dm-sc-cmp', 'sf_compare', false, 3, function(b){return parseInt(b.dataset.sid,10);}, 'stations');
+  wire('.dm-other-fav', 'sf_fav_domaines', true, 0, function(b){return b.dataset.dslug;}, 'domaines');
+  wire('.dm-other-cmp', 'sf_compare_domaines', false, 3, function(b){return b.dataset.dslug;}, 'domaines');
+})();
+</script>
 
 <footer class="footer">
   <strong>SnowFinder</strong> — Le guide complet des stations de ski françaises<br>
