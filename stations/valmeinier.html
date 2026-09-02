@@ -118,23 +118,26 @@
     h1{font-family:"DM Serif Display",serif;font-size:clamp(2rem,6vw,3.2rem);color:white;line-height:1.05;margin-bottom:6px}
     .hero-region{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px}
     .hero-illu-note{font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
-    .hero-bottom-right{position:absolute;bottom:14px;right:14px;z-index:12;display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:none}
-    .hero-link-card{pointer-events:auto;position:relative;width:210px;border-radius:15px;overflow:hidden;text-decoration:none;display:block;box-shadow:0 8px 24px rgba(0,0,0,.4);border:2px solid rgba(212,175,55,.7);background:#0d3a6e;transition:transform .15s,box-shadow .15s}
-    .hero-link-card:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.48)}
-    .hero-link-card img{width:100%;height:84px;object-fit:cover;display:block;opacity:.8}
-    .hero-link-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,26,49,.96) 0%,rgba(9,26,49,.32) 62%,rgba(9,26,49,.05) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:10px 14px 12px}
-    .hero-link-card-tag{font-size:.62rem;text-transform:uppercase;letter-spacing:.07em;color:#e4c766;font-weight:800;margin-bottom:2px}
-    .hero-link-card-name{font-family:"DM Serif Display",serif;font-size:1.12rem;color:white;line-height:1.2;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .hero-link-card-name span{font-size:.9rem;color:#e4c766;flex-shrink:0}
+    .hero-illu-note{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
+    /* Vignette "Grand domaine" — centrée verticalement sur le bord droit, à l'écart
+       du texte (bas-gauche) et des badges note/fermeture (haut-droite), pour une
+       mise en page à 4 zones équilibrée quelle que soit la largeur d'écran. */
+    .hero-link-card{position:absolute;top:50%;right:14px;transform:translateY(-50%);z-index:12;pointer-events:auto;width:168px;border-radius:14px;overflow:hidden;text-decoration:none;display:block;box-shadow:0 8px 22px rgba(0,0,0,.4);border:2px solid rgba(212,175,55,.7);background:#0d3a6e;transition:transform .15s,box-shadow .15s}
+    .hero-link-card:hover{transform:translateY(-52%);box-shadow:0 12px 28px rgba(0,0,0,.48)}
+    .hero-link-card img{width:100%;height:66px;object-fit:cover;display:block;opacity:.8}
+    .hero-link-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,26,49,.96) 0%,rgba(9,26,49,.32) 62%,rgba(9,26,49,.05) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:8px 12px 10px}
+    .hero-link-card-tag{font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;color:#e4c766;font-weight:800;margin-bottom:2px}
+    .hero-link-card-name{font-family:"DM Serif Display",serif;font-size:.98rem;color:white;line-height:1.2;display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .hero-link-card-name span{font-size:.8rem;color:#e4c766;flex-shrink:0}
     @media(max-width:400px){
-      .hero-link-card{width:158px}
-      .hero-link-card img{height:66px}
-      .hero-link-card-name{font-size:.94rem}
+      .hero-link-card{width:132px;right:10px}
+      .hero-link-card img{height:54px}
+      .hero-link-card-name{font-size:.86rem}
     }
 
     /* CONTAINER */
     .container{max-width:980px;margin:0 auto;padding:20px 14px 50px}
-    @media(max-width:480px){.container{padding:16px 10px 40px}}
+    @media(max-width:480px){.container{padding:14px 6px 40px}}
     @media(min-width:1200px){
       .container{max-width:1240px}
       .main-grid{grid-template-columns:minmax(0,1fr) 400px;gap:28px}
@@ -220,6 +223,7 @@
 
     /* SECTIONS */
     .section{background:var(--white);border-radius:var(--radius);padding:18px 16px;min-width:0;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light)}
+    @media(max-width:480px){.section{padding:16px 11px}}
     .section-title{font-family:"DM Serif Display",serif;font-size:1rem;color:var(--text-mid);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--wood-pale)}
 
     /* PISTES */
@@ -409,19 +413,20 @@
 
     /* DOMAINE SKIABLE RELIÉ — bandeau photo, sobre, juste le lien vers la fiche complète */
     .domaine-box{
-      display:block;text-decoration:none;color:inherit;margin:18px 0;border-radius:18px;overflow:hidden;
-      position:relative;height:150px;border:1px solid #0d3a6e;
+      display:block;text-decoration:none;color:inherit;margin:18px 0;border-radius:16px;overflow:hidden;
+      position:relative;height:96px;border:1px solid #0d3a6e;
       box-shadow:0 6px 20px rgba(13,58,110,.26);transition:transform .15s,box-shadow .15s
     }
     .domaine-box:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(13,58,110,.36)}
     .domaine-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-    .domaine-box-overlay{position:absolute;inset:0;background:linear-gradient(120deg,rgba(9,26,49,.9) 0%,rgba(13,58,110,.5) 55%,rgba(13,58,110,.25) 100%);display:flex;flex-direction:column;justify-content:center;padding:20px 26px}
-    .domaine-box-tag{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#e4c766;margin-bottom:5px}
-    .domaine-box-name{font-family:"DM Serif Display",serif;font-size:1.55rem;color:#fff;display:flex;align-items:center;gap:9px;text-shadow:0 2px 10px rgba(0,0,0,.35)}
-    .domaine-box-arrow{font-size:1.2rem;color:#e4c766}
+    .domaine-box-overlay{position:absolute;inset:0;background:linear-gradient(120deg,rgba(9,26,49,.9) 0%,rgba(13,58,110,.5) 55%,rgba(13,58,110,.25) 100%);display:flex;flex-direction:column;justify-content:center;padding:14px 22px}
+    .domaine-box-tag{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#e4c766;margin-bottom:4px}
+    .domaine-box-name{font-family:"DM Serif Display",serif;font-size:1.28rem;color:#fff;display:flex;align-items:center;gap:8px;text-shadow:0 2px 10px rgba(0,0,0,.35)}
+    .domaine-box-arrow{font-size:1.05rem;color:#e4c766}
 
     /* Onglet Domaine */
     .dt-hero{background:linear-gradient(145deg,#0d3a6e 0%,#1a5a8a 100%);border:1px solid #0d3a6e;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+    @media(max-width:480px){.dt-hero{padding:14px 13px}}
     .dt-hero h3{font-family:"DM Serif Display",serif;font-size:1.3rem;color:#fff;margin-bottom:6px}
     .dt-hero p{color:rgba(255,255,255,.85);font-size:.88rem;line-height:1.6}
     .dt-warn{font-size:.8rem;color:#a05a2c;background:#fff4e6;padding:8px 12px;border-radius:8px;margin:12px 0}
@@ -620,16 +625,14 @@
     <h1>Valmeinier</h1>
     <div class="hero-region">📍 Galibier-Thabor, Savoie</div>
   </div>
-  <div class="hero-bottom-right">
-    <div class="hero-illu-note">Photo d'illustration</div>
-    <a href="../domaines/galibier-thabor.html" class="hero-link-card">
+  <div class="hero-illu-note">Photo d'illustration</div>
+  <a href="../domaines/galibier-thabor.html" class="hero-link-card">
     <img src="../img/valloire1.jpg" alt="" loading="lazy">
     <div class="hero-link-card-overlay">
       <div class="hero-link-card-tag">🏔️ Grand domaine</div>
       <div class="hero-link-card-name">Galibier-Thabor <span>→</span></div>
     </div>
   </a>
-  </div>
 </div>
 
 <!-- NAVIGATION ONGLETS — coulissante horizontalement, avec indice de scroll visible -->
@@ -1203,7 +1206,10 @@ function closeStation(){
   </a>
         <div class="dt-hero">
           <h3>🏔️ Galibier-Thabor</h3>
-          <p>Valloire et Valmeinier, deux villages de Maurienne blottis sous le col du Galibier, partagent 160 km de pistes réparties sur cinq versants depuis 2007. Valloire a gardé son âme de village-rue avec son église baroque du XVIIe et son ambiance authentique ; Valmeinier, plus récente, s'étage entre un vieux village à 1500 m et une station à 1800 m. Le domaine grimpe jusqu'à 2750 m et 70 % des pistes sont au-dessus de 2000 m, ce qui assure un enneigement solide de décembre à avril. C'est aussi le terrain de jeu des cyclistes l'été, avec le Galibier et le Télégraphe à portée de guidon.</p>
+          <div class="readmore-wrap" id="rm-domaine" style="--rm-bg:#154a86;max-height:82px">
+            <p>Valloire et Valmeinier, deux villages de Maurienne blottis sous le col du Galibier, partagent 160 km de pistes réparties sur cinq versants depuis 2007. Valloire a gardé son âme de village-rue avec son église baroque du XVIIe et son ambiance authentique ; Valmeinier, plus récente, s'étage entre un vieux village à 1500 m et une station à 1800 m. Le domaine grimpe jusqu'à 2750 m et 70 % des pistes sont au-dessus de 2000 m, ce qui assure un enneigement solide de décembre à avril. C'est aussi le terrain de jeu des cyclistes l'été, avec le Galibier et le Télégraphe à portée de guidon.</p>
+          </div>
+          <div class="readmore-btn" style="color:#e4c766" onclick="toggleReadMore('rm-domaine',this)">Lire plus ▼</div>
         </div>
         <div class="section" style="margin-top:16px">
           <div class="section-title">Aperçu du domaine skiable</div>
