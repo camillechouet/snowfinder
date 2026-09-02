@@ -1926,6 +1926,14 @@ def render_page(s):
     anecdote_html = render_anecdote_html(s['name'])
     expo_html = render_expo_html(s)
     expo_tab_btn = '<button class="tab-btn" onclick="switchTab(\'expo\',this)">🧭 Exposition</button>' if expo_html else ''
+    # ── Vignette "Site officiel" du hero (même trame que la vignette Grand domaine) ──
+    hero_officiel_html = f'''<a href="{get_official_url(s['name'])}" target="_blank" rel="noopener" class="hero-link-card">
+    <img src="{photo}" alt="" loading="lazy">
+    <div class="hero-link-card-overlay">
+      <div class="hero-link-card-tag">🎿 Site officiel</div>
+      <div class="hero-link-card-name">{s['name']} <span>→</span></div>
+    </div>
+  </a>'''
     # ── Domaine skiable relié (si la station en fait partie) ──
     domaine_slug, domaine = get_domaine(s['name'])
     if domaine:
@@ -1945,7 +1953,14 @@ def render_page(s):
     <div class="domaine-box-foot">{len(domaine['stations'])} stations reliées, dont {s['name']} · voir la fiche complète du domaine</div>
   </a>'''
         domaine_tab_btn = '<button class="tab-btn" onclick="switchTab(\'domaine\',this)">🔗 Grand domaine</button>'
-        hero_domaine_html = f'<a href="{domaine_url}" class="hero-domaine-badge">🏔️ {domaine["short"]} <span>→</span></a>'
+        _dm_photo = get_domaine_photos_smart(domaine_slug, domaine)[0][0]
+        hero_domaine_html = f'''<a href="{domaine_url}" class="hero-link-card">
+    <img src="{_dm_photo}" alt="" loading="lazy">
+    <div class="hero-link-card-overlay">
+      <div class="hero-link-card-tag">🏔️ Grand domaine</div>
+      <div class="hero-link-card-name">{domaine["short"]} <span>→</span></div>
+    </div>
+  </a>'''
         soeurs_cards = "\n".join(
             f'''<a href="{slugify(n)}.html" class="domaine-soeur-card">
         <div class="domaine-soeur-name">{n}</div>
@@ -2331,10 +2346,14 @@ def render_page(s):
     h1{{font-family:"DM Serif Display",serif;font-size:clamp(2rem,6vw,3.2rem);color:white;line-height:1.05;margin-bottom:6px}}
     .hero-region{{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px}}
     .hero-illu-note{{font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}}
-    .hero-bottom-right{{position:absolute;bottom:14px;right:14px;z-index:12;display:flex;flex-direction:column;align-items:flex-end;gap:6px;pointer-events:none}}
-    .hero-domaine-badge{{pointer-events:auto;display:inline-flex;align-items:center;gap:6px;background:rgba(13,34,64,.68);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(8px);color:white;font-size:.7rem;font-weight:700;letter-spacing:.02em;padding:7px 14px;border-radius:20px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.28);transition:background .15s,transform .15s}}
-    .hero-domaine-badge:hover{{background:rgba(13,34,64,.85);transform:translateY(-1px)}}
-    .hero-domaine-badge span{{opacity:.75;font-weight:800}}
+    .hero-bottom-right{{position:absolute;bottom:14px;right:14px;z-index:12;display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:none}}
+    .hero-link-card{{pointer-events:auto;position:relative;width:150px;border-radius:13px;overflow:hidden;text-decoration:none;display:block;box-shadow:0 6px 18px rgba(0,0,0,.35);border:1.5px solid rgba(212,175,55,.65);background:#0d3a6e;transition:transform .15s,box-shadow .15s}}
+    .hero-link-card:hover{{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.42)}}
+    .hero-link-card img{{width:100%;height:58px;object-fit:cover;display:block;opacity:.75}}
+    .hero-link-card-overlay{{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,26,49,.96) 0%,rgba(9,26,49,.35) 60%,rgba(9,26,49,.05) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:7px 10px 8px}}
+    .hero-link-card-tag{{font-size:.56rem;text-transform:uppercase;letter-spacing:.06em;color:#d4af37;font-weight:800;margin-bottom:1px}}
+    .hero-link-card-name{{font-family:"DM Serif Display",serif;font-size:.86rem;color:white;line-height:1.2;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+    .hero-link-card-name span{{font-size:.7rem;color:#d4af37;flex-shrink:0}}
 
     /* CONTAINER */
     .container{{max-width:980px;margin:0 auto;padding:20px 14px 50px}}
@@ -2827,6 +2846,7 @@ def render_page(s):
   </div>
   <div class="hero-bottom-right">
     {hero_illu_note}
+    {hero_officiel_html}
     {hero_domaine_html}
   </div>
 </div>
