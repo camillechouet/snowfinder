@@ -2016,7 +2016,7 @@ def render_page(s):
         {domaine_highlight_box}
         <div class="dt-hero">
           <h3>🏔️ {domaine['name']}</h3>
-          <div class="readmore-wrap" id="rm-domaine" style="--rm-bg:#154a86;max-height:82px">
+          <div class="readmore-wrap" id="rm-domaine" style="--rm-bg:#154a86;--rm-max:82px">
             <p>{domaine['desc']}</p>
           </div>
           <div class="readmore-btn" style="color:#e4c766" onclick="toggleReadMore('rm-domaine',this)">Lire plus ▼</div>
@@ -2408,7 +2408,7 @@ def render_page(s):
     .tab-content{{display:none;background:white;border:1px solid var(--border);border-radius:14px;padding:18px 14px;min-height:200px}}
     .tab-content.active{{display:block}}
     /* LIRE PLUS / VOIR MOINS — textes longs (avis, description) */
-    .readmore-wrap{{position:relative;max-height:118px;overflow:hidden;transition:max-height .35s ease}}
+    .readmore-wrap{{position:relative;max-height:var(--rm-max,118px);overflow:hidden;transition:max-height .35s ease}}
     .readmore-wrap.expanded{{max-height:3000px}}
     .readmore-wrap:not(.expanded)::after{{content:'';position:absolute;bottom:0;left:0;right:0;height:38px;background:linear-gradient(transparent,var(--rm-bg,white))}}
     .readmore-btn{{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:10px;font-size:.78rem;font-weight:800;color:var(--blue-mid);cursor:pointer;padding:6px;user-select:none}}
@@ -2821,6 +2821,7 @@ def render_page(s):
     <span>SnowFinder</span>
   </a>
   <a href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" class="sf-topbar-app">📲 L'app est dispo !</a>
+  <a href="../comparateur.html" class="sf-topbar-fav">⚖️ <span id="sfCompareCount">0</span></a>
   <a href="../favoris.html" class="sf-topbar-fav">⭐ <span id="sfFavCount">0</span></a>
 </div>
 <script>
@@ -2844,9 +2845,16 @@ def render_page(s):
     var el = document.getElementById("sfFavCount");
     if(el) el.textContent = favs.length;
   }}
+  function updateCompareCount(){{
+    var c = [];
+    try {{ c = JSON.parse(localStorage.getItem("sf_compare")||"[]"); }} catch(e){{}}
+    var el = document.getElementById("sfCompareCount");
+    if(el) el.textContent = c.length;
+  }}
   updateFavCount();
-  window.addEventListener("storage", updateFavCount);
-  window.addEventListener("focus", updateFavCount);
+  updateCompareCount();
+  window.addEventListener("storage", function(){{updateFavCount();updateCompareCount();}});
+  window.addEventListener("focus", function(){{updateFavCount();updateCompareCount();}});
 }})();
 </script>
 
