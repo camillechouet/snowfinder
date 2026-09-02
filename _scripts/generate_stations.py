@@ -3947,6 +3947,10 @@ def render_domaine_page(slug, d):
   .dm-section-title{{font-family:"DM Serif Display",serif;font-size:1.15rem;color:var(--text-mid);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--wood-pale)}}
   .dm-card{{background:white;border-radius:14px;padding:18px 20px;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light)}}
   .dm-desc{{font-size:.93rem;line-height:1.75;color:var(--text-mid)}}
+  .readmore-wrap{{position:relative;max-height:var(--rm-max,100px);overflow:hidden;transition:max-height .35s ease}}
+  .readmore-wrap.expanded{{max-height:3000px}}
+  .readmore-wrap:not(.expanded)::after{{content:'';position:absolute;bottom:0;left:0;right:0;height:38px;background:linear-gradient(transparent,var(--rm-bg,white))}}
+  .readmore-btn{{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:10px;font-size:.78rem;font-weight:800;color:var(--blue-mid);cursor:pointer;padding:6px;user-select:none}}
   .dm-faits{{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}}
   @media(min-width:620px){{.dm-faits{{grid-template-columns:repeat(4,1fr)}}}}
   .dm-fait{{background:white;border-radius:12px;padding:14px 12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.04);border:1px solid var(--wood-light)}}
@@ -4139,7 +4143,12 @@ def render_domaine_page(slug, d):
 
 <div class="dm-section">
   <div class="dm-section-title">À propos du domaine</div>
-  <div class="dm-card dm-desc">{d['desc']}</div>
+  <div class="dm-card">
+    <div class="readmore-wrap" id="rm-dmdesc" style="--rm-bg:white">
+      <div class="dm-desc">{d['desc']}</div>
+    </div>
+    <div class="readmore-btn" onclick="toggleReadMore('rm-dmdesc',this)">Lire plus ▼</div>
+  </div>
 </div>
 
 {apercu_html}
@@ -4177,6 +4186,11 @@ def render_domaine_page(slug, d):
 </nav>
 
 <script>
+function toggleReadMore(id, btn){{
+  var el = document.getElementById(id);
+  var expanded = el.classList.toggle('expanded');
+  btn.textContent = expanded ? 'Voir moins ▲' : 'Lire plus ▼';
+}}
 // ── CARROUSEL HERO (photos du domaine) ──
 var DM_HERO_URLS = {dm_carousel_urls_js};
 var dmHeroIdx = 0, dmHeroAuto = null;
