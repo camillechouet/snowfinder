@@ -118,10 +118,14 @@
     h1{font-family:"DM Serif Display",serif;font-size:clamp(2rem,6vw,3.2rem);color:white;line-height:1.05;margin-bottom:6px}
     .hero-region{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px}
     .hero-illu-note{font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
-    .hero-bottom-right{position:absolute;bottom:14px;right:14px;z-index:12;display:flex;flex-direction:column;align-items:flex-end;gap:6px;pointer-events:none}
-    .hero-domaine-badge{pointer-events:auto;display:inline-flex;align-items:center;gap:6px;background:rgba(13,34,64,.68);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(8px);color:white;font-size:.7rem;font-weight:700;letter-spacing:.02em;padding:7px 14px;border-radius:20px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.28);transition:background .15s,transform .15s}
-    .hero-domaine-badge:hover{background:rgba(13,34,64,.85);transform:translateY(-1px)}
-    .hero-domaine-badge span{opacity:.75;font-weight:800}
+    .hero-bottom-right{position:absolute;bottom:14px;right:14px;z-index:12;display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:none}
+    .hero-link-card{pointer-events:auto;position:relative;width:150px;border-radius:13px;overflow:hidden;text-decoration:none;display:block;box-shadow:0 6px 18px rgba(0,0,0,.35);border:1.5px solid rgba(212,175,55,.65);background:#0d3a6e;transition:transform .15s,box-shadow .15s}
+    .hero-link-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.42)}
+    .hero-link-card img{width:100%;height:58px;object-fit:cover;display:block;opacity:.75}
+    .hero-link-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,26,49,.96) 0%,rgba(9,26,49,.35) 60%,rgba(9,26,49,.05) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:7px 10px 8px}
+    .hero-link-card-tag{font-size:.56rem;text-transform:uppercase;letter-spacing:.06em;color:#d4af37;font-weight:800;margin-bottom:1px}
+    .hero-link-card-name{font-family:"DM Serif Display",serif;font-size:.86rem;color:white;line-height:1.2;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .hero-link-card-name span{font-size:.7rem;color:#d4af37;flex-shrink:0}
 
     /* CONTAINER */
     .container{max-width:980px;margin:0 auto;padding:20px 14px 50px}
@@ -614,6 +618,13 @@
   </div>
   <div class="hero-bottom-right">
     <div class="hero-illu-note">Photo d'illustration</div>
+    <a href="https://www.google.com/search?q=Le+Bleymard-Mont+Lozère+station+ski+site+officiel" target="_blank" rel="noopener" class="hero-link-card">
+    <img src="https://images.unsplash.com/photo-1714036983985-6f6906043ba6?w=1200&q=80" alt="" loading="lazy">
+    <div class="hero-link-card-overlay">
+      <div class="hero-link-card-tag">🎿 Site officiel</div>
+      <div class="hero-link-card-name">Le Bleymard-Mont Lozère <span>→</span></div>
+    </div>
+  </a>
     
   </div>
 </div>
