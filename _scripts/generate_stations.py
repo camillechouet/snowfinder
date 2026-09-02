@@ -2634,15 +2634,25 @@ def render_page(s):
 
     /* ÉTOILE FAVORIS */
     .fav-star{{
-      position:absolute;top:18px;left:18px;z-index:15;
+      position:absolute;top:16px;left:16px;z-index:15;
       background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
-      border:2.5px solid #ffd451;border-radius:50%;
-      width:58px;height:58px;display:flex;align-items:center;justify-content:center;
-      cursor:pointer;font-size:1.7rem;transition:all .2s;
+      border:2px solid #ffd451;border-radius:50%;
+      width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+      cursor:pointer;font-size:1.35rem;transition:all .2s;
       box-shadow:0 4px 14px rgba(0,0,0,.25);color:#d49b00;
     }}
     .fav-star:hover{{background:#fff7d6;border-color:#ffb900;transform:scale(1.08)}}
     .fav-star.active{{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}}
+    .compare-star{{
+      position:absolute;top:16px;left:70px;z-index:15;
+      background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+      border:2px solid #3a7db8;border-radius:50%;
+      width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+      cursor:pointer;font-size:1.15rem;transition:all .2s;
+      box-shadow:0 4px 14px rgba(0,0,0,.25);color:#1a5a8a;
+    }}
+    .compare-star:hover{{background:#eaf4ff;border-color:#1a5a8a;transform:scale(1.08)}}
+    .compare-star.active{{background:#1a5a8a;border-color:#0d3a6e;box-shadow:0 4px 16px rgba(26,90,138,.5)}}
 
     /* DOMAINE SKIABLE RELIÉ — bandeau photo, sobre, juste le lien vers la fiche complète */
     .domaine-box{{
@@ -2866,6 +2876,7 @@ def render_page(s):
   <button class="hero-close" onclick="closeStation()" title="Retour" aria-label="Retour">✕</button>
   <div class="hero-score">{s['score']:.1f} ⭐</div>
   <button class="fav-star" id="favBtn" onclick="toggleFav()" title="Ajouter aux favoris">☆</button>
+  <button class="compare-star" id="compareBtn" onclick="toggleCompare()" title="Ajouter au comparateur">⚖️</button>
 {carousel_nav_html}
   <div class="hero-content">
     <div class="hero-massif">⛷ {s['massif']}</div>
@@ -2919,6 +2930,31 @@ function toggleFav(){{
   var favCountEl=document.getElementById('sfFavCount');
   if(favCountEl) favCountEl.textContent=favs.length;
 }}
+function getCompareList(){{try{{return JSON.parse(localStorage.getItem('sf_compare')||'[]');}}catch(e){{return [];}}}}
+function saveCompareList(arr){{try{{localStorage.setItem('sf_compare',JSON.stringify(arr));}}catch(e){{}}}}
+function updateCompareBtn(){{
+  var c=getCompareList();
+  var isIn=c.indexOf(STATION_ID)!==-1;
+  var btn=document.getElementById('compareBtn');
+  if(btn){{
+    btn.classList.toggle('active',isIn);
+    btn.title=isIn?'Retirer du comparateur':'Ajouter au comparateur';
+  }}
+}}
+function toggleCompare(){{
+  var c=getCompareList();
+  var idx=c.indexOf(STATION_ID);
+  if(idx>=0){{
+    c.splice(idx,1);
+  }}else{{
+    if(c.length>=3){{alert("Vous pouvez comparer 3 stations maximum. Retirez-en une avant d'en ajouter une nouvelle.");return;}}
+    c.push(STATION_ID);
+  }}
+  saveCompareList(c);updateCompareBtn();
+  var compareCountEl=document.getElementById('sfCompareCount');
+  if(compareCountEl) compareCountEl.textContent=c.length;
+}}
+updateCompareBtn();
 function checkSnowForNewFav(){{
   var coords={{lat:{snow_lat},lon:{snow_lon}}};
   if(!coords.lat) return;
@@ -3644,7 +3680,6 @@ document.addEventListener('keydown', function(e){{
 
 <nav class="sf-bottomnav">
   <a href="../recherche.html" class="sf-bn-item" title="Trouver ma station">🔍</a>
-  <a href="../comparateur.html" class="sf-bn-item" title="Comparer des stations">⚖️</a>
   <a href="../enneigement.html" class="sf-bn-item" title="Météo & enneigement">❄️</a>
   <a href="../index.html" class="sf-bn-item sf-bn-home" title="Accueil"><span class="sf-bn-home-circle">🏡</span></a>
   <a href="../tinder.html" class="sf-bn-item" title="Tinder du ski">💕</a>
@@ -4033,7 +4068,6 @@ def render_domaine_page(slug, d):
 
 <nav class="sf-bottomnav">
   <a href="../recherche.html" class="sf-bn-item" title="Trouver ma station">🔍</a>
-  <a href="../comparateur.html" class="sf-bn-item" title="Comparer des stations">⚖️</a>
   <a href="../enneigement.html" class="sf-bn-item" title="Météo &amp; enneigement">❄️</a>
   <a href="../index.html" class="sf-bn-item sf-bn-home" title="Accueil"><span class="sf-bn-home-circle">🏡</span></a>
   <a href="../tinder.html" class="sf-bn-item" title="Tinder du ski">💕</a>
@@ -4287,7 +4321,6 @@ def render_domaines_index():
 
 <nav class="sf-bottomnav">
   <a href="recherche.html" class="sf-bn-item" title="Trouver ma station">🔍</a>
-  <a href="comparateur.html" class="sf-bn-item" title="Comparer des stations">⚖️</a>
   <a href="enneigement.html" class="sf-bn-item" title="Météo &amp; enneigement">❄️</a>
   <a href="index.html" class="sf-bn-item sf-bn-home" title="Accueil"><span class="sf-bn-home-circle">🏡</span></a>
   <a href="tinder.html" class="sf-bn-item" title="Tinder du ski">💕</a>
