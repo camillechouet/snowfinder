@@ -3907,7 +3907,7 @@ def render_domaine_page(slug, d):
   .hero-slide{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .45s ease-in-out}}
   .hero-slide.active{{opacity:1}}
   .dm-hero-overlay{{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.3) 45%,rgba(0,0,0,.05) 100%)}}
-  .dm-hero-content{{position:relative;z-index:2;padding:0 28px 30px;text-align:center;width:100%}}
+  .dm-hero-content{{position:relative;z-index:2;padding:28px 28px 32px;text-align:left;width:100%}}
   .hero-nav{{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.18);border:none;color:white;font-size:1.5rem;cursor:pointer;z-index:6;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);transition:background .15s;line-height:1;padding-bottom:3px}}
   .hero-nav:hover{{background:rgba(255,255,255,.32)}}
   .hero-prev{{left:12px}}
@@ -3915,9 +3915,9 @@ def render_domaine_page(slug, d):
   .hero-dots{{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:6;display:flex;gap:7px;background:rgba(0,0,0,.32);padding:6px 12px;border-radius:20px;backdrop-filter:blur(6px)}}
   .hero-dot{{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.45);border:none;cursor:pointer;padding:0;transition:background .2s,transform .2s}}
   .hero-dot.active{{background:white;transform:scale(1.3)}}
-  .dm-hero-massif{{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:5px 14px;font-size:.75rem;font-weight:700;margin-bottom:10px}}
-  .dm-hero h1{{font-family:"DM Serif Display",serif;font-size:clamp(1.8rem,5vw,2.4rem);margin-bottom:8px;line-height:1.15;text-shadow:0 2px 12px rgba(0,0,0,.5)}}
-  .dm-hero p{{opacity:.92;font-size:.92rem;max-width:560px;margin:0 auto;text-shadow:0 1px 8px rgba(0,0,0,.4)}}
+  .dm-hero-massif{{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:22px;padding:4px 14px;font-size:.7rem;font-weight:700;color:rgba(255,255,255,.92);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;backdrop-filter:blur(8px)}}
+  .dm-hero h1{{font-family:"DM Serif Display",serif;font-size:clamp(2rem,6vw,3.2rem);color:white;margin-bottom:6px;line-height:1.05;text-shadow:0 2px 12px rgba(0,0,0,.5)}}
+  .dm-hero-meta{{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px;text-shadow:0 1px 8px rgba(0,0,0,.4)}}
   .hero-illu-note{{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}}
   .dm-rank{{display:inline-block;margin-top:12px;background:linear-gradient(135deg,#d4a017,#b8860b);color:white;font-weight:700;font-size:.78rem;padding:6px 14px;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.25)}}
   .dm-fav{{position:absolute;top:16px;left:16px;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
@@ -3938,11 +3938,6 @@ def render_domaine_page(slug, d):
   .dm-flag{{background:var(--blue-light);color:var(--blue-dark)}}
   .dm-warn{{background:#fff4e6;color:#a05a2c}}
   .dm-note{{background:var(--wood-pale);color:var(--text-mid)}}
-  .dm-stats{{margin:18px 0;padding:0 20px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}}
-  @media(min-width:620px){{.dm-stats{{grid-template-columns:repeat(4,1fr)}}}}
-  .dm-stat{{background:white;border-radius:14px;padding:16px 10px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light)}}
-  .dm-stat-val{{font-family:"DM Serif Display",serif;font-size:1.4rem;color:var(--navy);line-height:1.1}}
-  .dm-stat-lbl{{font-size:.66rem;color:var(--text-mid);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}}
   .dm-section{{margin:26px 0;padding:0 20px}}
   .dm-section-title{{font-family:"DM Serif Display",serif;font-size:1.15rem;color:var(--text-mid);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--wood-pale)}}
   .dm-card{{background:white;border-radius:14px;padding:18px 20px;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light)}}
@@ -4044,17 +4039,21 @@ def render_domaine_page(slug, d):
     }});
   }}, {{passive:true}});
   function updateFavCount(){{
-    var favs = [];
+    var favs = [], domFavs = [];
     try {{ favs = JSON.parse(localStorage.getItem("sf_favorites")||"[]"); }} catch(e){{}}
+    try {{ domFavs = JSON.parse(localStorage.getItem("sf_fav_domaines")||"[]"); }} catch(e){{}}
     var el = document.getElementById("sfFavCount");
-    if(el) el.textContent = favs.length;
+    if(el) el.textContent = favs.length + domFavs.length;
   }}
   function updateCompareCount(){{
-    var c = [];
+    var c = [], domC = [];
     try {{ c = JSON.parse(localStorage.getItem("sf_compare")||"[]"); }} catch(e){{}}
+    try {{ domC = JSON.parse(localStorage.getItem("sf_compare_domaines")||"[]"); }} catch(e){{}}
     var el = document.getElementById("sfCompareCount");
-    if(el) el.textContent = c.length;
+    if(el) el.textContent = c.length + domC.length;
   }}
+  window.sfUpdateFavCount = updateFavCount;
+  window.sfUpdateCompareCount = updateCompareCount;
   updateFavCount();
   updateCompareCount();
   window.addEventListener("storage", function(){{updateFavCount();updateCompareCount();}});
@@ -4100,6 +4099,7 @@ def render_domaine_page(slug, d):
     var f=domFavs(),i=f.indexOf(DOM_SLUG);
     if(i===-1) f.push(DOM_SLUG); else f.splice(i,1);
     saveDomFavs(f);renderDomFav();
+    if(window.sfUpdateFavCount) window.sfUpdateFavCount();
   }});
   var cmpBtn=document.getElementById('dmCompare');
   if(cmpBtn) cmpBtn.addEventListener('click',function(){{
@@ -4109,6 +4109,7 @@ def render_domaine_page(slug, d):
       c.push(DOM_SLUG);
     }}else{{c.splice(i,1);}}
     saveDomCompares(c);renderDomCompare();
+    if(window.sfUpdateCompareCount) window.sfUpdateCompareCount();
   }});
   renderDomFav();
   renderDomCompare();
@@ -4117,8 +4118,8 @@ def render_domaine_page(slug, d):
   {dm_carousel_nav_html}
   <div class="dm-hero-content">
     <div class="dm-hero-massif">⛷ {d['massif']}</div>
-    <h1>🏔️ {d['name']}</h1>
-    <p>{d['km_total']} km de pistes reliées · {len(d['stations'])} stations · {d['forfait_domaine']}€ le forfait domaine/jour</p>
+    <h1>{d['name']}</h1>
+    <div class="dm-hero-meta">🎿 {d['km_total']} km · {len(d['stations'])} stations · {d['forfait_domaine']}€/jour</div>
     <div class="dm-rank">{rang_txt}</div>
   </div>
   {dm_hero_illu_note}
@@ -4133,13 +4134,6 @@ def render_domaine_page(slug, d):
 {transfrontalier_badge}
 {conditionnel_html}
 {unifie_html}
-
-<div class="dm-stats">
-  <div class="dm-stat"><div class="dm-stat-val">{d['km_total']} km</div><div class="dm-stat-lbl">Pistes reliées</div></div>
-  <div class="dm-stat"><div class="dm-stat-val">{d['remontees_total']}</div><div class="dm-stat-lbl">Remontées</div></div>
-  <div class="dm-stat"><div class="dm-stat-val">{d['forfait_domaine']}€</div><div class="dm-stat-lbl">Forfait / jour</div></div>
-  <div class="dm-stat"><div class="dm-stat-val">{d['alt_min']}-{d['alt_max']}m</div><div class="dm-stat-lbl">Altitude</div></div>
-</div>
 
 <div class="dm-section">
   <div class="dm-section-title">À propos du domaine</div>
