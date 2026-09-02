@@ -119,13 +119,18 @@
     .hero-region{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px}
     .hero-illu-note{font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
     .hero-bottom-right{position:absolute;bottom:14px;right:14px;z-index:12;display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:none}
-    .hero-link-card{pointer-events:auto;position:relative;width:150px;border-radius:13px;overflow:hidden;text-decoration:none;display:block;box-shadow:0 6px 18px rgba(0,0,0,.35);border:1.5px solid rgba(212,175,55,.65);background:#0d3a6e;transition:transform .15s,box-shadow .15s}
-    .hero-link-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.42)}
-    .hero-link-card img{width:100%;height:58px;object-fit:cover;display:block;opacity:.75}
-    .hero-link-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,26,49,.96) 0%,rgba(9,26,49,.35) 60%,rgba(9,26,49,.05) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:7px 10px 8px}
-    .hero-link-card-tag{font-size:.56rem;text-transform:uppercase;letter-spacing:.06em;color:#d4af37;font-weight:800;margin-bottom:1px}
-    .hero-link-card-name{font-family:"DM Serif Display",serif;font-size:.86rem;color:white;line-height:1.2;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .hero-link-card-name span{font-size:.7rem;color:#d4af37;flex-shrink:0}
+    .hero-link-card{pointer-events:auto;position:relative;width:210px;border-radius:15px;overflow:hidden;text-decoration:none;display:block;box-shadow:0 8px 24px rgba(0,0,0,.4);border:2px solid rgba(212,175,55,.7);background:#0d3a6e;transition:transform .15s,box-shadow .15s}
+    .hero-link-card:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.48)}
+    .hero-link-card img{width:100%;height:84px;object-fit:cover;display:block;opacity:.8}
+    .hero-link-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,26,49,.96) 0%,rgba(9,26,49,.32) 62%,rgba(9,26,49,.05) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:10px 14px 12px}
+    .hero-link-card-tag{font-size:.62rem;text-transform:uppercase;letter-spacing:.07em;color:#e4c766;font-weight:800;margin-bottom:2px}
+    .hero-link-card-name{font-family:"DM Serif Display",serif;font-size:1.12rem;color:white;line-height:1.2;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .hero-link-card-name span{font-size:.9rem;color:#e4c766;flex-shrink:0}
+    @media(max-width:400px){
+      .hero-link-card{width:158px}
+      .hero-link-card img{height:66px}
+      .hero-link-card-name{font-size:.94rem}
+    }
 
     /* CONTAINER */
     .container{max-width:980px;margin:0 auto;padding:20px 14px 50px}
@@ -467,26 +472,25 @@
 
     /* BOUTON SITE OFFICIEL */
     .official-btn{
-      width:100%;border:2px solid var(--wood);border-radius:var(--radius);
+      width:100%;border:2px solid #d4af37;border-radius:var(--radius);
       padding:0;cursor:pointer;overflow:hidden;
       margin-bottom:16px;position:relative;
-      box-shadow:0 6px 24px rgba(139,94,60,.28);
-      display:block;min-height:126px;
+      box-shadow:0 8px 26px rgba(13,34,64,.3);
+      display:block;min-height:132px;
       transition:transform .15s,box-shadow .15s
     }
-    .official-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(139,94,60,.38)}
+    .official-btn:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(13,34,64,.4)}
     .official-btn-bg{
       position:absolute;inset:0;
-      background-image:url('https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=800&q=80');
       background-size:cover;background-position:center;
     }
     .official-btn-bg::after{
       content:'';position:absolute;inset:0;
-      background:linear-gradient(150deg,rgba(20,42,26,.92) 0%,rgba(139,94,60,.86) 100%);
+      background:linear-gradient(160deg,rgba(9,26,49,.94) 0%,rgba(13,58,110,.86) 100%);
     }
     .official-btn-badge{
       position:absolute;top:12px;right:12px;z-index:2;
-      background:#ffcc00;color:#2a1f14;font-weight:800;font-size:.62rem;
+      background:#e4c766;color:#0d3a6e;font-weight:800;font-size:.62rem;
       text-transform:uppercase;letter-spacing:.05em;
       padding:4px 10px;border-radius:20px;
       box-shadow:0 2px 8px rgba(0,0,0,.25)
@@ -496,17 +500,20 @@
       text-align:left;color:white;
     }
     .official-btn-chips{
-      display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;
+      display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px;
     }
     .official-btn-chip{
-      background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);
+      background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);
       border-radius:14px;padding:3px 9px;font-size:.68rem;font-weight:700;
       color:white;backdrop-filter:blur(4px);white-space:nowrap
     }
+    .official-btn-title{
+      font-family:"DM Serif Display",serif;font-size:1.2rem;line-height:1.25;
+    }
     .official-btn-cta{
-      display:inline-flex;align-items:center;gap:5px;margin-top:8px;
-      background:white;color:var(--wood-dark);font-weight:800;font-size:.8rem;
-      padding:6px 14px;border-radius:20px
+      display:inline-flex;align-items:center;gap:5px;margin-top:10px;
+      background:#e4c766;color:#0d3a6e;font-weight:800;font-size:.8rem;
+      padding:7px 15px;border-radius:20px
     }
 
     /* FOOTER */
@@ -618,13 +625,6 @@
   </div>
   <div class="hero-bottom-right">
     <div class="hero-illu-note">Photo d'illustration</div>
-    <a href="https://www.google.com/search?q=Gaschney+360+station+ski+site+officiel" target="_blank" rel="noopener" class="hero-link-card">
-    <img src="https://images.unsplash.com/photo-1622139673657-13ba4a23918a?w=1200&q=80" alt="" loading="lazy">
-    <div class="hero-link-card-overlay">
-      <div class="hero-link-card-tag">🎿 Site officiel</div>
-      <div class="hero-link-card-name">Gaschney 360 <span>→</span></div>
-    </div>
-  </a>
     
   </div>
 </div>
@@ -1297,7 +1297,7 @@ function closeStation(){
 
       <!-- SITE OFFICIEL (avec interstitiel) — mis en avant en premier -->
       <button onclick="showOfficialSheet()" class="official-btn">
-        <div class="official-btn-bg"></div>
+        <div class="official-btn-bg" style="background-image:url('https://images.unsplash.com/photo-1622139673657-13ba4a23918a?w=1200&q=80')"></div>
         <div class="official-btn-badge">✓ Officiel</div>
         <div class="official-btn-content">
           <div class="official-btn-chips">
@@ -1305,7 +1305,7 @@ function closeStation(){
             <span class="official-btn-chip">🗺️ Plan des pistes</span>
             <span class="official-btn-chip">ℹ️ Infos officielles</span>
           </div>
-          <div style="font-size:1.05rem;font-weight:900;letter-spacing:-.01em;line-height:1.3">Site officiel de Gaschney 360</div>
+          <div class="official-btn-title">Site officiel de Gaschney 360</div>
           <div class="official-btn-cta">C'est par ici →</div>
         </div>
       </button>
