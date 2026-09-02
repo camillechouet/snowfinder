@@ -2908,6 +2908,8 @@ function toggleFav(){{
     if(typeof OneSignal!=='undefined') OneSignal.User.removeTag('fav_'+STATION_ID);
   }}
   saveFavs(favs);updateStar();
+  var favCountEl=document.getElementById('sfFavCount');
+  if(favCountEl) favCountEl.textContent=favs.length;
 }}
 function checkSnowForNewFav(){{
   var coords={{lat:{snow_lat},lon:{snow_lon}}};
@@ -3634,6 +3636,7 @@ document.addEventListener('keydown', function(e){{
 
 <nav class="sf-bottomnav">
   <a href="../recherche.html" class="sf-bn-item" title="Trouver ma station">🔍</a>
+  <a href="../comparateur.html" class="sf-bn-item" title="Comparer des stations">⚖️</a>
   <a href="../enneigement.html" class="sf-bn-item" title="Météo & enneigement">❄️</a>
   <a href="../index.html" class="sf-bn-item sf-bn-home" title="Accueil"><span class="sf-bn-home-circle">🏡</span></a>
   <a href="../tinder.html" class="sf-bn-item" title="Tinder du ski">💕</a>
@@ -4022,6 +4025,7 @@ def render_domaine_page(slug, d):
 
 <nav class="sf-bottomnav">
   <a href="../recherche.html" class="sf-bn-item" title="Trouver ma station">🔍</a>
+  <a href="../comparateur.html" class="sf-bn-item" title="Comparer des stations">⚖️</a>
   <a href="../enneigement.html" class="sf-bn-item" title="Météo &amp; enneigement">❄️</a>
   <a href="../index.html" class="sf-bn-item sf-bn-home" title="Accueil"><span class="sf-bn-home-circle">🏡</span></a>
   <a href="../tinder.html" class="sf-bn-item" title="Tinder du ski">💕</a>
@@ -4275,6 +4279,7 @@ def render_domaines_index():
 
 <nav class="sf-bottomnav">
   <a href="recherche.html" class="sf-bn-item" title="Trouver ma station">🔍</a>
+  <a href="comparateur.html" class="sf-bn-item" title="Comparer des stations">⚖️</a>
   <a href="enneigement.html" class="sf-bn-item" title="Météo &amp; enneigement">❄️</a>
   <a href="index.html" class="sf-bn-item sf-bn-home" title="Accueil"><span class="sf-bn-home-circle">🏡</span></a>
   <a href="tinder.html" class="sf-bn-item" title="Tinder du ski">💕</a>
