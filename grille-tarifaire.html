@@ -195,6 +195,12 @@
   .offers-table .price-cell { font-size: 0.9rem; white-space: nowrap; }
   .offers-table .price-cell b { color: var(--heading); font-family: 'Fraunces', serif; font-size: 1rem; }
   .offers-table .price-cell span { font-size: 0.74rem; color: var(--ink-soft); }
+  .offers-table .price-old { text-decoration: line-through; color: var(--ink-soft); font-size: 0.74rem; display: block; }
+  .offers-table .promo-tag {
+    display: inline-block; background: var(--accent); color: #fff;
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;
+    padding: 2px 7px; border-radius: 5px; margin-bottom: 3px;
+  }
   .offers-table .always { color: var(--blue); font-weight: 600; font-size: 0.82rem; }
   .offers-table .slots { font-weight: 700; font-size: 0.82rem; color: var(--ink); }
   .btn-small {
@@ -230,7 +236,7 @@
 </head>
 <body>
 
-<div class="launch-banner">Site en développement — tarifs de lancement, susceptibles d'évoluer</div>
+<div class="launch-banner">Site en développement — tarifs de lancement jusqu'à -40%, susceptibles d'évoluer</div>
 
 <div class="hero">
   <div class="wrap">
@@ -279,19 +285,19 @@
           <tr class="grp-row grp-row-cumulable"><td colspan="4" class="grp grp-cumulable">Packs cumulables</td></tr>
           <tr class="offer-row row-cumulable">
             <td class="fmt-name">Pack Découverte<ul class="fmt-inc"><li>Article sponsorisé</li><li>Priorité résultats</li></ul></td>
-            <td class="price-cell"><b>99 €</b><span>/ saison</span></td>
+            <td class="price-cell"><span class="promo-tag">Lancement</span><span class="price-old">99 €</span><b>69 €</b><span>/ saison</span></td>
             <td class="always">Toujours<br>disponible</td>
             <td><a class="btn-small" href="mailto:contact.snowfinder@gmail.com?subject=Pack%20D%C3%A9couverte%20SnowFinder">Choisir</a></td>
           </tr>
           <tr class="offer-row row-cumulable">
             <td class="fmt-name">Pack Visibilité<ul class="fmt-inc"><li>Tout Pack Découverte</li><li>Mention prioritaire Conseiller IA</li></ul></td>
-            <td class="price-cell"><b>189 €</b><span>/ saison</span></td>
+            <td class="price-cell"><span class="promo-tag">Lancement</span><span class="price-old">189 €</span><b>119 €</b><span>/ saison</span></td>
             <td class="always">Toujours<br>disponible</td>
             <td><a class="btn-small" href="mailto:contact.snowfinder@gmail.com?subject=Pack%20Visibilit%C3%A9%20SnowFinder">Choisir</a></td>
           </tr>
           <tr class="offer-row row-cumulable">
             <td class="fmt-name">Pack Présence complète<ul class="fmt-inc"><li>Tout Pack Visibilité</li><li>2 notifications push régionales</li></ul></td>
-            <td class="price-cell"><b>289 €</b><span>/ saison</span></td>
+            <td class="price-cell"><span class="promo-tag">Lancement</span><span class="price-old">289 €</span><b>179 €</b><span>/ saison</span></td>
             <td class="always">Toujours<br>disponible</td>
             <td><a class="btn-small" href="mailto:contact.snowfinder@gmail.com?subject=Pack%20Pr%C3%A9sence%20compl%C3%A8te%20SnowFinder">Choisir</a></td>
           </tr>
@@ -299,13 +305,13 @@
           <tr class="grp-row grp-row-rare"><td colspan="4" class="grp grp-rare">Packs à places limitées <span>3 max/saison</span></td></tr>
           <tr class="offer-row row-rare">
             <td class="fmt-name">Bannière horizontale<ul class="fmt-inc"><li>Accueil et résultats de recherche</li><li>En rotation entre partenaires</li></ul></td>
-            <td class="price-cell"><b>29 €</b><span>/mois</span><br><b>79 €</b><span>/3 mois</span><br><b>119 €</b><span>/saison</span></td>
+            <td class="price-cell"><b>19 €</b><span>/mois</span><br><b>49 €</b><span>/3 mois</span><br><span class="price-old">119 €</span><b>79 €</b><span>/saison</span></td>
             <td class="slots" id="slots-banniere">0 / 3 places prises</td>
             <td><a class="btn-small btn-small-rare" href="mailto:contact.snowfinder@gmail.com?subject=Banni%C3%A8re%20SnowFinder">Réserver</a></td>
           </tr>
           <tr class="offer-row row-rare">
             <td class="fmt-name">Écran d'ouverture<ul class="fmt-inc"><li>Premier visuel du site</li><li>Premier visuel de l'application</li></ul></td>
-            <td class="price-cell"><b>49 €</b><span>/mois</span><br><b>119 €</b><span>/3 mois</span><br><b>179 €</b><span>/saison</span></td>
+            <td class="price-cell"><b>29 €</b><span>/mois</span><br><b>79 €</b><span>/3 mois</span><br><span class="price-old">179 €</span><b>119 €</b><span>/saison</span></td>
             <td class="slots" id="slots-ecran">0 / 3 places prises</td>
             <td><a class="btn-small btn-small-rare" href="mailto:contact.snowfinder@gmail.com?subject=%C3%89cran%20d%27ouverture%20SnowFinder">Réserver</a></td>
           </tr>
@@ -313,7 +319,7 @@
           <tr class="grp-row grp-row-unique"><td colspan="4" class="grp grp-unique">Pack Unique <span>1 place</span></td></tr>
           <tr class="offer-row row-unique">
             <td class="fmt-name">Pack Station du moment<ul class="fmt-inc"><li>Mise en avant sur la homepage</li><li>Une seule station à la fois, tout le site</li></ul></td>
-            <td class="price-cell"><b>69 €</b><span>/mois</span><br><b>119 €</b><span>/2 mois</span><br><b>259 €</b><span>/saison</span></td>
+            <td class="price-cell"><b>39 €</b><span>/mois</span><br><b>79 €</b><span>/2 mois</span><br><span class="price-old">259 €</span><b>159 €</b><span>/saison</span></td>
             <td class="slots" id="spotlight-avail">Disponible immédiatement</td>
             <td><a class="btn-small btn-small-unique" href="mailto:contact.snowfinder@gmail.com?subject=Station%20du%20moment%20SnowFinder">Réserver</a></td>
           </tr>
