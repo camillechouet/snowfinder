@@ -20,6 +20,7 @@ EXCLUDED_FILES = {
     "404.html",           # page d'erreur
     "sidebar.html",       # fragment injecté par sidebar.js
     "mentions-legales.html",  # utile mais sans valeur de référencement
+    "grille-tarifaire.html",  # page prospection stations — non-listée volontairement, partagée par lien direct uniquement
 }
 EXCLUDED_DIRS = {
     ".git", ".github", "_scripts", "node_modules",
