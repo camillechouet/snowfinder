@@ -259,6 +259,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/bareges.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/beaufort-sur-doron.html</loc>
     <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -698,6 +704,12 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/la-mongie-bareges-tourmalet.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/la-mongie.html</loc>
     <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
