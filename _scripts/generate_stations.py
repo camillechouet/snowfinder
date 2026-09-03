@@ -231,11 +231,10 @@ DOMAINES = {
     },
     "grand-tourmalet": {
         "name": "Grand Tourmalet – Pic du Midi", "massif": "Pyrénées", "pays": ["France"],
-        "stations": ["La Mongie-Barèges (Tourmalet)"],
+        "stations": ["La Mongie","Barèges"],
         "km_propre": {},
-        "km_total": 100, "remontees_total": 28, "forfait_domaine": 46,
+        "km_total": 100, "remontees_total": 30, "forfait_domaine": 38,
         "alt_min": 1250, "alt_max": 2500,
-        "unifie": True,
         "short": "Grand Tourmalet",
         "desc": "Le plus grand domaine des Pyrénées françaises, réparti sur les deux versants du col du Tourmalet — Barèges d'un côté, La Mongie de l'autre. Barèges est un village thermal historique dont les eaux soignaient déjà les soldats de Louis XIV ; La Mongie, construite dans les années 60, offre un accès direct aux pistes et au Pic du Midi. Ce dernier est l'attraction unique du domaine : téléphérique jusqu'à 2877 m, observatoire astronomique centenaire, et une descente hors-piste de 1700 m de dénivelé pour skieurs aguerris. Le Tourmalet est aussi le col le plus emprunté de l'histoire du Tour de France.",
     },
@@ -316,7 +315,7 @@ _ALT_VILLAGE = {
     "Alpe d'Huez":1860,"Auris-en-Oisans":1600,
     "Serre Chevalier":1350,"Montgenèvre":1860,
     "Vars":1850,"Risoul":1850,
-    "La Mongie-Barèges (Tourmalet)":1250,"Peyragudes":1600,"Saint-Lary-Soulan":1680,
+    "La Mongie":1800,"Barèges":1250,"Peyragudes":1600,"Saint-Lary-Soulan":1680,
     "Superdévoluy":1500,"La Joue du Loup":1450,
     "Super Besse":1350,"Le Mont Dore":1050,
     "Saint-François-Longchamp":1450,"Valmorel":1400,
@@ -413,10 +412,9 @@ STATION_ANECDOTES = {
     "Le Grand Valtin": [
         "C'est, selon Wikipédia et de nombreuses sources touristiques, la plus petite station de ski d'Europe : seulement 2 pistes (1 verte, 1 bleue) et 2 téléskis, nichée dans une clairière entourée de sapins.",
     ],
-    "Grand Tourmalet": [
-        "Le col du Tourmalet (2 115 m), au cœur du domaine, est le col le plus franchi de toute l'histoire du Tour de France : plus de 80 passages depuis sa première ascension en 1910 par Octave Lapize, à qui une statue rend hommage au sommet.",
-        "La Mongie a aussi accueilli trois arrivées d'étape du Tour de France sur ses pentes : en 1970 (victoire de Bernard Thévenet), 2002 (Lance Armstrong) et 2004 (Ivan Basso).",
-        "Avec 100 km de pistes, c'est le plus grand domaine skiable des Pyrénées françaises.",
+    "La Mongie": [
+        "La Mongie a accueilli trois arrivées d'étape du Tour de France sur ses pentes : en 1970 (victoire de Bernard Thévenet), 2002 (Lance Armstrong) et 2004 (Ivan Basso).",
+        "Avec 100 km de pistes partagés avec Barèges, c'est le plus grand domaine skiable des Pyrénées françaises.",
     ],
     "Saint-Lary-Soulan": [
         "La station a été lancée par le maire du village, Vincent Mir, avec la construction d'un téléphérique en 1957 menant au Pla d'Adet.",
@@ -482,9 +480,9 @@ STATION_ANECDOTES = {
         "La station a été lancée par le maire du village, Vincent Mir, avec la construction d'un téléphérique en 1957 menant au Pla d'Adet.",
         "Sa fille, Isabelle Mir, née à Saint-Lary-Soulan, est considérée comme la plus grande descendeuse de l'histoire du ski français, avec deux médailles d'argent (JO 1968 de Grenoble, Mondiaux 1970 de Val Gardena) et deux Globes de cristal de la descente.",
     ],
-    "La Mongie-Barèges (Tourmalet)": [
+    "Barèges": [
         "Le col du Tourmalet (2 115 m), au cœur du domaine, est le col le plus franchi de toute l'histoire du Tour de France : plus de 80 passages depuis sa première ascension en 1910 par Octave Lapize, à qui une statue rend hommage au sommet.",
-        "La Mongie a aussi accueilli trois arrivées d'étape du Tour de France sur ses pentes : en 1970 (victoire de Bernard Thévenet), 2002 (Lance Armstrong) et 2004 (Ivan Basso).",
+        "Barèges est l'une des plus anciennes stations thermales de France, fréquentée dès le XVIe siècle ; ses eaux soignaient déjà les soldats blessés envoyés par Louis XIV au XVIIe siècle.",
     ],
     "Peyresourde-Balestas": [
         "L'altiport voisin a servi de décor pour la scène d'ouverture du James Bond « Demain ne meurt jamais » (1997), avec Pierce Brosnan. En hommage, il a été rebaptisé « Altiport 007 » en 2017, la même année qu'une piste bleue de 2,8 km a été baptisée « 007 ».",
@@ -1817,8 +1815,8 @@ OFFICIAL_URLS = {
     "Isola 2000":                   "https://www.isola2000.com",
     "Auron":                        "https://www.auron.com",
     # PYRÉNÉES / HAUTES-PYRÉNÉES
-    "Grand Tourmalet":              "https://www.grand-tourmalet.com",
-    "La Mongie-Barèges (Tourmalet)":"https://www.grand-tourmalet.com",
+    "La Mongie":                    "https://www.grand-tourmalet.com",
+    "Barèges":                      "https://www.grand-tourmalet.com",
     "Saint-Lary-Soulan":            "https://www.saintlary.com",
     "Saint-Lary-Village":           "https://www.saintlary.com",
     "Piau-Engaly":                  "https://www.piau-engaly.com",
