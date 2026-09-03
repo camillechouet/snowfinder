@@ -1075,12 +1075,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://snowfinder.fr/stations/molines-saint-veran.html</loc>
-    <lastmod>2026-09-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://snowfinder.fr/stations/mont-serein.html</loc>
     <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -1286,12 +1280,6 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/saint-lary-soulan.html</loc>
-    <lastmod>2026-09-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://snowfinder.fr/stations/saint-lary-village.html</loc>
     <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
