@@ -979,31 +979,13 @@ function closeContact() {
   document.getElementById("contactSuccess").style.display = "none";
   document.body.style.overflow = "";
 }
-async function sendContact() {
+function sendContact() {
   const email = document.getElementById("contactEmail").value;
   const msg = document.getElementById("contactMessage").value;
-  const subject = document.getElementById("contactSubject") ? document.getElementById("contactSubject").value : "";
   if(!email || !msg) { alert("Merci de remplir tous les champs."); return; }
-  const btn = document.querySelector(".contact-btn-send");
-  const originalLabel = btn ? btn.textContent : "";
-  if(btn) { btn.disabled = true; btn.textContent = "Envoi..."; }
-  try {
-    const res = await fetch("https://formspree.io/f/mnjggdvy", {
-      method: "POST",
-      headers: { "Accept": "application/json" },
-      body: new URLSearchParams({ email: email, message: msg, subject: subject })
-    });
-    if(res.ok) {
-      document.getElementById("contactForm").style.display = "none";
-      document.getElementById("contactSuccess").style.display = "block";
-    } else {
-      alert("Erreur lors de l'envoi, réessaie dans un instant.");
-    }
-  } catch(e) {
-    alert("Erreur réseau, vérifie ta connexion et réessaie.");
-  } finally {
-    if(btn) { btn.disabled = false; btn.textContent = originalLabel; }
-  }
+  // Simulation envoi (à connecter à un vrai service ex: Formspree)
+  document.getElementById("contactForm").style.display = "none";
+  document.getElementById("contactSuccess").style.display = "block";
 }
 document.getElementById("contactOverlay").addEventListener("click", e => {
   if(e.target === document.getElementById("contactOverlay")) closeContact();
@@ -1035,31 +1017,19 @@ document.getElementById("eteOverlay").addEventListener("click", e => {
 .sf-topbar-logo{display:flex;align-items:center;gap:7px;text-decoration:none;flex-shrink:0}
 .sf-topbar-logo img{width:50px;height:50px;border-radius:12px;object-fit:contain;box-shadow:0 4px 12px rgba(0,0,0,.18);background:white;flex-shrink:0}
 .sf-topbar-logo span{font-family:"DM Serif Display",serif;font-size:1.05rem;color:var(--blue-dark);white-space:nowrap}
-.sf-topbar-right{display:flex;align-items:center;gap:7px;margin-left:auto}
-.sf-topbar-app{display:flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--blue-light),#eaf4ff);border:1.5px solid var(--blue-mid);border-radius:18px;padding:6px 13px 6px 6px;font-size:.72rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.2);flex-shrink:0;letter-spacing:.01em}
-.sf-play-badge{display:flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));flex-shrink:0;box-shadow:0 1px 4px rgba(26,90,138,.35)}
-.sf-play-badge svg{width:10px;height:10px}
-.sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.82rem;flex-shrink:0;padding:6px 10px;border-radius:16px;background:var(--wood-pale,#f7efe2);border:1.5px solid var(--wood-light,#eddcbf)}
-.sf-topbar-fav:active{background:var(--wood-light)}
-.sf-topbar-menu{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;border:1.5px solid var(--wood-light);background:var(--white);font-size:1rem;line-height:1;color:var(--blue-dark);cursor:pointer;flex-shrink:0;padding:0}
-.sf-topbar-menu:active{background:var(--wood-pale)}
-.sf-app-text-short{display:none}
-@media(max-width:480px){.sf-topbar-logo span{display:none}.sf-app-text-full{display:none}.sf-app-text-short{display:inline}.sf-topbar-app{padding:5px 11px 5px 5px}.sf-topbar-right{gap:5px}}
+.sf-topbar-app{display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--blue-light),#eaf4ff);border:1px solid var(--blue-mid);border-radius:16px;padding:5px 12px;font-size:.72rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18)}
+.sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
+.sf-topbar-fav:active{background:var(--wood-pale)}
+@media(max-width:480px){.sf-topbar-logo span{display:none}.sf-topbar-app{font-size:.68rem;padding:5px 9px}}
 </style>
 <div class="sf-topbar" id="sfTopbar">
   <a href="index.html" class="sf-topbar-logo">
     <img src="logo.png" alt="SnowFinder">
     <span>SnowFinder</span>
   </a>
-  <div class="sf-topbar-right">
-    <a href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" class="sf-topbar-app">
-      <span class="sf-play-badge"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 3.5v17a1 1 0 0 0 1.5.87l14-8.5a1 1 0 0 0 0-1.74l-14-8.5A1 1 0 0 0 4 3.5z" fill="#fff"/></svg></span>
-      <span class="sf-app-text sf-app-text-full">Dispo sur Play Store !</span><span class="sf-app-text sf-app-text-short">Play Store</span>
-    </a>
-    <a href="comparateur.html" class="sf-topbar-fav">⚖️<span id="sfCompareCount">0</span></a>
-    <a href="favoris.html" class="sf-topbar-fav">⭐<span id="sfFavCount">0</span></a>
-    <button type="button" class="sf-topbar-menu" id="sfMenuBtn" onclick="openSfMenu()" aria-label="Menu">☰</button>
-  </div>
+  <a href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" class="sf-topbar-app">📲 L'app est dispo !</a>
+  <a href="comparateur.html" class="sf-topbar-fav" style="margin-right:2px">⚖️ <span id="sfCompareCount">0</span></a>
+  <a href="favoris.html" class="sf-topbar-fav">⭐ <span id="sfFavCount">0</span></a>
 </div>
 <script>
 // Masquer la top bar au scroll vers le bas, réafficher vers le haut
@@ -1577,34 +1547,34 @@ function toggleCompareStation(id){
   </div>
 
   <!-- Hero : duel le plus récent -->
-  <a href="/comparatifs/saint-lary-soulan-vs-ax-3-domaines.html" style="display:block;position:relative;height:260px;text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(13,34,64,.18);margin-bottom:8px">
-    <div style="position:absolute;inset:0;background:url(/img/saintlarysoulan1.jpg) center/cover no-repeat"></div>
+  <a href="/comparatifs/grand-tourmalet-vs-cauterets.html" style="display:block;position:relative;height:260px;text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(13,34,64,.18);margin-bottom:8px">
+    <div style="position:absolute;inset:0;background:url(/img/grand-tourmalet1.jpg) center/cover no-repeat"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,20,45,.05) 0%,rgba(8,20,45,.25) 45%,rgba(8,20,45,.88) 100%)"></div>
     <div style="position:absolute;top:14px;left:14px;background:rgba(168,120,64,.85);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 12px;font-size:.68rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.06em">Duel</div>
     <div style="position:absolute;bottom:0;left:0;right:0;padding:18px 20px 20px">
-      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.6rem;color:white;line-height:1.1;margin-bottom:6px">Saint-Lary-Soulan vs Ax-3-Domaines</div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.6rem;color:white;line-height:1.1;margin-bottom:6px">Grand Tourmalet vs Cauterets</div>
       <div style="font-size:.78rem;color:rgba(255,255,255,.7)">Notre comparatif détaillé</div>
     </div>
   </a>
 
   <!-- Bandeaux : 2 duels suivants -->
   <div style="display:flex;flex-direction:column;gap:8px">
-    <a href="/comparatifs/metabief-mont-d-or-vs-le-lioran.html" style="display:flex;align-items:center;gap:10px;position:relative;border-radius:12px;overflow:hidden;height:64px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.22);padding:0 14px">
-      <div style="position:absolute;inset:0;background:url(/img/metabiefmontdor1.jpg) center/cover no-repeat"></div>
+    <a href="/comparatifs/les-carroz-vs-samoens.html" style="display:flex;align-items:center;gap:10px;position:relative;border-radius:12px;overflow:hidden;height:64px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.22);padding:0 14px">
+      <div style="position:absolute;inset:0;background:url(/img/les-carroz1.jpg) center/cover no-repeat"></div>
       <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,20,45,.88) 0%,rgba(8,20,45,.62) 55%,rgba(8,20,45,.3) 100%)"></div>
       <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;width:100%;gap:10px">
         <div style="display:flex;align-items:baseline;gap:8px;min-width:0">
-          <span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Métabief Mont d'Or vs Le Lioran</span>
+          <span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Les Carroz vs Samoëns</span>
         </div>
         <span style="font-size:.7rem;color:#ffd97a;font-weight:700;white-space:nowrap">Voir →</span>
       </div>
     </a>
-    <a href="/comparatifs/pra-loup-vs-val-d-allos.html" style="display:flex;align-items:center;gap:10px;position:relative;border-radius:12px;overflow:hidden;height:64px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.22);padding:0 14px">
-      <div style="position:absolute;inset:0;background:url(/img/praloup1.jpg) center/cover no-repeat"></div>
+    <a href="/comparatifs/saint-lary-soulan-vs-ax-3-domaines.html" style="display:flex;align-items:center;gap:10px;position:relative;border-radius:12px;overflow:hidden;height:64px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.22);padding:0 14px">
+      <div style="position:absolute;inset:0;background:url(/img/saintlarysoulan1.jpg) center/cover no-repeat"></div>
       <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,20,45,.88) 0%,rgba(8,20,45,.62) 55%,rgba(8,20,45,.3) 100%)"></div>
       <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;width:100%;gap:10px">
         <div style="display:flex;align-items:baseline;gap:8px;min-width:0">
-          <span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Pra-Loup vs Val d'Allos</span>
+          <span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Saint-Lary-Soulan vs Ax-3-Domaines</span>
         </div>
         <span style="font-size:.7rem;color:#ffd97a;font-weight:700;white-space:nowrap">Voir →</span>
       </div>
@@ -2301,31 +2271,6 @@ function refuseCookies() {
   </div>
 </div>
 
-<!-- SDK OneSignal chargé sans condition à chaque visite (comme favoris.html) -->
-<!-- Nécessaire pour que les visiteurs ayant DÉJÀ accordé la permission notif -->
-<!-- (avant même de voir le popup ci-dessous, ou lors d'une visite précédente) -->
-<!-- soient bien enregistrés comme abonnés OneSignal, même si le popup custom -->
-<!-- ne se réaffiche jamais pour eux (shouldShow() le bloque à raison). -->
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "df4757f7-ed59-4973-8a3d-782547295c9c",
-      safari_web_id: "web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",
-      serviceWorkerPath: "sw.js",
-      notifyButton: { enable: false },
-      welcomeNotification: { disable: true },
-    });
-    var favs = JSON.parse(localStorage.getItem('sf_favorites') || '[]');
-    if(favs.length) {
-      favs.forEach(function(id) {
-        try { OneSignal.User.addTag('fav_' + id, '1'); } catch(e) {}
-      });
-    }
-  });
-</script>
-
 <script>
 (function(){
   function shouldShow() {
@@ -2361,18 +2306,45 @@ function refuseCookies() {
     setTimeout(function(){ sheet.style.display = 'none'; }, 380);
   };
 
-  // Le SDK OneSignal est déjà chargé et initialisé (voir bloc ci-dessus).
-  // Ici on déclenche juste la demande de permission native.
   window.acceptNotifPopup = function() {
     localStorage.setItem('sf_notif_ask', Date.now());
     dismissNotifPopup();
 
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(async function(OneSignal) {
-      try {
-        await OneSignal.Notifications.requestPermission();
-      } catch(e) {}
-    });
+    var s = document.createElement('script');
+    s.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
+    s.onload = function() {
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "9530c745-8578-41e9-ad9f-2fa5348ad0b8",
+          safari_web_id: "web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",
+          serviceWorkerPath: "OneSignalSDKWorker.js",
+          notifyButton: { enable: false },
+          welcomeNotification: { disable: true },
+          promptOptions: {
+            slidedown: {
+              prompts: [{
+                type: "push",
+                autoPrompt: true,
+                text: {
+                  actionMessage: "Derni\u00e8re \u00e9tape \u2014 confirme dans la fen\u00eatre qui va s'ouvrir !",
+                  acceptButton: "Confirmer",
+                  cancelButton: "Annuler",
+                },
+                delay: { timeDelay: 0, pageViews: 1 }
+              }]
+            }
+          }
+        });
+        var favs = JSON.parse(localStorage.getItem('sf_favorites') || '[]');
+        if(favs.length) {
+          favs.forEach(function(id) {
+            try { OneSignal.User.addTag('fav_' + id, '1'); } catch(e) {}
+          });
+        }
+      });
+    };
+    document.head.appendChild(s);
   };
 })();
 </script>
@@ -2382,14 +2354,10 @@ function refuseCookies() {
 .sf-bottomnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08);padding-bottom:env(safe-area-inset-bottom);}
 .sf-bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px;font-size:1.18rem;text-decoration:none;color:var(--text-mid);position:relative;gap:1px}
 .sf-bn-item.active{color:var(--blue-dark)}
-.sf-bn-item.active .sf-bn-label{font-weight:800}
-.sf-bn-item:not(.sf-bn-home).active{transform:translateY(-2px)}
-.sf-bn-item:not(.sf-bn-home).active::after{content:"";position:absolute;bottom:7px;width:4px;height:4px;border-radius:50%;background:var(--blue-dark)}
 .sf-bn-label{font-size:.54rem;font-weight:700;letter-spacing:.01em;line-height:1;color:inherit;opacity:.9}
 .sf-bn-home{flex:0 0 52px;margin-top:-16px}
-.sf-bn-home-circle{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 6px 18px rgba(26,90,138,.4);border:3px solid var(--white);transition:transform .2s,box-shadow .2s}
+.sf-bn-home-circle{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 6px 18px rgba(26,90,138,.4);border:3px solid var(--white)}
 .sf-bn-home .sf-bn-label{margin-top:2px}
-.sf-bn-home.active .sf-bn-home-circle{transform:scale(1.08);box-shadow:0 6px 22px rgba(26,90,138,.65)}
 </style>
 <nav class="sf-bottomnav">
   <a href="recherche.html" class="sf-bn-item" title="Trouver ma station">🔍<span class="sf-bn-label">Recherche</span></a>
@@ -2398,95 +2366,5 @@ function refuseCookies() {
   <a href="tinder.html" class="sf-bn-item" title="Tinder du ski">💕<span class="sf-bn-label">Tinder</span></a>
   <a href="hebergement.html" class="sf-bn-item" title="Hébergement">🛏️<span class="sf-bn-label">Héberg.</span></a>
 </nav>
-
-<!-- ══ MENU RAPIDE (icône ☰ en haut à droite) ══ -->
-<style>
-.sf-sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;backdrop-filter:blur(4px)}
-.sf-sheet-overlay.open{display:block}
-.sf-sheet{position:fixed;left:0;right:0;bottom:0;z-index:9001;background:#f5f1ec;border-radius:20px 20px 0 0;padding:10px 0 max(20px,env(safe-area-inset-bottom));box-shadow:0 -8px 40px rgba(0,0,0,.2);transform:translateY(100%);transition:transform .32s cubic-bezier(.32,.72,0,1);max-width:480px;margin:0 auto}
-.sf-sheet.open{transform:translateY(0)}
-.sf-sheet-handle{width:40px;height:4px;background:#ddd;border-radius:3px;margin:0 auto 10px}
-.sf-sheet-title{text-align:center;font-family:"DM Serif Display",serif;font-size:1.05rem;color:var(--blue-dark,#1a3f6e);margin-bottom:6px;padding:0 20px}
-.sf-menu-item{display:flex;align-items:center;gap:12px;width:100%;padding:15px 24px;background:none;border:none;border-top:1px solid var(--wood-pale,#eee);font-size:.95rem;font-weight:600;color:var(--text,#2a1f14);text-decoration:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif}
-.sf-menu-item:active{background:var(--wood-pale,#f0e8da)}
-.sf-menu-item .em{font-size:1.15rem;flex-shrink:0}
-</style>
-
-<div class="sf-sheet-overlay" id="sfMenuOverlay" onclick="closeSfMenu()"></div>
-<div class="sf-sheet" id="sfMenuSheet">
-  <div class="sf-sheet-handle"></div>
-  <div class="sf-sheet-title">Menu</div>
-  <button type="button" class="sf-menu-item" onclick="closeSfMenu();openContact()"><span class="em">📧</span><span>Nous contacter</span></button>
-  <button type="button" class="sf-menu-item" onclick="closeSfMenu();openSfNotif()"><span class="em">🔔</span><span>Notifications</span></button>
-  <a class="sf-menu-item" href="mentions-legales.html"><span class="em">⚖️</span><span>Mentions légales</span></a>
-</div>
-
-<div class="sf-sheet-overlay" id="sfNotifOverlay2" onclick="closeSfNotif()"></div>
-<div class="sf-sheet" id="sfNotifSheet2" style="text-align:center">
-  <div class="sf-sheet-handle"></div>
-  <div style="padding:8px 24px 4px">
-    <div style="font-size:2.3rem;margin-bottom:8px">🔔</div>
-    <div style="font-family:'DM Serif Display',serif;font-size:1.25rem;color:#1a3f6e;margin-bottom:8px;line-height:1.2">Alertes poudreuse & bons plans ?</div>
-    <p style="font-size:.88rem;color:#5c4a35;line-height:1.6;margin-bottom:16px">Reçois une alerte quand ça tombe fort, ou les bons plans forfaits. <strong>Gratuit, discret, 1 à 2 fois/semaine max.</strong></p>
-  </div>
-  <div style="padding:0 20px;display:flex;flex-direction:column;gap:10px">
-    <button type="button" onclick="acceptSfNotif()" style="background:linear-gradient(135deg,#1a5a8a,#3a7db8);color:white;border:none;border-radius:30px;padding:15px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(26,90,138,.3)">⛷️ Oui, je veux être alerté !</button>
-    <button type="button" onclick="closeSfNotif()" style="background:transparent;color:#8a7060;border:none;padding:8px;font-size:.85rem;cursor:pointer;font-family:'DM Sans',sans-serif">Non merci</button>
-  </div>
-</div>
-
-<script>
-function openSfMenu(){document.getElementById('sfMenuOverlay').classList.add('open');document.getElementById('sfMenuSheet').classList.add('open');document.body.style.overflow='hidden';}
-function closeSfMenu(){document.getElementById('sfMenuOverlay').classList.remove('open');document.getElementById('sfMenuSheet').classList.remove('open');document.body.style.overflow='';}
-
-// Fallback : si la page n'a pas sa propre modale "Nous contacter" (voir index.html / recherche.html),
-// on renvoie vers la modale du site principal.
-if (typeof openContact !== 'function') {
-  window.openContact = function(){ window.location.href = 'index.html#contact'; };
-}
-
-function openSfNotif(){
-  if(typeof Notification!=='undefined' && Notification.permission==='granted'){
-    alert('Les notifications sont déjà activées ✅'); return;
-  }
-  if(typeof Notification!=='undefined' && Notification.permission==='denied'){
-    alert("Les notifications sont bloquées dans les réglages de ton navigateur."); return;
-  }
-  document.getElementById('sfNotifOverlay2').classList.add('open');
-  document.getElementById('sfNotifSheet2').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeSfNotif(){
-  document.getElementById('sfNotifOverlay2').classList.remove('open');
-  document.getElementById('sfNotifSheet2').classList.remove('open');
-  document.body.style.overflow='';
-}
-function acceptSfNotif(){
-  closeSfNotif();
-  function ask(){
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    window.OneSignalDeferred.push(async function(OneSignal){
-      try{ await OneSignal.Notifications.requestPermission(); }catch(e){}
-    });
-  }
-  if(window.OneSignal || document.querySelector('script[src*="OneSignalSDK"]')){ ask(); return; }
-  var s=document.createElement('script');
-  s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; s.defer=true;
-  document.head.appendChild(s);
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  window.OneSignalDeferred.push(async function(OneSignal){
-    await OneSignal.init({appId:"df4757f7-ed59-4973-8a3d-782547295c9c",safari_web_id:"web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",serviceWorkerPath:"sw.js",notifyButton:{enable:false},welcomeNotification:{disable:true}});
-    try{ await OneSignal.Notifications.requestPermission(); }catch(e){}
-  });
-}
-</script>
-
-<script>
-// Ouvre automatiquement la modale contact si on arrive via un lien #contact (depuis une autre page)
-if (window.location.hash === '#contact') {
-  window.addEventListener('DOMContentLoaded', function(){ setTimeout(function(){ if (typeof openContact === 'function') openContact(); }, 250); });
-}
-</script>
-
 </body>
 </html>
