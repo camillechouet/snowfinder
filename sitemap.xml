@@ -1525,6 +1525,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/comparatifs/grand-tourmalet-vs-cauterets.html</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/comparatifs/la-clusaz-vs-le-grand-bornand.html</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>monthly</changefreq>
@@ -1532,6 +1538,12 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/la-plagne-vs-les-arcs.html</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/comparatifs/les-carroz-vs-samoens.html</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
