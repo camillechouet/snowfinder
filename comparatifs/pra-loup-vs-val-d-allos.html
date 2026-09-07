@@ -53,14 +53,10 @@ body {
 .sf-topbar-logo{display:flex;align-items:center;gap:7px;text-decoration:none;flex-shrink:0}
 .sf-topbar-logo img{width:50px;height:50px;border-radius:12px;object-fit:contain;box-shadow:0 4px 12px rgba(0,0,0,.18);background:white;flex-shrink:0}
 .sf-topbar-logo span{font-family:"DM Serif Display",serif;font-size:1.05rem;color:var(--blue-dark);white-space:nowrap}
-.sf-topbar-right{display:flex;align-items:center;gap:7px;margin-left:auto}
-.sf-topbar-app{display:flex;align-items:center;gap:6px;background:linear-gradient(135deg,#eaf4ff,#eaf4ff);border:1.5px solid #3a7db8;border-radius:18px;padding:6px 13px 6px 6px;font-size:.72rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.2);flex-shrink:0;letter-spacing:.01em}
-.sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.82rem;flex-shrink:0;padding:6px 10px;border-radius:16px;background:var(--wood-pale);border:1.5px solid var(--wood-light)}
-.sf-topbar-fav:active{background:var(--wood-light)}
-.sf-topbar-menu{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;border:1.5px solid var(--wood-light);background:#fff;font-size:1rem;line-height:1;color:var(--blue-dark);cursor:pointer;flex-shrink:0;padding:0;text-decoration:none}
-.sf-topbar-menu:active{background:var(--wood-pale)}
-.sf-app-text-short{display:none}
-@media(max-width:480px){.sf-topbar-logo span{display:none}.sf-app-text-full{display:none}.sf-app-text-short{display:inline}.sf-topbar-app{padding:5px 11px 5px 5px}.sf-topbar-right{gap:5px}}
+.sf-topbar-app{display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,#e8f3fb,#eaf4ff);border:1px solid #3a7db8;border-radius:16px;padding:5px 12px;font-size:.72rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18)}
+.sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
+.sf-topbar-fav:active{background:var(--wood-pale)}
+@media(max-width:480px){.sf-topbar-logo span{display:none}.sf-topbar-app{font-size:.68rem;padding:5px 9px}}
 .sf-bottomnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08);padding-bottom:env(safe-area-inset-bottom);}
 .sf-bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px;font-size:1.18rem;text-decoration:none;color:var(--text-mid);position:relative;gap:1px}
 .sf-bn-item.active{color:var(--blue-dark)}
@@ -117,7 +113,7 @@ h2 {
 .specs {
   display:grid; grid-template-columns:1fr 1fr; gap:14px;
 }
-.station-banners { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:0 0 8px; }
+.spec-col { display:flex; flex-direction:column; gap:10px; }
 .station-banner { position:relative; overflow:hidden; border-radius:var(--radius); box-shadow:var(--shadow); min-height:96px; display:flex; align-items:flex-end; }
 .station-banner .bg { position:absolute; inset:0; background-size:cover; background-position:center; }
 .station-banner .overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(13,34,64,.82),rgba(26,58,92,.62)); }
@@ -126,9 +122,7 @@ h2 {
 .station-banner .actions { display:flex; gap:8px; flex-shrink:0; }
 .station-banner .icon-btn { background:rgba(255,255,255,.2); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.35); border-radius:20px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; font-size:1.05rem; cursor:pointer; color:#fff; }
 .station-banner .icon-btn.active { background:rgba(255,255,255,.92); color:#0d2240; }
-.station-fiche-links { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:0 0 10px; }
-.station-fiche-links a { font-size:.85rem; color:var(--wood-dark); text-decoration:underline; font-weight:600; }
-@media (max-width:700px) { .station-banners, .station-fiche-links { grid-template-columns:1fr; } }
+.station-fiche-link { font-size:.85rem; color:var(--wood-dark); text-decoration:underline; font-weight:600; }
 .spec-card {
   background:#fff; border:1px solid var(--border); border-radius:var(--radius);
   padding:22px; box-shadow:var(--shadow);
@@ -139,6 +133,7 @@ h2 {
 .spec-card .row span:first-child { color:var(--text-light); }
 .spec-card .row span:last-child { font-weight:600; color:var(--text); }
 @media (max-width:700px) { .specs { grid-template-columns:1fr; } }
+
 
 .profil-grid {
   display:grid; grid-template-columns:1fr; gap:12px;
@@ -318,13 +313,9 @@ footer a { color:var(--text-light); }
     <img src="/logo.png" alt="SnowFinder">
     <span>SnowFinder</span>
   </a>
-  <div class="sf-topbar-right">
-    <a href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" class="sf-topbar-app">
-      <span class="sf-app-text sf-app-text-full">L'app est dispo !</span><span class="sf-app-text sf-app-text-short">App</span>
-    </a>
-    <a href="/comparateur.html" class="sf-topbar-fav">⚖️<span id="sfCompareCount">0</span></a>
-    <a href="/favoris.html" class="sf-topbar-fav">⭐<span id="sfFavCount">0</span></a>
-  </div>
+  <a href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" class="sf-topbar-app">📲 L'app est dispo !</a>
+<a href="/comparateur.html" class="sf-topbar-fav" style="margin-right:2px">⚖️ <span id="sfCompareCount">0</span></a>
+<a href="/favoris.html" class="sf-topbar-fav">⭐ <span id="sfFavCount">0</span></a>
 </div>
 
 <nav class="nav">
@@ -348,54 +339,54 @@ footer a { color:var(--text-light); }
 <div class="teaser">Les deux stations qui composent l'Espace Lumière (180 km), dans la vallée de l'Ubaye. Pra-Loup, station moderne à l'architecture soignée, mise sur le grand ski ensoleillé. Val d'Allos, plus villageoise avec ses deux secteurs Le Seignus et La Foux, cultive un charme provençal préservé.</div>
 
 <h2>📊 Les chiffres face à face</h2>
-<div class="station-banners">
-  <div class="station-banner">
-    <div class="bg" style="background-image:url(https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=800&q=80)"></div>
-    <div class="overlay"></div>
-    <div class="content">
-      <span class="name">Pra-Loup</span>
-      <div class="actions">
-        <button class="icon-btn" data-fav-id="104" onclick="toggleFav(104,this)" title="Ajouter aux favoris">☆</button>
-        <button class="icon-btn" data-compare-id="104" onclick="toggleCompare(104,this)" title="Ajouter au comparateur">⚖️</button>
-      </div>
-    </div>
-  </div>
-  <div class="station-banner">
-    <div class="bg" style="background-image:url(https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=800&q=80)"></div>
-    <div class="overlay"></div>
-    <div class="content">
-      <span class="name">Val d'Allos</span>
-      <div class="actions">
-        <button class="icon-btn" data-fav-id="105" onclick="toggleFav(105,this)" title="Ajouter aux favoris">☆</button>
-        <button class="icon-btn" data-compare-id="105" onclick="toggleCompare(105,this)" title="Ajouter au comparateur">⚖️</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="station-fiche-links">
-  <a href="/stations/pra-loup.html">→ Voir la fiche complète</a>
-  <a href="/stations/val-d-allos.html">→ Voir la fiche complète</a>
-</div>
 <div class="specs">
-  <div class="spec-card">
-    <h3>Pra-Loup</h3>
-    <div class="row"><span>Altitude</span><span>1500 – 2600 m</span></div>
-    <div class="row"><span>Domaine skiable</span><span>100 km</span></div>
-    <div class="row"><span>Remontées</span><span>19</span></div>
-    <div class="row"><span>Pistes (V/B/R/N)</span><span>6/12/18/3</span></div>
-    <div class="row"><span>Forfait journée</span><span>36 €</span></div>
-    <div class="row"><span>Note SnowFinder</span><span>3.9 / 5</span></div>
-    <div class="row"><span>Région</span><span>Ubaye, Alpes-de-Haute-Provence</span></div>
+  <div class="spec-col">
+    <div class="station-banner">
+      <div class="bg" style="background-image:url(https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=800&q=80)"></div>
+      <div class="overlay"></div>
+      <div class="content">
+        <span class="name">Pra-Loup</span>
+        <div class="actions">
+          <button class="icon-btn" data-fav-id="104" onclick="toggleFav(104,this)" title="Ajouter aux favoris">☆</button>
+          <button class="icon-btn" data-compare-id="104" onclick="toggleCompare(104,this)" title="Ajouter au comparateur">⚖️</button>
+        </div>
+      </div>
+    </div>
+    <a href="/stations/pra-loup.html" class="station-fiche-link">→ Voir la fiche complète</a>
+    <div class="spec-card">
+      <h3>Pra-Loup</h3>
+      <div class="row"><span>Altitude</span><span>1500 – 2600 m</span></div>
+      <div class="row"><span>Domaine skiable</span><span>100 km</span></div>
+      <div class="row"><span>Remontées</span><span>19</span></div>
+      <div class="row"><span>Pistes (V/B/R/N)</span><span>6/12/18/3</span></div>
+      <div class="row"><span>Forfait journée</span><span>36 €</span></div>
+      <div class="row"><span>Note SnowFinder</span><span>3.9 / 5</span></div>
+      <div class="row"><span>Région</span><span>Ubaye, Alpes-de-Haute-Provence</span></div>
+    </div>
   </div>
-  <div class="spec-card">
-    <h3>Val d'Allos</h3>
-    <div class="row"><span>Altitude</span><span>1400 – 2600 m</span></div>
-    <div class="row"><span>Domaine skiable</span><span>80 km</span></div>
-    <div class="row"><span>Remontées</span><span>18</span></div>
-    <div class="row"><span>Pistes (V/B/R/N)</span><span>5/15/16/5</span></div>
-    <div class="row"><span>Forfait journée</span><span>35 €</span></div>
-    <div class="row"><span>Note SnowFinder</span><span>3.6 / 5</span></div>
-    <div class="row"><span>Région</span><span>Alpes-de-Haute-Provence</span></div>
+  <div class="spec-col">
+    <div class="station-banner">
+      <div class="bg" style="background-image:url(https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=800&q=80)"></div>
+      <div class="overlay"></div>
+      <div class="content">
+        <span class="name">Val d'Allos</span>
+        <div class="actions">
+          <button class="icon-btn" data-fav-id="105" onclick="toggleFav(105,this)" title="Ajouter aux favoris">☆</button>
+          <button class="icon-btn" data-compare-id="105" onclick="toggleCompare(105,this)" title="Ajouter au comparateur">⚖️</button>
+        </div>
+      </div>
+    </div>
+    <a href="/stations/val-d-allos.html" class="station-fiche-link">→ Voir la fiche complète</a>
+    <div class="spec-card">
+      <h3>Val d'Allos</h3>
+      <div class="row"><span>Altitude</span><span>1400 – 2600 m</span></div>
+      <div class="row"><span>Domaine skiable</span><span>80 km</span></div>
+      <div class="row"><span>Remontées</span><span>18</span></div>
+      <div class="row"><span>Pistes (V/B/R/N)</span><span>5/15/16/5</span></div>
+      <div class="row"><span>Forfait journée</span><span>35 €</span></div>
+      <div class="row"><span>Note SnowFinder</span><span>3.6 / 5</span></div>
+      <div class="row"><span>Région</span><span>Alpes-de-Haute-Provence</span></div>
+    </div>
   </div>
 </div>
 
