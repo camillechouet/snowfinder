@@ -10,6 +10,27 @@ Ou manuellement : python3 _scripts/generate_stations.py
 """
 import re, json, unicodedata, os, sys, hashlib
 
+# ── Stations partenaires officielles ──
+# Ajoutez ici le nom exact (tel que dans recherche.html) de chaque station
+# qui a accepté le partenariat SnowFinder. Le badge "Partenaire officiel"
+# s'affiche alors automatiquement sur sa fiche, sur sa vignette dans
+# recherche.html, et dans les stations du moment / articles / duels qui la
+# concernent (voir badge_html() plus bas).
+PARTNER_STATIONS = set([
+    # "Le Lioran",
+    # "Valmorel",
+])
+
+def badge_html(station_name, size="hero"):
+    """Retourne le HTML du badge partenaire si la station est partenaire, sinon ''.
+    size: 'hero' (grand format, pages stations / station du moment / articles / duels)
+          ou 'mini' (icône seule, vignettes de cartes)."""
+    if station_name not in PARTNER_STATIONS:
+        return ''
+    if size == "mini":
+        return '<img class="partner-badge-mini" src="img/badge-partenaire-mini.svg" alt="Partenaire officiel SnowFinder" width="28" height="28" loading="lazy">'
+    return '<a class="partner-badge-hero" href="grille-tarifaire.html" title="Partenaire officiel SnowFinder"><img src="img/badge-partenaire.svg" alt="Partenaire officiel SnowFinder" width="180" height="54" loading="lazy"></a>'
+
 def slugify(name):
     name = unicodedata.normalize('NFD', name)
     name = ''.join(c for c in name if unicodedata.category(c) != 'Mn')
@@ -2348,6 +2369,9 @@ def render_page(s):
     }}
     h1{{font-family:"DM Serif Display",serif;font-size:clamp(2rem,6vw,3.2rem);color:white;line-height:1.05;margin-bottom:6px}}
     .hero-region{{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px}}
+    .partner-badge-hero{{display:inline-block;margin-top:10px;pointer-events:auto;filter:drop-shadow(0 4px 10px rgba(0,0,0,.35));transition:transform .15s}}
+    .partner-badge-hero:hover{{transform:translateY(-2px)}}
+    .partner-badge-hero img{{display:block;height:44px;width:auto}}
     .hero-illu-note{{font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}}
     .hero-illu-note{{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}}
     /* Vignette "Grand domaine" — en bas à droite. Le padding-droit de .hero-content
@@ -2880,6 +2904,7 @@ def render_page(s):
     <div class="hero-massif">⛷ {s['massif']}</div>
     <h1>{s['name']}</h1>
     <div class="hero-region">📍 {s['region']}</div>
+    {badge_html(s['name'], 'hero')}
   </div>
   {hero_illu_note}
   {hero_domaine_html}
