@@ -289,6 +289,7 @@ footer a{color:rgba(255,255,255,.6);text-decoration:none}
 .card-top-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,28,58,.82) 0%,rgba(10,30,60,.25) 50%,transparent 100%)}
 .card-emoji{position:absolute;top:50%;left:50%;transform:translate(-50%,-65%);font-size:3rem;opacity:.3}
 .card-massif-tag{position:absolute;top:11px;left:11px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);color:white;font-size:.62rem;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em}
+.card-partner-badge{position:absolute;top:40px;left:11px;width:30px;height:30px;z-index:2}
 .card-score-tag{position:absolute;top:11px;right:11px;background:var(--wood);color:white;font-size:.78rem;font-weight:700;padding:3px 9px;border-radius:20px}
 .card-name{position:relative;z-index:1;font-family:"DM Serif Display",serif;font-size:1.28rem;color:white;text-shadow:0 2px 10px rgba(0,0,0,.7);line-height:1.2;letter-spacing:-.01em}
 .card-region-inline{position:relative;z-index:1;font-size:.7rem;color:rgba(255,255,255,.75);margin-top:2px}
@@ -1913,6 +1914,15 @@ const FALLBACK_PHOTOS = [
   "https://images.unsplash.com/photo-1562826542-449090f38c70?w=800&q=80"
 ];
 function fallbackPhotoFor(s){ return FALLBACK_PHOTOS[s.id % FALLBACK_PHOTOS.length]; }
+/* ── Stations partenaires officielles ──
+   Ajoutez ici le nom exact d'une station (identique au champ "name" dans
+   STATIONS/IA_STATIONS ci-dessous) dès qu'elle devient partenaire.
+   Le badge "Partenaire officiel" s'affiche alors automatiquement sur sa
+   vignette. Garder synchronisé avec PARTNER_STATIONS dans generate_stations.py. */
+const PARTNER_STATIONS = new Set([
+  // "Le Lioran",
+  // "Valmorel",
+]);
 const MASSIF_COLORS={"Alpes du Nord":"linear-gradient(135deg,#1a5a8a 0%,#3a9fd4 100%)","Alpes du Sud":"linear-gradient(135deg,#8b5e3c 0%,#c49a6c 100%)","Pyrénées":"linear-gradient(135deg,#2a6a3a 0%,#4aaa5a 100%)","Vosges":"linear-gradient(135deg,#3a6830 0%,#5a9848 100%)","Jura":"linear-gradient(135deg,#3a5878 0%,#6888a8 100%)","Massif Central":"linear-gradient(135deg,#784820 0%,#a87840 100%)","Corse":"linear-gradient(135deg,#1a7848 0%,#3aa868 100%)"};
 const MASSIF_EMOJI={"Alpes du Nord":"🏔","Alpes du Sud":"☀️","Pyrénées":"🌊","Vosges":"🌲","Jura":"🧀","Massif Central":"🌋","Corse":"🏝"};
 const CHALET_PHOTOS = {
@@ -2559,6 +2569,7 @@ function renderGrid(stations){
         <div class="card-massif-tag" style="z-index:2">${s.massif}</div>
         <button onclick="event.stopPropagation();toggleFav(${s.id})" id="favBtnTop${s.id}" title="Favoris" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);border:none;font-size:1.1rem;cursor:pointer;padding:4px 8px;border-radius:20px;line-height:1;z-index:3;transition:transform .2s" onmouseover="this.style.transform='scale(1.25)'" onmouseout="this.style.transform='scale(1)'">${isFav(s.id)?"⭐":"☆"}</button>
         <button onclick="event.stopPropagation();this.style.opacity=toggleCompareStation(${s.id})?'1':'.55'" id="cmpBtnTop${s.id}" title="Comparer" style="position:absolute;top:10px;right:46px;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);border:none;font-size:1.1rem;cursor:pointer;padding:4px 8px;border-radius:20px;line-height:1;z-index:3;transition:transform .2s;opacity:${typeof isInCompare==='function'&&isInCompare(s.id)?'1':'.55'}" onmouseover="this.style.transform='scale(1.25)'" onmouseout="this.style.transform='scale(1)'">⚖️</button>
+        ${PARTNER_STATIONS.has(s.name) ? '<img class="card-partner-badge" src="img/badge-partenaire-mini.svg" alt="Partenaire officiel SnowFinder" title="Partenaire officiel SnowFinder" loading="lazy">' : ''}
         <div style="position:relative;z-index:2;width:100%">
           <div class="card-name">${s.name}</div>
           <div class="card-region-inline" style="opacity:.85;margin-top:2px">${s.region}</div>

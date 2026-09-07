@@ -129,6 +129,23 @@
   .prop-card p { margin: 0; color: var(--ink-soft); font-size: 0.88rem; }
 
   /* offers comparison table */
+  .free-badge-box {
+    display: flex; align-items: center; gap: 20px;
+    background: linear-gradient(135deg, var(--ice) 0%, var(--frost) 100%);
+    border: 1px solid var(--line); border-radius: 16px;
+    padding: 18px 22px; margin-bottom: 22px;
+  }
+  .free-badge-box-img { flex-shrink: 0; width: 160px; height: auto; }
+  .free-badge-box-tag {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
+    color: var(--blue); margin-bottom: 4px;
+  }
+  .free-badge-box h3 { font-size: 1.05rem; margin: 0 0 6px; color: var(--heading); font-weight: 600; }
+  .free-badge-box p { margin: 0; color: var(--ink-soft); font-size: 0.86rem; }
+  @media (max-width: 560px) {
+    .free-badge-box { flex-direction: column; align-items: flex-start; }
+    .free-badge-box-img { width: 190px; }
+  }
   .table-scroll-hint {
     display: flex; align-items: center; gap: 8px;
     font-size: 0.82rem; color: var(--blue); font-weight: 600;
@@ -266,6 +283,14 @@
       <div class="kicker">Nos formules</div>
       <h2>Comparez tout en un coup d'œil</h2>
       <p>3 formules cumulables entre elles, 2 emplacements à places limitées, et l'emplacement le plus rare du site.</p>
+    </div>
+    <div class="free-badge-box">
+      <img class="free-badge-box-img" src="img/badge-partenaire.svg" alt="Badge Partenaire officiel SnowFinder" width="220" height="66">
+      <div class="free-badge-box-text">
+        <div class="free-badge-box-tag">Offert à toutes les stations partenaires</div>
+        <h3>Le badge « Partenaire officiel »</h3>
+        <p>Dès que vous nous rejoignez, ce badge apparaît sur votre fiche, votre vignette dans les résultats de recherche, et dans nos articles et actualités qui vous concernent. Vous pouvez aussi l'afficher sur votre propre site, avec un lien retour vers SnowFinder.</p>
+      </div>
     </div>
     <div class="table-scroll-hint">
       Faites glisser pour comparer toutes les formules
