@@ -208,6 +208,21 @@ footer a{color:rgba(255,255,255,.5);text-decoration:none}
 .hrc-arrow{background:var(--card-color);color:var(--card-text);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:transform .2s}
 .heb-redirect-card:hover .hrc-arrow{transform:translateX(3px)}
 @media(max-width:600px){.hrc-cta{display:none}.heb-redirect-card{padding:14px 16px}}
+
+/* ── Cartes visuelles hébergement (photo + tags) ── */
+.heb-visual-card{display:grid;grid-template-columns:190px 1fr;background:white;border-radius:14px;overflow:hidden;border:1px solid rgba(0,0,0,.08);box-shadow:0 3px 14px rgba(0,0,0,.07);text-decoration:none;color:inherit;margin-bottom:16px;transition:box-shadow .25s,transform .2s}
+.heb-visual-card:hover{box-shadow:0 10px 32px rgba(0,0,0,.16);transform:translateY(-3px)}
+.hvc-img{position:relative;overflow:hidden;min-height:150px}
+.hvc-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.heb-visual-card:hover .hvc-img img{transform:scale(1.06)}
+.hvc-badge{position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:6px;font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.hvc-body{padding:16px 20px;display:flex;flex-direction:column;justify-content:center;gap:5px}
+.hvc-title{font-family:'DM Serif Display',serif;font-size:1.12rem;color:#1a2a3a}
+.hvc-desc{font-size:.82rem;color:#6a7a8a}
+.hvc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+.hvc-tag{font-size:.68rem;padding:3px 9px;background:var(--bg);border:1px solid var(--border);border-radius:12px;color:var(--text-mid);white-space:nowrap}
+.hvc-cta{margin-top:10px;display:inline-flex;align-items:center;gap:6px;font-size:.83rem;font-weight:700;color:var(--card-color)}
+@media(max-width:600px){.heb-visual-card{grid-template-columns:104px 1fr}.hvc-img{min-height:120px}.hvc-body{padding:12px 14px;gap:4px}.hvc-title{font-size:.95rem}.hvc-desc{font-size:.76rem}.hvc-tags{display:none}.hvc-badge{font-size:.58rem;padding:2px 7px;top:6px;left:6px}}
 </style>
 <script>
 /* ══════════════════════════════════════════════════
@@ -683,29 +698,37 @@ function renderAnnonces(dest, budget, noteMin, type, dateArr, dateDep, adultes, 
     {
       icon:'🏨', label:'Hôtels', desc:'Demi-pension, petit-déj, services sur place',
       color:'#003580', textColor:'white',
+      photo:'https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=500&q=80',
+      tags:['🍳 Petit-déjeuner souvent inclus','🛎️ Service en chambre','↩️ Annulation gratuite sur de nombreuses offres'],
       url: buildUrl('booking', dest, dateArr, dateDep, adultes, enfants, chambres, '&nflt=ht_id%3D204'),
-      cta:'Voir les hôtels sur Booking →',
+      cta:'Voir les hôtels sur Booking',
       partner:'booking'
     },
     {
       icon:'🏔', label:'Chalets', desc:'Indépendants, sauna, vue montagne',
       color:'#2a5a2a', textColor:'white',
+      photo:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500&q=80',
+      tags:['🔥 Cheminée & bois','💆 Sauna / spa souvent inclus','👨‍👩‍👧‍👦 Idéal groupes & familles'],
       url: buildUrl('booking', dest, dateArr, dateDep, adultes, enfants, chambres, '&nflt=property_type%3D67'),
-      cta:'Voir les chalets sur Booking →',
+      cta:'Voir les chalets sur Booking',
       partner:'booking'
     },
     {
       icon:'🏢', label:'Appartements & Résidences', desc:'Cuisine équipée, idéal familles',
       color:'#1a4a7a', textColor:'white',
+      photo:'https://images.unsplash.com/photo-1601024445121-e5b82f020549?w=500&q=80',
+      tags:['🍳 Cuisine équipée','🧺 Plus d\\'espace et d\\'autonomie','💰 Souvent le meilleur rapport prix/place'],
       url: buildUrl('booking', dest, dateArr, dateDep, adultes, enfants, chambres, '&nflt=ht_id%3D201'),
-      cta:'Voir les appartements sur Booking →',
+      cta:'Voir les appartements sur Booking',
       partner:'booking'
     },
     {
       icon:'✈️', label:'Hôtels + Vols combinés', desc:'Tout-en-un sur Expedia',
-      color:'#ffcc00', textColor:'#003580',
+      color:'#c98a00', textColor:'white',
+      photo:'https://images.unsplash.com/photo-1548133612-cb5a8c886b4c?w=500&q=80',
+      tags:['✈️ Vol + hôtel en un clic','🧳 Pratique pour les longs trajets','🔍 Comparez plusieurs formules'],
       url: urlE,
-      cta:'Voir les offres sur Expedia →',
+      cta:'Voir les offres sur Expedia',
       partner:'expedia'
     }
   ];
@@ -717,26 +740,23 @@ function renderAnnonces(dest, budget, noteMin, type, dateArr, dateDep, adultes, 
 
   var list = document.getElementById('annoncesList');
   list.innerHTML = [
-    '<div style="background:linear-gradient(135deg,#e8f3fb,#f0f7ff);border-radius:12px;padding:18px 20px;margin-bottom:20px;border:1px solid #c8e0f8">',
-    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">',
-    '<span style="font-size:1.4rem">🔗</span>',
-    '<div>',
-    '<div style="font-weight:700;color:#1a3a5c;font-size:.95rem">Résultats en temps réel sur Booking.com & Expedia</div>',
-    '<div style="font-size:.78rem;color:#5a7a9a;margin-top:2px">',
-    'Disponibilités, prix et avis vérifiés — cliquez pour voir les vraies offres pour <strong>'+dest+'</strong>',
+    '<div style="font-size:.85rem;color:var(--text-light);margin-bottom:16px;line-height:1.5">',
+    'Choisissez un type de logement pour <strong style="color:var(--text)">'+dest+'</strong>',
     (dateArr ? ' · ' + formatDate(dateArr) + ' → ' + formatDate(dateDep) : ''),
-    '</div>',
-    '</div>',
-    '</div>',
+    ' — vous serez redirigé vers Booking.com ou Expedia avec vos critères déjà remplis, pour voir les disponibilités et prix réels.',
     '</div>',
     categories.map(function(cat){
-      return '<a href="'+cat.url+'" target="_blank" rel="noopener" class="heb-redirect-card" style="--card-color:'+cat.color+';--card-text:'+cat.textColor+'">'
-        +'<div class="hrc-icon">'+cat.icon+'</div>'
-        +'<div class="hrc-body">'
-        +'<div class="hrc-title">'+cat.label+'</div>'
-        +'<div class="hrc-desc">'+cat.desc+'</div>'
+      return '<a href="'+cat.url+'" target="_blank" rel="noopener" class="heb-visual-card" style="--card-color:'+cat.color+'">'
+        +'<div class="hvc-img">'
+        +'<img src="'+cat.photo+'" alt="'+cat.label+' à '+dest+'" loading="lazy">'
+        +'<span class="hvc-badge" style="background:'+cat.color+';color:'+cat.textColor+'">'+(cat.partner==='booking'?'Booking.com':'Expedia')+'</span>'
         +'</div>'
-        +'<div class="hrc-cta">'+cat.cta+'<span class="hrc-arrow">→</span></div>'
+        +'<div class="hvc-body">'
+        +'<div class="hvc-title">'+cat.icon+' '+cat.label+'</div>'
+        +'<div class="hvc-desc">'+cat.desc+'</div>'
+        +'<div class="hvc-tags">'+cat.tags.map(function(t){return '<span class="hvc-tag">'+t+'</span>';}).join('')+'</div>'
+        +'<div class="hvc-cta">'+cat.cta+' <span>→</span></div>'
+        +'</div>'
         +'</a>';
     }).join('')
   ].join('');
