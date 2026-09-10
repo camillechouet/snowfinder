@@ -146,9 +146,39 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .heb-booking{background:#003580;color:white}
 .heb-expedia{background:#ffcc00;color:#003580}
 
+/* WIDGET MÉTÉO — identique aux fiches stations (generate_stations.py) */
+.meteo-widget{background:linear-gradient(135deg,#1a5a8a 0%,#3a7db8 100%);border-radius:14px;padding:22px 26px;margin-bottom:16px;color:white;box-shadow:0 6px 22px rgba(26,90,138,.25);position:relative;overflow:hidden}
+.meteo-widget::before{content:"";position:absolute;top:-20px;right:-20px;width:140px;height:140px;background:radial-gradient(circle,rgba(255,255,255,.18) 0%,transparent 70%);pointer-events:none}
+.meteo-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:12px}
+.meteo-title{font-family:"DM Serif Display",serif;font-size:1.15rem;line-height:1.2;color:white}
+.meteo-sub{font-size:.78rem;color:rgba(255,255,255,.72);margin-top:3px}
+.meteo-now{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border-radius:12px;padding:8px 14px;backdrop-filter:blur(6px)}
+.meteo-now-temp{font-family:"DM Serif Display",serif;font-size:1.7rem;line-height:1;color:white}
+.meteo-now-ico{font-size:1.7rem;line-height:1}
+.meteo-now-snow{font-size:.72rem;color:rgba(255,255,255,.78);margin-top:2px}
+.meteo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.meteo-day{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:9px 4px;text-align:center}
+.meteo-day-lbl{font-size:.68rem;font-weight:700;color:rgba(255,255,255,.82);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.meteo-day-ico{font-size:1.2rem;margin-bottom:3px}
+.meteo-day-t{font-size:.78rem;font-weight:700;color:white}
+.meteo-day-snow{font-size:.65rem;color:#a8d8ff;margin-top:3px;font-weight:600}
+.meteo-loading{text-align:center;padding:14px 0;font-size:.85rem;color:rgba(255,255,255,.7)}
+@media(max-width:520px){.meteo-grid{grid-template-columns:repeat(5,1fr);gap:4px}.meteo-day{padding:7px 2px}.meteo-day-lbl{font-size:.6rem}.meteo-day-t{font-size:.72rem}}
+
 /* PLACEHOLDER STATE */
 .placeholder-state{text-align:center;padding:40px 20px;color:var(--text-light)}
 .placeholder-icon{font-size:3rem;margin-bottom:12px}
+
+/* VIGNETTES STATIONS À LA UNE */
+.vignette-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:18px}
+.vignette-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:14px 10px 12px;text-align:center;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:var(--shadow);position:relative}
+.vignette-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--blue-mid)}
+.vignette-card.vig-loading{opacity:.55}
+.vig-icon{font-size:1.7rem;margin-bottom:4px}
+.vig-name{font-weight:700;font-size:.86rem;color:var(--text);margin-bottom:1px;line-height:1.2}
+.vig-massif{font-size:.62rem;color:var(--text-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.03em}
+.vig-temp{font-family:"DM Serif Display",serif;font-size:1.25rem;color:var(--blue-dark)}
+.vig-snow{margin-top:6px;font-size:.66rem;font-weight:700;color:var(--blue-dark);background:var(--blue-light);border-radius:10px;padding:2px 8px;display:inline-block}
 
 /* FOOTER */
 footer{background:var(--wood-dark);color:rgba(255,255,255,.7);text-align:center;padding:28px 20px;font-size:.82rem;margin-top:40px}
@@ -343,52 +373,119 @@ function toggleCompareStation(id){
 </div>
 
 <!-- FAVORIS -->
-<div id="favSection" style="display:none;max-width:720px;margin:0 auto 24px;padding:0 16px">
+<div id="favSection" style="display:none;max-width:760px;margin:0 auto 24px;padding:0 16px">
   <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:10px">⭐ Mes stations favorites</div>
-  <div id="favList" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+  <div id="favList" class="vignette-grid"></div>
 </div>
 
-<!-- RESULT PANEL -->
+<!-- RESULT PANEL — miroir exact de l'onglet "Météo & enneigement" des fiches stations -->
 <div class="result-panel" id="resultPanel">
-  <div class="result-card">
-    <div class="result-header">
-      <div class="result-name" id="resName">—</div>
-      <div class="result-region" id="resRegion">—</div>
-    </div>
-    <div class="result-body">
+  <div class="result-card" style="box-shadow:none;border:none;background:transparent;overflow:visible">
+    <div style="max-width:620px;margin:0 auto;padding:0 4px">
 
-      <!-- ENNEIGEMENT -->
-      <div style="margin-bottom:20px">
-        <div class="sec-lbl">Enneigement — Village &amp; Sommet</div>
-        <div class="snow-compare">
-          <div class="sn-box" style="border-top:3px solid #3a7db8">
-            <div class="sn-lbl">🏘 Village · Maintenant</div>
-            <div class="sn-val" id="resSnowCur">—<span class="sn-sub"> cm</span></div>
-            <div class="sn-track"><div class="sn-fill" id="resSnowBarCur" style="width:0%"></div></div>
-            <div class="sn-sub" id="resSnowDetails">—</div>
+      <!-- WIDGET MÉTÉO -->
+      <div class="meteo-widget" id="meteoWidget">
+        <div class="meteo-head">
+          <div>
+            <div class="meteo-title" id="meteoTitle">❄️ Météo à —</div>
+            <div class="meteo-sub">Conditions actuelles &amp; prévisions 5 jours</div>
           </div>
-          <div class="sn-box" style="border-top:3px solid #5b9fd4">
-            <div class="sn-lbl">🔮 Cumul prévu · 4 jours</div>
-            <div class="sn-val" id="resSnowAvg">—<span class="sn-sub"> cm</span></div>
-            <div class="sn-track"><div class="sn-fill" id="resSnowBarAvg" style="width:0%;background:linear-gradient(90deg,#c8e8f8,#5b9fd4)"></div></div>
-            <div class="sn-sub">Prévisions Open-Meteo</div>
+          <div class="meteo-now" id="meteoNow" style="display:none">
+            <span class="meteo-now-ico" id="meteoNowIco">☁️</span>
+            <div>
+              <div class="meteo-now-temp" id="meteoNowTemp">—°</div>
+              <div class="meteo-now-snow" id="meteoNowSnow"></div>
+            </div>
           </div>
         </div>
-        <div id="resSnowStatus" class="snow-status-badge sst-good">✅ —</div>
+        <div class="meteo-loading" id="meteoLoading">Chargement…</div>
+        <div class="meteo-grid" id="meteoGrid" style="display:none"></div>
       </div>
+      <p style="font-size:.75rem;color:var(--text-light);text-align:center;margin:-6px 0 14px">Source : Open-Meteo.com · Données actualisées en temps réel</p>
 
-      <!-- MÉTÉO -->
-      <div style="margin-bottom:20px">
-        <div class="sec-lbl">Météo cette semaine</div>
-        <div class="meteo-row" id="resMeteo">
-          <!-- filled by JS -->
+      <!-- ENNEIGEMENT EN CE MOMENT -->
+      <div style="background:linear-gradient(135deg,#e8f3fb,#d0e7f5);border-radius:14px;padding:20px;margin-bottom:14px">
+        <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#3a7db8;margin-bottom:14px">❄️ Enneigement en ce moment (altitude station)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+          <div style="background:white;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-size:.62rem;font-weight:700;color:var(--text-light);text-transform:uppercase;margin-bottom:6px">Actuellement</div>
+            <div id="snowNowVal" style="font-family:'DM Serif Display',serif;font-size:2rem;color:#1a5a8a;line-height:1">—</div>
+            <div style="font-size:.68rem;color:#3a7db8;font-weight:600;margin-top:2px">cm</div>
+          </div>
+          <div style="background:white;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-size:.62rem;font-weight:700;color:var(--text-light);text-transform:uppercase;margin-bottom:6px">Moy. ce mois</div>
+            <div id="snowMonthVal" style="font-family:'DM Serif Display',serif;font-size:2rem;color:#2a6090;line-height:1">—</div>
+            <div style="font-size:.68rem;color:#3a7db8;font-weight:600;margin-top:2px">cm</div>
+          </div>
+          <div style="background:white;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-size:.62rem;font-weight:700;color:var(--text-light);text-transform:uppercase;margin-bottom:6px">Moy. annuelle</div>
+            <div id="snowAnnualVal" style="font-family:'DM Serif Display',serif;font-size:2rem;color:#3a7db8;line-height:1">—</div>
+            <div style="font-size:.68rem;color:#3a7db8;font-weight:600;margin-top:2px">cm</div>
+          </div>
+        </div>
+        <div id="snowCompareBar" style="display:none">
+          <div style="font-size:.65rem;color:#3a7db8;font-weight:700;margin-bottom:6px">Actuel vs moyenne du mois</div>
+          <div style="background:rgba(255,255,255,.6);border-radius:8px;height:12px;overflow:hidden;margin-bottom:4px">
+            <div id="snowBarFill" style="height:100%;background:#1a5a8a;border-radius:8px;transition:width .6s ease"></div>
+          </div>
+          <div id="snowCompareLabel" style="font-size:.68rem;color:#1a5a8a;font-weight:700"></div>
         </div>
       </div>
 
-      <!-- LIEN FICHE STATION -->
-      <div style="margin-top:4px">
+      <!-- VILLAGE VS SOMMET -->
+      <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px">
+        <div id="villageVsSommetLbl" style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:12px">📍 Village vs Sommet</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="padding:12px;background:#f8f9ff;border-radius:10px">
+            <div style="font-size:.72rem;font-weight:700;color:var(--text);margin-bottom:6px">🏘 Au village</div>
+            <div id="villageTxt" style="font-size:.8rem;color:var(--text-mid);line-height:1.5">—</div>
+          </div>
+          <div style="padding:12px;background:#e8f3fb;border-radius:10px">
+            <div style="font-size:.72rem;font-weight:700;color:#1a5a8a;margin-bottom:6px">⛰ Au sommet</div>
+            <div id="sommetTxt" style="font-size:.8rem;color:var(--text-mid);line-height:1.5">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHUTES DE NEIGE PRÉVUES -->
+      <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px">
+        <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:10px">🌨 Chutes de neige prévues — 5 jours</div>
+        <div id="snowForecastBars" style="display:flex;gap:8px;align-items:flex-end;height:80px">
+          <div style="color:var(--text-light);font-size:.75rem">Chargement…</div>
+        </div>
+        <div id="snowForecastLabels" style="display:flex;gap:8px;margin-top:6px"></div>
+      </div>
+
+      <!-- FIABILITÉ ENNEIGEMENT -->
+      <div style="background:linear-gradient(135deg,#f8f5f0,#f0e8da);border:1px solid var(--wood-light,#eddcbf);border-radius:12px;padding:16px;margin-bottom:16px">
+        <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:10px">📊 Fiabilité enneigement</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div>
+            <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Meilleure période</div>
+            <div id="fiabPeriode" style="font-size:.85rem;font-weight:700;color:var(--text)">—</div>
+          </div>
+          <div>
+            <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Fiabilité globale</div>
+            <div id="fiabGlobale" style="font-size:.85rem;font-weight:700">—</div>
+          </div>
+          <div>
+            <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Altitude de départ</div>
+            <div id="fiabAltitude" style="font-size:.85rem;font-weight:700;color:var(--text)">—</div>
+          </div>
+          <div>
+            <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Enneigement pic saison</div>
+            <div id="fiabPic" style="font-size:.85rem;font-weight:700;color:var(--text)">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIEN FICHE STATION + RÉSERVER -->
+      <div style="display:flex;flex-direction:column;gap:10px">
         <a id="resFicheLink" href="recherche.html" style="display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));color:white;padding:14px 20px;border-radius:12px;text-decoration:none;font-weight:700;font-size:.95rem;transition:opacity .2s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
           🏔️ <span id="resFicheLinkLabel">Voir la fiche complète de cette station →</span>
+        </a>
+        <a id="resBookingLink" href="#" target="_blank" rel="noopener sponsored" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#003580;color:white;padding:14px 20px;border-radius:12px;text-decoration:none;font-weight:700;font-size:.95rem;transition:opacity .2s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          🏨 Réserver un hébergement →
         </a>
       </div>
 
@@ -421,34 +518,34 @@ function toggleCompareStation(id){
 // ══════════════════════════════════════════════════
 
 const STATIONS = [
-  {id:1,  name:"Val d'Isère",    massif:"Alpes du Nord", alt_max:3456, km:300,  remontees:91,  pistes:{v:4,b:19,r:37,n:17},  lat:45.4483, lon:6.9800,  bra:"HAUTE_TARENTAISE"},
-  {id:2,  name:"Tignes",         massif:"Alpes du Nord", alt_max:3456, km:300,  remontees:91,  pistes:{v:4,b:22,r:33,n:19},  lat:45.4694, lon:6.9073,  bra:"HAUTE_TARENTAISE"},
-  {id:3,  name:"Les Arcs",       massif:"Alpes du Nord", alt_max:3226, km:425,  remontees:76,  pistes:{v:11,b:41,r:31,n:17}, lat:45.5742, lon:6.8422,  bra:"HAUTE_TARENTAISE"},
-  {id:4,  name:"La Plagne",      massif:"Alpes du Nord", alt_max:3250, km:225,  remontees:77,  pistes:{v:19,b:61,r:39,n:11}, lat:45.5084, lon:6.6764,  bra:"VANOISE"},
-  {id:5,  name:"Chamonix",       massif:"Alpes du Nord", alt_max:3842, km:170,  remontees:49,  pistes:{v:5,b:9,r:21,n:12},   lat:45.9237, lon:6.8694,  bra:"MONT_BLANC"},
-  {id:6,  name:"Avoriaz",        massif:"Alpes du Nord", alt_max:2466, km:650,  remontees:196, pistes:{v:24,b:68,r:40,n:14}, lat:46.1944, lon:6.7703,  bra:"CHABLAIS"},
-  {id:7,  name:"Courchevel",     massif:"Alpes du Nord", alt_max:3230, km:600,  remontees:170, pistes:{v:18,b:78,r:49,n:21}, lat:45.4153, lon:6.6336,  bra:"VANOISE"},
-  {id:8,  name:"Méribel",        massif:"Alpes du Nord", alt_max:2952, km:150,  remontees:60,  pistes:{v:7,b:25,r:35,n:12},  lat:45.4056, lon:6.5617,  bra:"VANOISE"},
-  {id:9,  name:"Val Thorens",    massif:"Alpes du Nord", alt_max:3230, km:600,  remontees:170, pistes:{v:20,b:89,r:69,n:22}, lat:45.2983, lon:6.5800,  bra:"VANOISE"},
-  {id:10, name:"Les Menuires",   massif:"Alpes du Nord", alt_max:3230, km:600,  remontees:170, pistes:{v:18,b:78,r:49,n:21}, lat:45.3244, lon:6.5394,  bra:"VANOISE"},
-  {id:14, name:"Megève",         massif:"Alpes du Nord", alt_max:2350, km:325,  remontees:107, pistes:{v:22,b:76,r:48,n:15}, lat:45.8573, lon:6.6144,  bra:"MONT_BLANC"},
-  {id:19, name:"Morzine",        massif:"Alpes du Nord", alt_max:2466, km:650,  remontees:196, pistes:{v:24,b:68,r:40,n:14}, lat:46.1781, lon:6.7064,  bra:"CHABLAIS"},
-  {id:28, name:"Flaine",         massif:"Alpes du Nord", alt_max:2480, km:265,  remontees:88,  pistes:{v:10,b:43,r:34,n:12}, lat:46.0172, lon:6.6808,  bra:"ARAVIS"},
-  {id:33, name:"La Clusaz",      massif:"Alpes du Nord", alt_max:2600, km:132,  remontees:56,  pistes:{v:12,b:38,r:28,n:11}, lat:45.9047, lon:6.4236,  bra:"ARAVIS"},
-  {id:72, name:"Alpe d'Huez",   massif:"Alpes du Nord", alt_max:3330, km:250,  remontees:82,  pistes:{v:8,b:34,r:41,n:11},  lat:45.0903, lon:6.0681,  bra:"GRANDE_ROUSSES"},
-  {id:73, name:"Les Deux Alpes", massif:"Alpes du Nord", alt_max:3568, km:225,  remontees:57,  pistes:{v:7,b:42,r:33,n:17},  lat:45.0114, lon:6.1208,  bra:"OISANS"},
-  {id:89, name:"Serre Chevalier",massif:"Alpes du Sud",  alt_max:2800, km:250,  remontees:71,  pistes:{v:8,b:38,r:29,n:16},  lat:44.9214, lon:6.5058,  bra:"PELVOUX"},
-  {id:93, name:"La Grave - La Meije", massif:"Alpes du Sud", alt_max:3568, km:10, remontees:3, pistes:{v:0,b:0,r:0,n:2},    lat:45.0472, lon:6.2983,  bra:"OISANS"},
-  {id:110,name:"Isola 2000",     massif:"Alpes du Sud",  alt_max:2610, km:120,  remontees:24,  pistes:{v:7,b:28,r:17,n:8},   lat:44.1858, lon:7.1681,  bra:"MERCANTOUR"},
-  {id:122,name:"Grand Tourmalet",massif:"Pyrénées",       alt_max:2500, km:100,  remontees:30,  pistes:{v:10,b:25,r:15,n:5},  lat:42.9089, lon:0.1428,  bra:"HAUTE_BIGORRE"},
-  {id:123,name:"Saint-Lary-Soulan", massif:"Pyrénées",   alt_max:2450, km:100,  remontees:32,  pistes:{v:15,b:30,r:25,n:10}, lat:42.8233, lon:0.3300,  bra:"AURE_LOURON"},
-  {id:136,name:"Ax-3-Domaines",  massif:"Pyrénées",       alt_max:2400, km:80,   remontees:23,  pistes:{v:10,b:22,r:18,n:7},  lat:42.7264, lon:1.8408,  bra:"ARIEGE_ORIENTAL"},
-  {id:139,name:"Font-Romeu-Pyrénées 2000", massif:"Pyrénées", alt_max:2213, km:45, remontees:25, pistes:{v:6,b:14,r:12,n:4}, lat:42.5089, lon:2.0583,  bra:"CERDAGNE_CANIGOU"},
-  {id:156,name:"Gérardmer",      massif:"Vosges",          alt_max:1138, km:40,   remontees:17,  pistes:{v:6,b:11,r:10,n:3},   lat:48.0722, lon:6.8769,  bra:null},
-  {id:172,name:"Métabief Mont d'Or", massif:"Jura",       alt_max:1463, km:40,   remontees:16,  pistes:{v:7,b:12,r:9,n:3},    lat:46.7692, lon:6.3333,  bra:null},
-  {id:173,name:"Les Rousses",    massif:"Jura",            alt_max:1680, km:50,   remontees:22,  pistes:{v:8,b:15,r:10,n:3},   lat:46.4742, lon:6.0481,  bra:null},
-  {id:181,name:"Le Lioran",      massif:"Massif Central",  alt_max:1855, km:60,   remontees:23,  pistes:{v:8,b:16,r:12,n:4},   lat:45.1153, lon:2.7564,  bra:null},
-  {id:182,name:"Super Besse",    massif:"Massif Central",  alt_max:1850, km:42,   remontees:18,  pistes:{v:7,b:13,r:10,n:4},   lat:45.4972, lon:2.8492,  bra:null},
+  {id:1,  name:"Val d'Isère",    massif:"Alpes du Nord", alt_min:1850, alt_max:3456, snow:290, km:300,  remontees:91,  pistes:{v:4,b:19,r:37,n:17},  lat:45.4483, lon:6.9800,  bra:"HAUTE_TARENTAISE"},
+  {id:2,  name:"Tignes",         massif:"Alpes du Nord", alt_min:2100, alt_max:3456, snow:280, km:300,  remontees:91,  pistes:{v:4,b:22,r:33,n:19},  lat:45.4694, lon:6.9073,  bra:"HAUTE_TARENTAISE"},
+  {id:3,  name:"Les Arcs",       massif:"Alpes du Nord", alt_min:1800, alt_max:3226, snow:170, km:425,  remontees:76,  pistes:{v:11,b:41,r:31,n:17}, lat:45.5742, lon:6.8422,  bra:"HAUTE_TARENTAISE"},
+  {id:4,  name:"La Plagne",      massif:"Alpes du Nord", alt_min:1970, alt_max:3250, snow:160, km:225,  remontees:77,  pistes:{v:19,b:61,r:39,n:11}, lat:45.5084, lon:6.6764,  bra:"VANOISE"},
+  {id:5,  name:"Chamonix",       massif:"Alpes du Nord", alt_min:1035, alt_max:3842, snow:120, km:170,  remontees:49,  pistes:{v:5,b:9,r:21,n:12},   lat:45.9237, lon:6.8694,  bra:"MONT_BLANC"},
+  {id:6,  name:"Avoriaz",        massif:"Alpes du Nord", alt_min:1800, alt_max:2466, snow:190, km:650,  remontees:196, pistes:{v:24,b:68,r:40,n:14}, lat:46.1944, lon:6.7703,  bra:"CHABLAIS"},
+  {id:7,  name:"Courchevel",     massif:"Alpes du Nord", alt_min:1850, alt_max:3230, snow:180, km:600,  remontees:170, pistes:{v:18,b:78,r:49,n:21}, lat:45.4153, lon:6.6336,  bra:"VANOISE"},
+  {id:8,  name:"Méribel",        massif:"Alpes du Nord", alt_min:1450, alt_max:2952, snow:160, km:150,  remontees:60,  pistes:{v:7,b:25,r:35,n:12},  lat:45.4056, lon:6.5617,  bra:"VANOISE"},
+  {id:9,  name:"Val Thorens",    massif:"Alpes du Nord", alt_min:2300, alt_max:3230, snow:250, km:600,  remontees:170, pistes:{v:20,b:89,r:69,n:22}, lat:45.2983, lon:6.5800,  bra:"VANOISE"},
+  {id:10, name:"Les Menuires",   massif:"Alpes du Nord", alt_min:1850, alt_max:3230, snow:220, km:600,  remontees:170, pistes:{v:18,b:78,r:49,n:21}, lat:45.3244, lon:6.5394,  bra:"VANOISE"},
+  {id:14, name:"Megève",         massif:"Alpes du Nord", alt_min:1113, alt_max:2350, snow:100, km:325,  remontees:107, pistes:{v:22,b:76,r:48,n:15}, lat:45.8573, lon:6.6144,  bra:"MONT_BLANC"},
+  {id:19, name:"Morzine",        massif:"Alpes du Nord", alt_min:1000, alt_max:2466, snow:130, km:650,  remontees:196, pistes:{v:24,b:68,r:40,n:14}, lat:46.1781, lon:6.7064,  bra:"CHABLAIS"},
+  {id:28, name:"Flaine",         massif:"Alpes du Nord", alt_min:1600, alt_max:2480, snow:210, km:265,  remontees:88,  pistes:{v:10,b:43,r:34,n:12}, lat:46.0172, lon:6.6808,  bra:"ARAVIS"},
+  {id:33, name:"La Clusaz",      massif:"Alpes du Nord", alt_min:1100, alt_max:2600, snow:130, km:132,  remontees:56,  pistes:{v:12,b:38,r:28,n:11}, lat:45.9047, lon:6.4236,  bra:"ARAVIS"},
+  {id:72, name:"Alpe d'Huez",   massif:"Alpes du Nord", alt_min:1860, alt_max:3330, snow:160, km:250,  remontees:82,  pistes:{v:8,b:34,r:41,n:11},  lat:45.0903, lon:6.0681,  bra:"GRANDE_ROUSSES"},
+  {id:73, name:"Les Deux Alpes", massif:"Alpes du Nord", alt_min:1650, alt_max:3568, snow:200, km:225,  remontees:57,  pistes:{v:7,b:42,r:33,n:17},  lat:45.0114, lon:6.1208,  bra:"OISANS"},
+  {id:89, name:"Serre Chevalier",massif:"Alpes du Sud",  alt_min:1350, alt_max:2800, snow:150, km:250,  remontees:71,  pistes:{v:8,b:38,r:29,n:16},  lat:44.9214, lon:6.5058,  bra:"PELVOUX"},
+  {id:93, name:"La Grave - La Meije", massif:"Alpes du Sud", alt_min:1450, alt_max:3568, snow:210, km:10, remontees:3, pistes:{v:0,b:0,r:0,n:2},    lat:45.0472, lon:6.2983,  bra:"OISANS"},
+  {id:110,name:"Isola 2000",     massif:"Alpes du Sud",  alt_min:2000, alt_max:2610, snow:170, km:120,  remontees:24,  pistes:{v:7,b:28,r:17,n:8},   lat:44.1858, lon:7.1681,  bra:"MERCANTOUR"},
+  {id:122,name:"Grand Tourmalet",massif:"Pyrénées",       alt_min:1800, alt_max:2500, snow:140, km:100,  remontees:30,  pistes:{v:10,b:25,r:15,n:5},  lat:42.9089, lon:0.1428,  bra:"HAUTE_BIGORRE"},
+  {id:123,name:"Saint-Lary-Soulan", massif:"Pyrénées",   alt_min:1680, alt_max:2450, snow:130, km:100,  remontees:32,  pistes:{v:15,b:30,r:25,n:10}, lat:42.8233, lon:0.3300,  bra:"AURE_LOURON"},
+  {id:136,name:"Ax-3-Domaines",  massif:"Pyrénées",       alt_min:1400, alt_max:2400, snow:120, km:80,   remontees:23,  pistes:{v:10,b:22,r:18,n:7},  lat:42.7264, lon:1.8408,  bra:"ARIEGE_ORIENTAL"},
+  {id:139,name:"Font-Romeu-Pyrénées 2000", massif:"Pyrénées", alt_min:1700, alt_max:2213, snow:90, km:45, remontees:25, pistes:{v:6,b:14,r:12,n:4}, lat:42.5089, lon:2.0583,  bra:"CERDAGNE_CANIGOU"},
+  {id:156,name:"Gérardmer",      massif:"Vosges",          alt_min:660,  alt_max:1138, snow:80,  km:40,   remontees:17,  pistes:{v:6,b:11,r:10,n:3},   lat:48.0722, lon:6.8769,  bra:null},
+  {id:172,name:"Métabief Mont d'Or", massif:"Jura",       alt_min:900,  alt_max:1463, snow:80,  km:40,   remontees:16,  pistes:{v:7,b:12,r:9,n:3},    lat:46.7692, lon:6.3333,  bra:null},
+  {id:173,name:"Les Rousses",    massif:"Jura",            alt_min:1120, alt_max:1680, snow:90,  km:50,   remontees:22,  pistes:{v:8,b:15,r:10,n:3},   lat:46.4742, lon:6.0481,  bra:null},
+  {id:181,name:"Le Lioran",      massif:"Massif Central",  alt_min:1160, alt_max:1855, snow:110, km:60,   remontees:23,  pistes:{v:8,b:16,r:12,n:4},   lat:45.1153, lon:2.7564,  bra:null},
+  {id:182,name:"Super Besse",    massif:"Massif Central",  alt_min:1350, alt_max:1850, snow:100, km:42,   remontees:18,  pistes:{v:7,b:13,r:10,n:4},   lat:45.4972, lon:2.8492,  bra:null},
 ];
 
 // ── Correspondance codes WMO → emoji et description ──
@@ -500,6 +597,62 @@ function getSimSnow(s) {
   return Math.max(10, avg + Math.round((s.id % 7 - 3) * 8));
 }
 
+// ── Vignettes météo/neige — mêmes données & même appel Open-Meteo que les fiches stations ──
+// Réutilisée pour la section "Mes stations favorites"
+function wmoIcoFiche(c) {
+  if (c == null) return '☁️';
+  if (c === 0) return '☀️';
+  if (c <= 3) return '🌤️';
+  if (c <= 48) return '🌫️';
+  if (c <= 57) return '🌦️';
+  if (c <= 67) return '🌧️';
+  if (c <= 77) return '❄️';
+  if (c <= 82) return '🌧️';
+  if (c <= 86) return '🌨️';
+  return '⛈️';
+}
+
+async function renderWeatherVignettes(grid, stations) {
+  if (!grid || !stations.length) return;
+
+  grid.innerHTML = stations.map(function(s){
+    return '<div class="vignette-card vig-loading" data-vid="'+s.id+'" onclick="selectStation('+s.id+');checkStation()">'
+      + '<div class="vig-icon">⏳</div>'
+      + '<div class="vig-name">⭐ '+s.name+'</div>'
+      + '<div class="vig-massif">'+s.massif+'</div>'
+      + '<div class="vig-temp">—</div>'
+      + '</div>';
+  }).join('');
+
+  // Un appel Open-Meteo par station — identique au widget des fiches stations (loadMeteo)
+  stations.forEach(function(s) {
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + s.lat + '&longitude=' + s.lon
+      + '&current=temperature_2m,weathercode,snow_depth,wind_speed_10m&timezone=Europe%2FParis';
+    fetch(url).then(function(r){ return r.json(); }).then(function(d){
+      var card = grid.querySelector('[data-vid="'+s.id+'"]');
+      if (!card || !d.current) return;
+      card.classList.remove('vig-loading');
+      var temp = Math.round(d.current.temperature_2m);
+      card.querySelector('.vig-icon').textContent = wmoIcoFiche(d.current.weathercode);
+      card.querySelector('.vig-temp').innerHTML = temp + '°';
+      var sd = d.current.snow_depth;
+      var snowCm = (sd != null && sd > 0) ? Math.round(sd * 100) : 0;
+      if (snowCm > 0) {
+        var snowBadge = document.createElement('div');
+        snowBadge.className = 'vig-snow';
+        snowBadge.textContent = '❄️ ' + snowCm + 'cm';
+        card.appendChild(snowBadge);
+      }
+    }).catch(function(){
+      var card = grid.querySelector('[data-vid="'+s.id+'"]');
+      if (!card) return;
+      card.classList.remove('vig-loading');
+      var icon = card.querySelector('.vig-icon'); if (icon) icon.textContent = '🏔';
+      var temp = card.querySelector('.vig-temp'); if (temp) temp.textContent = 'Voir →';
+    });
+  });
+}
+
 var selectedStation = null;
 
 // ── Recherche / autocomplete ──
@@ -542,6 +695,7 @@ function quickSearch(name) {
 
 // ══════════════════════════════════════════════════
 //  FONCTION PRINCIPALE — Open-Meteo (météo + enneigement)
+//  Miroir exact du widget "Météo & enneigement" des fiches stations
 // ══════════════════════════════════════════════════
 async function checkStation() {
   if (!selectedStation) {
@@ -551,96 +705,145 @@ async function checkStation() {
   if (!selectedStation) return;
   var s = selectedStation;
 
-  // Afficher le panneau en état "chargement"
   var btn = document.getElementById('checkBtn');
   btn.disabled = true;
   btn.textContent = '⏳ Chargement…';
 
-  document.getElementById('resName').textContent = s.name;
-  document.getElementById('resRegion').textContent = s.massif + ' · ' + s.alt_max + 'm · Récupération données temps réel…';
-  document.getElementById('resSnowCur').innerHTML  = '—<span class="sn-sub"> cm</span>';
-  document.getElementById('resSnowAvg').innerHTML  = '—<span class="sn-sub"> cm</span>';
-  document.getElementById('resSnowBarCur').style.width = '0%';
-  document.getElementById('resSnowBarAvg').style.width = '0%';
-  document.getElementById('resSnowDetails').textContent = '…';
-  document.getElementById('resSnowStatus').textContent  = '';
-  document.getElementById('resMeteo').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-light)">⏳ Chargement météo…</div>';
+  // État "chargement"
+  document.getElementById('meteoTitle').textContent = '❄️ Météo à ' + s.name;
+  document.getElementById('meteoNow').style.display = 'none';
+  document.getElementById('meteoLoading').style.display = 'block';
+  document.getElementById('meteoLoading').textContent = 'Chargement…';
+  document.getElementById('meteoGrid').style.display = 'none';
+  document.getElementById('snowNowVal').textContent = '—';
+  document.getElementById('snowMonthVal').textContent = '—';
+  document.getElementById('snowAnnualVal').textContent = s.snow || '—';
+  document.getElementById('snowCompareBar').style.display = 'none';
+  document.getElementById('villageVsSommetLbl').textContent = '📍 Village (' + s.alt_min + ' m) vs Sommet (' + s.alt_max + ' m)';
+  document.getElementById('villageTxt').textContent =
+    s.alt_min >= 1800 ? 'Neige garantie dès novembre — village à haute altitude.' :
+    s.alt_min >= 1200 ? 'Bonne couverture de janvier à mars en moyenne.' :
+    'Enneigement variable selon les années — vérifier avant de partir.';
+  document.getElementById('sommetTxt').textContent =
+    s.alt_max >= 3200 ? "Glacier permanent — ouverture quasi toute l'année." :
+    s.alt_max >= 2500 ? 'Neige de qualité de décembre à avril.' :
+    s.alt_max >= 2000 ? 'Bonne neige de janvier à mars.' :
+    "Conditions variables selon l'hiver.";
+  document.getElementById('snowForecastBars').innerHTML = '<div style="color:var(--text-light);font-size:.75rem">Chargement…</div>';
+  document.getElementById('snowForecastLabels').innerHTML = '';
+  document.getElementById('fiabPeriode').textContent = s.alt_max >= 3000 ? 'Déc → Avr ✓' : s.alt_max >= 2500 ? 'Jan → Mar ✓' : s.alt_max >= 2000 ? 'Jan → Fév ✓' : 'Jan uniquement';
+  var fiabEl = document.getElementById('fiabGlobale');
+  fiabEl.textContent = s.alt_max >= 2500 ? 'Excellente ●●●' : s.alt_max >= 2000 ? 'Bonne ●●○' : 'Moyenne ●○○';
+  fiabEl.style.color = s.alt_max >= 2500 ? '#2ea84e' : s.alt_max >= 2000 ? '#f0a500' : '#cc2200';
+  document.getElementById('fiabAltitude').textContent = s.alt_min + ' m ' + (s.alt_min >= 1500 ? '✓' : '⚠️');
+  document.getElementById('fiabPic').textContent = (s.snow || '—') + ' cm moy.';
+
+  document.getElementById('resFicheLink').href = 'stations/' + slugify(s.name) + '.html';
+  document.getElementById('resFicheLinkLabel').textContent = 'Voir la fiche complète de ' + s.name + ' →';
+  document.getElementById('resBookingLink').href = bookingUrl(s.name, 'enneigement');
 
   document.getElementById('resultPanel').classList.add('show');
   document.getElementById('introState').style.display = 'none';
   document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+  // ── Même appel Open-Meteo, mêmes paramètres que le widget des fiches stations (loadMeteo) ──
+  var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + s.lat + '&longitude=' + s.lon
+    + '&current=temperature_2m,weathercode,snow_depth,wind_speed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,snowfall_sum&timezone=Europe%2FParis&forecast_days=5';
+  var DAY_LBL = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+
   try {
-    // ── 1. Open-Meteo — météo 5 jours ──
-    var omParams = new URLSearchParams({
-      latitude: s.lat,
-      longitude: s.lon,
-      current: 'temperature_2m,wind_speed_10m,weather_code',
-      daily: 'weather_code,temperature_2m_max,temperature_2m_min,snowfall_sum',
-      wind_speed_unit: 'kmh',
-      timezone: 'Europe/Paris',
-      forecast_days: 5
-    });
-    var omResp = await fetch('https://api.open-meteo.com/v1/forecast?' + omParams.toString());
-    if (!omResp.ok) throw new Error('Open-Meteo HTTP ' + omResp.status);
-    var data = await omResp.json();
-    var daily = data.daily;
-    var futureSnow4d = (daily.snowfall_sum[1]||0)+(daily.snowfall_sum[2]||0)+(daily.snowfall_sum[3]||0)+(daily.snowfall_sum[4]||0);
+    var resp = await fetch(url);
+    var d = await resp.json();
+    document.getElementById('meteoLoading').style.display = 'none';
 
-    // Météo 5 jours
-    var WMO_ICON_L = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',56:'🌨️',57:'🌨️',61:'🌧️',63:'🌧️',65:'🌧️',66:'🌨️',67:'🌨️',71:'🌨️',73:'❄️',75:'❄️',77:'❄️',80:'🌦️',81:'🌧️',82:'🌧️',85:'🌨️',86:'❄️',95:'⛈️',96:'⛈️',99:'⛈️'};
-    var WMO_DESC_L = {0:'Grand beau',1:'Peu nuageux',2:'Voilé',3:'Couvert',45:'Brouillard',48:'Brouillard givrant',51:'Bruine',53:'Bruine',55:'Bruine forte',61:'Pluie',63:'Pluie',65:'Pluie forte',71:'Neige légère',73:'Neige ❄️',75:'Neige forte ❄️',80:'Averses',81:'Averses',82:'Averses fortes',85:'Averses neige',86:'Averses neige ❄️',95:'Orage',96:'Orage + grêle',99:'Orage violent'};
-    var meteoHtml = '';
-    for (var i = 0; i < 5; i++) {
-      var dayLabel = i===0 ? 'Auj.' : i===1 ? 'Dem.' : new Date(daily.time[i]).toLocaleDateString('fr-FR',{weekday:'short'}).replace('.','');
-      var wc   = daily.weather_code[i] || 0;
-      var tMax = Math.round(daily.temperature_2m_max[i] || 0);
-      var tMin = Math.round(daily.temperature_2m_min[i] || 0);
-      var snow = Math.round(daily.snowfall_sum[i] || 0);
-      meteoHtml += '<div class="md">'
-        + '<div class="md-name">'+dayLabel+'</div>'
-        + '<div class="md-icon">'+(WMO_ICON_L[wc]||'🌤️')+'</div>'
-        + '<div class="md-temp">'+tMax+'° / '+tMin+'°</div>'
-        + '<div class="md-desc">'+(WMO_DESC_L[wc]||'')+(snow>0?'<br><span style="color:#1a5a8a;font-weight:700">❄️ '+snow+'cm</span>':'')+'</div>'
-        + '</div>';
-    }
-    document.getElementById('resMeteo').innerHTML = meteoHtml;
+    if (d.current) {
+      var t = Math.round(d.current.temperature_2m);
+      document.getElementById('meteoNowTemp').textContent = t + '°';
+      document.getElementById('meteoNowIco').textContent = wmoIcoFiche(d.current.weathercode);
+      var sd = d.current.snow_depth;
+      var sub = '';
+      if (sd != null && sd > 0) sub = 'Neige au sol : ' + Math.round(sd * 100) + ' cm';
+      else if (d.current.wind_speed_10m != null) sub = 'Vent ' + Math.round(d.current.wind_speed_10m) + ' km/h';
+      document.getElementById('meteoNowSnow').textContent = sub;
+      document.getElementById('meteoNow').style.display = 'flex';
 
-    // ── 2. Estimation enneigement — basée sur Open-Meteo (chutes récentes + prévisions) ──
-    var botSnow = Math.round((daily.snowfall_sum[0]||0) * 5); // estimation à partir des chutes du jour
-    var futureRounded = Math.round(futureSnow4d);
+      // Enneigement — valeurs comparatives (même calcul que les fiches stations)
+      var snowCm = (sd != null && sd > 0) ? Math.round(sd * 100) : 0;
+      document.getElementById('snowNowVal').textContent = snowCm;
 
-    document.getElementById('resRegion').textContent = s.massif + ' · ' + s.alt_max + 'm · Open-Meteo';
-    document.getElementById('resSnowCur').innerHTML = botSnow + '<span class="sn-sub"> cm</span>';
-    document.getElementById('resSnowAvg').innerHTML = futureRounded + '<span class="sn-sub"> cm</span>';
-    document.getElementById('resSnowBarCur').style.width = Math.min(100, botSnow/280*100)+'%';
-    document.getElementById('resSnowBarAvg').style.width = Math.min(100, futureRounded/60*100)+'%';
-    document.getElementById('resSnowDetails').textContent = botSnow > 0 ? 'Chutes des dernières 24h' : 'Pas de chute récente';
+      var monthFactors = [0,0.90,1.00,0.80,0.45,0.10,0,0,0,0,0.05,0.20,0.50];
+      var altMax = s.alt_max;
+      var altBonus = altMax >= 3000 ? 1.8 : altMax >= 2500 ? 1.5 : altMax >= 2000 ? 1.2 : altMax >= 1500 ? 0.9 : 0.6;
+      var curMonth = new Date().getMonth() + 1;
+      var factor = (monthFactors[curMonth] || 0) * altBonus;
+      var snowAnnual = s.snow || 100;
+      var snowMonthTypical = Math.round(snowAnnual * factor);
+      document.getElementById('snowMonthVal').textContent = snowMonthTypical;
+      document.getElementById('snowAnnualVal').textContent = snowAnnual;
 
-    var statusEl = document.getElementById('resSnowStatus');
-    var isWinterMonth = [10,11,0,1,2,3].includes(new Date().getMonth());
-    if (!isWinterMonth) {
-      statusEl.className = 'snow-status-badge sst-avg';
-      statusEl.textContent = '📅 Hors saison';
-    } else if (botSnow > 15 || futureRounded > 15) {
-      statusEl.className = 'snow-status-badge sst-good';
-      statusEl.textContent = '✅ Bonnes conditions de neige';
-    } else if (botSnow > 0 || futureRounded > 0) {
-      statusEl.className = 'snow-status-badge sst-avg';
-      statusEl.textContent = '⚡ Conditions correctes';
-    } else {
-      statusEl.className = 'snow-status-badge sst-avg';
-      statusEl.textContent = 'ℹ️ Pas de chute récente signalée';
+      var barWrap = document.getElementById('snowCompareBar');
+      var barFill = document.getElementById('snowBarFill');
+      var barLabel = document.getElementById('snowCompareLabel');
+      if (snowMonthTypical > 0) {
+        barWrap.style.display = 'block';
+        var pct = Math.min(150, Math.round((snowCm / snowMonthTypical) * 100));
+        barFill.style.width = Math.min(100, pct) + '%';
+        barFill.style.background = pct >= 90 ? '#2ea84e' : pct >= 60 ? '#f0a500' : '#cc2200';
+        barLabel.textContent = pct >= 110 ? 'Au-dessus de la normale (' + pct + '%)' : pct >= 80 ? 'Dans la normale (' + pct + '%)' : 'En dessous de la normale (' + pct + '%)';
+      } else {
+        barWrap.style.display = 'block';
+        barFill.style.width = '0%';
+        barLabel.textContent = 'Hors saison — enneigement non significatif';
+      }
     }
 
-    // Lien fiche station
-    document.getElementById('resFicheLink').href = 'stations/'+slugify(s.name)+'.html';
-    document.getElementById('resFicheLinkLabel').textContent = 'Voir la fiche complète de '+s.name+' →';
+    if (d.daily && d.daily.time) {
+      var g = document.getElementById('meteoGrid');
+      var h = '';
+      for (var i = 0; i < d.daily.time.length; i++) {
+        var dt = new Date(d.daily.time[i] + 'T12:00:00');
+        var lbl = i === 0 ? 'Auj.' : DAY_LBL[dt.getDay()];
+        var tmax = Math.round(d.daily.temperature_2m_max[i]);
+        var tmin = Math.round(d.daily.temperature_2m_min[i]);
+        var sf = Math.round(d.daily.snowfall_sum[i] || 0);
+        h += '<div class="meteo-day">'
+          + '<div class="meteo-day-lbl">' + lbl + '</div>'
+          + '<div class="meteo-day-ico">' + wmoIcoFiche(d.daily.weathercode[i]) + '</div>'
+          + '<div class="meteo-day-t">' + tmax + '° / ' + tmin + '°</div>'
+          + (sf > 0 ? '<div class="meteo-day-snow">❄ ' + sf + 'cm</div>' : '')
+          + '</div>';
+      }
+      g.innerHTML = h;
+      g.style.display = 'grid';
 
-  } catch(err) {
+      // Barres de chutes prévues — 5 jours
+      var barsEl = document.getElementById('snowForecastBars');
+      var lblsEl = document.getElementById('snowForecastLabels');
+      if (barsEl && lblsEl && d.daily.snowfall_sum) {
+        var sfArr = d.daily.snowfall_sum.map(function(v){ return Math.round(v || 0); });
+        var sfMax = Math.max(1, Math.max.apply(null, sfArr));
+        var bH = '', bL = '';
+        for (var j = 0; j < sfArr.length; j++) {
+          var dtj = new Date(d.daily.time[j] + 'T12:00:00');
+          var lblj = j === 0 ? 'Auj.' : DAY_LBL[dtj.getDay()];
+          var pctj = Math.round((sfArr[j] / sfMax) * 100);
+          var colorj = sfArr[j] > 0 ? '#3a7db8' : '#e0eaf5';
+          bH += '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">'
+            + '<div style="font-size:.68rem;font-weight:700;color:#1a5a8a">' + (sfArr[j] > 0 ? sfArr[j] + 'cm' : '') + '</div>'
+            + '<div style="width:100%;background:' + colorj + ';border-radius:4px 4px 0 0;height:' + Math.max(4, pctj * 0.55) + 'px;transition:height .3s"></div>'
+            + '</div>';
+          bL += '<div style="flex:1;text-align:center;font-size:.65rem;color:var(--text-light);font-weight:600">' + lblj + '</div>';
+        }
+        barsEl.style.cssText = 'display:flex;gap:6px;align-items:flex-end;height:80px;padding-bottom:0';
+        barsEl.innerHTML = bH;
+        lblsEl.style.cssText = 'display:flex;gap:6px;margin-top:4px';
+        lblsEl.innerHTML = bL;
+      }
+    }
+  } catch (err) {
     console.error('Erreur API :', err);
-    document.getElementById('resRegion').textContent = s.massif+' · ⚠️ Erreur de chargement';
-    document.getElementById('resMeteo').innerHTML = '<div style="padding:12px;color:var(--text-light);font-size:.85rem">Impossible de charger la météo. Réessayez dans quelques instants.</div>';
+    document.getElementById('meteoLoading').style.display = 'block';
+    document.getElementById('meteoLoading').textContent = 'Météo momentanément indisponible';
   }
 
   btn.disabled = false;
@@ -673,16 +876,7 @@ function loadFavorites() {
     });
     if (!found.length) { favSection.style.display='none'; return; }
     favSection.style.display = 'block';
-    favList.innerHTML = found.map(function(s) {
-      return '<button onclick="selectStation('+s.id+');checkStation()" style="'
-        + 'display:flex;align-items:center;gap:7px;padding:8px 14px;'
-        + 'background:var(--blue-light);border:1.5px solid var(--blue-mid);'
-        + 'border-radius:20px;cursor:pointer;font-family:\'DM Sans\',sans-serif;'
-        + 'font-size:.84rem;font-weight:600;color:var(--blue-dark);transition:background .15s"'
-        + ' onmouseover="this.style.background=\'var(--blue-mid)\';this.style.color=\'white\'"'
-        + ' onmouseout="this.style.background=\'var(--blue-light)\';this.style.color=\'var(--blue-dark)\'">'
-        + '⭐ '+s.name+'</button>';
-    }).join('');
+    renderWeatherVignettes(favList, found);
   } catch(e) { favSection.style.display='none'; }
 }
 loadFavorites();
