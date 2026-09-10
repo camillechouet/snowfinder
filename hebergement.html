@@ -341,28 +341,44 @@ function toggleCompareStation(id){
 @media(max-width:900px){#navLinks{display:none!important}}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
 </style>
-<!-- BANDE PREUVE SOCIALE -->
-<div style="background:var(--wood-pale);border-top:1px solid var(--wood-light);border-bottom:1px solid var(--wood-light);padding:12px 24px">
-  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap">
-    <div style="display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--text-mid)">
-      <span style="color:#f5c518;letter-spacing:1px">★★★★★</span>
-      <span><strong style="color:var(--text)">4,9/5</strong> · Des milliers d'utilisateurs</span>
-    </div>
-    <div style="width:1px;height:18px;background:var(--border);flex-shrink:0"></div>
-    <div style="display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--text-mid)">
-      <span>🏔️</span><span><strong style="color:var(--text)">+ de 200 stations</strong> référencées</span>
-    </div>
-    <div style="width:1px;height:18px;background:var(--border);flex-shrink:0"></div>
-    <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--text-mid)">
-      <span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>
-      <span>Météo & enneigement <strong style="color:var(--green)">en direct</strong></span>
-    </div>
-    <div style="width:1px;height:18px;background:var(--border);flex-shrink:0"></div>
-    <div style="display:flex;align-items:center;gap:7px">
-      <span style="background:#003580;color:white;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:3px">Booking</span>
-      <span style="background:#f26024;color:white;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:3px">Expedia</span>
-    </div>
+<!-- HÉBERGEMENT CTA — identique à index.html -->
+<div style="max-width:860px;margin:16px auto 0;padding:0 20px">
+  <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:12px;text-align:center">🏡 Trouver un hébergement</div>
+  <div style="border-radius:16px;overflow:hidden;box-shadow:0 8px 28px rgba(13,34,64,.14)">
+    <!-- BOOKING -->
+    <a href="https://www.tkqlhce.com/click-101709262-15734710?sid=accueil&url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.fr.html%3Fss%3Dalpes%2Bski%2Bfrance%26nflt%3Dreview_score%253D80" target="_blank" rel="noopener sponsored"
+       style="display:block;text-decoration:none;overflow:hidden;position:relative"
+       onmouseover="this.querySelector('img').style.transform='scale(1.05)'" onmouseout="this.querySelector('img').style.transform='scale(1)'">
+      <div style="position:relative;overflow:hidden;height:148px">
+        <img src="/img/chalet-booking.jpg" alt="Réserver sur Booking" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=600&q=80'">
+        <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,35,110,.78) 0%,rgba(0,35,110,.38) 55%,transparent 100%);display:flex;align-items:center;padding:0 22px;gap:14px">
+          <span style="font-size:2rem;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))">🏨</span>
+          <div>
+            <div style="color:white;font-weight:800;font-size:1.05rem;text-shadow:0 1px 5px rgba(0,0,0,.6)">Réserver sur Booking.com</div>
+            <div style="color:rgba(255,255,255,.82);font-size:.75rem;margin-top:2px">Hôtels · Chalets · Appartements</div>
+          </div>
+          <div style="margin-left:auto;background:white;color:#003d96;font-size:.82rem;font-weight:800;padding:8px 16px;border-radius:22px;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.25)">Voir les offres →</div>
+        </div>
+      </div>
+    </a>
+    <!-- EXPEDIA -->
+    <a href="https://www.jdoqocy.com/click-101709262-13904689?sid=accueil&url=https%3A%2F%2Fwww.expedia.fr%2Fgo%2Fhotel%2Fsearch%2FDestination%2F%3FCityName%3Dalpes%2520ski%2520france%26City%3Dalpes%2520ski%2520france%26SortBy%3Ddistance%26NumRoom%3D1%26NumAdult1%3D1" target="_blank" rel="noopener sponsored"
+       style="display:block;text-decoration:none;overflow:hidden;position:relative;border-top:2px solid white"
+       onmouseover="this.querySelector('img').style.transform='scale(1.05)'" onmouseout="this.querySelector('img').style.transform='scale(1)'">
+      <div style="position:relative;overflow:hidden;height:148px">
+        <img src="/img/chalet-expedia.jpg" alt="Réserver sur Expedia" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease" onerror="this.src='https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80'">
+        <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(140,95,0,.8) 0%,rgba(140,95,0,.38) 55%,transparent 100%);display:flex;align-items:center;padding:0 22px;gap:14px">
+          <span style="font-size:1.9rem;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))">✈️</span>
+          <div>
+            <div style="color:white;font-weight:800;font-size:1rem;text-shadow:0 1px 5px rgba(0,0,0,.6)">Vol + Hôtel sur Expedia</div>
+            <div style="color:rgba(255,255,255,.82);font-size:.73rem;margin-top:2px">Packs ski · Économisez jusqu'à 30%</div>
+          </div>
+          <div style="margin-left:auto;background:#ffcc00;color:#1a2060;font-size:.8rem;font-weight:800;padding:8px 16px;border-radius:22px;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.2)">Réserver →</div>
+        </div>
+      </div>
+    </a>
   </div>
+  <div style="text-align:center;font-size:.65rem;color:var(--text-light);margin-top:8px">Liens affiliés — prix identiques, aucune commission prélevée sur vous</div>
 </div>
 
 
