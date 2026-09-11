@@ -1012,15 +1012,15 @@ document.getElementById("eteOverlay").addEventListener("click", e => {
 
 <!-- ══ TOP BAR APP (3 zones, se cache au scroll vers le bas) ══ -->
 <style>
-.sf-topbar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--wood-light);display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 14px;z-index:600;transition:transform .28s ease;overflow:visible;gap:8px;}
+.sf-topbar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--wood-light);display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 14px 0 6px;z-index:600;transition:transform .28s ease;overflow:visible;gap:8px;}
 .sf-topbar.sf-hide{transform:translateY(-100%);}
 .sf-topbar-logo{display:flex;align-items:center;gap:7px;text-decoration:none;flex-shrink:0;justify-self:start;min-width:0;}
-.sf-topbar-logo img{width:58px;height:58px;border-radius:12px;object-fit:contain;flex-shrink:0}
+.sf-topbar-logo img{width:66px;height:66px;border-radius:12px;object-fit:contain;flex-shrink:0}
 .sf-topbar-wordtext{display:flex;flex-direction:column;justify-content:center;line-height:1.05;min-width:0;overflow:hidden}
-.sf-topbar-title{font-family:"DM Serif Display",serif;font-size:1.05rem;font-weight:700;white-space:nowrap}
+.sf-topbar-title{font-family:"DM Serif Display",serif;font-size:.95rem;font-weight:700;white-space:nowrap}
 .sf-topbar-title .sf-dark{color:var(--blue-dark)}
 .sf-topbar-title .sf-light{color:var(--blue-mid)}
-.sf-topbar-slogan{font-size:.56rem;letter-spacing:.05em;color:var(--blue-dark);opacity:.7;white-space:nowrap;text-transform:uppercase;margin-top:1px}
+.sf-topbar-slogan{font-size:.5rem;letter-spacing:.03em;color:var(--blue-dark);opacity:.7;white-space:nowrap;text-transform:uppercase;margin-top:1px}
 .sf-topbar-app{display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--blue-light),#eaf4ff);border:1px solid var(--blue-mid);border-radius:16px;padding:5px 12px;font-size:.72rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18);justify-self:center;}
 .sf-topbar-right{display:flex;align-items:center;justify-self:end;flex-shrink:0;}
 .sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
