@@ -1012,24 +1012,27 @@ document.getElementById("eteOverlay").addEventListener("click", e => {
 
 <!-- ══ TOP BAR APP (3 zones, se cache au scroll vers le bas) ══ -->
 <style>
-.sf-topbar{position:fixed;top:0;left:0;right:0;height:58px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:600;transition:transform .28s ease;overflow:visible;}
+.sf-topbar{position:fixed;top:0;left:0;right:0;height:58px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--wood-light);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 14px;z-index:600;transition:transform .28s ease;overflow:visible;gap:8px;}
 .sf-topbar.sf-hide{transform:translateY(-100%);}
-.sf-topbar-logo{display:flex;align-items:center;gap:7px;text-decoration:none;flex-shrink:0}
+.sf-topbar-logo{display:flex;align-items:center;gap:7px;text-decoration:none;flex-shrink:0;justify-self:start;min-width:0;}
 .sf-topbar-logo img{width:50px;height:50px;border-radius:12px;object-fit:contain;box-shadow:0 4px 12px rgba(0,0,0,.18);background:white;flex-shrink:0}
-.sf-topbar-logo span{font-family:"DM Serif Display",serif;font-size:1.05rem;color:var(--blue-dark);white-space:nowrap}
-.sf-topbar-app{display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--blue-light),#eaf4ff);border:1px solid var(--blue-mid);border-radius:16px;padding:5px 12px;font-size:.72rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18)}
+.sf-topbar-wordmark{height:30px;width:auto;object-fit:contain;flex-shrink:1;min-width:0;max-width:150px}
+.sf-topbar-app{display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--blue-light),#eaf4ff);border:1px solid var(--blue-mid);border-radius:16px;padding:5px 12px;font-size:.72rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18);justify-self:center;}
+.sf-topbar-right{display:flex;align-items:center;justify-self:end;flex-shrink:0;}
 .sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
 .sf-topbar-fav:active{background:var(--wood-pale)}
-@media(max-width:480px){.sf-topbar-logo span{display:none}.sf-topbar-app{font-size:.68rem;padding:5px 9px}}
+@media(max-width:480px){.sf-topbar-wordmark{display:none}.sf-topbar-app{font-size:.68rem;padding:5px 9px}}
 </style>
 <div class="sf-topbar" id="sfTopbar">
   <a href="index.html" class="sf-topbar-logo">
     <img src="logo.png" alt="SnowFinder">
-    <span>SnowFinder</span>
+    <img src="logo-text.png" alt="SnowFinder" class="sf-topbar-wordmark">
   </a>
   <a href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" class="sf-topbar-app">📲 L'app est dispo !</a>
-  <a href="comparateur.html" class="sf-topbar-fav" style="margin-right:2px">⚖️ <span id="sfCompareCount">0</span></a>
-  <a href="favoris.html" class="sf-topbar-fav">⭐ <span id="sfFavCount">0</span></a>
+  <div class="sf-topbar-right">
+    <a href="comparateur.html" class="sf-topbar-fav" style="margin-right:2px">⚖️ <span id="sfCompareCount">0</span></a>
+    <a href="favoris.html" class="sf-topbar-fav">⭐ <span id="sfFavCount">0</span></a>
+  </div>
 </div>
 <script>
 // Masquer la top bar au scroll vers le bas, réafficher vers le haut
