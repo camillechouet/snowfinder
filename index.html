@@ -1006,17 +1006,17 @@ document.getElementById("eteOverlay").addEventListener("click", e => {
 });
 </script>
 
-<div class="page-wrap" style="padding-top:58px;padding-bottom:66px;margin-left:0!important">
+<div class="page-wrap" style="padding-top:64px;padding-bottom:66px;margin-left:0!important">
 
 
 
 <!-- ══ TOP BAR APP (3 zones, se cache au scroll vers le bas) ══ -->
 <style>
-.sf-topbar{position:fixed;top:0;left:0;right:0;height:58px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--wood-light);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 14px;z-index:600;transition:transform .28s ease;overflow:visible;gap:8px;}
+.sf-topbar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--wood-light);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 14px;z-index:600;transition:transform .28s ease;overflow:visible;gap:8px;}
 .sf-topbar.sf-hide{transform:translateY(-100%);}
 .sf-topbar-logo{display:flex;align-items:center;gap:7px;text-decoration:none;flex-shrink:0;justify-self:start;min-width:0;}
 .sf-topbar-logo img{width:50px;height:50px;border-radius:12px;object-fit:contain;box-shadow:0 4px 12px rgba(0,0,0,.18);background:white;flex-shrink:0}
-.sf-topbar-wordmark{height:30px;width:auto;object-fit:contain;flex-shrink:1;min-width:0;max-width:150px}
+.sf-topbar-wordmark{height:auto;width:auto;max-height:46px;max-width:170px;flex-shrink:1;min-width:0;}
 .sf-topbar-app{display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--blue-light),#eaf4ff);border:1px solid var(--blue-mid);border-radius:16px;padding:5px 12px;font-size:.72rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18);justify-self:center;}
 .sf-topbar-right{display:flex;align-items:center;justify-self:end;flex-shrink:0;}
 .sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
