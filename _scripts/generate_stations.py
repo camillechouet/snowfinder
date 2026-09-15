@@ -99,6 +99,68 @@ EQ  = {"snowpark":"Snowpark","garderie":"Garderie","restaurants":"Restaurants","
 # les fiches n'ont pas été auditées une à une, contenir le chiffre du
 # domaine entier — c'est précisément ce que ce dictionnaire corrige).
 # ══════════════════════════════════════════════════════════════════
+# Stations dont le chiffre "km de pistes" correspond à un domaine partagé avec
+# une ou plusieurs autres stations déjà fichées sur le site. On conserve le chiffre
+# officiel du domaine (c'est ce à quoi le forfait donne réellement accès), mais on
+# l'explicite au visiteur pour qu'il ne croie pas à des domaines qui s'additionnent.
+DOMAINE_PARTAGE = {
+    "Val Thorens": "Val Thorens \u2013 Orelle",
+    "Orelle": "Val Thorens \u2013 Orelle",
+    "La Mongie": "Grand Tourmalet (Bar\u00e8ges \u2013 La Mongie)",
+    "Bar\u00e8ges": "Grand Tourmalet (Bar\u00e8ges \u2013 La Mongie)",
+    "Courchevel": "Vall\u00e9e de Courchevel (Courchevel \u2013 La Tania)",
+    "La Tania": "Vall\u00e9e de Courchevel (Courchevel \u2013 La Tania)",
+    "M\u00e9ribel": "Vall\u00e9e de M\u00e9ribel (M\u00e9ribel \u2013 Brides-les-Bains)",
+    "Brides-les-Bains": "Vall\u00e9e de M\u00e9ribel (M\u00e9ribel \u2013 Brides-les-Bains)",
+    "Morzine": "Morzine \u2013 Les Gets",
+    "Les Gets": "Morzine \u2013 Les Gets",
+    "Alpe d'Huez": "Alpe d'Huez Grand Domaine",
+    "Auris-en-Oisans": "Alpe d'Huez Grand Domaine",
+    "Les Menuires": "Les Menuires \u2013 Saint-Martin-de-Belleville",
+    "Saint-Martin-de-Belleville": "Les Menuires \u2013 Saint-Martin-de-Belleville",
+    "La Clusaz": "La Clusaz \u2013 Manigod",
+    "Manigod": "La Clusaz \u2013 Manigod",
+    "Ch\u00e2tel": "Espace Libert\u00e9 (Ch\u00e2tel \u2013 La Chapelle d'Abondance \u2013 Torgon \u2013 Morgins)",
+    "La Chapelle d'Abondance": "Espace Libert\u00e9 (Ch\u00e2tel \u2013 La Chapelle d'Abondance \u2013 Torgon \u2013 Morgins)",
+    "Vars": "For\u00eat Blanche (Vars \u2013 Risoul)",
+    "Risoul": "For\u00eat Blanche (Vars \u2013 Risoul)",
+    "Superd\u00e9voluy": "D\u00e9voluy (Superd\u00e9voluy \u2013 La Joue du Loup)",
+    "La Joue du Loup": "D\u00e9voluy (Superd\u00e9voluy \u2013 La Joue du Loup)",
+    "La Rosi\u00e8re": "Espace San Bernardo (La Rosi\u00e8re \u2013 La Thuile)",
+    "La Thuile": "Espace San Bernardo (La Rosi\u00e8re \u2013 La Thuile)",
+    "Les Houches": "Les Houches \u2013 Saint-Gervais",
+    "Saint-Gervais": "Les Houches \u2013 Saint-Gervais",
+    "Les Contamines-Montjoie": "Les Contamines \u2013 Hauteluce",
+    "Hauteluce": "Les Saisies \u2013 Hauteluce",
+    "Les Saisies": "Les Saisies \u2013 Hauteluce",
+    "Les Carroz": "Grand Massif Villages (Les Carroz \u2013 Morillon \u2013 Samo\u00ebns \u2013 Sixt)",
+    "Samo\u00ebns": "Grand Massif Villages (Les Carroz \u2013 Morillon \u2013 Samo\u00ebns \u2013 Sixt)",
+    "Morillon": "Grand Massif Villages (Les Carroz \u2013 Morillon \u2013 Samo\u00ebns \u2013 Sixt)",
+    "Sixt-Fer-\u00e0-Cheval": "Grand Massif Villages (Les Carroz \u2013 Morillon \u2013 Samo\u00ebns \u2013 Sixt)",
+    "Les Arcs": "Les Arcs \u2013 Peisey-Vallandry",
+    "Peisey-Vallandry": "Les Arcs \u2013 Peisey-Vallandry",
+    "La Plagne": "Domaine de La Plagne",
+    "Montchavin-Les Coches": "Domaine de La Plagne",
+    "La Toussuire": "Les Sybelles",
+    "Le Corbier": "Les Sybelles",
+    "Saint-Sorlin-d'Arves": "Les Sybelles",
+    "Saint-Jean-d'Arves": "Les Sybelles",
+    "Les Botti\u00e8res": "Les Sybelles",
+    "Saint-Colomban-des-Villards": "Les Sybelles",
+    "Combloux": "Portes du Mont-Blanc (Combloux \u2013 Meg\u00e8ve Jaillet \u2013 La Giettaz \u2013 Cordon)",
+    "La Giettaz": "Portes du Mont-Blanc (Combloux \u2013 Meg\u00e8ve Jaillet \u2013 La Giettaz \u2013 Cordon)",
+    "Montriond": "Avoriaz \u2013 Montriond",
+    "Avoriaz": "Avoriaz \u2013 Montriond",
+    "Flumet": "Val d'Arly (Flumet \u2013 Notre-Dame-de-Bellecombe \u2013 Praz-sur-Arly \u2013 Crest-Voland)",
+    "Notre-Dame-de-Bellecombe": "Val d'Arly (Flumet \u2013 Notre-Dame-de-Bellecombe \u2013 Praz-sur-Arly \u2013 Crest-Voland)",
+    "Praz-sur-Arly": "Val d'Arly (Flumet \u2013 Notre-Dame-de-Bellecombe \u2013 Praz-sur-Arly \u2013 Crest-Voland)",
+    "Crest-Voland": "Val d'Arly (Flumet \u2013 Notre-Dame-de-Bellecombe \u2013 Praz-sur-Arly \u2013 Crest-Voland)",
+    "Pra-Loup": "Espace Lumi\u00e8re (Pra-Loup \u2013 Val d'Allos)",
+    "Val d'Allos": "Espace Lumi\u00e8re (Pra-Loup \u2013 Val d'Allos)",
+    "Villard-de-Lans": "Villard-de-Lans \u2013 Corren\u00e7on-en-Vercors",
+    "Corren\u00e7on-en-Vercors": "Villard-de-Lans \u2013 Corren\u00e7on-en-Vercors",
+}
+
 DOMAINES = {
     "portes-du-soleil": {
         "name": "Les Portes du Soleil", "massif": "Alpes du Nord",
@@ -106,9 +168,9 @@ DOMAINES = {
         "stations": ["Avoriaz","Morzine","Montriond","Les Gets","Saint-Jean-d'Aulps","Abondance","La Chapelle d'Abondance","Châtel"],
         "km_propre": {"Avoriaz":75,"Morzine":50,"Les Gets":120,"Châtel":85,
                        "Montriond":15,"Saint-Jean-d'Aulps":40,"Abondance":25,"La Chapelle d'Abondance":40},
-        "remontees_propre": {"Avoriaz":35},
+        "remontees_propre": {"Avoriaz":34},
         "alt_max_propre": {"Avoriaz":2200},
-        "km_total": 600, "remontees_total": 197, "forfait_domaine": 58,
+        "km_total": 600, "remontees_total": 208, "forfait_domaine": 73,
         "alt_min": 930, "alt_max": 2466,
         "pistes": {"v":80,"b":173,"r":103,"n":44},
         "short": "Portes du Soleil",
@@ -117,8 +179,8 @@ DOMAINES = {
     "3-vallees": {
         "name": "Les 3 Vallées", "massif": "Alpes du Nord", "pays": ["France"],
         "stations": ["Courchevel","La Tania","Méribel","Brides-les-Bains","Saint-Martin-de-Belleville","Les Menuires","Val Thorens","Orelle"],
-        "km_propre": {"Val Thorens":150,"Les Menuires":160,"Méribel":160,"Courchevel":150,"Saint-Martin-de-Belleville":40,"La Tania":25,"Orelle":35,"Brides-les-Bains":10},
-        "km_total": 600, "remontees_total": 170, "forfait_domaine": 82,
+        "km_propre": {"Val Thorens":150,"Les Menuires":160,"Méribel":150,"Courchevel":150,"Saint-Martin-de-Belleville":40,"La Tania":25,"Orelle":35,"Brides-les-Bains":10},
+        "km_total": 600, "remontees_total": 156, "forfait_domaine": 84,
         "alt_min": 1100, "alt_max": 3230,
         "pistes": {"v":55,"b":178,"r":113,"n":54},
         "short": "Les 3 Vallées",
@@ -128,7 +190,7 @@ DOMAINES = {
         "name": "Tignes – Val d'Isère (Espace Killy)", "massif": "Alpes du Nord", "pays": ["France"],
         "stations": ["Val d'Isère","Tignes"],
         "km_propre": {"Val d'Isère":150,"Tignes":150},
-        "km_total": 300, "remontees_total": 91, "forfait_domaine": 75,
+        "km_total": 300, "remontees_total": 71, "forfait_domaine": 75,
         "alt_min": 1550, "alt_max": 3456,
         "pistes": {"v":8,"b":41,"r":70,"n":36},
         "short": "Tignes – Val d'Isère",
@@ -138,7 +200,7 @@ DOMAINES = {
         "name": "Paradiski", "massif": "Alpes du Nord", "pays": ["France"],
         "stations": ["La Plagne","Les Arcs","Peisey-Vallandry","Montchavin-Les Coches"],
         "km_propre": {"La Plagne":225,"Les Arcs":200,"Peisey-Vallandry":60,"Montchavin-Les Coches":35},
-        "km_total": 425, "remontees_total": 160, "forfait_domaine": 68,
+        "km_total": 425, "remontees_total": 129, "forfait_domaine": 78,
         "alt_min": 1200, "alt_max": 3250,
         "pistes": {"v":30,"b":102,"r":62,"n":28},
         "short": "Paradiski",
@@ -147,8 +209,8 @@ DOMAINES = {
     "grand-massif": {
         "name": "Le Grand Massif", "massif": "Alpes du Nord", "pays": ["France"],
         "stations": ["Flaine","Les Carroz","Morillon","Samoëns","Sixt-Fer-à-Cheval"],
-        "km_propre": {"Flaine":145,"Samoëns":40,"Les Carroz":45,"Morillon":35,"Sixt-Fer-à-Cheval":15},
-        "km_total": 265, "remontees_total": 62, "forfait_domaine": 51,
+        "km_propre": {"Flaine":146,"Samoëns":40,"Les Carroz":45,"Morillon":35,"Sixt-Fer-à-Cheval":15},
+        "km_total": 265, "remontees_total": 62, "forfait_domaine": 63,
         "alt_min": 700, "alt_max": 2500,
         "pistes": {"v":29,"b":111,"r":80,"n":31},
         "short": "Grand Massif",
@@ -158,7 +220,7 @@ DOMAINES = {
         "name": "Les Sybelles", "massif": "Alpes du Nord", "pays": ["France"],
         "stations": ["La Toussuire","Le Corbier","Saint-Sorlin-d'Arves","Saint-Jean-d'Arves","Les Bottières","Saint-Colomban-des-Villards"],
         "km_propre": {},
-        "km_total": 310, "remontees_total": 68, "forfait_domaine": 50,
+        "km_total": 310, "remontees_total": 61, "forfait_domaine": 59,
         "alt_min": 1100, "alt_max": 2620,
         "unifie": True,
         "pistes": {"v":55,"b":120,"r":78,"n":31},
@@ -169,7 +231,7 @@ DOMAINES = {
         "name": "Espace Diamant", "massif": "Alpes du Nord", "pays": ["France"],
         "stations": ["Les Saisies","Crest-Voland","Notre-Dame-de-Bellecombe","Flumet","Praz-sur-Arly","Hauteluce"],
         "km_propre": {},
-        "km_total": 192, "remontees_total": 81, "forfait_domaine": 46,
+        "km_total": 200, "remontees_total": 81, "forfait_domaine": 52,
         "alt_min": 910, "alt_max": 2069,
         "unifie": True,
         "pistes": {"v":40,"b":92,"r":60,"n":16},
@@ -180,7 +242,7 @@ DOMAINES = {
         "name": "Évasion Mont-Blanc", "massif": "Alpes du Nord", "pays": ["France"],
         "stations": ["Megève","Saint-Gervais","Combloux","La Giettaz","Les Contamines-Montjoie"],
         "km_propre": {"Megève":230,"Saint-Gervais":45,"Les Contamines-Montjoie":120,"Combloux":60,"La Giettaz":20},
-        "km_total": 263, "remontees_total": 107, "forfait_domaine": 50,
+        "km_total": 400, "remontees_total": 107, "forfait_domaine": 65,
         "alt_min": 850, "alt_max": 2353,
         "pistes": {"v":39,"b":87,"r":76,"n":28},
         "short": "Évasion Mont-Blanc",
@@ -201,7 +263,7 @@ DOMAINES = {
         "name": "Galibier-Thabor", "massif": "Alpes du Nord", "pays": ["France"],
         "stations": ["Valloire","Valmeinier"],
         "km_propre": {},
-        "km_total": 160, "remontees_total": 33, "forfait_domaine": 54,
+        "km_total": 160, "remontees_total": 29, "forfait_domaine": 55,
         "alt_min": 1430, "alt_max": 2750,
         "unifie": True,
         "pistes": {"v":26,"b":60,"r":54,"n":18},
@@ -211,8 +273,8 @@ DOMAINES = {
     "alpe-dhuez-grand-domaine": {
         "name": "Alpe d'Huez Grand Domaine Ski", "massif": "Alpes du Nord", "pays": ["France"],
         "stations": ["Alpe d'Huez","Auris-en-Oisans"],
-        "km_propre": {"Alpe d'Huez":140,"Auris-en-Oisans":30},
-        "km_total": 250, "remontees_total": 67, "forfait_domaine": 62,
+        "km_propre": {"Alpe d'Huez":140,"Auris-en-Oisans":45},
+        "km_total": 250, "remontees_total": 67, "forfait_domaine": 68,
         "alt_min": 1130, "alt_max": 3330,
         "pistes": {"v":16,"b":68,"r":82,"n":22},
         "short": "Alpe d'Huez",
@@ -222,7 +284,7 @@ DOMAINES = {
         "name": "Serre Chevalier Vallée", "massif": "Alpes du Sud", "pays": ["France"],
         "stations": ["Serre Chevalier"],
         "km_propre": {},
-        "km_total": 250, "remontees_total": 60, "forfait_domaine": 63,
+        "km_total": 250, "remontees_total": 58, "forfait_domaine": 65,
         "alt_min": 1200, "alt_max": 2830,
         "unifie": True,
         "short": "Serre Chevalier",
@@ -243,7 +305,7 @@ DOMAINES = {
         "name": "La Forêt Blanche", "massif": "Alpes du Sud", "pays": ["France"],
         "stations": ["Vars","Risoul"],
         "km_propre": {},
-        "km_total": 185, "remontees_total": 51, "forfait_domaine": 46,
+        "km_total": 185, "remontees_total": 36, "forfait_domaine": 58,
         "alt_min": 1650, "alt_max": 2750,
         "unifie": True,
         "pistes": {"v":26,"b":66,"r":52,"n":16},
@@ -254,7 +316,7 @@ DOMAINES = {
         "name": "Grand Tourmalet – Pic du Midi", "massif": "Pyrénées", "pays": ["France"],
         "stations": ["La Mongie","Barèges"],
         "km_propre": {},
-        "km_total": 100, "remontees_total": 30, "forfait_domaine": 38,
+        "km_total": 100, "remontees_total": 28, "forfait_domaine": 53,
         "alt_min": 1250, "alt_max": 2500,
         "short": "Grand Tourmalet",
         "desc": "Le plus grand domaine des Pyrénées françaises, réparti sur les deux versants du col du Tourmalet — Barèges d'un côté, La Mongie de l'autre. Barèges est un village thermal historique dont les eaux soignaient déjà les soldats de Louis XIV ; La Mongie, construite dans les années 60, offre un accès direct aux pistes et au Pic du Midi. Ce dernier est l'attraction unique du domaine : téléphérique jusqu'à 2877 m, observatoire astronomique centenaire, et une descente hors-piste de 1700 m de dénivelé pour skieurs aguerris. Le Tourmalet est aussi le col le plus emprunté de l'histoire du Tour de France.",
@@ -263,7 +325,7 @@ DOMAINES = {
         "name": "Le Grand Domaine", "massif": "Alpes du Nord", "pays": ["France"],
         "stations": ["Valmorel","Saint-François-Longchamp"],
         "km_propre": {"Valmorel": 95, "Saint-François-Longchamp": 70},
-        "km_total": 165, "remontees_total": 47, "forfait_domaine": 58,
+        "km_total": 165, "remontees_total": 47, "forfait_domaine": 60,
         "alt_min": 1200, "alt_max": 2550,
         "unifie": True,
         "short": "Le Grand Domaine",
@@ -274,10 +336,10 @@ DOMAINES = {
         "name": "Le Dévoluy", "massif": "Alpes du Sud", "pays": ["France"],
         "stations": ["Superdévoluy","La Joue du Loup"],
         "km_propre": {},
-        "km_total": 100, "remontees_total": 26, "forfait_domaine": 40,
+        "km_total": 100, "remontees_total": 22, "forfait_domaine": 44,
         "alt_min": 1500, "alt_max": 2500,
         "unifie": True,
-        "pistes": {"v":8,"b":22,"r":16,"n":5},
+        "pistes": {"v":8,"b":28,"r":12,"n":5},
         "short": "Le Dévoluy",
         "desc": "Superdévoluy et La Joue du Loup partagent 100 km de pistes dans le massif du Dévoluy, entre Vercors et Alpes du Sud — un cirque calcaire sauvage et minéral qui ne ressemble à rien d'autre dans les Alpes. Le domaine culmine à 2500 m et bénéficie d'un enneigement souvent supérieur à ce que sa latitude laisserait imaginer, grâce aux perturbations qui viennent buter contre les falaises. Superdévoluy assume son architecture de béton des années 60 ; La Joue du Loup, construite vingt ans plus tard en bois et pierre, est nettement plus séduisante. Les tarifs restent parmi les plus doux des Alpes pour un domaine de cette taille.",
     },
@@ -286,7 +348,7 @@ DOMAINES = {
         "stations": ["Pra-Loup","Val d'Allos"],
         "km_propre": {},
         "unifie": True,
-        "km_total": 180, "remontees_total": 53, "forfait_domaine": 47,
+        "km_total": 180, "remontees_total": 37, "forfait_domaine": 49,
         "alt_min": 1500, "alt_max": 2600,
         "pistes": {"v":26,"b":80,"r":56,"n":12},
         "short": "Espace Lumière",
@@ -2125,6 +2187,16 @@ def render_page(s):
         alt_max_lbl = "Sommet"
         display_remontees = s['remontees']
         remontees_lbl = "Remontées"
+    _dom_partage = DOMAINE_PARTAGE.get(s['name'])
+    note_partage = (
+        f'<p style="font-size:.72rem;line-height:1.5;color:var(--text-soft);margin-top:.5rem">'
+        f'\u2139\ufe0f Ces chiffres correspondent au domaine <strong>{_dom_partage}</strong>, '
+        f'commun \u00e0 plusieurs stations : kilom\u00e8tres de pistes, nombre de pistes, '
+        f'remont\u00e9es m\u00e9caniques et forfait sont partag\u00e9s. Les valeurs affich\u00e9es ici '
+        f'et sur les fiches des stations voisines d\u00e9signent donc le m\u00eame domaine skiable '
+        f'et le m\u00eame titre de transport : elles ne s\u2019additionnent pas.'
+        f'</p>'
+    ) if _dom_partage else ''
     from urllib.parse import quote as _q
     _bk_base = f"https://www.booking.com/searchresults.fr.html?ss={_q(s['name']+' ski france')}&lang=fr"
     booking_url = f"{BOOKING_CJ}?sid=station-{slug}&url={_q(_bk_base)}"
@@ -3291,7 +3363,7 @@ function closeStation(){{
             <div class="icon-stat-tile">
               <span class="icon-stat-ico">💶</span>
               <div class="icon-stat-val">{s['forfait']}€</div>
-              <div class="icon-stat-lbl">Forfait / jour</div>
+              <div class="icon-stat-lbl">Forfait / jour *</div>
             </div>
           </div>
         </div>
@@ -3303,9 +3375,14 @@ function closeStation(){{
             <strong>{s['name']}</strong> est une station de ski du massif <strong>{s['massif']}</strong>,
             en <strong>{s['region']}</strong>. Le domaine s'étend sur
             <strong>{display_km} km de pistes</strong> entre {display_alt_min} m et {display_alt_max} m,
-            desservi par {display_remontees} remontées mécaniques. Forfait journée à partir de
-            <strong>{s['forfait']}€</strong> par adulte.
+            desservi par {display_remontees} remontées mécaniques. Forfait journée <strong>{s['forfait']}€</strong> par adulte.
           </p>
+          <p style="font-size:.72rem;line-height:1.5;color:var(--text-soft);margin-top:.5rem">
+            * Prix par adulte pour 1 journée, tarif public haute saison. Des tarifs réduits
+            (achat en ligne, hors vacances scolaires, familles, enfants, seniors) sont
+            généralement proposés par la station.
+          </p>
+          {note_partage}
         </div>
 
         <!-- À PROPOS -->
