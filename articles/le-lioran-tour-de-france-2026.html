@@ -658,12 +658,23 @@
 <div class="hero">
   <div class="hero-slides">
     <img class="hero-slide active" data-idx="0" src="../img/lelioran4.jpg" alt="Le Lioran l'été, vue aérienne du village et des télésièges" loading="eager" onclick="heroLightbox(0)">
+    <img class="hero-slide" data-idx="1" src="../img/lelioran1.jpg" alt="Le Lioran, panorama sur le domaine skiable et le village" loading="lazy" onclick="heroLightbox(1)">
+    <img class="hero-slide" data-idx="2" src="../img/lelioran2.jpg" alt="Le Lioran, pistes et village au pied du domaine skiable" loading="lazy" onclick="heroLightbox(2)">
+    <img class="hero-slide" data-idx="3" src="../img/lelioran3.jpg" alt="La gare du Lioran, accès direct en train à la station" loading="lazy" onclick="heroLightbox(3)">
   </div>
   <div class="hero-overlay"></div>
   <button class="hero-close" onclick="closeStation()" title="Retour" aria-label="Retour">✕</button>
   <div class="hero-score">4.0 ⭐</div>
   <button class="fav-star" id="favBtn" onclick="toggleFav()" title="Ajouter aux favoris">☆</button>
   <button class="compare-star" id="compareBtn" onclick="toggleCompare()" title="Ajouter au comparateur">⚖️</button>
+  <button class="hero-nav hero-prev" onclick="heroPrev()" aria-label="Précédente">‹</button>
+  <button class="hero-nav hero-next" onclick="heroNext()" aria-label="Suivante">›</button>
+  <div class="hero-dots">
+      <button class="hero-dot active" data-idx="0" onclick="heroGoTo(0)" aria-label="Photo 1"></button>
+      <button class="hero-dot" data-idx="1" onclick="heroGoTo(1)" aria-label="Photo 2"></button>
+      <button class="hero-dot" data-idx="2" onclick="heroGoTo(2)" aria-label="Photo 3"></button>
+      <button class="hero-dot" data-idx="3" onclick="heroGoTo(3)" aria-label="Photo 4"></button>
+  </div>
   <div class="hero-content">
     <div class="sotm-hero-pill"><span class="dot"></span>⭐ Station du moment · Juillet 2026</div>
     <div class="hero-massif">⛷ Massif Central</div>
@@ -924,7 +935,7 @@ function toggleReadMore(id, btn){
 })();
 
 // ── CARROUSEL HERO ──
-var HERO_URLS = ["../img/lelioran4.jpg"];
+var HERO_URLS = ["../img/lelioran4.jpg","../img/lelioran1.jpg","../img/lelioran2.jpg","../img/lelioran3.jpg"];
 var heroIdx = 0;
 var heroAuto = null;
 function heroShow(i){
@@ -1004,7 +1015,7 @@ function closeStation(){
           <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid);font-style:italic">Autant vous prévenir tout de suite : on n'est pas neutres. Le Lioran, on y va tous les ans, été ou hiver, si ce n'est parfois les deux.</p>
         </div>
 
-        <img src="../img/lelioran1.jpg" alt="Le Lioran, vue aérienne du village sous la neige" class="photo-station" loading="lazy" style="max-width:530px;width:100%;height:auto;display:block;margin:0 auto 16px">
+        <img src="../img/lelioran1.jpg" alt="Le Lioran, panorama sur le domaine skiable et le village" class="photo-station" loading="lazy" style="max-width:835px;width:100%;height:auto;display:block;margin:0 auto 16px">
 
         <div class="section">
           <div class="section-title">Une station dynamique, été comme hiver</div>
@@ -1049,8 +1060,8 @@ function closeStation(){
         </div>
 
         <div class="photo-duo" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 18px">
-          <img src="../img/lelioran2.jpg" alt="Damage nocturne des pistes au sommet du Lioran" class="photo-station" loading="lazy" style="height:180px;margin-bottom:0">
-          <img src="../img/lelioran3.jpg" alt="Le village du Lioran vu depuis les sommets enneigés" class="photo-station" loading="lazy" style="height:180px;margin-bottom:0">
+          <img src="../img/lelioran2.jpg" alt="Le Lioran, pistes et village au pied du domaine skiable" class="photo-station" loading="lazy" style="height:180px;margin-bottom:0">
+          <img src="../img/lelioran3.jpg" alt="La gare du Lioran, accès direct en train à la station" class="photo-station" loading="lazy" style="height:180px;margin-bottom:0">
         </div>
 
         <div class="section" style="margin-bottom:0">
@@ -1683,7 +1694,7 @@ function hideOfficialSheet(){
   <div class="lightbox-count" id="lightboxCount"></div>
 </div>
 <script>
-var GALLERY_URLS = ["../img/lelioran4.jpg"];
+var GALLERY_URLS = ["../img/lelioran4.jpg","../img/lelioran1.jpg","../img/lelioran2.jpg","../img/lelioran3.jpg"];
 var lbIdx = 0;
 function openLightbox(i){
   if(!GALLERY_URLS.length) return;
