@@ -11,11 +11,11 @@
   <meta property="og:url" content="https://snowfinder.fr/station-du-moment/le-lioran-tour-de-france-2026.html">
   <meta property="og:title" content="Le Lioran, station du moment — SnowFinder">
   <meta property="og:description" content="Le Tour de France arrive au Lioran le 14 juillet 2026 — (re)découvrez cette station qu'on adore, été comme hiver.">
-  <meta property="og:image" content="../img/lelioran1.jpg">
+  <meta property="og:image" content="../img/lelioran4.jpg">
   <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Le Lioran, station du moment — SnowFinder">
-  <meta name="twitter:image" content="../img/lelioran1.jpg">
+  <meta name="twitter:image" content="../img/lelioran4.jpg">
   
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
   <script>
@@ -657,22 +657,13 @@
 
 <div class="hero">
   <div class="hero-slides">
-    <img class="hero-slide active" data-idx="0" src="../img/lelioran1.jpg" alt="Le Lioran photo 1" loading="eager" onclick="heroLightbox(0)">
-    <img class="hero-slide" data-idx="1" src="../img/lelioran2.jpg" alt="Le Lioran photo 2" loading="lazy" onclick="heroLightbox(1)">
-    <img class="hero-slide" data-idx="2" src="../img/lelioran3.jpg" alt="Le Lioran photo 3" loading="lazy" onclick="heroLightbox(2)">
+    <img class="hero-slide active" data-idx="0" src="../img/lelioran4.jpg" alt="Le Lioran l'été, vue aérienne du village et des télésièges" loading="eager" onclick="heroLightbox(0)">
   </div>
   <div class="hero-overlay"></div>
   <button class="hero-close" onclick="closeStation()" title="Retour" aria-label="Retour">✕</button>
   <div class="hero-score">4.0 ⭐</div>
   <button class="fav-star" id="favBtn" onclick="toggleFav()" title="Ajouter aux favoris">☆</button>
   <button class="compare-star" id="compareBtn" onclick="toggleCompare()" title="Ajouter au comparateur">⚖️</button>
-  <button class="hero-nav hero-prev" onclick="heroPrev()" aria-label="Précédente">‹</button>
-  <button class="hero-nav hero-next" onclick="heroNext()" aria-label="Suivante">›</button>
-  <div class="hero-dots">
-      <button class="hero-dot active" data-idx="0" onclick="heroGoTo(0)" aria-label="Photo 1"></button>
-      <button class="hero-dot" data-idx="1" onclick="heroGoTo(1)" aria-label="Photo 2"></button>
-      <button class="hero-dot" data-idx="2" onclick="heroGoTo(2)" aria-label="Photo 3"></button>
-  </div>
   <div class="hero-content">
     <div class="sotm-hero-pill"><span class="dot"></span>⭐ Station du moment · Juillet 2026</div>
     <div class="hero-massif">⛷ Massif Central</div>
@@ -933,7 +924,7 @@ function toggleReadMore(id, btn){
 })();
 
 // ── CARROUSEL HERO ──
-var HERO_URLS = ["../img/lelioran1.jpg","../img/lelioran2.jpg","../img/lelioran3.jpg"];
+var HERO_URLS = ["../img/lelioran4.jpg"];
 var heroIdx = 0;
 var heroAuto = null;
 function heroShow(i){
@@ -1692,7 +1683,7 @@ function hideOfficialSheet(){
   <div class="lightbox-count" id="lightboxCount"></div>
 </div>
 <script>
-var GALLERY_URLS = ["../img/lelioran1.jpg","../img/lelioran2.jpg","../img/lelioran3.jpg"];
+var GALLERY_URLS = ["../img/lelioran4.jpg"];
 var lbIdx = 0;
 function openLightbox(i){
   if(!GALLERY_URLS.length) return;
