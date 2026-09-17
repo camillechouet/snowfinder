@@ -81,6 +81,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .search-result-name{font-weight:600;font-size:.9rem;color:var(--text)}
 .search-result-region{font-size:.72rem;color:var(--text-light)}
 .search-result-snow{margin-left:auto;font-size:.78rem;font-weight:700;color:var(--blue-dark);background:var(--blue-light);padding:2px 8px;border-radius:10px}
+.search-result-fav{margin-left:auto;background:none;border:none;font-size:1.35rem;line-height:1;cursor:pointer;padding:6px 8px;border-radius:10px;transition:transform .15s,background .15s}
+.search-result-fav:hover{background:var(--blue-light)}
+.search-result-fav:active{transform:scale(1.25)}
 
 /* CHECK BUTTON */
 .check-btn{margin-top:12px;padding:13px 36px;background:white;color:var(--blue-dark);border:none;border-radius:30px;font-family:"DM Sans",sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(0,0,0,.2)}
@@ -669,10 +672,30 @@ function onSearchInput() {
     '<div class="search-result-item" onclick="selectStation(' + s.id + ')">'
     + '<div><div class="search-result-name">' + s.name + '</div>'
     + '<div class="search-result-region">' + s.massif + '</div></div>'
-    + '<span class="search-result-snow">❄️ ~' + getSimSnow(s) + 'cm</span>'
+    + '<button type="button" class="search-result-fav" id="favStarBtn' + s.id + '" onclick="toggleFavStation(' + s.id + ',event)" title="Ajouter aux favoris">' + (isFavStation(s.id) ? '⭐' : '☆') + '</button>'
     + '</div>'
   ).join('');
   dd.classList.add('open');
+}
+
+// ── Favoris rapides depuis la recherche (sans ouvrir la fiche) ──
+function isFavStation(id) {
+  try { return JSON.parse(localStorage.getItem('sf_favorites')||'[]').includes(id); } catch(e) { return false; }
+}
+function toggleFavStation(id, evt) {
+  if (evt) { evt.stopPropagation(); evt.preventDefault(); }
+  var favs = [];
+  try { favs = JSON.parse(localStorage.getItem('sf_favorites')||'[]'); } catch(e){}
+  if (favs.includes(id)) favs = favs.filter(function(x){ return x !== id; });
+  else { favs.push(id); if (navigator.vibrate) navigator.vibrate(40); }
+  try { localStorage.setItem('sf_favorites', JSON.stringify(favs)); } catch(e){}
+
+  var btn = document.getElementById('favStarBtn' + id);
+  if (btn) btn.textContent = isFavStation(id) ? '⭐' : '☆';
+  var sfc = document.getElementById('sfFavCount');
+  if (sfc) sfc.textContent = favs.length;
+
+  loadFavorites(); // rafraîchit les vignettes "Mes stations favorites" en dessous
 }
 
 function onSearchKey(e) {
