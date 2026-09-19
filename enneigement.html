@@ -182,6 +182,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .vig-massif{font-size:.62rem;color:var(--text-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.03em}
 .vig-temp{font-family:"DM Serif Display",serif;font-size:1.25rem;color:var(--blue-dark)}
 .vig-snow{margin-top:6px;font-size:.66rem;font-weight:700;color:var(--blue-dark);background:var(--blue-light);border-radius:10px;padding:2px 8px;display:inline-block}
+.vig-snow-rows{margin-top:8px;padding-top:7px;border-top:1px solid var(--border);display:none;flex-direction:column;gap:3px}
+.vig-snow-row{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:.66rem;line-height:1.25}
+.vig-snow-lbl{color:var(--text-light);text-transform:uppercase;letter-spacing:.03em;font-weight:700;font-size:.6rem}
+.vig-snow-val{font-weight:800;color:var(--blue-dark);white-space:nowrap}
+.vig-snow-val.is-zero{color:var(--text-light);font-weight:700}
 
 /* FOOTER */
 footer{background:var(--wood-dark);color:rgba(255,255,255,.7);text-align:center;padding:28px 20px;font-size:.82rem;margin-top:40px}
@@ -616,6 +621,26 @@ function wmoIcoFiche(c) {
   return '⛈️';
 }
 
+// ── Enneigement estimé au sommet ──
+// Open-Meteo ne renvoie la hauteur de neige qu'au point de grille (≈ altitude station).
+// On extrapole vers le sommet : gradient altitudinal + garde-fou saisonnier (getSeasonalAvg).
+function estimateSommetSnow(s, stationCm) {
+  var altMin = s.alt_min || 1500, altMax = s.alt_max || altMin;
+  var deltaKm = Math.max(0, (altMax - altMin)) / 1000;
+  var month = new Date().getMonth();
+  // Facteur mensuel strict (getSeasonalAvg retombe sur 0.3 l'été à cause du "|| 0.3")
+  var MF = [1.05,1.15,1.00,0.72,0.18,0,0,0,0,0.08,0.45,0.78];
+  var base = altMax > 3000 ? 210 : altMax > 2500 ? 165 : altMax > 2000 ? 120 : altMax > 1500 ? 75 : altMax > 1000 ? 35 : 15;
+  var modelSommet = Math.round(base * MF[month]);   // moyenne saisonnière au sommet
+  if (stationCm > 0) {
+    // +80 % de hauteur par 1000 m de dénivelé (ordre de grandeur alpin)
+    var ratio = 1 + deltaKm * 0.8;
+    return Math.max(stationCm, Math.round(stationCm * ratio));
+  }
+  // Rien au village : le sommet peut quand même être enneigé (ou pas, hors saison)
+  return Math.round(modelSommet * 0.45);
+}
+
 async function renderWeatherVignettes(grid, stations) {
   if (!grid || !stations.length) return;
 
@@ -625,6 +650,10 @@ async function renderWeatherVignettes(grid, stations) {
       + '<div class="vig-name">⭐ '+s.name+'</div>'
       + '<div class="vig-massif">'+s.massif+'</div>'
       + '<div class="vig-temp">—</div>'
+      + '<div class="vig-snow-rows">'
+      +   '<div class="vig-snow-row"><span class="vig-snow-lbl">🏔 Station</span><span class="vig-snow-val" data-snow="station">—</span></div>'
+      +   '<div class="vig-snow-row"><span class="vig-snow-lbl">🔺 Sommet</span><span class="vig-snow-val" data-snow="sommet">—</span></div>'
+      + '</div>'
       + '</div>';
   }).join('');
 
@@ -641,11 +670,18 @@ async function renderWeatherVignettes(grid, stations) {
       card.querySelector('.vig-temp').innerHTML = temp + '°';
       var sd = d.current.snow_depth;
       var snowCm = (sd != null && sd > 0) ? Math.round(sd * 100) : 0;
-      if (snowCm > 0) {
-        var snowBadge = document.createElement('div');
-        snowBadge.className = 'vig-snow';
-        snowBadge.textContent = '❄️ ' + snowCm + 'cm';
-        card.appendChild(snowBadge);
+      var sommetCm = estimateSommetSnow(s, snowCm);
+
+      // Hors saison (rien au sol nulle part) → on n'affiche pas le bloc neige
+      var rows = card.querySelector('.vig-snow-rows');
+      if (rows && (snowCm > 0 || sommetCm > 0)) {
+        var elSt = rows.querySelector('[data-snow="station"]');
+        var elSo = rows.querySelector('[data-snow="sommet"]');
+        elSt.textContent = snowCm + ' cm';
+        elSt.className = 'vig-snow-val' + (snowCm > 0 ? '' : ' is-zero');
+        elSo.textContent = '≈ ' + sommetCm + ' cm';
+        elSo.className = 'vig-snow-val' + (sommetCm > 0 ? '' : ' is-zero');
+        rows.style.display = 'flex';
       }
     }).catch(function(){
       var card = grid.querySelector('[data-vid="'+s.id+'"]');
