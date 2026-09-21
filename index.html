@@ -975,6 +975,8 @@ function sendContact() {
 document.getElementById("contactOverlay").addEventListener("click", e => {
   if(e.target === document.getElementById("contactOverlay")) closeContact();
 });
+// Ouvre la modale de contact quand on arrive depuis une autre page (lien /index.html#contact)
+if(location.hash === "#contact"){ window.addEventListener("load", function(){ openContact(); history.replaceState(null, "", location.pathname); }); }
 
 // ── ÉTÉ ──
 function openEte() {
