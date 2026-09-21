@@ -80,7 +80,7 @@ nav{z-index:501!important}/* nav reste au dessus */
 .card-img-name{position:absolute;bottom:14px;left:16px;right:16px;font-family:"DM Serif Display",serif;font-size:1.5rem;color:white;text-shadow:0 2px 8px rgba(0,0,0,.4)}
 .card-body{padding:10px 14px;flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:6px}
 .card-stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
-.stat-chip{display:flex;align-items:center;gap:6px;border-radius:9px;padding:5px 9px}
+.stat-chip{display:flex;align-items:center;gap:6px;border-radius:9px;padding:5px 9px;min-width:0}
 .card-region{font-size:.75rem;color:var(--text-light);margin-bottom:10px;display:flex;align-items:center;gap:4px}
 .card-stats-row{display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap}
 .card-stat{font-size:.8rem;color:var(--text-mid);display:flex;align-items:center;gap:4px}
@@ -422,6 +422,25 @@ function toggleCompareStation(id){
 .pd-v .pd-dot{background:#2ea84e}.pd-b .pd-dot{background:#3a7db8}.pd-r .pd-dot{background:#cc2200}.pd-n .pd-dot{background:#222}
 .pd-v{color:#1a7a38}.pd-b{color:#1a4a8a}.pd-r{color:#aa1800}.pd-n{color:#111}
 .rcard-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+/* Coût de la vie en € */
+.euros{display:inline-flex;gap:1px;font-weight:800;line-height:1}
+.euros .eu{color:#cdd2d8}
+.euros .eu.on{color:#c99212;text-shadow:0 0 1px rgba(160,110,0,.35)}
+.tag-cout{background:#fdf6e3;border:1px solid #f1dfa8;display:inline-flex;align-items:center}
+/* Bandeau grand domaine (swipe) */
+.tc-domain{display:flex;align-items:center;gap:10px;border-radius:12px;padding:9px 12px}
+.tc-domain-on{background:linear-gradient(135deg,#1a5a8a,#0f3a5c);color:#fff;box-shadow:0 4px 14px rgba(15,58,92,.28)}
+.tc-domain-off{background:var(--wood-pale);border:1.5px dashed var(--wood-light);color:var(--wood-dark)}
+.tcd-ico{font-size:1.35rem;flex-shrink:0}
+.tcd-txt{flex:1;min-width:0}
+.tcd-kicker{font-size:.6rem;font-weight:700;opacity:.8;letter-spacing:.03em}
+.tcd-name{font-family:"DM Serif Display",serif;font-size:1.05rem;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tcd-km{text-align:right;flex-shrink:0;font-size:.62rem;opacity:.9;line-height:1.2}
+.tcd-km b{display:block;font-family:"DM Serif Display",serif;font-size:1.25rem;font-weight:400;opacity:1}
+.tcd-pistes{display:flex;gap:9px;flex-wrap:wrap;margin-top:4px;font-size:.66rem}
+.tcd-pistes i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:3px;vertical-align:middle}
+.card-img-domain{position:absolute;top:40px;left:12px;background:#d4a017;color:#2a1f14;font-size:.64rem;font-weight:800;padding:3px 9px;border-radius:20px;letter-spacing:.02em}
+
 .tag{padding:3px 8px;border-radius:20px;font-size:.69rem;font-weight:600}
 .tag-niv{background:var(--blue-light,#e8f3fb);color:var(--blue-dark,#1a5a8a)}
 .tag-amb{background:var(--wood-pale,#f7efe2);color:var(--wood-dark,#8b5e3c)}
@@ -686,6 +705,22 @@ function cardHook(s){
   if(score >= 4.5)         return `L'une des meilleures stations de France. Notes enthousiastes, skieurs conquis.`;
   return s.desc ? s.desc.split('.')[0] + '.' : `${km} km de pistes dans un cadre exceptionnel.`;
 }
+// Coût de la vie sur place (1 = le moins cher, 5 = le plus cher).
+// Niveaux calculés depuis le DATA de recherche.html pour rester cohérents avec la page Recherche
+// et les fiches stations (les forfaits du RAW_DATA ci-dessous ne sont pas tous à jour).
+const COUT_VIE_MAP = {"1":5,"2":4,"3":4,"4":4,"5":4,"6":4,"7":5,"8":5,"9":4,"10":4,"11":5,"12":4,"13":4,"14":5,"15":4,"16":4,"17":4,"18":4,"19":4,"20":4,"21":4,"22":4,"23":2,"24":2,"25":2,"26":3,"27":2,"28":4,"29":4,"30":4,"31":4,"32":1,"33":4,"34":2,"35":4,"36":3,"37":3,"38":3,"39":3,"40":3,"41":3,"42":3,"43":4,"44":4,"45":4,"46":4,"47":3,"48":4,"49":4,"50":4,"51":4,"52":4,"53":4,"54":1,"55":4,"56":4,"57":4,"58":4,"59":3,"60":3,"61":1,"63":3,"64":3,"65":2,"66":2,"67":2,"68":1,"70":3,"71":3,"72":4,"73":4,"74":3,"75":2,"76":2,"77":2,"78":1,"79":1,"80":1,"81":1,"82":1,"83":1,"84":1,"85":1,"86":1,"87":1,"88":1,"89":4,"90":4,"91":4,"92":4,"93":4,"94":3,"95":3,"96":3,"97":3,"98":2,"99":2,"100":2,"101":2,"102":2,"103":3,"104":3,"105":3,"106":1,"107":2,"108":1,"109":1,"110":3,"111":2,"112":2,"113":2,"114":1,"115":1,"116":1,"117":1,"118":3,"119":1,"120":3,"121":1,"122":4,"306":4,"123":4,"124":3,"125":3,"126":3,"127":3,"128":3,"129":2,"130":3,"131":2,"132":2,"136":2,"137":2,"138":1,"139":3,"140":3,"141":2,"142":3,"143":3,"146":3,"147":1,"148":3,"149":1,"150":1,"152":1,"154":1,"155":1,"156":2,"157":3,"158":1,"159":1,"160":1,"161":1,"162":1,"163":1,"164":1,"165":1,"166":1,"168":1,"169":1,"170":1,"171":1,"172":2,"173":3,"175":1,"176":1,"177":1,"178":1,"179":1,"180":1,"181":3,"182":3,"183":3,"184":2,"185":1,"186":1,"187":1,"188":1,"189":1,"190":1,"191":1,"192":1,"193":1,"194":1,"195":1,"196":1,"210":1,"212":1,"214":1,"221":1,"222":3,"234":1,"237":2,"238":2,"265":1,"268":1,"269":1,"273":3,"283":1,"286":4,"287":2,"300":3,"301":4,"302":4,"303":4,"304":4,"305":4};
+const COUT_VIE_LABELS=["","Très abordable","Abordable","Moyen","Élevé","Premium"];
+function calcCoutVie(s){
+  if(COUT_VIE_MAP[s.id]) return COUT_VIE_MAP[s.id];
+  if((s.amb||[]).includes("luxe")) return 5;
+  const f=s.forfait||0;
+  return f>=50?4:f>=38?3:f>=25?2:1;
+}
+function euroScaleHTML(n){
+  let h='<span class="euros" role="img" aria-label="Coût de la vie '+n+' sur 5" title="Coût de la vie sur place : '+COUT_VIE_LABELS[n]+'">';
+  for(let i=1;i<=5;i++) h+='<span class="eu'+(i<=n?' on':'')+'">€</span>';
+  return h+'</span>';
+}
 function buildRealStationCard(s){
   const bg = MASSIF_COLORS[s.massif] || "linear-gradient(135deg,#555,#888)";
   const gd = GRAND_DOMAINS_TINDER[s.name];
@@ -744,7 +779,7 @@ function buildRealStationCard(s){
              </div>
            </div>` : ``}
       </div>
-      <div class="rcard-tags">${nivTag}${ambTags}</div>
+      <div class="rcard-tags">${nivTag}${ambTags}<span class="tag tag-cout">${euroScaleHTML(calcCoutVie(s))}</span></div>
     </div>
   </div>`;
 }
@@ -1136,10 +1171,27 @@ function createCard(s, isTop){
       <div class="card-img-massif">${s.massif}</div>
       <div class="card-img-score">${s.score} ⭐</div>
       <button class="card-fav-btn" id="favBtn${s.id}" data-fav-id="${s.id}" title="Ajouter aux favoris" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()" onclick="event.stopPropagation();toggleFavFromTinder(${s.id},this)">☆</button>
+      ${gd ? `<div class="card-img-domain">🔗 Grand domaine</div>` : ''}
       <div class="card-img-name">${s.name}</div>
     </div>
     <div class="card-body">
       <div style="font-size:.68rem;color:var(--text-light)">📍 ${s.region}</div>
+      ${gd ? `<div class="tc-domain tc-domain-on">
+        <span class="tcd-ico">🔗</span>
+        <div class="tcd-txt">
+          <div class="tcd-kicker">Reliée au grand domaine</div>
+          <div class="tcd-name">${gd.short||gd.name}</div>
+          ${gd.pistes&&(gd.pistes.v||gd.pistes.b||gd.pistes.r||gd.pistes.n) ? `<div class="tcd-pistes">${[['#4ade80',gd.pistes.v],['#60a5fa',gd.pistes.b],['#f87171',gd.pistes.r],['#111',gd.pistes.n]].filter(function(r){return r[1];}).map(function(r){return '<span><i style="background:'+r[0]+(r[0]==='#111'?';box-shadow:0 0 0 1px rgba(255,255,255,.6)':'')+'"></i>'+r[1]+'</span>';}).join('')}</div>` : ''}
+        </div>
+        <div class="tcd-km"><b>${gd.km} km</b>${gd.nStations>1?gd.nStations+' stations':''}${gd.remontees?'<br>'+gd.remontees+' remontées':''}</div>
+      </div>` : `<div class="tc-domain tc-domain-off">
+        <span class="tcd-ico">🏔️</span>
+        <div class="tcd-txt">
+          <div class="tcd-kicker">Pas de grand domaine relié</div>
+          <div class="tcd-name">Station indépendante</div>
+        </div>
+        <div class="tcd-km"><b>${s.km} km</b>domaine propre</div>
+      </div>`}
       ${s.desc ? `<div style="font-size:.7rem;color:var(--text-mid);line-height:1.35;background:var(--wood-pale);border-radius:8px;padding:5px 9px">${s.desc}</div>` : ''}
       <div class="card-stats-grid">
         <div class="stat-chip" style="background:var(--blue-light)">
@@ -1156,11 +1208,11 @@ function createCard(s, isTop){
             <div style="font-size:.82rem;font-weight:800;color:#6a4a9a">${s.remontees||'—'}</div>
           </div>
         </div>
-        <div class="stat-chip" style="background:var(--wood-pale)">
-          <span style="font-size:1rem">🎿</span>
+        <div class="stat-chip" style="background:#fdf6e3">
+          <span style="font-size:1rem">🛒</span>
           <div style="min-width:0">
-            <div style="font-size:.52rem;color:var(--wood-dark);text-transform:uppercase;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${domainName||'Domaine'}</div>
-            <div style="font-size:.82rem;font-weight:800;color:var(--wood-dark)">${domainKm} km</div>
+            <div style="font-size:.52rem;color:#8a6410;text-transform:uppercase;font-weight:700">Coût sur place</div>
+            <div style="font-size:.9rem;margin-top:1px">${euroScaleHTML(calcCoutVie(s))}</div>
           </div>
         </div>
         <div class="stat-chip" style="background:var(--green-light)">
@@ -1171,18 +1223,6 @@ function createCard(s, isTop){
           </div>
         </div>
       </div>
-      ${gd ? `<div style="background:linear-gradient(135deg,var(--wood-pale),#fff);border:1.5px solid var(--wood-light);border-radius:10px;padding:8px 11px">
-        <div style="font-size:.74rem;color:var(--wood-dark);font-weight:800;margin-bottom:3px">🏔️ ${gd.short||gd.name}${gd.nStations>1?' · '+gd.nStations+' stations':''}</div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:.68rem;color:var(--text-mid);margin-bottom:${gd.pistes&&(gd.pistes.v||gd.pistes.b||gd.pistes.r||gd.pistes.n)?'4px':'0'}">
-          <span>🎿 <strong>${gd.km} km</strong> au total</span>
-          ${gd.remontees?`<span>🚡 <strong>${gd.remontees}</strong> remontées</span>`:''}
-        </div>
-        ${gd.pistes&&(gd.pistes.v||gd.pistes.b||gd.pistes.r||gd.pistes.n) ? `<div style="display:flex;gap:9px;flex-wrap:wrap">
-          ${[['#4CAF50','V',gd.pistes.v],['#2196F3','B',gd.pistes.b],['#f44336','R',gd.pistes.r],['#212121','N',gd.pistes.n]].filter(function(r){return r[2];}).map(function(r){
-            return `<span style="font-size:.68rem;color:var(--text-mid);display:flex;align-items:center;gap:3px"><span style="width:7px;height:7px;border-radius:50%;background:${r[0]};display:inline-block"></span>${r[2]}${r[1]}</span>`;
-          }).join('')}
-        </div>` : ''}
-      </div>` : ''}
       ${snowLabel ? `<div style="font-size:.68rem;color:var(--blue-dark);font-weight:600;padding:4px 9px;background:rgba(58,125,184,.1);border-radius:7px">${snowLabel} — enneigement moyen saison</div>` : ''}
       ${pistesTotal ? `<div style="background:var(--wood-pale);border-radius:9px;padding:6px 10px">
         <div style="font-size:.52rem;color:var(--wood-dark);text-transform:uppercase;font-weight:700;letter-spacing:.04em;margin-bottom:3px">${pistesTotal} pistes propres à ${s.name}</div>
