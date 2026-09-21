@@ -1946,6 +1946,23 @@ def get_official_url(name):
     return OFFICIAL_URLS.get(name, f"https://www.google.com/search?q={name.replace(' ', '+').replace(chr(39), '+')}+station+ski+site+officiel")
 
 
+# ── Coût de la vie sur place : échelle de 1 (€) à 5 (€€€€€) ──
+# Même formule que calcCoutVie() dans recherche.html — à garder synchronisées.
+COUT_VIE_LABELS = ["", "Très abordable", "Abordable", "Moyen", "Élevé", "Premium"]
+
+def calc_cout_vie(s):
+    if "luxe" in (s.get("amb") or []):
+        return 5
+    f = s.get("forfait") or 0
+    if f >= 50: return 4
+    if f >= 38: return 3
+    if f >= 25: return 2
+    return 1
+
+def euro_scale_html(n):
+    spans = "".join('<span class="eu on">€</span>' if i <= n else '<span class="eu">€</span>' for i in range(1, 6))
+    return f'<span class="euros" role="img" aria-label="Coût de la vie {n} sur 5">{spans}</span>'
+
 def render_page(s):
     slug = slugify(s['name'])
     canonical = f"https://snowfinder.fr/stations/{slug}.html"
@@ -2320,6 +2337,15 @@ def render_page(s):
     }
     schema = json.dumps(schema_obj, ensure_ascii=False)
     similar_html = render_similar_section(s)
+    cout_vie = calc_cout_vie(s)
+    cout_vie_hero_html = f'<div class="hero-cout" title="Coût de la vie sur place : {COUT_VIE_LABELS[cout_vie]}">Coût sur place {euro_scale_html(cout_vie)}</div>'
+    cout_vie_block_html = f'''<div class="cout-vie-row">
+            <div>
+              <div class="cv-title">🛒 Coût de la vie sur place</div>
+              <div class="cv-sub">{COUT_VIE_LABELS[cout_vie]} · indice SnowFinder de € (le moins cher) à €€€€€ (le plus cher)</div>
+            </div>
+            <div class="cv-scale">{euro_scale_html(cout_vie)}</div>
+          </div>'''
 
     return f"""<!DOCTYPE html>
 <html lang="fr">
@@ -2441,6 +2467,17 @@ def render_page(s):
     }}
     h1{{font-family:"DM Serif Display",serif;font-size:clamp(2rem,6vw,3.2rem);color:white;line-height:1.05;margin-bottom:6px}}
     .hero-region{{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px}}
+    .euros{{display:inline-flex;gap:1px;font-weight:800;line-height:1}}
+    .euros .eu{{color:#cdd2d8}}
+    .euros .eu.on{{color:#c99212;text-shadow:0 0 1px rgba(160,110,0,.35)}}
+    .hero-cout{{display:inline-flex;align-items:center;gap:7px;margin-top:8px;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);color:rgba(255,255,255,.9);font-size:.74rem;font-weight:600;padding:4px 11px;border-radius:20px}}
+    .hero-cout .euros{{font-size:.95rem}}
+    .hero-cout .eu{{color:rgba(255,255,255,.35)}}
+    .hero-cout .eu.on{{color:#f5c542}}
+    .cout-vie-row{{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;background:#fdf6e3;border:1.5px solid #f1dfa8;border-radius:11px;padding:11px 14px}}
+    .cv-title{{font-weight:700;font-size:.85rem;color:var(--text)}}
+    .cv-sub{{font-size:.68rem;color:var(--text-mid);margin-top:2px;line-height:1.4}}
+    .cv-scale .euros{{font-size:1.35rem}}
     .partner-badge-hero{{display:inline-block;margin-top:10px;pointer-events:auto;filter:drop-shadow(0 4px 10px rgba(0,0,0,.35));transition:transform .15s}}
     .partner-badge-hero:hover{{transform:translateY(-2px)}}
     .partner-badge-hero img{{display:block;height:44px;width:auto}}
@@ -2976,6 +3013,7 @@ def render_page(s):
     <div class="hero-massif">⛷ {s['massif']}</div>
     <h1>{s['name']}</h1>
     <div class="hero-region">📍 {s['region']}</div>
+    {cout_vie_hero_html}
     {badge_html(s['name'], 'hero')}
   </div>
   {hero_illu_note}
@@ -3366,6 +3404,7 @@ function closeStation(){{
               <div class="icon-stat-lbl">Forfait / jour *</div>
             </div>
           </div>
+          {cout_vie_block_html}
         </div>
 
         <!-- INFOS PRATIQUES -->
