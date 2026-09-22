@@ -1500,9 +1500,8 @@ function goToMap() {
 
 // ── CONTACT ──
 function openContact() {
-  closeSidebar();
-  document.getElementById("contactOverlay").classList.add("open");
-  document.body.style.overflow = "hidden";
+  // Comme sur toutes les autres pages : renvoie vers l'accueil, où la fenêtre de contact s'ouvre automatiquement
+  window.location.href = 'index.html#contact';
 }
 function closeContact() {
   document.getElementById("contactOverlay").classList.remove("open");
