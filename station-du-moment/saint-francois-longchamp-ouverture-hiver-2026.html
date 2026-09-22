@@ -544,14 +544,6 @@
     .footer a:hover{color:white}
 
     /* ══ TOPBAR / BOTTOM NAV APP ══ */
-    .sf-topbar{position:fixed;top:0;left:0;right:0;height:58px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:600;transition:transform .28s ease;overflow:visible}
-    .sf-topbar.sf-hide{transform:translateY(-100%)}
-    .sf-topbar-logo{display:flex;align-items:center;gap:7px;text-decoration:none;flex-shrink:0}
-    .sf-topbar-logo img{width:42px;height:42px;border-radius:10px;object-fit:contain;box-shadow:0 4px 12px rgba(0,0,0,.18);background:white;flex-shrink:0}
-    .sf-topbar-logo span{font-family:"DM Serif Display",serif;font-size:1.02rem;color:var(--blue-dark);white-space:nowrap}
-    .sf-topbar-app{display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--blue-light),#eaf4ff);border:1px solid var(--blue-mid);border-radius:16px;padding:5px 12px;font-size:.72rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18)}
-    .sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
-    @media(max-width:480px){.sf-topbar-logo span{display:none}.sf-topbar-app{font-size:.68rem;padding:5px 9px}}
     .sf-bottomnav{position:fixed;bottom:0;left:0;right:0;height:52px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08);padding-bottom:env(safe-area-inset-bottom)}
     .sf-bn-item{flex:1;display:flex;align-items:center;justify-content:center;height:52px;font-size:1.25rem;text-decoration:none;color:var(--text-mid);position:relative}
     .sf-bn-home{flex:0 0 52px;margin-top:-20px}
@@ -573,6 +565,144 @@
     .sotm-cta-secondary{background:var(--white);color:var(--blue-dark);border:1.5px solid var(--blue-mid)}  </style>
 </head>
 <body>
+<!-- ══ TOP BAR APP — identique à index.html (se cache au scroll vers le bas) ══ -->
+<style>
+body{padding-top:64px!important}
+.sf-topbar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid #eddcbf;display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 6px;z-index:600;transition:transform .28s ease;overflow:visible;gap:8px;font-family:'DM Sans',sans-serif;box-sizing:border-box}
+.sf-topbar *{box-sizing:border-box}
+.sf-topbar.sf-hide{transform:translateY(-100%);}
+.sf-topbar-logo{display:flex;align-items:center;gap:4px;text-decoration:none;flex-shrink:0;justify-self:start;min-width:0;}
+.sf-topbar-logo img{width:60px;height:60px;border-radius:12px;object-fit:contain;flex-shrink:0}
+.sf-topbar-wordtext{display:flex;flex-direction:column;justify-content:center;line-height:1.05;min-width:0;overflow:hidden}
+.sf-topbar-title{font-family:"DM Serif Display",serif;font-size:.95rem;font-weight:700;white-space:nowrap}
+.sf-topbar-title .sf-dark{color:#1a5a8a}
+.sf-topbar-title .sf-light{color:#3a7db8}
+.sf-topbar-slogan{font-size:.5rem;letter-spacing:.03em;color:#1a5a8a;opacity:.7;white-space:nowrap;text-transform:uppercase;margin-top:1px}
+.sf-topbar-app{display:flex;align-items:center;gap:4px;background:linear-gradient(135deg,#e8f3fb,#eaf4ff);border:1px solid #3a7db8;border-radius:14px;padding:4px 9px;font-size:.64rem;font-weight:700;color:#1a5a8a;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18);justify-self:end;}
+.sf-topbar-right{display:flex;align-items:center;justify-self:end;flex-shrink:0;}
+.sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:#1a5a8a;font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
+.sf-topbar-fav:active{background:#f7efe2}
+.sf-topbar-menu{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;border:1.5px solid #eddcbf;background:#fff;font-size:1rem;line-height:1;color:#1a5a8a;cursor:pointer;flex-shrink:0;padding:0;margin-left:2px}
+.sf-topbar-menu:active{background:#f7efe2}
+@media(max-width:480px){.sf-topbar{padding:0 4px;gap:4px}.sf-topbar-logo img{width:52px;height:52px}.sf-topbar-app{font-size:.58rem;padding:4px 7px}}
+/* Menu rapide + notifications */
+.sf-sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;backdrop-filter:blur(4px)}
+.sf-sheet-overlay.open{display:block}
+.sf-sheet{position:fixed;left:0;right:0;bottom:0;z-index:9001;background:#f5f1ec;border-radius:20px 20px 0 0;padding:10px 0 max(20px,env(safe-area-inset-bottom));box-shadow:0 -8px 40px rgba(0,0,0,.2);transform:translateY(100%);transition:transform .32s cubic-bezier(.32,.72,0,1);max-width:480px;margin:0 auto;font-family:'DM Sans',sans-serif;box-sizing:border-box}
+.sf-sheet.open{transform:translateY(0)}
+.sf-sheet-handle{width:40px;height:4px;background:#ddd;border-radius:3px;margin:0 auto 10px}
+.sf-sheet-title{text-align:center;font-family:"DM Serif Display",serif;font-size:1.05rem;color:#1a5a8a;margin-bottom:6px;padding:0 20px}
+.sf-menu-item{display:flex;align-items:center;gap:12px;width:100%;padding:15px 24px;background:none;border:none;border-top:1px solid #f7efe2;font-size:.95rem;font-weight:600;color:#2a1f14;text-decoration:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif;box-sizing:border-box}
+.sf-menu-item:active{background:#f7efe2}
+.sf-menu-item .em{font-size:1.15rem;flex-shrink:0}
+</style>
+<div class="sf-topbar" id="sfTopbar">
+  <a href="/index.html" class="sf-topbar-logo">
+    <img src="/logo.png" alt="SnowFinder">
+    <span class="sf-topbar-wordtext">
+      <span class="sf-topbar-title"><span class="sf-dark">Snow</span><span class="sf-light">Finder</span></span>
+      <span class="sf-topbar-slogan">Comparez • Trouvez • Skiez</span>
+    </span>
+  </a>
+  <a href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" class="sf-topbar-app" style="position:relative;left:12px">📲 L'app est dispo !</a>
+  <div class="sf-topbar-right">
+    <a href="/comparateur.html" class="sf-topbar-fav" style="margin-right:2px;position:relative;left:10px">⚖️ <span id="sfCompareCount">0</span></a>
+    <a href="/favoris.html" class="sf-topbar-fav">⭐ <span id="sfFavCount">0</span></a>
+    <button type="button" class="sf-topbar-menu" id="sfMenuBtn" onclick="openSfMenu()" aria-label="Menu">☰</button>
+  </div>
+</div>
+
+<div class="sf-sheet-overlay" id="sfMenuOverlay" onclick="closeSfMenu()"></div>
+<div class="sf-sheet" id="sfMenuSheet">
+  <div class="sf-sheet-handle"></div>
+  <div class="sf-sheet-title">Menu</div>
+  <button type="button" class="sf-menu-item" onclick="closeSfMenu();openContact()"><span class="em">📧</span><span>Nous contacter</span></button>
+  <button type="button" class="sf-menu-item" onclick="closeSfMenu();openSfNotif()"><span class="em">🔔</span><span>Notifications</span></button>
+  <a class="sf-menu-item" href="/mentions-legales.html"><span class="em">⚖️</span><span>Mentions légales</span></a>
+</div>
+
+<div class="sf-sheet-overlay" id="sfNotifOverlay2" onclick="closeSfNotif()"></div>
+<div class="sf-sheet" id="sfNotifSheet2" style="text-align:center">
+  <div class="sf-sheet-handle"></div>
+  <div style="padding:8px 24px 4px">
+    <div style="font-size:2.3rem;margin-bottom:8px">🔔</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:1.25rem;color:#1a3f6e;margin-bottom:8px;line-height:1.2">Alertes poudreuse & bons plans ?</div>
+    <p style="font-size:.88rem;color:#5c4a35;line-height:1.6;margin-bottom:16px">Reçois une alerte quand ça tombe fort, ou les bons plans forfaits. <strong>Gratuit, discret, 1 à 2 fois/semaine max.</strong></p>
+  </div>
+  <div style="padding:0 20px;display:flex;flex-direction:column;gap:10px">
+    <button type="button" onclick="acceptSfNotif()" style="background:linear-gradient(135deg,#1a5a8a,#3a7db8);color:white;border:none;border-radius:30px;padding:15px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(26,90,138,.3)">⛷️ Oui, je veux être alerté !</button>
+    <button type="button" onclick="closeSfNotif()" style="background:transparent;color:#8a7060;border:none;padding:8px;font-size:.85rem;cursor:pointer;font-family:'DM Sans',sans-serif">Non merci</button>
+  </div>
+</div>
+
+<script>
+function openSfMenu(){document.getElementById('sfMenuOverlay').classList.add('open');document.getElementById('sfMenuSheet').classList.add('open');document.body.style.overflow='hidden';}
+function closeSfMenu(){document.getElementById('sfMenuOverlay').classList.remove('open');document.getElementById('sfMenuSheet').classList.remove('open');document.body.style.overflow='';}
+// « Nous contacter » : ouvre la modale de contact de l'accueil
+if (typeof openContact !== 'function') {
+  window.openContact = function(){ window.location.href = '/index.html#contact'; };
+}
+function openSfNotif(){
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Les notifications sont déjà activées ✅'); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Les notifications sont bloquées dans les réglages de ton navigateur."); return; }
+  document.getElementById('sfNotifOverlay2').classList.add('open');
+  document.getElementById('sfNotifSheet2').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSfNotif(){
+  document.getElementById('sfNotifOverlay2').classList.remove('open');
+  document.getElementById('sfNotifSheet2').classList.remove('open');
+  document.body.style.overflow='';
+}
+function acceptSfNotif(){
+  closeSfNotif();
+  function ask(){
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred.push(async function(OneSignal){ try{ await OneSignal.Notifications.requestPermission(); }catch(e){} });
+  }
+  if(window.OneSignal || document.querySelector('script[src*="OneSignalSDK"]')){ ask(); return; }
+  var s=document.createElement('script');
+  s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; s.defer=true;
+  document.head.appendChild(s);
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(async function(OneSignal){
+    await OneSignal.init({appId:"df4757f7-ed59-4973-8a3d-782547295c9c",safari_web_id:"web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",serviceWorkerPath:"sw.js",notifyButton:{enable:false},welcomeNotification:{disable:true}});
+    try{ await OneSignal.Notifications.requestPermission(); }catch(e){}
+  });
+}
+// Masquer la barre au scroll vers le bas + compteurs favoris / comparateur
+(function(){
+  var bar = document.getElementById("sfTopbar");
+  var lastY = window.scrollY, ticking = false;
+  window.addEventListener("scroll", function(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY;
+      if(y > lastY && y > 60) bar.classList.add("sf-hide");
+      else bar.classList.remove("sf-hide");
+      lastY = y; ticking = false;
+    });
+  }, {passive:true});
+  function updateFavCount(){
+    var favs = [];
+    try { favs = JSON.parse(localStorage.getItem("sf_favorites")||"[]"); } catch(e){}
+    var el = document.getElementById("sfFavCount"); if(el) el.textContent = favs.length;
+  }
+  function updateCompareCount(){
+    var c = [];
+    try { c = JSON.parse(localStorage.getItem("sf_compare")||"[]"); } catch(e){}
+    var el = document.getElementById("sfCompareCount"); if(el) el.textContent = c.length;
+  }
+  updateFavCount(); updateCompareCount();
+  window.addEventListener("storage", updateFavCount);
+  window.addEventListener("storage", updateCompareCount);
+  window.addEventListener("focus", updateFavCount);
+  window.addEventListener("focus", updateCompareCount);
+})();
+</script>
+<!-- ══ FIN TOP BAR ══ -->
+
 <canvas id="snowCanvas"></canvas>
 <script>
 (function(){
@@ -610,15 +740,6 @@
 })();
 </script>
 
-<div class="sf-topbar" id="sfTopbar">
-  <a href="../index.html" class="sf-topbar-logo">
-    <img src="../logo.png" alt="SnowFinder">
-    <span>SnowFinder</span>
-  </a>
-  <a href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" class="sf-topbar-app">📲 L'app est dispo !</a>
-  <a href="../comparateur.html" class="sf-topbar-fav">⚖️ <span id="sfCompareCount">0</span></a>
-  <a href="../favoris.html" class="sf-topbar-fav">⭐ <span id="sfFavCount">0</span></a>
-</div>
 <script>
 (function(){
   var bar = document.getElementById("sfTopbar");
@@ -655,8 +776,11 @@
 
 <div class="hero">
   <div class="hero-slides">
-    <img class="hero-slide active" data-idx="0" src="../img/saintfrancoislongchamp1.jpg" alt="Saint-François-Longchamp photo 1" loading="eager" onclick="heroLightbox(0)">
-    <img class="hero-slide" data-idx="1" src="../img/saintfrancoislongchamp2.jpg" alt="Saint-François-Longchamp photo 2" loading="lazy" onclick="heroLightbox(1)">
+    <img class="hero-slide active" data-idx="0" src="../img/saintfrancoislongchamp1.jpg" alt="Saint-François-Longchamp, front de neige" loading="eager" onclick="heroLightbox(0)">
+    <img class="hero-slide" data-idx="1" src="../img/saintfrancoislongchamp3.jpg" alt="Saint-François-Longchamp, vue du village depuis les pistes" loading="lazy" onclick="heroLightbox(1)" data-credit="Photo : Florian Pépellin / Wikimedia Commons, CC BY-SA 3.0">
+    <img class="hero-slide" data-idx="2" src="../img/saintfrancoislongchamp2.jpg" alt="Saint-François-Longchamp, panorama sur les massifs environnants" loading="lazy" onclick="heroLightbox(2)">
+    <img class="hero-slide" data-idx="3" src="../img/saintfrancoislongchamp4.jpg" alt="Massif de la Lauzière enneigé vu de Saint-François-Longchamp" loading="lazy" onclick="heroLightbox(3)" data-credit="Photo : Florian Pépellin / Wikimedia Commons, CC BY-SA 4.0">
+    <img class="hero-slide" data-idx="4" src="../img/saintfrancoislongchamp5.jpg" alt="Col de la Madeleine et massif de la Lauzière vus de Saint-François-Longchamp" loading="lazy" onclick="heroLightbox(4)" data-credit="Photo : Florian Pépellin / Wikimedia Commons, CC BY-SA 4.0">
   </div>
   <div class="hero-overlay"></div>
   <button class="hero-close" onclick="closeStation()" title="Retour" aria-label="Retour">✕</button>
@@ -668,7 +792,11 @@
   <div class="hero-dots">
       <button class="hero-dot active" data-idx="0" onclick="heroGoTo(0)" aria-label="Photo 1"></button>
       <button class="hero-dot" data-idx="1" onclick="heroGoTo(1)" aria-label="Photo 2"></button>
+      <button class="hero-dot" data-idx="2" onclick="heroGoTo(2)" aria-label="Photo 3"></button>
+      <button class="hero-dot" data-idx="3" onclick="heroGoTo(3)" aria-label="Photo 4"></button>
+      <button class="hero-dot" data-idx="4" onclick="heroGoTo(4)" aria-label="Photo 5"></button>
   </div>
+  <div class="hero-illu-note" id="heroCreditNote" style="display:none"></div>
   <div class="hero-content">
     <div class="sotm-hero-pill"><span class="dot"></span>⭐ Station du moment · Septembre 2026</div>
     <div class="hero-massif">⛷ Alpes du Nord</div>
@@ -935,14 +1063,21 @@ function toggleReadMore(id, btn){
 })();
 
 // ── CARROUSEL HERO ──
-var HERO_URLS = ["../img/saintfrancoislongchamp1.jpg","../img/saintfrancoislongchamp2.jpg"];
+var HERO_URLS = ["../img/saintfrancoislongchamp1.jpg","../img/saintfrancoislongchamp3.jpg","../img/saintfrancoislongchamp2.jpg","../img/saintfrancoislongchamp4.jpg","../img/saintfrancoislongchamp5.jpg"];
 var heroIdx = 0;
 var heroAuto = null;
 function heroShow(i){
   if(!HERO_URLS.length) return;
   heroIdx = (i + HERO_URLS.length) % HERO_URLS.length;
+  var creditNote = document.getElementById('heroCreditNote');
   document.querySelectorAll('.hero-slide').forEach(function(el){
-    el.classList.toggle('active', parseInt(el.dataset.idx) === heroIdx);
+    var isActive = parseInt(el.dataset.idx) === heroIdx;
+    el.classList.toggle('active', isActive);
+    if(isActive && creditNote){
+      var credit = el.getAttribute('data-credit');
+      if(credit){ creditNote.textContent = credit; creditNote.style.display = 'block'; }
+      else { creditNote.style.display = 'none'; }
+    }
   });
   document.querySelectorAll('.hero-dot').forEach(function(el){
     el.classList.toggle('active', parseInt(el.dataset.idx) === heroIdx);
@@ -1011,13 +1146,16 @@ function closeStation(){
       <div class="tab-content active" id="tab-coupdecoeur">
 
         <div class="section" style="margin-bottom:14px">
-          <p style="font-size:.95rem;line-height:1.75;color:var(--text-mid)">Au pied du <strong style="color:var(--text)">col de la Madeleine</strong>, entre le massif de la Lauzière et la Combe de Savoie, Saint-François-Longchamp prépare tranquillement son hiver. Pendant que les stations voisines commencent à annoncer leurs dates d'ouverture, on a eu envie de remettre en lumière cette station familiale au <strong style="color:var(--text)">rapport qualité-prix</strong> qui reste l'un des plus solides des Alpes du Nord.</p>
+          <p style="font-size:.95rem;line-height:1.75;color:var(--text-mid)">Au pied du <strong style="color:var(--text)">col de la Madeleine</strong>, entre le massif de la Lauzière et la Combe de Savoie, Saint-François-Longchamp prépare tranquillement son hiver. Pendant que les stations voisines commencent à annoncer leurs dates d'ouverture, on a eu envie de remettre en lumière cette station familiale au <strong style="color:var(--text)">rapport qualité-prix</strong> qui reste l'un des plus solides des Alpes du Nord — le tout skis aux pieds avec Valmorel au sein du Grand Domaine.</p>
         </div>
+
+        <img src="../img/saintfrancoislongchamp3.jpg" alt="Saint-François-Longchamp, vue du village depuis les pistes" class="photo-station" loading="lazy" style="margin-bottom:4px">
+        <div class="photo-credit" style="font-size:.68rem;color:var(--text-light);text-align:right;margin-bottom:18px">Photo : Florian Pépellin / <a href="https://commons.wikimedia.org/wiki/File:Saint-Fran%C3%A7ois-Longchamp_-_Montgellafrey_(2014).JPG" target="_blank" rel="noopener" style="color:var(--text-light)">Wikimedia Commons</a>, CC BY-SA 3.0</div>
 
         <div class="section">
           <div class="section-title">Un rapport qualité-prix qui fait sa réputation</div>
           <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid);margin-bottom:10px">C'est le point qui revient le plus souvent dans les avis skieurs : forfait accessible à 36€/jour, hébergements abordables, et un domaine largement à la hauteur de ce que proposent des voisines plus chères. La station cultive une image sans prétention — parfois qualifiée de « vieillotte » par ceux qui cherchent le standing d'une station chic — mais c'est précisément ce qui permet de garder des tarifs doux tout en offrant un vrai grand domaine skis aux pieds.</p>
-          <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Le forfait du Grand Domaine (58€/jour, 165 km avec Valmorel) reste ainsi nettement en dessous des stations comparables des Trois Vallées ou du Val d'Arly, sans sacrifier ni le kilométrage de pistes ni la qualité de l'enneigement.</p>
+          <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Le forfait du Grand Domaine (58€/jour, 165 km et 101 pistes avec Valmorel) reste ainsi nettement en dessous des stations comparables des Trois Vallées ou du Val d'Arly, sans sacrifier ni le kilométrage de pistes ni la qualité de l'enneigement.</p>
         </div>
 
         <div class="anecdote-box">
@@ -1039,6 +1177,22 @@ function closeStation(){
         </div>
 
         <div class="section" style="margin-bottom:0">
+          <div class="section-title">Un panorama à couper le souffle</div>
+          <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Depuis les pistes, la vue s'ouvre sur les massifs de Belledonne, de l'Oisans et, par temps clair, jusqu'au Mont-Blanc — avec en toile de fond permanente les crêtes acérées de la Lauzière, qui domine la station à l'ouest et culmine à 2 829 m. Autre atout : la route du col de la Madeleine, célèbre ascension du Tour de France, part directement de la station. Fermée l'hiver sous la neige, elle redevient dès les beaux jours un terrain de jeu prisé des cyclotouristes — la station vit ainsi été comme hiver.</p>
+        </div>
+
+        <div class="photo-duo" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 4px">
+          <div>
+            <img src="../img/saintfrancoislongchamp4.jpg" alt="Massif de la Lauzière enneigé vu de Saint-François-Longchamp" class="photo-station" loading="lazy" style="height:180px;object-fit:cover;margin-bottom:4px">
+            <div style="font-size:.64rem;color:var(--text-light);text-align:right">© Florian Pépellin / Wikimedia, CC BY-SA 4.0</div>
+          </div>
+          <div>
+            <img src="../img/saintfrancoislongchamp5.jpg" alt="Col de la Madeleine et massif de la Lauzière vus de Saint-François-Longchamp" class="photo-station" loading="lazy" style="height:180px;object-fit:cover;margin-bottom:4px">
+            <div style="font-size:.64rem;color:var(--text-light);text-align:right">© Florian Pépellin / Wikimedia, CC BY-SA 4.0</div>
+          </div>
+        </div>
+
+        <div class="section" style="margin-top:18px">
           <div class="section-title">Ce qu'en disent les skieurs</div>
           <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid);margin-bottom:10px">Sur les plateformes d'avis, un mot revient sans cesse : convivialité. Les vacanciers saluent la taille humaine de la station, des pistes variées et bien préparées, et une restauration de qualité — le tout dans une ambiance qui reste résolument familiale. La liaison avec Valmorel est régulièrement citée comme un vrai plus, offrant d'un coup un domaine beaucoup plus vaste sans perdre l'esprit village.</p>
           <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Le bémol qui revient parfois : une architecture un peu disparate entre les différents hameaux de la station, et une ambiance plus calme hors vacances scolaires. Rien qui n'entame la réputation de valeur sûre de la station pour un séjour en famille.</p>
@@ -1047,6 +1201,40 @@ function closeStation(){
         <div class="sotm-strip">
           <div class="sotm-strip-ico">⭐</div>
           <p><strong>La Station du moment</strong>, c'est notre coup de cœur mensuel — mise en avant sur la page d'accueil de SnowFinder, devant des milliers de skieurs qui cherchent leur prochaine destination. Un emplacement unique, renouvelé chaque mois, et l'un des formats les plus consultés du site.</p>
+        </div>
+
+        <div class="section" style="margin-top:14px;border-left:4px solid var(--gold);background:linear-gradient(135deg,var(--white) 0%,#fff8ec 100%)">
+          <div class="section-title" style="color:var(--wood-dark)">🌟 Ce que ce format apporte</div>
+          <div style="padding-top:2px">
+            <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--wood-pale)">
+              <span style="font-size:1.3rem;flex-shrink:0">🏠</span>
+              <div>
+                <div style="font-weight:700;font-size:.85rem;color:var(--text)">En tête de la page d'accueil</div>
+                <div style="font-size:.76rem;color:var(--text-light)">Devant tous les visiteurs qui arrivent sur SnowFinder pour choisir leur prochaine station</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--wood-pale)">
+              <span style="font-size:1.3rem;flex-shrink:0">🔔</span>
+              <div>
+                <div style="font-weight:700;font-size:.85rem;color:var(--text)">Notification push dédiée</div>
+                <div style="font-size:.76rem;color:var(--text-light)">Une alerte envoyée aux abonnés SnowFinder au moment de la mise en ligne</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--wood-pale)">
+              <span style="font-size:1.3rem;flex-shrink:0">⭐</span>
+              <div>
+                <div style="font-weight:700;font-size:.85rem;color:var(--text)">Un seul emplacement par mois</div>
+                <div style="font-size:.76rem;color:var(--text-light)">Pas de bannière partagée : une station à la fois, en exclusivité</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0">
+              <span style="font-size:1.3rem;flex-shrink:0">🎨</span>
+              <div>
+                <div style="font-weight:700;font-size:.85rem;color:var(--text)">Traitement éditorial complet</div>
+                <div style="font-size:.76rem;color:var(--text-light)">Galerie photo, chiffres clés, avis skieurs, accès... le même soin qu'une fiche station, en plus riche</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="sotm-cta-row">
@@ -1713,7 +1901,7 @@ function hideOfficialSheet(){
   <div class="lightbox-count" id="lightboxCount"></div>
 </div>
 <script>
-var GALLERY_URLS = ["../img/saintfrancoislongchamp1.jpg","../img/saintfrancoislongchamp2.jpg"];
+var GALLERY_URLS = ["../img/saintfrancoislongchamp1.jpg","../img/saintfrancoislongchamp3.jpg","../img/saintfrancoislongchamp2.jpg","../img/saintfrancoislongchamp4.jpg","../img/saintfrancoislongchamp5.jpg"];
 var lbIdx = 0;
 function openLightbox(i){
   if(!GALLERY_URLS.length) return;
