@@ -35,5 +35,6 @@ jobs:
             echo "✓ Pas de changement"
           else
             git commit -m "🤖 Régénération des comparatifs"
+            git pull --rebase
             git push
           fi

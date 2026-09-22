@@ -37,5 +37,6 @@ jobs:
           else
             git add sitemap.xml
             git commit -m "🤖 Régénération automatique du sitemap"
+            git pull --rebase
             git push
           fi
