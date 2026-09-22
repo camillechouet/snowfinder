@@ -1409,25 +1409,37 @@ function toggleCompareStation(id){
 </style>
 
 
+<style>
+/* Raccourcis « Trouver rapidement » : tout sur une ligne sur smartphone (PC inchangé) */
+.sf-quick .qc-short{display:none}
+@media(max-width:600px){
+  .sf-quick-wrap{padding:14px 10px!important}
+  .sf-quick{flex-wrap:nowrap!important;gap:5px!important}
+  .sf-quick .sf-qc{flex:1 1 0;min-width:0;flex-direction:column;justify-content:center;gap:3px!important;padding:8px 2px!important;border-radius:14px!important;font-size:.7rem!important;text-align:center}
+  .sf-quick .qc-em{font-size:1.15rem;line-height:1}
+  .sf-quick .qc-long{display:none}
+  .sf-quick .qc-short{display:block;white-space:nowrap}
+}
+</style>
 <!-- RACCOURCIS 1-CLIC -->
-<div style="background:var(--bg);border-bottom:2px solid var(--wood-light);padding:18px 24px">
+<div class="sf-quick-wrap" style="background:var(--bg);border-bottom:2px solid var(--wood-light);padding:18px 24px">
   <div style="max-width:960px;margin:0 auto">
     <div style="text-align:center;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:12px">⚡ Trouver rapidement</div>
-    <div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap">
-      <a href="recherche.html?budget=eco" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
-        💰 <span>Petit budget</span>
+    <div class="sf-quick" style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap">
+      <a class="sf-qc" href="recherche.html?budget=eco" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
+        <span class="qc-em">💰</span> <span class="qc-long">Petit budget</span><span class="qc-short">Budget</span>
       </a>
-      <a href="recherche.html?amb=famille" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
-        👨‍👩‍👧 <span>En famille</span>
+      <a class="sf-qc" href="recherche.html?amb=famille" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
+        <span class="qc-em">👨‍👩‍👧</span> <span class="qc-long">En famille</span><span class="qc-short">Famille</span>
       </a>
-      <a href="recherche.html?niv=avance,expert" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
-        🎿 <span>Ski expert</span>
+      <a class="sf-qc" href="recherche.html?niv=avance,expert" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
+        <span class="qc-em">🎿</span> <span class="qc-long">Ski expert</span><span class="qc-short">Expert</span>
       </a>
-      <a href="recherche.html?alt_sommet=high,vhigh" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
-        ❄️ <span>Neige garantie</span>
+      <a class="sf-qc" href="recherche.html?alt_sommet=high,vhigh" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
+        <span class="qc-em">❄️</span> <span class="qc-long">Neige garantie</span><span class="qc-short">Neige</span>
       </a>
-      <a href="recherche.html?amb=luxe" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
-        💎 <span>Station luxe</span>
+      <a class="sf-qc" href="recherche.html?amb=luxe" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:white;border:2px solid var(--border);border-radius:30px;font-size:.78rem;font-weight:600;color:var(--text);text-decoration:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)" onmouseover="this.style.borderColor='var(--blue-mid)';this.style.color='var(--blue-mid)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)';this.style.transform=''">
+        <span class="qc-em">💎</span> <span class="qc-long">Station luxe</span><span class="qc-short">Luxe</span>
       </a>
     </div>
   </div>
