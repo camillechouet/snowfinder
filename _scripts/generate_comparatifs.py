@@ -1251,8 +1251,19 @@ function acceptSfNotif(){
 '''
 
 
+_SF_GA = '<!-- Google tag (gtag.js) -->\n<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>\n<script>try{if(localStorage.getItem("sf_cookie_consent")==="refused")window["ga-disable-G-S0C748Y0DX"]=true;}catch(e){}window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-S0C748Y0DX");</script>\n'
+
+
+def add_ga(page_html):
+    """Ajoute le tag Google Analytics s'il est absent."""
+    if 'googletagmanager.com/gtag' not in page_html:
+        page_html = page_html.replace('</head>', _SF_GA + '</head>', 1)
+    return page_html
+
+
 def add_topbar(html: str) -> str:
     """Remplace la <nav class="nav">…</nav> par le bandeau complet du site."""
+    html = add_ga(html)
     html = re.sub(r'<nav class="nav">.*?</nav>\s*', SF_TOPBAR + "\n", html, count=1, flags=re.S)
     return html
 

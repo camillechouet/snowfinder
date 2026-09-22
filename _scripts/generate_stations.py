@@ -4932,7 +4932,18 @@ _SF_OLD_CSS = _re_topbar.compile(r'^\s*(\.sf-topbar|@media\(max-width:480px\)\{\
 _SF_FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">\n'
 
 
+_SF_GA = '<!-- Google tag (gtag.js) -->\n<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>\n<script>try{if(localStorage.getItem("sf_cookie_consent")==="refused")window["ga-disable-G-S0C748Y0DX"]=true;}catch(e){}window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-S0C748Y0DX");</script>\n'
+
+
+def add_ga(page_html):
+    """Ajoute le tag Google Analytics s'il est absent."""
+    if 'googletagmanager.com/gtag' not in page_html:
+        page_html = page_html.replace('</head>', _SF_GA + '</head>', 1)
+    return page_html
+
+
 def harmonize_topbar(page_html):
+    page_html = add_ga(page_html)
     if 'DM+Serif+Display' not in page_html:
         page_html = page_html.replace('</head>', _SF_FONTS + '</head>', 1)
     start = page_html.find('<div class="sf-topbar" id="sfTopbar">')
