@@ -758,15 +758,21 @@ function acceptSfNotif(){
     <div class="hero-cout" title="Coût de la vie sur place : Élevé">Coût sur place <span class="euros" role="img" aria-label="Coût de la vie 4 sur 5"><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span><span class="eu">€</span></span></div>
     
   </div>
-  <div class="hero-illu-note">Photo d'illustration</div>
-  
+  <div class="hero-illu-note" style="bottom:112px">Photo d'illustration</div>
+  <a href="../domaines/alp-2500.html" class="hero-link-card">
+    <img src="https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=1400&q=80" alt="" loading="lazy">
+    <div class="hero-link-card-overlay">
+      <div class="hero-link-card-tag">🏔️ Grand domaine</div>
+      <div class="hero-link-card-name">Alp 2500 <span>→</span></div>
+    </div>
+  </a>
 </div>
 
 <!-- NAVIGATION ONGLETS — coulissante horizontalement, avec indice de scroll visible -->
 <div class="tab-nav-wrap" id="tabNavWrap">
   <div class="tab-nav" id="tabNav">
     <button class="tab-btn active" onclick="switchTab('infos',this)">📖 La station</button>
-    
+    <button class="tab-btn" onclick="switchTab('domaine',this)">🔗 Grand domaine</button>
     
     <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
     <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo &amp; enneigement</button>
@@ -1133,12 +1139,12 @@ function closeStation(){
             <div class="icon-stat-tile">
               <span class="icon-stat-ico">🗻</span>
               <div class="icon-stat-val">2535m</div>
-              <div class="icon-stat-lbl">Sommet</div>
+              <div class="icon-stat-lbl">Sommet (domaine)</div>
             </div>
             <div class="icon-stat-tile">
               <span class="icon-stat-ico">🚡</span>
               <div class="icon-stat-val">17</div>
-              <div class="icon-stat-lbl">Remontées</div>
+              <div class="icon-stat-lbl">Remontées (estim.)</div>
             </div>
             <div class="icon-stat-tile">
               <span class="icon-stat-ico">💶</span>
@@ -1360,7 +1366,96 @@ function closeStation(){
 
       </div>
 
-      
+      <div class="tab-content" id="tab-domaine">
+        <a href="../domaines/alp-2500.html" class="domaine-box">
+    <img src="https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=1400&q=80" alt="Alp 2500 (La Molina – Masella)" loading="lazy">
+    <div class="domaine-box-overlay">
+      <div class="domaine-box-tag">🏔️ Domaine skiable relié</div>
+      <div class="domaine-box-name">Alp 2500 (La Molina – Masella) <span class="domaine-box-arrow">→</span></div>
+    </div>
+  </a>
+        <div class="dt-hero">
+          <h3>🏔️ Alp 2500 (La Molina – Masella)</h3>
+          <div class="readmore-wrap" id="rm-domaine" style="--rm-bg:#154a86;--rm-max:82px">
+            <p>La Molina et Masella se partagent la Tosa d'Alp, en Cerdagne catalane, et forment ensemble Alp 2500, 145 km de pistes entre 1600 et 2537 m. La Molina est la doyenne des stations espagnoles — son premier téléski commercial date de 1943 — et possède même sa gare sur la ligne de Puigcerdà, à deux heures de Barcelone. Masella, sur le versant nord, déroule la plupart de ses pistes entre les pins à crochets et propose le plus grand domaine de ski nocturne des Pyrénées. Le sommet de la Tosa fait la jonction entre les deux stations, skis aux pieds.</p>
+          </div>
+          <div class="readmore-btn" style="color:#e4c766" onclick="toggleReadMore('rm-domaine',this)">Lire plus ▼</div>
+        </div>
+        <div class="section" style="margin-top:16px">
+          <div class="section-title">Aperçu du domaine skiable</div>
+          <div class="piste-circles">
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#2ea84e"></div>
+              <div class="piste-circle-val"><b>29</b></div>
+              <div class="piste-circle-pct">19%</div>
+              <div class="piste-circle-lbl">Vertes</div>
+            </div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#3a7db8"></div>
+              <div class="piste-circle-val"><b>55</b></div>
+              <div class="piste-circle-pct">36%</div>
+              <div class="piste-circle-lbl">Bleues</div>
+            </div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#cc2200"></div>
+              <div class="piste-circle-val"><b>54</b></div>
+              <div class="piste-circle-pct">35%</div>
+              <div class="piste-circle-lbl">Rouges</div>
+            </div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#222"></div>
+              <div class="piste-circle-val"><b>16</b></div>
+              <div class="piste-circle-pct">10%</div>
+              <div class="piste-circle-lbl">Noires</div>
+            </div>
+          </div>
+          <div class="icon-stat-grid">
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🎿</span>
+              <div class="icon-stat-val">154</div>
+              <div class="icon-stat-lbl">Nombre de pistes</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">⛰️</span>
+              <div class="icon-stat-val">145 km</div>
+              <div class="icon-stat-lbl">Pistes skiables</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🏘️</span>
+              <div class="icon-stat-val">1600m</div>
+              <div class="icon-stat-lbl">Altitude mini</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🗻</span>
+              <div class="icon-stat-val">2537m</div>
+              <div class="icon-stat-lbl">Altitude maxi</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🚡</span>
+              <div class="icon-stat-val">33</div>
+              <div class="icon-stat-lbl">Remontées</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">💶</span>
+              <div class="icon-stat-val">58€</div>
+              <div class="icon-stat-lbl">Forfait domaine/j</div>
+            </div>
+          </div>
+        </div>
+        
+        <a href="../domaines/alp-2500.html" class="domaine-see-all">Voir la fiche complète du domaine →</a>
+        <h4 class="dt-subtitle">Les autres stations du domaine</h4><div class="domaine-soeurs-grid"><a href="la-molina.html" class="domaine-soeur-card">
+        <img src="https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=600&q=80" alt="La Molina" loading="lazy">
+        <div class="domaine-soeur-overlay">
+          <div class="domaine-soeur-name">La Molina</div>
+          <div class="domaine-soeur-stats">
+            <span>🏘 1700m</span>
+            <span>🎿 71 km</span>
+          </div>
+          <div class="domaine-soeur-sub">Voir la fiche →</div>
+        </div>
+      </a></div>
+      </div>
 
       <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
       
@@ -1495,7 +1590,7 @@ function closeStation(){
       <!-- BOOKING / EXPEDIA — style index -->
       <div style="border-radius:16px;overflow:hidden;box-shadow:0 8px 28px rgba(13,34,64,.18);margin-bottom:16px">
 
-        <a href="https://www.tkqlhce.com/click-101709262-15734710?sid=station-masella&url=https%3A//www.booking.com/searchresults.fr.html%3Fss%3DMasella%2520ski%2520france%26lang%3Dfr" target="_blank" rel="noopener sponsored"
+        <a href="https://www.tkqlhce.com/click-101709262-15734710?sid=station-masella&url=https%3A//www.booking.com/searchresults.fr.html%3Fss%3DMasella%2520ski%2520espagne%26lang%3Dfr" target="_blank" rel="noopener sponsored"
            style="display:block;text-decoration:none;overflow:hidden;position:relative"
            onmouseover="this.querySelector('img').style.transform='scale(1.05)'"
            onmouseout="this.querySelector('img').style.transform='scale(1)'">
@@ -1570,7 +1665,7 @@ function closeStation(){
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px 16px">
 
     <!-- Booking -->
-    <a href="https://www.tkqlhce.com/click-101709262-15734710?sid=station-masella&url=https%3A//www.booking.com/searchresults.fr.html%3Fss%3DMasella%2520ski%2520france%26lang%3Dfr" target="_blank" rel="noopener sponsored" onclick="hideOfficialSheet()" style="text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.15);display:block">
+    <a href="https://www.tkqlhce.com/click-101709262-15734710?sid=station-masella&url=https%3A//www.booking.com/searchresults.fr.html%3Fss%3DMasella%2520ski%2520espagne%26lang%3Dfr" target="_blank" rel="noopener sponsored" onclick="hideOfficialSheet()" style="text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.15);display:block">
       <div style="position:relative;height:120px;overflow:hidden">
         <img src="../img/chalet-booking.jpg" alt="Chalet ski Booking" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=400&q=80'" style="width:100%;height:100%;object-fit:cover">
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,35,128,.9) 0%,rgba(0,35,128,.3) 60%,transparent 100%)"></div>
@@ -1603,7 +1698,7 @@ function closeStation(){
 
   <!-- Lien site officiel -->
   <div style="text-align:center;padding:0 24px">
-    <a href="https://www.google.com/search?q=Masella+station+ski+site+officiel" target="_blank" rel="noopener" onclick="hideOfficialSheet()" style="display:inline-block;font-size:.88rem;color:#5c4a35;font-weight:600;text-decoration:underline;padding:8px 16px">
+    <a href="https://www.masella.com" target="_blank" rel="noopener" onclick="hideOfficialSheet()" style="display:inline-block;font-size:.88rem;color:#5c4a35;font-weight:600;text-decoration:underline;padding:8px 16px">
       Non merci — continuer vers le site officiel de Masella →
     </a>
   </div>
@@ -1616,7 +1711,7 @@ function closeStation(){
     <img src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1200&q=80" alt="" loading="lazy">
     <span class="mobile-bar-btn-overlay">🎿 Site officiel</span>
   </button>
-  <a href="https://www.tkqlhce.com/click-101709262-15734710?sid=station-masella&url=https%3A//www.booking.com/searchresults.fr.html%3Fss%3DMasella%2520ski%2520france%26lang%3Dfr" target="_blank" rel="noopener sponsored" class="mobile-bar-btn mobile-bar-booking">
+  <a href="https://www.tkqlhce.com/click-101709262-15734710?sid=station-masella&url=https%3A//www.booking.com/searchresults.fr.html%3Fss%3DMasella%2520ski%2520espagne%26lang%3Dfr" target="_blank" rel="noopener sponsored" class="mobile-bar-btn mobile-bar-booking">
     <img src="../img/chalet-booking.jpg" alt="" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=400&q=80'">
     <span class="mobile-bar-btn-overlay">🏨 Réserver</span>
   </a>
