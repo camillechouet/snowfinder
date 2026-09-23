@@ -1284,6 +1284,273 @@ function expediaUrl(station, sid) {
     + (sid || '') + '&url=' + encodeURIComponent(base);
 }
 </script>
+<!-- ══ FILTRE PAYS (partagé Recherche / Tinder / Conseiller IA) ══
+     Choix mémorisé sur l'appareil (localStorage "sf_pays_v1"), comme les favoris.
+     Par défaut : France seule. Les pays n'apparaissent que s'ils ont des stations. -->
+<style>
+.sf-pays-box{margin:0 0 14px}
+.sf-pays-box[hidden]{display:none!important}
+.sf-pays-head{display:flex;align-items:baseline;justify-content:space-between;font-family:"DM Sans",sans-serif;font-size:.8rem;font-weight:700;color:var(--text,#1c2b3a);margin:0 2px 8px}
+.sf-pays-note{font-size:.68rem;font-weight:500;color:var(--text-light,#7e93a8)}
+.sf-pays-row{display:flex;flex-wrap:wrap;gap:8px}
+.sf-flag{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:58px;padding:8px 6px 6px;background:#fff;border:1.5px solid var(--border,#dfe8ef);border-radius:10px;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.68rem;font-weight:600;color:var(--text-light,#7e93a8);transition:border-color .15s,color .15s,background .15s;-webkit-tap-highlight-color:transparent}
+.sf-flag svg{width:34px;height:23px;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.12);filter:grayscale(1);opacity:.4;transition:filter .2s,opacity .2s}
+.sf-flag.on{border-color:var(--blue-mid,#3a7db8);background:#eef6fc;color:var(--text,#1c2b3a)}
+.sf-flag.on svg{filter:none;opacity:1}
+.sf-flag:focus-visible{outline:2px solid var(--blue-mid,#3a7db8);outline-offset:2px}
+.sf-flag.shake{animation:sfShake .35s}
+@keyframes sfShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.sf-pays-sum{display:inline-flex;align-items:center;margin:0;padding:3px 6px 3px 4px;background:#fff;border:1.5px solid var(--border,#dfe8ef);border-radius:20px;cursor:pointer;vertical-align:middle;font-family:"DM Sans",sans-serif;font-size:.7rem;font-weight:700;color:var(--text-light,#7e93a8);line-height:1;flex-shrink:0}
+.sf-pays-sum[hidden]{display:none!important}
+.sf-pays-sum svg{width:20px;height:14px;border-radius:2px;box-shadow:0 0 0 1.5px #fff,0 0 0 2.5px rgba(0,0,0,.1);position:relative}
+.sf-pays-sum svg+svg{margin-left:-6px}
+.sf-pays-sum i{font-style:normal;margin-left:3px}
+.sf-pays-sum .sf-caret{font-size:.6rem;margin-left:3px}
+.counter .sf-pays-sum,.quiz-header .sf-pays-sum{margin-left:8px}
+.ia-panel-header .sf-pays-sum{margin-left:auto;margin-right:10px}
+.quiz-header .sf-pays-sum{margin:2px 0 0}
+.sf-pays-banner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 14px;padding:10px 38px 10px 12px;position:relative;background:#eef6fc;border:1.5px solid #cfe3f2;border-radius:10px;font-family:"DM Sans",sans-serif;font-size:.8rem;color:var(--text,#1c2b3a);line-height:1.35}
+.sf-pays-banner b{font-weight:700}
+.sf-pays-banner .sf-bn-add{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;background:#fff;border:1.5px solid var(--blue-mid,#3a7db8);border-radius:20px;font:inherit;font-size:.74rem;font-weight:700;color:var(--blue-mid,#3a7db8);cursor:pointer}
+.sf-pays-banner .sf-bn-add svg{width:20px;height:13px;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+.sf-pays-banner .sf-bn-add.done{background:var(--blue-mid,#3a7db8);color:#fff}
+.sf-pays-banner .sf-bn-x{position:absolute;top:6px;right:6px;width:26px;height:26px;border:none;background:none;font-size:1rem;color:var(--text-light,#7e93a8);cursor:pointer}
+.sf-pays-hidden{margin:0 0 12px;padding:9px 12px;background:#fff8e6;border:1.5px solid #f0dca8;border-radius:10px;font-family:"DM Sans",sans-serif;font-size:.78rem;color:#6b5418;line-height:1.4}
+.sf-pays-hidden[hidden]{display:none!important}
+.sf-pays-hidden button{margin-left:4px;padding:3px 9px;background:#fff;border:1.5px solid #d9b85c;border-radius:14px;font:inherit;font-size:.74rem;font-weight:700;color:#6b5418;cursor:pointer}
+.sf-pays-sheet-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;display:flex;align-items:flex-end;justify-content:center}
+.sf-pays-sheet{width:100%;max-width:440px;background:#fff;border-radius:18px 18px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));font-family:"DM Sans",sans-serif;animation:sfUp .22s ease-out}
+@keyframes sfUp{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.sf-pays-sheet h3{margin:0 0 4px;font-family:"DM Serif Display",serif;font-size:1.15rem;font-weight:400;color:var(--text,#1c2b3a)}
+.sf-pays-sheet p{margin:0 0 14px;font-size:.78rem;color:var(--text-light,#7e93a8)}
+.sf-pays-sheet .sf-sheet-ok{width:100%;margin-top:16px;padding:12px;background:var(--blue-mid,#3a7db8);color:#fff;border:none;border-radius:10px;font:inherit;font-size:.88rem;font-weight:700;cursor:pointer}
+.sf-pays-toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);z-index:9100;padding:9px 16px;background:#1c2b3a;color:#fff;border-radius:20px;font-family:"DM Sans",sans-serif;font-size:.8rem;box-shadow:0 4px 14px rgba(0,0,0,.25);pointer-events:none}
+.iac-pays-add{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:6px 11px;background:#fff;border:1.5px solid var(--blue-mid,#3a7db8);border-radius:20px;font-family:"DM Sans",sans-serif;font-size:.78rem;font-weight:700;color:var(--blue-mid,#3a7db8);cursor:pointer}
+.iac-pays-add svg{width:20px;height:13px;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+@media (prefers-reduced-motion:reduce){.sf-flag.shake,.sf-pays-sheet{animation:none}}
+</style>
+<script>
+(function(){
+  var KEY = "sf_pays_v1", SEEN = "sf_pays_banner_seen";
+  var FR_UI = /^fr/i.test((navigator.language || "fr"));
+  function L(fr, en){ return FR_UI ? fr : en; }
+
+  var ORDER = ["FR","CH","IT","ES","AD","AT","DE","SI"];
+  var NAMES = {
+    FR:["France","France"], CH:["Suisse","Switzerland"], IT:["Italie","Italy"], ES:["Espagne","Spain"],
+    AD:["Andorre","Andorra"], AT:["Autriche","Austria"], DE:["Allemagne","Germany"], SI:["Slovénie","Slovenia"]
+  };
+  function nm(c){ var n = NAMES[c]; return n ? (FR_UI ? n[0] : n[1]) : c; }
+  function h3(a,b,c){ return '<rect width="30" height="6.67" y="0" fill="'+a+'"/><rect width="30" height="6.67" y="6.67" fill="'+b+'"/><rect width="30" height="6.67" y="13.33" fill="'+c+'"/>'; }
+  function v3(a,b,c){ return '<rect width="10" height="20" x="0" fill="'+a+'"/><rect width="10" height="20" x="10" fill="'+b+'"/><rect width="10" height="20" x="20" fill="'+c+'"/>'; }
+  var SVG = {
+    FR: v3("#0055A4","#fff","#EF4135"),
+    IT: v3("#009246","#fff","#CE2B37"),
+    AD: v3("#10069F","#FEDD00","#D50032"),
+    CH: '<rect width="30" height="20" fill="#DA291C"/><rect x="13" y="4" width="4" height="12" fill="#fff"/><rect x="9" y="8" width="12" height="4" fill="#fff"/>',
+    ES: '<rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/>',
+    AT: h3("#C8102E","#fff","#C8102E"),
+    DE: h3("#000","#DD0000","#FFCE00"),
+    SI: h3("#fff","#005DA4","#ED1C24")
+  };
+  function flag(c){ return '<svg viewBox="0 0 30 20" aria-hidden="true" focusable="false">'+(SVG[c]||'<rect width="30" height="20" fill="#ccc"/>')+'</svg>'; }
+
+  function allData(){
+    try{ if(typeof RAW_DATA_ALL !== "undefined") return RAW_DATA_ALL; }catch(e){}
+    try{ if(typeof DATA !== "undefined") return DATA; }catch(e){}
+    return [];
+  }
+  function countryOf(s){
+    if(!s) return "FR";
+    if(s.pays) return s.pays;
+    var r = s.region || "";
+    if(/Suisse/i.test(r)) return "CH";
+    if(/Italie/i.test(r)) return "IT";
+    if(/Espagne/i.test(r)) return "ES";
+    if(/Andorre/i.test(r)) return "AD";
+    if(/Autriche/i.test(r)) return "AT";
+    return "FR";
+  }
+  function available(){
+    var seen = {}; allData().forEach(function(s){ seen[countryOf(s)] = 1; });
+    return ORDER.filter(function(c){ return seen[c]; }).concat(Object.keys(seen).filter(function(c){ return ORDER.indexOf(c) < 0; }));
+  }
+  function stored(){
+    try{ var v = JSON.parse(localStorage.getItem(KEY)); if(Array.isArray(v) && v.length) return v; }catch(e){}
+    return ["FR"];
+  }
+  // Sélection effective = pays choisis ∩ pays disponibles (repli sur la France si vide)
+  function get(){
+    var av = available(), sel = stored().filter(function(c){ return av.indexOf(c) > -1; });
+    if(!sel.length) sel = av.indexOf("FR") > -1 ? ["FR"] : av.slice(0,1);
+    return sel;
+  }
+  function save(arr){
+    try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(e){}
+    renderAll();
+    try{ window.dispatchEvent(new CustomEvent("sfpays:change", {detail:{pays:arr.slice()}})); }catch(e){}
+  }
+  function ok(s){ return get().indexOf(countryOf(s)) > -1; }
+  function isFiltering(){ return available().length > 1 && get().length < available().length; }
+  function split(list){
+    var sel = get(), okL = [], hid = [];
+    list.forEach(function(s){ (sel.indexOf(countryOf(s)) > -1 ? okL : hid).push(s); });
+    return {ok: okL, hidden: hid};
+  }
+  function add(codes){
+    var cur = get();
+    [].concat(codes).forEach(function(c){ if(cur.indexOf(c) < 0) cur.push(c); });
+    save(cur);
+  }
+  function toggle(c, btn){
+    var cur = get(), i = cur.indexOf(c);
+    if(i > -1){
+      if(cur.length === 1){
+        if(btn){ btn.classList.remove("shake"); void btn.offsetWidth; btn.classList.add("shake"); }
+        toast(L("Garde au moins un pays sélectionné","Keep at least one country selected"));
+        return;
+      }
+      cur.splice(i, 1);
+    } else cur.push(c);
+    save(cur);
+  }
+  function countriesOfList(list){
+    var seen = {}; list.forEach(function(s){ seen[countryOf(s)] = 1; });
+    return ORDER.filter(function(c){ return seen[c]; });
+  }
+  function joinNames(codes){
+    var n = codes.map(nm);
+    if(n.length < 2) return n.join("");
+    return n.slice(0,-1).join(", ") + L(" et "," and ") + n[n.length-1];
+  }
+
+  var toastT;
+  function toast(msg){
+    var t = document.querySelector(".sf-pays-toast");
+    if(!t){ t = document.createElement("div"); t.className = "sf-pays-toast"; document.body.appendChild(t); }
+    t.textContent = msg; t.style.display = "block";
+    clearTimeout(toastT); toastT = setTimeout(function(){ t.style.display = "none"; }, 1800);
+  }
+
+  // ── Rendu ──
+  function renderRows(){
+    var av = available(), sel = get();
+    document.querySelectorAll(".sf-pays-box").forEach(function(box){ box.hidden = av.length < 2; });
+    document.querySelectorAll(".sf-pays-row").forEach(function(row){
+      row.innerHTML = av.map(function(c){
+        var on = sel.indexOf(c) > -1;
+        return '<button type="button" class="sf-flag'+(on?' on':'')+'" data-pays="'+c+'" aria-pressed="'+on+'">'+flag(c)+'<span>'+nm(c)+'</span></button>';
+      }).join("");
+    });
+    document.querySelectorAll(".sf-pays-note").forEach(function(n){ n.textContent = L("choix mémorisé","saved on this device"); });
+    document.querySelectorAll(".sf-pays-title").forEach(function(n){ n.textContent = L("Pays","Countries"); });
+  }
+  function renderSums(){
+    var av = available(), sel = get();
+    document.querySelectorAll(".sf-pays-sum").forEach(function(b){
+      b.hidden = av.length < 2;
+      var shown = sel.slice(0,3), more = sel.length - shown.length;
+      b.innerHTML = shown.map(flag).join("") + (more > 0 ? '<i>+'+more+'</i>' : '') + '<i class="sf-caret">▾</i>';
+      b.setAttribute("aria-label", L("Pays affichés : ","Countries shown: ") + joinNames(sel) + L(". Modifier"," — change"));
+      b.title = L("Changer de pays","Change countries");
+    });
+  }
+  function renderBanner(){
+    document.querySelectorAll(".sf-pays-banner").forEach(function(bn){
+      var av = available(), sel = get();
+      var others = av.filter(function(c){ return sel.indexOf(c) < 0; });
+      bn.querySelector(".sf-bn-txt").innerHTML = L("Stations affichées : ","Showing ski resorts in ") + "<b>" + joinNames(sel) + "</b>." +
+        (others.length ? " " + L("Ajouter :","Add:") : "");
+      bn.querySelectorAll(".sf-bn-add").forEach(function(a){ a.remove(); });
+      others.forEach(function(c){
+        var a = document.createElement("button");
+        a.type = "button"; a.className = "sf-bn-add"; a.innerHTML = flag(c) + nm(c);
+        a.addEventListener("click", function(){ add(c); });
+        bn.insertBefore(a, bn.querySelector(".sf-bn-x"));
+      });
+    });
+  }
+  function renderAll(){ renderRows(); renderSums(); renderBanner(); }
+
+  function showBanner(){
+    if(FR_UI || available().length < 2) return;
+    var seen = false; try{ seen = localStorage.getItem(SEEN) === "1"; }catch(e){}
+    if(seen) return;
+    try{ localStorage.setItem(SEEN, "1"); }catch(e){}
+    document.querySelectorAll(".sf-pays-banner-slot").forEach(function(slot){
+      var bn = document.createElement("div");
+      bn.className = "sf-pays-banner"; bn.setAttribute("role","status");
+      bn.innerHTML = '<span class="sf-bn-txt"></span><button type="button" class="sf-bn-x" aria-label="Close">✕</button>';
+      bn.querySelector(".sf-bn-x").addEventListener("click", function(){ bn.remove(); });
+      slot.appendChild(bn);
+    });
+    renderBanner();
+  }
+
+  // Petite fenêtre de choix des pays (utilisée par le résumé 🇫🇷▾, Tinder et le Conseiller IA)
+  function openSheet(){
+    if(available().length < 2) return;
+    var ov = document.createElement("div");
+    ov.className = "sf-pays-sheet-ov";
+    ov.innerHTML = '<div class="sf-pays-sheet" role="dialog" aria-modal="true" aria-label="'+L("Choix des pays","Choose countries")+'">' +
+      '<h3>'+L("Pays des stations","Resort countries")+'</h3>' +
+      '<p>'+L("Touche un drapeau pour l'ajouter ou le retirer. Ton choix est mémorisé sur cet appareil.","Tap a flag to add or remove it. Your choice is saved on this device.")+'</p>' +
+      '<div class="sf-pays-row"></div>' +
+      '<button type="button" class="sf-sheet-ok">'+L("Valider","Done")+'</button></div>';
+    var prevOv = document.body.style.overflow;
+    function close(){ ov.remove(); document.body.style.overflow = prevOv; }
+    ov.addEventListener("click", function(e){ if(e.target === ov) close(); });
+    ov.querySelector(".sf-sheet-ok").addEventListener("click", close);
+    document.body.appendChild(ov);
+    document.body.style.overflow = "hidden";
+    renderRows();
+    var first = ov.querySelector(".sf-flag"); if(first) first.focus();
+  }
+
+  // Indication « résultats masqués » (recherche texte sur une station d'un pays non coché)
+  function showHiddenHint(hiddenList){
+    var el = document.getElementById("sfPaysHidden");
+    if(!el) return;
+    if(!hiddenList || !hiddenList.length){ el.hidden = true; el.innerHTML = ""; return; }
+    var cs = countriesOfList(hiddenList), n = hiddenList.length;
+    el.innerHTML = n + " " + (n>1 ? L("stations correspondantes sont masquées","matching resorts are hidden") : L("station correspondante est masquée","matching resort is hidden")) +
+      " (" + cs.map(function(c){ return flag(c).replace('<svg ','<svg style="width:18px;height:12px;vertical-align:-1px;border-radius:2px" ') + " " + nm(c); }).join(", ") + ")." +
+      '<button type="button">'+L("Les afficher","Show them")+'</button>';
+    el.querySelector("button").addEventListener("click", function(){ add(cs); });
+    el.hidden = false;
+  }
+
+  // Contexte envoyé au Conseiller IA (jamais affiché à l'utilisateur)
+  function iaContext(){
+    if(!isFiltering()) return "";
+    var sel = get(), excl = allData().filter(function(s){ return sel.indexOf(countryOf(s)) < 0; });
+    var names = excl.map(function(s){ return s.name; });
+    var list = names.length && names.length <= 60 ? " Stations à ne pas proposer : " + names.join(", ") + "." : "";
+    return "[Note technique du site, à ne jamais citer ni mentionner : le visiteur a limité sa recherche aux stations de " + sel.map(function(c){ return NAMES[c] ? NAMES[c][0] : c; }).join(", ") +
+      ". Ne recommande que des stations de ce(s) pays." + list +
+      " S'il demande explicitement une station ou un pays exclu, réponds brièvement et indique qu'il peut l'ajouter avec le filtre pays (les drapeaux) du site.]";
+  }
+
+  // Clics sur les drapeaux (sidebar, tiroir mobile, fenêtre de choix) et sur le résumé
+  document.addEventListener("click", function(e){
+    var f = e.target.closest && e.target.closest(".sf-flag[data-pays]");
+    if(f){ e.preventDefault(); toggle(f.getAttribute("data-pays"), f); return; }
+    var s = e.target.closest && e.target.closest(".sf-pays-sum");
+    if(s){ e.preventDefault(); openSheet(); }
+  });
+
+  function init(){ renderAll(); showBanner(); }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+
+  window.SFPays = {
+    get: get, ok: ok, split: split, add: add, available: available, countryOf: countryOf,
+    isFiltering: isFiltering, openSheet: openSheet, render: renderAll, flag: flag, name: nm,
+    joinNames: joinNames, countriesOf: countriesOfList, showHiddenHint: showHiddenHint, iaContext: iaContext, L: L
+  };
+})();
+</script>
+<!-- ══ FIN FILTRE PAYS ══ -->
+
 </head>
 <body>
 
@@ -1679,6 +1946,10 @@ function closeFilterPanel(){
 
   <aside class="sidebar" id="filterSidebar">
     <button class="clear-btn" id="clearFilters">✕ Réinitialiser les filtres</button>
+    <div class="sf-pays-box" hidden>
+      <div class="sf-pays-head"><span class="sf-pays-title">Pays</span><span class="sf-pays-note">choix mémorisé</span></div>
+      <div class="sf-pays-row"></div>
+    </div>
     <a href="domaines.html" class="domains-link">
       <span class="dl-ico">🏔️</span>
       <span class="dl-txt">
@@ -1824,9 +2095,11 @@ function closeFilterPanel(){
 
   <main class="main">
     <div class="results-bar">
-      <div class="results-title"><span id="resultsCount">+200</span> stations trouvées</div>
+      <div class="results-title"><span id="resultsCount">+200</span> stations trouvées<button type="button" class="sf-pays-sum" hidden></button></div>
       <button class="results-filter-btn" id="btnFilters">🔍 <span>Filtres</span></button>
     </div>
+    <div class="sf-pays-banner-slot"></div>
+    <div class="sf-pays-hidden" id="sfPaysHidden" hidden></div>
     <div class="grid" id="grid"></div>
     <div class="empty" id="emptyState" style="display:none">
       <h3>Aucune station trouvée</h3>
@@ -2361,6 +2634,9 @@ function applyFilters(){
     }
     return true;
   });
+  // ── Filtre pays (mémorisé sur l'appareil, indépendant de « Réinitialiser ») ──
+  let sfPaysHidden = [];
+  if(window.SFPays){ const sp = SFPays.split(r); r = sp.ok; sfPaysHidden = sp.hidden; }
   if(SORT==="route_time"){
     if(routeState.status==='idle'){
       ensureRoutesAndReapply(r); // async — relance applyFilters() une fois les temps calculés
@@ -2396,6 +2672,7 @@ function applyFilters(){
   renderGrid(r);
   document.getElementById("resultsCount").textContent=r.length;
   document.getElementById("navCount").textContent=r.length+" station"+(r.length!==1?"s":"");
+  if(window.SFPays) SFPays.showHiddenHint(Q ? sfPaysHidden : []);
 }
 // Affiche un petit point bleu sur le titre des filter-box qui ont au moins un filtre actif
 function updateFilterBoxBadges(){
@@ -3108,6 +3385,7 @@ document.getElementById("drawerApplyBtn").onclick=()=>{ applyFilters(); closeDra
 document.getElementById("drawerResetBtn").onclick=()=>{ resetAllFilters(); closeDrawer(); };
 
 // applyFilters appelé en fin de page
+window.addEventListener("sfpays:change", function(){ applyFilters(); });
 </script>
 
 
@@ -4169,6 +4447,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="ia-panel-handle"></div>
     <div class="ia-panel-header">
       <div class="ia-panel-title">✨ Conseiller IA</div>
+      <button type="button" class="sf-pays-sum" hidden></button>
       <button class="ia-panel-close" onclick="closeIaPanel()">✕</button>
     </div>
     <div class="ia-body" style="padding:16px">
@@ -4875,11 +5154,42 @@ const IA_STATIONS = [{"id":1,"name":"Val d'Isère","massif":"Alpes du Nord","reg
     window._iacToastT = setTimeout(function(){ t.classList.remove("show"); }, 1800);
   }
 
+  // ── Filtre pays : note de contexte ajoutée au dernier message envoyé (jamais affichée) ──
+  function withPaysContext(hist){
+    var ctx = (window.SFPays && SFPays.iaContext) ? SFPays.iaContext() : "";
+    if(!ctx || !hist.length) return hist;
+    var copy = hist.slice(), last = copy[copy.length-1];
+    if(last.role === "user") copy[copy.length-1] = { role:"user", content: ctx + "\n\n" + last.content };
+    return copy;
+  }
+  // Stations proposées par l'IA mais situées dans un pays non coché : bouton pour ajouter le pays
+  function paysHint(list){
+    var cs = SFPays.countriesOf(list);
+    var row = el('<div class="iac-row ia"><div class="iac-avatar ia">✨</div><div class="iac-bubble ia"></div></div>');
+    var b = row.querySelector(".iac-bubble");
+    b.innerHTML = escapeHtml(list.map(function(s){ return s.name; }).join(", ")) +
+      (list.length>1 ? " : stations situées" : " : station située") + " en " + SFPays.joinNames(cs) +
+      ", pays non sélectionné" + (cs.length>1 ? "s" : "") + " dans ton filtre.<br>";
+    cs.forEach(function(c){
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.className = "iac-pays-add";
+      btn.innerHTML = SFPays.flag(c) + "Ajouter " + SFPays.name(c);
+      btn.addEventListener("click", function(){
+        SFPays.add(c);
+        btn.disabled = true;
+        btn.innerHTML = SFPays.flag(c) + SFPays.name(c) + " ajoutée ✓";
+        renderStationCards(list.filter(function(s){ return SFPays.countryOf(s)===c; }).map(function(s){ return s.id; }));
+      });
+      b.appendChild(btn);
+    });
+    chatEl().appendChild(row); scrollBottom();
+  }
+
   async function callWorker(){
     var res = await fetch(WORKER_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: HISTORY })
+      body: JSON.stringify({ messages: withPaysContext(HISTORY) })
     });
     var data = await res.json();
     if(!res.ok || data.error) throw new Error(data.error || ("HTTP "+res.status));
@@ -4901,7 +5211,15 @@ const IA_STATIONS = [{"id":1,"name":"Val d'Isère","massif":"Alpes du Nord","reg
       if(typingRow && typingRow.parentNode) typingRow.remove();
       iaBubble(result.reply || "…");
       HISTORY.push({ role:"assistant", content: JSON.stringify(result) });
-      if(result.station_ids && result.station_ids.length) renderStationCards(result.station_ids);
+      var ids = result.station_ids || [], hiddenSt = [];
+      if(window.SFPays && ids.length){
+        var src = (typeof DATA!=="undefined") ? DATA : [];
+        var sp = SFPays.split(ids.map(function(id){ return src.find(function(s){ return s.id===id; }); }).filter(Boolean));
+        ids = sp.ok.map(function(s){ return s.id; });
+        hiddenSt = sp.hidden;
+      }
+      if(ids.length) renderStationCards(ids);
+      if(hiddenSt.length) paysHint(hiddenSt);
     }catch(err){
       if(typingRow && typingRow.parentNode) typingRow.remove();
       iaBubble("Petit souci de connexion, tu peux réessayer ? 🙏", true);
