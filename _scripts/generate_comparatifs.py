@@ -205,6 +205,20 @@ OFFICIAL_URLS = {
     "Chalmazel":                    "https://www.chalmazel.fr",
     # CORSE
     "Ghisoni - Capanelle":          "https://www.ski-capanelle.com",
+    # PYRÉNÉES ESPAGNOLES
+    "Baqueira Beret":               "https://www.baqueira.es",
+    "Formigal":                     "https://www.formigal-panticosa.com",
+    "Panticosa":                    "https://www.formigal-panticosa.com",
+    "Astún":                        "https://www.astun.com",
+    "Candanchú":                    "https://www.candanchu.com",
+    "Cerler":                       "https://www.cerler.com",
+    "La Molina":                    "https://pirineu365.cat/es/lamolina/",
+    "Masella":                      "https://www.masella.com",
+    "Boí Taüll":                    "https://pirineu365.cat/es/boitaull/",
+    "Port Ainé":                    "https://www.portaine.cat",
+    "Espot":                        "https://www.espotesqui.cat",
+    "Vallter 2000":                 "https://www.vallter.cat",
+    "Vall de Núria":                "https://pirineu365.cat/valldenuria/",
 }
 
 def official_url(name: str) -> str:

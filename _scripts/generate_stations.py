@@ -365,6 +365,16 @@ DOMAINES = {
         "desc": "Super-Besse et Le Mont-Dore encadrent le puy de Sancy, point culminant du Massif central à 1885 m — un ancien volcan dont la silhouette domine toute l'Auvergne. Les deux stations totalisent 84 km de pistes et sont théoriquement reliées par les crêtes, mais attention : cette liaison n'est ouverte que lorsque l'enneigement le permet, ce qui est loin d'être systématique. Le Mont-Dore est une ville thermale du XIXe au charme désuet, avec son établissement thermal néo-byzantin ; Super-Besse, plus haute et plus moderne, est mieux enneigée. C'est le plus grand domaine du Massif central, et de loin le plus dépaysant volcanologiquement parlant.",
         "conditionnel": True,
     },
+    "alp-2500": {
+        "name": "Alp 2500 (La Molina – Masella)", "massif": "Pyrénées", "pays": ["Espagne"],
+        "stations": ["La Molina","Masella"],
+        "km_propre": {"La Molina": 71, "Masella": 74},
+        "km_total": 145, "remontees_total": 33, "forfait_domaine": 58,
+        "alt_min": 1600, "alt_max": 2537,
+        "pistes": {"v":29,"b":55,"r":54,"n":16},
+        "short": "Alp 2500",
+        "desc": "La Molina et Masella se partagent la Tosa d'Alp, en Cerdagne catalane, et forment ensemble Alp 2500, 145 km de pistes entre 1600 et 2537 m. La Molina est la doyenne des stations espagnoles — son premier téléski commercial date de 1943 — et possède même sa gare sur la ligne de Puigcerdà, à deux heures de Barcelone. Masella, sur le versant nord, déroule la plupart de ses pistes entre les pins à crochets et propose le plus grand domaine de ski nocturne des Pyrénées. Le sommet de la Tosa fait la jonction entre les deux stations, skis aux pieds.",
+    },
 }
 
 def get_domaine(station_name):
@@ -402,6 +412,7 @@ _ALT_VILLAGE = {
     "Superdévoluy":1500,"La Joue du Loup":1450,
     "Super Besse":1350,"Le Mont Dore":1050,
     "Saint-François-Longchamp":1450,"Valmorel":1400,
+    "La Molina":1700,"Masella":1600,
 }
 for _d in DOMAINES.values():
     _d['alt_village'] = {n: _ALT_VILLAGE[n] for n in _d['stations'] if n in _ALT_VILLAGE}
@@ -1941,6 +1952,20 @@ OFFICIAL_URLS = {
     "Chalmazel":                    "https://www.chalmazel.fr",
     # CORSE
     "Ghisoni - Capanelle":          "https://www.ski-capanelle.com",
+    # PYRÉNÉES ESPAGNOLES
+    "Baqueira Beret":               "https://www.baqueira.es",
+    "Formigal":                     "https://www.formigal-panticosa.com",
+    "Panticosa":                    "https://www.formigal-panticosa.com",
+    "Astún":                        "https://www.astun.com",
+    "Candanchú":                    "https://www.candanchu.com",
+    "Cerler":                       "https://www.cerler.com",
+    "La Molina":                    "https://pirineu365.cat/es/lamolina/",
+    "Masella":                      "https://www.masella.com",
+    "Boí Taüll":                    "https://pirineu365.cat/es/boitaull/",
+    "Port Ainé":                    "https://www.portaine.cat",
+    "Espot":                        "https://www.espotesqui.cat",
+    "Vallter 2000":                 "https://www.vallter.cat",
+    "Vall de Núria":                "https://pirineu365.cat/valldenuria/",
 }
 def get_official_url(name):
     return OFFICIAL_URLS.get(name, f"https://www.google.com/search?q={name.replace(' ', '+').replace(chr(39), '+')}+station+ski+site+officiel")
@@ -2215,7 +2240,8 @@ def render_page(s):
         f'</p>'
     ) if _dom_partage else ''
     from urllib.parse import quote as _q
-    _bk_base = f"https://www.booking.com/searchresults.fr.html?ss={_q(s['name']+' ski france')}&lang=fr"
+    _bk_pays = {"ES": "espagne", "CH": "suisse", "IT": "italie"}.get(s.get('pays'), "france")
+    _bk_base = f"https://www.booking.com/searchresults.fr.html?ss={_q(s['name']+' ski '+_bk_pays)}&lang=fr"
     booking_url = f"{BOOKING_CJ}?sid=station-{slug}&url={_q(_bk_base)}"
     _exp_base = "https://www.expedia.fr/go/hotel/search/Destination/?CityName=" + _q(s['name']) + "&City=" + _q(s['name']) + "&SortBy=distance&NumRoom=1&NumAdult1=1"
     expedia_url = f"https://www.jdoqocy.com/click-101709262-13904689?sid=station-{slug}&url={_q(_exp_base)}"
@@ -4464,7 +4490,7 @@ document.getElementById('dmClose').addEventListener('click', function(e){{
 
 
 def render_domaines_index():
-    """Page racine listant les 19 grands domaines skiables reliés."""
+    """Page racine listant les 20 grands domaines skiables reliés."""
     massifs = sorted({d['massif'] for d in DOMAINES.values()})
     filtres = "".join(
         f'<button class="di-f" data-m="{m}">{m}</button>' for m in massifs
