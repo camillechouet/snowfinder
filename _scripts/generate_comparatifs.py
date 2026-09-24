@@ -26,6 +26,7 @@ from pathlib import Path
 BASE_URL = "https://snowfinder.fr"
 REPO_ROOT = Path(__file__).resolve().parent.parent
 RECHERCHE_HTML = REPO_ROOT / "recherche.html"
+STATIONS_JS = REPO_ROOT / "stations-data.js"
 COMPARATIFS_DIR = REPO_ROOT / "comparatifs"
 SNIPPET_OUT = REPO_ROOT / "_scripts" / "_index_snippet.html"
 
@@ -752,11 +753,11 @@ COMPARAISONS = [
 ]
 
 def load_stations() -> dict:
-    """Charge IA_STATIONS depuis recherche.html, indexé par nom."""
-    content = RECHERCHE_HTML.read_text(encoding="utf-8")
-    m = re.search(r"const\s+IA_STATIONS\s*=\s*(\[.*?\]);", content, re.DOTALL)
+    """Charge les stations depuis stations-data.js, indexées par nom."""
+    content = STATIONS_JS.read_text(encoding="utf-8")
+    m = re.search(r"window\.SF_DATA\s*=\s*(\[.*\]);", content, re.DOTALL)
     if not m:
-        raise SystemExit("❌ IA_STATIONS introuvable dans recherche.html")
+        raise SystemExit("❌ window.SF_DATA introuvable dans stations-data.js")
     arr = json.loads(m.group(1))
     return {s["name"]: s for s in arr}
 
@@ -1560,7 +1561,7 @@ def build_snippet(comparaisons_meta: list) -> str:
 def main() -> None:
     print(f"📍 Racine : {REPO_ROOT}")
     stations_db = load_stations()
-    print(f"✓ {len(stations_db)} stations chargées depuis recherche.html")
+    print(f"✓ {len(stations_db)} stations chargées depuis stations-data.js")
 
     COMPARATIFS_DIR.mkdir(exist_ok=True)
     print(f"✓ Dossier : {COMPARATIFS_DIR.relative_to(REPO_ROOT)}")

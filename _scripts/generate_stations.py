@@ -5,7 +5,7 @@ SnowFinder — Générateur de pages statiques par station
 Modifiez la fonction render_page() pour changer le design
 de toutes les pages stations d'un coup.
 
-Déclenchement automatique via GitHub Actions quand recherche.html change.
+Déclenchement automatique via GitHub Actions quand recherche.html ou stations-data.js change.
 Ou manuellement : python3 _scripts/generate_stations.py
 """
 import re, json, unicodedata, os, sys, hashlib
@@ -1650,9 +1650,12 @@ recherche_path = os.path.join(root_dir, 'recherche.html')
 with open(recherche_path, 'r', encoding='utf-8') as f:
     content = f.read()
 
-m = re.search(r'const DATA = (\[.*?\]);', content, re.DOTALL)
+# Données des stations : fichier unique stations-data.js (à la racine du site)
+with open(os.path.join(root_dir, 'stations-data.js'), 'r', encoding='utf-8') as _f:
+    _data_js = _f.read()
+m = re.search(r'window\.SF_DATA\s*=\s*(\[.*\]);', _data_js, re.DOTALL)
 if not m:
-    print("ERREUR: const DATA non trouvé dans recherche.html")
+    print("ERREUR: window.SF_DATA non trouvé dans stations-data.js")
     sys.exit(1)
 
 def to_photo_slug(name):
