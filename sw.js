@@ -4,11 +4,12 @@
 // entre sw.js et OneSignalSDKWorker.js (un seul SW actif possible par scope).
 importScripts("https://cdn.onesignal.com/sdks/OneSignalSDK.sw.js");
 
-const CACHE_NAME = 'snowfinder-v3';
+const CACHE_NAME = 'snowfinder-v4';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/recherche.html',
+  '/stations-data.js',
   '/logo.png',
   'https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap',
 ];
