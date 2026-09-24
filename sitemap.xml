@@ -37,6 +37,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/domaines/4-vallees.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/adelboden-lenk.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/domaines/alp-2500.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -44,6 +56,24 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/domaines/alpe-dhuez-grand-domaine.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/alta-badia.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/andermatt-sedrun.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/arosa-lenzerheide.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -74,6 +104,12 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/domaines/evasion-mont-blanc.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/flims-laax-falera.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -115,13 +151,73 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/domaines/grandvalira.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/grindelwald-wengen.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/kronplatz.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/latemar.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/domaines/le-devoluy.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/domaines/matterhorn-ski-paradise.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/mondole-ski.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/monterosa-ski.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/pal-arinsal.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/domaines/paradiski.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/parsenn-davos-klosters.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/pontedilegno-tonale.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -139,7 +235,31 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/domaines/skiarea-campiglio.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/domaines/sybelles.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/val-di-fassa.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/val-gardena.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/domaines/villars-gryon-diablerets.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -157,6 +277,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/abetone.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/abondance.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -169,7 +295,31 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/adelboden.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/aeschiried.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/aiguilles.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/airolo.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/alagna-valsesia.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -181,7 +331,31 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/aletsch-arena.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/alpe-cermis.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/alpe-d-huez.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/alpe-di-mera.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/alpe-di-siusi.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -193,7 +367,19 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/alpe-lusia.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/alti-aigoual.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/amden.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -205,7 +391,67 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/andermatt.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/antagnod.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/anzere.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/aprica.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/arabba.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/arber.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/areches-beaufort.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/arinsal.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/arolla.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/arosa.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/artesina.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -235,6 +481,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/atzmannig.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/auris-en-oisans.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -259,6 +511,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/avers.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/avoriaz.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -271,7 +529,25 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/axalp.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/balderschwang.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/baqueira-beret.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/bardonecchia.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -289,7 +565,25 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/belalp.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/bellevaux-hirmentaz.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/bellwald.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/bergun.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -307,7 +601,31 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/betelberg-lenk.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/beuil-les-launes.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/biel-kinzig.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/bielmonte.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/bivio.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -325,13 +643,43 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/bolsterlang.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/bonneval-sur-arc.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/bormio.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/borno.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/bosco-gurin.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/bramans.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/brambruesch.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -349,7 +697,55 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/brauneck.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/brentonico.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/breuil-cervinia.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/brides-les-bains.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/brigels.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/brunico-kronplatz.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/brunni-engelberg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/bumbach.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/burchen-moosalp.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -373,13 +769,61 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/campitello-di-fassa.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/campitello-matese.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/campo-felice.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/campo-stella.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/camurac.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/canazei.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/candanchu.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/canillo.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/carezza.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/cari.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -439,7 +883,31 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/champex-lac.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/champoluc.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/champorcher.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/chamrousse.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/charmey.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -452,6 +920,18 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/chatel.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/cimone.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/civetta.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -481,7 +961,25 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/colere.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/combloux.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/corno-alle-scale.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/corno-del-renon.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -493,7 +991,37 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/cortina-d-ampezzo.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/corvara.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/corvatsch.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/courchevel.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/courmayeur.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/crans-montana.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -505,13 +1033,103 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/crevacol.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/crevoux.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/davos.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/diavolezza.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/disentis.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/doganaccia.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/dormillouse-freissinieres.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/ebenalp.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/eggberge.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/eischoll.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/el-tarter.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/elm.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/elsigen-metsch.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/encamp.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/engelberg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/engstligenalp.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/eriz.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -535,13 +1153,73 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/evolene.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/falera.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/feldberg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/feldis.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/fichtelberg-oberwiesenthal.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/fideriser-heuberge.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/flaine.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/flims.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/flumet.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/flumserberg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/folgaria.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/folgarida.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -559,6 +1237,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/foppolo.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/formigal.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -566,6 +1250,42 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/formigueres.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/forni-di-sopra.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/frabosa-soprana.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/gallio-le-melette.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/gantrisch-gurnigel.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/garessio-2000.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/garmisch-partenkirchen.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -583,6 +1303,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/gemsstock-andermatt.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/gerardmer.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -590,6 +1316,18 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/ghisoni-capanelle.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/gitschberg-jochtal.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/glacier-3000.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -607,6 +1345,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/grachen.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/grasgehren.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/grau-roig.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/greolieres-les-neiges.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -619,7 +1375,67 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/gressoney-la-trinite.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/gressoney-saint-jean.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/grimentz-zinal.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/grimmialp.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/grindelwald-first.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/grindelwald.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/grusch-danusa.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/gryon.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/gstaad-saanen-rougemont.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/guzet.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/habkern.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -643,7 +1459,85 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/hoch-ybrig.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/hochwang.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/hundle-oberstaufen.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/isola-2000.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/jakobshorn-davos.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/jaun.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/jaunpass.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/jeizinen.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/kandersteg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/klausberg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/klewenalp.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/klosters.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/kranzberg-mittenwald.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/kreuzberg-rhon.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -655,7 +1549,25 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/l-abbaye.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/l-audibergue.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/l-orient.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/la-berra.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -710,6 +1622,18 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/la-feclaz.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/la-forclaz-vs.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/la-fouly.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -817,6 +1741,36 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/la-tzoumaz.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/la-villa.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/laax.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/laceno.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/ladurns.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/laguiole.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -830,6 +1784,18 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/larche.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/lauchernalp.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/lavarone.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -937,6 +1903,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/lenk.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/lenzerheide.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/les-7-laux.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -973,6 +1951,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/les-breuleux.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/les-bugnenets-savagnieres.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/les-carroz.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -986,6 +1976,12 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/les-deux-alpes.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/les-diablerets.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1021,6 +2017,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/les-marecottes.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/les-menuires.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -1033,13 +2035,37 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/les-mosses.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/les-orres.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/les-paccots.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/les-plans-d-hotonnes.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/les-pleiades.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/les-rasses.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1057,7 +2083,43 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/leukerbad.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/leysin.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/limone-piemonte.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/livigno.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/lizzola.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/luchon-superbagneres.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/lurisia.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1075,6 +2137,48 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/macugnaga.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/madesimo.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/madonna-di-campiglio.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/madrisa-klosters.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/malbun.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/marbachegg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/marilleva.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/masella.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -1087,7 +2191,25 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/meiringen-hasliberg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/melchsee-frutt.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/menthieres.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/meran-2000.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1117,6 +2239,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/minschuns.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/moleson.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/molines-en-queyras.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -1136,6 +2270,48 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/montclar-les-2-vallees.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/monte-alpet.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/monte-bondone.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/monte-carpegna.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/monte-catria.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/monte-pora.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/monte-verena.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/montecampione.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1165,7 +2341,55 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/morlialp.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/morzine.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/mottarone.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/murren.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/mythenregion.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/nara.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/nax-mont-noble.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/nendaz.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/neusell.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1183,7 +2407,55 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/obereggen.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/oberjoch.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/obersaxen-mundaun.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/oberstdorf-fellhorn-kanzelwand.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/oberstdorf-nebelhorn.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/oberstdorf-sollereck.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/ofterschwang.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/orcieres-merlette-1850.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/ordino-arcalis.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1195,7 +2467,97 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/ortisei.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/ovindoli.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/ovronnaz.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/paganella.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/pal.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/palumbosila.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/pampeago.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/panarotta.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/panticosa.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/pany.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/pas-de-la-casa.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/passo-brocon.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/passo-del-tonale.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/passo-maniva.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/passo-rolle.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/passo-san-pellegrino.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1207,13 +2569,73 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/pejo-3000.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/peyragudes.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/pfelders.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/pian-mune.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/piancavallo.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/piani-di-bobbio.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/piau-engaly.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/pila.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/pinzolo.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/pizol.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/plose.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/ponte-di-legno.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1237,6 +2659,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/pozza-di-fassa.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/pra-loup.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -1255,6 +2683,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/prato-nevoso.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/praz-de-lys-sommand.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -1262,6 +2696,12 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/praz-sur-arly.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/predazzo.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1285,7 +2725,43 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/racines-giovo.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/rathvel.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/reallon.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/reinswald.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/reit-im-winkl-winklmoosalm.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/rigi.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/rinerhorn-davos.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1297,7 +2773,67 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/roccaraso.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/rossberg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/rosskopf.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/rosswald.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/rothwald.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/roubion-les-buisses.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/ruschegg-eywald.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/saanenmoser-schonried-zweisimmen.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/saas-almagell.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/saas-fee.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/saas-grund.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1340,6 +2876,12 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/saint-leger-les-melezes.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/saint-luc-chandolin.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1393,13 +2935,97 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/samnaun.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/samoens.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/sampeyre.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/san-bernardino.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/san-candido-baranci.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/san-cassiano.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/san-colombano.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/san-domenico.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/san-martino-di-castrozza.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/san-vigilio-di-marebbe.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/sansicario.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/santa-caterina-valfurva.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/santa-cristina.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/sappada.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/sarn-heinzenberg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/sassotetto.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1417,6 +3043,78 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/savognin.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/schatzalp-davos.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/schia.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/schilt-mollis.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/schoneben-haideralm.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/schwarzsee.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/schwemmalm.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/scuol.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/sedrun.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/selital.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/sella-nevea.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/selva-di-val-gardena.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/semnoz-annecy.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -1429,13 +3127,103 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/sesto-3-zinnen.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/sestriere.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/sigriswil-schwanden.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/sixt-fer-a-cheval.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/solda.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/soldeu.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/sollegg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/sorenberg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/speikboden.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/spiazzi-di-gromo.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/spitzingsee.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/splugen.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/springenboden.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/st-moritz.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/steibis-oberstaufen.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/stoos.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/sudelfeld.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1453,6 +3241,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/tarvisio.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/tavascan.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -1465,7 +3259,31 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/thyon.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/tignes.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/todtnauberg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/toggenburg-chaserrugg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/torgnon.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1477,7 +3295,37 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/tramelan.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/tschappina-heinzenberg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/tschentenalp.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/tschiertschen.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/turini-camp-d-argent.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/unterbach.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1513,6 +3361,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/val-senales.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/val-thorens.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -1520,6 +3374,12 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/valberg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/valdaora-kronplatz.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1555,6 +3415,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/valmalenco.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/valmeinier.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -1562,6 +3428,18 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/valmorel.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/vals.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/valtournenche.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -1579,13 +3457,145 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/verbier.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/vercorin.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/veysonnaz.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/vicheres-liddes.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/vigo-di-fassa.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/villard-de-lans.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/stations/villars-sur-ollon.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/visperterminen.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/wasserngrat-gstaad.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/watles.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/wendelstein.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/wengen.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/wildhaus.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/willingen.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/winterberg.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/wiriehorn.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/wispile-gstaad.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/wolzenalp.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/wurmberg-braunlage.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/xonrupt-le-poli.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/zermatt.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/zoncolan.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/zugspitze.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/stations/zuoz.html</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

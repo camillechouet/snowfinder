@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Latemar — Domaine skiable 49 km, 3 stations | SnowFinder</title>
+<meta name="description" content="Latemar : 49 km de pistes reliées, 3 stations (Obereggen, Pampeago, Predazzo...). Forfait 71€/jour, altitude 1018-2388m.">
+<link rel="canonical" href="https://snowfinder.fr/domaines/latemar.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SnowFinder">
+<meta property="og:url" content="https://snowfinder.fr/domaines/latemar.html">
+<meta property="og:title" content="Latemar — 49 km reliés">
+<meta property="og:description" content="49 km · 18 remontées · 71€/j · 3 stations reliées">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SkiResort","name":"Latemar","url":"https://snowfinder.fr/domaines/latemar.html",
+"description":"Le Latemar relie Obereggen, dans le Haut-Adige, à Pampeago et Predazzo, dans le Trentin, au pied des tours du Latemar. Le domaine est réputé pour la qualité de son damage. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.","containedInPlace":{"@type":"Place","name":"Alpes du Nord"}}
+</script>
+<style>
+  :root{--wood-pale:#f7efe2;--wood-light:#eddcbf;--wood:#c49a6c;--wood-dark:#8b5e3c;--blue:#5b9fd4;--blue-light:#e8f3fb;--blue-mid:#3a7db8;--blue-dark:#1a5a8a;--text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;--navy:#1a5a8a;--border:#e8d8c4;--bg:#f5f1ec}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{touch-action:pan-x pan-y;overflow-x:hidden;max-width:100%}
+  body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;padding-top:58px;padding-bottom:76px}
+  a{color:inherit}
+  /* BARRE DU HAUT — identique aux fiches station */
+  .dm-wrap{max-width:980px;margin:0 auto}
+  @media(min-width:1200px){.dm-wrap{max-width:1180px}}
+  .dm-hero{position:relative;overflow:hidden;height:clamp(300px,46vh,480px);display:flex;align-items:flex-end;color:white}
+  /* CARROUSEL HERO (photos du domaine) — identique au hero des fiches stations */
+  .hero-slides{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .hero-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .45s ease-in-out}
+  .hero-slide.active{opacity:1}
+  .dm-hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.3) 45%,rgba(0,0,0,.05) 100%)}
+  .dm-hero-content{position:relative;z-index:2;padding:28px 28px 32px;text-align:left;width:100%}
+  .hero-nav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.18);border:none;color:white;font-size:1.5rem;cursor:pointer;z-index:6;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);transition:background .15s;line-height:1;padding-bottom:3px}
+  .hero-nav:hover{background:rgba(255,255,255,.32)}
+  .hero-prev{left:12px}
+  .hero-next{right:12px}
+  .hero-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:6;display:flex;gap:7px;background:rgba(0,0,0,.32);padding:6px 12px;border-radius:20px;backdrop-filter:blur(6px)}
+  .hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.45);border:none;cursor:pointer;padding:0;transition:background .2s,transform .2s}
+  .hero-dot.active{background:white;transform:scale(1.3)}
+  .dm-hero-massif{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:22px;padding:4px 14px;font-size:.7rem;font-weight:700;color:rgba(255,255,255,.92);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;backdrop-filter:blur(8px)}
+  .dm-hero h1{font-family:"DM Serif Display",serif;font-size:clamp(2rem,6vw,3.2rem);color:white;margin-bottom:6px;line-height:1.05;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+  .dm-hero-meta{color:rgba(255,255,255,.75);font-size:.85rem;display:flex;align-items:center;gap:5px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+  .hero-illu-note{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}
+  .dm-rank{display:inline-block;margin-top:12px;background:linear-gradient(135deg,#d4a017,#b8860b);color:white;font-weight:700;font-size:.78rem;padding:6px 14px;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+  .dm-fav{position:absolute;top:16px;left:16px;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+    border:2px solid #ffd451;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;font-size:1.35rem;transition:all .2s;box-shadow:0 4px 14px rgba(0,0,0,.25);color:#d49b00}
+  .dm-fav:hover{background:#fff7d6;border-color:#ffb900;transform:scale(1.08)}
+  .dm-fav.active{background:rgba(255,255,255,.95);border-color:#ffb900;box-shadow:0 4px 16px rgba(255,180,0,.5)}
+  .dm-compare{position:absolute;top:16px;left:70px;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+    border:2px solid #3a7db8;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;font-size:1.15rem;transition:all .2s;box-shadow:0 4px 14px rgba(0,0,0,.25);color:#1a5a8a}
+  .dm-compare:hover{background:#eaf4ff;border-color:#1a5a8a;transform:scale(1.08)}
+  .dm-compare.active{background:#1a5a8a;border-color:#0d3a6e;box-shadow:0 4px 16px rgba(26,90,138,.5)}
+  .dm-close{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,.35);color:white;font-size:1.1rem;display:flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer;z-index:20;transition:all .15s}
+  .dm-close:hover{background:rgba(0,0,0,.75);transform:scale(1.08)}
+  .dm-breadcrumb{padding:14px 20px 0;font-size:.78rem;color:var(--text-mid)}
+  .dm-breadcrumb a{text-decoration:none;color:#1a5a8a;font-weight:600}
+  .dm-flag,.dm-warn,.dm-note{margin:14px 20px;padding:11px 16px;border-radius:10px;font-size:.82rem;font-weight:600;line-height:1.5}
+  .dm-flag{background:var(--blue-light);color:var(--blue-dark)}
+  .dm-warn{background:#fff4e6;color:#a05a2c}
+  .dm-note{background:var(--wood-pale);color:var(--text-mid)}
+  .dm-section{margin:26px 0;padding:0 20px}
+  .dm-section-title{font-family:"DM Serif Display",serif;font-size:1.15rem;color:var(--text-mid);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--wood-pale)}
+  .dm-card{background:white;border-radius:14px;padding:18px 20px;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light)}
+  .dm-desc{font-size:.93rem;line-height:1.75;color:var(--text-mid)}
+  .readmore-wrap{position:relative;max-height:var(--rm-max,100px);overflow:hidden;transition:max-height .35s ease}
+  .readmore-wrap.expanded{max-height:3000px}
+  .readmore-wrap:not(.expanded)::after{content:'';position:absolute;bottom:0;left:0;right:0;height:38px;background:linear-gradient(transparent,var(--rm-bg,white))}
+  .readmore-btn{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:10px;font-size:.78rem;font-weight:800;color:var(--blue-mid);cursor:pointer;padding:6px;user-select:none}
+  .dm-faits{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+  @media(min-width:620px){.dm-faits{grid-template-columns:repeat(4,1fr)}}
+  .dm-fait{background:white;border-radius:12px;padding:14px 12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.04);border:1px solid var(--wood-light)}
+  .dm-fait-ico{display:block;font-size:1.3rem}
+  .dm-fait-val{display:block;font-family:"DM Serif Display",serif;font-size:1.15rem;color:var(--navy);margin:3px 0}
+  .dm-fait-lbl{display:block;font-size:.66rem;color:var(--text-mid);line-height:1.35}
+  .dm-piste-row{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+  .dm-piste-row:last-child{margin-bottom:0}
+  .dm-piste-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+  .dm-piste-lbl{flex:0 0 58px;font-size:.83rem;color:var(--text-mid)}
+  .dm-piste-bar{flex:1;height:8px;background:var(--wood-pale);border-radius:5px;overflow:hidden}
+  .dm-piste-bar i{display:block;height:100%;border-radius:5px}
+  .dm-piste-n{flex:0 0 30px;text-align:right;font-weight:800;font-size:.85rem}
+
+  /* Cercles + tuiles chiffrées — même identité visuelle que les fiches station */
+  .piste-circles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px}
+  .piste-circle-item{text-align:center}
+  .piste-circle{width:30px;height:30px;border-radius:50%;margin:0 auto 6px;box-shadow:0 2px 6px rgba(0,0,0,.14)}
+  .piste-circle-val{font-family:"DM Serif Display",serif;font-size:.92rem;color:var(--text);line-height:1.2}
+  .piste-circle-val b{font-size:1.05rem}
+  .piste-circle-pct{font-size:.66rem;color:var(--text-light);font-weight:600}
+  .piste-circle-lbl{font-size:.62rem;color:var(--text-mid);font-weight:600;margin-top:3px}
+  .icon-stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:2px}
+  @media(min-width:480px){.icon-stat-grid{grid-template-columns:repeat(3,1fr)}}
+  .icon-stat-tile{background:var(--blue-light);border-radius:11px;padding:12px 8px;text-align:center}
+  .icon-stat-ico{font-size:1.15rem;display:block;margin-bottom:5px}
+  .icon-stat-val{font-family:"DM Serif Display",serif;font-size:1.1rem;color:var(--blue-dark);line-height:1}
+  .icon-stat-lbl{font-size:.65rem;color:var(--text-mid);font-weight:600;margin-top:3px}
+  .dm-reco-grid{display:grid;grid-template-columns:1fr;gap:11px}
+  @media(min-width:520px){.dm-reco-grid{grid-template-columns:repeat(2,1fr)}}
+  .dm-reco{display:block;background:white;border-radius:12px;padding:14px 16px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.05);border:1px solid var(--wood-light);border-left:4px solid var(--blue-dark);transition:transform .15s}
+  .dm-reco:hover{transform:translateX(3px)}
+  .dm-reco-t{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--text-mid)}
+  .dm-reco-n{font-family:"DM Serif Display",serif;font-size:1.1rem;color:var(--navy);margin:2px 0}
+  .dm-reco-w{font-size:.76rem;color:var(--text-light)}
+  .dm-table-wrap{padding:6px 8px;overflow-x:auto}
+  .dm-table{width:100%;border-collapse:collapse;font-size:.84rem}
+  .dm-table th{text-align:left;font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-light);padding:9px 8px;border-bottom:1px solid var(--border)}
+  .dm-table td{padding:11px 8px;border-bottom:1px solid var(--wood-pale)}
+  .dm-table tr:last-child td{border-bottom:none}
+  .dm-table tbody tr{cursor:pointer;transition:background .12s}
+  .dm-table tbody tr:hover{background:var(--wood-pale)}
+  .dm-t-name{font-weight:800;color:var(--text)}
+  .dm-t-go{color:var(--navy);font-weight:800;text-align:right}
+  .dm-t-tags{white-space:nowrap}
+  .dm-tag{display:inline-block;background:var(--wood-pale);color:var(--text-mid);border-radius:20px;padding:3px 9px;font-size:.68rem;font-weight:700;margin-right:4px}
+  .dm-stations-grid{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:460px){.dm-stations-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:760px){.dm-stations-grid{grid-template-columns:repeat(3,1fr)}}
+  .dm-station-card{display:block;background:white;border-radius:14px;overflow:hidden;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--wood-light);transition:transform .15s,box-shadow .15s;position:relative}
+  .dm-station-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.1)}
+  .dm-sc-photo{height:118px;position:relative;background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:9px 12px}
+  .dm-sc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,26,49,.88) 0%,rgba(9,26,49,.2) 55%,transparent 100%)}
+  .dm-sc-name{position:relative;z-index:1;color:white;font-weight:800;font-size:.98rem;text-shadow:0 2px 8px rgba(0,0,0,.6);line-height:1.15}
+  .dm-sc-fav,.dm-sc-cmp{position:absolute;top:8px;z-index:2;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.92rem;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:all .15s}
+  .dm-sc-fav{right:44px;border:1.5px solid #ffd451;color:#d49b00}
+  .dm-sc-fav:hover{background:#fff7d6}
+  .dm-sc-fav.active{background:rgba(255,255,255,.98);border-color:#ffb900;box-shadow:0 2px 10px rgba(255,180,0,.5)}
+  .dm-sc-cmp{right:8px;border:1.5px solid #3a7db8;color:#1a5a8a}
+  .dm-sc-cmp:hover{background:#eaf4ff}
+  .dm-sc-cmp.active{background:#1a5a8a;border-color:#0d3a6e;box-shadow:0 2px 10px rgba(26,90,138,.5)}
+  .dm-station-body{padding:12px 15px 14px}
+  .dm-station-meta{font-size:.76rem;color:var(--text-mid);margin-bottom:5px}
+  .dm-station-km{font-size:.74rem;color:#1a5a8a;font-weight:700}
+  .dm-station-cta{margin-top:8px;font-size:.78rem;font-weight:800;color:var(--navy)}
+  .dm-other-grid{display:grid;grid-template-columns:1fr;gap:11px}
+  @media(min-width:520px){.dm-other-grid{grid-template-columns:repeat(2,1fr)}}
+  .dm-other{display:block;position:relative;background:white;border-radius:12px;overflow:hidden;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.04);border:1px solid var(--wood-light);transition:transform .15s,box-shadow .15s}
+  .dm-other:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.09)}
+  .dm-other-photo{height:82px;position:relative;background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:7px 10px}
+  .dm-other-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,26,49,.85) 0%,rgba(9,26,49,.15) 60%,transparent 100%)}
+  .dm-other-name{position:relative;z-index:1;color:white;font-weight:800;font-size:.85rem;text-shadow:0 2px 6px rgba(0,0,0,.6);line-height:1.15}
+  .dm-other-fav,.dm-other-cmp{position:absolute;top:6px;z-index:2;width:25px;height:25px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.76rem;box-shadow:0 2px 6px rgba(0,0,0,.22);transition:all .15s}
+  .dm-other-fav{right:35px;border:1.3px solid #ffd451;color:#d49b00}
+  .dm-other-fav:hover{background:#fff7d6}
+  .dm-other-fav.active{background:rgba(255,255,255,.98);border-color:#ffb900}
+  .dm-other-cmp{right:6px;border:1.3px solid #3a7db8;color:#1a5a8a}
+  .dm-other-cmp:hover{background:#eaf4ff}
+  .dm-other-cmp.active{background:#1a5a8a;border-color:#0d3a6e}
+  .dm-other-foot{display:flex;justify-content:flex-end;padding:6px 10px;font-size:.72rem;color:var(--text-light);font-weight:800}
+  .footer{text-align:center;padding:30px 20px 20px;font-size:.8rem;color:var(--text-mid)}
+  .footer a{color:#1a5a8a;text-decoration:none;font-weight:600}
+  .sf-bottomnav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;align-items:center;padding:8px 0;box-shadow:0 -2px 10px rgba(0,0,0,.08);z-index:80}
+  .sf-bn-item{text-decoration:none;font-size:1.3rem;padding:6px 10px}
+  .sf-bn-home-circle{background:var(--navy);color:white;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>
+<script>try{if(localStorage.getItem("sf_cookie_consent")==="refused")window["ga-disable-G-S0C748Y0DX"]=true;}catch(e){}window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-S0C748Y0DX");</script>
+</head>
+<body>
+
+<style>
+body{padding-top:64px!important}
+.sf-topbar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid #eddcbf;display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 6px;z-index:600;transition:transform .28s ease;overflow:visible;gap:8px;font-family:'DM Sans',sans-serif;box-sizing:border-box}
+.sf-topbar *{box-sizing:border-box}
+.sf-topbar.sf-hide{transform:translateY(-100%);}
+.sf-topbar-logo{display:flex;align-items:center;gap:4px;text-decoration:none;flex-shrink:0;justify-self:start;min-width:0;}
+.sf-topbar-logo img{width:60px;height:60px;border-radius:12px;object-fit:contain;flex-shrink:0}
+.sf-topbar-wordtext{display:flex;flex-direction:column;justify-content:center;line-height:1.05;min-width:0;overflow:hidden}
+.sf-topbar-title{font-family:"DM Serif Display",serif;font-size:.95rem;font-weight:700;white-space:nowrap}
+.sf-topbar-title .sf-dark{color:#1a5a8a}
+.sf-topbar-title .sf-light{color:#3a7db8}
+.sf-topbar-slogan{font-size:.5rem;letter-spacing:.03em;color:#1a5a8a;opacity:.7;white-space:nowrap;text-transform:uppercase;margin-top:1px}
+.sf-topbar-app{display:flex;align-items:center;gap:4px;background:linear-gradient(135deg,#e8f3fb,#eaf4ff);border:1px solid #3a7db8;border-radius:14px;padding:4px 9px;font-size:.64rem;font-weight:700;color:#1a5a8a;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18);justify-self:end;}
+.sf-topbar-right{display:flex;align-items:center;justify-self:end;flex-shrink:0;}
+.sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:#1a5a8a;font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
+.sf-topbar-fav:active{background:#f7efe2}
+.sf-topbar-menu{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;border:1.5px solid #eddcbf;background:#fff;font-size:1rem;line-height:1;color:#1a5a8a;cursor:pointer;flex-shrink:0;padding:0;margin-left:2px}
+.sf-topbar-menu:active{background:#f7efe2}
+@media(max-width:480px){.sf-topbar{padding:0 4px;gap:4px}.sf-topbar-logo img{width:52px;height:52px}.sf-topbar-app{font-size:.58rem;padding:4px 7px}}
+/* Menu rapide + notifications */
+.sf-sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;backdrop-filter:blur(4px)}
+.sf-sheet-overlay.open{display:block}
+.sf-sheet{position:fixed;left:0;right:0;bottom:0;z-index:9001;background:#f5f1ec;border-radius:20px 20px 0 0;padding:10px 0 max(20px,env(safe-area-inset-bottom));box-shadow:0 -8px 40px rgba(0,0,0,.2);transform:translateY(100%);transition:transform .32s cubic-bezier(.32,.72,0,1);max-width:480px;margin:0 auto;font-family:'DM Sans',sans-serif;box-sizing:border-box}
+.sf-sheet.open{transform:translateY(0)}
+.sf-sheet-handle{width:40px;height:4px;background:#ddd;border-radius:3px;margin:0 auto 10px}
+.sf-sheet-title{text-align:center;font-family:"DM Serif Display",serif;font-size:1.05rem;color:#1a5a8a;margin-bottom:6px;padding:0 20px}
+.sf-menu-item{display:flex;align-items:center;gap:12px;width:100%;padding:15px 24px;background:none;border:none;border-top:1px solid #f7efe2;font-size:.95rem;font-weight:600;color:#2a1f14;text-decoration:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif;box-sizing:border-box}
+.sf-menu-item:active{background:#f7efe2}
+.sf-menu-item .em{font-size:1.15rem;flex-shrink:0}
+</style>
+<div class="sf-topbar" id="sfTopbar">
+  <a href="/index.html" class="sf-topbar-logo">
+    <img src="/logo.png" alt="SnowFinder">
+    <span class="sf-topbar-wordtext">
+      <span class="sf-topbar-title"><span class="sf-dark">Snow</span><span class="sf-light">Finder</span></span>
+      <span class="sf-topbar-slogan">Comparez • Trouvez • Skiez</span>
+    </span>
+  </a>
+  <a href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" class="sf-topbar-app" style="position:relative;left:12px">📲 L'app est dispo !</a>
+  <div class="sf-topbar-right">
+    <a href="/comparateur.html" class="sf-topbar-fav" style="margin-right:2px;position:relative;left:10px">⚖️ <span id="sfCompareCount">0</span></a>
+    <a href="/favoris.html" class="sf-topbar-fav">⭐ <span id="sfFavCount">0</span></a>
+    <button type="button" class="sf-topbar-menu" id="sfMenuBtn" onclick="openSfMenu()" aria-label="Menu">☰</button>
+  </div>
+</div>
+<div class="sf-sheet-overlay" id="sfMenuOverlay" onclick="closeSfMenu()"></div>
+<div class="sf-sheet" id="sfMenuSheet">
+  <div class="sf-sheet-handle"></div>
+  <div class="sf-sheet-title">Menu</div>
+  <button type="button" class="sf-menu-item" onclick="closeSfMenu();openContact()"><span class="em">📧</span><span>Nous contacter</span></button>
+  <button type="button" class="sf-menu-item" onclick="closeSfMenu();openSfNotif()"><span class="em">🔔</span><span>Notifications</span></button>
+  <a class="sf-menu-item" href="/mentions-legales.html"><span class="em">⚖️</span><span>Mentions légales</span></a>
+</div>
+
+<div class="sf-sheet-overlay" id="sfNotifOverlay2" onclick="closeSfNotif()"></div>
+<div class="sf-sheet" id="sfNotifSheet2" style="text-align:center">
+  <div class="sf-sheet-handle"></div>
+  <div style="padding:8px 24px 4px">
+    <div style="font-size:2.3rem;margin-bottom:8px">🔔</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:1.25rem;color:#1a3f6e;margin-bottom:8px;line-height:1.2">Alertes poudreuse & bons plans ?</div>
+    <p style="font-size:.88rem;color:#5c4a35;line-height:1.6;margin-bottom:16px">Reçois une alerte quand ça tombe fort, ou les bons plans forfaits. <strong>Gratuit, discret, 1 à 2 fois/semaine max.</strong></p>
+  </div>
+  <div style="padding:0 20px;display:flex;flex-direction:column;gap:10px">
+    <button type="button" onclick="acceptSfNotif()" style="background:linear-gradient(135deg,#1a5a8a,#3a7db8);color:white;border:none;border-radius:30px;padding:15px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(26,90,138,.3)">⛷️ Oui, je veux être alerté !</button>
+    <button type="button" onclick="closeSfNotif()" style="background:transparent;color:#8a7060;border:none;padding:8px;font-size:.85rem;cursor:pointer;font-family:'DM Sans',sans-serif">Non merci</button>
+  </div>
+</div>
+
+<script>
+function openSfMenu(){document.getElementById('sfMenuOverlay').classList.add('open');document.getElementById('sfMenuSheet').classList.add('open');document.body.style.overflow='hidden';}
+function closeSfMenu(){document.getElementById('sfMenuOverlay').classList.remove('open');document.getElementById('sfMenuSheet').classList.remove('open');document.body.style.overflow='';}
+// « Nous contacter » : ouvre la modale de contact de l'accueil
+if (typeof openContact !== 'function') {
+  window.openContact = function(){ window.location.href = '/index.html#contact'; };
+}
+function openSfNotif(){
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Les notifications sont déjà activées ✅'); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Les notifications sont bloquées dans les réglages de ton navigateur."); return; }
+  document.getElementById('sfNotifOverlay2').classList.add('open');
+  document.getElementById('sfNotifSheet2').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSfNotif(){
+  document.getElementById('sfNotifOverlay2').classList.remove('open');
+  document.getElementById('sfNotifSheet2').classList.remove('open');
+  document.body.style.overflow='';
+}
+function acceptSfNotif(){
+  closeSfNotif();
+  function ask(){
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred.push(async function(OneSignal){ try{ await OneSignal.Notifications.requestPermission(); }catch(e){} });
+  }
+  if(window.OneSignal || document.querySelector('script[src*="OneSignalSDK"]')){ ask(); return; }
+  var s=document.createElement('script');
+  s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; s.defer=true;
+  document.head.appendChild(s);
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(async function(OneSignal){
+    await OneSignal.init({appId:"df4757f7-ed59-4973-8a3d-782547295c9c",safari_web_id:"web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",serviceWorkerPath:"sw.js",notifyButton:{enable:false},welcomeNotification:{disable:true}});
+    try{ await OneSignal.Notifications.requestPermission(); }catch(e){}
+  });
+}
+</script>
+
+<script>
+(function(){
+  var bar = document.getElementById("sfTopbar");
+  var lastY = window.scrollY, ticking = false;
+  window.addEventListener("scroll", function(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY;
+      if(y > lastY && y > 60) bar.classList.add("sf-hide");
+      else bar.classList.remove("sf-hide");
+      lastY = y;
+      ticking = false;
+    });
+  }, {passive:true});
+  function updateFavCount(){
+    var favs = [], domFavs = [];
+    try { favs = JSON.parse(localStorage.getItem("sf_favorites")||"[]"); } catch(e){}
+    try { domFavs = JSON.parse(localStorage.getItem("sf_fav_domaines")||"[]"); } catch(e){}
+    var el = document.getElementById("sfFavCount");
+    if(el) el.textContent = favs.length + domFavs.length;
+  }
+  function updateCompareCount(){
+    var c = [], domC = [];
+    try { c = JSON.parse(localStorage.getItem("sf_compare")||"[]"); } catch(e){}
+    try { domC = JSON.parse(localStorage.getItem("sf_compare_domaines")||"[]"); } catch(e){}
+    var el = document.getElementById("sfCompareCount");
+    if(el) el.textContent = c.length + domC.length;
+  }
+  window.sfUpdateFavCount = updateFavCount;
+  window.sfUpdateCompareCount = updateCompareCount;
+  updateFavCount();
+  updateCompareCount();
+  window.addEventListener("storage", function(){updateFavCount();updateCompareCount();});
+  window.addEventListener("focus", function(){updateFavCount();updateCompareCount();});
+})();
+</script>
+
+<div class="dm-hero">
+  <div class="hero-slides">
+  <img class="hero-slide active" data-idx="0" src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&q=80" alt="Latemar photo 1" loading="eager">
+  </div>
+  <div class="dm-hero-overlay"></div>
+  <a href="#" class="dm-close" id="dmClose" aria-label="Retour">✕</a>
+  <button class="dm-fav" id="dmFav" type="button" aria-label="Ajouter aux favoris">☆</button>
+  <button class="dm-compare" id="dmCompare" type="button" aria-label="Ajouter au comparateur">⚖️</button>
+<script>
+// ── Favoris & comparateur DOMAINES — script autonome, indépendant du reste du hero ──
+// (clés séparées des favoris/comparateur stations : sf_fav_domaines / sf_compare_domaines)
+(function(){
+  var DOM_SLUG = "latemar";
+  function domFavs(){try{return JSON.parse(localStorage.getItem('sf_fav_domaines')||'[]');}catch(e){return [];}}
+  function saveDomFavs(f){try{localStorage.setItem('sf_fav_domaines',JSON.stringify(f));}catch(e){}}
+  function domCompares(){try{return JSON.parse(localStorage.getItem('sf_compare_domaines')||'[]');}catch(e){return [];}}
+  function saveDomCompares(c){try{localStorage.setItem('sf_compare_domaines',JSON.stringify(c));}catch(e){}}
+  function renderDomFav(){
+    var b=document.getElementById('dmFav');
+    if(!b)return;
+    var on=domFavs().indexOf(DOM_SLUG)!==-1;
+    b.textContent=on?'⭐':'☆';
+    b.classList.toggle('active',on);
+    b.title=on?'Retirer des favoris':'Ajouter aux favoris';
+  }
+  function renderDomCompare(){
+    var b=document.getElementById('dmCompare');
+    if(!b)return;
+    var on=domCompares().indexOf(DOM_SLUG)!==-1;
+    b.classList.toggle('active',on);
+    b.title=on?'Retirer du comparateur':'Ajouter au comparateur';
+  }
+  var favBtn=document.getElementById('dmFav');
+  if(favBtn) favBtn.addEventListener('click',function(){
+    var f=domFavs(),i=f.indexOf(DOM_SLUG);
+    if(i===-1) f.push(DOM_SLUG); else f.splice(i,1);
+    saveDomFavs(f);renderDomFav();
+    if(window.sfUpdateFavCount) window.sfUpdateFavCount();
+  });
+  var cmpBtn=document.getElementById('dmCompare');
+  if(cmpBtn) cmpBtn.addEventListener('click',function(){
+    var c=domCompares(),i=c.indexOf(DOM_SLUG);
+    if(i===-1){
+      if(c.length>=3){alert("Vous pouvez comparer 3 domaines maximum. Retirez-en un avant d'en ajouter un nouveau.");return;}
+      c.push(DOM_SLUG);
+    }else{c.splice(i,1);}
+    saveDomCompares(c);renderDomCompare();
+    if(window.sfUpdateCompareCount) window.sfUpdateCompareCount();
+  });
+  renderDomFav();
+  renderDomCompare();
+})();
+</script>
+  
+  <div class="dm-hero-content">
+    <div class="dm-hero-massif">⛷ Alpes du Nord</div>
+    <h1>Latemar</h1>
+    <div class="dm-hero-meta">🎿 49 km · 3 stations · 71€/jour</div>
+    <div class="dm-rank">40e plus grand domaine référencé</div>
+  </div>
+  <div class="hero-illu-note">Photo d'illustration</div>
+</div>
+
+<div class="dm-wrap">
+
+<div class="dm-breadcrumb">
+  <a href="../index.html">Accueil</a> › <a href="../recherche.html">Stations de ski</a> › Latemar
+</div>
+
+
+
+<div class="dm-note">ℹ️ Les stations de ce domaine partagent le même domaine skiable : les kilomètres de pistes ne sont pas répartis village par village.</div>
+
+<div class="dm-section">
+  <div class="dm-section-title">À propos du domaine</div>
+  <div class="dm-card">
+    <div class="readmore-wrap" id="rm-dmdesc" style="--rm-bg:white">
+      <div class="dm-desc">Le Latemar relie Obereggen, dans le Haut-Adige, à Pampeago et Predazzo, dans le Trentin, au pied des tours du Latemar. Le domaine est réputé pour la qualité de son damage. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.</div>
+    </div>
+    <div class="readmore-btn" onclick="toggleReadMore('rm-dmdesc',this)">Lire plus ▼</div>
+  </div>
+</div>
+
+<div class="dm-section">
+  <div class="dm-section-title">Aperçu du domaine skiable</div>
+  <div class="dm-card">
+    <div class="piste-circles"><div class="piste-circle-item">
+      <div class="piste-circle" style="background:#2ea84e"></div>
+      <div class="piste-circle-val"><b>—</b></div>
+      <div class="piste-circle-pct">0%</div>
+      <div class="piste-circle-lbl">Vertes</div>
+    </div><div class="piste-circle-item">
+      <div class="piste-circle" style="background:#3a7db8"></div>
+      <div class="piste-circle-val"><b>—</b></div>
+      <div class="piste-circle-pct">19%</div>
+      <div class="piste-circle-lbl">Bleues</div>
+    </div><div class="piste-circle-item">
+      <div class="piste-circle" style="background:#cc2200"></div>
+      <div class="piste-circle-val"><b>—</b></div>
+      <div class="piste-circle-pct">67%</div>
+      <div class="piste-circle-lbl">Rouges</div>
+    </div><div class="piste-circle-item">
+      <div class="piste-circle" style="background:#222"></div>
+      <div class="piste-circle-val"><b>—</b></div>
+      <div class="piste-circle-pct">14%</div>
+      <div class="piste-circle-lbl">Noires</div>
+    </div></div>
+    <div class="icon-stat-grid">
+      <div class="icon-stat-tile">
+      <span class="icon-stat-ico">🎿</span>
+      <div class="icon-stat-val">—</div>
+      <div class="icon-stat-lbl">Nombre de pistes</div>
+    </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">⛰️</span>
+        <div class="icon-stat-val">49 km</div>
+        <div class="icon-stat-lbl">Pistes skiables</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">🏘️</span>
+        <div class="icon-stat-val">1018m</div>
+        <div class="icon-stat-lbl">Altitude mini</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">🗻</span>
+        <div class="icon-stat-val">2388m</div>
+        <div class="icon-stat-lbl">Altitude maxi</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">🚡</span>
+        <div class="icon-stat-val">18</div>
+        <div class="icon-stat-lbl">Remontées</div>
+      </div>
+      <div class="icon-stat-tile">
+        <span class="icon-stat-ico">💶</span>
+        <div class="icon-stat-val">71€</div>
+        <div class="icon-stat-lbl">Forfait domaine/j</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dm-section">
+  <div class="dm-section-title">Chiffres clés</div>
+  <div class="dm-faits"><div class="dm-fait"><span class="dm-fait-ico">💶</span><span class="dm-fait-val">71€</span><span class="dm-fait-lbl">Forfait le moins cher — Obereggen</span></div><div class="dm-fait"><span class="dm-fait-ico">🏔️</span><span class="dm-fait-val">1760m</span><span class="dm-fait-lbl">Village le plus haut — Pampeago</span></div><div class="dm-fait"><span class="dm-fait-ico">⭐</span><span class="dm-fait-val">4.2/5</span><span class="dm-fait-lbl">Mieux notée — Obereggen</span></div><div class="dm-fait"><span class="dm-fait-ico">📏</span><span class="dm-fait-val">1370m</span><span class="dm-fait-lbl">Dénivelé total du domaine</span></div></div>
+</div>
+
+<div class="dm-section">
+  <div class="dm-section-title">Les 3 stations du domaine</div>
+  <div class="dm-card dm-table-wrap">
+    <table class="dm-table">
+      <thead><tr><th>Station</th><th>Village</th><th>Pistes</th><th>Forfait</th><th>Note</th><th>Ambiance</th><th></th></tr></thead>
+      <tbody><tr onclick="location.href='../stations/obereggen.html'">
+      <td class="dm-t-name">Obereggen</td>
+      <td>1550m</td><td>partagé</td><td>71€</td>
+      <td>⭐4.2</td>
+      <td class="dm-t-tags"><span class="dm-tag">Famille</span><span class="dm-tag">Nature</span></td>
+      <td class="dm-t-go">→</td>
+    </tr><tr onclick="location.href='../stations/pampeago.html'">
+      <td class="dm-t-name">Pampeago</td>
+      <td>1760m</td><td>partagé</td><td>71€</td>
+      <td>⭐3.9</td>
+      <td class="dm-t-tags"><span class="dm-tag">Famille</span><span class="dm-tag">Nature</span></td>
+      <td class="dm-t-go">→</td>
+    </tr><tr onclick="location.href='../stations/predazzo.html'">
+      <td class="dm-t-name">Predazzo</td>
+      <td>1018m</td><td>partagé</td><td>71€</td>
+      <td>⭐3.8</td>
+      <td class="dm-t-tags"><span class="dm-tag">Famille</span><span class="dm-tag">Nature</span></td>
+      <td class="dm-t-go">→</td>
+    </tr></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="dm-section">
+  <div class="dm-section-title">Explorer les stations</div>
+  <div class="dm-stations-grid">
+    <a href="../stations/obereggen.html" class="dm-station-card">
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="673" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="673" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Obereggen</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 1550m · ⛰ 2388m · 💶 71€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
+    </a>
+<a href="../stations/pampeago.html" class="dm-station-card">
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="674" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="674" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Pampeago</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 1760m · ⛰ 2388m · 💶 71€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
+    </a>
+<a href="../stations/predazzo.html" class="dm-station-card">
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="675" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="675" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Predazzo</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 1018m · ⛰ 2388m · 💶 71€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div class="dm-section">
+  <div class="dm-section-title">Autres domaines — Alpes du Nord</div>
+  <div class="dm-other-grid"><a href="portes-du-soleil.html" class="dm-other">
+      <div class="dm-other-photo" style="background-image:url('../img/avoriaz1.jpg')">
+        <div class="dm-other-overlay"></div>
+        <button type="button" class="dm-other-fav" data-dslug="portes-du-soleil" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-other-cmp" data-dslug="portes-du-soleil" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-other-name">Les Portes du Soleil</div>
+      </div>
+      <div class="dm-other-foot"><span>600 km</span></div>
+    </a>
+<a href="3-vallees.html" class="dm-other">
+      <div class="dm-other-photo" style="background-image:url('../img/courchevel1.jpg')">
+        <div class="dm-other-overlay"></div>
+        <button type="button" class="dm-other-fav" data-dslug="3-vallees" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-other-cmp" data-dslug="3-vallees" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-other-name">Les 3 Vallées</div>
+      </div>
+      <div class="dm-other-foot"><span>600 km</span></div>
+    </a>
+<a href="paradiski.html" class="dm-other">
+      <div class="dm-other-photo" style="background-image:url('../img/laplagne1.jpg')">
+        <div class="dm-other-overlay"></div>
+        <button type="button" class="dm-other-fav" data-dslug="paradiski" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-other-cmp" data-dslug="paradiski" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-other-name">Paradiski</div>
+      </div>
+      <div class="dm-other-foot"><span>425 km</span></div>
+    </a>
+<a href="4-vallees.html" class="dm-other">
+      <div class="dm-other-photo" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&q=80')">
+        <div class="dm-other-overlay"></div>
+        <button type="button" class="dm-other-fav" data-dslug="4-vallees" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-other-cmp" data-dslug="4-vallees" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-other-name">Les 4 Vallées</div>
+      </div>
+      <div class="dm-other-foot"><span>412 km</span></div>
+    </a>
+<a href="evasion-mont-blanc.html" class="dm-other">
+      <div class="dm-other-photo" style="background-image:url('../img/megeve1.jpg')">
+        <div class="dm-other-overlay"></div>
+        <button type="button" class="dm-other-fav" data-dslug="evasion-mont-blanc" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-other-cmp" data-dslug="evasion-mont-blanc" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-other-name">Évasion Mont-Blanc</div>
+      </div>
+      <div class="dm-other-foot"><span>400 km</span></div>
+    </a>
+<a href="matterhorn-ski-paradise.html" class="dm-other">
+      <div class="dm-other-photo" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&q=80')">
+        <div class="dm-other-overlay"></div>
+        <button type="button" class="dm-other-fav" data-dslug="matterhorn-ski-paradise" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-other-cmp" data-dslug="matterhorn-ski-paradise" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-other-name">Matterhorn Ski Paradise (Zermatt – Cervinia)</div>
+      </div>
+      <div class="dm-other-foot"><span>322 km</span></div>
+    </a></div>
+</div>
+
+<script>
+// ── Favoris & comparateur directement depuis les vignettes (stations + autres domaines) ──
+(function(){
+  function getList(k){try{return JSON.parse(localStorage.getItem(k)||'[]');}catch(e){return [];}}
+  function saveList(k,arr){try{localStorage.setItem(k,JSON.stringify(arr));}catch(e){}}
+  function refreshTopbar(){
+    if(window.sfUpdateFavCount) window.sfUpdateFavCount();
+    if(window.sfUpdateCompareCount) window.sfUpdateCompareCount();
+  }
+  function render(btn,on,isFav){
+    if(isFav){
+      btn.textContent = on ? '⭐' : '☆';
+      btn.title = on ? 'Retirer des favoris' : 'Ajouter aux favoris';
+    } else {
+      btn.title = on ? 'Retirer du comparateur' : 'Ajouter au comparateur';
+    }
+    btn.classList.toggle('active', on);
+  }
+  function wire(selector, storageKey, isFav, maxN, idFromBtn, noun){
+    document.querySelectorAll(selector).forEach(function(btn){
+      var id = idFromBtn(btn);
+      render(btn, getList(storageKey).indexOf(id) !== -1, isFav);
+      btn.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var list = getList(storageKey);
+        var i = list.indexOf(id);
+        if(i === -1){
+          if(!isFav && list.length >= maxN){
+            alert('Vous pouvez comparer ' + maxN + ' ' + noun + ' maximum. Retirez-en un avant d\'en ajouter un nouveau.');
+            return;
+          }
+          list.push(id);
+        } else {
+          list.splice(i,1);
+        }
+        saveList(storageKey, list);
+        render(btn, list.indexOf(id) !== -1, isFav);
+        refreshTopbar();
+      });
+    });
+  }
+  wire('.dm-sc-fav', 'sf_favorites', true, 0, function(b){return parseInt(b.dataset.sid,10);}, 'stations');
+  wire('.dm-sc-cmp', 'sf_compare', false, 3, function(b){return parseInt(b.dataset.sid,10);}, 'stations');
+  wire('.dm-other-fav', 'sf_fav_domaines', true, 0, function(b){return b.dataset.dslug;}, 'domaines');
+  wire('.dm-other-cmp', 'sf_compare_domaines', false, 3, function(b){return b.dataset.dslug;}, 'domaines');
+})();
+</script>
+
+<footer class="footer">
+  <strong>SnowFinder</strong> — Le guide complet des stations de ski françaises<br>
+  <a href="../index.html">Accueil</a> · <a href="../recherche.html">Recherche</a> · <a href="../comparateur.html">Comparateur</a> · <a href="../mentions-legales.html">Mentions légales</a><br>
+  <span style="font-size:.7rem;opacity:.7">Données indicatives · Forfaits haute saison adulte · À vérifier sur le site officiel du domaine</span>
+</footer>
+
+</div>
+
+<nav class="sf-bottomnav">
+  <a href="../recherche.html" class="sf-bn-item" title="Trouver ma station">🔍</a>
+  <a href="../enneigement.html" class="sf-bn-item" title="Météo &amp; enneigement">❄️</a>
+  <a href="../index.html" class="sf-bn-item sf-bn-home" title="Accueil"><span class="sf-bn-home-circle">🏡</span></a>
+  <a href="../tinder.html" class="sf-bn-item" title="Tinder du ski">💕</a>
+  <a href="../hebergement.html" class="sf-bn-item" title="Hébergement">🛏️</a>
+</nav>
+
+<script>
+function toggleReadMore(id, btn){
+  var el = document.getElementById(id);
+  var expanded = el.classList.toggle('expanded');
+  btn.textContent = expanded ? 'Voir moins ▲' : 'Lire plus ▼';
+}
+// ── CARROUSEL HERO (photos du domaine) ──
+var DM_HERO_URLS = ["https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&q=80"];
+var dmHeroIdx = 0, dmHeroAuto = null;
+function dmHeroShow(i){
+  if(!DM_HERO_URLS.length) return;
+  dmHeroIdx = (i + DM_HERO_URLS.length) % DM_HERO_URLS.length;
+  document.querySelectorAll('.hero-slide').forEach(function(el){
+    el.classList.toggle('active', parseInt(el.dataset.idx) === dmHeroIdx);
+  });
+  document.querySelectorAll('.hero-dot').forEach(function(el){
+    el.classList.toggle('active', parseInt(el.dataset.idx) === dmHeroIdx);
+  });
+}
+function dmHeroNext(){ dmHeroShow(dmHeroIdx + 1); dmResetHeroAuto(); }
+function dmHeroPrev(){ dmHeroShow(dmHeroIdx - 1); dmResetHeroAuto(); }
+function dmHeroGoTo(i){ dmHeroShow(i); dmResetHeroAuto(); }
+function dmResetHeroAuto(){
+  if(dmHeroAuto) clearInterval(dmHeroAuto);
+  if(DM_HERO_URLS.length > 1) dmHeroAuto = setInterval(function(){ dmHeroShow(dmHeroIdx + 1); }, 5000);
+}
+if(DM_HERO_URLS.length > 1) dmResetHeroAuto();
+var dmHeroEl = document.querySelector('.dm-hero');
+if(dmHeroEl && DM_HERO_URLS.length > 1){
+  dmHeroEl.addEventListener('mouseenter', function(){ if(dmHeroAuto) clearInterval(dmHeroAuto); });
+  dmHeroEl.addEventListener('mouseleave', dmResetHeroAuto);
+  var dsx = 0;
+  dmHeroEl.addEventListener('touchstart', function(e){ dsx = e.touches[0].clientX; }, {passive:true});
+  dmHeroEl.addEventListener('touchend', function(e){
+    var ddx = e.changedTouches[0].clientX - dsx;
+    if(ddx > 50) dmHeroPrev(); else if(ddx < -50) dmHeroNext();
+  });
+}
+
+// (Favoris & comparateur domaines : voir le script autonome juste après les
+// boutons dans le hero, plus haut — indépendant de ce bloc.)
+
+// La croix revient à la page précédente (fiche station d'origine),
+// avec repli sur la recherche si on est arrivé directement sur cette page.
+document.getElementById('dmClose').addEventListener('click', function(e){
+  e.preventDefault();
+  if (document.referrer && document.referrer.indexOf(location.host) !== -1 && history.length > 1) {
+    history.back();
+  } else {
+    location.href = '../recherche.html';
+  }
+});
+</script>
+
+</body>
+</html>

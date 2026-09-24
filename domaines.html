@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Les grands domaines skiables reliés de France | SnowFinder</title>
-<meta name="description" content="Les 20 grands domaines skiables reliés de France : Portes du Soleil, 3 Vallées, Paradiski, Grand Massif... Kilomètres de pistes, stations membres, forfaits et altitudes.">
+<meta name="description" content="Les 40 grands domaines skiables reliés de France : Portes du Soleil, 3 Vallées, Paradiski, Grand Massif... Kilomètres de pistes, stations membres, forfaits et altitudes.">
 <link rel="canonical" href="https://snowfinder.fr/domaines.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SnowFinder">
 <meta property="og:title" content="Les grands domaines skiables reliés de France">
-<meta property="og:description" content="20 domaines, 65 stations reliées. Comparez les kilomètres de pistes, forfaits et altitudes.">
+<meta property="og:description" content="40 domaines, 124 stations reliées. Comparez les kilomètres de pistes, forfaits et altitudes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
@@ -221,9 +221,9 @@ function acceptSfNotif(){
   <h1>🏔️ Les grands domaines reliés</h1>
   <p>Plusieurs stations connectées skis aux pieds, sous un seul forfait. Le vrai critère quand on cherche du grand ski.</p>
   <div class="di-tot">
-    <div><b>20</b><span>domaines</span></div>
-    <div><b>65</b><span>stations reliées</span></div>
-    <div><b>5275</b><span>km cumulés</span></div>
+    <div><b>40</b><span>domaines</span></div>
+    <div><b>124</b><span>stations reliées</span></div>
+    <div><b>8160</b><span>km cumulés</span></div>
   </div>
 </div>
 
@@ -233,8 +233,9 @@ function acceptSfNotif(){
     <button class="di-f" data-m="Alpes du Nord">Alpes du Nord</button><button class="di-f" data-m="Alpes du Sud">Alpes du Sud</button><button class="di-f" data-m="Massif Central">Massif Central</button><button class="di-f" data-m="Pyrénées">Pyrénées</button>
   </div>
   <div class="di-count" id="diCount"></div>
+  <div class="di-pays-note" id="diPaysNote" style="display:none;margin:-4px 0 14px;font-size:.8rem;color:var(--text-light)"></div>
   <div class="di-grid" id="diGrid">
-    <a href="domaines/portes-du-soleil.html" class="di-card" data-m="Alpes du Nord">
+    <a href="domaines/portes-du-soleil.html" class="di-card" data-m="Alpes du Nord" data-pays="FR CH">
       <div class="di-top" style="background-image:url('../img/avoriaz1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -265,7 +266,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/3-vallees.html" class="di-card" data-m="Alpes du Nord">
+<a href="domaines/3-vallees.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
       <div class="di-top" style="background-image:url('../img/courchevel1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -296,7 +297,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/paradiski.html" class="di-card" data-m="Alpes du Nord">
+<a href="domaines/paradiski.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
       <div class="di-top" style="background-image:url('../img/laplagne1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -327,7 +328,38 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/evasion-mont-blanc.html" class="di-card" data-m="Alpes du Nord">
+<a href="domaines/4-vallees.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">412 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Les 4 Vallées</div>
+          <div class="di-region-inline">5 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 68 remontées</span>
+          <span>⛰ 1350-3330m</span>
+          <span class="di-score-tag">⭐ 4.3</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>26%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>49%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>25%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Verbier</span><span class="di-chip">Nendaz</span><span class="di-chip">Veysonnaz</span><span class="di-chip">Thyon</span><span class="di-chip">La Tzoumaz</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">99€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/evasion-mont-blanc.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
       <div class="di-top" style="background-image:url('../img/megeve1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -358,7 +390,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/voie-lactee.html" class="di-card" data-m="Alpes du Sud">
+<a href="domaines/voie-lactee.html" class="di-card" data-m="Alpes du Sud" data-pays="FR IT">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Sud</div>
@@ -384,7 +416,38 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/sybelles.html" class="di-card" data-m="Alpes du Nord">
+<a href="domaines/matterhorn-ski-paradise.html" class="di-card" data-m="Alpes du Nord" data-pays="CH IT">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">322 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Matterhorn Ski Paradise (Zermatt – Cervinia)</div>
+          <div class="di-region-inline">3 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 51 remontées</span>
+          <span>⛰ 1524-3899m</span>
+          <span class="di-score-tag">⭐ 4.6</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>23%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>68%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>9%</span>
+      </div>
+        <div class="di-flags"><span class="di-flag">🌍 Suisse · Italie</span></div>
+        <div class="di-chips"><span class="di-chip">Zermatt</span><span class="di-chip">Breuil-Cervinia</span><span class="di-chip">Valtournenche</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">123€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/sybelles.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -415,7 +478,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/espace-killy.html" class="di-card" data-m="Alpes du Nord">
+<a href="domaines/espace-killy.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
       <div class="di-top" style="background-image:url('../img/valdisere1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -446,7 +509,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/grand-massif.html" class="di-card" data-m="Alpes du Nord">
+<a href="domaines/grand-massif.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
       <div class="di-top" style="background-image:url('../img/flaine1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -477,7 +540,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/alpe-dhuez-grand-domaine.html" class="di-card" data-m="Alpes du Nord">
+<a href="domaines/alpe-dhuez-grand-domaine.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
       <div class="di-top" style="background-image:url('../img/alpedhuez1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -508,7 +571,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/serre-chevalier-vallee.html" class="di-card" data-m="Alpes du Sud">
+<a href="domaines/serre-chevalier-vallee.html" class="di-card" data-m="Alpes du Sud" data-pays="FR">
       <div class="di-top" style="background-image:url('../img/serrechevalier1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Sud</div>
@@ -534,7 +597,69 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/espace-diamant.html" class="di-card" data-m="Alpes du Nord">
+<a href="domaines/arosa-lenzerheide.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">225 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Arosa Lenzerheide</div>
+          <div class="di-region-inline">2 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 43 remontées</span>
+          <span>⛰ 1229-2865m</span>
+          <span class="di-score-tag">⭐ 4.5</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>49%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>39%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>12%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Arosa</span><span class="di-chip">Lenzerheide</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">94€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/grandvalira.html" class="di-card" data-m="Pyrénées" data-pays="AD">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Pyrénées</div>
+        <div class="di-km-tag">215 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Grandvalira</div>
+          <div class="di-region-inline">6 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 74 remontées</span>
+          <span>⛰ 1710-2640m</span>
+          <span class="di-score-tag">⭐ 4.2</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>23</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>53</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>46</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>20</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Pas de la Casa</span><span class="di-chip">Grau Roig</span><span class="di-chip">Soldeu</span><span class="di-chip">El Tarter</span><span class="di-chip">Canillo</span><span class="di-chip di-chip-more">+1</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">69€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/espace-diamant.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
       <div class="di-top" style="background-image:url('../img/lessaisies1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -565,7 +690,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/foret-blanche.html" class="di-card" data-m="Alpes du Sud">
+<a href="domaines/foret-blanche.html" class="di-card" data-m="Alpes du Sud" data-pays="FR">
       <div class="di-top" style="background-image:url('../img/vars1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Sud</div>
@@ -596,7 +721,38 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/espace-lumiere.html" class="di-card" data-m="Alpes du Sud">
+<a href="domaines/val-gardena.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">181 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Val Gardena</div>
+          <div class="di-region-inline">3 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 78 remontées</span>
+          <span>⛰ 1236-2518m</span>
+          <span class="di-score-tag">⭐ 4.5</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>29%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>60%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>11%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Ortisei</span><span class="di-chip">Santa Cristina</span><span class="di-chip">Selva di Val Gardena</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">80€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/espace-lumiere.html" class="di-card" data-m="Alpes du Sud" data-pays="FR">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Sud</div>
@@ -627,7 +783,38 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/grand-domaine-valmorel.html" class="di-card" data-m="Alpes du Nord">
+<a href="domaines/flims-laax-falera.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">176 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Flims Laax Falera</div>
+          <div class="di-region-inline">3 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 29 remontées</span>
+          <span>⛰ 1100-3018m</span>
+          <span class="di-score-tag">⭐ 4.4</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>48%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>43%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>9%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Laax</span><span class="di-chip">Flims</span><span class="di-chip">Falera</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">92€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/grand-domaine-valmorel.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
       <div class="di-top" style="background-image:url('../img/valmorel1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -658,7 +845,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/galibier-thabor.html" class="di-card" data-m="Alpes du Nord">
+<a href="domaines/galibier-thabor.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
       <div class="di-top" style="background-image:url('../img/valloire1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -689,7 +876,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/espace-san-bernardo.html" class="di-card" data-m="Alpes du Nord">
+<a href="domaines/espace-san-bernardo.html" class="di-card" data-m="Alpes du Nord" data-pays="FR IT">
       <div class="di-top" style="background-image:url('../img/larosiere1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -715,7 +902,38 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/alp-2500.html" class="di-card" data-m="Pyrénées">
+<a href="domaines/skiarea-campiglio.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">155 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Skiarea Campiglio</div>
+          <div class="di-region-inline">4 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 58 remontées</span>
+          <span>⛰ 852-2504m</span>
+          <span class="di-score-tag">⭐ 4.3</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>32%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>46%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>22%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Madonna di Campiglio</span><span class="di-chip">Pinzolo</span><span class="di-chip">Folgarida</span><span class="di-chip">Marilleva</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">85€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/alp-2500.html" class="di-card" data-m="Pyrénées" data-pays="ES">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Pyrénées</div>
@@ -746,7 +964,162 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/grand-tourmalet.html" class="di-card" data-m="Pyrénées">
+<a href="domaines/monterosa-ski.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">132 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Monterosa Ski</div>
+          <div class="di-region-inline">3 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 21 remontées</span>
+          <span>⛰ 1212-3275m</span>
+          <span class="di-score-tag">⭐ 4.4</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>22%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>67%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>11%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Champoluc</span><span class="di-chip">Gressoney-La-Trinité</span><span class="di-chip">Alagna Valsesia</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">69€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/alta-badia.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">130 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Alta Badia</div>
+          <div class="di-region-inline">3 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 53 remontées</span>
+          <span>⛰ 1324-2778m</span>
+          <span class="di-score-tag">⭐ 4.5</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>57%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>36%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>7%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Corvara</span><span class="di-chip">La Villa</span><span class="di-chip">San Cassiano</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">80€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/kronplatz.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">125 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Kronplatz</div>
+          <div class="di-region-inline">3 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 32 remontées</span>
+          <span>⛰ 973-2275m</span>
+          <span class="di-score-tag">⭐ 4.3</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>48%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>29%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>23%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Brunico – Kronplatz</span><span class="di-chip">San Vigilio di Marebbe</span><span class="di-chip">Valdaora – Kronplatz</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">80€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/mondole-ski.html" class="di-card" data-m="Alpes du Sud" data-pays="IT">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1528659862616-22886eb53642?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Sud</div>
+        <div class="di-km-tag">105 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Mondolè Ski</div>
+          <div class="di-region-inline">3 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 24 remontées</span>
+          <span>⛰ 807-2085m</span>
+          <span class="di-score-tag">⭐ 3.7</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>41%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>48%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>11%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Prato Nevoso</span><span class="di-chip">Artesina</span><span class="di-chip">Frabosa Soprana</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">52€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/grindelwald-wengen.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">101 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Grindelwald – Wengen</div>
+          <div class="di-region-inline">2 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 23 remontées</span>
+          <span>⛰ 944-2400m</span>
+          <span class="di-score-tag">⭐ 4.5</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>33%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>54%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>13%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Grindelwald</span><span class="di-chip">Wengen</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">88€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/grand-tourmalet.html" class="di-card" data-m="Pyrénées" data-pays="FR">
       <div class="di-top" style="background-image:url('../img/grandtourmalet1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Pyrénées</div>
@@ -772,7 +1145,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/le-devoluy.html" class="di-card" data-m="Alpes du Sud">
+<a href="domaines/le-devoluy.html" class="di-card" data-m="Alpes du Sud" data-pays="FR">
       <div class="di-top" style="background-image:url('../img/superdevoluy1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Sud</div>
@@ -803,7 +1176,131 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/grand-sancy.html" class="di-card" data-m="Massif Central">
+<a href="domaines/pontedilegno-tonale.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">100 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Pontedilegno-Tonale</div>
+          <div class="di-region-inline">2 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 29 remontées</span>
+          <span>⛰ 1121-3000m</span>
+          <span class="di-score-tag">⭐ 4.2</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>24%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>60%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>16%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Ponte di Legno</span><span class="di-chip">Passo del Tonale</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">64€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/parsenn-davos-klosters.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">96 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Parsenn (Davos – Klosters)</div>
+          <div class="di-region-inline">2 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 18 remontées</span>
+          <span>⛰ 810-2844m</span>
+          <span class="di-score-tag">⭐ 4.4</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>18%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>63%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>19%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Davos</span><span class="di-chip">Klosters</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">91€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/villars-gryon-diablerets.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1528659862616-22886eb53642?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">87 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Villars – Gryon – Les Diablerets</div>
+          <div class="di-region-inline">3 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 30 remontées</span>
+          <span>⛰ 1224-2120m</span>
+          <span class="di-score-tag">⭐ 4.0</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>76%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>21%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>3%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Villars-sur-Ollon</span><span class="di-chip">Gryon</span><span class="di-chip">Les Diablerets</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">73€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/adelboden-lenk.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">86 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Adelboden – Lenk</div>
+          <div class="di-region-inline">2 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 22 remontées</span>
+          <span>⛰ 1068-2200m</span>
+          <span class="di-score-tag">⭐ 4.2</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>53%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>40%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>7%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Adelboden</span><span class="di-chip">Lenk</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">76€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/grand-sancy.html" class="di-card" data-m="Massif Central" data-pays="FR">
       <div class="di-top" style="background-image:url('../img/superbesse1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Massif Central</div>
@@ -834,6 +1331,130 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
+<a href="domaines/andermatt-sedrun.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">70 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Andermatt – Sedrun</div>
+          <div class="di-region-inline">2 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 13 remontées</span>
+          <span>⛰ 1444-2600m</span>
+          <span class="di-score-tag">⭐ 4.2</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>26%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>57%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>17%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Andermatt</span><span class="di-chip">Sedrun</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">94€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/pal-arinsal.html" class="di-card" data-m="Pyrénées" data-pays="AD">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Pyrénées</div>
+        <div class="di-km-tag">63 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Pal Arinsal</div>
+          <div class="di-region-inline">2 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 27 remontées</span>
+          <span>⛰ 1550-2560m</span>
+          <span class="di-score-tag">⭐ 4.0</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>7</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>19</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>17</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>4</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Pal</span><span class="di-chip">Arinsal</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">52€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/val-di-fassa.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">55 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Val di Fassa (Belvedere – Col Rodella – Ciampac – Buffaure)</div>
+          <div class="di-region-inline">3 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 35 remontées</span>
+          <span>⛰ 1320-2485m</span>
+          <span class="di-score-tag">⭐ 4.3</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>13%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>74%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>13%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Canazei</span><span class="di-chip">Campitello di Fassa</span><span class="di-chip">Pozza di Fassa</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">76€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
+<a href="domaines/latemar.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+      <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&q=80')">
+        <div class="di-top-overlay"></div>
+        <div class="di-massif-tag">⛷ Alpes du Nord</div>
+        <div class="di-km-tag">49 km</div>
+        <div class="di-top-text">
+          <div class="di-name">Latemar</div>
+          <div class="di-region-inline">3 stations reliées</div>
+        </div>
+        <div class="di-illu-note">Photo d'illustration</div>
+      </div>
+      <div class="di-body">
+        <div class="di-stats">
+          <span>🚡 18 remontées</span>
+          <span>⛰ 1018-2388m</span>
+          <span class="di-score-tag">⭐ 4.0</span>
+        </div>
+        <div class="di-pistes">
+        <span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>19%</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>67%</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>14%</span>
+      </div>
+        
+        <div class="di-chips"><span class="di-chip">Obereggen</span><span class="di-chip">Pampeago</span><span class="di-chip">Predazzo</span></div>
+      </div>
+      <div class="di-footer">
+        <div><span class="di-price">71€</span><span class="di-price-lbl">/jour</span></div>
+        <div class="di-go">Voir le domaine →</div>
+      </div>
+    </a>
   </div>
   <div class="di-empty" id="diEmpty" style="display:none">Aucun domaine dans ce massif.</div>
 </div>
@@ -858,10 +1479,31 @@ function acceptSfNotif(){
   var btns  = [].slice.call(document.querySelectorAll('.di-f'));
   var count = document.getElementById('diCount');
   var empty = document.getElementById('diEmpty');
+  // Filtre pays : même choix que Recherche (mémorisé sur l'appareil)
+  var NOMS = {FR:"France",CH:"Suisse",IT:"Italie",ES:"Espagne",AD:"Andorre",DE:"Allemagne",LI:"Liechtenstein"};
+  var pays = ["FR"], tousPays = false;
+  try { var v = JSON.parse(localStorage.getItem("sf_pays_v1")); if (Array.isArray(v) && v.length) pays = v; } catch(e) {}
+  var note = document.getElementById('diPaysNote');
+  function paysOk(c){
+    if (tousPays) return true;
+    return (c.dataset.pays || "FR").split(" ").some(function(p){ return pays.indexOf(p) > -1; });
+  }
+  function majNote(){
+    var cach = cards.filter(function(c){ return !paysOk(c); }).length;
+    if (!cach && !tousPays) { note.style.display = 'none'; return; }
+    note.style.display = '';
+    note.innerHTML = tousPays
+      ? 'Tous les pays affichés. <a href="#" id="diPaysBtn" style="font-weight:700">Revenir à mes pays</a>'
+      : 'Pays affichés : ' + pays.map(function(p){ return NOMS[p] || p; }).join(', ') + '. <a href="#" id="diPaysBtn" style="font-weight:700">Voir tous les pays</a>';
+    document.getElementById('diPaysBtn').addEventListener('click', function(e){
+      e.preventDefault(); tousPays = !tousPays; majNote();
+      var on = document.querySelector('.di-f.on'); apply(on ? on.dataset.m : '');
+    });
+  }
   function apply(m){
     var n = 0;
     cards.forEach(function(c){
-      var ok = !m || c.dataset.m === m;
+      var ok = (!m || c.dataset.m === m) && paysOk(c);
       c.style.display = ok ? '' : 'none';
       if (ok) n++;
     });
@@ -875,6 +1517,7 @@ function acceptSfNotif(){
       apply(b.dataset.m);
     });
   });
+  majNote();
   apply('');
 })();
 </script>
