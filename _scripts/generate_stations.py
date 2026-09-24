@@ -159,6 +159,65 @@ DOMAINE_PARTAGE = {
     "Val d'Allos": "Espace Lumi\u00e8re (Pra-Loup \u2013 Val d'Allos)",
     "Villard-de-Lans": "Villard-de-Lans \u2013 Corren\u00e7on-en-Vercors",
     "Corren\u00e7on-en-Vercors": "Villard-de-Lans \u2013 Corren\u00e7on-en-Vercors",
+    "Pas de la Casa": "Grandvalira",
+    "Grau Roig": "Grandvalira",
+    "Soldeu": "Grandvalira",
+    "El Tarter": "Grandvalira",
+    "Canillo": "Grandvalira",
+    "Encamp": "Grandvalira",
+    "Pal": "Pal Arinsal",
+    "Arinsal": "Pal Arinsal",
+    "Verbier": "Les 4 Vallées",
+    "Nendaz": "Les 4 Vallées",
+    "Veysonnaz": "Les 4 Vallées",
+    "Thyon": "Les 4 Vallées",
+    "La Tzoumaz": "Les 4 Vallées",
+    "Villars-sur-Ollon": "Villars – Gryon – Les Diablerets",
+    "Gryon": "Villars – Gryon – Les Diablerets",
+    "Les Diablerets": "Villars – Gryon – Les Diablerets",
+    "Grindelwald": "Grindelwald – Wengen",
+    "Wengen": "Grindelwald – Wengen",
+    "Adelboden": "Adelboden – Lenk",
+    "Lenk": "Adelboden – Lenk",
+    "Arosa": "Arosa Lenzerheide",
+    "Lenzerheide": "Arosa Lenzerheide",
+    "Laax": "Flims Laax Falera",
+    "Flims": "Flims Laax Falera",
+    "Falera": "Flims Laax Falera",
+    "Davos": "Parsenn (Davos – Klosters)",
+    "Klosters": "Parsenn (Davos – Klosters)",
+    "Andermatt": "Andermatt – Sedrun",
+    "Sedrun": "Andermatt – Sedrun",
+    "Zermatt": "Matterhorn Ski Paradise (Zermatt – Cervinia)",
+    "Breuil-Cervinia": "Matterhorn Ski Paradise (Zermatt – Cervinia)",
+    "Valtournenche": "Matterhorn Ski Paradise (Zermatt – Cervinia)",
+    "Champoluc": "Monterosa Ski",
+    "Gressoney-La-Trinité": "Monterosa Ski",
+    "Alagna Valsesia": "Monterosa Ski",
+    "Prato Nevoso": "Mondolè Ski",
+    "Artesina": "Mondolè Ski",
+    "Frabosa Soprana": "Mondolè Ski",
+    "Ponte di Legno": "Pontedilegno-Tonale",
+    "Passo del Tonale": "Pontedilegno-Tonale",
+    "Madonna di Campiglio": "Skiarea Campiglio",
+    "Pinzolo": "Skiarea Campiglio",
+    "Folgarida": "Skiarea Campiglio",
+    "Marilleva": "Skiarea Campiglio",
+    "Canazei": "Val di Fassa (Belvedere – Col Rodella – Ciampac – Buffaure)",
+    "Campitello di Fassa": "Val di Fassa (Belvedere – Col Rodella – Ciampac – Buffaure)",
+    "Pozza di Fassa": "Val di Fassa (Belvedere – Col Rodella – Ciampac – Buffaure)",
+    "Ortisei": "Val Gardena",
+    "Santa Cristina": "Val Gardena",
+    "Selva di Val Gardena": "Val Gardena",
+    "Corvara": "Alta Badia",
+    "La Villa": "Alta Badia",
+    "San Cassiano": "Alta Badia",
+    "Brunico – Kronplatz": "Kronplatz",
+    "San Vigilio di Marebbe": "Kronplatz",
+    "Valdaora – Kronplatz": "Kronplatz",
+    "Obereggen": "Latemar",
+    "Pampeago": "Latemar",
+    "Predazzo": "Latemar",
 }
 
 DOMAINES = {
@@ -375,6 +434,226 @@ DOMAINES = {
         "short": "Alp 2500",
         "desc": "La Molina et Masella se partagent la Tosa d'Alp, en Cerdagne catalane, et forment ensemble Alp 2500, 145 km de pistes entre 1600 et 2537 m. La Molina est la doyenne des stations espagnoles — son premier téléski commercial date de 1943 — et possède même sa gare sur la ligne de Puigcerdà, à deux heures de Barcelone. Masella, sur le versant nord, déroule la plupart de ses pistes entre les pins à crochets et propose le plus grand domaine de ski nocturne des Pyrénées. Le sommet de la Tosa fait la jonction entre les deux stations, skis aux pieds.",
     },
+    "grandvalira": {
+        "name": "Grandvalira", "massif": "Pyrénées", "pays": ["Andorre"],
+        "stations": ["Pas de la Casa", "Grau Roig", "Soldeu", "El Tarter", "Canillo", "Encamp"],
+        "km_propre": {},
+        "km_total": 215, "remontees_total": 74, "forfait_domaine": 69,
+        "alt_min": 1710, "alt_max": 2640,
+        "unifie": True,
+        "pistes": {"v": 23, "b": 53, "r": 46, "n": 20},
+        "short": "Grandvalira",
+        "desc": "Grandvalira est le plus grand domaine skiable des Pyrénées : 215 km de pistes entre 1710 et 2640 m, qui relient d'est en ouest Pas de la Casa, à la frontière française, Grau Roig, Soldeu et El Tarter, tandis que Canillo et Encamp y accèdent par télécabine depuis la vallée. Le domaine a accueilli les finales de la Coupe du monde de ski alpin en 2019 sur la piste de l'Avet, à Soldeu. Chaque secteur a sa personnalité, du Pas de la Casa festif et technique à El Tarter plus familial, et l'Andorre y ajoute ses atouts : hébergements nombreux et boutiques détaxées.",
+    },
+    "pal-arinsal": {
+        "name": "Pal Arinsal", "massif": "Pyrénées", "pays": ["Andorre"],
+        "stations": ["Pal", "Arinsal"],
+        "km_propre": {},
+        "km_total": 63, "remontees_total": 27, "forfait_domaine": 52,
+        "alt_min": 1550, "alt_max": 2560,
+        "unifie": True,
+        "pistes": {"v": 7, "b": 19, "r": 17, "n": 4},
+        "short": "Pal Arinsal",
+        "desc": "Pal et Arinsal, dans la paroisse de La Massana, forment un domaine de 63 km relié par un téléphérique. Pal, boisé, est le terrain idéal des familles et des débutants, avec ses pistes en forêt et la zone de La Caubella. Arinsal, au-dessus de la limite des arbres, concentre les pentes les plus raides jusqu'au Pic de Cubil, à 2560 m. Les deux villages sont accessibles par télécabine depuis le fond de vallée.",
+    },
+    "4-vallees": {
+        "name": "Les 4 Vallées", "massif": "Alpes du Nord", "pays": ["Suisse"],
+        "stations": ["Verbier", "Nendaz", "Veysonnaz", "Thyon", "La Tzoumaz"],
+        "km_propre": {},
+        "km_total": 412, "remontees_total": 68, "forfait_domaine": 99,
+        "alt_min": 1350, "alt_max": 3330,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 26, "r": 49, "n": 25, "pct": 1},
+        "short": "4 Vallées",
+        "desc": "Les 4 Vallées forment le plus grand domaine skiable entièrement suisse : 412 km de pistes reliant Verbier, La Tzoumaz, Nendaz, Veysonnaz et Thyon, entre 1350 et 3330 m. Le Mont-Fort, point culminant, ouvre des descentes de près de 2000 m de dénivelé et des pentes hors-piste qui ont fait la réputation mondiale de Verbier. Chaque station a son caractère, du Verbier chic et festif aux villages plus calmes de La Tzoumaz et Veysonnaz. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "villars-gryon-diablerets": {
+        "name": "Villars – Gryon – Les Diablerets", "massif": "Alpes du Nord", "pays": ["Suisse"],
+        "stations": ["Villars-sur-Ollon", "Gryon", "Les Diablerets"],
+        "km_propre": {},
+        "km_total": 87, "remontees_total": 30, "forfait_domaine": 73,
+        "alt_min": 1224, "alt_max": 2120,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 76, "r": 21, "n": 3, "pct": 1},
+        "short": "Villars-Gryon-Diablerets",
+        "desc": "Villars, Gryon et Les Diablerets forment le principal domaine des Alpes vaudoises, entre 1224 et 2120 m. Villars et Gryon partagent le secteur de Bretaye, que l'on rejoint en train à crémaillère depuis Villars, tandis que Les Diablerets s'ouvrent sur le massif du même nom, à deux pas du col du Pillon et de Glacier 3000. Le domaine, majoritairement bleu, convient particulièrement aux familles et aux skieurs de niveau moyen. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "grindelwald-wengen": {
+        "name": "Grindelwald – Wengen", "massif": "Alpes du Nord", "pays": ["Suisse"],
+        "stations": ["Grindelwald", "Wengen"],
+        "km_propre": {},
+        "km_total": 101, "remontees_total": 23, "forfait_domaine": 88,
+        "alt_min": 944, "alt_max": 2400,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 33, "r": 54, "n": 13, "pct": 1},
+        "short": "Grindelwald-Wengen",
+        "desc": "Grindelwald et Wengen se partagent le domaine de la Kleine Scheidegg et du Männlichen, 101 km de pistes au pied de l'Eiger, du Mönch et de la Jungfrau. Grindelwald y accède par l'Eiger Express, Wengen, village sans voitures, par le train à crémaillère. C'est sur ce domaine que se court chaque janvier la descente de Coupe du monde du Lauberhorn. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "adelboden-lenk": {
+        "name": "Adelboden – Lenk", "massif": "Alpes du Nord", "pays": ["Suisse"],
+        "stations": ["Adelboden", "Lenk"],
+        "km_propre": {},
+        "km_total": 86, "remontees_total": 22, "forfait_domaine": 76,
+        "alt_min": 1068, "alt_max": 2200,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 53, "r": 40, "n": 7, "pct": 1},
+        "short": "Adelboden-Lenk",
+        "desc": "Adelboden et Lenk sont reliés par le col du Hahnenmoos et forment un domaine de 86 km dans l'Oberland bernois. Adelboden accueille chaque année le slalom géant de Coupe du monde du Chuenisbärgli. Le domaine, majoritairement bleu, se prête bien aux familles. Le prix de la journée étant dynamique, celui indiqué est une estimation. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "arosa-lenzerheide": {
+        "name": "Arosa Lenzerheide", "massif": "Alpes du Nord", "pays": ["Suisse"],
+        "stations": ["Arosa", "Lenzerheide"],
+        "km_propre": {},
+        "km_total": 225, "remontees_total": 43, "forfait_domaine": 94,
+        "alt_min": 1229, "alt_max": 2865,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 49, "r": 39, "n": 12, "pct": 1},
+        "short": "Arosa Lenzerheide",
+        "desc": "Arosa et Lenzerheide sont reliées depuis 2014 par un téléphérique au-dessus de l'Urdental, formant l'un des plus grands domaines de Suisse : 225 km de pistes entre 1229 et 2865 m. Arosa, au fond du Schanfigg, et Lenzerheide, sur son plateau lacustre, offrent deux ambiances complémentaires. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "flims-laax-falera": {
+        "name": "Flims Laax Falera", "massif": "Alpes du Nord", "pays": ["Suisse"],
+        "stations": ["Laax", "Flims", "Falera"],
+        "km_propre": {},
+        "km_total": 176, "remontees_total": 29, "forfait_domaine": 92,
+        "alt_min": 1100, "alt_max": 3018,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 48, "r": 43, "n": 9, "pct": 1},
+        "short": "Flims Laax Falera",
+        "desc": "Flims, Laax et Falera partagent un domaine de 176 km en Surselva, qui monte jusqu'au glacier du Vorab à 3018 m. Laax est une référence mondiale du freestyle. Le prix de la journée étant dynamique, celui indiqué est une estimation. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "parsenn-davos-klosters": {
+        "name": "Parsenn (Davos – Klosters)", "massif": "Alpes du Nord", "pays": ["Suisse"],
+        "stations": ["Davos", "Klosters"],
+        "km_propre": {},
+        "km_total": 96, "remontees_total": 18, "forfait_domaine": 91,
+        "alt_min": 810, "alt_max": 2844,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 18, "r": 63, "n": 19, "pct": 1},
+        "short": "Parsenn",
+        "desc": "La Parsenn relie Davos et Klosters et offre des descentes parmi les plus longues de Suisse, jusqu'à 2000 m de dénivelé vers les vallées. C'est le plus grand des domaines de la région, qui en compte plusieurs autres non reliés. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "andermatt-sedrun": {
+        "name": "Andermatt – Sedrun", "massif": "Alpes du Nord", "pays": ["Suisse"],
+        "stations": ["Andermatt", "Sedrun"],
+        "km_propre": {},
+        "km_total": 70, "remontees_total": 13, "forfait_domaine": 94,
+        "alt_min": 1444, "alt_max": 2600,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 26, "r": 57, "n": 17, "pct": 1},
+        "short": "Andermatt-Sedrun",
+        "desc": "Andermatt, dans le canton d'Uri, et Sedrun, dans les Grisons, sont reliées par le col de l'Oberalp. Le Gemsstock, juste au-dessus d'Andermatt et réputé pour le hors-piste, forme un domaine séparé, avec sa propre fiche. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "matterhorn-ski-paradise": {
+        "name": "Matterhorn Ski Paradise (Zermatt – Cervinia)", "massif": "Alpes du Nord", "pays": ["Suisse", "Italie"],
+        "stations": ["Zermatt", "Breuil-Cervinia", "Valtournenche"],
+        "km_propre": {},
+        "km_total": 322, "remontees_total": 51, "forfait_domaine": 123,
+        "alt_min": 1524, "alt_max": 3899,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 23, "r": 68, "n": 9, "pct": 1},
+        "short": "Matterhorn Ski Paradise",
+        "desc": "Le Matterhorn Ski Paradise relie Zermatt, en Suisse, à Breuil-Cervinia et Valtournenche, en Italie, par le glacier du Plateau Rosa. Ses 322 km de pistes montent jusqu'à 3899 m au Petit Cervin, et le glacier permet de skier toute l'année. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "monterosa-ski": {
+        "name": "Monterosa Ski", "massif": "Alpes du Nord", "pays": ["Italie"],
+        "stations": ["Champoluc", "Gressoney-La-Trinité", "Alagna Valsesia"],
+        "km_propre": {},
+        "km_total": 132, "remontees_total": 21, "forfait_domaine": 69,
+        "alt_min": 1212, "alt_max": 3275,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 22, "r": 67, "n": 11, "pct": 1},
+        "short": "Monterosa Ski",
+        "desc": "Monterosa Ski relie trois vallées au pied du Mont Rose : le Val d'Ayas (Champoluc), la vallée du Lys (Gressoney) et la Valsesia (Alagna). Ses 132 km de pistes, jusqu'à 3275 m, sont surtout rouges, et le domaine est l'une des références européennes du freeride. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "mondole-ski": {
+        "name": "Mondolè Ski", "massif": "Alpes du Sud", "pays": ["Italie"],
+        "stations": ["Prato Nevoso", "Artesina", "Frabosa Soprana"],
+        "km_propre": {},
+        "km_total": 105, "remontees_total": 24, "forfait_domaine": 52,
+        "alt_min": 807, "alt_max": 2085,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 41, "r": 48, "n": 11, "pct": 1},
+        "short": "Mondolè Ski",
+        "desc": "Mondolè Ski relie Prato Nevoso, Artesina et Frabosa Soprana dans les Alpes ligures, au sud de Cuneo. Ses 105 km de pistes sont à moins de deux heures de la Riviera ligure et de Nice. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "pontedilegno-tonale": {
+        "name": "Pontedilegno-Tonale", "massif": "Alpes du Nord", "pays": ["Italie"],
+        "stations": ["Ponte di Legno", "Passo del Tonale"],
+        "km_propre": {},
+        "km_total": 100, "remontees_total": 29, "forfait_domaine": 64,
+        "alt_min": 1121, "alt_max": 3000,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 24, "r": 60, "n": 16, "pct": 1},
+        "short": "Pontedilegno-Tonale",
+        "desc": "Le domaine Pontedilegno-Tonale relie le village lombard de Ponte di Legno au col du Tonale, dans le Trentin, et monte jusqu'au glacier du Presena à 3000 m. Ses 100 km de pistes, surtout rouges, bénéficient d'un enneigement fiable grâce à l'altitude. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "skiarea-campiglio": {
+        "name": "Skiarea Campiglio", "massif": "Alpes du Nord", "pays": ["Italie"],
+        "stations": ["Madonna di Campiglio", "Pinzolo", "Folgarida", "Marilleva"],
+        "km_propre": {},
+        "km_total": 155, "remontees_total": 58, "forfait_domaine": 85,
+        "alt_min": 852, "alt_max": 2504,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 32, "r": 46, "n": 22, "pct": 1},
+        "short": "Skiarea Campiglio",
+        "desc": "La Skiarea Campiglio relie Madonna di Campiglio, Pinzolo, Folgarida et Marilleva au cœur des Dolomites de Brenta : 155 km de pistes, le plus grand domaine du Trentin. Madonna di Campiglio y accueille chaque hiver le slalom nocturne de Coupe du monde de la 3Tre. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "val-di-fassa": {
+        "name": "Val di Fassa (Belvedere – Col Rodella – Ciampac – Buffaure)", "massif": "Alpes du Nord", "pays": ["Italie"],
+        "stations": ["Canazei", "Campitello di Fassa", "Pozza di Fassa"],
+        "km_propre": {},
+        "km_total": 55, "remontees_total": 35, "forfait_domaine": 76,
+        "alt_min": 1320, "alt_max": 2485,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 13, "r": 74, "n": 13, "pct": 1},
+        "short": "Val di Fassa",
+        "desc": "Canazei, Campitello et Pozza di Fassa partagent les secteurs du Belvedere, du Col Rodella, du Ciampac et du Buffaure, au pied de la Marmolada et du Sassolungo. Canazei et Campitello donnent accès au Sella Ronda, circuit à skis autour du massif du Sella, avec le forfait Dolomiti Superski. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "val-gardena": {
+        "name": "Val Gardena", "massif": "Alpes du Nord", "pays": ["Italie"],
+        "stations": ["Ortisei", "Santa Cristina", "Selva di Val Gardena"],
+        "km_propre": {},
+        "km_total": 181, "remontees_total": 78, "forfait_domaine": 80,
+        "alt_min": 1236, "alt_max": 2518,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 29, "r": 60, "n": 11, "pct": 1},
+        "short": "Val Gardena",
+        "desc": "Le Val Gardena relie Ortisei, Santa Cristina et Selva sur 181 km de pistes, au pied du Sassolungo et du Sella. La Saslong y accueille chaque décembre la descente de Coupe du monde, et le Sella Ronda part de Selva. Le prix de la journée n'étant pas publié par la source, celui indiqué est une estimation. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "alta-badia": {
+        "name": "Alta Badia", "massif": "Alpes du Nord", "pays": ["Italie"],
+        "stations": ["Corvara", "La Villa", "San Cassiano"],
+        "km_propre": {},
+        "km_total": 130, "remontees_total": 53, "forfait_domaine": 80,
+        "alt_min": 1324, "alt_max": 2778,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 57, "r": 36, "n": 7, "pct": 1},
+        "short": "Alta Badia",
+        "desc": "Alta Badia relie Corvara, La Villa et San Cassiano dans une vallée ladine réputée pour sa gastronomie. Ses 130 km, surtout faciles, comprennent aussi la Gran Risa, théâtre du slalom géant de Coupe du monde, et un accès au Sella Ronda. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "kronplatz": {
+        "name": "Kronplatz", "massif": "Alpes du Nord", "pays": ["Italie"],
+        "stations": ["Brunico – Kronplatz", "San Vigilio di Marebbe", "Valdaora – Kronplatz"],
+        "km_propre": {},
+        "km_total": 125, "remontees_total": 32, "forfait_domaine": 80,
+        "alt_min": 973, "alt_max": 2275,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 48, "r": 29, "n": 23, "pct": 1},
+        "short": "Kronplatz",
+        "desc": "Le Kronplatz est une montagne au sommet arrondi desservie de tous côtés depuis Brunico, San Vigilio et Valdaora. Ses 125 km mêlent pistes faciles et noires parmi les plus raides des Dolomites. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "latemar": {
+        "name": "Latemar", "massif": "Alpes du Nord", "pays": ["Italie"],
+        "stations": ["Obereggen", "Pampeago", "Predazzo"],
+        "km_propre": {},
+        "km_total": 49, "remontees_total": 18, "forfait_domaine": 71,
+        "alt_min": 1018, "alt_max": 2388,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 19, "r": 67, "n": 14, "pct": 1},
+        "short": "Latemar",
+        "desc": "Le Latemar relie Obereggen, dans le Haut-Adige, à Pampeago et Predazzo, dans le Trentin, au pied des tours du Latemar. Le domaine est réputé pour la qualité de son damage. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
 }
 
 def get_domaine(station_name):
@@ -413,6 +692,15 @@ _ALT_VILLAGE = {
     "Super Besse":1350,"Le Mont Dore":1050,
     "Saint-François-Longchamp":1450,"Valmorel":1400,
     "La Molina":1700,"Masella":1600,
+    "Pas de la Casa":2100,"Grau Roig":2100,"Soldeu":1800,"El Tarter":1710,"Canillo":1530,"Encamp":1300,"Pal":1780,"Arinsal":1550,
+    "Verbier":1500,"Nendaz":1350,"Veysonnaz":1400,"Thyon":2000,"La Tzoumaz":1535,
+    "Villars-sur-Ollon":1300,"Gryon":1130,"Les Diablerets":1150,
+    "Grindelwald":1034,"Wengen":1274,"Adelboden":1353,"Lenk":1068,
+    "Arosa":1775,"Lenzerheide":1470,"Laax":1020,"Flims":1080,"Falera":1220,"Davos":1560,"Klosters":1191,"Andermatt":1444,"Sedrun":1450,
+    "Breuil-Cervinia":2050,"Valtournenche":1524,"Champoluc":1568,"Gressoney-La-Trinité":1637,"Alagna Valsesia":1191,"Prato Nevoso":1500,"Artesina":1320,"Frabosa Soprana":891,
+    "Ponte di Legno":1258,"Passo del Tonale":1883,
+    "Madonna di Campiglio":1522,"Pinzolo":770,"Folgarida":1300,"Marilleva":1400,"Canazei":1465,"Campitello di Fassa":1448,"Pozza di Fassa":1320,
+    "Ortisei":1236,"Santa Cristina":1428,"Selva di Val Gardena":1563,"Corvara":1568,"La Villa":1433,"San Cassiano":1537,"Brunico – Kronplatz":838,"San Vigilio di Marebbe":1201,"Valdaora – Kronplatz":1083,"Obereggen":1550,"Pampeago":1760,"Predazzo":1018,
 }
 for _d in DOMAINES.values():
     _d['alt_village'] = {n: _ALT_VILLAGE[n] for n in _d['stations'] if n in _ALT_VILLAGE}
@@ -1441,6 +1729,16 @@ def get_domaine_photos_smart(slug, d):
     return [pick_placeholder(d['name'], massif=d.get('massif'), w=1400)], 'placeholder'
 
 DATA = json.loads(m.group(1))
+# Stations suisses : répartition des pistes publiée en % (clé "pct" dans pistes) → on la sort du dict
+PISTES_PCT = set()
+for _s in DATA:
+    if isinstance(_s.get('pistes'), dict) and _s['pistes'].pop('pct', None):
+        PISTES_PCT.add(_s['name'])
+for _d in DOMAINES.values():
+    if isinstance(_d.get('pistes'), dict) and _d['pistes'].pop('pct', None):
+        _d['pistes_pct'] = True
+def _pv(s, k):
+    return '—' if s['name'] in PISTES_PCT else s['pistes'][k]
 print(f"✓ {len(DATA)} stations chargées")
 
 # Extraire les coordonnées GPS depuis recherche.html (dict COORDS par nom de station)
@@ -1552,7 +1850,7 @@ def generate_verdict(s):
     name  = s['name']
     massif = s.get('massif', '')
     pistes = s.get('pistes', {})
-    total_pistes = sum(pistes.values()) if pistes else 0
+    total_pistes = (sum(pistes.values()) if pistes else 0) if s.get('name') not in PISTES_PCT else 0
 
     parts = []
 
@@ -1966,6 +2264,74 @@ OFFICIAL_URLS = {
     "Espot":                        "https://www.espotesqui.cat",
     "Vallter 2000":                 "https://www.vallter.cat",
     "Vall de Núria":                "https://pirineu365.cat/valldenuria/",
+    # ANDORRE
+    "Pas de la Casa":               "https://www.grandvalira.com",
+    "Grau Roig":                    "https://www.grandvalira.com",
+    "Soldeu":                       "https://www.grandvalira.com",
+    "El Tarter":                    "https://www.grandvalira.com",
+    "Canillo":                      "https://www.grandvalira.com",
+    "Encamp":                       "https://www.grandvalira.com",
+    "Pal":                          "https://www.palarinsal.com",
+    "Arinsal":                      "https://www.palarinsal.com",
+    # SUISSE — VALAIS
+    "Verbier":                      "https://www.verbier4vallees.ch",
+    "Crans-Montana":                "https://www.crans-montana.ch",
+    "Zermatt":                      "https://www.zermatt.ch",
+    "Saas-Fee":                     "https://www.saas-fee.ch",
+    "Aletsch Arena":                "https://www.aletscharena.ch",
+    # SUISSE — VAUD ET FRIBOURG
+    "Villars-sur-Ollon":            "https://www.villars-diablerets.ch",
+    "Glacier 3000":                 "https://www.glacier3000.ch",
+    # SUISSE — BERNE
+    "Grindelwald":                  "https://www.jungfrau.ch",
+    "Adelboden":                    "https://www.adelboden-lenk.ch",
+    "Lenk":                         "https://www.adelboden-lenk.ch",
+    "Meiringen-Hasliberg":          "https://www.meiringen-hasliberg.ch",
+    "Saanenmöser – Schönried – Zweisimmen":"https://www.gstaad.ch",
+    "Gstaad – Saanen – Rougemont":  "https://www.gstaad.ch",
+    # SUISSE — GRISONS
+    "Samnaun":                      "https://www.samnaun.ch",
+    "Arosa":                        "https://arosalenzerheide.swiss",
+    "Lenzerheide":                  "https://arosalenzerheide.swiss",
+    "Laax":                         "https://www.flimslaax.com",
+    "Flims":                        "https://www.flimslaax.com",
+    "St. Moritz":                   "https://www.engadin.ch",
+    "Davos":                        "https://www.davos.ch",
+    "Klosters":                     "https://www.davos.ch",
+    "Andermatt":                    "https://www.andermatt-sedrun.ch",
+    "Sedrun":                       "https://www.andermatt-sedrun.ch",
+    # SUISSE — CENTRE, EST ET TESSIN
+    "Engelberg":                    "https://www.titlis.ch",
+    "Flumserberg":                  "https://www.flumserberg.ch",
+    # ALLEMAGNE
+    "Garmisch-Partenkirchen":       "https://zugspitze.de",
+    "Zugspitze":                    "https://zugspitze.de",
+    "Oberstdorf – Fellhorn/Kanzelwand":"https://www.ok-bergbahnen.com",
+    # ITALIE — AOSTE ET PIÉMONT / LIECHTENSTEIN
+    "Breuil-Cervinia":              "https://www.cervinia.it",
+    "Champoluc":                    "https://www.monterosaski.com",
+    "Alagna Valsesia":              "https://www.monterosaski.com",
+    "Pila":                         "https://www.pila.it",
+    "Courmayeur":                   "https://www.courmayeur-montblanc.com",
+    "Prato Nevoso":                 "https://www.mondoleski.it",
+    "Bardonecchia":                 "https://www.bardonecchiaski.com",
+    "Malbun":                       "https://www.bergbahnen.li",
+    # ITALIE — LOMBARDIE
+    "Livigno":                      "https://www.livigno.eu",
+    "Ponte di Legno":               "https://www.pontedilegnotonale.com",
+    "Passo del Tonale":             "https://www.pontedilegnotonale.com",
+    "Bormio":                       "https://www.bormio.eu",
+    # ITALIE — TRENTIN
+    "Madonna di Campiglio":         "https://www.ski.it",
+    "Pinzolo":                      "https://www.ski.it",
+    # ITALIE — HAUT-ADIGE
+    "Ortisei":                      "https://www.valgardena.it",
+    "Corvara":                      "https://www.altabadia.org",
+    "Brunico – Kronplatz":          "https://www.kronplatz.com",
+    "Sesto – 3 Zinnen":             "https://www.dreizinnen.com",
+    # ITALIE — VÉNÉTIE, FRIOUL, APENNINS
+    "Cortina d'Ampezzo":            "https://www.dolomiti.org",
+    "Arabba":                       "https://www.arabba.it",
 }
 def get_official_url(name):
     return OFFICIAL_URLS.get(name, f"https://www.google.com/search?q={name.replace(' ', '+').replace(chr(39), '+')}+station+ski+site+officiel")
@@ -2101,25 +2467,25 @@ def render_page(s):
             domaine_circles_html = f'''<div class="piste-circles">
             <div class="piste-circle-item">
               <div class="piste-circle" style="background:#2ea84e"></div>
-              <div class="piste-circle-val"><b>{_dP['v']}</b></div>
+              <div class="piste-circle-val"><b>{'—' if domaine.get('pistes_pct') else _dP['v']}</b></div>
               <div class="piste-circle-pct">{_dPctV}%</div>
               <div class="piste-circle-lbl">Vertes</div>
             </div>
             <div class="piste-circle-item">
               <div class="piste-circle" style="background:#3a7db8"></div>
-              <div class="piste-circle-val"><b>{_dP['b']}</b></div>
+              <div class="piste-circle-val"><b>{'—' if domaine.get('pistes_pct') else _dP['b']}</b></div>
               <div class="piste-circle-pct">{_dPctB}%</div>
               <div class="piste-circle-lbl">Bleues</div>
             </div>
             <div class="piste-circle-item">
               <div class="piste-circle" style="background:#cc2200"></div>
-              <div class="piste-circle-val"><b>{_dP['r']}</b></div>
+              <div class="piste-circle-val"><b>{'—' if domaine.get('pistes_pct') else _dP['r']}</b></div>
               <div class="piste-circle-pct">{_dPctR}%</div>
               <div class="piste-circle-lbl">Rouges</div>
             </div>
             <div class="piste-circle-item">
               <div class="piste-circle" style="background:#222"></div>
-              <div class="piste-circle-val"><b>{_dP['n']}</b></div>
+              <div class="piste-circle-val"><b>{'—' if domaine.get('pistes_pct') else _dP['n']}</b></div>
               <div class="piste-circle-pct">{_dPctN}%</div>
               <div class="piste-circle-lbl">Noires</div>
             </div>
@@ -2240,7 +2606,7 @@ def render_page(s):
         f'</p>'
     ) if _dom_partage else ''
     from urllib.parse import quote as _q
-    _bk_pays = {"ES": "espagne", "CH": "suisse", "IT": "italie"}.get(s.get('pays'), "france")
+    _bk_pays = {"ES": "espagne", "AD": "andorre", "CH": "suisse", "IT": "italie", "DE": "allemagne", "LI": "liechtenstein"}.get(s.get('pays'), "france")
     _bk_base = f"https://www.booking.com/searchresults.fr.html?ss={_q(s['name']+' ski '+_bk_pays)}&lang=fr"
     booking_url = f"{BOOKING_CJ}?sid=station-{slug}&url={_q(_bk_base)}"
     _exp_base = "https://www.expedia.fr/go/hotel/search/Destination/?CityName=" + _q(s['name']) + "&City=" + _q(s['name']) + "&SortBy=distance&NumRoom=1&NumAdult1=1"
@@ -3375,25 +3741,25 @@ function closeStation(){{
           <div class="piste-circles">
             <div class="piste-circle-item">
               <div class="piste-circle" style="background:#2ea84e"></div>
-              <div class="piste-circle-val"><b>{s['pistes']['v']}</b></div>
+              <div class="piste-circle-val"><b>{_pv(s,'v')}</b></div>
               <div class="piste-circle-pct">{pct_v}%</div>
               <div class="piste-circle-lbl">Vertes</div>
             </div>
             <div class="piste-circle-item">
               <div class="piste-circle" style="background:#3a7db8"></div>
-              <div class="piste-circle-val"><b>{s['pistes']['b']}</b></div>
+              <div class="piste-circle-val"><b>{_pv(s,'b')}</b></div>
               <div class="piste-circle-pct">{pct_b}%</div>
               <div class="piste-circle-lbl">Bleues</div>
             </div>
             <div class="piste-circle-item">
               <div class="piste-circle" style="background:#cc2200"></div>
-              <div class="piste-circle-val"><b>{s['pistes']['r']}</b></div>
+              <div class="piste-circle-val"><b>{_pv(s,'r')}</b></div>
               <div class="piste-circle-pct">{pct_r}%</div>
               <div class="piste-circle-lbl">Rouges</div>
             </div>
             <div class="piste-circle-item">
               <div class="piste-circle" style="background:#222"></div>
-              <div class="piste-circle-val"><b>{s['pistes']['n']}</b></div>
+              <div class="piste-circle-val"><b>{_pv(s,'n')}</b></div>
               <div class="piste-circle-pct">{pct_n}%</div>
               <div class="piste-circle-lbl">Noires</div>
             </div>
@@ -3913,14 +4279,14 @@ def render_domaine_page(slug, d):
             pc = round(P[key] / tot * 100)
             circle_items.append(f'''<div class="piste-circle-item">
       <div class="piste-circle" style="background:{col}"></div>
-      <div class="piste-circle-val"><b>{P[key]}</b></div>
+      <div class="piste-circle-val"><b>{'—' if d.get('pistes_pct') else P[key]}</b></div>
       <div class="piste-circle-pct">{pc}%</div>
       <div class="piste-circle-lbl">{lbl}</div>
     </div>''')
         circles_html = f'<div class="piste-circles">{"".join(circle_items)}</div>'
         pistes_tile = f'''<div class="icon-stat-tile">
       <span class="icon-stat-ico">🎿</span>
-      <div class="icon-stat-val">{tot}</div>
+      <div class="icon-stat-val">{'—' if d.get('pistes_pct') else tot}</div>
       <div class="icon-stat-lbl">Nombre de pistes</div>
     </div>'''
     else:
@@ -4489,8 +4855,10 @@ document.getElementById('dmClose').addEventListener('click', function(e){{
 </html>"""
 
 
+PAYS_CODE = {"France": "FR", "Suisse": "CH", "Italie": "IT", "Espagne": "ES", "Andorre": "AD", "Allemagne": "DE", "Liechtenstein": "LI"}
+
 def render_domaines_index():
-    """Page racine listant les 20 grands domaines skiables reliés."""
+    """Page racine listant les 40 grands domaines skiables reliés."""
     massifs = sorted({d['massif'] for d in DOMAINES.values()})
     filtres = "".join(
         f'<button class="di-f" data-m="{m}">{m}</button>' for m in massifs
@@ -4521,13 +4889,13 @@ def render_domaines_index():
         pistes_dots = ''
         if P and sum(P.values()) > 0:
             pistes_dots = f'''<div class="di-pistes">
-        <span class="pd pd-v"><span class="pd-dot"></span>{P.get('v',0)}</span>
-        <span class="pd pd-b"><span class="pd-dot"></span>{P.get('b',0)}</span>
-        <span class="pd pd-r"><span class="pd-dot"></span>{P.get('r',0)}</span>
-        <span class="pd pd-n"><span class="pd-dot"></span>{P.get('n',0)}</span>
+        <span class="pd pd-v"><span class="pd-dot"></span>{P.get('v',0)}{'%' if d.get('pistes_pct') else ''}</span>
+        <span class="pd pd-b"><span class="pd-dot"></span>{P.get('b',0)}{'%' if d.get('pistes_pct') else ''}</span>
+        <span class="pd pd-r"><span class="pd-dot"></span>{P.get('r',0)}{'%' if d.get('pistes_pct') else ''}</span>
+        <span class="pd pd-n"><span class="pd-dot"></span>{P.get('n',0)}{'%' if d.get('pistes_pct') else ''}</span>
       </div>'''
 
-        cards.append(f'''<a href="domaines/{slug}.html" class="di-card" data-m="{d['massif']}">
+        cards.append(f'''<a href="domaines/{slug}.html" class="di-card" data-m="{d['massif']}" data-pays="{' '.join(PAYS_CODE.get(p, p) for p in d['pays'])}">
       <div class="di-top" style="background-image:url('{dom_thumb}')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ {d['massif']}</div>
@@ -4651,6 +5019,7 @@ def render_domaines_index():
     {filtres}
   </div>
   <div class="di-count" id="diCount"></div>
+  <div class="di-pays-note" id="diPaysNote" style="display:none;margin:-4px 0 14px;font-size:.8rem;color:var(--text-light)"></div>
   <div class="di-grid" id="diGrid">
     {cards_html}
   </div>
@@ -4677,10 +5046,31 @@ def render_domaines_index():
   var btns  = [].slice.call(document.querySelectorAll('.di-f'));
   var count = document.getElementById('diCount');
   var empty = document.getElementById('diEmpty');
+  // Filtre pays : même choix que Recherche (mémorisé sur l'appareil)
+  var NOMS = {{FR:"France",CH:"Suisse",IT:"Italie",ES:"Espagne",AD:"Andorre",DE:"Allemagne",LI:"Liechtenstein"}};
+  var pays = ["FR"], tousPays = false;
+  try {{ var v = JSON.parse(localStorage.getItem("sf_pays_v1")); if (Array.isArray(v) && v.length) pays = v; }} catch(e) {{}}
+  var note = document.getElementById('diPaysNote');
+  function paysOk(c){{
+    if (tousPays) return true;
+    return (c.dataset.pays || "FR").split(" ").some(function(p){{ return pays.indexOf(p) > -1; }});
+  }}
+  function majNote(){{
+    var cach = cards.filter(function(c){{ return !paysOk(c); }}).length;
+    if (!cach && !tousPays) {{ note.style.display = 'none'; return; }}
+    note.style.display = '';
+    note.innerHTML = tousPays
+      ? 'Tous les pays affichés. <a href="#" id="diPaysBtn" style="font-weight:700">Revenir à mes pays</a>'
+      : 'Pays affichés : ' + pays.map(function(p){{ return NOMS[p] || p; }}).join(', ') + '. <a href="#" id="diPaysBtn" style="font-weight:700">Voir tous les pays</a>';
+    document.getElementById('diPaysBtn').addEventListener('click', function(e){{
+      e.preventDefault(); tousPays = !tousPays; majNote();
+      var on = document.querySelector('.di-f.on'); apply(on ? on.dataset.m : '');
+    }});
+  }}
   function apply(m){{
     var n = 0;
     cards.forEach(function(c){{
-      var ok = !m || c.dataset.m === m;
+      var ok = (!m || c.dataset.m === m) && paysOk(c);
       c.style.display = ok ? '' : 'none';
       if (ok) n++;
     }});
@@ -4694,6 +5084,7 @@ def render_domaines_index():
       apply(b.dataset.m);
     }});
   }});
+  majNote();
   apply('');
 }})();
 </script>

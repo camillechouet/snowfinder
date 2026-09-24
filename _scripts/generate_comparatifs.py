@@ -219,6 +219,74 @@ OFFICIAL_URLS = {
     "Espot":                        "https://www.espotesqui.cat",
     "Vallter 2000":                 "https://www.vallter.cat",
     "Vall de Núria":                "https://pirineu365.cat/valldenuria/",
+    # ANDORRE
+    "Pas de la Casa":               "https://www.grandvalira.com",
+    "Grau Roig":                    "https://www.grandvalira.com",
+    "Soldeu":                       "https://www.grandvalira.com",
+    "El Tarter":                    "https://www.grandvalira.com",
+    "Canillo":                      "https://www.grandvalira.com",
+    "Encamp":                       "https://www.grandvalira.com",
+    "Pal":                          "https://www.palarinsal.com",
+    "Arinsal":                      "https://www.palarinsal.com",
+    # SUISSE — VALAIS
+    "Verbier":                      "https://www.verbier4vallees.ch",
+    "Crans-Montana":                "https://www.crans-montana.ch",
+    "Zermatt":                      "https://www.zermatt.ch",
+    "Saas-Fee":                     "https://www.saas-fee.ch",
+    "Aletsch Arena":                "https://www.aletscharena.ch",
+    # SUISSE — VAUD ET FRIBOURG
+    "Villars-sur-Ollon":            "https://www.villars-diablerets.ch",
+    "Glacier 3000":                 "https://www.glacier3000.ch",
+    # SUISSE — BERNE
+    "Grindelwald":                  "https://www.jungfrau.ch",
+    "Adelboden":                    "https://www.adelboden-lenk.ch",
+    "Lenk":                         "https://www.adelboden-lenk.ch",
+    "Meiringen-Hasliberg":          "https://www.meiringen-hasliberg.ch",
+    "Saanenmöser – Schönried – Zweisimmen":"https://www.gstaad.ch",
+    "Gstaad – Saanen – Rougemont":  "https://www.gstaad.ch",
+    # SUISSE — GRISONS
+    "Samnaun":                      "https://www.samnaun.ch",
+    "Arosa":                        "https://arosalenzerheide.swiss",
+    "Lenzerheide":                  "https://arosalenzerheide.swiss",
+    "Laax":                         "https://www.flimslaax.com",
+    "Flims":                        "https://www.flimslaax.com",
+    "St. Moritz":                   "https://www.engadin.ch",
+    "Davos":                        "https://www.davos.ch",
+    "Klosters":                     "https://www.davos.ch",
+    "Andermatt":                    "https://www.andermatt-sedrun.ch",
+    "Sedrun":                       "https://www.andermatt-sedrun.ch",
+    # SUISSE — CENTRE, EST ET TESSIN
+    "Engelberg":                    "https://www.titlis.ch",
+    "Flumserberg":                  "https://www.flumserberg.ch",
+    # ALLEMAGNE
+    "Garmisch-Partenkirchen":       "https://zugspitze.de",
+    "Zugspitze":                    "https://zugspitze.de",
+    "Oberstdorf – Fellhorn/Kanzelwand":"https://www.ok-bergbahnen.com",
+    # ITALIE — AOSTE ET PIÉMONT / LIECHTENSTEIN
+    "Breuil-Cervinia":              "https://www.cervinia.it",
+    "Champoluc":                    "https://www.monterosaski.com",
+    "Alagna Valsesia":              "https://www.monterosaski.com",
+    "Pila":                         "https://www.pila.it",
+    "Courmayeur":                   "https://www.courmayeur-montblanc.com",
+    "Prato Nevoso":                 "https://www.mondoleski.it",
+    "Bardonecchia":                 "https://www.bardonecchiaski.com",
+    "Malbun":                       "https://www.bergbahnen.li",
+    # ITALIE — LOMBARDIE
+    "Livigno":                      "https://www.livigno.eu",
+    "Ponte di Legno":               "https://www.pontedilegnotonale.com",
+    "Passo del Tonale":             "https://www.pontedilegnotonale.com",
+    "Bormio":                       "https://www.bormio.eu",
+    # ITALIE — TRENTIN
+    "Madonna di Campiglio":         "https://www.ski.it",
+    "Pinzolo":                      "https://www.ski.it",
+    # ITALIE — HAUT-ADIGE
+    "Ortisei":                      "https://www.valgardena.it",
+    "Corvara":                      "https://www.altabadia.org",
+    "Brunico – Kronplatz":          "https://www.kronplatz.com",
+    "Sesto – 3 Zinnen":             "https://www.dreizinnen.com",
+    # ITALIE — VÉNÉTIE, FRIOUL, APENNINS
+    "Cortina d'Ampezzo":            "https://www.dolomiti.org",
+    "Arabba":                       "https://www.arabba.it",
 }
 
 def official_url(name: str) -> str:
@@ -1089,7 +1157,7 @@ def render_spec(station: dict) -> str:
         f'<div class="row"><span>Altitude</span><span>{station["alt_min"]} – {station["alt_max"]} m</span></div>',
         f'<div class="row"><span>Domaine skiable</span><span>{station["km"]} km</span></div>',
         f'<div class="row"><span>Remontées</span><span>{station["remontees"]}</span></div>',
-        f'<div class="row"><span>Pistes (V/B/R/N)</span><span>{p["v"]}/{p["b"]}/{p["r"]}/{p["n"]}</span></div>',
+        f'<div class="row"><span>Pistes (V/B/R/N)</span><span>{p["v"]}/{p["b"]}/{p["r"]}/{p["n"]}{" (en %)" if p.get("pct") else ""}</span></div>',
         f'<div class="row"><span>Forfait journée</span><span>{station["forfait"]} €</span></div>',
         f'<div class="row"><span>Note SnowFinder</span><span>{station["score"]} / 5</span></div>',
         f'<div class="row"><span>Région</span><span>{station["region"]}</span></div>',
