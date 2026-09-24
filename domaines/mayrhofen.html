@@ -450,7 +450,7 @@ function acceptSfNotif(){
 
 <div class="dm-section">
   <div class="dm-section-title">Chiffres clés</div>
-  <div class="dm-faits"><div class="dm-fait"><span class="dm-fait-ico">📏</span><span class="dm-fait-val">1870m</span><span class="dm-fait-lbl">Dénivelé total du domaine</span></div></div>
+  <div class="dm-faits"><div class="dm-fait"><span class="dm-fait-ico">💶</span><span class="dm-fait-val">82€</span><span class="dm-fait-lbl">Forfait le moins cher — Mayrhofen</span></div><div class="dm-fait"><span class="dm-fait-ico">🏔️</span><span class="dm-fait-val">840m</span><span class="dm-fait-lbl">Village le plus haut — Finkenberg</span></div><div class="dm-fait"><span class="dm-fait-ico">⭐</span><span class="dm-fait-val">4.6/5</span><span class="dm-fait-lbl">Mieux notée — Mayrhofen</span></div><div class="dm-fait"><span class="dm-fait-ico">📏</span><span class="dm-fait-val">1870m</span><span class="dm-fait-lbl">Dénivelé total du domaine</span></div></div>
 </div>
 
 <div class="dm-section">
@@ -458,7 +458,19 @@ function acceptSfNotif(){
   <div class="dm-card dm-table-wrap">
     <table class="dm-table">
       <thead><tr><th>Station</th><th>Village</th><th>Pistes</th><th>Forfait</th><th>Note</th><th>Ambiance</th><th></th></tr></thead>
-      <tbody></tbody>
+      <tbody><tr onclick="location.href='../stations/mayrhofen.html'">
+      <td class="dm-t-name">Mayrhofen</td>
+      <td>630m</td><td>partagé</td><td>82€</td>
+      <td>⭐4.6</td>
+      <td class="dm-t-tags"><span class="dm-tag">Nature</span><span class="dm-tag">Technique</span></td>
+      <td class="dm-t-go">→</td>
+    </tr><tr onclick="location.href='../stations/finkenberg.html'">
+      <td class="dm-t-name">Finkenberg</td>
+      <td>840m</td><td>partagé</td><td>82€</td>
+      <td>⭐4.2</td>
+      <td class="dm-t-tags"><span class="dm-tag">Nature</span><span class="dm-tag">Technique</span></td>
+      <td class="dm-t-go">→</td>
+    </tr></tbody>
     </table>
   </div>
 </div>
@@ -466,7 +478,32 @@ function acceptSfNotif(){
 <div class="dm-section">
   <div class="dm-section-title">Explorer les stations</div>
   <div class="dm-stations-grid">
-    
+    <a href="../stations/mayrhofen.html" class="dm-station-card">
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="824" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="824" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Mayrhofen</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 630m · ⛰ 2500m · 💶 82€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
+    </a>
+<a href="../stations/finkenberg.html" class="dm-station-card">
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1528659862616-22886eb53642?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="825" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="825" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Finkenberg</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 840m · ⛰ 2500m · 💶 82€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
+    </a>
   </div>
 </div>
 

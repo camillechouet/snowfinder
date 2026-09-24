@@ -450,7 +450,7 @@ function acceptSfNotif(){
 
 <div class="dm-section">
   <div class="dm-section-title">Chiffres clés</div>
-  <div class="dm-faits"><div class="dm-fait"><span class="dm-fait-ico">📏</span><span class="dm-fait-val">1628m</span><span class="dm-fait-lbl">Dénivelé total du domaine</span></div></div>
+  <div class="dm-faits"><div class="dm-fait"><span class="dm-fait-ico">💶</span><span class="dm-fait-val">78€</span><span class="dm-fait-lbl">Forfait le moins cher — Serfaus</span></div><div class="dm-fait"><span class="dm-fait-ico">🏔️</span><span class="dm-fait-val">1438m</span><span class="dm-fait-lbl">Village le plus haut — Fiss</span></div><div class="dm-fait"><span class="dm-fait-ico">⭐</span><span class="dm-fait-val">4.6/5</span><span class="dm-fait-lbl">Mieux notée — Serfaus</span></div><div class="dm-fait"><span class="dm-fait-ico">📏</span><span class="dm-fait-val">1628m</span><span class="dm-fait-lbl">Dénivelé total du domaine</span></div></div>
 </div>
 
 <div class="dm-section">
@@ -458,7 +458,25 @@ function acceptSfNotif(){
   <div class="dm-card dm-table-wrap">
     <table class="dm-table">
       <thead><tr><th>Station</th><th>Village</th><th>Pistes</th><th>Forfait</th><th>Note</th><th>Ambiance</th><th></th></tr></thead>
-      <tbody></tbody>
+      <tbody><tr onclick="location.href='../stations/serfaus.html'">
+      <td class="dm-t-name">Serfaus</td>
+      <td>1427m</td><td>partagé</td><td>78€</td>
+      <td>⭐4.6</td>
+      <td class="dm-t-tags"><span class="dm-tag">Nature</span></td>
+      <td class="dm-t-go">→</td>
+    </tr><tr onclick="location.href='../stations/fiss.html'">
+      <td class="dm-t-name">Fiss</td>
+      <td>1438m</td><td>partagé</td><td>78€</td>
+      <td>⭐4.5</td>
+      <td class="dm-t-tags"><span class="dm-tag">Nature</span></td>
+      <td class="dm-t-go">→</td>
+    </tr><tr onclick="location.href='../stations/ladis.html'">
+      <td class="dm-t-name">Ladis</td>
+      <td>1190m</td><td>partagé</td><td>78€</td>
+      <td>⭐4.2</td>
+      <td class="dm-t-tags"><span class="dm-tag">Nature</span></td>
+      <td class="dm-t-go">→</td>
+    </tr></tbody>
     </table>
   </div>
 </div>
@@ -466,7 +484,45 @@ function acceptSfNotif(){
 <div class="dm-section">
   <div class="dm-section-title">Explorer les stations</div>
   <div class="dm-stations-grid">
-    
+    <a href="../stations/serfaus.html" class="dm-station-card">
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="816" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="816" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Serfaus</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 1427m · ⛰ 2828m · 💶 78€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
+    </a>
+<a href="../stations/fiss.html" class="dm-station-card">
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="817" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="817" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Fiss</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 1438m · ⛰ 2828m · 💶 78€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
+    </a>
+<a href="../stations/ladis.html" class="dm-station-card">
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="818" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="818" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Ladis</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 1190m · ⛰ 2828m · 💶 78€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
+    </a>
   </div>
 </div>
 
