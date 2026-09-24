@@ -7,6 +7,7 @@ on:
     paths:
       - '_scripts/generate_comparatifs.py'
       - 'recherche.html'
+      - 'stations-data.js'
 
 permissions:
   contents: write

@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'recherche.html'
+      - 'stations-data.js'
       - '_scripts/generate_stations.py'
   workflow_dispatch:   # permet de relancer manuellement
 
@@ -31,5 +32,4 @@ jobs:
           git config user.email "bot@snowfinder.fr"
           git add stations/ domaines/ domaines.html sitemap.xml
           git diff --staged --quiet || git commit -m "🤖 Régénération automatique des pages stations"
-          git pull --rebase
           git push
