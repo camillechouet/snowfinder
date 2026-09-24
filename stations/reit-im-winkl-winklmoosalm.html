@@ -758,15 +758,21 @@ function acceptSfNotif(){
     <div class="hero-cout" title="Coût de la vie sur place : Élevé">Coût sur place <span class="euros" role="img" aria-label="Coût de la vie 4 sur 5"><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span><span class="eu">€</span></span></div>
     
   </div>
-  <div class="hero-illu-note">Photo d'illustration</div>
-  
+  <div class="hero-illu-note" style="bottom:112px">Photo d'illustration</div>
+  <a href="../domaines/steinplatte-winklmoosalm.html" class="hero-link-card">
+    <img src="https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&q=80" alt="" loading="lazy">
+    <div class="hero-link-card-overlay">
+      <div class="hero-link-card-tag">🏔️ Grand domaine</div>
+      <div class="hero-link-card-name">Steinplatte <span>→</span></div>
+    </div>
+  </a>
 </div>
 
 <!-- NAVIGATION ONGLETS — coulissante horizontalement, avec indice de scroll visible -->
 <div class="tab-nav-wrap" id="tabNavWrap">
   <div class="tab-nav" id="tabNav">
     <button class="tab-btn active" onclick="switchTab('infos',this)">📖 La station</button>
-    
+    <button class="tab-btn" onclick="switchTab('domaine',this)">🔗 Grand domaine</button>
     
     <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
     <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo &amp; enneigement</button>
@@ -1123,7 +1129,7 @@ function closeStation(){
             <div class="icon-stat-tile">
               <span class="icon-stat-ico">⛰️</span>
               <div class="icon-stat-val">42 km</div>
-              <div class="icon-stat-lbl">Pistes skiables</div>
+              <div class="icon-stat-lbl">Pistes (domaine partagé)</div>
             </div>
             <div class="icon-stat-tile">
               <span class="icon-stat-ico">🏘️</span>
@@ -1138,7 +1144,7 @@ function closeStation(){
             <div class="icon-stat-tile">
               <span class="icon-stat-ico">🚡</span>
               <div class="icon-stat-val">14</div>
-              <div class="icon-stat-lbl">Remontées</div>
+              <div class="icon-stat-lbl">Remontées (partagées)</div>
             </div>
             <div class="icon-stat-tile">
               <span class="icon-stat-ico">💶</span>
@@ -1169,7 +1175,7 @@ function closeStation(){
             (achat en ligne, hors vacances scolaires, familles, enfants, seniors) sont
             généralement proposés par la station.
           </p>
-          
+          <p style="font-size:.72rem;line-height:1.5;color:var(--text-soft);margin-top:.5rem">ℹ️ Ces chiffres correspondent au domaine <strong>Steinplatte – Winklmoosalm</strong>, commun à plusieurs stations : kilomètres de pistes, nombre de pistes, remontées mécaniques et forfait sont partagés. Les valeurs affichées ici et sur les fiches des stations voisines désignent donc le même domaine skiable et le même titre de transport : elles ne s’additionnent pas.</p>
         </div>
 
         <!-- À PROPOS -->
@@ -1355,7 +1361,96 @@ function closeStation(){
 
       </div>
 
-      
+      <div class="tab-content" id="tab-domaine">
+        <a href="../domaines/steinplatte-winklmoosalm.html" class="domaine-box">
+    <img src="https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&q=80" alt="Steinplatte – Winklmoosalm" loading="lazy">
+    <div class="domaine-box-overlay">
+      <div class="domaine-box-tag">🏔️ Domaine skiable relié</div>
+      <div class="domaine-box-name">Steinplatte – Winklmoosalm <span class="domaine-box-arrow">→</span></div>
+    </div>
+  </a>
+        <div class="dt-hero">
+          <h3>🏔️ Steinplatte – Winklmoosalm</h3>
+          <div class="readmore-wrap" id="rm-domaine" style="--rm-bg:#154a86;--rm-max:82px">
+            <p>Le domaine de la Steinplatte et de la Winklmoosalm relie Waidring, au Tyrol, à Reit im Winkl, en Bavière, sur 42 km de pistes. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.</p>
+          </div>
+          <div class="readmore-btn" style="color:#e4c766" onclick="toggleReadMore('rm-domaine',this)">Lire plus ▼</div>
+        </div>
+        <div class="section" style="margin-top:16px">
+          <div class="section-title">Aperçu du domaine skiable</div>
+          <div class="piste-circles">
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#2ea84e"></div>
+              <div class="piste-circle-val"><b>—</b></div>
+              <div class="piste-circle-pct">0%</div>
+              <div class="piste-circle-lbl">Vertes</div>
+            </div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#3a7db8"></div>
+              <div class="piste-circle-val"><b>—</b></div>
+              <div class="piste-circle-pct">48%</div>
+              <div class="piste-circle-lbl">Bleues</div>
+            </div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#cc2200"></div>
+              <div class="piste-circle-val"><b>—</b></div>
+              <div class="piste-circle-pct">48%</div>
+              <div class="piste-circle-lbl">Rouges</div>
+            </div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#222"></div>
+              <div class="piste-circle-val"><b>—</b></div>
+              <div class="piste-circle-pct">4%</div>
+              <div class="piste-circle-lbl">Noires</div>
+            </div>
+          </div>
+          <div class="icon-stat-grid">
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🎿</span>
+              <div class="icon-stat-val">100</div>
+              <div class="icon-stat-lbl">Nombre de pistes</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">⛰️</span>
+              <div class="icon-stat-val">42 km</div>
+              <div class="icon-stat-lbl">Pistes skiables</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🏘️</span>
+              <div class="icon-stat-val">740m</div>
+              <div class="icon-stat-lbl">Altitude mini</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🗻</span>
+              <div class="icon-stat-val">1860m</div>
+              <div class="icon-stat-lbl">Altitude maxi</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🚡</span>
+              <div class="icon-stat-val">14</div>
+              <div class="icon-stat-lbl">Remontées</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">💶</span>
+              <div class="icon-stat-val">63€</div>
+              <div class="icon-stat-lbl">Forfait domaine/j</div>
+            </div>
+          </div>
+        </div>
+        
+        <a href="../domaines/steinplatte-winklmoosalm.html" class="domaine-see-all">Voir la fiche complète du domaine →</a>
+        <h4 class="dt-subtitle">Les autres stations du domaine</h4><div class="domaine-soeurs-grid"><a href="waidring.html" class="domaine-soeur-card">
+        <img src="https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=600&q=80" alt="Waidring" loading="lazy">
+        <div class="domaine-soeur-overlay">
+          <div class="domaine-soeur-name">Waidring</div>
+          <div class="domaine-soeur-stats">
+            <span>🏘 778m</span>
+            <span>🎿 —</span>
+          </div>
+          <div class="domaine-soeur-sub">Voir la fiche →</div>
+        </div>
+      </a></div>
+      </div>
 
       <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
       
