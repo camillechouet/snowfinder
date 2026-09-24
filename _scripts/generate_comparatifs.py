@@ -288,6 +288,12 @@ OFFICIAL_URLS = {
     # ITALIE — VÉNÉTIE, FRIOUL, APENNINS
     "Cortina d'Ampezzo":            "https://www.dolomiti.org",
     "Arabba":                       "https://www.arabba.it",
+    # AUTRICHE — TYROL
+    "St. Anton am Arlberg":         "https://www.skiarlberg.at",
+    "Ischgl":                       "https://www.ischgl.com",
+    "Kitzbühel":                    "https://www.kitzski.at",
+    "Sölden":                       "https://www.soelden.com",
+    "Mayrhofen":                    "https://www.mayrhofner-bergbahnen.com",
 }
 
 def official_url(name: str) -> str:

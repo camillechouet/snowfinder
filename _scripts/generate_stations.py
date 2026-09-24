@@ -218,6 +218,38 @@ DOMAINE_PARTAGE = {
     "Obereggen": "Latemar",
     "Pampeago": "Latemar",
     "Predazzo": "Latemar",
+    "St. Anton am Arlberg": "Ski Arlberg",
+    "St. Christoph": "Ski Arlberg",
+    "Stuben": "Ski Arlberg",
+    "Lech": "Ski Arlberg",
+    "Zürs": "Ski Arlberg",
+    "Warth-Schröcken": "Ski Arlberg",
+    "Söll": "SkiWelt Wilder Kaiser – Brixental",
+    "Ellmau": "SkiWelt Wilder Kaiser – Brixental",
+    "Scheffau": "SkiWelt Wilder Kaiser – Brixental",
+    "Going": "SkiWelt Wilder Kaiser – Brixental",
+    "Brixen im Thale": "SkiWelt Wilder Kaiser – Brixental",
+    "Westendorf": "SkiWelt Wilder Kaiser – Brixental",
+    "Hopfgarten": "SkiWelt Wilder Kaiser – Brixental",
+    "Ischgl": "Silvretta Arena (Ischgl – Samnaun)",
+    "Samnaun": "Silvretta Arena (Ischgl – Samnaun)",
+    "Kitzbühel": "KitzSki (Kitzbühel – Kirchberg)",
+    "Kirchberg in Tirol": "KitzSki (Kitzbühel – Kirchberg)",
+    "Serfaus": "Serfaus-Fiss-Ladis",
+    "Fiss": "Serfaus-Fiss-Ladis",
+    "Ladis": "Serfaus-Fiss-Ladis",
+    "Zell am Ziller": "Zillertal Arena",
+    "Gerlos": "Zillertal Arena",
+    "Königsleiten": "Zillertal Arena",
+    "Hochkrimml": "Zillertal Arena",
+    "Mayrhofen": "Mayrhofen (Penken – Ahorn)",
+    "Finkenberg": "Mayrhofen (Penken – Ahorn)",
+    "Alpbach": "Ski Juwel Alpbachtal Wildschönau",
+    "Wildschönau": "Ski Juwel Alpbachtal Wildschönau",
+    "Kaltenbach": "Hochzillertal – Hochfügen",
+    "Hochfügen": "Hochzillertal – Hochfügen",
+    "Waidring": "Steinplatte – Winklmoosalm",
+    "Reit im Winkl – Winklmoosalm": "Steinplatte – Winklmoosalm",
 }
 
 DOMAINES = {
@@ -654,6 +686,116 @@ DOMAINES = {
         "short": "Latemar",
         "desc": "Le Latemar relie Obereggen, dans le Haut-Adige, à Pampeago et Predazzo, dans le Trentin, au pied des tours du Latemar. Le domaine est réputé pour la qualité de son damage. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
     },
+    "ski-arlberg": {
+        "name": "Ski Arlberg", "massif": "Alpes du Nord", "pays": ["Autriche"],
+        "stations": ["St. Anton am Arlberg", "St. Christoph", "Stuben", "Lech", "Zürs", "Warth-Schröcken"],
+        "km_propre": {},
+        "km_total": 300, "remontees_total": 85, "forfait_domaine": 82,
+        "alt_min": 1304, "alt_max": 2811,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 43, "r": 40, "n": 17, "pct": 1},
+        "short": "Ski Arlberg",
+        "desc": "Ski Arlberg relie St. Anton, St. Christoph, Stuben, Lech, Zürs et Warth-Schröcken : 300 km de pistes, le plus grand domaine relié d'Autriche, à cheval sur le Tyrol et le Vorarlberg. Berceau du ski alpin moderne, il est aussi réputé pour son immense terrain hors-piste. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "skiwelt": {
+        "name": "SkiWelt Wilder Kaiser – Brixental", "massif": "Alpes du Nord", "pays": ["Autriche"],
+        "stations": ["Söll", "Ellmau", "Scheffau", "Going", "Brixen im Thale", "Westendorf", "Hopfgarten"],
+        "km_propre": {},
+        "km_total": 275, "remontees_total": 81, "forfait_domaine": 80,
+        "alt_min": 620, "alt_max": 1869,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 42, "r": 44, "n": 14, "pct": 1},
+        "short": "SkiWelt",
+        "desc": "La SkiWelt relie neuf villages entre le massif du Wilder Kaiser et le Brixental : 275 km de pistes, parmi les plus grands domaines d'Autriche, avec le plus vaste espace de ski nocturne du pays. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "silvretta-arena": {
+        "name": "Silvretta Arena (Ischgl – Samnaun)", "massif": "Alpes du Nord", "pays": ["Autriche", "Suisse"],
+        "stations": ["Ischgl", "Samnaun"],
+        "km_propre": {},
+        "km_total": 239, "remontees_total": 45, "forfait_domaine": 83,
+        "alt_min": 1360, "alt_max": 2872,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 20, "r": 59, "n": 21, "pct": 1},
+        "short": "Silvretta Arena",
+        "desc": "La Silvretta Arena relie Ischgl, en Autriche, au village suisse de Samnaun : 239 km de pistes, enneigés de novembre à mai. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "kitzski": {
+        "name": "KitzSki (Kitzbühel – Kirchberg)", "massif": "Alpes du Nord", "pays": ["Autriche"],
+        "stations": ["Kitzbühel", "Kirchberg in Tirol"],
+        "km_propre": {},
+        "km_total": 188, "remontees_total": 58, "forfait_domaine": 83,
+        "alt_min": 800, "alt_max": 2000,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 54, "r": 35, "n": 11, "pct": 1},
+        "short": "KitzSki",
+        "desc": "KitzSki relie Kitzbühel et Kirchberg sur 188 km de pistes, avec le Hahnenkamm et sa mythique Streif. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "serfaus-fiss-ladis": {
+        "name": "Serfaus-Fiss-Ladis", "massif": "Alpes du Nord", "pays": ["Autriche"],
+        "stations": ["Serfaus", "Fiss", "Ladis"],
+        "km_propre": {},
+        "km_total": 186, "remontees_total": 38, "forfait_domaine": 78,
+        "alt_min": 1200, "alt_max": 2828,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 25, "r": 60, "n": 15, "pct": 1},
+        "short": "Serfaus-Fiss-Ladis",
+        "desc": "Serfaus, Fiss et Ladis partagent un domaine de 186 km sur un plateau ensoleillé, référence européenne pour les familles. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "zillertal-arena": {
+        "name": "Zillertal Arena", "massif": "Alpes du Nord", "pays": ["Autriche"],
+        "stations": ["Zell am Ziller", "Gerlos", "Königsleiten", "Hochkrimml"],
+        "km_propre": {},
+        "km_total": 150, "remontees_total": 52, "forfait_domaine": 82,
+        "alt_min": 580, "alt_max": 2500,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 33, "r": 59, "n": 8, "pct": 1},
+        "short": "Zillertal Arena",
+        "desc": "La Zillertal Arena relie Zell am Ziller et Gerlos, au Tyrol, à Königsleiten et Hochkrimml, dans le Land de Salzbourg : 150 km de pistes, le plus grand domaine du Zillertal. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "mayrhofen": {
+        "name": "Mayrhofen (Penken – Ahorn)", "massif": "Alpes du Nord", "pays": ["Autriche"],
+        "stations": ["Mayrhofen", "Finkenberg"],
+        "km_propre": {},
+        "km_total": 142, "remontees_total": 61, "forfait_domaine": 82,
+        "alt_min": 630, "alt_max": 2500,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 31, "r": 46, "n": 23, "pct": 1},
+        "short": "Mayrhofen",
+        "desc": "Le domaine de Mayrhofen réunit le Penken, l'Ahorn, le Rastkogel et l'Eggalm, relié à Finkenberg : 142 km de pistes, dont l'Harakiri, la piste damée la plus raide d'Autriche. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "ski-juwel": {
+        "name": "Ski Juwel Alpbachtal Wildschönau", "massif": "Alpes du Nord", "pays": ["Autriche"],
+        "stations": ["Alpbach", "Wildschönau"],
+        "km_propre": {},
+        "km_total": 98, "remontees_total": 45, "forfait_domaine": 72,
+        "alt_min": 830, "alt_max": 2030,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 33, "r": 54, "n": 13, "pct": 1},
+        "short": "Ski Juwel",
+        "desc": "Ski Juwel relie Alpbach et la Wildschönau sur 98 km de pistes, entre villages de chalets et panoramas sur les Alpes de Kitzbühel. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "hochzillertal-hochfuegen": {
+        "name": "Hochzillertal – Hochfügen", "massif": "Alpes du Nord", "pays": ["Autriche"],
+        "stations": ["Kaltenbach", "Hochfügen"],
+        "km_propre": {},
+        "km_total": 89, "remontees_total": 38, "forfait_domaine": 83,
+        "alt_min": 600, "alt_max": 2378,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 43, "r": 42, "n": 15, "pct": 1},
+        "short": "Hochzillertal",
+        "desc": "Le domaine Hochzillertal-Hochfügen relie Kaltenbach à la station d'altitude de Hochfügen, sur 89 km appréciés des amateurs de hors-piste. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
+    "steinplatte-winklmoosalm": {
+        "name": "Steinplatte – Winklmoosalm", "massif": "Alpes du Nord", "pays": ["Autriche", "Allemagne"],
+        "stations": ["Waidring", "Reit im Winkl – Winklmoosalm"],
+        "km_propre": {},
+        "km_total": 42, "remontees_total": 14, "forfait_domaine": 63,
+        "alt_min": 740, "alt_max": 1860,
+        "unifie": True,
+        "pistes": {"v": 0, "b": 48, "r": 48, "n": 4, "pct": 1},
+        "short": "Steinplatte",
+        "desc": "Le domaine de la Steinplatte et de la Winklmoosalm relie Waidring, au Tyrol, à Reit im Winkl, en Bavière, sur 42 km de pistes. La répartition des pistes est donnée en pourcentage des kilomètres par difficulté.",
+    },
 }
 
 def get_domaine(station_name):
@@ -701,6 +843,7 @@ _ALT_VILLAGE = {
     "Ponte di Legno":1258,"Passo del Tonale":1883,
     "Madonna di Campiglio":1522,"Pinzolo":770,"Folgarida":1300,"Marilleva":1400,"Canazei":1465,"Campitello di Fassa":1448,"Pozza di Fassa":1320,
     "Ortisei":1236,"Santa Cristina":1428,"Selva di Val Gardena":1563,"Corvara":1568,"La Villa":1433,"San Cassiano":1537,"Brunico – Kronplatz":838,"San Vigilio di Marebbe":1201,"Valdaora – Kronplatz":1083,"Obereggen":1550,"Pampeago":1760,"Predazzo":1018,
+    "St. Anton am Arlberg":1304,"St. Christoph":1800,"Stuben":1407,"Lech":1450,"Zürs":1717,"Warth-Schröcken":1495,"Söll":703,"Ellmau":804,"Scheffau":752,"Going":773,"Brixen im Thale":794,"Westendorf":784,"Hopfgarten":622,"Ischgl":1377,"Kitzbühel":762,"Kirchberg in Tirol":837,"Serfaus":1427,"Fiss":1438,"Ladis":1190,"Zell am Ziller":580,"Gerlos":1245,"Königsleiten":1600,"Hochkrimml":1650,"Mayrhofen":630,"Finkenberg":840,"Alpbach":975,"Wildschönau":870,"Kaltenbach":560,"Hochfügen":1480,"Waidring":778,
 }
 for _d in DOMAINES.values():
     _d['alt_village'] = {n: _ALT_VILLAGE[n] for n in _d['stations'] if n in _ALT_VILLAGE}
@@ -2335,6 +2478,12 @@ OFFICIAL_URLS = {
     # ITALIE — VÉNÉTIE, FRIOUL, APENNINS
     "Cortina d'Ampezzo":            "https://www.dolomiti.org",
     "Arabba":                       "https://www.arabba.it",
+    # AUTRICHE — TYROL
+    "St. Anton am Arlberg":         "https://www.skiarlberg.at",
+    "Ischgl":                       "https://www.ischgl.com",
+    "Kitzbühel":                    "https://www.kitzski.at",
+    "Sölden":                       "https://www.soelden.com",
+    "Mayrhofen":                    "https://www.mayrhofner-bergbahnen.com",
 }
 def get_official_url(name):
     return OFFICIAL_URLS.get(name, f"https://www.google.com/search?q={name.replace(' ', '+').replace(chr(39), '+')}+station+ski+site+officiel")
@@ -2609,7 +2758,7 @@ def render_page(s):
         f'</p>'
     ) if _dom_partage else ''
     from urllib.parse import quote as _q
-    _bk_pays = {"ES": "espagne", "AD": "andorre", "CH": "suisse", "IT": "italie", "DE": "allemagne", "LI": "liechtenstein"}.get(s.get('pays'), "france")
+    _bk_pays = {"ES": "espagne", "AD": "andorre", "CH": "suisse", "IT": "italie", "DE": "allemagne", "LI": "liechtenstein", "AT": "autriche"}.get(s.get('pays'), "france")
     _bk_base = f"https://www.booking.com/searchresults.fr.html?ss={_q(s['name']+' ski '+_bk_pays)}&lang=fr"
     booking_url = f"{BOOKING_CJ}?sid=station-{slug}&url={_q(_bk_base)}"
     _exp_base = "https://www.expedia.fr/go/hotel/search/Destination/?CityName=" + _q(s['name']) + "&City=" + _q(s['name']) + "&SortBy=distance&NumRoom=1&NumAdult1=1"
@@ -4858,10 +5007,10 @@ document.getElementById('dmClose').addEventListener('click', function(e){{
 </html>"""
 
 
-PAYS_CODE = {"France": "FR", "Suisse": "CH", "Italie": "IT", "Espagne": "ES", "Andorre": "AD", "Allemagne": "DE", "Liechtenstein": "LI"}
+PAYS_CODE = {"France": "FR", "Suisse": "CH", "Italie": "IT", "Espagne": "ES", "Andorre": "AD", "Allemagne": "DE", "Liechtenstein": "LI", "Autriche": "AT"}
 
 def render_domaines_index():
-    """Page racine listant les 40 grands domaines skiables reliés."""
+    """Page racine listant les 50 grands domaines skiables reliés."""
     massifs = sorted({d['massif'] for d in DOMAINES.values()})
     filtres = "".join(
         f'<button class="di-f" data-m="{m}">{m}</button>' for m in massifs
@@ -5050,7 +5199,7 @@ def render_domaines_index():
   var count = document.getElementById('diCount');
   var empty = document.getElementById('diEmpty');
   // Filtre pays : même choix que Recherche (mémorisé sur l'appareil)
-  var NOMS = {{FR:"France",CH:"Suisse",IT:"Italie",ES:"Espagne",AD:"Andorre",DE:"Allemagne",LI:"Liechtenstein"}};
+  var NOMS = {{FR:"France",CH:"Suisse",IT:"Italie",ES:"Espagne",AD:"Andorre",DE:"Allemagne",LI:"Liechtenstein",AT:"Autriche"}};
   var pays = ["FR"], tousPays = false;
   try {{ var v = JSON.parse(localStorage.getItem("sf_pays_v1")); if (Array.isArray(v) && v.length) pays = v; }} catch(e) {{}}
   var note = document.getElementById('diPaysNote');
