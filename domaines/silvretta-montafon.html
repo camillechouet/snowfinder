@@ -450,7 +450,7 @@ function acceptSfNotif(){
 
 <div class="dm-section">
   <div class="dm-section-title">Chiffres clés</div>
-  <div class="dm-faits"><div class="dm-fait"><span class="dm-fait-ico">📏</span><span class="dm-fait-val">1730m</span><span class="dm-fait-lbl">Dénivelé total du domaine</span></div></div>
+  <div class="dm-faits"><div class="dm-fait"><span class="dm-fait-ico">💶</span><span class="dm-fait-val">77€</span><span class="dm-fait-lbl">Forfait le moins cher — Schruns</span></div><div class="dm-fait"><span class="dm-fait-ico">🏔️</span><span class="dm-fait-val">979m</span><span class="dm-fait-lbl">Village le plus haut — Gaschurn</span></div><div class="dm-fait"><span class="dm-fait-ico">⭐</span><span class="dm-fait-val">4.4/5</span><span class="dm-fait-lbl">Mieux notée — Schruns</span></div><div class="dm-fait"><span class="dm-fait-ico">📏</span><span class="dm-fait-val">1730m</span><span class="dm-fait-lbl">Dénivelé total du domaine</span></div></div>
 </div>
 
 <div class="dm-section">
@@ -458,7 +458,25 @@ function acceptSfNotif(){
   <div class="dm-card dm-table-wrap">
     <table class="dm-table">
       <thead><tr><th>Station</th><th>Village</th><th>Pistes</th><th>Forfait</th><th>Note</th><th>Ambiance</th><th></th></tr></thead>
-      <tbody></tbody>
+      <tbody><tr onclick="location.href='../stations/schruns.html'">
+      <td class="dm-t-name">Schruns</td>
+      <td>690m</td><td>partagé</td><td>77€</td>
+      <td>⭐4.4</td>
+      <td class="dm-t-tags"><span class="dm-tag">Famille</span><span class="dm-tag">Nature</span><span class="dm-tag">Technique</span></td>
+      <td class="dm-t-go">→</td>
+    </tr><tr onclick="location.href='../stations/st-gallenkirch.html'">
+      <td class="dm-t-name">St. Gallenkirch</td>
+      <td>878m</td><td>partagé</td><td>77€</td>
+      <td>⭐4.4</td>
+      <td class="dm-t-tags"><span class="dm-tag">Famille</span><span class="dm-tag">Nature</span><span class="dm-tag">Technique</span></td>
+      <td class="dm-t-go">→</td>
+    </tr><tr onclick="location.href='../stations/gaschurn.html'">
+      <td class="dm-t-name">Gaschurn</td>
+      <td>979m</td><td>partagé</td><td>77€</td>
+      <td>⭐4.3</td>
+      <td class="dm-t-tags"><span class="dm-tag">Famille</span><span class="dm-tag">Nature</span><span class="dm-tag">Technique</span></td>
+      <td class="dm-t-go">→</td>
+    </tr></tbody>
     </table>
   </div>
 </div>
@@ -466,7 +484,45 @@ function acceptSfNotif(){
 <div class="dm-section">
   <div class="dm-section-title">Explorer les stations</div>
   <div class="dm-stations-grid">
-    
+    <a href="../stations/schruns.html" class="dm-station-card">
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="907" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="907" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Schruns</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 690m · ⛰ 2430m · 💶 77€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
+    </a>
+<a href="../stations/st-gallenkirch.html" class="dm-station-card">
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="908" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="908" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">St. Gallenkirch</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 878m · ⛰ 2430m · 💶 77€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
+    </a>
+<a href="../stations/gaschurn.html" class="dm-station-card">
+      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=700&q=80')">
+        <div class="dm-sc-overlay"></div>
+        <button type="button" class="dm-sc-fav" data-sid="909" aria-label="Ajouter aux favoris">☆</button>
+        <button type="button" class="dm-sc-cmp" data-sid="909" aria-label="Ajouter au comparateur">⚖️</button>
+        <div class="dm-sc-name">Gaschurn</div>
+      </div>
+      <div class="dm-station-body">
+        <div class="dm-station-meta">🏘 979m · ⛰ 2430m · 💶 77€</div>
+        <div class="dm-station-km">🎿 domaine partagé</div>
+        <div class="dm-station-cta">Voir la fiche →</div>
+      </div>
+    </a>
   </div>
 </div>
 
