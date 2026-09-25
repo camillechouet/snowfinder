@@ -8,7 +8,7 @@ de toutes les pages stations d'un coup.
 Déclenchement automatique via GitHub Actions quand recherche.html ou stations-data.js change.
 Ou manuellement : python3 _scripts/generate_stations.py
 """
-import re, json, unicodedata, os, sys, hashlib
+import re, json, unicodedata, os, sys, hashlib, math
 
 # ── Stations partenaires officielles ──
 # Ajoutez ici le nom exact (tel que dans recherche.html) de chaque station
@@ -2013,18 +2013,45 @@ if m_coords:
 else:
     print("⚠ const COORDS non trouvé dans recherche.html — la météo sera désactivée")
 
-# Index par massif pour les liens internes
+# Index par massif pour les liens internes (repli si pas de coordonnées GPS)
 by_massif = {}
 for s in DATA:
     by_massif.setdefault(s['massif'], []).append(s)
 
-def get_similar(s, n=4):
-    candidates = [x for x in by_massif[s['massif']] if x['id'] != s['id']]
+def _haversine_km(lat1, lon1, lat2, lon2):
+    """Distance à vol d'oiseau entre deux points GPS, en kilomètres."""
+    R = 6371.0
+    p1, p2 = math.radians(lat1), math.radians(lat2)
+    dphi = math.radians(lat2 - lat1)
+    dlmb = math.radians(lon2 - lon1)
+    a = math.sin(dphi / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dlmb / 2) ** 2
+    return 2 * R * math.asin(math.sqrt(a))
+
+def get_similar(s, n=4, exclude=None):
+    """Stations réellement voisines géographiquement (et non plus « les mieux notées
+    du même massif », qui mélangeait des stations de pays sans rapport — le massif
+    n'est qu'une étiquette réutilisée pour les stations françaises et étrangères)."""
+    exclude_names = set(exclude or [])
+    exclude_names.add(s['name'])
+    coord_s = STATION_COORDS.get(s['name'])
+    if coord_s:
+        dist = []
+        for x in DATA:
+            if x['name'] in exclude_names:
+                continue
+            cx = STATION_COORDS.get(x['name'])
+            if cx:
+                d = _haversine_km(coord_s['lat'], coord_s['lon'], cx['lat'], cx['lon'])
+                dist.append((d, x))
+        dist.sort(key=lambda t: t[0])
+        return [x for _, x in dist[:n]]
+    # Repli si la station n'a pas de coordonnées GPS : même massif, mieux notées
+    candidates = [x for x in by_massif[s['massif']] if x['name'] not in exclude_names]
     candidates.sort(key=lambda x: -x['score'])
     return candidates[:n]
 
-def render_similar_section(s):
-    similar = get_similar(s, 4)
+def render_similar_section(s, exclude=None):
+    similar = get_similar(s, 4, exclude=exclude)
     if not similar:
         return ''
     cards = ''
@@ -2056,13 +2083,13 @@ def render_similar_section(s):
     return f"""
   <div style="margin-top:20px">
     <div style="font-family:'DM Serif Display',serif;font-size:1rem;color:#8a7060;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid #f7efe2">
-      ⛷ Autres stations {s['massif']}
+      📍 Stations voisines
     </div>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
       {cards}
     </div>
     <a href="../recherche.html" style="display:block;text-align:center;margin-top:12px;padding:9px;background:#f7efe2;border-radius:8px;font-size:.82rem;font-weight:600;color:#3a7db8;border:1.5px solid #eddcbf">
-      Voir toutes les stations {s['massif']} →
+      Voir toutes les stations →
     </a>
   </div>"""
 
@@ -2942,6 +2969,7 @@ def render_page(s):
         domaine_tab_btn = ''
         domaine_tab_html = ''
         hero_domaine_html = ''
+        soeurs = []
     # Quand la vignette "Grand domaine" est présente dans le hero, on décale la petite
     # mention "Photo d'illustration" plus haut pour qu'elle ne se retrouve pas cachée
     # derrière la vignette (toutes deux ancrées en bas à droite).
@@ -3120,7 +3148,7 @@ def render_page(s):
         ]
     }
     schema = json.dumps(schema_obj, ensure_ascii=False)
-    similar_html = render_similar_section(s)
+    similar_html = render_similar_section(s, exclude=soeurs)
     cout_vie = calc_cout_vie(s)
     cout_vie_hero_html = f'<div class="hero-cout" title="Coût de la vie sur place : {COUT_VIE_LABELS[cout_vie]}">Coût sur place {euro_scale_html(cout_vie)}</div>'
     cout_vie_block_html = f'''<div class="cout-vie-row">
