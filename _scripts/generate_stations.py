@@ -2762,22 +2762,40 @@ def get_official_url(name):
     return OFFICIAL_URLS.get(name, f"https://www.google.com/search?q={name.replace(' ', '+').replace(chr(39), '+')}+station+ski+site+officiel")
 
 
-# ── Coût de la vie sur place : échelle de 1 (€) à 5 (€€€€€) ──
-# Même formule que calcCoutVie() dans recherche.html — à garder synchronisées.
+# ── Coût de la vie sur place : échelle de 1 à 10 (affichée en 5 symboles € avec
+# demi-crans, pour ne pas prendre plus de place sur les vignettes).
+# Même formule que calcCoutVie() dans recherche.html/tinder.html — à garder synchronisées.
 COUT_VIE_LABELS = ["", "Très abordable", "Abordable", "Moyen", "Élevé", "Premium"]
 
+def cout_vie_groupe(n):
+    """Regroupe l'indice 1-10 en 5 familles pour le libellé (1-2, 3-4, 5-6, 7-8, 9-10)."""
+    import math as _math
+    return _math.ceil(n / 2)
+
 def calc_cout_vie(s):
-    if "luxe" in (s.get("amb") or []):
-        return 5
     f = s.get("forfait") or 0
-    if f >= 50: return 4
-    if f >= 38: return 3
-    if f >= 25: return 2
-    return 1
+    if f >= 85: t = 10
+    elif f >= 78: t = 9
+    elif f >= 71: t = 8
+    elif f >= 64: t = 7
+    elif f >= 57: t = 6
+    elif f >= 50: t = 5
+    elif f >= 42: t = 4
+    elif f >= 34: t = 3
+    elif f >= 25: t = 2
+    else: t = 1
+    if "luxe" in (s.get("amb") or []):
+        t = max(t, 9)
+    return t
 
 def euro_scale_html(n):
-    spans = "".join('<span class="eu on">€</span>' if i <= n else '<span class="eu">€</span>' for i in range(1, 6))
-    return f'<span class="euros" role="img" aria-label="Coût de la vie {n} sur 5">{spans}</span>'
+    grp = cout_vie_groupe(n)
+    full, half = n // 2, n % 2 == 1
+    spans = []
+    for i in range(1, 6):
+        cls = "eu on" if i <= full else ("eu half" if half and i == full + 1 else "eu")
+        spans.append(f'<span class="{cls}">€</span>')
+    return f'<span class="euros" role="img" aria-label="Coût de la vie {n} sur 10" title="Coût de la vie sur place : {COUT_VIE_LABELS[grp]} ({n}/10)">{"".join(spans)}</span>'
 
 def render_page(s):
     slug = slugify(s['name'])
@@ -3156,11 +3174,12 @@ def render_page(s):
     schema = json.dumps(schema_obj, ensure_ascii=False)
     similar_html = render_similar_section(s, exclude=soeurs)
     cout_vie = calc_cout_vie(s)
-    cout_vie_hero_html = f'<div class="hero-cout" title="Coût de la vie sur place : {COUT_VIE_LABELS[cout_vie]}">Coût sur place {euro_scale_html(cout_vie)}</div>'
+    cout_vie_grp = cout_vie_groupe(cout_vie)
+    cout_vie_hero_html = f'<div class="hero-cout" title="Coût de la vie sur place : {COUT_VIE_LABELS[cout_vie_grp]} ({cout_vie}/10)">Coût sur place {euro_scale_html(cout_vie)}</div>'
     cout_vie_block_html = f'''<div class="cout-vie-row">
             <div>
               <div class="cv-title">🛒 Coût de la vie sur place</div>
-              <div class="cv-sub">{COUT_VIE_LABELS[cout_vie]} · indice SnowFinder de € (le moins cher) à €€€€€ (le plus cher)</div>
+              <div class="cv-sub">{COUT_VIE_LABELS[cout_vie_grp]} ({cout_vie}/10) · indice SnowFinder de € (le moins cher) à €€€€€ (le plus cher)</div>
             </div>
             <div class="cv-scale">{euro_scale_html(cout_vie)}</div>
           </div>'''
@@ -3288,10 +3307,12 @@ def render_page(s):
     .euros{{display:inline-flex;gap:1px;font-weight:800;line-height:1}}
     .euros .eu{{color:#cdd2d8}}
     .euros .eu.on{{color:#c99212;text-shadow:0 0 1px rgba(160,110,0,.35)}}
+    .euros .eu.half{{background:linear-gradient(90deg,#c99212 50%,#cdd2d8 50%);-webkit-background-clip:text;background-clip:text;color:transparent}}
     .hero-cout{{display:inline-flex;align-items:center;gap:7px;margin-top:8px;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);color:rgba(255,255,255,.9);font-size:.74rem;font-weight:600;padding:4px 11px;border-radius:20px}}
     .hero-cout .euros{{font-size:.95rem}}
     .hero-cout .eu{{color:rgba(255,255,255,.35)}}
     .hero-cout .eu.on{{color:#f5c542}}
+    .hero-cout .eu.half{{background:linear-gradient(90deg,#f5c542 50%,rgba(255,255,255,.35) 50%);-webkit-background-clip:text;background-clip:text;color:transparent}}
     .cout-vie-row{{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;background:#fdf6e3;border:1.5px solid #f1dfa8;border-radius:11px;padding:11px 14px}}
     .cv-title{{font-weight:700;font-size:.85rem;color:var(--text)}}
     .cv-sub{{font-size:.68rem;color:var(--text-mid);margin-top:2px;line-height:1.4}}
