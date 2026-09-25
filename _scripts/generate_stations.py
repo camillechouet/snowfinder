@@ -998,13 +998,12 @@ STATION_ANECDOTES = {
         "Son domaine alpin « Jura sur Léman » est en partie transfrontalier avec la Suisse — on peut littéralement skier avec un ski de chaque côté de la frontière — et offre depuis le sommet de la Dôle une vue sur la chaîne des Alpes et le Mont-Blanc.",
         "La station rassemble quatre villages (Les Rousses, Prémanon, Lamoura, Bois-d'Amont) et est un haut lieu historique du ski nordique français, qui accueille chaque année la Transjurassienne, l'une des plus grandes courses populaires de ski de fond d'Europe.",
     ],
-    "Monts Jura": [
+    "Mijoux-La Valserine": [
         "Monts Jura est né en 1999 de la fusion de plusieurs sites autour des villages de Mijoux et Lélex (La Faucille, Lélex-Crozet, et le site nordique de la Vattay), rejoints par Menthières en 2006.",
-        "Le domaine est à seulement 20 minutes de Genève ; son versant de Crozet est en connexion directe avec le bassin lémanique.",
     ],
     "Lélex-Crozet": [
         "Le tout premier téléski du secteur a été installé dès 1936 par Gabriel Julliard, mais la station de Lélex n'a été officiellement créée qu'en 1955, avec sa première télébenne construite après cinq années de travaux.",
-        "C'est le plus grand domaine skiable et le plus grand dénivelé de tout le massif jurassien, avec 30 km de pistes entre 900 m (Lélex) et 1 680 m (sommet du Monthoisey).",
+        "Elle offre l'un des plus grands dénivelés du massif jurassien : 780 m entre Lélex (900 m) et le sommet du Monthoisey (1 680 m).",
     ],
     "Lamoura": [
         "Le lac de Lamoura (1 152 m) est le plus haut lac naturel du massif du Jura, vestige de l'ancienne vallée glaciaire.",
