@@ -255,8 +255,8 @@ footer a{color:rgba(255,255,255,.6);text-decoration:none}
 .fd-modal-sub{color:rgba(255,255,255,.65);font-size:.72rem;margin-top:2px}
 .fd-modal-link{color:#c084fc;font-size:.72rem;font-weight:600;text-decoration:none}
 .fd-modal-link:hover{color:white}
-.clear-btn{width:100%;padding:9px;background:none;border:1.5px solid var(--border);border-radius:var(--radius);font-family:"DM Sans",sans-serif;font-size:.82rem;color:var(--text-light);cursor:pointer;transition:all .2s;margin-top:4px}
-.clear-btn:hover{border-color:var(--blue-mid);color:var(--blue-mid)}
+.clear-btn{width:100%;padding:10px;background:#fff0ed;border:1.5px solid #f3b8ab;border-radius:var(--radius);font-family:"DM Sans",sans-serif;font-size:.84rem;font-weight:700;color:#c0432a;cursor:pointer;transition:all .2s;margin-top:4px}
+.clear-btn:hover{border-color:#c0432a;background:#ffe3dc}
 .domains-link{display:flex;align-items:center;gap:10px;margin:10px 0 14px;padding:11px 13px;border-radius:12px;text-decoration:none;
   background:linear-gradient(135deg,#fff8ec 0%,#fdecc8 100%);border:1.5px solid #f0c869;transition:transform .15s,box-shadow .15s}
 .domains-link:hover{transform:translateY(-1px);box-shadow:0 5px 16px rgba(212,155,0,.22)}
@@ -407,7 +407,7 @@ footer a{color:rgba(255,255,255,.6);text-decoration:none}
 .drawer-actions{display:flex;gap:8px;padding:0 16px 12px;flex-shrink:0;border-bottom:1.5px solid var(--wood-light,#cfe3f2)}
 .drawer-apply-btn{flex:1;padding:11px;background:var(--blue-mid,#3a7db8);color:#fff;border:none;border-radius:8px;font-family:"DM Sans",sans-serif;font-size:.85rem;font-weight:700;cursor:pointer}
 .drawer-apply-btn:active{transform:scale(.97)}
-.drawer-reset-btn{padding:11px 12px;background:#fff;color:var(--text-light,#7e93a8);border:1.5px solid var(--border,#dfe8ef);border-radius:8px;font-family:"DM Sans",sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.drawer-reset-btn{padding:11px 14px;background:#fff0ed;color:#c0432a;border:1.5px solid #f3b8ab;border-radius:8px;font-family:"DM Sans",sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap}
 .drawer-scroll{flex:1;overflow-y:auto;padding:14px 16px 28px;scrollbar-width:auto;scrollbar-color:var(--blue-mid,#3a7db8) var(--wood-pale,#eef6fc)}
 .drawer-scroll::-webkit-scrollbar{width:10px}
 .drawer-scroll::-webkit-scrollbar-track{background:var(--wood-pale,#eef6fc)}
@@ -1950,9 +1950,9 @@ function closeFilterPanel(){
     <p>Niveau · Budget · Ambiance · <span class="live-dot"></span>Météo en temps réel</p>
     <div class="search-hero-bar">
       <input class="search-hero-input" id="heroSearchInput" type="text" placeholder="Station, massif, région…" autocomplete="off"
-        oninput="heroSearch()"
-        onkeydown="if(event.key==='Enter') heroSearch()">
-      <button class="search-hero-btn" onclick="heroSearch()">Rechercher →</button>
+        oninput="heroSearch(false)"
+        onkeydown="if(event.key==='Enter') heroSearch(true)">
+      <button class="search-hero-btn" onclick="heroSearch(true)">Rechercher →</button>
     </div>
     <a href="javascript:void(0)" onclick="openIaPanel()" style="display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:10px 20px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,.4);border-radius:30px;color:white;font-size:.85rem;font-weight:600;text-decoration:none;transition:background .2s" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">
       ✨ Une envie précise en tête ? Demande au Conseiller IA
@@ -3426,7 +3426,9 @@ document.getElementById("searchInput").addEventListener("input",e=>{Q=e.target.v
 document.getElementById("sortSelect").addEventListener("change",e=>{SORT=e.target.value;applyFilters();});
 
 // Fonction pour la barre hero
-window.heroSearch = function() {
+// scroll=false pendant la frappe (oninput) pour ne pas faire défiler la page sous les
+// doigts de l'utilisateur à chaque lettre ; scroll=true seulement sur Entrée / clic bouton.
+window.heroSearch = function(scroll) {
   var si = document.getElementById("searchInput");
   var hi = document.getElementById("heroSearchInput");
   if (!si || !hi) return;
@@ -3434,9 +3436,11 @@ window.heroSearch = function() {
   si.value = hi.value;
   // Déclencher l'événement input sur searchInput — qui met Q à jour et appelle applyFilters
   si.dispatchEvent(new Event("input", { bubbles: true }));
-  // Scroller
-  var layout = document.querySelector(".layout");
-  if (layout) layout.scrollIntoView({ behavior: "smooth" });
+  // Scroller uniquement sur validation explicite (Entrée ou bouton "Rechercher")
+  if (scroll) {
+    var layout = document.querySelector(".layout");
+    if (layout) layout.scrollIntoView({ behavior: "smooth" });
+  }
 };
 
 function bindRadios(container){
