@@ -5384,11 +5384,26 @@ def render_domaines_index():
   .di-tot b{{display:block;font-family:"DM Serif Display",serif;font-size:1.35rem}}
   .di-tot span{{font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;opacity:.8}}
   .di-wrap{{max-width:1080px;margin:0 auto;padding:0 20px}}
-  .di-search-box{{padding:20px 0 0}}
-  .di-search{{width:100%;padding:12px 16px;border-radius:24px;border:1.5px solid var(--border);background:white;
+  .di-search-box{{padding:20px 0 0;display:flex;gap:8px;align-items:center}}
+  .di-search{{flex:1;min-width:0;padding:12px 16px;border-radius:24px;border:1.5px solid var(--border);background:white;
     font-family:"DM Sans",sans-serif;font-size:.88rem;color:var(--text);outline:none;transition:border-color .15s}}
   .di-search:focus{{border-color:var(--blue-dark)}}
   .di-search::placeholder{{color:var(--text-light)}}
+  .di-pays-btn{{flex-shrink:0;display:inline-flex;align-items:center;gap:4px;padding:10px 12px;background:white;border:1.5px solid var(--border);
+    border-radius:24px;font-family:"DM Sans",sans-serif;font-size:.85rem;font-weight:700;color:var(--text-mid);cursor:pointer}}
+  .di-pays-btn .car{{font-size:.62rem;margin-left:1px}}
+  .di-pays-sheet-ov{{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;display:flex;align-items:flex-end;justify-content:center}}
+  .di-pays-sheet{{width:100%;max-width:440px;background:#fff;border-radius:18px 18px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));
+    font-family:"DM Sans",sans-serif}}
+  .di-pays-sheet h3{{margin:0 0 4px;font-family:"DM Serif Display",serif;font-size:1.15rem;font-weight:400;color:var(--text)}}
+  .di-pays-sheet p{{margin:0 0 14px;font-size:.78rem;color:var(--text-light)}}
+  .di-pays-row{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}}
+  .di-pays-flag{{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:10px 4px;background:white;
+    border:1.5px solid var(--border);border-radius:10px;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.7rem;font-weight:600;color:var(--text-mid)}}
+  .di-pays-flag span:first-child{{font-size:1.4rem}}
+  .di-pays-flag.on{{border-color:var(--blue-mid);background:var(--blue-light);color:var(--text)}}
+  .di-pays-sheet .sf-sheet-ok{{width:100%;margin-top:16px;padding:12px;background:var(--blue-mid);color:#fff;border:none;border-radius:10px;
+    font:inherit;font-size:.88rem;font-weight:700;cursor:pointer}}
   .di-filters{{display:flex;gap:8px;flex-wrap:wrap;padding:20px 0 6px}}
   .di-f{{padding:8px 15px;border-radius:20px;border:1.5px solid var(--border);background:white;
     font-family:"DM Sans",sans-serif;font-size:.8rem;font-weight:700;color:var(--text-mid);cursor:pointer;transition:all .15s}}
@@ -5451,13 +5466,13 @@ def render_domaines_index():
 <div class="di-wrap">
   <div class="di-search-box">
     <input type="text" id="diSearch" class="di-search" placeholder="Rechercher un domaine, une station… (ex: Portes du Soleil, Avoriaz)" autocomplete="off">
+    <button type="button" class="di-pays-btn" id="diPaysBtnMain">🌍 <span id="diPaysBtnLbl">Pays</span><span class="car">▾</span></button>
   </div>
   <div class="di-filters">
     <button class="di-f on" data-m="">Tous</button>
     {filtres}
   </div>
   <div class="di-count" id="diCount"></div>
-  <div class="di-pays-note" id="diPaysNote" style="display:none;margin:-4px 0 14px;font-size:.8rem;color:var(--text-light)"></div>
   <div class="di-grid" id="diGrid">
     {cards_html}
   </div>
@@ -5487,27 +5502,65 @@ def render_domaines_index():
   var searchInput = document.getElementById('diSearch');
   var curM = '';
   function deacc(str){{ return (str||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }}
-  // Filtre pays : même choix que Recherche (mémorisé sur l'appareil)
+  // Filtre pays : même stockage que Recherche/Accueil (localStorage "sf_pays_v1"),
+  // avec ici son propre sélecteur de drapeaux (domaines.html est une page autonome
+  // qui ne charge pas le module JS partagé window.SFPays).
   var NOMS = {{FR:"France",CH:"Suisse",IT:"Italie",ES:"Espagne",AD:"Andorre",DE:"Allemagne",LI:"Liechtenstein",AT:"Autriche",SI:"Slovénie"}};
-  var pays = ["FR"], tousPays = false;
-  try {{ var v = JSON.parse(localStorage.getItem("sf_pays_v1")); if (Array.isArray(v) && v.length) pays = v; }} catch(e) {{}}
-  var note = document.getElementById('diPaysNote');
+  var EMOJI = {{FR:"🇫🇷",CH:"🇨🇭",IT:"🇮🇹",ES:"🇪🇸",AD:"🇦🇩",DE:"🇩🇪",LI:"🇱🇮",AT:"🇦🇹",SI:"🇸🇮"}};
+  var ORDER = ["FR","CH","IT","ES","AD","AT","DE","SI","LI"];
+  var availablePays = (function(){{
+    var seen = {{}};
+    cards.forEach(function(c){{ (c.dataset.pays||"FR").split(" ").forEach(function(p){{ if(p) seen[p]=1; }}); }});
+    return ORDER.filter(function(p){{ return seen[p]; }});
+  }})();
+  var pays = availablePays.slice();
+  try {{ var v = JSON.parse(localStorage.getItem("sf_pays_v1")); if (Array.isArray(v) && v.length) pays = v.filter(function(p){{ return availablePays.indexOf(p)>-1; }}); if(!pays.length) pays = availablePays.slice(); }} catch(e) {{}}
+  function savePays(){{ try{{ localStorage.setItem("sf_pays_v1", JSON.stringify(pays)); }}catch(e){{}} }}
   function paysOk(c){{
-    if (tousPays) return true;
     return (c.dataset.pays || "FR").split(" ").some(function(p){{ return pays.indexOf(p) > -1; }});
   }}
-  function majNote(){{
-    var cach = cards.filter(function(c){{ return !paysOk(c); }}).length;
-    if (!cach && !tousPays) {{ note.style.display = 'none'; return; }}
-    note.style.display = '';
-    note.innerHTML = tousPays
-      ? 'Tous les pays affichés. <a href="#" id="diPaysBtn" style="font-weight:700">Revenir à mes pays</a>'
-      : 'Pays affichés : ' + pays.map(function(p){{ return NOMS[p] || p; }}).join(', ') + '. <a href="#" id="diPaysBtn" style="font-weight:700">Voir tous les pays</a>';
-    document.getElementById('diPaysBtn').addEventListener('click', function(e){{
-      e.preventDefault(); tousPays = !tousPays; majNote();
-      apply(curM);
+  var paysBtn = document.getElementById('diPaysBtnMain');
+  var paysBtnLbl = document.getElementById('diPaysBtnLbl');
+  function majPaysBtn(){{
+    if(paysBtn) paysBtn.style.display = availablePays.length < 2 ? 'none' : '';
+    if(!paysBtnLbl) return;
+    if(pays.length === availablePays.length) paysBtnLbl.textContent = 'Tous pays';
+    else if(pays.length === 1) paysBtnLbl.textContent = EMOJI[pays[0]] || NOMS[pays[0]] || pays[0];
+    else paysBtnLbl.textContent = pays.length + ' pays';
+  }}
+  function openPaysSheet(){{
+    var ov = document.createElement('div');
+    ov.className = 'di-pays-sheet-ov';
+    ov.innerHTML = '<div class="di-pays-sheet" role="dialog" aria-modal="true" aria-label="Choix des pays">' +
+      '<h3>Pays</h3><p>Touche un drapeau pour l\\'ajouter ou le retirer. Ton choix est mémorisé sur cet appareil.</p>' +
+      '<div class="di-pays-row"></div>' +
+      '<button type="button" class="sf-sheet-ok">Valider</button></div>';
+    document.body.appendChild(ov);
+    var prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    function renderRow(){{
+      var row = ov.querySelector('.di-pays-row');
+      row.innerHTML = availablePays.map(function(p){{
+        var on = pays.indexOf(p) > -1;
+        return '<button type="button" class="di-pays-flag'+(on?' on':'')+'" data-p="'+p+'"><span>'+(EMOJI[p]||'🏳️')+'</span><span>'+(NOMS[p]||p)+'</span></button>';
+      }}).join('');
+    }}
+    renderRow();
+    ov.addEventListener('click', function(e){{
+      var f = e.target.closest && e.target.closest('.di-pays-flag[data-p]');
+      if(f){{
+        var p = f.getAttribute('data-p');
+        var i = pays.indexOf(p);
+        if(i>-1){{ if(pays.length>1) pays.splice(i,1); }} else pays.push(p);
+        savePays(); renderRow(); majPaysBtn(); apply(curM);
+        return;
+      }}
+      if(e.target === ov || (e.target.closest && e.target.closest('.sf-sheet-ok'))){{
+        ov.remove(); document.body.style.overflow = prevOverflow;
+      }}
     }});
   }}
+  if(paysBtn) paysBtn.addEventListener('click', openPaysSheet);
   function apply(m){{
     curM = m;
     var q = deacc(searchInput ? searchInput.value.trim() : '');
@@ -5528,9 +5581,11 @@ def render_domaines_index():
     }});
   }});
   if(searchInput){{
+    // La recherche filtre au fur et à mesure de la frappe, mais ne doit jamais faire
+    // défiler la page pendant que l'utilisateur écrit (cf. focus mobile).
     searchInput.addEventListener('input', function(){{ apply(curM); }});
   }}
-  majNote();
+  majPaysBtn();
   apply('');
 }})();
 </script>
