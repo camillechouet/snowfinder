@@ -38,6 +38,13 @@ def slugify(name):
     name = re.sub(r'[^a-z0-9]+', '-', name)
     return name.strip('-')
 
+def _search_norm(text):
+    """Minuscules + suppression des accents, pour un attribut data-search
+    filtrable côté client (même logique que deacc() dans recherche.html)."""
+    text = unicodedata.normalize('NFD', text or '')
+    text = ''.join(c for c in text if unicodedata.category(c) != 'Mn')
+    return text.lower()
+
 BOOKING_CJ = 'https://www.tkqlhce.com/click-101709262-15734710'  # Booking.com via CJ
 
 # ── PHOTOS PLACEHOLDER UNSPLASH (libres de droits) ──
@@ -5314,7 +5321,11 @@ def render_domaines_index():
         <span class="pd pd-n"><span class="pd-dot"></span>{P.get('n',0)}{'%' if d.get('pistes_pct') else ''}</span>
       </div>'''
 
-        cards.append(f'''<a href="domaines/{slug}.html" class="di-card" data-m="{d['massif']}" data-pays="{' '.join(PAYS_CODE.get(p, p) for p in d['pays'])}">
+        # Texte de recherche libre : nom du domaine, nom court, massif, toutes les
+        # stations membres — pour retrouver un domaine en tapant "portes du soleil",
+        # "avoriaz", "morzine"...
+        search_txt = _search_norm(' '.join([d['name'], d.get('short', ''), d['massif']] + d['stations']))
+        cards.append(f'''<a href="domaines/{slug}.html" class="di-card" data-m="{d['massif']}" data-pays="{' '.join(PAYS_CODE.get(p, p) for p in d['pays'])}" data-search="{search_txt}">
       <div class="di-top" style="background-image:url('{dom_thumb}')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ {d['massif']}</div>
@@ -5373,6 +5384,11 @@ def render_domaines_index():
   .di-tot b{{display:block;font-family:"DM Serif Display",serif;font-size:1.35rem}}
   .di-tot span{{font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;opacity:.8}}
   .di-wrap{{max-width:1080px;margin:0 auto;padding:0 20px}}
+  .di-search-box{{padding:20px 0 0}}
+  .di-search{{width:100%;padding:12px 16px;border-radius:24px;border:1.5px solid var(--border);background:white;
+    font-family:"DM Sans",sans-serif;font-size:.88rem;color:var(--text);outline:none;transition:border-color .15s}}
+  .di-search:focus{{border-color:var(--blue-dark)}}
+  .di-search::placeholder{{color:var(--text-light)}}
   .di-filters{{display:flex;gap:8px;flex-wrap:wrap;padding:20px 0 6px}}
   .di-f{{padding:8px 15px;border-radius:20px;border:1.5px solid var(--border);background:white;
     font-family:"DM Sans",sans-serif;font-size:.8rem;font-weight:700;color:var(--text-mid);cursor:pointer;transition:all .15s}}
@@ -5433,6 +5449,9 @@ def render_domaines_index():
 </div>
 
 <div class="di-wrap">
+  <div class="di-search-box">
+    <input type="text" id="diSearch" class="di-search" placeholder="Rechercher un domaine, une station… (ex: Portes du Soleil, Avoriaz)" autocomplete="off">
+  </div>
   <div class="di-filters">
     <button class="di-f on" data-m="">Tous</button>
     {filtres}
@@ -5465,6 +5484,9 @@ def render_domaines_index():
   var btns  = [].slice.call(document.querySelectorAll('.di-f'));
   var count = document.getElementById('diCount');
   var empty = document.getElementById('diEmpty');
+  var searchInput = document.getElementById('diSearch');
+  var curM = '';
+  function deacc(str){{ return (str||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }}
   // Filtre pays : même choix que Recherche (mémorisé sur l'appareil)
   var NOMS = {{FR:"France",CH:"Suisse",IT:"Italie",ES:"Espagne",AD:"Andorre",DE:"Allemagne",LI:"Liechtenstein",AT:"Autriche",SI:"Slovénie"}};
   var pays = ["FR"], tousPays = false;
@@ -5483,13 +5505,15 @@ def render_domaines_index():
       : 'Pays affichés : ' + pays.map(function(p){{ return NOMS[p] || p; }}).join(', ') + '. <a href="#" id="diPaysBtn" style="font-weight:700">Voir tous les pays</a>';
     document.getElementById('diPaysBtn').addEventListener('click', function(e){{
       e.preventDefault(); tousPays = !tousPays; majNote();
-      var on = document.querySelector('.di-f.on'); apply(on ? on.dataset.m : '');
+      apply(curM);
     }});
   }}
   function apply(m){{
+    curM = m;
+    var q = deacc(searchInput ? searchInput.value.trim() : '');
     var n = 0;
     cards.forEach(function(c){{
-      var ok = (!m || c.dataset.m === m) && paysOk(c);
+      var ok = (!m || c.dataset.m === m) && paysOk(c) && (!q || (c.dataset.search || '').indexOf(q) > -1);
       c.style.display = ok ? '' : 'none';
       if (ok) n++;
     }});
@@ -5503,6 +5527,9 @@ def render_domaines_index():
       apply(b.dataset.m);
     }});
   }});
+  if(searchInput){{
+    searchInput.addEventListener('input', function(){{ apply(curM); }});
+  }}
   majNote();
   apply('');
 }})();
