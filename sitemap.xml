@@ -4849,12 +4849,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://snowfinder.fr/articles/le-lioran-tour-de-france-2026.html</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://snowfinder.fr/articles/quand-ouvrent-stations-ski-2026-2027.html</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>monthly</changefreq>
@@ -4867,20 +4861,8 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://snowfinder.fr/articles/saint-francois-longchamp-ouverture-hiver-2026.html</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://snowfinder.fr/articles/saint-francois-longchamp-rapport-qualite-prix-valmorel.html</loc>
     <lastmod>2026-09-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://snowfinder.fr/articles/saint-veran-vs-molines-en-queyras.html</loc>
-    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -4941,24 +4923,6 @@
   <url>
     <loc>https://snowfinder.fr/station-du-moment/toutes-les-stations-du-moment.html</loc>
     <lastmod>2026-09-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://snowfinder.fr/tous-les-comparatifs.html</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://snowfinder.fr/toutes-les-actus.html</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://snowfinder.fr/toutes-les-stations-du-moment.html</loc>
-    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
