@@ -333,6 +333,7 @@ footer a{color:rgba(255,255,255,.6);text-decoration:none}
 .euros{display:inline-flex;gap:1px;font-weight:800;line-height:1;letter-spacing:.01em}
 .euros .eu{color:#cdd2d8}
 .euros .eu.on{color:#c99212;text-shadow:0 0 1px rgba(160,110,0,.35)}
+.euros .eu.half{background:linear-gradient(90deg,#c99212 50%,#cdd2d8 50%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .tag-cout{background:#fdf6e3;border:1px solid #f1dfa8;display:inline-flex;align-items:center}
 .fr .euros{font-size:.95rem;min-width:62px}
 .cv-legend{display:flex;justify-content:space-between;font-size:.66rem;color:var(--text-light);padding:0 8px 6px}
@@ -2018,6 +2019,19 @@ function closeFilterPanel(){
       </div>
     </div>
     <div class="filter-box collapsed">
+      <div class="filter-box-title">Coût de la vie sur place<span class="filter-box-title-count">•</span></div>
+      <div class="filter-box-body">
+        <div style="font-size:.7rem;color:var(--text-light);padding:4px 8px 8px;line-height:1.45">Indice SnowFinder de 1 à 10, basé sur le forfait et le caractère luxe de la station. Plus parlant que le seul prix du pass.</div>
+        <div class="cv-legend"><span><b style="color:#d4a017">€</b> = le moins cher</span><span><b style="color:#d4a017">€€€€€</b> = le plus cher</span></div>
+        <div class="fr active" data-f="coutvie" data-v=""><div class="dot"></div>Tous niveaux de vie</div>
+        <div class="fr" data-f="coutvie" data-v="1"><div class="dot"></div><span class="euros"><span class="eu on">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span></span> Très abordable</div>
+        <div class="fr" data-f="coutvie" data-v="2"><div class="dot"></div><span class="euros"><span class="eu on">€</span><span class="eu on">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span></span> Abordable</div>
+        <div class="fr" data-f="coutvie" data-v="3"><div class="dot"></div><span class="euros"><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span><span class="eu">€</span><span class="eu">€</span></span> Moyen</div>
+        <div class="fr" data-f="coutvie" data-v="4"><div class="dot"></div><span class="euros"><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span><span class="eu">€</span></span> Élevé</div>
+        <div class="fr" data-f="coutvie" data-v="5"><div class="dot"></div><span class="euros"><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span></span> Premium</div>
+      </div>
+    </div>
+    <div class="filter-box collapsed">
       <div class="filter-box-title">Niveau<span class="filter-box-title-count">•</span></div>
       <div class="filter-box-body">
         <div class="fr active" data-f="niv" data-v=""><div class="dot"></div>Tous niveaux</div>
@@ -2085,19 +2099,6 @@ function closeFilterPanel(){
         <div class="fr" data-f="budget" data-v="eco"><div class="dot"></div>💚 Moins de 25€</div>
         <div class="fr" data-f="budget" data-v="mid"><div class="dot"></div>🔵 25€ à 40€</div>
         <div class="fr" data-f="budget" data-v="prem"><div class="dot"></div>🟠 Plus de 40€</div>
-      </div>
-    </div>
-    <div class="filter-box collapsed">
-      <div class="filter-box-title">Coût de la vie sur place<span class="filter-box-title-count">•</span></div>
-      <div class="filter-box-body">
-        <div style="font-size:.7rem;color:var(--text-light);padding:4px 8px 8px;line-height:1.45">Indice SnowFinder de 1 à 5, basé sur le forfait et le caractère luxe de la station. Plus parlant que le seul prix du pass.</div>
-        <div class="cv-legend"><span><b style="color:#d4a017">€</b> = le moins cher</span><span><b style="color:#d4a017">€€€€€</b> = le plus cher</span></div>
-        <div class="fr active" data-f="coutvie" data-v=""><div class="dot"></div>Tous niveaux de vie</div>
-        <div class="fr" data-f="coutvie" data-v="1"><div class="dot"></div><span class="euros"><span class="eu on">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span></span> Très abordable</div>
-        <div class="fr" data-f="coutvie" data-v="2"><div class="dot"></div><span class="euros"><span class="eu on">€</span><span class="eu on">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span></span> Abordable</div>
-        <div class="fr" data-f="coutvie" data-v="3"><div class="dot"></div><span class="euros"><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span><span class="eu">€</span><span class="eu">€</span></span> Moyen</div>
-        <div class="fr" data-f="coutvie" data-v="4"><div class="dot"></div><span class="euros"><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span><span class="eu">€</span></span> Élevé</div>
-        <div class="fr" data-f="coutvie" data-v="5"><div class="dot"></div><span class="euros"><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span><span class="eu on">€</span></span> Premium</div>
       </div>
     </div>
     <div class="filter-box collapsed">
@@ -2341,20 +2342,37 @@ function restoreFiltersState(){
     return true;
   }catch(e){ return false; }
 }
-// Calcul de l'indice de coût de la vie (1=très abordable, 5=premium)
+// Calcul de l'indice de coût de la vie (1=très abordable, 10=premium)
+// Échelle affinée sur 10 niveaux (plus de granularité avec 700+ stations),
+// affichée en 5 symboles € avec des demi-crans pour ne pas prendre plus de place.
 function calcCoutVie(s){
   const luxe = (s.amb||[]).includes("luxe");
   const f = s.forfait||0;
-  if(luxe) return 5;
-  if(f >= 50) return 4;
-  if(f >= 38) return 3;
-  if(f >= 25) return 2;
-  return 1;
+  let t;
+  if(f >= 85) t = 10;
+  else if(f >= 78) t = 9;
+  else if(f >= 71) t = 8;
+  else if(f >= 64) t = 7;
+  else if(f >= 57) t = 6;
+  else if(f >= 50) t = 5;
+  else if(f >= 42) t = 4;
+  else if(f >= 34) t = 3;
+  else if(f >= 25) t = 2;
+  else t = 1;
+  if(luxe) t = Math.max(t, 9);
+  return t;
 }
 const COUT_VIE_LABELS=["","Très abordable","Abordable","Moyen","Élevé","Premium"];
+// Regroupe l'indice 1-10 en 5 familles pour le libellé et le filtre (1-2, 3-4, 5-6, 7-8, 9-10)
+function coutVieGroupe(n){ return Math.ceil(n/2); }
 function euroScaleHTML(n){
-  let h='<span class="euros" role="img" aria-label="Coût de la vie '+n+' sur 5" title="Coût de la vie sur place : '+COUT_VIE_LABELS[n]+'">';
-  for(let i=1;i<=5;i++) h+='<span class="eu'+(i<=n?' on':'')+'">€</span>';
+  const grp = coutVieGroupe(n);
+  const full = Math.floor(n/2), half = n%2===1;
+  let h='<span class="euros" role="img" aria-label="Coût de la vie '+n+' sur 10" title="Coût de la vie sur place : '+COUT_VIE_LABELS[grp]+' ('+n+'/10)">';
+  for(let i=1;i<=5;i++){
+    let cls = i<=full ? ' on' : (half && i===full+1 ? ' half' : '');
+    h+='<span class="eu'+cls+'">€</span>';
+  }
   return h+'</span>';
 }
 
@@ -2624,8 +2642,8 @@ function applyFilters(){
       if(!ok)return false;
     }
     if(F.coutvie.length){
-      const cv=calcCoutVie(s);
-      if(!F.coutvie.map(Number).includes(cv))return false;
+      const grp=coutVieGroupe(calcCoutVie(s));
+      if(!F.coutvie.map(Number).includes(grp))return false;
     }
     if(F.equip && F.equip.length){
       const eq=s.equip||[];
