@@ -1369,12 +1369,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://snowfinder.fr/stations/etang-de-lers.html</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://snowfinder.fr/stations/evolene.html</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -1826,12 +1820,6 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/haut-asco.html</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://snowfinder.fr/stations/hautacam.html</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
