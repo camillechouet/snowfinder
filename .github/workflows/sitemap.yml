@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # historique complet requis pour le lastmod du sitemap (date du dernier commit par fichier)
 
       - name: Setup Python
         uses: actions/setup-python@v5
