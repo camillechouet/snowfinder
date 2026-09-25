@@ -3481,12 +3481,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://snowfinder.fr/stations/puyvalador.html</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://snowfinder.fr/stations/racines-giovo.html</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -3698,12 +3692,6 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/saint-martin-de-belleville.html</loc>
-    <lastmod>2026-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://snowfinder.fr/stations/saint-maurice-sur-moselle.html</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
