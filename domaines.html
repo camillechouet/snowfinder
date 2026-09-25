@@ -27,6 +27,11 @@
   .di-tot b{display:block;font-family:"DM Serif Display",serif;font-size:1.35rem}
   .di-tot span{font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;opacity:.8}
   .di-wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .di-search-box{padding:20px 0 0}
+  .di-search{width:100%;padding:12px 16px;border-radius:24px;border:1.5px solid var(--border);background:white;
+    font-family:"DM Sans",sans-serif;font-size:.88rem;color:var(--text);outline:none;transition:border-color .15s}
+  .di-search:focus{border-color:var(--blue-dark)}
+  .di-search::placeholder{color:var(--text-light)}
   .di-filters{display:flex;gap:8px;flex-wrap:wrap;padding:20px 0 6px}
   .di-f{padding:8px 15px;border-radius:20px;border:1.5px solid var(--border);background:white;
     font-family:"DM Sans",sans-serif;font-size:.8rem;font-weight:700;color:var(--text-mid);cursor:pointer;transition:all .15s}
@@ -228,6 +233,9 @@ function acceptSfNotif(){
 </div>
 
 <div class="di-wrap">
+  <div class="di-search-box">
+    <input type="text" id="diSearch" class="di-search" placeholder="Rechercher un domaine, une station… (ex: Portes du Soleil, Avoriaz)" autocomplete="off">
+  </div>
   <div class="di-filters">
     <button class="di-f on" data-m="">Tous</button>
     <button class="di-f" data-m="Alpes du Nord">Alpes du Nord</button><button class="di-f" data-m="Alpes du Sud">Alpes du Sud</button><button class="di-f" data-m="Massif Central">Massif Central</button><button class="di-f" data-m="Pyrénées">Pyrénées</button>
@@ -235,7 +243,7 @@ function acceptSfNotif(){
   <div class="di-count" id="diCount"></div>
   <div class="di-pays-note" id="diPaysNote" style="display:none;margin:-4px 0 14px;font-size:.8rem;color:var(--text-light)"></div>
   <div class="di-grid" id="diGrid">
-    <a href="domaines/portes-du-soleil.html" class="di-card" data-m="Alpes du Nord" data-pays="FR CH">
+    <a href="domaines/portes-du-soleil.html" class="di-card" data-m="Alpes du Nord" data-pays="FR CH" data-search="les portes du soleil portes du soleil alpes du nord avoriaz morzine montriond les gets saint-jean-d'aulps abondance la chapelle d'abondance chatel">
       <div class="di-top" style="background-image:url('../img/avoriaz1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -266,7 +274,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/3-vallees.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
+<a href="domaines/3-vallees.html" class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="les 3 vallees les 3 vallees alpes du nord courchevel la tania meribel brides-les-bains saint-martin-de-belleville les menuires val thorens orelle">
       <div class="di-top" style="background-image:url('../img/courchevel1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -297,7 +305,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/paradiski.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
+<a href="domaines/paradiski.html" class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="paradiski paradiski alpes du nord la plagne les arcs peisey-vallandry montchavin-les coches">
       <div class="di-top" style="background-image:url('../img/laplagne1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -328,7 +336,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/4-vallees.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+<a href="domaines/4-vallees.html" class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="les 4 vallees 4 vallees alpes du nord verbier nendaz veysonnaz thyon la tzoumaz">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -359,7 +367,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/evasion-mont-blanc.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
+<a href="domaines/evasion-mont-blanc.html" class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="evasion mont-blanc evasion mont-blanc alpes du nord megeve saint-gervais combloux la giettaz les contamines-montjoie">
       <div class="di-top" style="background-image:url('../img/megeve1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -390,7 +398,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/voie-lactee.html" class="di-card" data-m="Alpes du Sud" data-pays="FR IT">
+<a href="domaines/voie-lactee.html" class="di-card" data-m="Alpes du Sud" data-pays="FR IT" data-search="la voie lactee (via lattea) la voie lactee alpes du sud montgenevre">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Sud</div>
@@ -416,7 +424,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/matterhorn-ski-paradise.html" class="di-card" data-m="Alpes du Nord" data-pays="CH IT">
+<a href="domaines/matterhorn-ski-paradise.html" class="di-card" data-m="Alpes du Nord" data-pays="CH IT" data-search="matterhorn ski paradise (zermatt – cervinia) matterhorn ski paradise alpes du nord zermatt breuil-cervinia valtournenche">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -447,7 +455,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/sybelles.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
+<a href="domaines/sybelles.html" class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="les sybelles les sybelles alpes du nord la toussuire le corbier saint-sorlin-d'arves saint-jean-d'arves les bottieres saint-colomban-des-villards">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -478,7 +486,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/espace-killy.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
+<a href="domaines/espace-killy.html" class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="tignes – val d'isere (espace killy) tignes – val d'isere alpes du nord val d'isere tignes">
       <div class="di-top" style="background-image:url('../img/valdisere1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -509,7 +517,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/ski-arlberg.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/ski-arlberg.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="ski arlberg ski arlberg alpes du nord st. anton am arlberg st. christoph stuben lech zurs warth-schrocken">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -540,7 +548,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/skiwelt.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/skiwelt.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="skiwelt wilder kaiser – brixental skiwelt alpes du nord soll ellmau scheffau going brixen im thale westendorf hopfgarten">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -571,7 +579,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/skicircus.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/skicircus.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="skicircus saalbach hinterglemm leogang fieberbrunn skicircus alpes du nord saalbach hinterglemm leogang fieberbrunn">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -602,7 +610,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/grand-massif.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
+<a href="domaines/grand-massif.html" class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="le grand massif grand massif alpes du nord flaine les carroz morillon samoens sixt-fer-a-cheval">
       <div class="di-top" style="background-image:url('../img/flaine1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -633,7 +641,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/alpe-dhuez-grand-domaine.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
+<a href="domaines/alpe-dhuez-grand-domaine.html" class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="alpe d'huez grand domaine ski alpe d'huez alpes du nord alpe d'huez auris-en-oisans">
       <div class="di-top" style="background-image:url('../img/alpedhuez1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -664,7 +672,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/serre-chevalier-vallee.html" class="di-card" data-m="Alpes du Sud" data-pays="FR">
+<a href="domaines/serre-chevalier-vallee.html" class="di-card" data-m="Alpes du Sud" data-pays="FR" data-search="serre chevalier vallee serre chevalier alpes du sud serre chevalier">
       <div class="di-top" style="background-image:url('../img/serrechevalier1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Sud</div>
@@ -690,7 +698,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/silvretta-arena.html" class="di-card" data-m="Alpes du Nord" data-pays="AT CH">
+<a href="domaines/silvretta-arena.html" class="di-card" data-m="Alpes du Nord" data-pays="AT CH" data-search="silvretta arena (ischgl – samnaun) silvretta arena alpes du nord ischgl samnaun">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -721,7 +729,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/arosa-lenzerheide.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+<a href="domaines/arosa-lenzerheide.html" class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="arosa lenzerheide arosa lenzerheide alpes du nord arosa lenzerheide">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -752,7 +760,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/grandvalira.html" class="di-card" data-m="Pyrénées" data-pays="AD">
+<a href="domaines/grandvalira.html" class="di-card" data-m="Pyrénées" data-pays="AD" data-search="grandvalira grandvalira pyrenees pas de la casa grau roig soldeu el tarter canillo encamp">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Pyrénées</div>
@@ -783,7 +791,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/espace-diamant.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
+<a href="domaines/espace-diamant.html" class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="espace diamant espace diamant alpes du nord les saisies crest-voland notre-dame-de-bellecombe flumet praz-sur-arly hauteluce">
       <div class="di-top" style="background-image:url('../img/lessaisies1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -814,7 +822,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/kitzski.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/kitzski.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="kitzski (kitzbuhel – kirchberg) kitzski alpes du nord kitzbuhel kirchberg in tirol">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -845,7 +853,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/serfaus-fiss-ladis.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/serfaus-fiss-ladis.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="serfaus-fiss-ladis serfaus-fiss-ladis alpes du nord serfaus fiss ladis">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -876,7 +884,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/foret-blanche.html" class="di-card" data-m="Alpes du Sud" data-pays="FR">
+<a href="domaines/foret-blanche.html" class="di-card" data-m="Alpes du Sud" data-pays="FR" data-search="la foret blanche la foret blanche alpes du sud vars risoul">
       <div class="di-top" style="background-image:url('../img/vars1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Sud</div>
@@ -907,7 +915,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/val-gardena.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+<a href="domaines/val-gardena.html" class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="val gardena val gardena alpes du nord ortisei santa cristina selva di val gardena">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -938,7 +946,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/espace-lumiere.html" class="di-card" data-m="Alpes du Sud" data-pays="FR">
+<a href="domaines/espace-lumiere.html" class="di-card" data-m="Alpes du Sud" data-pays="FR" data-search="espace lumiere espace lumiere alpes du sud pra-loup val d'allos">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Sud</div>
@@ -969,7 +977,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/flims-laax-falera.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+<a href="domaines/flims-laax-falera.html" class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="flims laax falera flims laax falera alpes du nord laax flims falera">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1000,7 +1008,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/grand-domaine-valmorel.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
+<a href="domaines/grand-domaine-valmorel.html" class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="le grand domaine le grand domaine alpes du nord valmorel saint-francois-longchamp">
       <div class="di-top" style="background-image:url('../img/valmorel1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1031,7 +1039,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/galibier-thabor.html" class="di-card" data-m="Alpes du Nord" data-pays="FR">
+<a href="domaines/galibier-thabor.html" class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="galibier-thabor galibier-thabor alpes du nord valloire valmeinier">
       <div class="di-top" style="background-image:url('../img/valloire1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1062,7 +1070,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/espace-san-bernardo.html" class="di-card" data-m="Alpes du Nord" data-pays="FR IT">
+<a href="domaines/espace-san-bernardo.html" class="di-card" data-m="Alpes du Nord" data-pays="FR IT" data-search="espace san bernardo espace san bernardo alpes du nord la rosiere">
       <div class="di-top" style="background-image:url('../img/larosiere1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1088,7 +1096,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/skiarea-campiglio.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+<a href="domaines/skiarea-campiglio.html" class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="skiarea campiglio skiarea campiglio alpes du nord madonna di campiglio pinzolo folgarida marilleva">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1119,7 +1127,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/zillertal-arena.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/zillertal-arena.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="zillertal arena zillertal arena alpes du nord zell am ziller gerlos konigsleiten hochkrimml">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1150,7 +1158,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/alp-2500.html" class="di-card" data-m="Pyrénées" data-pays="ES">
+<a href="domaines/alp-2500.html" class="di-card" data-m="Pyrénées" data-pays="ES" data-search="alp 2500 (la molina – masella) alp 2500 pyrenees la molina masella">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Pyrénées</div>
@@ -1181,7 +1189,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/mayrhofen.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/mayrhofen.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="mayrhofen (penken – ahorn) mayrhofen alpes du nord mayrhofen finkenberg">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1528659862616-22886eb53642?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1212,7 +1220,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/silvretta-montafon.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/silvretta-montafon.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="silvretta montafon silvretta montafon alpes du nord schruns st. gallenkirch gaschurn">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1243,7 +1251,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/monterosa-ski.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+<a href="domaines/monterosa-ski.html" class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="monterosa ski monterosa ski alpes du nord champoluc gressoney-la-trinite alagna valsesia">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1274,7 +1282,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/alta-badia.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+<a href="domaines/alta-badia.html" class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="alta badia alta badia alpes du nord corvara la villa san cassiano">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1305,7 +1313,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/kronplatz.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+<a href="domaines/kronplatz.html" class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="kronplatz kronplatz alpes du nord brunico – kronplatz san vigilio di marebbe valdaora – kronplatz">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1336,7 +1344,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/schladming-4-berge.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/schladming-4-berge.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="schladming 4-berge-skischaukel 4-berge-skischaukel alpes du nord schladming haus im ennstal pichl – reiteralm">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1367,7 +1375,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/snow-space-salzburg.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/snow-space-salzburg.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="snow space salzburg snow space salzburg alpes du nord flachau wagrain st. johann-alpendorf">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1398,7 +1406,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/hochkoenig.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/hochkoenig.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="hochkonig hochkonig alpes du nord maria alm dienten muhlbach am hochkonig">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1429,7 +1437,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/mondole-ski.html" class="di-card" data-m="Alpes du Sud" data-pays="IT">
+<a href="domaines/mondole-ski.html" class="di-card" data-m="Alpes du Sud" data-pays="IT" data-search="mondole ski mondole ski alpes du sud prato nevoso artesina frabosa soprana">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1528659862616-22886eb53642?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Sud</div>
@@ -1460,7 +1468,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/grindelwald-wengen.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+<a href="domaines/grindelwald-wengen.html" class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="grindelwald – wengen grindelwald-wengen alpes du nord grindelwald wengen">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1491,7 +1499,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/grand-tourmalet.html" class="di-card" data-m="Pyrénées" data-pays="FR">
+<a href="domaines/grand-tourmalet.html" class="di-card" data-m="Pyrénées" data-pays="FR" data-search="grand tourmalet – pic du midi grand tourmalet pyrenees la mongie bareges">
       <div class="di-top" style="background-image:url('../img/grandtourmalet1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Pyrénées</div>
@@ -1517,7 +1525,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/le-devoluy.html" class="di-card" data-m="Alpes du Sud" data-pays="FR">
+<a href="domaines/le-devoluy.html" class="di-card" data-m="Alpes du Sud" data-pays="FR" data-search="le devoluy le devoluy alpes du sud superdevoluy la joue du loup">
       <div class="di-top" style="background-image:url('../img/superdevoluy1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Sud</div>
@@ -1548,7 +1556,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/pontedilegno-tonale.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+<a href="domaines/pontedilegno-tonale.html" class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="pontedilegno-tonale pontedilegno-tonale alpes du nord ponte di legno passo del tonale">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1579,7 +1587,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/ski-juwel.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/ski-juwel.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="ski juwel alpbachtal wildschonau ski juwel alpes du nord alpbach wildschonau">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1610,7 +1618,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/parsenn-davos-klosters.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+<a href="domaines/parsenn-davos-klosters.html" class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="parsenn (davos – klosters) parsenn alpes du nord davos klosters">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1641,7 +1649,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/hochzillertal-hochfuegen.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/hochzillertal-hochfuegen.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="hochzillertal – hochfugen hochzillertal alpes du nord kaltenbach hochfugen">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1672,7 +1680,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/villars-gryon-diablerets.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+<a href="domaines/villars-gryon-diablerets.html" class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="villars – gryon – les diablerets villars-gryon-diablerets alpes du nord villars-sur-ollon gryon les diablerets">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1528659862616-22886eb53642?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1703,7 +1711,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/adelboden-lenk.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+<a href="domaines/adelboden-lenk.html" class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="adelboden – lenk adelboden-lenk alpes du nord adelboden lenk">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1734,7 +1742,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/grand-sancy.html" class="di-card" data-m="Massif Central" data-pays="FR">
+<a href="domaines/grand-sancy.html" class="di-card" data-m="Massif Central" data-pays="FR" data-search="le grand sancy le grand sancy massif central super besse le mont dore">
       <div class="di-top" style="background-image:url('../img/superbesse1.jpg')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Massif Central</div>
@@ -1765,7 +1773,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/gastein.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/gastein.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="schlossalm – stubnerkogel (bad gastein – bad hofgastein) schlossalm – stubnerkogel alpes du nord bad gastein bad hofgastein">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1796,7 +1804,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/damuels-mellau.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/damuels-mellau.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="damuls – mellau damuls – mellau alpes du nord damuls mellau">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1827,7 +1835,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/andermatt-sedrun.html" class="di-card" data-m="Alpes du Nord" data-pays="CH">
+<a href="domaines/andermatt-sedrun.html" class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="andermatt – sedrun andermatt-sedrun alpes du nord andermatt sedrun">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1858,7 +1866,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/dorfgastein-grossarl.html" class="di-card" data-m="Alpes du Nord" data-pays="AT">
+<a href="domaines/dorfgastein-grossarl.html" class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="dorfgastein – großarl dorfgastein – großarl alpes du nord dorfgastein großarl">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1889,7 +1897,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/pal-arinsal.html" class="di-card" data-m="Pyrénées" data-pays="AD">
+<a href="domaines/pal-arinsal.html" class="di-card" data-m="Pyrénées" data-pays="AD" data-search="pal arinsal pal arinsal pyrenees pal arinsal">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Pyrénées</div>
@@ -1920,7 +1928,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/val-di-fassa.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+<a href="domaines/val-di-fassa.html" class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="val di fassa (belvedere – col rodella – ciampac – buffaure) val di fassa alpes du nord canazei campitello di fassa pozza di fassa">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1951,7 +1959,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/latemar.html" class="di-card" data-m="Alpes du Nord" data-pays="IT">
+<a href="domaines/latemar.html" class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="latemar latemar alpes du nord obereggen pampeago predazzo">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -1982,7 +1990,7 @@ function acceptSfNotif(){
         <div class="di-go">Voir le domaine →</div>
       </div>
     </a>
-<a href="domaines/steinplatte-winklmoosalm.html" class="di-card" data-m="Alpes du Nord" data-pays="AT DE">
+<a href="domaines/steinplatte-winklmoosalm.html" class="di-card" data-m="Alpes du Nord" data-pays="AT DE" data-search="steinplatte – winklmoosalm steinplatte alpes du nord waidring reit im winkl – winklmoosalm">
       <div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&q=80')">
         <div class="di-top-overlay"></div>
         <div class="di-massif-tag">⛷ Alpes du Nord</div>
@@ -2037,6 +2045,9 @@ function acceptSfNotif(){
   var btns  = [].slice.call(document.querySelectorAll('.di-f'));
   var count = document.getElementById('diCount');
   var empty = document.getElementById('diEmpty');
+  var searchInput = document.getElementById('diSearch');
+  var curM = '';
+  function deacc(str){ return (str||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
   // Filtre pays : même choix que Recherche (mémorisé sur l'appareil)
   var NOMS = {FR:"France",CH:"Suisse",IT:"Italie",ES:"Espagne",AD:"Andorre",DE:"Allemagne",LI:"Liechtenstein",AT:"Autriche",SI:"Slovénie"};
   var pays = ["FR"], tousPays = false;
@@ -2055,13 +2066,15 @@ function acceptSfNotif(){
       : 'Pays affichés : ' + pays.map(function(p){ return NOMS[p] || p; }).join(', ') + '. <a href="#" id="diPaysBtn" style="font-weight:700">Voir tous les pays</a>';
     document.getElementById('diPaysBtn').addEventListener('click', function(e){
       e.preventDefault(); tousPays = !tousPays; majNote();
-      var on = document.querySelector('.di-f.on'); apply(on ? on.dataset.m : '');
+      apply(curM);
     });
   }
   function apply(m){
+    curM = m;
+    var q = deacc(searchInput ? searchInput.value.trim() : '');
     var n = 0;
     cards.forEach(function(c){
-      var ok = (!m || c.dataset.m === m) && paysOk(c);
+      var ok = (!m || c.dataset.m === m) && paysOk(c) && (!q || (c.dataset.search || '').indexOf(q) > -1);
       c.style.display = ok ? '' : 'none';
       if (ok) n++;
     });
@@ -2075,6 +2088,9 @@ function acceptSfNotif(){
       apply(b.dataset.m);
     });
   });
+  if(searchInput){
+    searchInput.addEventListener('input', function(){ apply(curM); });
+  }
   majNote();
   apply('');
 })();
