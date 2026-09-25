@@ -2643,12 +2643,18 @@ function applyFilters(){
       if(!ok)return false;
     }
     if(Q){
-      // Recherche insensible aux accents, portant aussi sur le nom du grand domaine
-      // (pour que "killy", "diamant", "lumiere", "paradiski"... remontent les stations).
+      // Recherche insensible aux accents, portant sur TOUT le contenu de la fiche
+      // (nom, région, massif, grand domaine, description, tags, niveaux, ambiances,
+      // équipements...) pour que n'importe quel mot-clé présent dans la fiche
+      // (ex. "monts jura", "killy", "paradiski", "snowpark"...) remonte la station.
       const q = deacc(Q);
       const gdq = GRAND_DOMAINS[s.name];
       const hay = [s.name, s.region, s.massif,
-                   gdq ? gdq.name : '', gdq ? gdq.short : '', gdq ? gdq.slug.replace(/-/g,' ') : '']
+                   gdq ? gdq.name : '', gdq ? gdq.short : '', gdq ? gdq.slug.replace(/-/g,' ') : '',
+                   s.desc || '', s.desc_long || '',
+                   (s.tags||[]).join(' '), (s.amb||[]).join(' '),
+                   (s.niv||[]).join(' '), (s.equip||[]).join(' '),
+                   (s.pts||[]).join(' ')]
                   .map(deacc).join(' | ');
       if(!hay.includes(q)) return false;
     }

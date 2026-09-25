@@ -618,92 +618,88 @@ function villageAlt(s){return s.alt_village||s.alt_min;}
 const GRAND_DOMAINS = {
   // ⚠️ BLOC GÉNÉRÉ AUTOMATIQUEMENT — ne pas éditer à la main.
   // Source de vérité : DOMAINES dans generate_stations.py + const DATA ci-dessus.
-  // LES PORTES DU SOLEIL
-  "Avoriaz": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:197,forfait:58,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
-  "Champéry - Les Crosets - Champoussin - Morgins": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:197,forfait:58,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
-  "Morzine": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:197,forfait:58,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
-  "Montriond": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:197,forfait:58,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
-  "Les Gets": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:197,forfait:58,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
-  "Saint-Jean-d'Aulps": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:197,forfait:58,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
-  "Abondance": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:197,forfait:58,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
-  "La Chapelle d'Abondance": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:197,forfait:58,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
-  "Châtel": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:197,forfait:58,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
+  // PORTES DU SOLEIL
+  "Avoriaz": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:208,forfait:73,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
+  "Morzine": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:208,forfait:73,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
+  "Montriond": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:208,forfait:73,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
+  "Les Gets": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:208,forfait:73,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
+  "Saint-Jean-d'Aulps": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:208,forfait:73,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
+  "Abondance": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:208,forfait:73,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
+  "La Chapelle d'Abondance": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:208,forfait:73,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
+  "Châtel": {name:"Les Portes du Soleil",short:"Portes du Soleil",slug:"portes-du-soleil",km:600,remontees:208,forfait:73,nstations:8,pistes:{v:80,b:173,r:103,n:44}},
   // LES 3 VALLÉES
-  "Courchevel": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:170,forfait:82,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
-  "La Tania": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:170,forfait:82,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
-  "Méribel": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:170,forfait:82,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
-  "Brides-les-Bains": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:170,forfait:82,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
-  "Saint-Martin-de-Belleville": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:170,forfait:82,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
-  "Les Menuires": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:170,forfait:82,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
-  "Val Thorens": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:170,forfait:82,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
-  "Orelle": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:170,forfait:82,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
-  // TIGNES – VAL D'ISÈRE (ESPACE KILLY)
-  "Val d'Isère": {name:"Tignes – Val d'Isère (Espace Killy)",short:"Tignes – Val d'Isère",slug:"espace-killy",km:300,remontees:91,forfait:75,nstations:2,pistes:{v:8,b:41,r:70,n:36}},
-  "Tignes": {name:"Tignes – Val d'Isère (Espace Killy)",short:"Tignes – Val d'Isère",slug:"espace-killy",km:300,remontees:91,forfait:75,nstations:2,pistes:{v:8,b:41,r:70,n:36}},
+  "Courchevel": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:156,forfait:84,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
+  "La Tania": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:156,forfait:84,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
+  "Méribel": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:156,forfait:84,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
+  "Brides-les-Bains": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:156,forfait:84,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
+  "Saint-Martin-de-Belleville": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:156,forfait:84,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
+  "Les Menuires": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:156,forfait:84,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
+  "Val Thorens": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:156,forfait:84,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
+  "Orelle": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:156,forfait:84,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
+  // TIGNES – VAL D'ISÈRE
+  "Val d'Isère": {name:"Tignes – Val d'Isère (Espace Killy)",short:"Tignes – Val d'Isère",slug:"espace-killy",km:300,remontees:71,forfait:75,nstations:2,pistes:{v:8,b:41,r:70,n:36}},
+  "Tignes": {name:"Tignes – Val d'Isère (Espace Killy)",short:"Tignes – Val d'Isère",slug:"espace-killy",km:300,remontees:71,forfait:75,nstations:2,pistes:{v:8,b:41,r:70,n:36}},
   // PARADISKI
-  "La Plagne": {name:"Paradiski",short:"Paradiski",slug:"paradiski",km:425,remontees:160,forfait:68,nstations:4,pistes:{v:30,b:102,r:62,n:28}},
-  "Les Arcs": {name:"Paradiski",short:"Paradiski",slug:"paradiski",km:425,remontees:160,forfait:68,nstations:4,pistes:{v:30,b:102,r:62,n:28}},
-  "Peisey-Vallandry": {name:"Paradiski",short:"Paradiski",slug:"paradiski",km:425,remontees:160,forfait:68,nstations:4,pistes:{v:30,b:102,r:62,n:28}},
-  "Montchavin-Les Coches": {name:"Paradiski",short:"Paradiski",slug:"paradiski",km:425,remontees:160,forfait:68,nstations:4,pistes:{v:30,b:102,r:62,n:28}},
-  // LE GRAND MASSIF
-  "Flaine": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:291,remontees:63,forfait:51,nstations:5,pistes:{v:22,b:69,r:48,n:16}},
-  "Les Carroz": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:291,remontees:63,forfait:51,nstations:5,pistes:{v:22,b:69,r:48,n:16}},
-  "Morillon": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:291,remontees:63,forfait:51,nstations:5,pistes:{v:22,b:69,r:48,n:16}},
-  "Samoëns": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:291,remontees:63,forfait:51,nstations:5,pistes:{v:22,b:69,r:48,n:16}},
-  "Sixt-Fer-à-Cheval": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:291,remontees:63,forfait:51,nstations:5,pistes:{v:22,b:69,r:48,n:16}},
+  "La Plagne": {name:"Paradiski",short:"Paradiski",slug:"paradiski",km:425,remontees:129,forfait:78,nstations:4,pistes:{v:30,b:102,r:62,n:28}},
+  "Les Arcs": {name:"Paradiski",short:"Paradiski",slug:"paradiski",km:425,remontees:129,forfait:78,nstations:4,pistes:{v:30,b:102,r:62,n:28}},
+  "Peisey-Vallandry": {name:"Paradiski",short:"Paradiski",slug:"paradiski",km:425,remontees:129,forfait:78,nstations:4,pistes:{v:30,b:102,r:62,n:28}},
+  "Montchavin-Les Coches": {name:"Paradiski",short:"Paradiski",slug:"paradiski",km:425,remontees:129,forfait:78,nstations:4,pistes:{v:30,b:102,r:62,n:28}},
+  // GRAND MASSIF
+  "Flaine": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:265,remontees:62,forfait:63,nstations:5,pistes:{v:29,b:111,r:80,n:31}},
+  "Les Carroz": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:265,remontees:62,forfait:63,nstations:5,pistes:{v:29,b:111,r:80,n:31}},
+  "Morillon": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:265,remontees:62,forfait:63,nstations:5,pistes:{v:29,b:111,r:80,n:31}},
+  "Samoëns": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:265,remontees:62,forfait:63,nstations:5,pistes:{v:29,b:111,r:80,n:31}},
+  "Sixt-Fer-à-Cheval": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:265,remontees:62,forfait:63,nstations:5,pistes:{v:29,b:111,r:80,n:31}},
   // LES SYBELLES
-  "La Toussuire": {name:"Les Sybelles",short:"Les Sybelles",slug:"sybelles",km:230,remontees:62,forfait:50,nstations:5,pistes:{v:26,b:56,r:51,n:13}},
-  "Le Corbier": {name:"Les Sybelles",short:"Les Sybelles",slug:"sybelles",km:230,remontees:62,forfait:50,nstations:5,pistes:{v:26,b:56,r:51,n:13}},
-  "Saint-Sorlin-d'Arves": {name:"Les Sybelles",short:"Les Sybelles",slug:"sybelles",km:230,remontees:62,forfait:50,nstations:5,pistes:{v:26,b:56,r:51,n:13}},
-  "Saint-Jean-d'Arves": {name:"Les Sybelles",short:"Les Sybelles",slug:"sybelles",km:230,remontees:62,forfait:50,nstations:5,pistes:{v:26,b:56,r:51,n:13}},
-  "Les Bottières": {name:"Les Sybelles",short:"Les Sybelles",slug:"sybelles",km:230,remontees:62,forfait:50,nstations:5,pistes:{v:26,b:56,r:51,n:13}},
+  "La Toussuire": {name:"Les Sybelles",short:"Les Sybelles",slug:"sybelles",km:310,remontees:61,forfait:59,nstations:6,pistes:{v:55,b:120,r:78,n:31}},
+  "Le Corbier": {name:"Les Sybelles",short:"Les Sybelles",slug:"sybelles",km:310,remontees:61,forfait:59,nstations:6,pistes:{v:55,b:120,r:78,n:31}},
+  "Saint-Sorlin-d'Arves": {name:"Les Sybelles",short:"Les Sybelles",slug:"sybelles",km:310,remontees:61,forfait:59,nstations:6,pistes:{v:55,b:120,r:78,n:31}},
+  "Saint-Jean-d'Arves": {name:"Les Sybelles",short:"Les Sybelles",slug:"sybelles",km:310,remontees:61,forfait:59,nstations:6,pistes:{v:55,b:120,r:78,n:31}},
+  "Les Bottières": {name:"Les Sybelles",short:"Les Sybelles",slug:"sybelles",km:310,remontees:61,forfait:59,nstations:6,pistes:{v:55,b:120,r:78,n:31}},
+  "Saint-Colomban-des-Villards": {name:"Les Sybelles",short:"Les Sybelles",slug:"sybelles",km:310,remontees:61,forfait:59,nstations:6,pistes:{v:55,b:120,r:78,n:31}},
   // ESPACE DIAMANT
-  "Les Saisies": {name:"Espace Diamant",short:"Espace Diamant",slug:"espace-diamant",km:192,remontees:66,forfait:46,nstations:6,pistes:{v:33,b:66,r:36,n:7}},
-  "Crest-Voland": {name:"Espace Diamant",short:"Espace Diamant",slug:"espace-diamant",km:192,remontees:66,forfait:46,nstations:6,pistes:{v:33,b:66,r:36,n:7}},
-  "Notre-Dame-de-Bellecombe": {name:"Espace Diamant",short:"Espace Diamant",slug:"espace-diamant",km:192,remontees:66,forfait:46,nstations:6,pistes:{v:33,b:66,r:36,n:7}},
-  "Flumet": {name:"Espace Diamant",short:"Espace Diamant",slug:"espace-diamant",km:192,remontees:66,forfait:46,nstations:6,pistes:{v:33,b:66,r:36,n:7}},
-  "Praz-sur-Arly": {name:"Espace Diamant",short:"Espace Diamant",slug:"espace-diamant",km:192,remontees:66,forfait:46,nstations:6,pistes:{v:33,b:66,r:36,n:7}},
-  "Hauteluce": {name:"Espace Diamant",short:"Espace Diamant",slug:"espace-diamant",km:192,remontees:66,forfait:46,nstations:6,pistes:{v:33,b:66,r:36,n:7}},
+  "Les Saisies": {name:"Espace Diamant",short:"Espace Diamant",slug:"espace-diamant",km:200,remontees:81,forfait:52,nstations:6,pistes:{v:40,b:92,r:60,n:16}},
+  "Crest-Voland": {name:"Espace Diamant",short:"Espace Diamant",slug:"espace-diamant",km:200,remontees:81,forfait:52,nstations:6,pistes:{v:40,b:92,r:60,n:16}},
+  "Notre-Dame-de-Bellecombe": {name:"Espace Diamant",short:"Espace Diamant",slug:"espace-diamant",km:200,remontees:81,forfait:52,nstations:6,pistes:{v:40,b:92,r:60,n:16}},
+  "Flumet": {name:"Espace Diamant",short:"Espace Diamant",slug:"espace-diamant",km:200,remontees:81,forfait:52,nstations:6,pistes:{v:40,b:92,r:60,n:16}},
+  "Praz-sur-Arly": {name:"Espace Diamant",short:"Espace Diamant",slug:"espace-diamant",km:200,remontees:81,forfait:52,nstations:6,pistes:{v:40,b:92,r:60,n:16}},
+  "Hauteluce": {name:"Espace Diamant",short:"Espace Diamant",slug:"espace-diamant",km:200,remontees:81,forfait:52,nstations:6,pistes:{v:40,b:92,r:60,n:16}},
   // ÉVASION MONT-BLANC
-  "Megève": {name:"Évasion Mont-Blanc",short:"Évasion Mont-Blanc",slug:"evasion-mont-blanc",km:458,remontees:146,forfait:50,nstations:5,pistes:{v:60,b:102,r:106,n:42}},
-  "Saint-Gervais": {name:"Évasion Mont-Blanc",short:"Évasion Mont-Blanc",slug:"evasion-mont-blanc",km:458,remontees:146,forfait:50,nstations:5,pistes:{v:60,b:102,r:106,n:42}},
-  "Combloux": {name:"Évasion Mont-Blanc",short:"Évasion Mont-Blanc",slug:"evasion-mont-blanc",km:458,remontees:146,forfait:50,nstations:5,pistes:{v:60,b:102,r:106,n:42}},
-  "La Giettaz": {name:"Évasion Mont-Blanc",short:"Évasion Mont-Blanc",slug:"evasion-mont-blanc",km:458,remontees:146,forfait:50,nstations:5,pistes:{v:60,b:102,r:106,n:42}},
-  "Les Contamines-Montjoie": {name:"Évasion Mont-Blanc",short:"Évasion Mont-Blanc",slug:"evasion-mont-blanc",km:458,remontees:146,forfait:50,nstations:5,pistes:{v:60,b:102,r:106,n:42}},
+  "Megève": {name:"Évasion Mont-Blanc",short:"Évasion Mont-Blanc",slug:"evasion-mont-blanc",km:400,remontees:107,forfait:65,nstations:5,pistes:{v:39,b:87,r:76,n:28}},
+  "Saint-Gervais": {name:"Évasion Mont-Blanc",short:"Évasion Mont-Blanc",slug:"evasion-mont-blanc",km:400,remontees:107,forfait:65,nstations:5,pistes:{v:39,b:87,r:76,n:28}},
+  "Combloux": {name:"Évasion Mont-Blanc",short:"Évasion Mont-Blanc",slug:"evasion-mont-blanc",km:400,remontees:107,forfait:65,nstations:5,pistes:{v:39,b:87,r:76,n:28}},
+  "La Giettaz": {name:"Évasion Mont-Blanc",short:"Évasion Mont-Blanc",slug:"evasion-mont-blanc",km:400,remontees:107,forfait:65,nstations:5,pistes:{v:39,b:87,r:76,n:28}},
+  "Les Contamines-Montjoie": {name:"Évasion Mont-Blanc",short:"Évasion Mont-Blanc",slug:"evasion-mont-blanc",km:400,remontees:107,forfait:65,nstations:5,pistes:{v:39,b:87,r:76,n:28}},
   // ESPACE SAN BERNARDO
-  "La Rosière": {name:"Espace San Bernardo",short:"Espace San Bernardo",slug:"espace-san-bernardo",km:143,remontees:38,forfait:54,nstations:2,pistes:{v:22,b:35,r:18,n:5}},
-  "La Thuile": {name:"Espace San Bernardo",short:"Espace San Bernardo",slug:"espace-san-bernardo",km:143,remontees:38,forfait:54,nstations:2,pistes:{v:22,b:35,r:18,n:5}},
+  "La Rosière": {name:"Espace San Bernardo",short:"Espace San Bernardo",slug:"espace-san-bernardo",km:156,remontees:38,forfait:54,nstations:1,pistes:{v:0,b:0,r:0,n:0}},
   // GALIBIER-THABOR
-  "Valloire": {name:"Galibier-Thabor",short:"Galibier-Thabor",slug:"galibier-thabor",km:160,remontees:29,forfait:54,nstations:2,pistes:{v:17,b:31,r:33,n:8}},
-  "Valmeinier": {name:"Galibier-Thabor",short:"Galibier-Thabor",slug:"galibier-thabor",km:160,remontees:29,forfait:54,nstations:2,pistes:{v:17,b:31,r:33,n:8}},
-  // ALPE D'HUEZ GRAND DOMAINE SKI
-  "Alpe d'Huez": {name:"Alpe d'Huez Grand Domaine Ski",short:"Alpe d'Huez",slug:"alpe-dhuez-grand-domaine",km:250,remontees:67,forfait:62,nstations:2,pistes:{v:16,b:68,r:82,n:22}},
-  "Auris-en-Oisans": {name:"Alpe d'Huez Grand Domaine Ski",short:"Alpe d'Huez",slug:"alpe-dhuez-grand-domaine",km:250,remontees:67,forfait:62,nstations:2,pistes:{v:16,b:68,r:82,n:22}},
-  // SERRE CHEVALIER VALLÉE
-  "Serre Chevalier": {name:"Serre Chevalier Vallée",short:"Serre Chevalier",slug:"serre-chevalier-vallee",km:250,remontees:59,forfait:63,nstations:1,pistes:{v:15,b:26,r:28,n:13}},
-  // LA VOIE LACTÉE (VIA LATTEA)
-  "Montgenèvre": {name:"La Voie Lactée (Via Lattea)",short:"La Voie Lactée",slug:"voie-lactee",km:389,remontees:84,forfait:57,nstations:4,pistes:{v:14,b:85,r:105,n:29}},
-  "Sestrière": {name:"La Voie Lactée (Via Lattea)",short:"La Voie Lactée",slug:"voie-lactee",km:389,remontees:84,forfait:57,nstations:4,pistes:{v:14,b:85,r:105,n:29}},
-  "Sauze d'Oulx": {name:"La Voie Lactée (Via Lattea)",short:"La Voie Lactée",slug:"voie-lactee",km:389,remontees:84,forfait:57,nstations:4,pistes:{v:14,b:85,r:105,n:29}},
-  "Sansicario": {name:"La Voie Lactée (Via Lattea)",short:"La Voie Lactée",slug:"voie-lactee",km:389,remontees:84,forfait:57,nstations:4,pistes:{v:14,b:85,r:105,n:29}},
+  "Valloire": {name:"Galibier-Thabor",short:"Galibier-Thabor",slug:"galibier-thabor",km:160,remontees:29,forfait:55,nstations:2,pistes:{v:26,b:60,r:54,n:18}},
+  "Valmeinier": {name:"Galibier-Thabor",short:"Galibier-Thabor",slug:"galibier-thabor",km:160,remontees:29,forfait:55,nstations:2,pistes:{v:26,b:60,r:54,n:18}},
+  // ALPE D'HUEZ
+  "Alpe d'Huez": {name:"Alpe d'Huez Grand Domaine Ski",short:"Alpe d'Huez",slug:"alpe-dhuez-grand-domaine",km:250,remontees:67,forfait:68,nstations:2,pistes:{v:16,b:68,r:82,n:22}},
+  "Auris-en-Oisans": {name:"Alpe d'Huez Grand Domaine Ski",short:"Alpe d'Huez",slug:"alpe-dhuez-grand-domaine",km:250,remontees:67,forfait:68,nstations:2,pistes:{v:16,b:68,r:82,n:22}},
+  // SERRE CHEVALIER
+  "Serre Chevalier": {name:"Serre Chevalier Vallée",short:"Serre Chevalier",slug:"serre-chevalier-vallee",km:250,remontees:58,forfait:65,nstations:1,pistes:{v:0,b:0,r:0,n:0}},
+  // LA VOIE LACTÉE
+  "Montgenèvre": {name:"La Voie Lactée (Via Lattea)",short:"La Voie Lactée",slug:"voie-lactee",km:400,remontees:70,forfait:57,nstations:1,pistes:{v:0,b:0,r:0,n:0}},
   // LA FORÊT BLANCHE
-  "Vars": {name:"La Forêt Blanche",short:"La Forêt Blanche",slug:"foret-blanche",km:185,remontees:42,forfait:46,nstations:2,pistes:{v:18,b:49,r:38,n:10}},
-  "Risoul": {name:"La Forêt Blanche",short:"La Forêt Blanche",slug:"foret-blanche",km:185,remontees:42,forfait:46,nstations:2,pistes:{v:18,b:49,r:38,n:10}},
-  // GRAND TOURMALET – PIC DU MIDI
-  "La Mongie": {name:"Grand Tourmalet – Pic du Midi",short:"Grand Tourmalet",slug:"grand-tourmalet",km:100,remontees:30,forfait:38,nstations:2,pistes:{v:17,b:23,r:21,n:6}},
-  "Barèges": {name:"Grand Tourmalet – Pic du Midi",short:"Grand Tourmalet",slug:"grand-tourmalet",km:100,remontees:30,forfait:38,nstations:2,pistes:{v:17,b:23,r:21,n:6}},
+  "Vars": {name:"La Forêt Blanche",short:"La Forêt Blanche",slug:"foret-blanche",km:185,remontees:36,forfait:58,nstations:2,pistes:{v:26,b:66,r:52,n:16}},
+  "Risoul": {name:"La Forêt Blanche",short:"La Forêt Blanche",slug:"foret-blanche",km:185,remontees:36,forfait:58,nstations:2,pistes:{v:26,b:66,r:52,n:16}},
+  // GRAND TOURMALET
+  "La Mongie": {name:"Grand Tourmalet – Pic du Midi",short:"Grand Tourmalet",slug:"grand-tourmalet",km:100,remontees:28,forfait:53,nstations:2,pistes:{v:0,b:0,r:0,n:0}},
+  "Barèges": {name:"Grand Tourmalet – Pic du Midi",short:"Grand Tourmalet",slug:"grand-tourmalet",km:100,remontees:28,forfait:53,nstations:2,pistes:{v:0,b:0,r:0,n:0}},
   // LE GRAND DOMAINE
-  "Valmorel": {name:"Le Grand Domaine",short:"Le Grand Domaine",slug:"grand-domaine-valmorel",km:165,remontees:49,forfait:58,nstations:2,pistes:{v:25,b:49,r:21,n:8}},
-  "Saint-François-Longchamp": {name:"Le Grand Domaine",short:"Le Grand Domaine",slug:"grand-domaine-valmorel",km:165,remontees:49,forfait:58,nstations:2,pistes:{v:25,b:49,r:21,n:8}},
+  "Valmorel": {name:"Le Grand Domaine",short:"Le Grand Domaine",slug:"grand-domaine-valmorel",km:165,remontees:47,forfait:60,nstations:2,pistes:{v:20,b:40,r:32,n:9}},
+  "Saint-François-Longchamp": {name:"Le Grand Domaine",short:"Le Grand Domaine",slug:"grand-domaine-valmorel",km:165,remontees:47,forfait:60,nstations:2,pistes:{v:20,b:40,r:32,n:9}},
   // LE DÉVOLUY
-  "Superdévoluy": {name:"Le Dévoluy",short:"Le Dévoluy",slug:"le-devoluy",km:100,remontees:22,forfait:40,nstations:2,pistes:{v:9,b:22,r:17,n:5}},
-  "La Joue du Loup": {name:"Le Dévoluy",short:"Le Dévoluy",slug:"le-devoluy",km:100,remontees:22,forfait:40,nstations:2,pistes:{v:9,b:22,r:17,n:5}},
+  "Superdévoluy": {name:"Le Dévoluy",short:"Le Dévoluy",slug:"le-devoluy",km:100,remontees:22,forfait:44,nstations:2,pistes:{v:8,b:28,r:12,n:5}},
+  "La Joue du Loup": {name:"Le Dévoluy",short:"Le Dévoluy",slug:"le-devoluy",km:100,remontees:22,forfait:44,nstations:2,pistes:{v:8,b:28,r:12,n:5}},
   // ESPACE LUMIÈRE
-  "Pra-Loup": {name:"Espace Lumière",short:"Espace Lumière",slug:"espace-lumiere",km:180,remontees:37,forfait:47,nstations:2,pistes:{v:11,b:27,r:34,n:8}},
-  "Val d'Allos": {name:"Espace Lumière",short:"Espace Lumière",slug:"espace-lumiere",km:180,remontees:37,forfait:47,nstations:2,pistes:{v:11,b:27,r:34,n:8}},
+  "Pra-Loup": {name:"Espace Lumière",short:"Espace Lumière",slug:"espace-lumiere",km:180,remontees:37,forfait:49,nstations:2,pistes:{v:26,b:80,r:56,n:12}},
+  "Val d'Allos": {name:"Espace Lumière",short:"Espace Lumière",slug:"espace-lumiere",km:180,remontees:37,forfait:49,nstations:2,pistes:{v:26,b:80,r:56,n:12}},
   // LE GRAND SANCY
-  "Super Besse": {name:"Le Grand Sancy",short:"Le Grand Sancy",slug:"grand-sancy",km:84,remontees:32,forfait:43,nstations:2,pistes:{v:20,b:23,r:15,n:7}},
-  "Le Mont Dore": {name:"Le Grand Sancy",short:"Le Grand Sancy",slug:"grand-sancy",km:84,remontees:32,forfait:43,nstations:2,pistes:{v:20,b:23,r:15,n:7}},
+  "Super Besse": {name:"Le Grand Sancy",short:"Le Grand Sancy",slug:"grand-sancy",km:84,remontees:35,forfait:43,nstations:2,pistes:{v:13,b:22,r:16,n:4}},
+  "Le Mont Dore": {name:"Le Grand Sancy",short:"Le Grand Sancy",slug:"grand-sancy",km:84,remontees:35,forfait:43,nstations:2,pistes:{v:13,b:22,r:16,n:4}},
   // ALP 2500
   "La Molina": {name:"Alp 2500 (La Molina – Masella)",short:"Alp 2500",slug:"alp-2500",km:145,remontees:33,forfait:58,nstations:2,pistes:{v:29,b:55,r:54,n:16}},
   "Masella": {name:"Alp 2500 (La Molina – Masella)",short:"Alp 2500",slug:"alp-2500",km:145,remontees:33,forfait:58,nstations:2,pistes:{v:29,b:55,r:54,n:16}},
@@ -717,147 +713,147 @@ const GRAND_DOMAINS = {
   // PAL ARINSAL
   "Pal": {name:"Pal Arinsal",short:"Pal Arinsal",slug:"pal-arinsal",km:63,remontees:27,forfait:52,nstations:2,pistes:{v:7,b:19,r:17,n:4}},
   "Arinsal": {name:"Pal Arinsal",short:"Pal Arinsal",slug:"pal-arinsal",km:63,remontees:27,forfait:52,nstations:2,pistes:{v:7,b:19,r:17,n:4}},
-  // LES 4 VALLÉES
-  "Verbier": {name:"Les 4 Vallées",short:"4 Vallées",slug:"4-vallees",km:412,remontees:68,forfait:99,nstations:5,pistes:{v:0,b:26,r:49,n:25,pct:1}},
-  "Nendaz": {name:"Les 4 Vallées",short:"4 Vallées",slug:"4-vallees",km:412,remontees:68,forfait:99,nstations:5,pistes:{v:0,b:26,r:49,n:25,pct:1}},
-  "Veysonnaz": {name:"Les 4 Vallées",short:"4 Vallées",slug:"4-vallees",km:412,remontees:68,forfait:99,nstations:5,pistes:{v:0,b:26,r:49,n:25,pct:1}},
-  "Thyon": {name:"Les 4 Vallées",short:"4 Vallées",slug:"4-vallees",km:412,remontees:68,forfait:99,nstations:5,pistes:{v:0,b:26,r:49,n:25,pct:1}},
-  "La Tzoumaz": {name:"Les 4 Vallées",short:"4 Vallées",slug:"4-vallees",km:412,remontees:68,forfait:99,nstations:5,pistes:{v:0,b:26,r:49,n:25,pct:1}},
-  // VILLARS – GRYON – LES DIABLERETS
-  "Villars-sur-Ollon": {name:"Villars – Gryon – Les Diablerets",short:"Villars-Gryon-Diablerets",slug:"villars-gryon-diablerets",km:87,remontees:30,forfait:73,nstations:3,pistes:{v:0,b:76,r:21,n:3,pct:1}},
-  "Gryon": {name:"Villars – Gryon – Les Diablerets",short:"Villars-Gryon-Diablerets",slug:"villars-gryon-diablerets",km:87,remontees:30,forfait:73,nstations:3,pistes:{v:0,b:76,r:21,n:3,pct:1}},
-  "Les Diablerets": {name:"Villars – Gryon – Les Diablerets",short:"Villars-Gryon-Diablerets",slug:"villars-gryon-diablerets",km:87,remontees:30,forfait:73,nstations:3,pistes:{v:0,b:76,r:21,n:3,pct:1}},
-  // GRINDELWALD – WENGEN
-  "Grindelwald": {name:"Grindelwald – Wengen",short:"Grindelwald-Wengen",slug:"grindelwald-wengen",km:101,remontees:23,forfait:88,nstations:2,pistes:{v:0,b:33,r:54,n:13,pct:1}},
-  "Wengen": {name:"Grindelwald – Wengen",short:"Grindelwald-Wengen",slug:"grindelwald-wengen",km:101,remontees:23,forfait:88,nstations:2,pistes:{v:0,b:33,r:54,n:13,pct:1}},
-  // ADELBODEN – LENK
-  "Adelboden": {name:"Adelboden – Lenk",short:"Adelboden-Lenk",slug:"adelboden-lenk",km:86,remontees:22,forfait:76,nstations:2,pistes:{v:0,b:53,r:40,n:7,pct:1}},
-  "Lenk": {name:"Adelboden – Lenk",short:"Adelboden-Lenk",slug:"adelboden-lenk",km:86,remontees:22,forfait:76,nstations:2,pistes:{v:0,b:53,r:40,n:7,pct:1}},
+  // 4 VALLÉES
+  "Verbier": {name:"Les 4 Vallées",short:"4 Vallées",slug:"4-vallees",km:412,remontees:68,forfait:99,nstations:5,pistes:{v:0,b:26,r:49,n:25}},
+  "Nendaz": {name:"Les 4 Vallées",short:"4 Vallées",slug:"4-vallees",km:412,remontees:68,forfait:99,nstations:5,pistes:{v:0,b:26,r:49,n:25}},
+  "Veysonnaz": {name:"Les 4 Vallées",short:"4 Vallées",slug:"4-vallees",km:412,remontees:68,forfait:99,nstations:5,pistes:{v:0,b:26,r:49,n:25}},
+  "Thyon": {name:"Les 4 Vallées",short:"4 Vallées",slug:"4-vallees",km:412,remontees:68,forfait:99,nstations:5,pistes:{v:0,b:26,r:49,n:25}},
+  "La Tzoumaz": {name:"Les 4 Vallées",short:"4 Vallées",slug:"4-vallees",km:412,remontees:68,forfait:99,nstations:5,pistes:{v:0,b:26,r:49,n:25}},
+  // VILLARS-GRYON-DIABLERETS
+  "Villars-sur-Ollon": {name:"Villars – Gryon – Les Diablerets",short:"Villars-Gryon-Diablerets",slug:"villars-gryon-diablerets",km:87,remontees:30,forfait:73,nstations:3,pistes:{v:0,b:76,r:21,n:3}},
+  "Gryon": {name:"Villars – Gryon – Les Diablerets",short:"Villars-Gryon-Diablerets",slug:"villars-gryon-diablerets",km:87,remontees:30,forfait:73,nstations:3,pistes:{v:0,b:76,r:21,n:3}},
+  "Les Diablerets": {name:"Villars – Gryon – Les Diablerets",short:"Villars-Gryon-Diablerets",slug:"villars-gryon-diablerets",km:87,remontees:30,forfait:73,nstations:3,pistes:{v:0,b:76,r:21,n:3}},
+  // GRINDELWALD-WENGEN
+  "Grindelwald": {name:"Grindelwald – Wengen",short:"Grindelwald-Wengen",slug:"grindelwald-wengen",km:101,remontees:23,forfait:88,nstations:2,pistes:{v:0,b:33,r:54,n:13}},
+  "Wengen": {name:"Grindelwald – Wengen",short:"Grindelwald-Wengen",slug:"grindelwald-wengen",km:101,remontees:23,forfait:88,nstations:2,pistes:{v:0,b:33,r:54,n:13}},
+  // ADELBODEN-LENK
+  "Adelboden": {name:"Adelboden – Lenk",short:"Adelboden-Lenk",slug:"adelboden-lenk",km:86,remontees:22,forfait:76,nstations:2,pistes:{v:0,b:53,r:40,n:7}},
+  "Lenk": {name:"Adelboden – Lenk",short:"Adelboden-Lenk",slug:"adelboden-lenk",km:86,remontees:22,forfait:76,nstations:2,pistes:{v:0,b:53,r:40,n:7}},
   // AROSA LENZERHEIDE
-  "Arosa": {name:"Arosa Lenzerheide",short:"Arosa Lenzerheide",slug:"arosa-lenzerheide",km:225,remontees:43,forfait:94,nstations:2,pistes:{v:0,b:49,r:39,n:12,pct:1}},
-  "Lenzerheide": {name:"Arosa Lenzerheide",short:"Arosa Lenzerheide",slug:"arosa-lenzerheide",km:225,remontees:43,forfait:94,nstations:2,pistes:{v:0,b:49,r:39,n:12,pct:1}},
+  "Arosa": {name:"Arosa Lenzerheide",short:"Arosa Lenzerheide",slug:"arosa-lenzerheide",km:225,remontees:43,forfait:94,nstations:2,pistes:{v:0,b:49,r:39,n:12}},
+  "Lenzerheide": {name:"Arosa Lenzerheide",short:"Arosa Lenzerheide",slug:"arosa-lenzerheide",km:225,remontees:43,forfait:94,nstations:2,pistes:{v:0,b:49,r:39,n:12}},
   // FLIMS LAAX FALERA
-  "Laax": {name:"Flims Laax Falera",short:"Flims Laax Falera",slug:"flims-laax-falera",km:176,remontees:29,forfait:92,nstations:3,pistes:{v:0,b:48,r:43,n:9,pct:1}},
-  "Flims": {name:"Flims Laax Falera",short:"Flims Laax Falera",slug:"flims-laax-falera",km:176,remontees:29,forfait:92,nstations:3,pistes:{v:0,b:48,r:43,n:9,pct:1}},
-  "Falera": {name:"Flims Laax Falera",short:"Flims Laax Falera",slug:"flims-laax-falera",km:176,remontees:29,forfait:92,nstations:3,pistes:{v:0,b:48,r:43,n:9,pct:1}},
-  // PARSENN (DAVOS – KLOSTERS)
-  "Davos": {name:"Parsenn (Davos – Klosters)",short:"Parsenn",slug:"parsenn-davos-klosters",km:96,remontees:18,forfait:91,nstations:2,pistes:{v:0,b:18,r:63,n:19,pct:1}},
-  "Klosters": {name:"Parsenn (Davos – Klosters)",short:"Parsenn",slug:"parsenn-davos-klosters",km:96,remontees:18,forfait:91,nstations:2,pistes:{v:0,b:18,r:63,n:19,pct:1}},
-  // ANDERMATT – SEDRUN
-  "Andermatt": {name:"Andermatt – Sedrun",short:"Andermatt-Sedrun",slug:"andermatt-sedrun",km:70,remontees:13,forfait:94,nstations:2,pistes:{v:0,b:26,r:57,n:17,pct:1}},
-  "Sedrun": {name:"Andermatt – Sedrun",short:"Andermatt-Sedrun",slug:"andermatt-sedrun",km:70,remontees:13,forfait:94,nstations:2,pistes:{v:0,b:26,r:57,n:17,pct:1}},
-  // MATTERHORN SKI PARADISE (ZERMATT – CERVINIA)
-  "Zermatt": {name:"Matterhorn Ski Paradise (Zermatt – Cervinia)",short:"Matterhorn Ski Paradise",slug:"matterhorn-ski-paradise",km:322,remontees:51,forfait:123,nstations:3,pistes:{v:0,b:23,r:68,n:9,pct:1}},
-  "Breuil-Cervinia": {name:"Matterhorn Ski Paradise (Zermatt – Cervinia)",short:"Matterhorn Ski Paradise",slug:"matterhorn-ski-paradise",km:322,remontees:51,forfait:123,nstations:3,pistes:{v:0,b:23,r:68,n:9,pct:1}},
-  "Valtournenche": {name:"Matterhorn Ski Paradise (Zermatt – Cervinia)",short:"Matterhorn Ski Paradise",slug:"matterhorn-ski-paradise",km:322,remontees:51,forfait:123,nstations:3,pistes:{v:0,b:23,r:68,n:9,pct:1}},
+  "Laax": {name:"Flims Laax Falera",short:"Flims Laax Falera",slug:"flims-laax-falera",km:176,remontees:29,forfait:92,nstations:3,pistes:{v:0,b:48,r:43,n:9}},
+  "Flims": {name:"Flims Laax Falera",short:"Flims Laax Falera",slug:"flims-laax-falera",km:176,remontees:29,forfait:92,nstations:3,pistes:{v:0,b:48,r:43,n:9}},
+  "Falera": {name:"Flims Laax Falera",short:"Flims Laax Falera",slug:"flims-laax-falera",km:176,remontees:29,forfait:92,nstations:3,pistes:{v:0,b:48,r:43,n:9}},
+  // PARSENN
+  "Davos": {name:"Parsenn (Davos – Klosters)",short:"Parsenn",slug:"parsenn-davos-klosters",km:96,remontees:18,forfait:91,nstations:2,pistes:{v:0,b:18,r:63,n:19}},
+  "Klosters": {name:"Parsenn (Davos – Klosters)",short:"Parsenn",slug:"parsenn-davos-klosters",km:96,remontees:18,forfait:91,nstations:2,pistes:{v:0,b:18,r:63,n:19}},
+  // ANDERMATT-SEDRUN
+  "Andermatt": {name:"Andermatt – Sedrun",short:"Andermatt-Sedrun",slug:"andermatt-sedrun",km:70,remontees:13,forfait:94,nstations:2,pistes:{v:0,b:26,r:57,n:17}},
+  "Sedrun": {name:"Andermatt – Sedrun",short:"Andermatt-Sedrun",slug:"andermatt-sedrun",km:70,remontees:13,forfait:94,nstations:2,pistes:{v:0,b:26,r:57,n:17}},
+  // MATTERHORN SKI PARADISE
+  "Zermatt": {name:"Matterhorn Ski Paradise (Zermatt – Cervinia)",short:"Matterhorn Ski Paradise",slug:"matterhorn-ski-paradise",km:322,remontees:51,forfait:123,nstations:3,pistes:{v:0,b:23,r:68,n:9}},
+  "Breuil-Cervinia": {name:"Matterhorn Ski Paradise (Zermatt – Cervinia)",short:"Matterhorn Ski Paradise",slug:"matterhorn-ski-paradise",km:322,remontees:51,forfait:123,nstations:3,pistes:{v:0,b:23,r:68,n:9}},
+  "Valtournenche": {name:"Matterhorn Ski Paradise (Zermatt – Cervinia)",short:"Matterhorn Ski Paradise",slug:"matterhorn-ski-paradise",km:322,remontees:51,forfait:123,nstations:3,pistes:{v:0,b:23,r:68,n:9}},
   // MONTEROSA SKI
-  "Champoluc": {name:"Monterosa Ski",short:"Monterosa Ski",slug:"monterosa-ski",km:132,remontees:21,forfait:69,nstations:3,pistes:{v:0,b:22,r:67,n:11,pct:1}},
-  "Gressoney-La-Trinité": {name:"Monterosa Ski",short:"Monterosa Ski",slug:"monterosa-ski",km:132,remontees:21,forfait:69,nstations:3,pistes:{v:0,b:22,r:67,n:11,pct:1}},
-  "Alagna Valsesia": {name:"Monterosa Ski",short:"Monterosa Ski",slug:"monterosa-ski",km:132,remontees:21,forfait:69,nstations:3,pistes:{v:0,b:22,r:67,n:11,pct:1}},
+  "Champoluc": {name:"Monterosa Ski",short:"Monterosa Ski",slug:"monterosa-ski",km:132,remontees:21,forfait:69,nstations:3,pistes:{v:0,b:22,r:67,n:11}},
+  "Gressoney-La-Trinité": {name:"Monterosa Ski",short:"Monterosa Ski",slug:"monterosa-ski",km:132,remontees:21,forfait:69,nstations:3,pistes:{v:0,b:22,r:67,n:11}},
+  "Alagna Valsesia": {name:"Monterosa Ski",short:"Monterosa Ski",slug:"monterosa-ski",km:132,remontees:21,forfait:69,nstations:3,pistes:{v:0,b:22,r:67,n:11}},
   // MONDOLÈ SKI
-  "Prato Nevoso": {name:"Mondolè Ski",short:"Mondolè Ski",slug:"mondole-ski",km:105,remontees:24,forfait:52,nstations:3,pistes:{v:0,b:41,r:48,n:11,pct:1}},
-  "Artesina": {name:"Mondolè Ski",short:"Mondolè Ski",slug:"mondole-ski",km:105,remontees:24,forfait:52,nstations:3,pistes:{v:0,b:41,r:48,n:11,pct:1}},
-  "Frabosa Soprana": {name:"Mondolè Ski",short:"Mondolè Ski",slug:"mondole-ski",km:105,remontees:24,forfait:52,nstations:3,pistes:{v:0,b:41,r:48,n:11,pct:1}},
+  "Prato Nevoso": {name:"Mondolè Ski",short:"Mondolè Ski",slug:"mondole-ski",km:105,remontees:24,forfait:52,nstations:3,pistes:{v:0,b:41,r:48,n:11}},
+  "Artesina": {name:"Mondolè Ski",short:"Mondolè Ski",slug:"mondole-ski",km:105,remontees:24,forfait:52,nstations:3,pistes:{v:0,b:41,r:48,n:11}},
+  "Frabosa Soprana": {name:"Mondolè Ski",short:"Mondolè Ski",slug:"mondole-ski",km:105,remontees:24,forfait:52,nstations:3,pistes:{v:0,b:41,r:48,n:11}},
   // PONTEDILEGNO-TONALE
-  "Ponte di Legno": {name:"Pontedilegno-Tonale",short:"Pontedilegno-Tonale",slug:"pontedilegno-tonale",km:100,remontees:29,forfait:64,nstations:2,pistes:{v:0,b:24,r:60,n:16,pct:1}},
-  "Passo del Tonale": {name:"Pontedilegno-Tonale",short:"Pontedilegno-Tonale",slug:"pontedilegno-tonale",km:100,remontees:29,forfait:64,nstations:2,pistes:{v:0,b:24,r:60,n:16,pct:1}},
+  "Ponte di Legno": {name:"Pontedilegno-Tonale",short:"Pontedilegno-Tonale",slug:"pontedilegno-tonale",km:100,remontees:29,forfait:64,nstations:2,pistes:{v:0,b:24,r:60,n:16}},
+  "Passo del Tonale": {name:"Pontedilegno-Tonale",short:"Pontedilegno-Tonale",slug:"pontedilegno-tonale",km:100,remontees:29,forfait:64,nstations:2,pistes:{v:0,b:24,r:60,n:16}},
   // SKIAREA CAMPIGLIO
-  "Madonna di Campiglio": {name:"Skiarea Campiglio",short:"Skiarea Campiglio",slug:"skiarea-campiglio",km:155,remontees:58,forfait:85,nstations:4,pistes:{v:0,b:32,r:46,n:22,pct:1}},
-  "Pinzolo": {name:"Skiarea Campiglio",short:"Skiarea Campiglio",slug:"skiarea-campiglio",km:155,remontees:58,forfait:85,nstations:4,pistes:{v:0,b:32,r:46,n:22,pct:1}},
-  "Folgarida": {name:"Skiarea Campiglio",short:"Skiarea Campiglio",slug:"skiarea-campiglio",km:155,remontees:58,forfait:85,nstations:4,pistes:{v:0,b:32,r:46,n:22,pct:1}},
-  "Marilleva": {name:"Skiarea Campiglio",short:"Skiarea Campiglio",slug:"skiarea-campiglio",km:155,remontees:58,forfait:85,nstations:4,pistes:{v:0,b:32,r:46,n:22,pct:1}},
-  // VAL DI FASSA (BELVEDERE – COL RODELLA – CIAMPAC – BUFFAURE)
-  "Canazei": {name:"Val di Fassa (Belvedere – Col Rodella – Ciampac – Buffaure)",short:"Val di Fassa",slug:"val-di-fassa",km:55,remontees:35,forfait:76,nstations:3,pistes:{v:0,b:13,r:74,n:13,pct:1}},
-  "Campitello di Fassa": {name:"Val di Fassa (Belvedere – Col Rodella – Ciampac – Buffaure)",short:"Val di Fassa",slug:"val-di-fassa",km:55,remontees:35,forfait:76,nstations:3,pistes:{v:0,b:13,r:74,n:13,pct:1}},
-  "Pozza di Fassa": {name:"Val di Fassa (Belvedere – Col Rodella – Ciampac – Buffaure)",short:"Val di Fassa",slug:"val-di-fassa",km:55,remontees:35,forfait:76,nstations:3,pistes:{v:0,b:13,r:74,n:13,pct:1}},
+  "Madonna di Campiglio": {name:"Skiarea Campiglio",short:"Skiarea Campiglio",slug:"skiarea-campiglio",km:155,remontees:58,forfait:85,nstations:4,pistes:{v:0,b:32,r:46,n:22}},
+  "Pinzolo": {name:"Skiarea Campiglio",short:"Skiarea Campiglio",slug:"skiarea-campiglio",km:155,remontees:58,forfait:85,nstations:4,pistes:{v:0,b:32,r:46,n:22}},
+  "Folgarida": {name:"Skiarea Campiglio",short:"Skiarea Campiglio",slug:"skiarea-campiglio",km:155,remontees:58,forfait:85,nstations:4,pistes:{v:0,b:32,r:46,n:22}},
+  "Marilleva": {name:"Skiarea Campiglio",short:"Skiarea Campiglio",slug:"skiarea-campiglio",km:155,remontees:58,forfait:85,nstations:4,pistes:{v:0,b:32,r:46,n:22}},
+  // VAL DI FASSA
+  "Canazei": {name:"Val di Fassa (Belvedere – Col Rodella – Ciampac – Buffaure)",short:"Val di Fassa",slug:"val-di-fassa",km:55,remontees:35,forfait:76,nstations:3,pistes:{v:0,b:13,r:74,n:13}},
+  "Campitello di Fassa": {name:"Val di Fassa (Belvedere – Col Rodella – Ciampac – Buffaure)",short:"Val di Fassa",slug:"val-di-fassa",km:55,remontees:35,forfait:76,nstations:3,pistes:{v:0,b:13,r:74,n:13}},
+  "Pozza di Fassa": {name:"Val di Fassa (Belvedere – Col Rodella – Ciampac – Buffaure)",short:"Val di Fassa",slug:"val-di-fassa",km:55,remontees:35,forfait:76,nstations:3,pistes:{v:0,b:13,r:74,n:13}},
   // VAL GARDENA
-  "Ortisei": {name:"Val Gardena",short:"Val Gardena",slug:"val-gardena",km:181,remontees:78,forfait:80,nstations:3,pistes:{v:0,b:29,r:60,n:11,pct:1}},
-  "Santa Cristina": {name:"Val Gardena",short:"Val Gardena",slug:"val-gardena",km:181,remontees:78,forfait:80,nstations:3,pistes:{v:0,b:29,r:60,n:11,pct:1}},
-  "Selva di Val Gardena": {name:"Val Gardena",short:"Val Gardena",slug:"val-gardena",km:181,remontees:78,forfait:80,nstations:3,pistes:{v:0,b:29,r:60,n:11,pct:1}},
+  "Ortisei": {name:"Val Gardena",short:"Val Gardena",slug:"val-gardena",km:181,remontees:78,forfait:80,nstations:3,pistes:{v:0,b:29,r:60,n:11}},
+  "Santa Cristina": {name:"Val Gardena",short:"Val Gardena",slug:"val-gardena",km:181,remontees:78,forfait:80,nstations:3,pistes:{v:0,b:29,r:60,n:11}},
+  "Selva di Val Gardena": {name:"Val Gardena",short:"Val Gardena",slug:"val-gardena",km:181,remontees:78,forfait:80,nstations:3,pistes:{v:0,b:29,r:60,n:11}},
   // ALTA BADIA
-  "Corvara": {name:"Alta Badia",short:"Alta Badia",slug:"alta-badia",km:130,remontees:53,forfait:80,nstations:3,pistes:{v:0,b:57,r:36,n:7,pct:1}},
-  "La Villa": {name:"Alta Badia",short:"Alta Badia",slug:"alta-badia",km:130,remontees:53,forfait:80,nstations:3,pistes:{v:0,b:57,r:36,n:7,pct:1}},
-  "San Cassiano": {name:"Alta Badia",short:"Alta Badia",slug:"alta-badia",km:130,remontees:53,forfait:80,nstations:3,pistes:{v:0,b:57,r:36,n:7,pct:1}},
+  "Corvara": {name:"Alta Badia",short:"Alta Badia",slug:"alta-badia",km:130,remontees:53,forfait:80,nstations:3,pistes:{v:0,b:57,r:36,n:7}},
+  "La Villa": {name:"Alta Badia",short:"Alta Badia",slug:"alta-badia",km:130,remontees:53,forfait:80,nstations:3,pistes:{v:0,b:57,r:36,n:7}},
+  "San Cassiano": {name:"Alta Badia",short:"Alta Badia",slug:"alta-badia",km:130,remontees:53,forfait:80,nstations:3,pistes:{v:0,b:57,r:36,n:7}},
   // KRONPLATZ
-  "Brunico – Kronplatz": {name:"Kronplatz",short:"Kronplatz",slug:"kronplatz",km:125,remontees:32,forfait:80,nstations:3,pistes:{v:0,b:48,r:29,n:23,pct:1}},
-  "San Vigilio di Marebbe": {name:"Kronplatz",short:"Kronplatz",slug:"kronplatz",km:125,remontees:32,forfait:80,nstations:3,pistes:{v:0,b:48,r:29,n:23,pct:1}},
-  "Valdaora – Kronplatz": {name:"Kronplatz",short:"Kronplatz",slug:"kronplatz",km:125,remontees:32,forfait:80,nstations:3,pistes:{v:0,b:48,r:29,n:23,pct:1}},
+  "Brunico – Kronplatz": {name:"Kronplatz",short:"Kronplatz",slug:"kronplatz",km:125,remontees:32,forfait:80,nstations:3,pistes:{v:0,b:48,r:29,n:23}},
+  "San Vigilio di Marebbe": {name:"Kronplatz",short:"Kronplatz",slug:"kronplatz",km:125,remontees:32,forfait:80,nstations:3,pistes:{v:0,b:48,r:29,n:23}},
+  "Valdaora – Kronplatz": {name:"Kronplatz",short:"Kronplatz",slug:"kronplatz",km:125,remontees:32,forfait:80,nstations:3,pistes:{v:0,b:48,r:29,n:23}},
   // LATEMAR
-  "Obereggen": {name:"Latemar",short:"Latemar",slug:"latemar",km:49,remontees:18,forfait:71,nstations:3,pistes:{v:0,b:19,r:67,n:14,pct:1}},
-  "Pampeago": {name:"Latemar",short:"Latemar",slug:"latemar",km:49,remontees:18,forfait:71,nstations:3,pistes:{v:0,b:19,r:67,n:14,pct:1}},
-  "Predazzo": {name:"Latemar",short:"Latemar",slug:"latemar",km:49,remontees:18,forfait:71,nstations:3,pistes:{v:0,b:19,r:67,n:14,pct:1}},
+  "Obereggen": {name:"Latemar",short:"Latemar",slug:"latemar",km:49,remontees:18,forfait:71,nstations:3,pistes:{v:0,b:19,r:67,n:14}},
+  "Pampeago": {name:"Latemar",short:"Latemar",slug:"latemar",km:49,remontees:18,forfait:71,nstations:3,pistes:{v:0,b:19,r:67,n:14}},
+  "Predazzo": {name:"Latemar",short:"Latemar",slug:"latemar",km:49,remontees:18,forfait:71,nstations:3,pistes:{v:0,b:19,r:67,n:14}},
   // SKI ARLBERG
-  "St. Anton am Arlberg": {name:"Ski Arlberg",short:"Ski Arlberg",slug:"ski-arlberg",km:300,remontees:85,forfait:82,nstations:6,pistes:{v:0,b:43,r:40,n:17,pct:1}},
-  "St. Christoph": {name:"Ski Arlberg",short:"Ski Arlberg",slug:"ski-arlberg",km:300,remontees:85,forfait:82,nstations:6,pistes:{v:0,b:43,r:40,n:17,pct:1}},
-  "Stuben": {name:"Ski Arlberg",short:"Ski Arlberg",slug:"ski-arlberg",km:300,remontees:85,forfait:82,nstations:6,pistes:{v:0,b:43,r:40,n:17,pct:1}},
-  "Lech": {name:"Ski Arlberg",short:"Ski Arlberg",slug:"ski-arlberg",km:300,remontees:85,forfait:82,nstations:6,pistes:{v:0,b:43,r:40,n:17,pct:1}},
-  "Zürs": {name:"Ski Arlberg",short:"Ski Arlberg",slug:"ski-arlberg",km:300,remontees:85,forfait:82,nstations:6,pistes:{v:0,b:43,r:40,n:17,pct:1}},
-  "Warth-Schröcken": {name:"Ski Arlberg",short:"Ski Arlberg",slug:"ski-arlberg",km:300,remontees:85,forfait:82,nstations:6,pistes:{v:0,b:43,r:40,n:17,pct:1}},
-  // SKIWELT WILDER KAISER – BRIXENTAL
-  "Söll": {name:"SkiWelt Wilder Kaiser – Brixental",short:"SkiWelt",slug:"skiwelt",km:275,remontees:81,forfait:80,nstations:7,pistes:{v:0,b:42,r:44,n:14,pct:1}},
-  "Ellmau": {name:"SkiWelt Wilder Kaiser – Brixental",short:"SkiWelt",slug:"skiwelt",km:275,remontees:81,forfait:80,nstations:7,pistes:{v:0,b:42,r:44,n:14,pct:1}},
-  "Scheffau": {name:"SkiWelt Wilder Kaiser – Brixental",short:"SkiWelt",slug:"skiwelt",km:275,remontees:81,forfait:80,nstations:7,pistes:{v:0,b:42,r:44,n:14,pct:1}},
-  "Going": {name:"SkiWelt Wilder Kaiser – Brixental",short:"SkiWelt",slug:"skiwelt",km:275,remontees:81,forfait:80,nstations:7,pistes:{v:0,b:42,r:44,n:14,pct:1}},
-  "Brixen im Thale": {name:"SkiWelt Wilder Kaiser – Brixental",short:"SkiWelt",slug:"skiwelt",km:275,remontees:81,forfait:80,nstations:7,pistes:{v:0,b:42,r:44,n:14,pct:1}},
-  "Westendorf": {name:"SkiWelt Wilder Kaiser – Brixental",short:"SkiWelt",slug:"skiwelt",km:275,remontees:81,forfait:80,nstations:7,pistes:{v:0,b:42,r:44,n:14,pct:1}},
-  "Hopfgarten": {name:"SkiWelt Wilder Kaiser – Brixental",short:"SkiWelt",slug:"skiwelt",km:275,remontees:81,forfait:80,nstations:7,pistes:{v:0,b:42,r:44,n:14,pct:1}},
-  // SILVRETTA ARENA (ISCHGL – SAMNAUN)
-  "Ischgl": {name:"Silvretta Arena (Ischgl – Samnaun)",short:"Silvretta Arena",slug:"silvretta-arena",km:239,remontees:45,forfait:83,nstations:2,pistes:{v:0,b:20,r:59,n:21,pct:1}},
-  "Samnaun": {name:"Silvretta Arena (Ischgl – Samnaun)",short:"Silvretta Arena",slug:"silvretta-arena",km:239,remontees:45,forfait:83,nstations:2,pistes:{v:0,b:20,r:59,n:21,pct:1}},
-  // KITZSKI (KITZBÜHEL – KIRCHBERG)
-  "Kitzbühel": {name:"KitzSki (Kitzbühel – Kirchberg)",short:"KitzSki",slug:"kitzski",km:188,remontees:58,forfait:83,nstations:2,pistes:{v:0,b:54,r:35,n:11,pct:1}},
-  "Kirchberg in Tirol": {name:"KitzSki (Kitzbühel – Kirchberg)",short:"KitzSki",slug:"kitzski",km:188,remontees:58,forfait:83,nstations:2,pistes:{v:0,b:54,r:35,n:11,pct:1}},
+  "St. Anton am Arlberg": {name:"Ski Arlberg",short:"Ski Arlberg",slug:"ski-arlberg",km:300,remontees:85,forfait:82,nstations:6,pistes:{v:0,b:43,r:40,n:17}},
+  "St. Christoph": {name:"Ski Arlberg",short:"Ski Arlberg",slug:"ski-arlberg",km:300,remontees:85,forfait:82,nstations:6,pistes:{v:0,b:43,r:40,n:17}},
+  "Stuben": {name:"Ski Arlberg",short:"Ski Arlberg",slug:"ski-arlberg",km:300,remontees:85,forfait:82,nstations:6,pistes:{v:0,b:43,r:40,n:17}},
+  "Lech": {name:"Ski Arlberg",short:"Ski Arlberg",slug:"ski-arlberg",km:300,remontees:85,forfait:82,nstations:6,pistes:{v:0,b:43,r:40,n:17}},
+  "Zürs": {name:"Ski Arlberg",short:"Ski Arlberg",slug:"ski-arlberg",km:300,remontees:85,forfait:82,nstations:6,pistes:{v:0,b:43,r:40,n:17}},
+  "Warth-Schröcken": {name:"Ski Arlberg",short:"Ski Arlberg",slug:"ski-arlberg",km:300,remontees:85,forfait:82,nstations:6,pistes:{v:0,b:43,r:40,n:17}},
+  // SKIWELT
+  "Söll": {name:"SkiWelt Wilder Kaiser – Brixental",short:"SkiWelt",slug:"skiwelt",km:275,remontees:81,forfait:80,nstations:7,pistes:{v:0,b:42,r:44,n:14}},
+  "Ellmau": {name:"SkiWelt Wilder Kaiser – Brixental",short:"SkiWelt",slug:"skiwelt",km:275,remontees:81,forfait:80,nstations:7,pistes:{v:0,b:42,r:44,n:14}},
+  "Scheffau": {name:"SkiWelt Wilder Kaiser – Brixental",short:"SkiWelt",slug:"skiwelt",km:275,remontees:81,forfait:80,nstations:7,pistes:{v:0,b:42,r:44,n:14}},
+  "Going": {name:"SkiWelt Wilder Kaiser – Brixental",short:"SkiWelt",slug:"skiwelt",km:275,remontees:81,forfait:80,nstations:7,pistes:{v:0,b:42,r:44,n:14}},
+  "Brixen im Thale": {name:"SkiWelt Wilder Kaiser – Brixental",short:"SkiWelt",slug:"skiwelt",km:275,remontees:81,forfait:80,nstations:7,pistes:{v:0,b:42,r:44,n:14}},
+  "Westendorf": {name:"SkiWelt Wilder Kaiser – Brixental",short:"SkiWelt",slug:"skiwelt",km:275,remontees:81,forfait:80,nstations:7,pistes:{v:0,b:42,r:44,n:14}},
+  "Hopfgarten": {name:"SkiWelt Wilder Kaiser – Brixental",short:"SkiWelt",slug:"skiwelt",km:275,remontees:81,forfait:80,nstations:7,pistes:{v:0,b:42,r:44,n:14}},
+  // SILVRETTA ARENA
+  "Ischgl": {name:"Silvretta Arena (Ischgl – Samnaun)",short:"Silvretta Arena",slug:"silvretta-arena",km:239,remontees:45,forfait:83,nstations:2,pistes:{v:0,b:20,r:59,n:21}},
+  "Samnaun": {name:"Silvretta Arena (Ischgl – Samnaun)",short:"Silvretta Arena",slug:"silvretta-arena",km:239,remontees:45,forfait:83,nstations:2,pistes:{v:0,b:20,r:59,n:21}},
+  // KITZSKI
+  "Kitzbühel": {name:"KitzSki (Kitzbühel – Kirchberg)",short:"KitzSki",slug:"kitzski",km:188,remontees:58,forfait:83,nstations:2,pistes:{v:0,b:54,r:35,n:11}},
+  "Kirchberg in Tirol": {name:"KitzSki (Kitzbühel – Kirchberg)",short:"KitzSki",slug:"kitzski",km:188,remontees:58,forfait:83,nstations:2,pistes:{v:0,b:54,r:35,n:11}},
   // SERFAUS-FISS-LADIS
-  "Serfaus": {name:"Serfaus-Fiss-Ladis",short:"Serfaus-Fiss-Ladis",slug:"serfaus-fiss-ladis",km:186,remontees:38,forfait:78,nstations:3,pistes:{v:0,b:25,r:60,n:15,pct:1}},
-  "Fiss": {name:"Serfaus-Fiss-Ladis",short:"Serfaus-Fiss-Ladis",slug:"serfaus-fiss-ladis",km:186,remontees:38,forfait:78,nstations:3,pistes:{v:0,b:25,r:60,n:15,pct:1}},
-  "Ladis": {name:"Serfaus-Fiss-Ladis",short:"Serfaus-Fiss-Ladis",slug:"serfaus-fiss-ladis",km:186,remontees:38,forfait:78,nstations:3,pistes:{v:0,b:25,r:60,n:15,pct:1}},
+  "Serfaus": {name:"Serfaus-Fiss-Ladis",short:"Serfaus-Fiss-Ladis",slug:"serfaus-fiss-ladis",km:186,remontees:38,forfait:78,nstations:3,pistes:{v:0,b:25,r:60,n:15}},
+  "Fiss": {name:"Serfaus-Fiss-Ladis",short:"Serfaus-Fiss-Ladis",slug:"serfaus-fiss-ladis",km:186,remontees:38,forfait:78,nstations:3,pistes:{v:0,b:25,r:60,n:15}},
+  "Ladis": {name:"Serfaus-Fiss-Ladis",short:"Serfaus-Fiss-Ladis",slug:"serfaus-fiss-ladis",km:186,remontees:38,forfait:78,nstations:3,pistes:{v:0,b:25,r:60,n:15}},
   // ZILLERTAL ARENA
-  "Zell am Ziller": {name:"Zillertal Arena",short:"Zillertal Arena",slug:"zillertal-arena",km:150,remontees:52,forfait:82,nstations:4,pistes:{v:0,b:33,r:59,n:8,pct:1}},
-  "Gerlos": {name:"Zillertal Arena",short:"Zillertal Arena",slug:"zillertal-arena",km:150,remontees:52,forfait:82,nstations:4,pistes:{v:0,b:33,r:59,n:8,pct:1}},
-  "Königsleiten": {name:"Zillertal Arena",short:"Zillertal Arena",slug:"zillertal-arena",km:150,remontees:52,forfait:82,nstations:4,pistes:{v:0,b:33,r:59,n:8,pct:1}},
-  "Hochkrimml": {name:"Zillertal Arena",short:"Zillertal Arena",slug:"zillertal-arena",km:150,remontees:52,forfait:82,nstations:4,pistes:{v:0,b:33,r:59,n:8,pct:1}},
-  // MAYRHOFEN (PENKEN – AHORN)
-  "Mayrhofen": {name:"Mayrhofen (Penken – Ahorn)",short:"Mayrhofen",slug:"mayrhofen",km:142,remontees:61,forfait:82,nstations:2,pistes:{v:0,b:31,r:46,n:23,pct:1}},
-  "Finkenberg": {name:"Mayrhofen (Penken – Ahorn)",short:"Mayrhofen",slug:"mayrhofen",km:142,remontees:61,forfait:82,nstations:2,pistes:{v:0,b:31,r:46,n:23,pct:1}},
-  // SKI JUWEL ALPBACHTAL WILDSCHÖNAU
-  "Alpbach": {name:"Ski Juwel Alpbachtal Wildschönau",short:"Ski Juwel",slug:"ski-juwel",km:98,remontees:45,forfait:72,nstations:2,pistes:{v:0,b:33,r:54,n:13,pct:1}},
-  "Wildschönau": {name:"Ski Juwel Alpbachtal Wildschönau",short:"Ski Juwel",slug:"ski-juwel",km:98,remontees:45,forfait:72,nstations:2,pistes:{v:0,b:33,r:54,n:13,pct:1}},
-  // HOCHZILLERTAL – HOCHFÜGEN
-  "Kaltenbach": {name:"Hochzillertal – Hochfügen",short:"Hochzillertal",slug:"hochzillertal-hochfuegen",km:89,remontees:38,forfait:83,nstations:2,pistes:{v:0,b:43,r:42,n:15,pct:1}},
-  "Hochfügen": {name:"Hochzillertal – Hochfügen",short:"Hochzillertal",slug:"hochzillertal-hochfuegen",km:89,remontees:38,forfait:83,nstations:2,pistes:{v:0,b:43,r:42,n:15,pct:1}},
-  // STEINPLATTE – WINKLMOOSALM
-  "Waidring": {name:"Steinplatte – Winklmoosalm",short:"Steinplatte",slug:"steinplatte-winklmoosalm",km:42,remontees:14,forfait:63,nstations:2,pistes:{v:0,b:48,r:48,n:4,pct:1}},
-  "Reit im Winkl – Winklmoosalm": {name:"Steinplatte – Winklmoosalm",short:"Steinplatte",slug:"steinplatte-winklmoosalm",km:42,remontees:14,forfait:63,nstations:2,pistes:{v:0,b:48,r:48,n:4,pct:1}},
-  // SCHLADMING 4-BERGE-SKISCHAUKEL
-  "Schladming": {name:"Schladming 4-Berge-Skischaukel",short:"4-Berge-Skischaukel",slug:"schladming-4-berge",km:123,remontees:47,forfait:79,nstations:3,pistes:{v:0,b:38,r:55,n:7,pct:1}},
-  "Haus im Ennstal": {name:"Schladming 4-Berge-Skischaukel",short:"4-Berge-Skischaukel",slug:"schladming-4-berge",km:123,remontees:47,forfait:79,nstations:3,pistes:{v:0,b:38,r:55,n:7,pct:1}},
-  "Pichl – Reiteralm": {name:"Schladming 4-Berge-Skischaukel",short:"4-Berge-Skischaukel",slug:"schladming-4-berge",km:123,remontees:47,forfait:79,nstations:3,pistes:{v:0,b:38,r:55,n:7,pct:1}},
-  // SILVRETTA MONTAFON
-  "Schruns": {name:"Silvretta Montafon",short:"Silvretta Montafon",slug:"silvretta-montafon",km:141.6,remontees:35,forfait:77,nstations:3,pistes:{v:0,b:42,r:36,n:22,pct:1}},
-  "St. Gallenkirch": {name:"Silvretta Montafon",short:"Silvretta Montafon",slug:"silvretta-montafon",km:141.6,remontees:35,forfait:77,nstations:3,pistes:{v:0,b:42,r:36,n:22,pct:1}},
-  "Gaschurn": {name:"Silvretta Montafon",short:"Silvretta Montafon",slug:"silvretta-montafon",km:141.6,remontees:35,forfait:77,nstations:3,pistes:{v:0,b:42,r:36,n:22,pct:1}},
-  // DAMÜLS – MELLAU
-  "Damüls": {name:"Damüls – Mellau",short:"Damüls – Mellau",slug:"damuels-mellau",km:75.8,remontees:21,forfait:73,nstations:2,pistes:{v:0,b:39,r:58,n:3,pct:1}},
-  "Mellau": {name:"Damüls – Mellau",short:"Damüls – Mellau",slug:"damuels-mellau",km:75.8,remontees:21,forfait:73,nstations:2,pistes:{v:0,b:39,r:58,n:3,pct:1}},
-  // SKICIRCUS SAALBACH HINTERGLEMM LEOGANG FIEBERBRUNN
-  "Saalbach": {name:"Skicircus Saalbach Hinterglemm Leogang Fieberbrunn",short:"Skicircus",slug:"skicircus",km:270,remontees:69,forfait:82,nstations:4,pistes:{v:0,b:52,r:41,n:7,pct:1}},
-  "Hinterglemm": {name:"Skicircus Saalbach Hinterglemm Leogang Fieberbrunn",short:"Skicircus",slug:"skicircus",km:270,remontees:69,forfait:82,nstations:4,pistes:{v:0,b:52,r:41,n:7,pct:1}},
-  "Leogang": {name:"Skicircus Saalbach Hinterglemm Leogang Fieberbrunn",short:"Skicircus",slug:"skicircus",km:270,remontees:69,forfait:82,nstations:4,pistes:{v:0,b:52,r:41,n:7,pct:1}},
-  "Fieberbrunn": {name:"Skicircus Saalbach Hinterglemm Leogang Fieberbrunn",short:"Skicircus",slug:"skicircus",km:270,remontees:69,forfait:82,nstations:4,pistes:{v:0,b:52,r:41,n:7,pct:1}},
+  "Zell am Ziller": {name:"Zillertal Arena",short:"Zillertal Arena",slug:"zillertal-arena",km:150,remontees:52,forfait:82,nstations:4,pistes:{v:0,b:33,r:59,n:8}},
+  "Gerlos": {name:"Zillertal Arena",short:"Zillertal Arena",slug:"zillertal-arena",km:150,remontees:52,forfait:82,nstations:4,pistes:{v:0,b:33,r:59,n:8}},
+  "Königsleiten": {name:"Zillertal Arena",short:"Zillertal Arena",slug:"zillertal-arena",km:150,remontees:52,forfait:82,nstations:4,pistes:{v:0,b:33,r:59,n:8}},
+  "Hochkrimml": {name:"Zillertal Arena",short:"Zillertal Arena",slug:"zillertal-arena",km:150,remontees:52,forfait:82,nstations:4,pistes:{v:0,b:33,r:59,n:8}},
+  // MAYRHOFEN
+  "Mayrhofen": {name:"Mayrhofen (Penken – Ahorn)",short:"Mayrhofen",slug:"mayrhofen",km:142,remontees:61,forfait:82,nstations:2,pistes:{v:0,b:31,r:46,n:23}},
+  "Finkenberg": {name:"Mayrhofen (Penken – Ahorn)",short:"Mayrhofen",slug:"mayrhofen",km:142,remontees:61,forfait:82,nstations:2,pistes:{v:0,b:31,r:46,n:23}},
+  // SKI JUWEL
+  "Alpbach": {name:"Ski Juwel Alpbachtal Wildschönau",short:"Ski Juwel",slug:"ski-juwel",km:98,remontees:45,forfait:72,nstations:2,pistes:{v:0,b:33,r:54,n:13}},
+  "Wildschönau": {name:"Ski Juwel Alpbachtal Wildschönau",short:"Ski Juwel",slug:"ski-juwel",km:98,remontees:45,forfait:72,nstations:2,pistes:{v:0,b:33,r:54,n:13}},
+  // HOCHZILLERTAL
+  "Kaltenbach": {name:"Hochzillertal – Hochfügen",short:"Hochzillertal",slug:"hochzillertal-hochfuegen",km:89,remontees:38,forfait:83,nstations:2,pistes:{v:0,b:43,r:42,n:15}},
+  "Hochfügen": {name:"Hochzillertal – Hochfügen",short:"Hochzillertal",slug:"hochzillertal-hochfuegen",km:89,remontees:38,forfait:83,nstations:2,pistes:{v:0,b:43,r:42,n:15}},
+  // STEINPLATTE
+  "Waidring": {name:"Steinplatte – Winklmoosalm",short:"Steinplatte",slug:"steinplatte-winklmoosalm",km:42,remontees:14,forfait:63,nstations:2,pistes:{v:0,b:48,r:48,n:4}},
+  "Reit im Winkl – Winklmoosalm": {name:"Steinplatte – Winklmoosalm",short:"Steinplatte",slug:"steinplatte-winklmoosalm",km:42,remontees:14,forfait:63,nstations:2,pistes:{v:0,b:48,r:48,n:4}},
+  // SKICIRCUS
+  "Saalbach": {name:"Skicircus Saalbach Hinterglemm Leogang Fieberbrunn",short:"Skicircus",slug:"skicircus",km:270,remontees:69,forfait:82,nstations:4,pistes:{v:0,b:52,r:41,n:7}},
+  "Hinterglemm": {name:"Skicircus Saalbach Hinterglemm Leogang Fieberbrunn",short:"Skicircus",slug:"skicircus",km:270,remontees:69,forfait:82,nstations:4,pistes:{v:0,b:52,r:41,n:7}},
+  "Leogang": {name:"Skicircus Saalbach Hinterglemm Leogang Fieberbrunn",short:"Skicircus",slug:"skicircus",km:270,remontees:69,forfait:82,nstations:4,pistes:{v:0,b:52,r:41,n:7}},
+  "Fieberbrunn": {name:"Skicircus Saalbach Hinterglemm Leogang Fieberbrunn",short:"Skicircus",slug:"skicircus",km:270,remontees:69,forfait:82,nstations:4,pistes:{v:0,b:52,r:41,n:7}},
   // SNOW SPACE SALZBURG
-  "Flachau": {name:"Snow Space Salzburg",short:"Snow Space Salzburg",slug:"snow-space-salzburg",km:120.1,remontees:43,forfait:75,nstations:3,pistes:{v:0,b:28,r:69,n:3,pct:1}},
-  "Wagrain": {name:"Snow Space Salzburg",short:"Snow Space Salzburg",slug:"snow-space-salzburg",km:120.1,remontees:43,forfait:75,nstations:3,pistes:{v:0,b:28,r:69,n:3,pct:1}},
-  "St. Johann-Alpendorf": {name:"Snow Space Salzburg",short:"Snow Space Salzburg",slug:"snow-space-salzburg",km:120.1,remontees:43,forfait:75,nstations:3,pistes:{v:0,b:28,r:69,n:3,pct:1}},
+  "Flachau": {name:"Snow Space Salzburg",short:"Snow Space Salzburg",slug:"snow-space-salzburg",km:120.1,remontees:43,forfait:75,nstations:3,pistes:{v:0,b:28,r:69,n:3}},
+  "Wagrain": {name:"Snow Space Salzburg",short:"Snow Space Salzburg",slug:"snow-space-salzburg",km:120.1,remontees:43,forfait:75,nstations:3,pistes:{v:0,b:28,r:69,n:3}},
+  "St. Johann-Alpendorf": {name:"Snow Space Salzburg",short:"Snow Space Salzburg",slug:"snow-space-salzburg",km:120.1,remontees:43,forfait:75,nstations:3,pistes:{v:0,b:28,r:69,n:3}},
   // HOCHKÖNIG
-  "Maria Alm": {name:"Hochkönig",short:"Hochkönig",slug:"hochkoenig",km:120,remontees:34,forfait:79,nstations:3,pistes:{v:0,b:43,r:35,n:22,pct:1}},
-  "Dienten": {name:"Hochkönig",short:"Hochkönig",slug:"hochkoenig",km:120,remontees:34,forfait:79,nstations:3,pistes:{v:0,b:43,r:35,n:22,pct:1}},
-  "Mühlbach am Hochkönig": {name:"Hochkönig",short:"Hochkönig",slug:"hochkoenig",km:120,remontees:34,forfait:79,nstations:3,pistes:{v:0,b:43,r:35,n:22,pct:1}},
-  // SCHLOSSALM – STUBNERKOGEL (BAD GASTEIN – BAD HOFGASTEIN)
-  "Bad Gastein": {name:"Schlossalm – Stubnerkogel (Bad Gastein – Bad Hofgastein)",short:"Schlossalm – Stubnerkogel",slug:"gastein",km:82.7,remontees:17,forfait:79,nstations:2,pistes:{v:0,b:37,r:60,n:3,pct:1}},
-  "Bad Hofgastein": {name:"Schlossalm – Stubnerkogel (Bad Gastein – Bad Hofgastein)",short:"Schlossalm – Stubnerkogel",slug:"gastein",km:82.7,remontees:17,forfait:79,nstations:2,pistes:{v:0,b:37,r:60,n:3,pct:1}},
+  "Maria Alm": {name:"Hochkönig",short:"Hochkönig",slug:"hochkoenig",km:120,remontees:34,forfait:79,nstations:3,pistes:{v:0,b:43,r:35,n:22}},
+  "Dienten": {name:"Hochkönig",short:"Hochkönig",slug:"hochkoenig",km:120,remontees:34,forfait:79,nstations:3,pistes:{v:0,b:43,r:35,n:22}},
+  "Mühlbach am Hochkönig": {name:"Hochkönig",short:"Hochkönig",slug:"hochkoenig",km:120,remontees:34,forfait:79,nstations:3,pistes:{v:0,b:43,r:35,n:22}},
+  // SCHLOSSALM – STUBNERKOGEL
+  "Bad Gastein": {name:"Schlossalm – Stubnerkogel (Bad Gastein – Bad Hofgastein)",short:"Schlossalm – Stubnerkogel",slug:"gastein",km:82.7,remontees:17,forfait:79,nstations:2,pistes:{v:0,b:37,r:60,n:3}},
+  "Bad Hofgastein": {name:"Schlossalm – Stubnerkogel (Bad Gastein – Bad Hofgastein)",short:"Schlossalm – Stubnerkogel",slug:"gastein",km:82.7,remontees:17,forfait:79,nstations:2,pistes:{v:0,b:37,r:60,n:3}},
   // DORFGASTEIN – GROSSARL
-  "Dorfgastein": {name:"Dorfgastein – Großarl",short:"Dorfgastein – Großarl",slug:"dorfgastein-grossarl",km:67.5,remontees:16,forfait:82,nstations:2,pistes:{v:0,b:46,r:52,n:2,pct:1}},
-  "Großarl": {name:"Dorfgastein – Großarl",short:"Dorfgastein – Großarl",slug:"dorfgastein-grossarl",km:67.5,remontees:16,forfait:82,nstations:2,pistes:{v:0,b:46,r:52,n:2,pct:1}},
+  "Dorfgastein": {name:"Dorfgastein – Großarl",short:"Dorfgastein – Großarl",slug:"dorfgastein-grossarl",km:67.5,remontees:16,forfait:82,nstations:2,pistes:{v:0,b:46,r:52,n:2}},
+  "Großarl": {name:"Dorfgastein – Großarl",short:"Dorfgastein – Großarl",slug:"dorfgastein-grossarl",km:67.5,remontees:16,forfait:82,nstations:2,pistes:{v:0,b:46,r:52,n:2}},
+  // SILVRETTA MONTAFON
+  "Schruns": {name:"Silvretta Montafon",short:"Silvretta Montafon",slug:"silvretta-montafon",km:141.6,remontees:35,forfait:77,nstations:3,pistes:{v:0,b:42,r:36,n:22}},
+  "St. Gallenkirch": {name:"Silvretta Montafon",short:"Silvretta Montafon",slug:"silvretta-montafon",km:141.6,remontees:35,forfait:77,nstations:3,pistes:{v:0,b:42,r:36,n:22}},
+  "Gaschurn": {name:"Silvretta Montafon",short:"Silvretta Montafon",slug:"silvretta-montafon",km:141.6,remontees:35,forfait:77,nstations:3,pistes:{v:0,b:42,r:36,n:22}},
+  // DAMÜLS – MELLAU
+  "Damüls": {name:"Damüls – Mellau",short:"Damüls – Mellau",slug:"damuels-mellau",km:75.8,remontees:21,forfait:73,nstations:2,pistes:{v:0,b:39,r:58,n:3}},
+  "Mellau": {name:"Damüls – Mellau",short:"Damüls – Mellau",slug:"damuels-mellau",km:75.8,remontees:21,forfait:73,nstations:2,pistes:{v:0,b:39,r:58,n:3}},
+  // 4-BERGE-SKISCHAUKEL
+  "Schladming": {name:"Schladming 4-Berge-Skischaukel",short:"4-Berge-Skischaukel",slug:"schladming-4-berge",km:123,remontees:47,forfait:79,nstations:3,pistes:{v:0,b:38,r:55,n:7}},
+  "Haus im Ennstal": {name:"Schladming 4-Berge-Skischaukel",short:"4-Berge-Skischaukel",slug:"schladming-4-berge",km:123,remontees:47,forfait:79,nstations:3,pistes:{v:0,b:38,r:55,n:7}},
+  "Pichl – Reiteralm": {name:"Schladming 4-Berge-Skischaukel",short:"4-Berge-Skischaukel",slug:"schladming-4-berge",km:123,remontees:47,forfait:79,nstations:3,pistes:{v:0,b:38,r:55,n:7}},
 };
 
 
@@ -1185,6 +1181,9 @@ function mgNav(dir){mgGoTo(mgIdx+dir);}
 
 function openModal(id){
   const s=DATA.find(x=>x.id===id);if(!s)return;
+  // La fiche modale détaillée (hérité de recherche.html) n'existe pas dans le HTML de
+  // favoris.html : on ouvre directement la fiche station plutôt que de planter.
+  if(!document.getElementById("modalTop")){ window.location.href='stations/'+slugifyStation(s.name)+'.html'; return; }
   const bg=MASSIF_COLORS[s.massif]||"linear-gradient(135deg,#1a3a5c,#2d6a9f)";
   const em=MASSIF_EMOJI[s.massif]||"⛷";
   const mt=document.getElementById("modalTop");
@@ -1263,10 +1262,14 @@ function openModal(id){
 }
 function closeModal(){document.getElementById("overlay").classList.remove("open");document.body.style.overflow="";mgCurrentId=null;}
 
-document.getElementById("modalClose").onclick=closeModal;
-document.getElementById("overlay").onclick=e=>{if(e.target===document.getElementById("overlay"))closeModal();};
-document.getElementById("searchInput").addEventListener("input",e=>{Q=e.target.value.trim();applyFilters();});
-document.getElementById("sortSelect").addEventListener("change",e=>{SORT=e.target.value;applyFilters();});
+// Bloc de recherche/filtres hérité de recherche.html : ces éléments (searchInput,
+// sortSelect, filterSidebar, drawer...) n'existent pas sur favoris.html, qui affiche
+// uniquement les favoris déjà enregistrés (favContent/domFavContent, cf. plus bas).
+// On protège chaque accès pour éviter une erreur JS bloquante au chargement.
+document.getElementById("modalClose")?.addEventListener("click",closeModal);
+document.getElementById("overlay")?.addEventListener("click",e=>{if(e.target===document.getElementById("overlay"))closeModal();});
+document.getElementById("searchInput")?.addEventListener("input",e=>{Q=e.target.value.trim();applyFilters();});
+document.getElementById("sortSelect")?.addEventListener("change",e=>{SORT=e.target.value;applyFilters();});
 
 // Fonction pour la barre hero
 window.heroSearch = function() {
@@ -1310,7 +1313,7 @@ function bindRadios(container){
     });
   });
 }
-bindRadios(document.getElementById("filterSidebar"));
+if(document.getElementById("filterSidebar")) bindRadios(document.getElementById("filterSidebar"));
 // Affichage initial
 document.addEventListener("DOMContentLoaded", function(){ if(typeof applyFilters==="function") applyFilters(); });
 if(document.readyState!=="loading"){ if(typeof applyFilters==="function") setTimeout(applyFilters,0); }
@@ -1333,11 +1336,11 @@ if(document.readyState!=="loading"){ if(typeof applyFilters==="function") setTim
 function resetAllFilters(){
   F={massif:[],niv:[],amb:[],budget:[],snow:"",alt_village:[],alt_sommet:[],taille:[],coutvie:[],equip:[],denivele:[]};
   Q="";
-  document.getElementById("searchInput").value="";
+  const si=document.getElementById("searchInput"); if(si) si.value="";
   document.querySelectorAll(".fr").forEach(el=>el.classList.toggle("active",el.dataset.v===""));
-  applyFilters();
+  if(typeof applyFilters==="function") applyFilters();
 }
-document.getElementById("clearFilters").onclick=resetAllFilters;
+document.getElementById("clearFilters")?.addEventListener("click",resetAllFilters);
 
 function openDrawer(){
   const dc = document.getElementById("drawerContent");
@@ -1415,11 +1418,11 @@ function openDrawer(){
   document.body.style.overflow = "hidden";
 }
 function closeDrawer(){document.getElementById("drawer").classList.remove("open");document.getElementById("drawerOverlay").classList.remove("open");document.body.style.overflow="";}
-document.getElementById("btnFilters").onclick=openDrawer;
-document.getElementById("drawerClose").onclick=closeDrawer;
-document.getElementById("drawerOverlay").onclick=closeDrawer;
-document.getElementById("drawerApplyBtn").onclick=()=>{ applyFilters(); closeDrawer(); };
-document.getElementById("drawerResetBtn").onclick=()=>{ resetAllFilters(); closeDrawer(); };
+document.getElementById("btnFilters")?.addEventListener("click",openDrawer);
+document.getElementById("drawerClose")?.addEventListener("click",closeDrawer);
+document.getElementById("drawerOverlay")?.addEventListener("click",closeDrawer);
+document.getElementById("drawerApplyBtn")?.addEventListener("click",()=>{ applyFilters(); closeDrawer(); });
+document.getElementById("drawerResetBtn")?.addEventListener("click",()=>{ resetAllFilters(); closeDrawer(); });
 
 // applyFilters appelé en fin de page
 </script>
@@ -1623,12 +1626,15 @@ async function loadMeteoCards() {
   }
 }
 
-// Override applyFilters pour recharger météo
-const _origApplyFilters = applyFilters;
-window.applyFilters = function() {
-  try { _origApplyFilters(); } catch(e) { console.error("applyFilters base error:", e); }
-  try { setTimeout(loadMeteoCards, 600); } catch(e) {}
-};
+// Override applyFilters pour recharger météo (fonctionnalité liée à la grille de
+// recherche, absente sur favoris.html — on protège pour éviter une erreur JS).
+if(typeof applyFilters === "function"){
+  const _origApplyFilters = applyFilters;
+  window.applyFilters = function() {
+    try { _origApplyFilters(); } catch(e) { console.error("applyFilters base error:", e); }
+    try { setTimeout(loadMeteoCards, 600); } catch(e) {}
+  };
+}
 
 setTimeout(loadMeteoCards, 1000);
 </script>

@@ -1135,6 +1135,85 @@ const DATA = window.SF_DATA;
 const IA_STATIONS = DATA;
 const FAV_STATIONS = DATA;
 </script>
+
+<!-- ══ PREMIÈRE VISITE — CHOIX DU/DES PAYS (drapeaux) ══
+     S'appuie sur le même filtre pays partagé (window.SFPays, localStorage "sf_pays_v1")
+     que la recherche, Tinder et le Conseiller IA. Ne s'affiche qu'une fois, à la toute
+     première visite, avant les autres popups (notifications, cookies). -->
+<style>
+.sf-onb-ov{position:fixed;inset:0;background:rgba(10,30,55,.55);z-index:9500;display:flex;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
+.sf-onb-sheet{width:100%;max-width:460px;background:#fff;border-radius:22px 22px 0 0;padding:26px 22px calc(22px + env(safe-area-inset-bottom,0px));font-family:"DM Sans",sans-serif;animation:sfUp .28s ease-out;text-align:center}
+.sf-onb-sheet h3{margin:0 0 6px;font-family:"DM Serif Display",serif;font-size:1.4rem;font-weight:400;color:var(--text,#1c2b3a)}
+.sf-onb-sheet .sf-onb-sub{margin:0 0 18px;font-size:.85rem;color:var(--text-light,#7e93a8);line-height:1.4}
+.sf-onb-sheet .sf-onb-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:8px}
+.sf-onb-sheet .sf-onb-note{margin:14px 0 18px;font-size:.76rem;color:var(--text-light,#7e93a8);display:flex;align-items:center;justify-content:center;gap:6px}
+.sf-onb-sheet .sf-sheet-ok{width:100%;padding:13px;background:var(--blue-mid,#3a7db8);color:#fff;border:none;border-radius:12px;font:inherit;font-size:.92rem;font-weight:700;cursor:pointer}
+</style>
+<script>
+(function(){
+  function boot(){
+    try{
+      if(!window.SFPays) return;
+      if(localStorage.getItem("sf_pays_onboard_seen")) return;
+      if(localStorage.getItem("sf_pays_v1")) return; // déjà un choix enregistré (visiteur pas si nouveau) — on ne perturbe pas
+      var av = SFPays.available();
+      if(av.length < 2) return; // rien à choisir (une seule zone dispo)
+
+      var sel = {}; SFPays.get().forEach(function(c){ sel[c] = true; });
+
+      var ov = document.createElement("div");
+      ov.className = "sf-onb-ov";
+      ov.innerHTML =
+        '<div class="sf-onb-sheet" role="dialog" aria-modal="true" aria-label="Choix des pays">' +
+          '<h3>Dans quels pays souhaites-tu partir&nbsp;?</h3>' +
+          '<p class="sf-onb-sub">Touche un ou plusieurs drapeaux pour n\'afficher que les stations qui t\'intéressent.</p>' +
+          '<div class="sf-onb-row"></div>' +
+          '<div class="sf-onb-note">💡 Ne t\'inquiète pas, c\'est facilement modifiable par la suite.</div>' +
+          '<button type="button" class="sf-sheet-ok">C\'est parti !</button>' +
+        '</div>';
+      document.body.appendChild(ov);
+      var prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+
+      function renderFlags(){
+        var row = ov.querySelector(".sf-onb-row");
+        row.innerHTML = av.map(function(c){
+          var on = !!sel[c];
+          return '<button type="button" class="sf-flag'+(on?' on':'')+'" data-pays="'+c+'" aria-pressed="'+on+'">'+SFPays.flag(c)+'<span>'+SFPays.name(c)+'</span></button>';
+        }).join("");
+      }
+      renderFlags();
+
+      ov.addEventListener("click", function(e){
+        var btn = e.target.closest && e.target.closest(".sf-flag[data-pays]");
+        if(btn){
+          var c = btn.getAttribute("data-pays");
+          var chosen = Object.keys(sel).filter(function(k){ return sel[k]; });
+          if(sel[c] && chosen.length === 1){
+            btn.classList.remove("shake"); void btn.offsetWidth; btn.classList.add("shake");
+            return;
+          }
+          sel[c] = !sel[c];
+          renderFlags();
+        }
+      });
+
+      function close(){
+        var chosen = Object.keys(sel).filter(function(k){ return sel[k]; });
+        if(!chosen.length) chosen = ["FR"];
+        try{ localStorage.setItem("sf_pays_v1", JSON.stringify(chosen)); }catch(e){}
+        try{ localStorage.setItem("sf_pays_onboard_seen", "1"); }catch(e){}
+        ov.remove();
+        document.body.style.overflow = prevOverflow;
+        SFPays.render();
+      }
+      ov.querySelector(".sf-sheet-ok").addEventListener("click", close);
+    }catch(e){ console.error("Onboarding pays :", e); }
+  }
+  // Après la disparition du splash screen, avant les autres popups (cookies ~1.5s, notifications ~4.5s).
+  setTimeout(boot, 2000);
+})();
+</script>
 </div>
 
 
