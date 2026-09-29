@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="manifest" href="/manifest.json">
+  <script src="/stations-data.js"></script>
   <title>Hébergements au ski — Chalets & Hôtels | SnowFinder</title>
   <meta name="description" content="Comparez les hébergements ski sur Booking.com et Expedia. Chalets, appartements, hôtels aux pieds des pistes. Annulation gratuite sur la plupart des offres.">
   <link rel="canonical" href="https://snowfinder.fr/hebergement.html">
@@ -578,7 +579,7 @@ function toggleCompareStation(id){
 </div>
 
 <footer>
-  <strong>SnowFinder</strong> — + de 200 stations de ski en France<br>
+  <strong>SnowFinder</strong> — + de 700 stations de ski en Europe<br>
   <a href="mentions-legales.html">Mentions légales</a> · <a href="index.html">Accueil</a>
 </footer>
 </div>
@@ -595,29 +596,17 @@ function toggleCompareStation(id){
   }
 
 // ── STATIONS pour autocomplete ──
-const STATIONS_HEB = [
+// Construite dynamiquement à partir de stations-data.js (source unique, 700+ stations,
+// toute l'Europe) au lieu d'une liste écrite à la main et forcément incomplète.
+// Fallback minimal si le script n'a pas pu charger, pour ne jamais casser la recherche.
+const STATIONS_HEB_FALLBACK = [
   "Val Thorens","Val d'Isère","Tignes","Chamonix","Courchevel","Méribel","Les Arcs","La Plagne",
-  "Avoriaz","Morzine","Les Menuires","Megève","Flaine","Les Gets","Les Deux Alpes","Alpe d'Huez",
-  "La Clusaz","Serre Chevalier","Vars","Isola 2000","Grand Tourmalet","Saint-Lary-Soulan",
-  "Font-Romeu-Pyrénées 2000","Gérardmer","Métabief Mont d'Or","Le Lioran","Super Besse",
-  "Risoul","Piau-Engaly","Les Rousses","La Rosière","Sainte-Foy-Tarentaise","Valloire",
-  "Val Cenis","Chamrousse","Saint-Martin-de-Belleville","La Tania","Valmorel","Les Saisies",
-  "Ax-3-Domaines","Peyragudes","Luz-Ardiden","Cauterets",
-  "Baqueira Beret","Formigal","Cerler","La Molina","Masella","Astún","Candanchú","Boí Taüll",
-  "Soldeu","Pas de la Casa","El Tarter","Grau Roig","Arinsal","Pal","Ordino Arcalís",
-  "Verbier","Zermatt","Crans-Montana","Saas-Fee","Nendaz","Grimentz-Zinal","Aletsch Arena",
-  "Villars-sur-Ollon","Les Diablerets","Leysin","Glacier 3000","Charmey","Moléson",
-  "Grindelwald","Wengen","Mürren","Adelboden","Lenk","Gstaad – Saanen – Rougemont","Meiringen-Hasliberg",
-  "Davos","Klosters","St. Moritz","Laax","Flims","Arosa","Lenzerheide","Samnaun","Scuol","Andermatt",
-  "Engelberg","Flumserberg","Stoos","Melchsee-Frutt","Airolo",
-  "Garmisch-Partenkirchen","Oberstdorf – Fellhorn/Kanzelwand","Reit im Winkl – Winklmoosalm","Feldberg","Winterberg",
-  "Breuil-Cervinia","Courmayeur","Pila","Champoluc","Bardonecchia","Limone Piemonte","Malbun",
-  "Livigno","Bormio","Passo del Tonale","Aprica","Madesimo",
-  "Madonna di Campiglio","Canazei","Campitello di Fassa","San Martino di Castrozza","Folgaria","Pinzolo",
-  "Ortisei","Selva di Val Gardena","Corvara","San Cassiano","Brunico – Kronplatz","Obereggen",
-  "Cortina d'Ampezzo","Arabba","Roccaraso","Abetone",
-  "St. Anton am Arlberg","Lech","Ischgl","Kitzbühel","Sölden","Mayrhofen","Serfaus","Söll","Ellmau","Obergurgl – Hochgurgl"
+  "Avoriaz","Morzine","Les Deux Alpes","Alpe d'Huez","La Clusaz","Serre Chevalier",
+  "Verbier","Zermatt","St. Anton am Arlberg","Kitzbühel"
 ];
+const STATIONS_HEB = (typeof window.SF_DATA !== "undefined" && window.SF_DATA.length)
+  ? window.SF_DATA.map(function(s){ return {name:s.name, region:s.region||""}; })
+  : STATIONS_HEB_FALLBACK.map(function(n){ return {name:n, region:""}; });
 
 var currentDest = "";
 var currentSort = "prix";
@@ -641,16 +630,28 @@ var currentSort = "prix";
 })();
 
 // ── Autocomplete destination ──
+function normDest(s){
+  return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+}
 function onDestInput(){
-  var q = document.getElementById('destInput').value.toLowerCase().trim();
+  var qRaw = document.getElementById('destInput').value.trim();
+  var q = normDest(qRaw);
   var dd = document.getElementById('destDropdown');
   if(q.length < 2){ dd.classList.remove('open'); return; }
-  var matches = STATIONS_HEB.filter(function(s){ return s.toLowerCase().includes(q); }).slice(0,8);
+  var starts = [], contains = [];
+  STATIONS_HEB.forEach(function(s){
+    var n = normDest(s.name);
+    if(n.indexOf(q) === 0) starts.push(s);
+    else if(n.indexOf(q) > -1) contains.push(s);
+  });
+  var matches = starts.concat(contains).slice(0,8);
   if(!matches.length){ dd.classList.remove('open'); return; }
   dd.innerHTML = matches.map(function(s){
-    return '<div class="autocomplete-item" onclick="selectDest(\''+s.replace(/'/g,"\\'")+'\')">'
+    return '<div class="autocomplete-item" onclick="selectDest(\''+s.name.replace(/'/g,"\\'")+'\')">'
       +'<span>🏔</span>'
-      +'<div><div class="autocomplete-item-name">'+s+'</div></div>'
+      +'<div><div class="autocomplete-item-name">'+s.name+'</div>'
+      +(s.region?'<div class="autocomplete-item-massif">'+s.region+'</div>':'')
+      +'</div>'
       +'</div>';
   }).join('');
   dd.classList.add('open');
@@ -852,12 +853,12 @@ function setSortAnnonces(sort, btn){
       <div style="background:rgba(255,255,255,.14);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">⛷</div>
       <div>
         <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:white">SnowFinder</div>
-        <div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:1px">Le guide des stations de ski françaises</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:1px">Le guide des stations de ski en Europe</div>
       </div>
     </div>
     <div style="display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.1)">
-      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">+ de 200</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Stations</div></div>
-      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">7</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Massifs</div></div>
+      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">+ de 700</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Stations</div></div>
+      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">9</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Pays</div></div>
       <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">Live</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Météo</div></div>
       <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">100%</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Gratuit</div></div>
     </div>

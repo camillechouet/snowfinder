@@ -5,21 +5,21 @@
     <link rel="preload" as="image" href="/img/avoriaz-hero.jpg" fetchpriority="high">
     <meta name="theme-color" content="#1a5a8a">
     <style>html,body{background:#1a5a8a}</style>
-  <title>SnowFinder — Guide complet des stations de ski françaises</title>
-  <meta name="description" content="SnowFinder - Comparez - Trouvez - Skiez. Comparez 200+ stations de ski en France : enneigement, pistes, forfaits, hébergements. Trouvez la station idéale pour votre niveau et budget.">
+  <title>SnowFinder — Comparateur de stations de ski en France et en Europe</title>
+  <meta name="description" content="SnowFinder - Comparez - Trouvez - Skiez. + de 700 stations de ski dans 9 pays d'Europe, dont + de 200 en France : enneigement, pistes, forfaits, hébergements. Trouvez la station idéale pour votre niveau et budget.">
   <link rel="canonical" href="https://snowfinder.fr/">
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SnowFinder">
   <meta property="og:url" content="https://snowfinder.fr/">
   <meta property="og:title" content="SnowFinder — Trouvez votre station de ski idéale">
-  <meta property="og:description" content="SnowFinder - Comparez - Trouvez - Skiez. Le comparateur de référence pour + de 200 stations de ski françaises. Niveau, budget, ambiance — trouvez la station parfaite.">
+  <meta property="og:description" content="SnowFinder - Comparez - Trouvez - Skiez. + de 700 stations de ski en Europe : France, Suisse, Autriche, Italie, Andorre, Espagne... Niveau, budget, ambiance — trouvez la station parfaite.">
   <meta property="og:image" content="https://snowfinder.fr/logo.png">
   <meta property="og:locale" content="fr_FR">
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="SnowFinder — Trouvez votre station de ski idéale">
-  <meta name="twitter:description" content="SnowFinder - Comparez - Trouvez - Skiez. Le comparateur de référence pour + de 200 stations de ski françaises. Niveau, budget, ambiance — trouvez la station parfaite.">
+  <meta name="twitter:description" content="SnowFinder - Comparez - Trouvez - Skiez. + de 700 stations de ski en Europe : France, Suisse, Autriche, Italie, Andorre, Espagne... Niveau, budget, ambiance — trouvez la station parfaite.">
   <meta name="twitter:image" content="https://snowfinder.fr/logo.png">
 <style>
 
@@ -748,7 +748,7 @@ body.saison-transition * { transition: background-color .4s ease, color .4s ease
       "@id": "https://snowfinder.fr/#website",
       "url": "https://snowfinder.fr/",
       "name": "SnowFinder",
-      "description": "SnowFinder - Comparez - Trouvez - Skiez. Comparez 200+ stations de ski en France : enneigement, pistes, forfaits, hébergements.",
+      "description": "SnowFinder - Comparez - Trouvez - Skiez. + de 700 stations de ski dans 9 pays d'Europe, dont + de 200 en France : enneigement, pistes, forfaits, hébergements.",
       "inLanguage": "fr-FR",
       "potentialAction": {
         "@type": "SearchAction",
@@ -774,8 +774,8 @@ body.saison-transition * { transition: background-color .4s ease, color .4s ease
       "@type": "WebPage",
       "@id": "https://snowfinder.fr/#webpage",
       "url": "https://snowfinder.fr/",
-      "name": "SnowFinder — Guide complet des stations de ski françaises",
-      "description": "SnowFinder - Comparez - Trouvez - Skiez. Comparez 200+ stations de ski en France : enneigement, pistes, forfaits, hébergements. Trouvez la station idéale pour votre niveau et budget.",
+      "name": "SnowFinder — Comparateur de stations de ski en France et en Europe",
+      "description": "SnowFinder - Comparez - Trouvez - Skiez. + de 700 stations de ski dans 9 pays d'Europe, dont + de 200 en France : enneigement, pistes, forfaits, hébergements. Trouvez la station idéale pour votre niveau et budget.",
       "isPartOf": { "@id": "https://snowfinder.fr/#website" },
       "about": { "@id": "https://snowfinder.fr/#organization" },
       "inLanguage": "fr-FR"
@@ -786,7 +786,7 @@ body.saison-transition * { transition: background-color .4s ease, color .4s ease
       "applicationCategory": "TravelApplication",
       "operatingSystem": "Web, Android",
       "url": "https://snowfinder.fr/",
-      "description": "SnowFinder - Comparez - Trouvez - Skiez. Comparateur de stations de ski françaises. + de 200 stations, filtres par niveau, budget, massif et ambiance.",
+      "description": "SnowFinder - Comparez - Trouvez - Skiez. Comparateur de stations de ski en Europe. + de 700 stations dans 9 pays, filtres par pays, niveau, budget, massif et ambiance.",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -923,7 +923,7 @@ function expediaUrl(station, sid) {
   }
   function stored(){
     try{ var v = JSON.parse(localStorage.getItem(KEY)); if(Array.isArray(v) && v.length) return v; }catch(e){}
-    return ["FR"];
+    return FR_UI ? ["FR"] : available();
   }
   // Sélection effective = pays choisis ∩ pays disponibles (repli sur la France si vide)
   function get(){
@@ -1723,7 +1723,7 @@ function toggleCompareStation(id){
     </h1>
 
     <p style="font-size:1.35rem;color:rgba(255,255,255,.88);margin:0 auto 28px;animation:fadeInUp .6s .18s ease both;font-weight:400;line-height:1.4;font-style:italic">
-      + de 200 stations. Dis-nous ce que tu veux — on te trouve la bonne.
+      + de 700 stations dans 9 pays d'Europe. Dis-nous ce que tu veux — on te trouve la bonne.
     </p>
 
     <!-- 2 chemins clairs, empilés en bandeaux -->
@@ -2001,12 +2001,12 @@ function toggleCompareStation(id){
       <div style="background:rgba(255,255,255,.14);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">⛷</div>
       <div>
         <div style="font-family:'DM Serif Display',serif;font-size:1.35rem;color:white">SnowFinder</div>
-        <div style="font-size:.7rem;color:rgba(255,255,255,.5);margin-top:1px">Le guide des stations de ski françaises</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.5);margin-top:1px">Le guide des stations de ski en Europe</div>
       </div>
     </div>
     <div style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.1)">
-      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">+ de 200</div><div style="font-size:.68rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.05em">Stations</div></div>
-      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">7</div><div style="font-size:.68rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.05em">Massifs</div></div>
+      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">+ de 700</div><div style="font-size:.68rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.05em">Stations</div></div>
+      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">9</div><div style="font-size:.68rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.05em">Pays</div></div>
       <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">Live</div><div style="font-size:.68rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.05em">Météo</div></div>
       <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">100%</div><div style="font-size:.68rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.05em">Gratuit</div></div>
     </div>
@@ -2190,14 +2190,14 @@ function updateSaisonUI(saison) {
       const h1 = hero.querySelector('h1');
       if(h1) h1.innerHTML = 'La montagne<br><em>en été</em>';
       const p = hero.querySelector('p');
-      if(p) p.textContent = '+ de 200 stations, randonnées, VTT, lacs et activités pour profiter de la montagne toute l\'année.';
+      if(p) p.textContent = '+ de 700 stations en Europe, randonnées, VTT, lacs et activités pour profiter de la montagne toute l\'année.';
       const tag = hero.querySelector('.hero-tag');
       if(tag) tag.textContent = '🌿 Activités estivales';
     } else {
       hero.classList.remove('hero-ete');
       // h1 déjà correct dans le HTML, on ne le réécrit pas pour éviter le flash
       const tag = hero.querySelector('.hero-tag');
-      if(tag) tag.textContent = '🗺 Toutes les stations de France';
+      if(tag) tag.textContent = '🗺 Toutes les stations d\'Europe';
     }
   }
   
@@ -2660,7 +2660,7 @@ function refuseCookies() {
     chat.innerHTML = "";
     iaBubble("Salut ! Décris-moi ton séjour idéal, pose-moi n'importe quelle question sur les stations (orientation, enneigement, ambiance...) — je comprends le langage naturel et je vais chercher les infos vérifiées quand il le faut. 🏔️");
     var chipsWrap = el('<div class="iac-chips"></div>');
-    ["Famille, pas trop cher, neige garantie, village au soleil, tout sauf les Pyrénées","Quel est le meilleur rapport qualité-prix des Alpes ?","Le village de Val d'Isère est-il ensoleillé le soir ?"].forEach(function(c){
+    ["Famille, pas trop cher, neige garantie, village au soleil, tout sauf les Pyrénées","Meilleur rapport qualité-prix : France, Autriche ou Italie ?","Le village de Val d'Isère est-il ensoleillé le soir ?"].forEach(function(c){
       var chip = el('<button type="button" class="iac-chip">'+c+'</button>');
       chip.addEventListener("click", function(){ document.getElementById("iacInput").value = c; iacSend(); });
       chipsWrap.appendChild(chip);

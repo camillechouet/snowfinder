@@ -913,7 +913,7 @@ function cardHook(s){
   if(isBudget)             return `Le vrai ski à petit prix. Qualité de neige sans compromis sur le budget.`;
   if(isGrand)              return `${km} km de pistes — de quoi skier toute la semaine sans repasser deux fois.`;
   if(isHaute)              return `${alt}m d'altitude. La neige est ici quand elle fait défaut ailleurs.`;
-  if(score >= 4.5)         return `L'une des meilleures stations de France. Notes enthousiastes, skieurs conquis.`;
+  if(score >= 4.5)         return `L'une des stations les mieux notées de SnowFinder. Skieurs conquis.`;
   return s.desc ? s.desc.split('.')[0] + '.' : `${km} km de pistes dans un cadre exceptionnel.`;
 }
 
@@ -1957,7 +1957,7 @@ function updateSaisonUI(saison) {
       const h1 = hero.querySelector('h1');
       if(h1) h1.innerHTML = 'La montagne<br><em>en été</em>';
       const p = hero.querySelector('p');
-      if(p) p.textContent = '+ de 200 stations, randonnées, VTT, lacs et activités pour profiter de la montagne toute l\'année.';
+      if(p) p.textContent = '+ de 700 stations en Europe, randonnées, VTT, lacs et activités pour profiter de la montagne toute l\'année.';
       const tag = hero.querySelector('.hero-tag');
       if(tag) tag.textContent = '🌿 Activités estivales';
     } else {
@@ -1965,9 +1965,9 @@ function updateSaisonUI(saison) {
       const h1 = hero.querySelector('h1');
       if(h1) h1.innerHTML = 'Le guide <em>ski</em><br>des Français';
       const p = hero.querySelector('p');
-      if(p) p.textContent = '+ de 200 stations référencées, conditions d\'enneigement, conseils et bons plans pour trouver votre montagne idéale.';
+      if(p) p.textContent = '+ de 700 stations dans 9 pays d\'Europe, conditions d\'enneigement, conseils et bons plans pour trouver votre montagne idéale.';
       const tag = hero.querySelector('.hero-tag');
-      if(tag) tag.textContent = '🗺 Toutes les stations de France';
+      if(tag) tag.textContent = '🗺 Toutes les stations d\'Europe';
     }
   }
   
@@ -2597,7 +2597,7 @@ function cardHook(s){
   if(isBudget)             return `Le vrai ski à petit prix. Qualité de neige sans compromis sur le budget.`;
   if(isGrand)              return `${km} km de pistes — de quoi skier toute la semaine sans repasser deux fois.`;
   if(isHaute)              return `${alt}m d'altitude. La neige est ici quand elle fait défaut ailleurs.`;
-  if(score >= 4.5)         return `L'une des meilleures stations de France. Notes enthousiastes, skieurs conquis.`;
+  if(score >= 4.5)         return `L'une des stations les mieux notées de SnowFinder. Skieurs conquis.`;
   return s.desc ? s.desc.split('.')[0] + '.' : `${km} km de pistes dans un cadre exceptionnel.`;
 }
 function slugifyStation(name){
@@ -2704,12 +2704,12 @@ function toggleSaison(){}
       <div style="background:rgba(255,255,255,.14);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">⛷</div>
       <div>
         <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:white">SnowFinder</div>
-        <div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:1px">Le guide des stations de ski françaises</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:1px">Le guide des stations de ski en Europe</div>
       </div>
     </div>
     <div style="display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.1)">
-      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">+ de 200</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Stations</div></div>
-      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">7</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Massifs</div></div>
+      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">+ de 700</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Stations</div></div>
+      <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">9</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Pays</div></div>
       <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">Live</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Météo</div></div>
       <div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">100%</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Gratuit</div></div>
     </div>

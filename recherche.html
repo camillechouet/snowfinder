@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <title>Recherche de stations de ski — SnowFinder | + de 200 stations en France</title>
-  <meta name="description" content="Filtrez et comparez + de 200 stations de ski françaises par niveau, budget, massif et ambiance. Trouvez votre station idéale en quelques secondes.">
+  <title>Recherche de stations de ski — SnowFinder | + de 700 stations en Europe</title>
+  <meta name="description" content="Filtrez et comparez + de 700 stations de ski en Europe (France, Suisse, Autriche, Italie, Andorre, Espagne...) par pays, niveau, budget, massif et ambiance. Trouvez votre station idéale en quelques secondes.">
   <link rel="canonical" href="https://snowfinder.fr/recherche.html">
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SnowFinder">
   <meta property="og:url" content="https://snowfinder.fr/recherche.html">
   <meta property="og:title" content="Trouver ma station de ski — SnowFinder">
-  <meta property="og:description" content="+ de 200 stations de ski comparées. Filtrez par niveau, budget, massif. Alpes, Pyrénées, Vosges, Jura, Massif Central.">
+  <meta property="og:description" content="+ de 700 stations de ski comparées dans 9 pays d'Europe. Filtrez par pays, niveau, budget, massif. Alpes, Dolomites, Pyrénées, Vosges, Jura, Massif Central.">
   <meta property="og:image" content="https://snowfinder.fr/logo.png">
   <meta property="og:locale" content="fr_FR">
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Trouver ma station de ski — SnowFinder">
-  <meta name="twitter:description" content="+ de 200 stations de ski comparées. Filtrez par niveau, budget, massif. Alpes, Pyrénées, Vosges, Jura, Massif Central.">
+  <meta name="twitter:description" content="+ de 700 stations de ski comparées dans 9 pays d'Europe. Filtrez par pays, niveau, budget, massif. Alpes, Dolomites, Pyrénées, Vosges, Jura, Massif Central.">
   <meta name="twitter:image" content="https://snowfinder.fr/logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
@@ -1226,17 +1226,17 @@ body.ete .fr.active .dot { border-color: #4aaa5a; background: #4aaa5a; }
       "@type": "WebPage",
       "@id": "https://snowfinder.fr/recherche.html#webpage",
       "url": "https://snowfinder.fr/recherche.html",
-      "name": "Recherche de stations de ski — SnowFinder | + de 200 stations en France",
-      "description": "Filtrez et comparez + de 200 stations de ski françaises par niveau, budget, massif et ambiance. Trouvez votre station idéale en quelques secondes.",
+      "name": "Recherche de stations de ski — SnowFinder | + de 700 stations en Europe",
+      "description": "Filtrez et comparez + de 700 stations de ski en Europe (France, Suisse, Autriche, Italie, Andorre, Espagne...) par pays, niveau, budget, massif et ambiance. Trouvez votre station idéale en quelques secondes.",
       "isPartOf": { "@id": "https://snowfinder.fr/#website" },
       "inLanguage": "fr-FR"
     },
     {
       "@type": "ItemList",
-      "name": "Stations de ski en France",
-      "description": "Liste de + de 200 stations de ski françaises comparées par niveau, budget, massif et ambiance.",
+      "name": "Stations de ski en Europe",
+      "description": "Liste de + de 700 stations de ski en Europe, dont + de 200 en France, comparées par pays, niveau, budget, massif et ambiance.",
       "url": "https://snowfinder.fr/recherche.html",
-      "numberOfItems": 220,
+      "numberOfItems": 719,
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Les 3 Vallées", "url": "https://snowfinder.fr/recherche.html" },
         { "@type": "ListItem", "position": 2, "name": "Paradiski", "url": "https://snowfinder.fr/recherche.html" },
@@ -1385,7 +1385,7 @@ function expediaUrl(station, sid) {
   }
   function stored(){
     try{ var v = JSON.parse(localStorage.getItem(KEY)); if(Array.isArray(v) && v.length) return v; }catch(e){}
-    return ["FR"];
+    return FR_UI ? ["FR"] : available();
   }
   // Sélection effective = pays choisis ∩ pays disponibles (repli sur la France si vide)
   function get(){
@@ -1845,7 +1845,7 @@ document.getElementById("eteOverlay").addEventListener("click", e => {
 
 
 <div style="display:none;background:var(--white);border-bottom:1px solid var(--wood-light);height:56px;display:none;align-items:center;padding:0 16px;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.06)">
-  <span id="navCount" style="font-size:.8rem;color:var(--text-light);white-space:nowrap;margin-left:auto">+ de 200 stations</span>
+  <span id="navCount" style="font-size:.8rem;color:var(--text-light);white-space:nowrap;margin-left:auto">+ de 700 stations</span>
   <a href="favoris.html" class="topbar-fav-btn" title="Mes favoris">
     <span class="topbar-fav-star">⭐</span><span class="fav-count" id="favCounter">0</span>
   </a>
@@ -3052,7 +3052,7 @@ function cardHook(s){
   if(isBudget)             return `Le vrai ski à petit prix. Qualité de neige sans compromis sur le budget.`;
   if(isGrand)              return `${km} km de pistes — de quoi skier toute la semaine sans repasser deux fois.`;
   if(isHaute)              return `${alt}m d'altitude. La neige est ici quand elle fait défaut ailleurs.`;
-  if(score >= 4.5)         return `L'une des meilleures stations de France. Notes enthousiastes, skieurs conquis.`;
+  if(score >= 4.5)         return `L'une des stations les mieux notées de SnowFinder. Skieurs conquis.`;
   return s.desc ? s.desc.split('.')[0] + '.' : `${km} km de pistes dans un cadre exceptionnel.`;
 }
 
@@ -4131,7 +4131,7 @@ function updateSaisonUI(saison) {
       const h1 = hero.querySelector('h1');
       if(h1) h1.innerHTML = 'La montagne<br><em>en été</em>';
       const p = hero.querySelector('p');
-      if(p) p.textContent = '+ de 200 stations, randonnées, VTT, lacs et activités pour profiter de la montagne toute l\'année.';
+      if(p) p.textContent = '+ de 700 stations en Europe, randonnées, VTT, lacs et activités pour profiter de la montagne toute l\'année.';
       const tag = hero.querySelector('.hero-tag');
       if(tag) tag.textContent = '🌿 Activités estivales';
     } else {
@@ -4139,9 +4139,9 @@ function updateSaisonUI(saison) {
       const h1 = hero.querySelector('h1');
       if(h1) h1.innerHTML = 'Le guide <em>ski</em><br>des Français';
       const p = hero.querySelector('p');
-      if(p) p.textContent = '+ de 200 stations référencées, conditions d\'enneigement, conseils et bons plans pour trouver votre montagne idéale.';
+      if(p) p.textContent = '+ de 700 stations dans 9 pays d\'Europe, conditions d\'enneigement, conseils et bons plans pour trouver votre montagne idéale.';
       const tag = hero.querySelector('.hero-tag');
-      if(tag) tag.textContent = '🗺 Toutes les stations de France';
+      if(tag) tag.textContent = '🗺 Toutes les stations d\'Europe';
     }
   }
   
