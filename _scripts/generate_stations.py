@@ -2120,6 +2120,18 @@ NIV_DESC = {
     "expert": "Terrain technique, hors-piste et pentes raides"
 }
 
+# Pays de la station (champ 'pays' de stations-data.js, France par défaut)
+PAYS_NOM = {"FR": "France", "CH": "Suisse", "IT": "Italie", "AT": "Autriche", "ES": "Espagne",
+            "AD": "Andorre", "DE": "Allemagne", "SI": "Slovénie", "LI": "Liechtenstein"}
+PAYS_DE = {"FR": "de France", "CH": "de Suisse", "IT": "d'Italie", "AT": "d'Autriche", "ES": "d'Espagne",
+           "AD": "d'Andorre", "DE": "d'Allemagne", "SI": "de Slovénie", "LI": "du Liechtenstein"}
+PAYS_ADJ = {"FR": "français", "CH": "suisse", "IT": "italien", "AT": "autrichien", "ES": "espagnol",
+            "AD": "andorran", "DE": "allemand", "SI": "slovène", "LI": "liechtensteinois"}
+
+def pays_code(s):
+    return s.get('pays') or 'FR'
+
+
 def generate_verdict(s):
     """Génère un avis éditorial riche et personnalisé (5-6 phrases) par station."""
     ambs  = s.get('amb', [])
@@ -2269,7 +2281,7 @@ def generate_verdict(s):
     if forfait <= 22:
         parts.append(
             f"Avec un forfait journée à seulement {forfait}€, {name} est l'une des destinations "
-            f"les plus accessibles de France. "
+            f"les plus accessibles {PAYS_DE.get(pays_code(s), 'de France')}. "
             f"Pour les familles à budget maîtrisé ou les skieurs qui veulent multiplier les sorties "
             f"sans se ruiner, c'est une adresse sincère et souvent méconnue."
         )
@@ -2296,7 +2308,7 @@ def generate_verdict(s):
     # ── BILAN FINAL ──
     if km >= 150 and alt >= 2500 and forfait <= 50:
         parts.append(
-            f"Au final, {name} est une valeur sûre du ski français : grand domaine, bon enneigement "
+            f"Au final, {name} est une valeur sûre du ski {PAYS_ADJ.get(pays_code(s), 'français')} : grand domaine, bon enneigement "
             f"et tarifs encore justifiés. Une destination qui mérite sa réputation."
         )
     elif 'famille' in ambs and 'village' in ambs:
@@ -3189,13 +3201,13 @@ def render_page(s):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>{s['name']} — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
+  <title>{s['name']}{'' if pays_code(s) == 'FR' else ' (' + PAYS_NOM.get(pays_code(s), '') + ')'} — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
   <meta name="description" content="{s['name']} : {display_km} km de pistes, altitude {display_alt_min}-{display_alt_max}m, forfait {s['forfait']}€/jour. {s.get('desc','')[:100]}">
   <link rel="canonical" href="{canonical}">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SnowFinder">
   <meta property="og:url" content="{canonical}">
-  <meta property="og:title" content="{s['name']} — Station de ski | SnowFinder">
+  <meta property="og:title" content="{s['name']}{'' if pays_code(s) == 'FR' else ' (' + PAYS_NOM.get(pays_code(s), '') + ')'} — Station de ski | SnowFinder">
   <meta property="og:description" content="{display_km} km · {display_alt_max}m · {s['forfait']}€/j · {s['massif']}">
   <meta property="og:image" content="{photo}">
   <meta property="og:locale" content="fr_FR">
@@ -4608,7 +4620,7 @@ function hideOfficialSheet(){{
 </script>
 
 <footer class="footer">
-  <strong>SnowFinder</strong> — Le guide complet des stations de ski françaises<br>
+  <strong>SnowFinder</strong> — Le guide complet des stations de ski en Europe<br>
   <a href="../index.html">Accueil</a> · <a href="../recherche.html">Recherche</a> · <a href="../comparateur.html">Comparateur</a> · <a href="../mentions-legales.html">Mentions légales</a><br>
   <span style="font-size:.7rem;opacity:.7">Données indicatives · Forfaits haute saison adulte · À vérifier sur le site officiel de chaque station</span>
 </footer>
@@ -4694,7 +4706,7 @@ def render_domaine_page(slug, d):
 
     # Classement par taille parmi tous les domaines
     rang = sorted(DOMAINES.values(), key=lambda x: -x['km_total']).index(d) + 1
-    rang_txt = ("Top 3 des plus grands domaines de France" if rang <= 3
+    rang_txt = ("Top 3 des plus grands domaines référencés" if rang <= 3
                 else f"{rang}e plus grand domaine référencé")
 
     # Stations membres présentes dans DATA
@@ -5229,7 +5241,7 @@ def render_domaine_page(slug, d):
 </script>
 
 <footer class="footer">
-  <strong>SnowFinder</strong> — Le guide complet des stations de ski françaises<br>
+  <strong>SnowFinder</strong> — Le guide complet des stations de ski en Europe<br>
   <a href="../index.html">Accueil</a> · <a href="../recherche.html">Recherche</a> · <a href="../comparateur.html">Comparateur</a> · <a href="../mentions-legales.html">Mentions légales</a><br>
   <span style="font-size:.7rem;opacity:.7">Données indicatives · Forfaits haute saison adulte · À vérifier sur le site officiel du domaine</span>
 </footer>
@@ -5381,12 +5393,12 @@ def render_domaines_index():
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Les grands domaines skiables reliés de France | SnowFinder</title>
-<meta name="description" content="Les {len(DOMAINES)} grands domaines skiables reliés de France : Portes du Soleil, 3 Vallées, Paradiski, Grand Massif... Kilomètres de pistes, stations membres, forfaits et altitudes.">
+<title>Les grands domaines skiables reliés en Europe | SnowFinder</title>
+<meta name="description" content="Les {len(DOMAINES)} grands domaines skiables reliés d'Europe : Portes du Soleil, 3 Vallées, 4 Vallées, Ski Arlberg, Val Gardena, Grandvalira... Kilomètres de pistes, stations membres, forfaits et altitudes.">
 <link rel="canonical" href="https://snowfinder.fr/domaines.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SnowFinder">
-<meta property="og:title" content="Les grands domaines skiables reliés de France">
+<meta property="og:title" content="Les grands domaines skiables reliés en Europe">
 <meta property="og:description" content="{len(DOMAINES)} domaines, {total_st} stations reliées. Comparez les kilomètres de pistes, forfaits et altitudes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
@@ -5501,7 +5513,7 @@ def render_domaines_index():
 </div>
 
 <footer class="footer">
-  <strong>SnowFinder</strong> — Le guide complet des stations de ski françaises<br>
+  <strong>SnowFinder</strong> — Le guide complet des stations de ski en Europe<br>
   <a href="index.html">Accueil</a> · <a href="recherche.html">Recherche</a> · <a href="comparateur.html">Comparateur</a> · <a href="mentions-legales.html">Mentions légales</a><br>
   <span style="font-size:.7rem;opacity:.7">Données indicatives · Forfaits haute saison adulte · À vérifier sur le site officiel du domaine</span>
 </footer>

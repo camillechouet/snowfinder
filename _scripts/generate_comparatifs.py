@@ -36,7 +36,7 @@ def slugify(name: str) -> str:
     s = name.lower()
     s = "".join(c for c in unicodedata.normalize("NFD", s)
                 if unicodedata.category(c) != "Mn")
-    s = re.sub(r"['\u2019\s]+", "-", s)
+    s = re.sub(r"['’\s]+", "-", s)
     s = re.sub(r"[^a-z0-9-]", "", s)
     s = re.sub(r"-+", "-", s).strip("-")
     return s
@@ -1423,7 +1423,7 @@ def build_index(comparaisons_meta: list) -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Comparatifs de stations de ski — SnowFinder</title>
-<meta name="description" content="Hésitation entre deux stations de ski françaises ? Découvrez nos comparatifs détaillés pour choisir la station qui vous correspond.">
+<meta name="description" content="Hésitation entre deux stations de ski ? Découvrez nos comparatifs détaillés pour choisir la station qui vous correspond.">
 <link rel="canonical" href="{BASE_URL}/comparatifs/tous-les-comparatifs.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
