@@ -1,7 +1,7 @@
 {
   "name": "SnowFinder",
   "short_name": "SnowFinder",
-  "description": "Trouve et compare les meilleures stations de ski en France. 220+ stations, filtres avancés, enneigement en temps réel.",
+  "description": "Trouve et compare les meilleures stations de ski en France et en Europe. + de 700 stations dans 9 pays, filtres avancés, enneigement en temps réel.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1a5a8a",
@@ -9,24 +9,9 @@
   "orientation": "portrait",
   "lang": "fr",
   "icons": [
-    {
-      "src": "/logo.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/logo.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/logoplaystore.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
+    {"src": "/logo.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "/logoplaystore.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
   ],
   "screenshots": [],
   "categories": ["travel", "sports"],
