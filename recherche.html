@@ -2326,6 +2326,9 @@ function restoreFiltersState(){
     // Synchroniser l'UI
     const si = document.getElementById('searchInput');
     if(si && Q) si.value = Q;
+    // Barre de recherche visible (hero) : doit afficher le même texte que le champ caché
+    const hsi = document.getElementById('heroSearchInput');
+    if(hsi) hsi.value = Q || '';
     const ss = document.getElementById('sortSelect');
     if(ss && SORT) ss.value = SORT;
     // Réappliquer les classes .active sur les radios
@@ -3513,6 +3516,7 @@ function resetAllFilters(){
   F={massif:[],niv:[],amb:[],budget:[],snow:"",alt_village:[],alt_sommet:[],taille:[],coutvie:[],equip:[],denivele:[]};
   Q="";
   document.getElementById("searchInput").value="";
+  var hsi=document.getElementById("heroSearchInput"); if(hsi) hsi.value="";
   document.querySelectorAll(".fr").forEach(el=>el.classList.toggle("active",el.dataset.v===""));
   applyFilters();
 }
