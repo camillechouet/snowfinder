@@ -36,7 +36,7 @@ def slugify(name: str) -> str:
     s = name.lower()
     s = "".join(c for c in unicodedata.normalize("NFD", s)
                 if unicodedata.category(c) != "Mn")
-    s = re.sub(r"['’\s]+", "-", s)
+    s = re.sub(r"['\u2019\s]+", "-", s)
     s = re.sub(r"[^a-z0-9-]", "", s)
     s = re.sub(r"-+", "-", s).strip("-")
     return s
@@ -1141,10 +1141,14 @@ footer a {{ color:var(--text-light); }}
 
 # ── Construction des URL d'affiliation (format identique au site) ────────────
 
-def booking_url(station_name: str) -> str:
-    ss = station_name.lower().replace("'", "").replace(" ", "+") + "+france"
-    return (f"https://www.booking.com/searchresults.fr.html"
-            f"?ss={ss}&aid=SnowFinder&nflt=review_score%3D80")
+def booking_url(station_name: str, slug: str) -> str:
+    """Wraps Booking.com URL in CJ deep link for affiliate tracking (same format as index.html)."""
+    ss = urllib.parse.quote_plus(station_name + " ski france")
+    target = (f"https://www.booking.com/searchresults.fr.html"
+              f"?ss={ss}&nflt=review_score%3D80")
+    encoded = urllib.parse.quote(target, safe="")
+    return (f"https://www.tkqlhce.com/click-101709262-15734710"
+            f"?sid=comparatif-{slug}&url={encoded}")
 
 def expedia_url(station_name: str, slug: str) -> str:
     """Wraps Expedia URL in CJ deep link for affiliate tracking (same format as index.html)."""
@@ -1391,7 +1395,7 @@ def build_page(comp: dict, stations_db: dict) -> tuple[str, str]:
         officiel_a=official_url(a), officiel_b=official_url(b),
         verdict=comp["verdict"],
         faq_html=faq_html,
-        booking_a=booking_url(a), booking_b=booking_url(b),
+        booking_a=booking_url(a, slug_a), booking_b=booking_url(b, slug_b),
         expedia_a=expedia_url(a, slug_a), expedia_b=expedia_url(b, slug_b),
         json_ld=json_ld,
     )
