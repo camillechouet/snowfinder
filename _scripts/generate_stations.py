@@ -117,8 +117,6 @@ DOMAINE_PARTAGE = {
     "Bar\u00e8ges": "Grand Tourmalet (Bar\u00e8ges \u2013 La Mongie)",
     "Courchevel": "Vall\u00e9e de Courchevel (Courchevel \u2013 La Tania)",
     "La Tania": "Vall\u00e9e de Courchevel (Courchevel \u2013 La Tania)",
-    "M\u00e9ribel": "Vall\u00e9e de M\u00e9ribel (M\u00e9ribel \u2013 Brides-les-Bains)",
-    "Brides-les-Bains": "Vall\u00e9e de M\u00e9ribel (M\u00e9ribel \u2013 Brides-les-Bains)",
     "Morzine": "Morzine \u2013 Les Gets",
     "Les Gets": "Morzine \u2013 Les Gets",
     "Alpe d'Huez": "Alpe d'Huez Grand Domaine",
@@ -299,7 +297,7 @@ DOMAINES = {
     "3-vallees": {
         "name": "Les 3 Vallées", "massif": "Alpes du Nord", "pays": ["France"],
         "stations": ["Courchevel","La Tania","Méribel","Brides-les-Bains","Saint-Martin-de-Belleville","Les Menuires","Val Thorens","Orelle"],
-        "km_propre": {"Val Thorens":150,"Les Menuires":160,"Méribel":150,"Courchevel":150,"Saint-Martin-de-Belleville":40,"La Tania":25,"Orelle":35,"Brides-les-Bains":10},
+        "km_propre": {"Val Thorens":150,"Les Menuires":160,"Méribel":150,"Courchevel":150,"Saint-Martin-de-Belleville":40,"La Tania":25,"Orelle":35},
         "km_total": 600, "remontees_total": 156, "forfait_domaine": 84,
         "alt_min": 1100, "alt_max": 3230,
         "pistes": {"v":55,"b":178,"r":113,"n":54},
@@ -927,6 +925,12 @@ def get_alt_village(domaine, station_name):
     """Altitude du village (pas du domaine) pour une station membre,
     si elle est connue précisément ; sinon None."""
     return domaine.get('alt_village', {}).get(station_name)
+
+def is_sans_pistes(s):
+    """Station sans pistes au départ du village (0 km, 0 piste dans stations-data.js),
+    qui sert de porte d'entrée vers un grand domaine (ex. Brides-les-Bains -> 3 Vallées).
+    Sa fiche affiche alors l'accès au domaine au lieu de chiffres à zéro."""
+    return not s.get('km') and not sum((s.get('pistes') or {}).values())
 
 # Altitudes de village connues, par station (complète les stat-box).
 _ALT_VILLAGE = {
@@ -2082,7 +2086,7 @@ def render_similar_section(s, exclude=None):
             <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">{sim['score']:.1f} ⭐</div>
           </div>
           <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">{sim['km']} km · {sim['alt_max']}m</span>
+            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">{(str(sim['km']) + ' km · ') if sim['km'] else ''}{sim['alt_max']}m</span>
             <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~{prix_nuit}€/nuit</span>
           </div>
         </a>"""
@@ -2152,6 +2156,19 @@ def generate_verdict(s):
     massif = s.get('massif', '')
     pistes = s.get('pistes', {})
     total_pistes = (sum(pistes.values()) if pistes else 0) if s.get('name') not in PISTES_PCT else 0
+
+    if _dom and is_sans_pistes(s):
+        return ' '.join([
+            f"{name} n'a pas de pistes au départ du village : c'est une porte d'entrée vers le domaine "
+            f"{_dom['name']}, ses {_dom['km_total']} km de pistes et ses {_dom['remontees_total']} remontées, "
+            f"que l'on rejoint par remontée mécanique.",
+            f"Le village est à {alt_v} m et le domaine monte jusqu'à {alt} m : on dort en vallée "
+            f"et on skie en altitude, avec l'enneigement du grand domaine.",
+            f"Le forfait journée est celui du grand domaine, à {forfait}€. L'intérêt de {name} se joue surtout "
+            f"côté hébergement, souvent plus abordable qu'en station d'altitude.",
+            f"Il faut simplement compter chaque jour le trajet en remontée pour rejoindre les pistes.",
+            f"En résumé : {name} convient à ceux qui veulent profiter du domaine {_dom['name']} en logeant au calme, en vallée.",
+        ])
 
     parts = []
 
@@ -3051,6 +3068,10 @@ def render_page(s):
         alt_max_lbl = "Sommet"
         display_remontees = s['remontees']
         remontees_lbl = "Remontées"
+    sans_pistes = bool(domaine) and is_sans_pistes(s)
+    if sans_pistes:
+        display_remontees = s.get('remontees') or 1
+        remontees_lbl = "Liaison vers le domaine"
     _dom_partage = DOMAINE_PARTAGE.get(s['name'])
     note_partage = (
         f'<p style="font-size:.72rem;line-height:1.5;color:var(--text-soft);margin-top:.5rem">'
@@ -3060,7 +3081,21 @@ def render_page(s):
         f'et sur les fiches des stations voisines d\u00e9signent donc le m\u00eame domaine skiable '
         f'et le m\u00eame titre de transport : elles ne s\u2019additionnent pas.'
         f'</p>'
-    ) if _dom_partage else ''
+    ) if _dom_partage and not sans_pistes else ''
+    # Textes qui citent les km : version « accès au domaine » pour une station sans pistes
+    if sans_pistes:
+        km_meta_txt = f"pas de pistes au village, accès au domaine {domaine['name']} ({domaine['km_total']} km)"
+        km_og_txt = f"Accès {domaine['short']} {domaine['km_total']} km"
+        infos_domaine_txt = (
+            f"Le village n'a pas de pistes propres : il est relié au domaine "
+            f"<strong>{domaine['name']}</strong> ({domaine['km_total']} km de pistes, jusqu'à {display_alt_max} m) "
+            f"par remontée mécanique.")
+    else:
+        km_meta_txt = f"{display_km} km de pistes"
+        km_og_txt = f"{display_km} km"
+        infos_domaine_txt = (
+            f"Le domaine s'étend sur <strong>{display_km} km de pistes</strong> entre {display_alt_min} m et "
+            f"{display_alt_max} m, desservi par {display_remontees} remontées mécaniques.")
     from urllib.parse import quote as _q
     _bk_pays = {"ES": "espagne", "AD": "andorre", "CH": "suisse", "IT": "italie", "DE": "allemagne", "LI": "liechtenstein", "AT": "autriche", "SI": "slovenie"}.get(s.get('pays'), "france")
     _bk_base = f"https://www.booking.com/searchresults.fr.html?ss={_q(s['name']+' ski '+_bk_pays)}&lang=fr"
@@ -3148,8 +3183,8 @@ def render_page(s):
                     "worstRating": "1",
                     "ratingCount": "50"
                 },
-                "amenityFeature": [
-                    {"@type": "LocationFeatureSpecification", "name": "Pistes de ski", "value": str(s["km"]) + " km"},
+                "amenityFeature": ([] if not s["km"] else [
+                    {"@type": "LocationFeatureSpecification", "name": "Pistes de ski", "value": str(s["km"]) + " km"}]) + [
                     {"@type": "LocationFeatureSpecification", "name": "Remontees mecaniques", "value": str(s["remontees"])},
                     {"@type": "LocationFeatureSpecification", "name": "Altitude maximale", "value": str(s["alt_max"]) + " m"},
                     {"@type": "LocationFeatureSpecification", "name": "Altitude minimale", "value": str(s["alt_min"]) + " m"}
@@ -3185,6 +3220,105 @@ def render_page(s):
     }
     schema = json.dumps(schema_obj, ensure_ascii=False)
     similar_html = render_similar_section(s, exclude=soeurs)
+    if sans_pistes:
+        apercu_pistes_html = f'''<div style="background:var(--blue-light);border:1.5px solid #c8dff0;border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:.85rem;line-height:1.6;color:var(--text-mid)">
+            🚡 <strong>Pas de pistes au départ de {s['name']}.</strong> La station est reliée au domaine
+            <a href="{domaine_url}" style="color:var(--blue-mid);font-weight:700;text-decoration:underline">{domaine['name']}</a>
+            ({domaine['km_total']} km de pistes) par remontée mécanique. Le détail des pistes est dans l'onglet « Grand domaine ».
+          </div>
+          <div class="icon-stat-grid">
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🔗</span>
+              <div class="icon-stat-val">{domaine['km_total']} km</div>
+              <div class="icon-stat-lbl">Accès {domaine['short']}</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🚡</span>
+              <div class="icon-stat-val">{display_remontees}</div>
+              <div class="icon-stat-lbl">{remontees_lbl}</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🏘️</span>
+              <div class="icon-stat-val">{display_alt_min}m</div>
+              <div class="icon-stat-lbl">Altitude village</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🗻</span>
+              <div class="icon-stat-val">{display_alt_max}m</div>
+              <div class="icon-stat-lbl">{alt_max_lbl}</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">⛷️</span>
+              <div class="icon-stat-val">{domaine['remontees_total']}</div>
+              <div class="icon-stat-lbl">Remontées du domaine</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">💶</span>
+              <div class="icon-stat-val">{s['forfait']}€</div>
+              <div class="icon-stat-lbl">Forfait / jour *</div>
+            </div>
+          </div>
+'''
+    else:
+        apercu_pistes_html = f'''<div class="piste-circles">
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#2ea84e"></div>
+              <div class="piste-circle-val"><b>{_pv(s,'v')}</b></div>
+              <div class="piste-circle-pct">{pct_v}%</div>
+              <div class="piste-circle-lbl">Vertes</div>
+            </div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#3a7db8"></div>
+              <div class="piste-circle-val"><b>{_pv(s,'b')}</b></div>
+              <div class="piste-circle-pct">{pct_b}%</div>
+              <div class="piste-circle-lbl">Bleues</div>
+            </div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#cc2200"></div>
+              <div class="piste-circle-val"><b>{_pv(s,'r')}</b></div>
+              <div class="piste-circle-pct">{pct_r}%</div>
+              <div class="piste-circle-lbl">Rouges</div>
+            </div>
+            <div class="piste-circle-item">
+              <div class="piste-circle" style="background:#222"></div>
+              <div class="piste-circle-val"><b>{_pv(s,'n')}</b></div>
+              <div class="piste-circle-pct">{pct_n}%</div>
+              <div class="piste-circle-lbl">Noires</div>
+            </div>
+          </div>
+          <div class="icon-stat-grid">
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🎿</span>
+              <div class="icon-stat-val">{_pistes_total}</div>
+              <div class="icon-stat-lbl">Nombre de pistes</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">⛰️</span>
+              <div class="icon-stat-val">{display_km} km</div>
+              <div class="icon-stat-lbl">{km_lbl}</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🏘️</span>
+              <div class="icon-stat-val">{display_alt_min}m</div>
+              <div class="icon-stat-lbl">Altitude village</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🗻</span>
+              <div class="icon-stat-val">{display_alt_max}m</div>
+              <div class="icon-stat-lbl">{alt_max_lbl}</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">🚡</span>
+              <div class="icon-stat-val">{display_remontees}</div>
+              <div class="icon-stat-lbl">{remontees_lbl}</div>
+            </div>
+            <div class="icon-stat-tile">
+              <span class="icon-stat-ico">💶</span>
+              <div class="icon-stat-val">{s['forfait']}€</div>
+              <div class="icon-stat-lbl">Forfait / jour *</div>
+            </div>
+          </div>
+'''
     cout_vie = calc_cout_vie(s)
     cout_vie_grp = cout_vie_groupe(cout_vie)
     cout_vie_hero_html = f'<div class="hero-cout" title="Coût de la vie sur place : {COUT_VIE_LABELS[cout_vie_grp]} ({cout_vie}/10)">Coût sur place {euro_scale_html(cout_vie)}</div>'
@@ -3202,13 +3336,13 @@ def render_page(s):
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>{s['name']}{'' if pays_code(s) == 'FR' else ' (' + PAYS_NOM.get(pays_code(s), '') + ')'} — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
-  <meta name="description" content="{s['name']} : {display_km} km de pistes, altitude {display_alt_min}-{display_alt_max}m, forfait {s['forfait']}€/jour. {s.get('desc','')[:100]}">
+  <meta name="description" content="{s['name']} : {km_meta_txt}, altitude {display_alt_min}-{display_alt_max}m, forfait {s['forfait']}€/jour. {s.get('desc','')[:100]}">
   <link rel="canonical" href="{canonical}">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SnowFinder">
   <meta property="og:url" content="{canonical}">
   <meta property="og:title" content="{s['name']}{'' if pays_code(s) == 'FR' else ' (' + PAYS_NOM.get(pays_code(s), '') + ')'} — Station de ski | SnowFinder">
-  <meta property="og:description" content="{display_km} km · {display_alt_max}m · {s['forfait']}€/j · {s['massif']}">
+  <meta property="og:description" content="{km_og_txt} · {display_alt_max}m · {s['forfait']}€/j · {s['massif']}">
   <meta property="og:image" content="{photo}">
   <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
@@ -4197,64 +4331,7 @@ function closeStation(){{
         <!-- PISTES — cercles colorés + pourcentages, façon appli des stations -->
         <div class="section">
           <div class="section-title">Aperçu du domaine skiable</div>
-          <div class="piste-circles">
-            <div class="piste-circle-item">
-              <div class="piste-circle" style="background:#2ea84e"></div>
-              <div class="piste-circle-val"><b>{_pv(s,'v')}</b></div>
-              <div class="piste-circle-pct">{pct_v}%</div>
-              <div class="piste-circle-lbl">Vertes</div>
-            </div>
-            <div class="piste-circle-item">
-              <div class="piste-circle" style="background:#3a7db8"></div>
-              <div class="piste-circle-val"><b>{_pv(s,'b')}</b></div>
-              <div class="piste-circle-pct">{pct_b}%</div>
-              <div class="piste-circle-lbl">Bleues</div>
-            </div>
-            <div class="piste-circle-item">
-              <div class="piste-circle" style="background:#cc2200"></div>
-              <div class="piste-circle-val"><b>{_pv(s,'r')}</b></div>
-              <div class="piste-circle-pct">{pct_r}%</div>
-              <div class="piste-circle-lbl">Rouges</div>
-            </div>
-            <div class="piste-circle-item">
-              <div class="piste-circle" style="background:#222"></div>
-              <div class="piste-circle-val"><b>{_pv(s,'n')}</b></div>
-              <div class="piste-circle-pct">{pct_n}%</div>
-              <div class="piste-circle-lbl">Noires</div>
-            </div>
-          </div>
-          <div class="icon-stat-grid">
-            <div class="icon-stat-tile">
-              <span class="icon-stat-ico">🎿</span>
-              <div class="icon-stat-val">{_pistes_total}</div>
-              <div class="icon-stat-lbl">Nombre de pistes</div>
-            </div>
-            <div class="icon-stat-tile">
-              <span class="icon-stat-ico">⛰️</span>
-              <div class="icon-stat-val">{display_km} km</div>
-              <div class="icon-stat-lbl">{km_lbl}</div>
-            </div>
-            <div class="icon-stat-tile">
-              <span class="icon-stat-ico">🏘️</span>
-              <div class="icon-stat-val">{display_alt_min}m</div>
-              <div class="icon-stat-lbl">Altitude village</div>
-            </div>
-            <div class="icon-stat-tile">
-              <span class="icon-stat-ico">🗻</span>
-              <div class="icon-stat-val">{display_alt_max}m</div>
-              <div class="icon-stat-lbl">{alt_max_lbl}</div>
-            </div>
-            <div class="icon-stat-tile">
-              <span class="icon-stat-ico">🚡</span>
-              <div class="icon-stat-val">{display_remontees}</div>
-              <div class="icon-stat-lbl">{remontees_lbl}</div>
-            </div>
-            <div class="icon-stat-tile">
-              <span class="icon-stat-ico">💶</span>
-              <div class="icon-stat-val">{s['forfait']}€</div>
-              <div class="icon-stat-lbl">Forfait / jour *</div>
-            </div>
-          </div>
+          {apercu_pistes_html}
           {cout_vie_block_html}
         </div>
 
@@ -4263,9 +4340,7 @@ function closeStation(){{
           <div class="section-title">Informations pratiques</div>
           <p style="font-size:.83rem;line-height:1.65;color:var(--text-mid)">
             <strong>{s['name']}</strong> est une station de ski du massif <strong>{s['massif']}</strong>,
-            en <strong>{s['region']}</strong>. Le domaine s'étend sur
-            <strong>{display_km} km de pistes</strong> entre {display_alt_min} m et {display_alt_max} m,
-            desservi par {display_remontees} remontées mécaniques. Forfait journée <strong>{s['forfait']}€</strong> par adulte.
+            en <strong>{s['region']}</strong>. {infos_domaine_txt} Forfait journée <strong>{s['forfait']}€</strong> par adulte.
           </p>
           <p style="font-size:.72rem;line-height:1.5;color:var(--text-soft);margin-top:.5rem">
             * Prix par adulte pour 1 journée, tarif public haute saison. Des tarifs réduits
@@ -4807,7 +4882,7 @@ def render_domaine_page(slug, d):
     rows = []
     for st in membres:
         km_p = d.get('km_propre', {}).get(st['name'])
-        km_txt = f"{km_p} km" if km_p else ("partagé" if d.get('unifie') else "—")
+        km_txt = f"{km_p} km" if km_p else ("accès par remontée" if is_sans_pistes(st) else ("partagé" if d.get('unifie') else "—"))
         av = d.get('alt_village', {}).get(st['name'], st['alt_min'])
         tags = "".join(f'<span class="dm-tag">{AMB.get(a, a)}</span>' for a in st.get('amb', [])[:3])
         rows.append(f'''<tr onclick="location.href='../stations/{slugify(st['name'])}.html'">
@@ -4831,7 +4906,7 @@ def render_domaine_page(slug, d):
     cards = []
     for st in membres:
         km_p = d.get('km_propre', {}).get(st['name'])
-        km_line = f"🎿 {km_p} km propres" if km_p else "🎿 domaine partagé"
+        km_line = f"🎿 {km_p} km propres" if km_p else ("🚡 pas de pistes, accès par remontée" if is_sans_pistes(st) else "🎿 domaine partagé")
         av = d.get('alt_village', {}).get(st['name'], st['alt_min'])
         st_photos = get_station_photos(st['name'])
         st_photo = st_photos[0] if st_photos else pick_placeholder(st['name'], massif=st.get('massif'), w=700)
