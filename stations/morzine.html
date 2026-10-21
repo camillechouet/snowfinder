@@ -191,6 +191,7 @@
     @keyframes tabHintPulse{0%,100%{transform:translateX(0);opacity:.55}50%{transform:translateX(3px);opacity:1}}
     .tab-content{display:none;background:white;border:1px solid var(--border);border-radius:14px;padding:18px 14px;min-height:200px}
     .tab-content.active{display:block}
+    
     /* LIRE PLUS / VOIR MOINS — textes longs (avis, description) */
     .readmore-wrap{position:relative;max-height:var(--rm-max,118px);overflow:hidden;transition:max-height .35s ease}
     .readmore-wrap.expanded{max-height:3000px}
@@ -784,6 +785,7 @@ function acceptSfNotif(){
     <button class="tab-btn active" onclick="switchTab('infos',this)">📖 La station</button>
     <button class="tab-btn" onclick="switchTab('domaine',this)">🔗 Grand domaine</button>
     
+    
     <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
     <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo &amp; enneigement</button>
   </div>
@@ -1370,7 +1372,7 @@ function closeStation(){
             <div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.3 ⭐</div>
           </div>
           <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">146 km · 2480m</span>
+            <span style="font-size:.75rem;color:#5c4a35;font-weight:600">140 km · 2480m</span>
             <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~146€/nuit</span>
           </div>
         </a>
@@ -1538,6 +1540,8 @@ function closeStation(){
         </div>
       </a></div>
       </div>
+
+      
 
       <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
       
@@ -1827,6 +1831,7 @@ function hideOfficialSheet(){
 </footer>
 
 <!-- LIGHTBOX GALERIE -->
+
 <div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
   <button class="lightbox-close" onclick="closeLightbox()" aria-label="Fermer">✕</button>
   <button class="lightbox-nav lightbox-prev" onclick="lightboxPrev()" aria-label="Précédente">‹</button>
