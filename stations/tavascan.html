@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>Tavascan — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
+  <title>Tavascan (Espagne) — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
   <meta name="description" content="Tavascan : 7 km de pistes, altitude 1750-2250m, forfait 22€/jour. Petite station de la Pleta del Prat, surtout connue pour son ski nordique. ⚠️ Pistes alpines fermées">
   <link rel="canonical" href="https://snowfinder.fr/stations/tavascan.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SnowFinder">
   <meta property="og:url" content="https://snowfinder.fr/stations/tavascan.html">
-  <meta property="og:title" content="Tavascan — Station de ski | SnowFinder">
+  <meta property="og:title" content="Tavascan (Espagne) — Station de ski | SnowFinder">
   <meta property="og:description" content="7 km · 2250m · 22€/j · Pyrénées">
   <meta property="og:image" content="https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1200&q=80">
   <meta property="og:locale" content="fr_FR">
@@ -121,10 +121,12 @@
     .euros{display:inline-flex;gap:1px;font-weight:800;line-height:1}
     .euros .eu{color:#cdd2d8}
     .euros .eu.on{color:#c99212;text-shadow:0 0 1px rgba(160,110,0,.35)}
+    .euros .eu.half{background:linear-gradient(90deg,#c99212 50%,#cdd2d8 50%);-webkit-background-clip:text;background-clip:text;color:transparent}
     .hero-cout{display:inline-flex;align-items:center;gap:7px;margin-top:8px;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);color:rgba(255,255,255,.9);font-size:.74rem;font-weight:600;padding:4px 11px;border-radius:20px}
     .hero-cout .euros{font-size:.95rem}
     .hero-cout .eu{color:rgba(255,255,255,.35)}
     .hero-cout .eu.on{color:#f5c542}
+    .hero-cout .eu.half{background:linear-gradient(90deg,#f5c542 50%,rgba(255,255,255,.35) 50%);-webkit-background-clip:text;background-clip:text;color:transparent}
     .cout-vie-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;background:#fdf6e3;border:1.5px solid #f1dfa8;border-radius:11px;padding:11px 14px}
     .cv-title{font-weight:700;font-size:.85rem;color:var(--text)}
     .cv-sub{font-size:.68rem;color:var(--text-mid);margin-top:2px;line-height:1.4}
@@ -755,7 +757,7 @@ function acceptSfNotif(){
     <div class="hero-massif">⛷ Pyrénées</div>
     <h1>Tavascan</h1>
     <div class="hero-region">📍 Pallars Sobirà, Catalogne, Espagne 🇪🇸</div>
-    <div class="hero-cout" title="Coût de la vie sur place : Très abordable">Coût sur place <span class="euros" role="img" aria-label="Coût de la vie 1 sur 5"><span class="eu on">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span></span></div>
+    <div class="hero-cout" title="Coût de la vie sur place : Très abordable (1/10)">Coût sur place <span class="euros" role="img" aria-label="Coût de la vie 1 sur 10" title="Coût de la vie sur place : Très abordable (1/10)"><span class="eu half">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span></span></div>
     
   </div>
   <div class="hero-illu-note">Photo d'illustration</div>
@@ -1146,12 +1148,13 @@ function closeStation(){
               <div class="icon-stat-lbl">Forfait / jour *</div>
             </div>
           </div>
+
           <div class="cout-vie-row">
             <div>
               <div class="cv-title">🛒 Coût de la vie sur place</div>
-              <div class="cv-sub">Très abordable · indice SnowFinder de € (le moins cher) à €€€€€ (le plus cher)</div>
+              <div class="cv-sub">Très abordable (1/10) · indice SnowFinder de € (le moins cher) à €€€€€ (le plus cher)</div>
             </div>
-            <div class="cv-scale"><span class="euros" role="img" aria-label="Coût de la vie 1 sur 5"><span class="eu on">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span></span></div>
+            <div class="cv-scale"><span class="euros" role="img" aria-label="Coût de la vie 1 sur 10" title="Coût de la vie sur place : Très abordable (1/10)"><span class="eu half">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span></span></div>
           </div>
         </div>
 
@@ -1160,9 +1163,7 @@ function closeStation(){
           <div class="section-title">Informations pratiques</div>
           <p style="font-size:.83rem;line-height:1.65;color:var(--text-mid)">
             <strong>Tavascan</strong> est une station de ski du massif <strong>Pyrénées</strong>,
-            en <strong>Pallars Sobirà, Catalogne, Espagne 🇪🇸</strong>. Le domaine s'étend sur
-            <strong>7 km de pistes</strong> entre 1750 m et 2250 m,
-            desservi par 3 remontées mécaniques. Forfait journée <strong>22€</strong> par adulte.
+            en <strong>Pallars Sobirà, Catalogne, Espagne 🇪🇸</strong>. Le domaine s'étend sur <strong>7 km de pistes</strong> entre 1750 m et 2250 m, desservi par 3 remontées mécaniques. Forfait journée <strong>22€</strong> par adulte.
           </p>
           <p style="font-size:.72rem;line-height:1.5;color:var(--text-soft);margin-top:.5rem">
             * Prix par adulte pour 1 journée, tarif public haute saison. Des tarifs réduits
@@ -1280,7 +1281,7 @@ function closeStation(){
         <div class="section" style="margin-bottom:0;border-left:4px solid var(--blue-mid);background:linear-gradient(135deg,var(--white) 0%,var(--blue-light) 100%);--rm-bg:var(--blue-light)">
           <div class="section-title" style="color:var(--blue-dark)">✍️ Notre avis sur Tavascan</div>
           <div class="readmore-wrap" id="rm-avis">
-            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Tavascan est une station confidentielle à l'échelle modeste — 7 km de pistes pour une expérience de ski intimiste, loin de l'agitation des grandes stations. C'est ici qu'on vient chercher le calme, l'authenticité et des files d'attente inexistantes aux remontées. La réputation familiale de Tavascan n'est pas usurpée : espaces débutants dédiés, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Pyrénées pour poser les bases du ski avec des enfants. L'altitude de Tavascan (1750 m au départ, 2250 m en haut) lui permet de maintenir un enneigement correct en plein hiver. Les mois de janvier et février sont les plus fiables ; en décembre et mars, il vaut mieux vérifier les conditions avant de finaliser une réservation. Avec un forfait journée à seulement 22€, Tavascan est l'une des destinations les plus accessibles de France. Pour les familles à budget maîtrisé ou les skieurs qui veulent multiplier les sorties sans se ruiner, c'est une adresse sincère et souvent méconnue. En résumé : Tavascan ne rivalise pas avec les géants du ski mais ne le prétend pas. C'est une destination honnête, souvent sous-estimée, qui mérite d'être (re)découverte.</p>
+            <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">Tavascan est une station confidentielle à l'échelle modeste — 7 km de pistes pour une expérience de ski intimiste, loin de l'agitation des grandes stations. C'est ici qu'on vient chercher le calme, l'authenticité et des files d'attente inexistantes aux remontées. La réputation familiale de Tavascan n'est pas usurpée : espaces débutants dédiés, pistes vertes bien entretenues et ambiance bon enfant au pied des remontées. C'est une des stations les plus rassurantes du Pyrénées pour poser les bases du ski avec des enfants. L'altitude de Tavascan (1750 m au départ, 2250 m en haut) lui permet de maintenir un enneigement correct en plein hiver. Les mois de janvier et février sont les plus fiables ; en décembre et mars, il vaut mieux vérifier les conditions avant de finaliser une réservation. Avec un forfait journée à seulement 22€, Tavascan est l'une des destinations les plus accessibles d'Espagne. Pour les familles à budget maîtrisé ou les skieurs qui veulent multiplier les sorties sans se ruiner, c'est une adresse sincère et souvent méconnue. En résumé : Tavascan ne rivalise pas avec les géants du ski mais ne le prétend pas. C'est une destination honnête, souvent sous-estimée, qui mérite d'être (re)découverte.</p>
           </div>
           <div class="readmore-btn" onclick="toggleReadMore('rm-avis',this)">Lire plus ▼</div>
         </div>
@@ -1634,7 +1635,7 @@ function hideOfficialSheet(){
 </script>
 
 <footer class="footer">
-  <strong>SnowFinder</strong> — Le guide complet des stations de ski françaises<br>
+  <strong>SnowFinder</strong> — Le guide complet des stations de ski en Europe<br>
   <a href="../index.html">Accueil</a> · <a href="../recherche.html">Recherche</a> · <a href="../comparateur.html">Comparateur</a> · <a href="../mentions-legales.html">Mentions légales</a><br>
   <span style="font-size:.7rem;opacity:.7">Données indicatives · Forfaits haute saison adulte · À vérifier sur le site officiel de chaque station</span>
 </footer>

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://snowfinder.fr/index.html</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -4867,6 +4867,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/articles/retour-est-alpes-neige-octobre-2026.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/articles/saint-francois-longchamp-rapport-qualite-prix-valmorel.html</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>monthly</changefreq>
@@ -4910,7 +4916,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/toutes-les-actus.html</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

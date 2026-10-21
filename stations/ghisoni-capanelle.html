@@ -121,10 +121,12 @@
     .euros{display:inline-flex;gap:1px;font-weight:800;line-height:1}
     .euros .eu{color:#cdd2d8}
     .euros .eu.on{color:#c99212;text-shadow:0 0 1px rgba(160,110,0,.35)}
+    .euros .eu.half{background:linear-gradient(90deg,#c99212 50%,#cdd2d8 50%);-webkit-background-clip:text;background-clip:text;color:transparent}
     .hero-cout{display:inline-flex;align-items:center;gap:7px;margin-top:8px;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);color:rgba(255,255,255,.9);font-size:.74rem;font-weight:600;padding:4px 11px;border-radius:20px}
     .hero-cout .euros{font-size:.95rem}
     .hero-cout .eu{color:rgba(255,255,255,.35)}
     .hero-cout .eu.on{color:#f5c542}
+    .hero-cout .eu.half{background:linear-gradient(90deg,#f5c542 50%,rgba(255,255,255,.35) 50%);-webkit-background-clip:text;background-clip:text;color:transparent}
     .cout-vie-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;background:#fdf6e3;border:1.5px solid #f1dfa8;border-radius:11px;padding:11px 14px}
     .cv-title{font-weight:700;font-size:.85rem;color:var(--text)}
     .cv-sub{font-size:.68rem;color:var(--text-mid);margin-top:2px;line-height:1.4}
@@ -755,7 +757,7 @@ function acceptSfNotif(){
     <div class="hero-massif">⛷ Corse</div>
     <h1>Ghisoni - Capanelle</h1>
     <div class="hero-region">📍 Haute-Corse</div>
-    <div class="hero-cout" title="Coût de la vie sur place : Très abordable">Coût sur place <span class="euros" role="img" aria-label="Coût de la vie 1 sur 5"><span class="eu on">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span></span></div>
+    <div class="hero-cout" title="Coût de la vie sur place : Très abordable (1/10)">Coût sur place <span class="euros" role="img" aria-label="Coût de la vie 1 sur 10" title="Coût de la vie sur place : Très abordable (1/10)"><span class="eu half">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span></span></div>
     
   </div>
   <div class="hero-illu-note">Photo d'illustration</div>
@@ -1146,12 +1148,13 @@ function closeStation(){
               <div class="icon-stat-lbl">Forfait / jour *</div>
             </div>
           </div>
+
           <div class="cout-vie-row">
             <div>
               <div class="cv-title">🛒 Coût de la vie sur place</div>
-              <div class="cv-sub">Très abordable · indice SnowFinder de € (le moins cher) à €€€€€ (le plus cher)</div>
+              <div class="cv-sub">Très abordable (1/10) · indice SnowFinder de € (le moins cher) à €€€€€ (le plus cher)</div>
             </div>
-            <div class="cv-scale"><span class="euros" role="img" aria-label="Coût de la vie 1 sur 5"><span class="eu on">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span></span></div>
+            <div class="cv-scale"><span class="euros" role="img" aria-label="Coût de la vie 1 sur 10" title="Coût de la vie sur place : Très abordable (1/10)"><span class="eu half">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span><span class="eu">€</span></span></div>
           </div>
         </div>
 
@@ -1160,9 +1163,7 @@ function closeStation(){
           <div class="section-title">Informations pratiques</div>
           <p style="font-size:.83rem;line-height:1.65;color:var(--text-mid)">
             <strong>Ghisoni - Capanelle</strong> est une station de ski du massif <strong>Corse</strong>,
-            en <strong>Haute-Corse</strong>. Le domaine s'étend sur
-            <strong>3 km de pistes</strong> entre 1580 m et 1870 m,
-            desservi par 3 remontées mécaniques. Forfait journée <strong>18€</strong> par adulte.
+            en <strong>Haute-Corse</strong>. Le domaine s'étend sur <strong>3 km de pistes</strong> entre 1580 m et 1870 m, desservi par 3 remontées mécaniques. Forfait journée <strong>18€</strong> par adulte.
           </p>
           <p style="font-size:.72rem;line-height:1.5;color:var(--text-soft);margin-top:.5rem">
             * Prix par adulte pour 1 journée, tarif public haute saison. Des tarifs réduits
@@ -1674,7 +1675,7 @@ function hideOfficialSheet(){
 </script>
 
 <footer class="footer">
-  <strong>SnowFinder</strong> — Le guide complet des stations de ski françaises<br>
+  <strong>SnowFinder</strong> — Le guide complet des stations de ski en Europe<br>
   <a href="../index.html">Accueil</a> · <a href="../recherche.html">Recherche</a> · <a href="../comparateur.html">Comparateur</a> · <a href="../mentions-legales.html">Mentions légales</a><br>
   <span style="font-size:.7rem;opacity:.7">Données indicatives · Forfaits haute saison adulte · À vérifier sur le site officiel de chaque station</span>
 </footer>
