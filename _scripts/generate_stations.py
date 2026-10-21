@@ -21,6 +21,10 @@ PARTNER_STATIONS = set([
     # "Valmorel",
 ])
 
+def fmt_eur(v):
+    """60.7 -> '60,70' ; les prix entiers restent inchangés."""
+    return f"{v:.2f}".replace(".", ",") if isinstance(v, float) and v % 1 else (int(v) if isinstance(v, float) else v)
+
 def badge_html(station_name, size="hero"):
     """Retourne le HTML du badge partenaire si la station est partenaire, sinon ''.
     size: 'hero' (grand format, pages stations / station du moment / articles / duels)
@@ -327,10 +331,11 @@ DOMAINES = {
     "grand-massif": {
         "name": "Le Grand Massif", "massif": "Alpes du Nord", "pays": ["France"],
         "stations": ["Flaine","Les Carroz","Morillon","Samoëns","Sixt-Fer-à-Cheval"],
-        "km_propre": {"Flaine":146,"Samoëns":40,"Les Carroz":45,"Morillon":35,"Sixt-Fer-à-Cheval":15},
-        "km_total": 265, "remontees_total": 62, "forfait_domaine": 63,
-        "alt_min": 700, "alt_max": 2500,
-        "pistes": {"v":29,"b":111,"r":80,"n":31},
+        "km_propre": {"Flaine":140,"Samoëns":40,"Les Carroz":45,"Morillon":35,"Sixt-Fer-à-Cheval":15},
+        "remontees_propre": {"Flaine":23},
+        "km_total": 265, "remontees_total": 60, "forfait_domaine": 63,
+        "alt_min": 700, "alt_max": 2480,
+        "pistes": {"v":23,"b":61,"r":44,"n":11},
         "short": "Grand Massif",
         "desc": "Cinq villages du Faucigny reliés autour du plateau des Grandes Platières, à deux pas de Genève. Flaine, station-manifeste construite dans les années 60 par les architectes Marcel Breuer et Éric Boissonnas avec ses immeubles en béton brut et ses sculptures de Picasso et Dubuffet en pleine montagne — on aime ou on déteste, mais c'est unique. En contrebas, Samoëns, Morillon, Les Carroz et Sixt ont gardé leurs chalets et leurs clochers. Le domaine offre l'une des plus longues pistes des Alpes, les Cascades : 14 km de descente depuis les Grandes Platières jusqu'à Sixt, avec vue sur le cirque du Fer-à-Cheval.",
     },
@@ -2164,7 +2169,7 @@ def generate_verdict(s):
             f"que l'on rejoint par remontée mécanique.",
             f"Le village est à {alt_v} m et le domaine monte jusqu'à {alt} m : on dort en vallée "
             f"et on skie en altitude, avec l'enneigement du grand domaine.",
-            f"Le forfait journée est celui du grand domaine, à {forfait}€. L'intérêt de {name} se joue surtout "
+            f"Le forfait journée est celui du grand domaine, à {fmt_eur(forfait)}€. L'intérêt de {name} se joue surtout "
             f"côté hébergement, souvent plus abordable qu'en station d'altitude.",
             f"Il faut simplement compter chaque jour le trajet en remontée pour rejoindre les pistes.",
             f"En résumé : {name} convient à ceux qui veulent profiter du domaine {_dom['name']} en logeant au calme, en vallée.",
@@ -2213,7 +2218,7 @@ def generate_verdict(s):
         parts.append(
             f"L'ADN de {name}, c'est le haut de gamme : les hébergements, les restaurants d'altitude "
             f"et les services en station reflètent une clientèle qui ne compte pas. "
-            f"Avec un forfait journée à {forfait}€, le séjour a un prix, mais l'expérience est à la hauteur "
+            f"Avec un forfait journée à {fmt_eur(forfait)}€, le séjour a un prix, mais l'expérience est à la hauteur "
             f"pour qui veut se faire plaisir sans compromis."
         )
     elif 'festif' in ambs and 'famille' not in ambs:
@@ -2259,7 +2264,7 @@ def generate_verdict(s):
         parts.append(
             f"Station polyvalente par excellence, {name} convient à un groupe hétérogène "
             f"sans que personne ne soit lésé. "
-            f"Les niveaux débutant à avancé trouvent leur compte, et le forfait à {forfait}€/jour "
+            f"Les niveaux débutant à avancé trouvent leur compte, et le forfait à {fmt_eur(forfait)}€/jour "
             f"reste dans la moyenne raisonnable du massif."
         )
 
@@ -2297,26 +2302,26 @@ def generate_verdict(s):
     # ── VALEUR / RAPPORT QUALITÉ-PRIX ──
     if forfait <= 22:
         parts.append(
-            f"Avec un forfait journée à seulement {forfait}€, {name} est l'une des destinations "
+            f"Avec un forfait journée à seulement {fmt_eur(forfait)}€, {name} est l'une des destinations "
             f"les plus accessibles {PAYS_DE.get(pays_code(s), 'de France')}. "
             f"Pour les familles à budget maîtrisé ou les skieurs qui veulent multiplier les sorties "
             f"sans se ruiner, c'est une adresse sincère et souvent méconnue."
         )
     elif forfait <= 35:
         parts.append(
-            f"Le forfait journée à {forfait}€ reste raisonnable pour la qualité du domaine offert. "
+            f"Le forfait journée à {fmt_eur(forfait)}€ reste raisonnable pour la qualité du domaine offert. "
             f"En comptant hébergement, ski et repas, {name} s'adresse à ceux qui veulent passer "
             f"une belle semaine sans que la note finale ne les fasse tomber de leur chaise."
         )
     elif forfait <= 50:
         parts.append(
-            f"Le forfait journée à {forfait}€ place {name} dans la catégorie des stations "
+            f"Le forfait journée à {fmt_eur(forfait)}€ place {name} dans la catégorie des stations "
             f"intermédiaires côté budget — ni donné, ni exorbitant. "
             f"La qualité du domaine et des équipements justifie ce tarif pour la plupart des skieurs."
         )
     else:
         parts.append(
-            f"Le budget séjour à {name} est clairement élevé : {forfait}€ le forfait journée, "
+            f"Le budget séjour à {name} est clairement élevé : {fmt_eur(forfait)}€ le forfait journée, "
             f"auxquels s'ajoutent des hébergements et des restaurants d'altitude parmi les plus chers "
             f"des Alpes. "
             f"C'est le prix de l'excellence — mais il faut en avoir conscience avant de partir."
@@ -3254,7 +3259,7 @@ def render_page(s):
             </div>
             <div class="icon-stat-tile">
               <span class="icon-stat-ico">💶</span>
-              <div class="icon-stat-val">{s['forfait']}€</div>
+              <div class="icon-stat-val">{fmt_eur(s['forfait'])}€</div>
               <div class="icon-stat-lbl">Forfait / jour *</div>
             </div>
           </div>
@@ -3314,7 +3319,7 @@ def render_page(s):
             </div>
             <div class="icon-stat-tile">
               <span class="icon-stat-ico">💶</span>
-              <div class="icon-stat-val">{s['forfait']}€</div>
+              <div class="icon-stat-val">{fmt_eur(s['forfait'])}€</div>
               <div class="icon-stat-lbl">Forfait / jour *</div>
             </div>
           </div>
@@ -3336,13 +3341,13 @@ def render_page(s):
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>{s['name']}{'' if pays_code(s) == 'FR' else ' (' + PAYS_NOM.get(pays_code(s), '') + ')'} — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
-  <meta name="description" content="{s['name']} : {km_meta_txt}, altitude {display_alt_min}-{display_alt_max}m, forfait {s['forfait']}€/jour. {s.get('desc','')[:100]}">
+  <meta name="description" content="{s['name']} : {km_meta_txt}, altitude {display_alt_min}-{display_alt_max}m, forfait {fmt_eur(s['forfait'])}€/jour. {s.get('desc','')[:100]}">
   <link rel="canonical" href="{canonical}">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SnowFinder">
   <meta property="og:url" content="{canonical}">
   <meta property="og:title" content="{s['name']}{'' if pays_code(s) == 'FR' else ' (' + PAYS_NOM.get(pays_code(s), '') + ')'} — Station de ski | SnowFinder">
-  <meta property="og:description" content="{km_og_txt} · {display_alt_max}m · {s['forfait']}€/j · {s['massif']}">
+  <meta property="og:description" content="{km_og_txt} · {display_alt_max}m · {fmt_eur(s['forfait'])}€/j · {s['massif']}">
   <meta property="og:image" content="{photo}">
   <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
@@ -4340,7 +4345,7 @@ function closeStation(){{
           <div class="section-title">Informations pratiques</div>
           <p style="font-size:.83rem;line-height:1.65;color:var(--text-mid)">
             <strong>{s['name']}</strong> est une station de ski du massif <strong>{s['massif']}</strong>,
-            en <strong>{s['region']}</strong>. {infos_domaine_txt} Forfait journée <strong>{s['forfait']}€</strong> par adulte.
+            en <strong>{s['region']}</strong>. {infos_domaine_txt} Forfait journée <strong>{fmt_eur(s['forfait'])}€</strong> par adulte.
           </p>
           <p style="font-size:.72rem;line-height:1.5;color:var(--text-soft);margin-top:.5rem">
             * Prix par adulte pour 1 journée, tarif public haute saison. Des tarifs réduits
@@ -4865,7 +4870,7 @@ def render_domaine_page(slug, d):
     faits = []
     if membres:
         moins_cher = min(membres, key=lambda x: x['forfait'])
-        faits.append(("💶", f"{moins_cher['forfait']}€", f"Forfait le moins cher — {moins_cher['name']}"))
+        faits.append(("💶", f"{fmt_eur(moins_cher['forfait'])}€", f"Forfait le moins cher — {moins_cher['name']}"))
         plus_haut = max(membres, key=lambda x: d.get('alt_village', {}).get(x['name'], x['alt_min']))
         av = d.get('alt_village', {}).get(plus_haut['name'], plus_haut['alt_min'])
         faits.append(("🏔️", f"{av}m", f"Village le plus haut — {plus_haut['name']}"))
@@ -4887,7 +4892,7 @@ def render_domaine_page(slug, d):
         tags = "".join(f'<span class="dm-tag">{AMB.get(a, a)}</span>' for a in st.get('amb', [])[:3])
         rows.append(f'''<tr onclick="location.href='../stations/{slugify(st['name'])}.html'">
       <td class="dm-t-name">{st['name']}</td>
-      <td>{av}m</td><td>{km_txt}</td><td>{st['forfait']}€</td>
+      <td>{av}m</td><td>{km_txt}</td><td>{fmt_eur(st['forfait'])}€</td>
       <td>⭐{st['score']:.1f}</td>
       <td class="dm-t-tags">{tags}</td>
       <td class="dm-t-go">→</td>
@@ -4918,7 +4923,7 @@ def render_domaine_page(slug, d):
         <div class="dm-sc-name">{st['name']}</div>
       </div>
       <div class="dm-station-body">
-        <div class="dm-station-meta">🏘 {av}m · ⛰ {st['alt_max']}m · 💶 {st['forfait']}€</div>
+        <div class="dm-station-meta">🏘 {av}m · ⛰ {st['alt_max']}m · 💶 {fmt_eur(st['forfait'])}€</div>
         <div class="dm-station-km">{km_line}</div>
         <div class="dm-station-cta">Voir la fiche →</div>
       </div>

@@ -31,6 +31,10 @@ COMPARATIFS_DIR = REPO_ROOT / "comparatifs"
 SNIPPET_OUT = REPO_ROOT / "_scripts" / "_index_snippet.html"
 
 # Slug canonique partagé avec generate_sitemap.py
+def fmt_eur(v):
+    """60.7 -> '60,70' ; les prix entiers restent inchangés."""
+    return f"{v:.2f}".replace(".", ",") if isinstance(v, float) and v % 1 else (int(v) if isinstance(v, float) else v)
+
 def slugify(name: str) -> str:
     import unicodedata
     s = name.lower()
@@ -1169,7 +1173,7 @@ def render_spec(station: dict) -> str:
         f'<div class="row"><span>Domaine skiable</span><span>{station["km"]} km</span></div>',
         f'<div class="row"><span>Remontées</span><span>{station["remontees"]}</span></div>',
         f'<div class="row"><span>Pistes (V/B/R/N)</span><span>{p["v"]}/{p["b"]}/{p["r"]}/{p["n"]}{" (en %)" if p.get("pct") else ""}</span></div>',
-        f'<div class="row"><span>Forfait journée</span><span>{station["forfait"]} €</span></div>',
+        f'<div class="row"><span>Forfait journée</span><span>{fmt_eur(station["forfait"])} €</span></div>',
         f'<div class="row"><span>Note SnowFinder</span><span>{station["score"]} / 5</span></div>',
         f'<div class="row"><span>Région</span><span>{station["region"]}</span></div>',
     ])
