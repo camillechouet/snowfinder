@@ -21,10 +21,6 @@ PARTNER_STATIONS = set([
     # "Valmorel",
 ])
 
-def fmt_eur(v):
-    """60.7 -> '60,70' ; les prix entiers restent inchangés."""
-    return f"{v:.2f}".replace(".", ",") if isinstance(v, float) and v % 1 else (int(v) if isinstance(v, float) else v)
-
 def badge_html(station_name, size="hero"):
     """Retourne le HTML du badge partenaire si la station est partenaire, sinon ''.
     size: 'hero' (grand format, pages stations / station du moment / articles / duels)
@@ -331,11 +327,10 @@ DOMAINES = {
     "grand-massif": {
         "name": "Le Grand Massif", "massif": "Alpes du Nord", "pays": ["France"],
         "stations": ["Flaine","Les Carroz","Morillon","Samoëns","Sixt-Fer-à-Cheval"],
-        "km_propre": {"Flaine":140,"Samoëns":40,"Les Carroz":45,"Morillon":35,"Sixt-Fer-à-Cheval":15},
-        "remontees_propre": {"Flaine":23},
-        "km_total": 265, "remontees_total": 60, "forfait_domaine": 63,
-        "alt_min": 700, "alt_max": 2480,
-        "pistes": {"v":23,"b":61,"r":44,"n":11},
+        "km_propre": {"Flaine":146,"Samoëns":40,"Les Carroz":45,"Morillon":35,"Sixt-Fer-à-Cheval":15},
+        "km_total": 265, "remontees_total": 62, "forfait_domaine": 63,
+        "alt_min": 700, "alt_max": 2500,
+        "pistes": {"v":29,"b":111,"r":80,"n":31},
         "short": "Grand Massif",
         "desc": "Cinq villages du Faucigny reliés autour du plateau des Grandes Platières, à deux pas de Genève. Flaine, station-manifeste construite dans les années 60 par les architectes Marcel Breuer et Éric Boissonnas avec ses immeubles en béton brut et ses sculptures de Picasso et Dubuffet en pleine montagne — on aime ou on déteste, mais c'est unique. En contrebas, Samoëns, Morillon, Les Carroz et Sixt ont gardé leurs chalets et leurs clochers. Le domaine offre l'une des plus longues pistes des Alpes, les Cascades : 14 km de descente depuis les Grandes Platières jusqu'à Sixt, avec vue sur le cirque du Fer-à-Cheval.",
     },
@@ -1999,6 +1994,132 @@ def get_domaine_photos_smart(slug, d):
         return borrowed, 'borrowed'
     return [pick_placeholder(d['name'], massif=d.get('massif'), w=1400)], 'placeholder'
 
+# ─────────────────────────────────────────────────────────────────────────────
+# PLANS DES PISTES — dossier img/plans/
+#   plan-{slug-station}.webp   ex. plan-vars.webp       (plan propre à une station)
+#   plan-{slug-domaine}.webp   ex. plan-foretblanche.webp (plan d'un grand domaine,
+#                              appliqué à toutes les stations du domaine)
+# Priorité : plan propre à la station > plan du domaine. Sans plan : aucun onglet.
+# ─────────────────────────────────────────────────────────────────────────────
+PLAN_EXTS = ('webp', 'jpg', 'jpeg', 'png')
+
+def _find_plan(key):
+    for ext in PLAN_EXTS:
+        if os.path.exists(os.path.join(root_dir, 'img', 'plans', f'plan-{key}.{ext}')):
+            return f'../img/plans/plan-{key}.{ext}'
+    return None
+
+def _liste_fr(noms):
+    noms = list(noms)
+    return noms[0] if len(noms) == 1 else ', '.join(noms[:-1]) + ' et ' + noms[-1]
+
+def get_plan_pistes(station_name):
+    """Retourne (chemin_relatif, crédit) du plan des pistes d'une station, ou (None, None)."""
+    own = _find_plan(to_photo_slug(station_name))
+    if own:
+        return own, station_name
+    dslug, d = get_domaine(station_name)
+    if d:
+        dp = _find_plan(dslug.replace('-', ''))
+        if dp:
+            return dp, _liste_fr(d['stations'])
+    return None, None
+
+def get_plan_domaine(dslug, d):
+    p = _find_plan(dslug.replace('-', ''))
+    return (p, _liste_fr(d['stations'])) if p else (None, None)
+
+def render_plan_figure(src, alt, credit):
+    return f"""<figure class="plan-fig">
+  <button type="button" class="plan-open" onclick="openPlan('{src}','{alt}')" aria-label="Agrandir le plan des pistes">
+    <img src="{src}" alt="{alt}" loading="lazy">
+    <span class="plan-hint">🔍 Touchez pour agrandir et zoomer</span>
+  </button>
+  <figcaption class="plan-credit">Plan des pistes © {credit} — reproduit avec l'autorisation de la station.</figcaption>
+</figure>"""
+
+PLAN_CSS = """
+    .plan-fig{margin:0}
+    .plan-open{position:relative;display:block;width:100%;padding:0;border:1px solid var(--border,#e3e3e3);border-radius:12px;overflow:hidden;background:#eaf3fb;cursor:zoom-in}
+    .plan-open img{display:block;width:100%;height:auto}
+    .plan-hint{position:absolute;right:8px;bottom:8px;background:rgba(20,40,70,.82);color:#fff;font-size:.72rem;font-weight:700;padding:6px 11px;border-radius:20px}
+    .plan-credit{margin-top:8px;font-size:.72rem;color:#7a7a7a;font-style:italic;line-height:1.4}
+    .plan-viewer{position:fixed;inset:0;z-index:10000;background:rgba(8,16,28,.96);display:none;flex-direction:column}
+    .plan-viewer.open{display:flex}
+    .plan-viewer-bar{display:flex;align-items:center;gap:8px;padding:10px 12px;color:#fff;flex:0 0 auto}
+    .plan-viewer-title{flex:1;font-size:.85rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .plan-viewer-bar button{width:40px;height:40px;border:none;border-radius:10px;background:rgba(255,255,255,.16);color:#fff;font-size:1.15rem;cursor:pointer}
+    .plan-viewer-stage{position:relative;flex:1;overflow:hidden;touch-action:none;cursor:grab}
+    .plan-viewer-stage img{position:absolute;left:0;top:0;max-width:none;transform-origin:0 0;user-select:none;-webkit-user-drag:none;will-change:transform}
+"""
+
+PLAN_VIEWER_HTML = """
+<div class="plan-viewer" id="planViewer" aria-hidden="true">
+  <div class="plan-viewer-bar">
+    <span class="plan-viewer-title" id="planViewerTitle"></span>
+    <button type="button" onclick="planZoom(1.5)" aria-label="Zoom avant">＋</button>
+    <button type="button" onclick="planZoom(1/1.5)" aria-label="Zoom arrière">－</button>
+    <button type="button" onclick="planFit()" aria-label="Plan entier">⤢</button>
+    <button type="button" onclick="closePlan()" aria-label="Fermer">✕</button>
+  </div>
+  <div class="plan-viewer-stage" id="planStage"><img id="planImg" alt="" draggable="false"></div>
+</div>
+<script>
+(function(){
+  var v=document.getElementById('planViewer'), st=document.getElementById('planStage'), im=document.getElementById('planImg');
+  if(!v||!st||!im) return;
+  var s=1,tx=0,ty=0,minS=0.1,maxS=8,ptrs={},pinch=null,lastTap=0,lastX=0,lastY=0;
+  function clamp(){
+    var sw=st.clientWidth, sh=st.clientHeight, w=im.naturalWidth*s, h=im.naturalHeight*s;
+    tx = w<=sw ? (sw-w)/2 : Math.min(0,Math.max(sw-w,tx));
+    ty = h<=sh ? (sh-h)/2 : Math.min(0,Math.max(sh-h,ty));
+  }
+  function apply(){ clamp(); im.style.transform='translate('+tx+'px,'+ty+'px) scale('+s+')'; }
+  function fit(){
+    var sw=st.clientWidth, sh=st.clientHeight, iw=im.naturalWidth||1, ih=im.naturalHeight||1;
+    minS=Math.min(sw/iw,sh/ih); s=minS; maxS=Math.max(minS*8,3); tx=0; ty=0; apply();
+  }
+  function zoomAt(f,cx,cy){
+    var ns=Math.min(maxS,Math.max(minS,s*f)); if(ns===s) return;
+    tx=cx-(cx-tx)*(ns/s); ty=cy-(cy-ty)*(ns/s); s=ns; apply();
+  }
+  function center(){ var r=st.getBoundingClientRect(); return [r.width/2,r.height/2]; }
+  window.openPlan=function(src,title){
+    document.getElementById('planViewerTitle').textContent=title||'';
+    v.classList.add('open'); v.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+    im.onload=fit; im.src=src; if(im.complete&&im.naturalWidth) fit();
+  };
+  window.closePlan=function(){ v.classList.remove('open'); v.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
+  window.planZoom=function(f){ var c=center(); zoomAt(f,c[0],c[1]); };
+  window.planFit=fit;
+  function dist(a,b){ return Math.hypot(a.x-b.x,a.y-b.y); }
+  st.addEventListener('pointerdown',function(e){
+    st.setPointerCapture(e.pointerId); ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+    var ids=Object.keys(ptrs);
+    if(ids.length===2){ pinch={d:dist(ptrs[ids[0]],ptrs[ids[1]])}; }
+    else { lastX=e.clientX; lastY=e.clientY;
+      var now=Date.now(); if(now-lastTap<300){ var r=st.getBoundingClientRect(); if(s<=minS*1.05) zoomAt(3,e.clientX-r.left,e.clientY-r.top); else fit(); lastTap=0; } else lastTap=now; }
+  });
+  st.addEventListener('pointermove',function(e){
+    if(!ptrs[e.pointerId]) return;
+    ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+    var ids=Object.keys(ptrs);
+    if(ids.length>=2&&pinch){
+      var a=ptrs[ids[0]], b=ptrs[ids[1]], d=dist(a,b), r=st.getBoundingClientRect();
+      zoomAt(d/pinch.d,(a.x+b.x)/2-r.left,(a.y+b.y)/2-r.top); pinch.d=d;
+    } else {
+      tx+=e.clientX-lastX; ty+=e.clientY-lastY; lastX=e.clientX; lastY=e.clientY; apply();
+    }
+  });
+  function up(e){ delete ptrs[e.pointerId]; pinch=null; var ids=Object.keys(ptrs); if(ids.length===1){ lastX=ptrs[ids[0]].x; lastY=ptrs[ids[0]].y; } }
+  st.addEventListener('pointerup',up); st.addEventListener('pointercancel',up);
+  st.addEventListener('wheel',function(e){ e.preventDefault(); var r=st.getBoundingClientRect(); zoomAt(e.deltaY<0?1.2:1/1.2,e.clientX-r.left,e.clientY-r.top); },{passive:false});
+  window.addEventListener('resize',function(){ if(v.classList.contains('open')) fit(); });
+  document.addEventListener('keydown',function(e){ if(!v.classList.contains('open')) return; if(e.key==='Escape') closePlan(); else if(e.key==='+') planZoom(1.5); else if(e.key==='-') planZoom(1/1.5); });
+})();
+</script>
+"""
+
 DATA = json.loads(m.group(1))
 # Stations suisses : répartition des pistes publiée en % (clé "pct" dans pistes) → on la sort du dict
 PISTES_PCT = set()
@@ -2169,7 +2290,7 @@ def generate_verdict(s):
             f"que l'on rejoint par remontée mécanique.",
             f"Le village est à {alt_v} m et le domaine monte jusqu'à {alt} m : on dort en vallée "
             f"et on skie en altitude, avec l'enneigement du grand domaine.",
-            f"Le forfait journée est celui du grand domaine, à {fmt_eur(forfait)}€. L'intérêt de {name} se joue surtout "
+            f"Le forfait journée est celui du grand domaine, à {forfait}€. L'intérêt de {name} se joue surtout "
             f"côté hébergement, souvent plus abordable qu'en station d'altitude.",
             f"Il faut simplement compter chaque jour le trajet en remontée pour rejoindre les pistes.",
             f"En résumé : {name} convient à ceux qui veulent profiter du domaine {_dom['name']} en logeant au calme, en vallée.",
@@ -2218,7 +2339,7 @@ def generate_verdict(s):
         parts.append(
             f"L'ADN de {name}, c'est le haut de gamme : les hébergements, les restaurants d'altitude "
             f"et les services en station reflètent une clientèle qui ne compte pas. "
-            f"Avec un forfait journée à {fmt_eur(forfait)}€, le séjour a un prix, mais l'expérience est à la hauteur "
+            f"Avec un forfait journée à {forfait}€, le séjour a un prix, mais l'expérience est à la hauteur "
             f"pour qui veut se faire plaisir sans compromis."
         )
     elif 'festif' in ambs and 'famille' not in ambs:
@@ -2264,7 +2385,7 @@ def generate_verdict(s):
         parts.append(
             f"Station polyvalente par excellence, {name} convient à un groupe hétérogène "
             f"sans que personne ne soit lésé. "
-            f"Les niveaux débutant à avancé trouvent leur compte, et le forfait à {fmt_eur(forfait)}€/jour "
+            f"Les niveaux débutant à avancé trouvent leur compte, et le forfait à {forfait}€/jour "
             f"reste dans la moyenne raisonnable du massif."
         )
 
@@ -2302,26 +2423,26 @@ def generate_verdict(s):
     # ── VALEUR / RAPPORT QUALITÉ-PRIX ──
     if forfait <= 22:
         parts.append(
-            f"Avec un forfait journée à seulement {fmt_eur(forfait)}€, {name} est l'une des destinations "
+            f"Avec un forfait journée à seulement {forfait}€, {name} est l'une des destinations "
             f"les plus accessibles {PAYS_DE.get(pays_code(s), 'de France')}. "
             f"Pour les familles à budget maîtrisé ou les skieurs qui veulent multiplier les sorties "
             f"sans se ruiner, c'est une adresse sincère et souvent méconnue."
         )
     elif forfait <= 35:
         parts.append(
-            f"Le forfait journée à {fmt_eur(forfait)}€ reste raisonnable pour la qualité du domaine offert. "
+            f"Le forfait journée à {forfait}€ reste raisonnable pour la qualité du domaine offert. "
             f"En comptant hébergement, ski et repas, {name} s'adresse à ceux qui veulent passer "
             f"une belle semaine sans que la note finale ne les fasse tomber de leur chaise."
         )
     elif forfait <= 50:
         parts.append(
-            f"Le forfait journée à {fmt_eur(forfait)}€ place {name} dans la catégorie des stations "
+            f"Le forfait journée à {forfait}€ place {name} dans la catégorie des stations "
             f"intermédiaires côté budget — ni donné, ni exorbitant. "
             f"La qualité du domaine et des équipements justifie ce tarif pour la plupart des skieurs."
         )
     else:
         parts.append(
-            f"Le budget séjour à {name} est clairement élevé : {fmt_eur(forfait)}€ le forfait journée, "
+            f"Le budget séjour à {name} est clairement élevé : {forfait}€ le forfait journée, "
             f"auxquels s'ajoutent des hébergements et des restaurants d'altitude parmi les plus chers "
             f"des Alpes. "
             f"C'est le prix de l'excellence — mais il faut en avoir conscience avant de partir."
@@ -2892,6 +3013,12 @@ def render_page(s):
     anecdote_html = render_anecdote_html(s['name'])
     expo_html = render_expo_html(s)
     expo_tab_btn = '<button class="tab-btn" onclick="switchTab(\'expo\',this)">🧭 Exposition</button>' if expo_html else ''
+    # ── Plan des pistes (onglet présent uniquement si un plan existe dans img/plans/) ──
+    plan_src, plan_credit = get_plan_pistes(s['name'])
+    _plan_alt = f"Plan des pistes de {s['name'].replace(chr(34), '').replace(chr(39), chr(8217))}"
+    plan_tab_btn = '<button class="tab-btn" onclick="switchTab(\'plan\',this)">🗺️ Plan des pistes</button>' if plan_src else ''
+    plan_tab_html = (f'<div class="tab-content" id="tab-plan">{render_plan_figure(plan_src, _plan_alt, plan_credit)}</div>' if plan_src else '')
+    plan_viewer_html = PLAN_VIEWER_HTML if plan_src else ''
     # ── Domaine skiable relié (si la station en fait partie) ──
     domaine_slug, domaine = get_domaine(s['name'])
     if domaine:
@@ -3259,7 +3386,7 @@ def render_page(s):
             </div>
             <div class="icon-stat-tile">
               <span class="icon-stat-ico">💶</span>
-              <div class="icon-stat-val">{fmt_eur(s['forfait'])}€</div>
+              <div class="icon-stat-val">{s['forfait']}€</div>
               <div class="icon-stat-lbl">Forfait / jour *</div>
             </div>
           </div>
@@ -3319,7 +3446,7 @@ def render_page(s):
             </div>
             <div class="icon-stat-tile">
               <span class="icon-stat-ico">💶</span>
-              <div class="icon-stat-val">{fmt_eur(s['forfait'])}€</div>
+              <div class="icon-stat-val">{s['forfait']}€</div>
               <div class="icon-stat-lbl">Forfait / jour *</div>
             </div>
           </div>
@@ -3341,13 +3468,13 @@ def render_page(s):
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>{s['name']}{'' if pays_code(s) == 'FR' else ' (' + PAYS_NOM.get(pays_code(s), '') + ')'} — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
-  <meta name="description" content="{s['name']} : {km_meta_txt}, altitude {display_alt_min}-{display_alt_max}m, forfait {fmt_eur(s['forfait'])}€/jour. {s.get('desc','')[:100]}">
+  <meta name="description" content="{s['name']} : {km_meta_txt}, altitude {display_alt_min}-{display_alt_max}m, forfait {s['forfait']}€/jour. {s.get('desc','')[:100]}">
   <link rel="canonical" href="{canonical}">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SnowFinder">
   <meta property="og:url" content="{canonical}">
   <meta property="og:title" content="{s['name']}{'' if pays_code(s) == 'FR' else ' (' + PAYS_NOM.get(pays_code(s), '') + ')'} — Station de ski | SnowFinder">
-  <meta property="og:description" content="{km_og_txt} · {display_alt_max}m · {fmt_eur(s['forfait'])}€/j · {s['massif']}">
+  <meta property="og:description" content="{km_og_txt} · {display_alt_max}m · {s['forfait']}€/j · {s['massif']}">
   <meta property="og:image" content="{photo}">
   <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
@@ -3528,6 +3655,7 @@ def render_page(s):
     @keyframes tabHintPulse{{0%,100%{{transform:translateX(0);opacity:.55}}50%{{transform:translateX(3px);opacity:1}}}}
     .tab-content{{display:none;background:white;border:1px solid var(--border);border-radius:14px;padding:18px 14px;min-height:200px}}
     .tab-content.active{{display:block}}
+    {PLAN_CSS if plan_src else ''}
     /* LIRE PLUS / VOIR MOINS — textes longs (avis, description) */
     .readmore-wrap{{position:relative;max-height:var(--rm-max,118px);overflow:hidden;transition:max-height .35s ease}}
     .readmore-wrap.expanded{{max-height:3000px}}
@@ -4015,6 +4143,7 @@ def render_page(s):
   <div class="tab-nav" id="tabNav">
     <button class="tab-btn active" onclick="switchTab('infos',this)">📖 La station</button>
     {domaine_tab_btn}
+    {plan_tab_btn}
     {expo_tab_btn}
     <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
     <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo &amp; enneigement</button>
@@ -4345,7 +4474,7 @@ function closeStation(){{
           <div class="section-title">Informations pratiques</div>
           <p style="font-size:.83rem;line-height:1.65;color:var(--text-mid)">
             <strong>{s['name']}</strong> est une station de ski du massif <strong>{s['massif']}</strong>,
-            en <strong>{s['region']}</strong>. {infos_domaine_txt} Forfait journée <strong>{fmt_eur(s['forfait'])}€</strong> par adulte.
+            en <strong>{s['region']}</strong>. {infos_domaine_txt} Forfait journée <strong>{s['forfait']}€</strong> par adulte.
           </p>
           <p style="font-size:.72rem;line-height:1.5;color:var(--text-soft);margin-top:.5rem">
             * Prix par adulte pour 1 journée, tarif public haute saison. Des tarifs réduits
@@ -4412,6 +4541,8 @@ function closeStation(){{
       </div>
 
       {domaine_tab_html}
+
+      {plan_tab_html}
 
       <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
       {f'<div class="tab-content" id="tab-expo">{expo_html}</div>' if expo_html else ''}
@@ -4706,6 +4837,7 @@ function hideOfficialSheet(){{
 </footer>
 
 <!-- LIGHTBOX GALERIE -->
+{plan_viewer_html}
 <div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
   <button class="lightbox-close" onclick="closeLightbox()" aria-label="Fermer">✕</button>
   <button class="lightbox-nav lightbox-prev" onclick="lightboxPrev()" aria-label="Précédente">‹</button>
@@ -4765,6 +4897,10 @@ def render_domaine_page(slug, d):
 
     # ── Photos du domaine : cascade domaine dédié -> stations membres -> placeholder ──
     dm_carousel_sources, dm_photo_source = get_domaine_photos_smart(slug, d)
+    plan_src, plan_credit = get_plan_domaine(slug, d)
+    _plan_alt = f"Plan des pistes {d['name'].replace(chr(34), '').replace(chr(39), chr(8217))}"
+    plan_section_html = (f'<div class="dm-section" id="plan-des-pistes"><div class="dm-section-title">Plan des pistes</div><div class="dm-card">{render_plan_figure(plan_src, _plan_alt, plan_credit)}</div></div>' if plan_src else '')
+    plan_viewer_html = PLAN_VIEWER_HTML if plan_src else ''
     dm_hero_illu_note = '<div class="hero-illu-note">Photo d\'illustration</div>' if dm_photo_source == 'placeholder' else ''
     dm_carousel_slides_html = "\n".join(
         f'  <img class="hero-slide{" active" if i==0 else ""}" data-idx="{i}" src="{p}" alt="{d["name"]} photo {i+1}" loading="{("eager" if i==0 else "lazy")}">'
@@ -4870,7 +5006,7 @@ def render_domaine_page(slug, d):
     faits = []
     if membres:
         moins_cher = min(membres, key=lambda x: x['forfait'])
-        faits.append(("💶", f"{fmt_eur(moins_cher['forfait'])}€", f"Forfait le moins cher — {moins_cher['name']}"))
+        faits.append(("💶", f"{moins_cher['forfait']}€", f"Forfait le moins cher — {moins_cher['name']}"))
         plus_haut = max(membres, key=lambda x: d.get('alt_village', {}).get(x['name'], x['alt_min']))
         av = d.get('alt_village', {}).get(plus_haut['name'], plus_haut['alt_min'])
         faits.append(("🏔️", f"{av}m", f"Village le plus haut — {plus_haut['name']}"))
@@ -4892,7 +5028,7 @@ def render_domaine_page(slug, d):
         tags = "".join(f'<span class="dm-tag">{AMB.get(a, a)}</span>' for a in st.get('amb', [])[:3])
         rows.append(f'''<tr onclick="location.href='../stations/{slugify(st['name'])}.html'">
       <td class="dm-t-name">{st['name']}</td>
-      <td>{av}m</td><td>{km_txt}</td><td>{fmt_eur(st['forfait'])}€</td>
+      <td>{av}m</td><td>{km_txt}</td><td>{st['forfait']}€</td>
       <td>⭐{st['score']:.1f}</td>
       <td class="dm-t-tags">{tags}</td>
       <td class="dm-t-go">→</td>
@@ -4923,7 +5059,7 @@ def render_domaine_page(slug, d):
         <div class="dm-sc-name">{st['name']}</div>
       </div>
       <div class="dm-station-body">
-        <div class="dm-station-meta">🏘 {av}m · ⛰ {st['alt_max']}m · 💶 {fmt_eur(st['forfait'])}€</div>
+        <div class="dm-station-meta">🏘 {av}m · ⛰ {st['alt_max']}m · 💶 {st['forfait']}€</div>
         <div class="dm-station-km">{km_line}</div>
         <div class="dm-station-cta">Voir la fiche →</div>
       </div>
@@ -4989,6 +5125,7 @@ def render_domaine_page(slug, d):
   .sf-topbar-fav{{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}}
   @media(max-width:480px){{.sf-topbar-logo span{{display:none}}.sf-topbar-app{{font-size:.68rem;padding:5px 9px}}}}
   .dm-wrap{{max-width:980px;margin:0 auto}}
+  {PLAN_CSS if plan_src else ''}
   @media(min-width:1200px){{.dm-wrap{{max-width:1180px}}}}
   .dm-hero{{position:relative;overflow:hidden;height:clamp(300px,46vh,480px);display:flex;align-items:flex-end;color:white}}
   /* CARROUSEL HERO (photos du domaine) — identique au hero des fiches stations */
@@ -5256,6 +5393,8 @@ def render_domaine_page(slug, d):
 
 {apercu_html}
 
+{plan_section_html}
+
 <div class="dm-section">
   <div class="dm-section-title">Chiffres clés</div>
   <div class="dm-faits">{faits_html}</div>
@@ -5271,6 +5410,8 @@ def render_domaine_page(slug, d):
 </div>
 
 {autres_html}
+
+{plan_viewer_html}
 
 <script>
 // ── Favoris & comparateur directement depuis les vignettes (stations + autres domaines) ──
