@@ -1995,7 +1995,7 @@ def get_domaine_photos_smart(slug, d):
     return [pick_placeholder(d['name'], massif=d.get('massif'), w=1400)], 'placeholder'
 
 # ─────────────────────────────────────────────────────────────────────────────
-# PLANS DES PISTES — dossier img/plans/
+# PLANS DES PISTES — dossier plans-des-pistes/ (à la racine du site)
 #   plan-{slug-station}.webp   ex. plan-vars.webp       (plan propre à une station)
 #   plan-{slug-domaine}.webp   ex. plan-foretblanche.webp (plan d'un grand domaine,
 #                              appliqué à toutes les stations du domaine)
@@ -2005,8 +2005,8 @@ PLAN_EXTS = ('webp', 'jpg', 'jpeg', 'png')
 
 def _find_plan(key):
     for ext in PLAN_EXTS:
-        if os.path.exists(os.path.join(root_dir, 'img', 'plans', f'plan-{key}.{ext}')):
-            return f'../img/plans/plan-{key}.{ext}'
+        if os.path.exists(os.path.join(root_dir, 'plans-des-pistes', f'plan-{key}.{ext}')):
+            return f'../plans-des-pistes/plan-{key}.{ext}'
     return None
 
 def _liste_fr(noms):
@@ -3013,7 +3013,7 @@ def render_page(s):
     anecdote_html = render_anecdote_html(s['name'])
     expo_html = render_expo_html(s)
     expo_tab_btn = '<button class="tab-btn" onclick="switchTab(\'expo\',this)">🧭 Exposition</button>' if expo_html else ''
-    # ── Plan des pistes (onglet présent uniquement si un plan existe dans img/plans/) ──
+    # ── Plan des pistes (onglet présent uniquement si un plan existe dans plans-des-pistes/) ──
     plan_src, plan_credit = get_plan_pistes(s['name'])
     _plan_alt = f"Plan des pistes de {s['name'].replace(chr(34), '').replace(chr(39), chr(8217))}"
     plan_tab_btn = '<button class="tab-btn" onclick="switchTab(\'plan\',this)">🗺️ Plan des pistes</button>' if plan_src else ''
