@@ -1,0 +1,42 @@
+name: Mettre à jour les contenus (accueil + actus)
+
+# Reconstruit le bloc articles et le bloc duels de l'accueil, ainsi que la page
+# "Toutes nos actus", à partir du manifeste contenus.json.
+# Se lance : à la main (bouton "Run workflow") ou dès que contenus.json change.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "contenus.json"
+      - "_scripts/generate_contenus.py"
+
+permissions:
+  contents: write
+
+jobs:
+  contenus:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Générer les contenus
+        run: python3 _scripts/generate_contenus.py
+
+      - name: Commit si changement
+        run: |
+          git config user.name "SnowFinder Bot"
+          git config user.email "bot@snowfinder.fr"
+          git add -u
+          if git diff --cached --quiet; then
+            echo "Rien à mettre à jour."
+          else
+            git commit -m "🤖 Mise à jour des contenus (accueil + actus)"
+            git pull --rebase
+            git push
+          fi
