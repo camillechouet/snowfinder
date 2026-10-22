@@ -1692,7 +1692,7 @@ STATION_ANECDOTES = {
     ],
     "Val Thorens": [
         "À 2 300 m, c'est la plus haute station d'Europe — un site jugé si extrême que personne n'en voulait à l'époque du Plan Neige. Ouverte à Noël 1971 avec 3 téléskis, ses pylônes furent coulés à l'hélicoptère, une première.",
-        "Station de tous les records : premier Funitel au monde (1990), et élue « meilleure station de ski du monde » aux World Ski Awards huit années de suite, de 2013 à 2020. Ici, la neige tient de novembre à mai.",
+        "Station de tous les records : premier Funitel au monde (1990), et élue « meilleure station de ski du monde » aux World Ski Awards pour la dixième fois. Ici, la neige tient de novembre à mai.",
     ],
     "Les Menuires": [
         "La station doit son nom aux anciennes mines de charbon exploitées autrefois par les habitants de la vallée des Belleville.",
@@ -2952,6 +2952,19 @@ def euro_scale_html(n):
         spans.append(f'<span class="{cls}">€</span>')
     return f'<span class="euros" role="img" aria-label="Coût de la vie {n} sur 10" title="Coût de la vie sur place : {COUT_VIE_LABELS[grp]} ({n}/10)">{"".join(spans)}</span>'
 
+def region_prep(r):
+    """(préposition, région) : 'dans les 3 Vallées, Savoie', 'dans le Grand Massif', sinon 'en ...'."""
+    for art, pre in (("Les ", "dans les"), ("Le ", "dans le"), ("La ", "dans la")):
+        if r.startswith(art):
+            return pre, r[len(art):]
+    if r.startswith("L'"):
+        return "dans", r
+    for nom, pre in (("Portes du Soleil", "dans les"), ("Grand Massif", "dans le")):
+        if r.startswith(nom):
+            return pre, r
+    return "en", r
+
+
 def render_page(s):
     slug = slugify(s['name'])
     canonical = f"https://snowfinder.fr/stations/{slug}.html"
@@ -3228,6 +3241,7 @@ def render_page(s):
         infos_domaine_txt = (
             f"Le domaine s'étend sur <strong>{display_km} km de pistes</strong> entre {display_alt_min} m et "
             f"{display_alt_max} m, desservi par {display_remontees} remontées mécaniques.")
+    _region_pre, _region_nom = region_prep(s['region'])
     from urllib.parse import quote as _q
     _bk_pays = {"ES": "espagne", "AD": "andorre", "CH": "suisse", "IT": "italie", "DE": "allemagne", "LI": "liechtenstein", "AT": "autriche", "SI": "slovenie"}.get(s.get('pays'), "france")
     _bk_base = f"https://www.booking.com/searchresults.fr.html?ss={_q(s['name']+' ski '+_bk_pays)}&lang=fr"
@@ -4474,7 +4488,7 @@ function closeStation(){{
           <div class="section-title">Informations pratiques</div>
           <p style="font-size:.83rem;line-height:1.65;color:var(--text-mid)">
             <strong>{s['name']}</strong> est une station de ski du massif <strong>{s['massif']}</strong>,
-            en <strong>{s['region']}</strong>. {infos_domaine_txt} Forfait journée <strong>{s['forfait']}€</strong> par adulte.
+            {_region_pre} <strong>{_region_nom}</strong>. {infos_domaine_txt} Forfait journée <strong>{s['forfait']}€</strong> par adulte.
           </p>
           <p style="font-size:.72rem;line-height:1.5;color:var(--text-soft);margin-top:.5rem">
             * Prix par adulte pour 1 journée, tarif public haute saison. Des tarifs réduits
