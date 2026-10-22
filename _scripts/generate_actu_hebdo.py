@@ -51,6 +51,10 @@ MAX_TRIES = 3
 SEARCH_MAX_USES = 8
 NBSP = " "
 MOCK = None
+WORDS = (320, 850)      # longueur attendue de l'article (mots)
+MIN_FAITS = 5
+LABEL = "Actualité"
+TOPIC_KEY = ""           # renseigné par le guide saisonnier (sujet du calendrier)
 
 CATEGORIES = ["Actualités", "Enneigement", "Forfaits & budget", "Calendrier hiver", "Saison d'automne",
               "Météo", "Remontées mécaniques", "Vacances scolaires", "Stations"]
@@ -207,8 +211,8 @@ def check_draft(d: dict, urls_seen: set, names: set, stations_blob: str, today: 
     if not (2 <= len(d["conseils"]) <= 4):
         errs.append("« conseils » doit contenir 2 à 4 éléments")
     w = words(d)
-    if not (320 <= w <= 850):
-        errs.append(f"article de {w} mots (attendu 320 à 850)")
+    if not (WORDS[0] <= w <= WORDS[1]):
+        errs.append(f"article de {w} mots (attendu {WORDS[0]} à {WORDS[1]})")
     for t in article_texts(d):
         if "<" in t or ">" in t or re.search(r"https?://|www\.", t):
             errs.append("HTML ou lien présent dans le texte de l'article")
@@ -217,8 +221,8 @@ def check_draft(d: dict, urls_seen: set, names: set, stations_blob: str, today: 
     if not (1 <= len(st) <= 4) or any(s not in names for s in st):
         errs.append("« stations » : 1 à 4 noms exactement comme dans la liste fournie")
     faits = d["faits"]
-    if len(faits) < 5 or not all(isinstance(f, dict) and f.get("fait") and f.get("url") and f.get("extrait") for f in faits):
-        errs.append("il faut au moins 5 faits {fait, url, extrait}")
+    if len(faits) < MIN_FAITS or not all(isinstance(f, dict) and f.get("fait") and f.get("url") and f.get("extrait") for f in faits):
+        errs.append(f"il faut au moins {MIN_FAITS} faits {{fait, url, extrait}}")
     seen_n = {norm_url(u) for u in urls_seen}
     for f in faits:
         if isinstance(f, dict) and f.get("url") and norm_url(f["url"]) not in seen_n:
@@ -299,7 +303,7 @@ def mock_draft(kind: str, stations: list) -> tuple[dict, set]:
     para = ("Les premières chutes de neige de la saison se sont déposées sur les hauts sommets et les équipes des domaines "
             "préparent déjà l'ouverture annoncée. Les prévisions restent prudentes pour les jours à venir, avec des températures "
             "encore douces en dessous de la limite pluie-neige, et les conditions peuvent évoluer rapidement en montagne.")
-    d = {"pas_d_actu": False, "categorie": "Enneigement",
+    d = {"pas_d_actu": False, "categorie": CATEGORIES[0],
          "titre": f"Première neige de la saison sur {n} : ce qu'il faut savoir avant l'ouverture",
          "excerpt": f"Les premières chutes de neige touchent le domaine de {n} avant l'ouverture annoncée le 21 novembre 2026.",
          "chapeau": f"À quelques semaines de l'ouverture, {n} reçoit sa première neige de la saison. Voici ce que disent les sources "
@@ -472,7 +476,8 @@ def enregistrer(d: dict, art: dict, today: str) -> None:
     ARTICLES_DIR.mkdir(exist_ok=True)
     (ARTICLES_DIR / f"{art['slug']}.html").write_text(art["html"], encoding="utf-8")
     hist = load_json(HISTORY, [])
-    hist.append({"slug": art["slug"], "title": d["titre"], "date": today, "sources": [s["url"] for s in d["sources"]]})
+    hist.append({"slug": art["slug"], "title": d["titre"], "date": today, "sources": [s["url"] for s in d["sources"]],
+                 **({"topic": TOPIC_KEY} if TOPIC_KEY else {})})
     HISTORY.write_text(json.dumps(hist, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     cont = load_json(CONTENUS, {"articles": [], "duels": []})
     cont["articles"] = [a for a in cont.get("articles", []) if a.get("slug") != art["slug"]]
@@ -482,7 +487,7 @@ def enregistrer(d: dict, art: dict, today: str) -> None:
 
 
 def review_md(d: dict, art: dict, notes: list, problems: list) -> str:
-    L = [f"## 📰 Actualité : {d['titre']}", "",
+    L = [f"## 📰 {LABEL} : {d['titre']}", "",
          f"Page : `articles/{art['slug']}.html` · catégorie : {d['categorie']} · stations liées : {', '.join(s['name'] for s in art['cited'])}", "",
          "### ⚠️ À faire avant de fusionner (2 minutes)", "",
          "1. Ouvrez **au moins deux sources** ci-dessous et vérifiez que l'article dit la même chose (dates, chiffres, noms).",
@@ -525,7 +530,7 @@ def main() -> None:
                 if "web_search" in msg.lower() or "web search" in msg.lower() else "")
         raise SystemExit(f"❌ Erreur d'appel à l'API : {msg[:300]}{hint}")
     if d.get("pas_d_actu"):
-        print("ℹ️  Pas d'actualité notable cette fois : aucun article produit.")
+        print(f"ℹ️  {LABEL} : rien de notable cette fois, aucun article produit.")
         return
     art = build(d, stations, today)
     problems = verify_page(art)
@@ -541,7 +546,7 @@ def main() -> None:
         print("\n(dry-run : rien n'est écrit)")
         return
     enregistrer(d, art, today)
-    print(f"\n✅ articles/{art['slug']}.html + actus_hebdo.json + contenus.json")
+    print(f"\n✅ articles/{art['slug']}.html + {HISTORY.name} + contenus.json")
 
 
 if __name__ == "__main__":
