@@ -1,0 +1,62 @@
+[
+  {
+    "a": "Saint-Martin-de-Belleville",
+    "b": "La Tania",
+    "img_a": "saint-martin-de-belleville1",
+    "img_b": "",
+    "teaser": "Deux villages des 3 Vallées, deux portes d'entrée vers les 600 km du domaine relié. Saint-Martin-de-Belleville met en avant son architecture savoyarde préservée et un forfait affiché à 67 €. La Tania, station sans voitures nichée dans la forêt entre Courchevel et Méribel, mise sur le calme, les familles et un sommet à 2732 m.",
+    "profils": [
+      [
+        "👨‍👩‍👧 Familles avec jeunes enfants",
+        "La Tania",
+        "La station est sans voitures, dispose d'une garderie et revendique une ambiance familiale. Avec 21 pistes vertes, elle offre aussi davantage de terrain pour les premiers virages."
+      ],
+      [
+        "💰 Skieurs attentifs au prix du forfait",
+        "Saint-Martin-de-Belleville",
+        "Son forfait est affiché à 67 € contre 77 € à La Tania, soit 10 € d'écart (13 %)."
+      ],
+      [
+        "⛷️ Skieurs confirmés en quête de pentes",
+        "La Tania",
+        "Elle compte 11 pistes noires et 36 rouges, contre 8 et 23 à Saint-Martin-de-Belleville. Son altitude maximale de 2732 m dépasse celle de sa voisine de 332 m."
+      ],
+      [
+        "🏡 Amateurs de patrimoine et de vieilles pierres",
+        "Saint-Martin-de-Belleville",
+        "Village savoyard à l'architecture en pierre préservée, il se présente comme moins touristique que ses voisines des 3 Vallées."
+      ],
+      [
+        "✨ Séjour haut de gamme",
+        "Saint-Martin-de-Belleville",
+        "Sa fiche l'associe à une ambiance luxe et met en avant une gastronomie locale distinguée."
+      ],
+      [
+        "🗺️ Grands rouleurs des 3 Vallées",
+        "Égalité",
+        "Les deux stations donnent accès aux 600 km des 3 Vallées : Saint-Martin-de-Belleville par ses propres remontées reliées au secteur des Menuires, La Tania en deux remontées jusqu'au col de la Loze."
+      ]
+    ],
+    "verdict": "<strong>Saint-Martin-de-Belleville</strong> convient aux skieurs qui recherchent un vrai village savoyard, une ambiance plus feutrée et un forfait moins cher de 10 €. Son domaine affiché atteint 160 km, contre 150 km pour sa voisine. <strong>La Tania</strong> séduira plutôt les familles, grâce à sa garderie et à son cadre sans voitures, ainsi que les bons skieurs, qui y trouveront plus de pistes rouges et noires et un sommet à 2732 m. Dans les deux cas, les 600 km des 3 Vallées restent accessibles.",
+    "faq": [
+      [
+        "Quelle station a le forfait le moins cher entre Saint-Martin-de-Belleville et La Tania ?",
+        "Saint-Martin-de-Belleville, avec un forfait affiché à 67 € contre 77 € à La Tania, soit 10 € de moins (13 %)."
+      ],
+      [
+        "Peut-on skier sur l'ensemble des 3 Vallées depuis ces deux stations ?",
+        "Oui. Saint-Martin-de-Belleville est reliée au secteur des Menuires par ses propres remontées, et La Tania donne accès au col de la Loze en deux remontées. Les deux ouvrent ainsi sur les 600 km des 3 Vallées."
+      ],
+      [
+        "Laquelle est la plus adaptée aux enfants ?",
+        "La Tania, qui est sans voitures, propose une garderie et compte 21 pistes vertes, contre 12 à Saint-Martin-de-Belleville."
+      ],
+      [
+        "Quelle station monte le plus haut ?",
+        "La Tania culmine à 2732 m, soit 332 m de plus que Saint-Martin-de-Belleville, dont l'altitude maximale est de 2400 m."
+      ]
+    ],
+    "date": "2026-10-22",
+    "modele": "claude-opus-5-5"
+  }
+]

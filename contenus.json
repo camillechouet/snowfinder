@@ -1,195 +1,281 @@
 {
   "_aide": "Manifeste des contenus SnowFinder. Un nouvel article = une entrée dans 'articles' (date ISO, le plus récent est trié en premier). Un nouveau duel = une entrée EN TÊTE de 'duels' (le premier est le héros de l'accueil, les 2 suivants les bandeaux). Le script generate_contenus.py reconstruit l'accueil et toutes-les-actus.html. Les duels marqués \"manuel\": true ont une page faite à la main (pas générée par generate_comparatifs.py) : ils restent dans les listes mais ne sont pas régénérés.",
   "articles": [
-      {
-          "slug": "retour-est-alpes-neige-octobre-2026",
-          "title": "Retour d'est dans les Alpes : jusqu'à 50 cm de neige cette semaine",
-          "category": "Enneigement",
-          "excerpt": "Une goutte froide se décale vers l'Italie : de la neige est attendue dès mardi 20 octobre, jusqu'à 40-50 cm sur les plus hauts sommets.",
-          "img": "/img/tignes1.jpg",
-          "date": "2026-10-20",
-          "read_min": 3
-      },
-      {
-          "slug": "ski-fevrier-2027-stations-familiales-reserver",
-          "title": "Ski en février 2027 : les stations familiales à réserver dès maintenant",
-          "short": "Ski en février 2027 : stations familiales",
-          "category": "Famille",
-          "excerpt": "Dates des vacances par zone, semaine à éviter et cinq stations qui ont fait leurs preuves avec des enfants.",
-          "img": "/img/legrandbornand1.jpg",
-          "date": "2026-10-15",
-          "read_min": 5
-      },
-      {
-          "slug": "forfaits-ski-2026-2027-prix-hausse-payer-moins",
-          "title": "Forfaits de ski 2026-2027 : ce qui change et comment payer moins",
-          "short": "Forfaits 2026-2027 : ce qui change",
-          "category": "Forfaits & budget",
-          "excerpt": "Chamonix, Grand Massif, Monts Jura : les premières hausses, les prix publics des grands domaines et les astuces pour payer moins.",
-          "img": "/img/chamonix1.jpg",
-          "date": "2026-10-09",
-          "read_min": 5
-      },
-      {
-          "slug": "skier-en-octobre-glaciers-neige-avant-ouverture",
-          "title": "Skier en octobre : où trouver de la neige avant l'ouverture des stations françaises ?",
-          "category": "Saison d'automne",
-          "excerpt": "Les stations françaises n'ouvrent pas avant le 21 novembre. Les glaciers suisses, autrichiens et italiens, eux, accueillent déjà les skieurs.",
-          "img": "/img/tignes1.jpg",
-          "date": "2026-10-05",
-          "read_min": 4
-      },
-      {
-          "slug": "grand-ballon-fin-ski-alpin",
-          "title": "Le Grand Ballon arrête le ski alpin : fin des remontées mécaniques",
-          "category": "Actualités",
-          "excerpt": "Après le Lac Blanc en juillet, le Grand Ballon annonce la fin de son ski alpin : les remontées ne rouvriront pas cet hiver.",
-          "img": "/img/grandballon1.jpg",
-          "date": "2026-09-17",
-          "read_min": 4
-      },
-      {
-          "slug": "quand-ouvrent-stations-ski-2026-2027",
-          "title": "Quand ouvrent les stations de ski ? Le calendrier 2026-2027",
-          "category": "Calendrier hiver",
-          "excerpt": "Tignes et Val Thorens ouvrent dès le 21 novembre 2026. Calendrier complet et les stations toujours parmi les premières.",
-          "img": "/img/valthorens1.jpg",
-          "date": "2026-09-08",
-          "read_min": 5
-      },
-      {
-          "slug": "quand-reserver-sejour-ski-moins-cher",
-          "title": "Quand réserver son séjour au ski pour payer moins cher ?",
-          "category": "Conseils budget",
-          "excerpt": "Forfaits, hébergement, trains : le calendrier idéal pour réserver vos vacances de ski 2027 sans vous ruiner.",
-          "img": "/img/valthorens1.jpg",
-          "date": "2026-08-28",
-          "read_min": 5
-      },
-      {
-          "slug": "skier-sans-voiture-stations-accessibles-en-train",
-          "title": "Skier sans voiture : le guide des stations accessibles en train",
-          "category": "Guide pratique",
-          "excerpt": "Pas de permis, pas envie de conduire sur la neige ? Voici les stations où le train vous dépose directement au pied des pistes, ou presque.",
-          "img": "/img/chamonix1.jpg",
-          "date": "2026-08-26",
-          "read_min": 5
-      },
-      {
-          "slug": "saint-francois-longchamp-rapport-qualite-prix-valmorel",
-          "title": "Saint-François-Longchamp : le meilleur rapport qualité-prix de Savoie",
-          "category": "Découverte",
-          "excerpt": "165 km de pistes pour un budget qui n'a rien à voir avec ses grandes voisines, grâce à la liaison skis aux pieds vers Valmorel.",
-          "img": "/img/saintfrancoislongchamp1.jpg",
-          "date": "2026-08-25",
-          "read_min": 6
-      },
-      {
-          "slug": "la-clusaz-usine-a-champions-freestyle",
-          "title": "La Clusaz : comment un petit village savoyard est devenu l'usine à champions du ski français",
-          "category": "Découverte",
-          "excerpt": "11 champions du monde, 1 champion olympique, la naissance du freeski avec Candide Thovex : La Clusaz n'est pas une station comme les autres.",
-          "img": "/img/laclusaz1.jpg",
-          "date": "2026-08-12",
-          "read_min": 6
-      },
-      {
-          "slug": "isola-2000-ski-le-matin-mer-l-apres-midi",
-          "title": "Isola 2000 : la seule station de France où l'on skie avec vue sur la Méditerranée",
-          "category": "Découverte",
-          "excerpt": "À 90 minutes de Nice, Isola 2000 est la station la plus proche de la mer en Europe. Ski le matin, plage l'après-midi.",
-          "img": "/img/isola20001.jpg",
-          "date": "2026-07-25",
-          "read_min": 6
-      },
-      {
-          "slug": "ski-de-printemps-conseils",
-          "title": "Ski de printemps : comment profiter des dernières neiges",
-          "category": "Conseils",
-          "excerpt": "Mars et avril offrent parfois les meilleures conditions. Voici comment tirer le meilleur parti de la fin de saison.",
-          "img": "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80",
-          "date": "2025-03-03",
-          "date_label": "Mars 2025",
-          "read_min": 4
-      },
-      {
-          "slug": "10-stations-secretes-alpes",
-          "title": "Les 10 stations secrètes des Alpes qui valent le détour",
-          "category": "Guide",
-          "excerpt": "Entre les mastodontes comme Courchevel ou Val d'Isère, les Alpes abritent des trésors méconnus et moins bondés.",
-          "img": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",
-          "date": "2025-03-02",
-          "date_label": "Mars 2025",
-          "read_min": 5
-      },
-      {
-          "slug": "bilan-neige-pyrenees-hiver-2025",
-          "title": "Hiver 2025 : quel bilan neigeux pour les Pyrénées ?",
-          "category": "Enneigement",
-          "excerpt": "La saison 2024-2025 dans les Pyrénées a été marquée par une alternance de périodes fastes et de coups de chaud.",
-          "img": "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600&q=80",
-          "date": "2025-03-01",
-          "date_label": "Mars 2025",
-          "read_min": 3
-      },
-      {
-          "slug": "top-5-stations-initier-enfants-ski",
-          "title": "Top 5 des stations pour initier ses enfants au ski",
-          "category": "Famille",
-          "excerpt": "Choisir la bonne station fait toute la différence entre passion naissante et traumatisme durable.",
-          "img": "https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=600&q=80",
-          "date": "2025-02-02",
-          "date_label": "Fév. 2025",
-          "read_min": 4
-      },
-      {
-          "slug": "jura-a-ski",
-          "title": "Le Jura à ski : la montagne oubliée des Français",
-          "category": "Découverte",
-          "excerpt": "Entre fromages AOP et forêts givrées, le Jura cache des stations familiales abordables et authentiques.",
-          "img": "https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=600&q=80",
-          "date": "2025-02-01",
-          "date_label": "Fév. 2025",
-          "read_min": 5
-      },
-      {
-          "slug": "vosges-ski-accessible",
-          "title": "Vosges : ski accessible à 2h de Paris et Strasbourg",
-          "category": "Guide",
-          "excerpt": "Les Vosges sont souvent sous-estimées. Pourtant elles offrent un ski simple, chaleureux et très abordable.",
-          "img": "https://images.unsplash.com/photo-1418985991508-e47386d96a71?w=600&q=80",
-          "date": "2025-01-01",
-          "date_label": "Janv. 2025",
-          "read_min": 3
-      },
-      {
-          "slug": "ski-sur-volcan-massif-central",
-          "title": "Ski sur volcan : l'expérience unique du Massif Central",
-          "category": "Découverte",
-          "excerpt": "Dévaler les flancs du Puy de Sancy ou du Plomb du Cantal, c'est vivre une expérience de ski unique en France.",
-          "img": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80",
-          "date": "2024-12-01",
-          "date_label": "Déc. 2024",
-          "read_min": 4
-      }
+    {
+      "slug": "retour-est-alpes-neige-octobre-2026",
+      "title": "Retour d'est dans les Alpes : jusqu'à 50 cm de neige cette semaine",
+      "category": "Enneigement",
+      "excerpt": "Une goutte froide se décale vers l'Italie : de la neige est attendue dès mardi 20 octobre, jusqu'à 40-50 cm sur les plus hauts sommets.",
+      "img": "/img/tignes1.jpg",
+      "date": "2026-10-20",
+      "read_min": 3
+    },
+    {
+      "slug": "ski-fevrier-2027-stations-familiales-reserver",
+      "title": "Ski en février 2027 : les stations familiales à réserver dès maintenant",
+      "short": "Ski en février 2027 : stations familiales",
+      "category": "Famille",
+      "excerpt": "Dates des vacances par zone, semaine à éviter et cinq stations qui ont fait leurs preuves avec des enfants.",
+      "img": "/img/legrandbornand1.jpg",
+      "date": "2026-10-15",
+      "read_min": 5
+    },
+    {
+      "slug": "forfaits-ski-2026-2027-prix-hausse-payer-moins",
+      "title": "Forfaits de ski 2026-2027 : ce qui change et comment payer moins",
+      "short": "Forfaits 2026-2027 : ce qui change",
+      "category": "Forfaits & budget",
+      "excerpt": "Chamonix, Grand Massif, Monts Jura : les premières hausses, les prix publics des grands domaines et les astuces pour payer moins.",
+      "img": "/img/chamonix1.jpg",
+      "date": "2026-10-09",
+      "read_min": 5
+    },
+    {
+      "slug": "skier-en-octobre-glaciers-neige-avant-ouverture",
+      "title": "Skier en octobre : où trouver de la neige avant l'ouverture des stations françaises ?",
+      "category": "Saison d'automne",
+      "excerpt": "Les stations françaises n'ouvrent pas avant le 21 novembre. Les glaciers suisses, autrichiens et italiens, eux, accueillent déjà les skieurs.",
+      "img": "/img/tignes1.jpg",
+      "date": "2026-10-05",
+      "read_min": 4
+    },
+    {
+      "slug": "grand-ballon-fin-ski-alpin",
+      "title": "Le Grand Ballon arrête le ski alpin : fin des remontées mécaniques",
+      "category": "Actualités",
+      "excerpt": "Après le Lac Blanc en juillet, le Grand Ballon annonce la fin de son ski alpin : les remontées ne rouvriront pas cet hiver.",
+      "img": "/img/grandballon1.jpg",
+      "date": "2026-09-17",
+      "read_min": 4
+    },
+    {
+      "slug": "quand-ouvrent-stations-ski-2026-2027",
+      "title": "Quand ouvrent les stations de ski ? Le calendrier 2026-2027",
+      "category": "Calendrier hiver",
+      "excerpt": "Tignes et Val Thorens ouvrent dès le 21 novembre 2026. Calendrier complet et les stations toujours parmi les premières.",
+      "img": "/img/valthorens1.jpg",
+      "date": "2026-09-08",
+      "read_min": 5
+    },
+    {
+      "slug": "quand-reserver-sejour-ski-moins-cher",
+      "title": "Quand réserver son séjour au ski pour payer moins cher ?",
+      "category": "Conseils budget",
+      "excerpt": "Forfaits, hébergement, trains : le calendrier idéal pour réserver vos vacances de ski 2027 sans vous ruiner.",
+      "img": "/img/valthorens1.jpg",
+      "date": "2026-08-28",
+      "read_min": 5
+    },
+    {
+      "slug": "skier-sans-voiture-stations-accessibles-en-train",
+      "title": "Skier sans voiture : le guide des stations accessibles en train",
+      "category": "Guide pratique",
+      "excerpt": "Pas de permis, pas envie de conduire sur la neige ? Voici les stations où le train vous dépose directement au pied des pistes, ou presque.",
+      "img": "/img/chamonix1.jpg",
+      "date": "2026-08-26",
+      "read_min": 5
+    },
+    {
+      "slug": "saint-francois-longchamp-rapport-qualite-prix-valmorel",
+      "title": "Saint-François-Longchamp : le meilleur rapport qualité-prix de Savoie",
+      "category": "Découverte",
+      "excerpt": "165 km de pistes pour un budget qui n'a rien à voir avec ses grandes voisines, grâce à la liaison skis aux pieds vers Valmorel.",
+      "img": "/img/saintfrancoislongchamp1.jpg",
+      "date": "2026-08-25",
+      "read_min": 6
+    },
+    {
+      "slug": "la-clusaz-usine-a-champions-freestyle",
+      "title": "La Clusaz : comment un petit village savoyard est devenu l'usine à champions du ski français",
+      "category": "Découverte",
+      "excerpt": "11 champions du monde, 1 champion olympique, la naissance du freeski avec Candide Thovex : La Clusaz n'est pas une station comme les autres.",
+      "img": "/img/laclusaz1.jpg",
+      "date": "2026-08-12",
+      "read_min": 6
+    },
+    {
+      "slug": "isola-2000-ski-le-matin-mer-l-apres-midi",
+      "title": "Isola 2000 : la seule station de France où l'on skie avec vue sur la Méditerranée",
+      "category": "Découverte",
+      "excerpt": "À 90 minutes de Nice, Isola 2000 est la station la plus proche de la mer en Europe. Ski le matin, plage l'après-midi.",
+      "img": "/img/isola20001.jpg",
+      "date": "2026-07-25",
+      "read_min": 6
+    },
+    {
+      "slug": "ski-de-printemps-conseils",
+      "title": "Ski de printemps : comment profiter des dernières neiges",
+      "category": "Conseils",
+      "excerpt": "Mars et avril offrent parfois les meilleures conditions. Voici comment tirer le meilleur parti de la fin de saison.",
+      "img": "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80",
+      "date": "2025-03-03",
+      "date_label": "Mars 2025",
+      "read_min": 4
+    },
+    {
+      "slug": "10-stations-secretes-alpes",
+      "title": "Les 10 stations secrètes des Alpes qui valent le détour",
+      "category": "Guide",
+      "excerpt": "Entre les mastodontes comme Courchevel ou Val d'Isère, les Alpes abritent des trésors méconnus et moins bondés.",
+      "img": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",
+      "date": "2025-03-02",
+      "date_label": "Mars 2025",
+      "read_min": 5
+    },
+    {
+      "slug": "bilan-neige-pyrenees-hiver-2025",
+      "title": "Hiver 2025 : quel bilan neigeux pour les Pyrénées ?",
+      "category": "Enneigement",
+      "excerpt": "La saison 2024-2025 dans les Pyrénées a été marquée par une alternance de périodes fastes et de coups de chaud.",
+      "img": "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600&q=80",
+      "date": "2025-03-01",
+      "date_label": "Mars 2025",
+      "read_min": 3
+    },
+    {
+      "slug": "top-5-stations-initier-enfants-ski",
+      "title": "Top 5 des stations pour initier ses enfants au ski",
+      "category": "Famille",
+      "excerpt": "Choisir la bonne station fait toute la différence entre passion naissante et traumatisme durable.",
+      "img": "https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=600&q=80",
+      "date": "2025-02-02",
+      "date_label": "Fév. 2025",
+      "read_min": 4
+    },
+    {
+      "slug": "jura-a-ski",
+      "title": "Le Jura à ski : la montagne oubliée des Français",
+      "category": "Découverte",
+      "excerpt": "Entre fromages AOP et forêts givrées, le Jura cache des stations familiales abordables et authentiques.",
+      "img": "https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=600&q=80",
+      "date": "2025-02-01",
+      "date_label": "Fév. 2025",
+      "read_min": 5
+    },
+    {
+      "slug": "vosges-ski-accessible",
+      "title": "Vosges : ski accessible à 2h de Paris et Strasbourg",
+      "category": "Guide",
+      "excerpt": "Les Vosges sont souvent sous-estimées. Pourtant elles offrent un ski simple, chaleureux et très abordable.",
+      "img": "https://images.unsplash.com/photo-1418985991508-e47386d96a71?w=600&q=80",
+      "date": "2025-01-01",
+      "date_label": "Janv. 2025",
+      "read_min": 3
+    },
+    {
+      "slug": "ski-sur-volcan-massif-central",
+      "title": "Ski sur volcan : l'expérience unique du Massif Central",
+      "category": "Découverte",
+      "excerpt": "Dévaler les flancs du Puy de Sancy ou du Plomb du Cantal, c'est vivre une expérience de ski unique en France.",
+      "img": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80",
+      "date": "2024-12-01",
+      "date_label": "Déc. 2024",
+      "read_min": 4
+    }
   ],
   "duels": [
-    {"a": "Saint-Véran", "b": "Molines-en-Queyras", "img": "/img/saint-veran1.jpg", "img_b": "/img/molines-en-queyras1.jpg", "manuel": true},
-    {"a": "Grand Tourmalet", "b": "Cauterets", "img": "https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=600&q=80", "img_b": "https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=600&q=80", "manuel": true},
-    {"a": "Les Carroz", "b": "Samoëns", "img": "https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=600&q=80", "img_b": "https://images.unsplash.com/photo-1528659862616-22886eb53642?w=600&q=80", "manuel": true},
-    {"a": "Saint-Lary-Soulan", "b": "Ax-3-Domaines", "img": "/img/saintlarysoulan1.jpg", "img_b": "https://images.unsplash.com/photo-1528659862616-22886eb53642?w=600&q=80", "manuel": true},
-    {"a": "Métabief Mont d'Or", "b": "Le Lioran", "img": "https://images.unsplash.com/photo-1490008446666-6c0841b7c060?w=600&q=80", "img_b": "/img/lelioran1.jpg", "manuel": true},
-    {"a": "Pra-Loup", "b": "Val d'Allos", "img": "https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=600&q=80", "img_b": "https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=600&q=80", "manuel": true},
-    {"a": "Val Thorens", "b": "Les Menuires", "img": "/img/valthorens1.jpg"},
-    {"a": "Avoriaz", "b": "Morzine", "img": "/img/avoriaz1.jpg"},
-    {"a": "Val d'Isère", "b": "Tignes", "img": "/img/valdisere1.jpg"},
-    {"a": "La Plagne", "b": "Les Arcs", "img": "/img/laplagne1.jpg"},
-    {"a": "Alpe d'Huez", "b": "Les Deux Alpes", "img": "/img/alpedhuez1.jpg"},
-    {"a": "Super Besse", "b": "Le Lioran", "img": "/img/superbesse1.jpg"},
-    {"a": "Chamonix", "b": "Megève", "img": "/img/chamonix1.jpg"},
-    {"a": "Courchevel", "b": "Méribel", "img": "/img/courchevel1.jpg"},
-    {"a": "La Clusaz", "b": "Le Grand-Bornand", "img": "/img/laclusaz1.jpg"},
-    {"a": "Val d'Isère", "b": "Serre Chevalier", "img": "/img/valdisere1.jpg"},
-    {"a": "Les Gets", "b": "Flaine", "img": "/img/lesgets1.jpg"}
+    {
+      "a": "Saint-Martin-de-Belleville",
+      "b": "La Tania",
+      "img": "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=600&q=80",
+      "img_b": "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=600&q=80"
+    },
+    {
+      "a": "Saint-Véran",
+      "b": "Molines-en-Queyras",
+      "img": "/img/saint-veran1.jpg",
+      "img_b": "/img/molines-en-queyras1.jpg",
+      "manuel": true
+    },
+    {
+      "a": "Grand Tourmalet",
+      "b": "Cauterets",
+      "img": "https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=600&q=80",
+      "img_b": "https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=600&q=80",
+      "manuel": true
+    },
+    {
+      "a": "Les Carroz",
+      "b": "Samoëns",
+      "img": "https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=600&q=80",
+      "img_b": "https://images.unsplash.com/photo-1528659862616-22886eb53642?w=600&q=80",
+      "manuel": true
+    },
+    {
+      "a": "Saint-Lary-Soulan",
+      "b": "Ax-3-Domaines",
+      "img": "/img/saintlarysoulan1.jpg",
+      "img_b": "https://images.unsplash.com/photo-1528659862616-22886eb53642?w=600&q=80",
+      "manuel": true
+    },
+    {
+      "a": "Métabief Mont d'Or",
+      "b": "Le Lioran",
+      "img": "https://images.unsplash.com/photo-1490008446666-6c0841b7c060?w=600&q=80",
+      "img_b": "/img/lelioran1.jpg",
+      "manuel": true
+    },
+    {
+      "a": "Pra-Loup",
+      "b": "Val d'Allos",
+      "img": "https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=600&q=80",
+      "img_b": "https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=600&q=80",
+      "manuel": true
+    },
+    {
+      "a": "Val Thorens",
+      "b": "Les Menuires",
+      "img": "/img/valthorens1.jpg"
+    },
+    {
+      "a": "Avoriaz",
+      "b": "Morzine",
+      "img": "/img/avoriaz1.jpg"
+    },
+    {
+      "a": "Val d'Isère",
+      "b": "Tignes",
+      "img": "/img/valdisere1.jpg"
+    },
+    {
+      "a": "La Plagne",
+      "b": "Les Arcs",
+      "img": "/img/laplagne1.jpg"
+    },
+    {
+      "a": "Alpe d'Huez",
+      "b": "Les Deux Alpes",
+      "img": "/img/alpedhuez1.jpg"
+    },
+    {
+      "a": "Super Besse",
+      "b": "Le Lioran",
+      "img": "/img/superbesse1.jpg"
+    },
+    {
+      "a": "Chamonix",
+      "b": "Megève",
+      "img": "/img/chamonix1.jpg"
+    },
+    {
+      "a": "Courchevel",
+      "b": "Méribel",
+      "img": "/img/courchevel1.jpg"
+    },
+    {
+      "a": "La Clusaz",
+      "b": "Le Grand-Bornand",
+      "img": "/img/laclusaz1.jpg"
+    },
+    {
+      "a": "Val d'Isère",
+      "b": "Serre Chevalier",
+      "img": "/img/valdisere1.jpg"
+    },
+    {
+      "a": "Les Gets",
+      "b": "Flaine",
+      "img": "/img/lesgets1.jpg"
+    }
   ]
 }
