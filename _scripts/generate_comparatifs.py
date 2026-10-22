@@ -872,7 +872,7 @@ h2 {{
 .station-banner .actions {{ display:flex; gap:8px; flex-shrink:0; }}
 .station-banner .icon-btn {{ background:rgba(255,255,255,.2); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.35); border-radius:20px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; font-size:1.05rem; cursor:pointer; color:#fff; padding:0; }}
 .station-banner .icon-btn.active {{ background:rgba(255,255,255,.92); color:#0d2240; }}
-.station-banner .credit {{ position:absolute; right:10px; top:6px; z-index:1; font-size:.62rem; color:rgba(255,255,255,.8); }}
+.station-banner .credit {{ position:absolute; right:10px; top:8px; z-index:1; font-size:.68rem; font-style:italic; color:#fff; background:rgba(0,0,0,.35); padding:2px 8px; border-radius:10px; }}
 .station-fiche-link {{ font-size:.85rem; color:var(--wood-dark); text-decoration:underline; font-weight:600; }}
 .sf-bottomnav{{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08)}}
 .sf-bn-item{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px;font-size:1.18rem;text-decoration:none;color:var(--text-mid);position:relative;gap:1px}}
@@ -1222,7 +1222,19 @@ def expedia_url(station_name: str, slug: str) -> str:
 
 # ── Bannière de station (photo réelle, sinon « Photo d'illustration ») ───────
 
-GENERIC_BG = "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=600&q=80"
+# « Photos de secours » (déjà utilisées par le site) : une photo est choisie selon la station,
+# toujours la même pour une station donnée.
+RESCUE_PHOTOS = [
+    "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=600&q=80",
+    "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=600&q=80",
+    "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80",
+    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",
+    "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600&q=80",
+    "https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=600&q=80",
+    "https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=600&q=80",
+    "https://images.unsplash.com/photo-1418985991508-e47386d96a71?w=600&q=80",
+    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80",
+]
 
 def has_photo(img_name: str) -> bool:
     """Vrai si le fichier image existe dans le dépôt (img/xxx.jpg) ou si c'est une URL."""
@@ -1238,7 +1250,7 @@ def render_banner(name: str, station: dict, img_name: str) -> str:
     if has_photo(img_name):
         bg, credit = img_src(img_name), ""
     else:
-        bg, credit = GENERIC_BG, '<span class="credit">Photo d\'illustration</span>'
+        bg, credit = RESCUE_PHOTOS[sid % len(RESCUE_PHOTOS)], '<span class="credit">Photo d\'illustration</span>'
     return (f'<div class="station-banner">\n'
             f'      <div class="bg" style="background-image:url({bg})"></div>\n'
             f'      <div class="overlay"></div>{credit}\n'
@@ -1724,6 +1736,46 @@ def merge_manifest(meta: list) -> list:
     return ordered
 
 
+def fix_manual_affiliates() -> None:
+    """Duels faits à la main : remplace un lien Booking direct par le lien d'affiliation CJ
+    (idempotent : un lien déjà CJ n'est pas touché)."""
+    if not CONTENUS_JSON.exists():
+        return
+    try:
+        data = json.loads(CONTENUS_JSON.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return
+    pat = re.compile(r'href="(https://www\.booking\.com/searchresults[^"]*?[?&]ss=([^&"]+)[^"]*)"')
+    for d in data.get("duels", []):
+        if not d.get("manuel"):
+            continue
+        slug = f"{slugify(d['a'])}-vs-{slugify(d['b'])}"
+        f = COMPARATIFS_DIR / f"{slug}.html"
+        if not f.exists():
+            continue
+        html = f.read_text(encoding="utf-8")
+        def repl(m):
+            name = urllib.parse.unquote_plus(m.group(2))
+            name = re.sub(r"\s+(france|ski france)$", "", name, flags=re.I).strip()
+            nm = next((n for n in (d["a"], d["b"]) if slugify(n) == slugify(name)), name)
+            return f'href="{booking_url(nm, slugify(nm))}"'
+        new = pat.sub(repl, html)
+        if new != html:
+            f.write_text(new, encoding="utf-8")
+            print(f"  🔗 {slug} : lien Booking passé en affiliation CJ")
+
+
+def check_affiliates() -> None:
+    """Contrôle : chaque duel doit avoir des liens CJ pour Booking et Expedia."""
+    bad = []
+    for f in sorted(COMPARATIFS_DIR.glob("*-vs-*.html")):
+        h = f.read_text(encoding="utf-8")
+        if "tkqlhce.com" not in h or "jdoqocy.com" not in h or re.search(r'href="https://www\.booking\.com', h):
+            bad.append(f.name)
+    print("✓ Liens d'affiliation CJ présents sur tous les duels" if not bad
+          else "⚠️  Liens CJ manquants : " + ", ".join(bad))
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 def main() -> None:
@@ -1744,6 +1796,8 @@ def main() -> None:
         meta.append((slug, comp))
 
     meta = merge_manifest(meta)
+    fix_manual_affiliates()
+    check_affiliates()
     print(f"✓ {len(meta)} duels dans la liste (dont {len(meta) - len(all_comps)} manuels)")
 
     # Index des comparatifs
