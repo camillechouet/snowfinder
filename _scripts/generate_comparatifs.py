@@ -29,6 +29,7 @@ RECHERCHE_HTML = REPO_ROOT / "recherche.html"
 STATIONS_JS = REPO_ROOT / "stations-data.js"
 COMPARATIFS_DIR = REPO_ROOT / "comparatifs"
 SNIPPET_OUT = REPO_ROOT / "_scripts" / "_index_snippet.html"
+CONTENUS_JSON = REPO_ROOT / "contenus.json"
 
 # Slug canonique partagé avec generate_sitemap.py
 def fmt_eur(v):
@@ -44,6 +45,11 @@ def slugify(name: str) -> str:
     s = re.sub(r"[^a-z0-9-]", "", s)
     s = re.sub(r"-+", "-", s).strip("-")
     return s
+def img_src(v: str) -> str:
+    """Nom de fichier (ex. 'tignes1') -> /img/tignes1.jpg ; chemin ou URL complète laissés tels quels."""
+    return v if v.startswith(("/", "http")) else f"/img/{v}.jpg"
+
+
 # ── URL officielles des stations (copiées de generate_stations.py) ───────────
 
 OFFICIAL_URLS = {
@@ -1412,9 +1418,9 @@ def build_index(comparaisons_meta: list) -> str:
     cards = "\n".join(
         f'''<a href="/comparatifs/{slug}.html" class="comp-card">
               <div class="comp-imgs">
-                <img src="/img/{c["img_a"]}.jpg" alt="{c["a"]}" loading="lazy"
+                <img src="{img_src(c["img_a"])}" alt="{c["a"]}" loading="lazy"
                      onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=600&q=80'">
-                <img src="/img/{c["img_b"]}.jpg" alt="{c["b"]}" loading="lazy"
+                <img src="{img_src(c["img_b"])}" alt="{c["b"]}" loading="lazy"
                      onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=600&q=80'">
               </div>
               <div class="comp-body">
@@ -1503,9 +1509,9 @@ def build_snippet(comparaisons_meta: list) -> str:
     cards = "\n".join(
         f'''  <a href="/comparatifs/{slug}.html" class="comparatif-card">
     <div class="comparatif-imgs">
-      <img src="/img/{c["img_a"]}.jpg" alt="{c["a"]}" loading="lazy"
+      <img src="{img_src(c["img_a"])}" alt="{c["a"]}" loading="lazy"
            onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=600&q=80\'">
-      <img src="/img/{c["img_b"]}.jpg" alt="{c["b"]}" loading="lazy"
+      <img src="{img_src(c["img_b"])}" alt="{c["b"]}" loading="lazy"
            onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=600&q=80\'">
     </div>
     <div class="comparatif-body">
@@ -1570,6 +1576,41 @@ def build_snippet(comparaisons_meta: list) -> str:
 """
 
 
+def merge_manifest(meta: list) -> list:
+    """
+    Aligne la liste des duels sur contenus.json :
+      - même ordre que le manifeste (le plus récent en tête),
+      - inclut les duels « manuels » (pages déjà présentes dans /comparatifs/ mais
+        absentes de COMPARAISONS), pour qu'ils ne disparaissent pas de la liste,
+      - les duels générés absents du manifeste sont ajoutés à la fin.
+    Sans contenus.json, la liste reste celle de COMPARAISONS.
+    """
+    if not CONTENUS_JSON.exists():
+        return meta
+    try:
+        data = json.loads(CONTENUS_JSON.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as e:
+        print(f"⚠️  contenus.json illisible ({e.msg}) : liste = COMPARAISONS seule")
+        return meta
+    generated = dict(meta)
+    ordered, seen = [], set()
+    for d in data.get("duels", []):
+        slug = f"{slugify(d['a'])}-vs-{slugify(d['b'])}"
+        if slug in seen:
+            continue
+        if slug in generated:
+            ordered.append((slug, generated[slug]))
+        elif (COMPARATIFS_DIR / f"{slug}.html").exists():
+            ordered.append((slug, {"a": d["a"], "b": d["b"],
+                                   "img_a": d["img"], "img_b": d.get("img_b", d["img"])}))
+        else:
+            print(f"⚠️  duel du manifeste sans page, ignoré : {slug}")
+            continue
+        seen.add(slug)
+    ordered += [(slug, comp) for slug, comp in meta if slug not in seen]
+    return ordered
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 def main() -> None:
@@ -1587,6 +1628,9 @@ def main() -> None:
         out.write_text(html, encoding="utf-8")
         print(f"  → {out.relative_to(REPO_ROOT)}")
         meta.append((slug, comp))
+
+    meta = merge_manifest(meta)
+    print(f"✓ {len(meta)} duels dans la liste (dont {len(meta) - len(COMPARAISONS)} hors COMPARAISONS)")
 
     # Index des comparatifs
     (COMPARATIFS_DIR / "tous-les-comparatifs.html").write_text(build_index(meta), encoding="utf-8")
