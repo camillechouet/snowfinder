@@ -76,6 +76,10 @@ h2 {
 .specs {
   display:grid; grid-template-columns:1fr 1fr; gap:14px;
 }
+.duel-bar { display:flex; align-items:center; gap:10px; max-width:1100px; margin:0 auto; padding:10px 16px 0; }
+.duel-bar a { display:inline-flex; align-items:center; gap:6px; text-decoration:none; font-weight:700; font-size:.88rem; color:var(--blue-dark); background:#fff; border:1.5px solid var(--wood-light); border-radius:20px; padding:7px 14px; box-shadow:var(--shadow); }
+.duel-bar a:active { background:var(--wood-pale); }
+.duel-bar .back { width:38px; height:38px; padding:0; justify-content:center; font-size:1.15rem; }
 .spec-col { display:flex; flex-direction:column; gap:10px; }
 .station-banner { position:relative; overflow:hidden; border-radius:var(--radius); box-shadow:var(--shadow); min-height:96px; display:flex; align-items:flex-end; background:#1a3a5c; }
 .station-banner .bg { position:absolute; inset:0; background-size:cover; background-position:center; }
@@ -333,6 +337,9 @@ body{padding-top:64px!important}
 <div class="sf-sheet" id="sfMenuSheet">
   <div class="sf-sheet-handle"></div>
   <div class="sf-sheet-title">Menu</div>
+  <a class="sf-menu-item" href="/index.html"><span class="em">🏠</span><span>Accueil</span></a>
+  <a class="sf-menu-item" href="/comparatifs/tous-les-comparatifs.html"><span class="em">⚔️</span><span>Tous les duels de stations</span></a>
+  <a class="sf-menu-item" href="/articles/toutes-les-actus.html"><span class="em">📰</span><span>Toutes nos actus</span></a>
   <button type="button" class="sf-menu-item" onclick="closeSfMenu();openContact()"><span class="em">📧</span><span>Nous contacter</span></button>
   <button type="button" class="sf-menu-item" onclick="closeSfMenu();openSfNotif()"><span class="em">🔔</span><span>Notifications</span></button>
   <a class="sf-menu-item" href="/mentions-legales.html"><span class="em">⚖️</span><span>Mentions légales</span></a>
@@ -419,6 +426,11 @@ function acceptSfNotif(){
 })();
 </script>
 <!-- ══ FIN TOP BAR ══ -->
+
+<div class="duel-bar">
+  <a href="/comparatifs/tous-les-comparatifs.html" class="back" aria-label="Page précédente" title="Page précédente" onclick="if(document.referrer.indexOf(location.host)>-1&&history.length>1){history.back();return false;}">←</a>
+  <a href="/comparatifs/tous-les-comparatifs.html">⚔️ Tous les duels de stations</a>
+</div>
 
 <main class="page">
 
