@@ -8,6 +8,8 @@ on:
       - '_scripts/generate_comparatifs.py'
       - 'recherche.html'
       - 'stations-data.js'
+      - 'duels_hebdo.json'
+      - 'contenus.json'
 
 permissions:
   contents: write

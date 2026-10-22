@@ -1,0 +1,69 @@
+name: Duel de la semaine (brouillon à valider)
+
+# Chaque lundi, prépare UN duel de stations et ouvre une pull request.
+# Rien n'est publié tant que vous n'avez pas fusionné ("Merge") la pull request.
+# Pour refuser le duel : fermer la pull request sans la fusionner.
+#
+# Réglages nécessaires (une seule fois) :
+#  - Settings > Secrets and variables > Actions : secret ANTHROPIC_API_KEY
+#  - Settings > Actions > General > Workflow permissions :
+#      "Read and write permissions" + cocher
+#      "Allow GitHub Actions to create and approve pull requests"
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"       # lundi 6 h UTC (7 h ou 8 h en France)
+  workflow_dispatch:
+    inputs:
+      pair:
+        description: 'Paire imposée (facultatif), ex. : Chamonix|Megève'
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  duel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installer le client Anthropic
+        run: pip install anthropic
+
+      - name: Préparer le duel
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PAIR: ${{ github.event.inputs.pair }}
+        run: |
+          if [ -n "$PAIR" ]; then
+            python3 _scripts/generate_duel_hebdo.py --pair "$PAIR" --review-out /tmp/duel_review.md
+          else
+            python3 _scripts/generate_duel_hebdo.py --review-out /tmp/duel_review.md
+          fi
+
+      - name: Ouvrir la pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Aucun changement."
+            exit 0
+          fi
+          TITRE=$(python3 -c "import json;d=json.load(open('duels_hebdo.json'))[-1];print(d['a']+' vs '+d['b'])")
+          BRANCHE="duel/$(date +%Y-%m-%d-%H%M)"
+          git config user.name "SnowFinder Bot"
+          git config user.email "bot@snowfinder.fr"
+          git checkout -b "$BRANCHE"
+          git add duels_hebdo.json contenus.json
+          git commit -m "📝 Duel de la semaine : $TITRE"
+          git push origin "$BRANCHE"
+          gh pr create --base main --head "$BRANCHE" \
+            --title "Duel de la semaine : $TITRE" \
+            --body-file /tmp/duel_review.md
