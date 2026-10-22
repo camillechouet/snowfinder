@@ -30,6 +30,7 @@ STATIONS_JS = REPO_ROOT / "stations-data.js"
 COMPARATIFS_DIR = REPO_ROOT / "comparatifs"
 SNIPPET_OUT = REPO_ROOT / "_scripts" / "_index_snippet.html"
 CONTENUS_JSON = REPO_ROOT / "contenus.json"
+HEBDO_JSON = REPO_ROOT / "duels_hebdo.json"
 
 # Slug canonique partagé avec generate_sitemap.py
 def fmt_eur(v):
@@ -1380,6 +1381,15 @@ def build_page(comp: dict, stations_db: dict) -> tuple[str, str]:
     page_slug = f"{slug_a}-vs-{slug_b}"
     canonical = f"{BASE_URL}/comparatifs/{page_slug}.html"
 
+    # Date de publication stable : celle du duel (duels_hebdo.json), sinon celle déjà
+    # écrite dans la page existante, sinon aujourd'hui (première génération seulement).
+    pub_date = comp.get("date")
+    existing = COMPARATIFS_DIR / f"{page_slug}.html"
+    if not pub_date and existing.exists():
+        m = re.search(r'"datePublished":\s*"(\d{4}-\d{2}-\d{2})"', existing.read_text(encoding="utf-8"))
+        pub_date = m.group(1) if m else None
+    pub_date = pub_date or date.today().isoformat()
+
     faq_html, faq_entries = render_faq(comp["faq"])
     json_ld = json.dumps({
         "@context": "https://schema.org",
@@ -1388,7 +1398,7 @@ def build_page(comp: dict, stations_db: dict) -> tuple[str, str]:
             {"@type": "Article",
              "headline": f"{a} vs {b} : quelle station choisir ?",
              "image": f"{BASE_URL}/img/{comp['img_a']}.jpg",
-             "datePublished": date.today().isoformat(),
+             "datePublished": pub_date,
              "author": {"@type": "Organization", "name": "SnowFinder"}}
         ]
     }, ensure_ascii=False, indent=2)
@@ -1576,6 +1586,16 @@ def build_snippet(comparaisons_meta: list) -> str:
 """
 
 
+def load_hebdo() -> list:
+    """Duels rédigés automatiquement (duels_hebdo.json), validés par pull request."""
+    if not HEBDO_JSON.exists():
+        return []
+    try:
+        return json.loads(HEBDO_JSON.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as e:
+        raise SystemExit(f"❌ duels_hebdo.json illisible : {e.msg} (ligne {e.lineno})")
+
+
 def merge_manifest(meta: list) -> list:
     """
     Aligne la liste des duels sur contenus.json :
@@ -1622,7 +1642,8 @@ def main() -> None:
     print(f"✓ Dossier : {COMPARATIFS_DIR.relative_to(REPO_ROOT)}")
 
     meta = []
-    for comp in COMPARAISONS:
+    all_comps = COMPARAISONS + load_hebdo()
+    for comp in all_comps:
         slug, html = build_page(comp, stations_db)
         out = COMPARATIFS_DIR / f"{slug}.html"
         out.write_text(html, encoding="utf-8")
@@ -1630,7 +1651,7 @@ def main() -> None:
         meta.append((slug, comp))
 
     meta = merge_manifest(meta)
-    print(f"✓ {len(meta)} duels dans la liste (dont {len(meta) - len(COMPARAISONS)} hors COMPARAISONS)")
+    print(f"✓ {len(meta)} duels dans la liste (dont {len(meta) - len(all_comps)} manuels)")
 
     # Index des comparatifs
     (COMPARATIFS_DIR / "tous-les-comparatifs.html").write_text(build_index(meta), encoding="utf-8")
@@ -1642,11 +1663,11 @@ def main() -> None:
     print(f"  → {SNIPPET_OUT.relative_to(REPO_ROOT)}")
 
     print()
-    print(f"🎉 {len(COMPARAISONS)} comparatifs générés.")
+    print(f"🎉 {len(all_comps)} comparatifs générés.")
     print()
     print("📸 Photos requises dans /img/ :")
     photos_needed = set()
-    for c in COMPARAISONS:
+    for c in all_comps:
         photos_needed.add(f"{c['img_a']}.jpg")
         photos_needed.add(f"{c['img_b']}.jpg")
     for p in sorted(photos_needed):
