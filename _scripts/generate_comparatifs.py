@@ -46,6 +46,22 @@ def slugify(name: str) -> str:
     s = re.sub(r"[^a-z0-9-]", "", s)
     s = re.sub(r"-+", "-", s).strip("-")
     return s
+
+def photo_slug(name: str) -> str:
+    """Convention des fichiers photos : minuscules, sans accents, sans tirets/espaces/apostrophes
+    (« Saint-Martin-de-Belleville » -> « saintmartindebelleville »)."""
+    import unicodedata
+    ascii_only = unicodedata.normalize("NFKD", name).encode("ASCII", "ignore").decode("ASCII")
+    return re.sub(r"[^a-z0-9]", "", ascii_only.lower())
+
+def station_photo(name: str) -> str:
+    """Chemin web (/img/xxx1.ext) de la photo n°1 d'une station si elle existe dans img/, sinon ''."""
+    base = photo_slug(name) + "1"
+    for ext in ("jpg", "jpeg", "png", "webp", "JPG", "JPEG", "PNG", "WEBP"):
+        if (REPO_ROOT / "img" / f"{base}.{ext}").exists():
+            return f"/img/{base}.{ext}"
+    return ""
+
 def img_src(v: str) -> str:
     """Nom de fichier (ex. 'tignes1') -> /img/tignes1.jpg ; chemin ou URL complète laissés tels quels."""
     return v if v.startswith(("/", "http")) else f"/img/{v}.jpg"
@@ -1275,6 +1291,41 @@ def render_banner(name: str, station: dict, img_name: str) -> str:
             f'    </div>')
 
 
+# ── Éléments communs aux pages de contenu (duels, articles, listes) ──────────
+SF_BOTTOMNAV_CSS = (
+    ".sf-bottomnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid #eddcbf;display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08)}\n"
+    ".sf-bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px;font-size:1.18rem;text-decoration:none;color:#5c4a35;position:relative;gap:1px}\n"
+    ".sf-bn-label{font-size:.54rem;font-weight:700;letter-spacing:.01em;line-height:1;color:inherit;opacity:.9}\n"
+    ".sf-bn-home{flex:0 0 52px;margin-top:-16px}\n"
+    ".sf-bn-home-circle{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#1a5a8a,#3a7db8);display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 6px 18px rgba(26,90,138,.4);border:3px solid #fff}\n"
+    ".sf-bn-home .sf-bn-label{margin-top:2px}\n"
+    "body{padding-bottom:66px}\n"
+)
+SF_BOTTOMNAV_HTML = """<nav class="sf-bottomnav">
+  <a href="/recherche.html" class="sf-bn-item" title="Trouver ma station">🔍<span class="sf-bn-label">Recherche</span></a>
+  <a href="/enneigement.html" class="sf-bn-item" title="Météo & enneigement">❄️<span class="sf-bn-label">Météo</span></a>
+  <a href="/index.html" class="sf-bn-item sf-bn-home" title="Accueil"><span class="sf-bn-home-circle">🏡</span><span class="sf-bn-label">Chalet</span></a>
+  <a href="/tinder.html" class="sf-bn-item" title="Tinder du ski">💕<span class="sf-bn-label">Tinder</span></a>
+  <a href="/hebergement.html" class="sf-bn-item" title="Hébergement">🛏️<span class="sf-bn-label">Héberg.</span></a>
+</nav>
+"""
+# Barre « ← précédent + lien vers la liste », placée sous le bandeau
+SF_BAR_CSS = (
+    ".duel-bar{display:flex;align-items:center;gap:10px;max-width:%MAXW%;margin:0 auto;padding:10px 16px 0}\n"
+    ".duel-bar a{display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none!important;font-weight:700;font-size:.88rem;color:#1a5a8a;background:#fff;border:1.5px solid #eddcbf;border-radius:20px;padding:7px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}\n"
+    ".duel-bar a:active{background:#f7efe2}\n"
+    ".duel-bar .back{width:38px;height:38px;padding:0;font-size:1.15rem}\n"
+)
+
+def sf_bar_html(back_href: str, list_label: str = "", list_href: str = "") -> str:
+    """Barre sous le bandeau : flèche ← (page précédente, sinon back_href) + lien facultatif vers la liste."""
+    lien = f'  <a href="{list_href or back_href}">{list_label}</a>\n' if list_label else ""
+    return (f'<div class="duel-bar">\n'
+            f'  <a href="{back_href}" class="back" aria-label="Page précédente" title="Page précédente" '
+            f'onclick="if(document.referrer.indexOf(location.host)>-1&&history.length>1){{history.back();return false;}}">←</a>\n'
+            f'{lien}</div>\n')
+
+
 # ── Rendu d'une page ─────────────────────────────────────────────────────────
 
 def render_spec(station: dict) -> str:
@@ -1497,6 +1548,9 @@ def build_page(comp: dict, stations_db: dict) -> tuple[str, str]:
         pub_date = m.group(1) if m else None
     pub_date = pub_date or date.today().isoformat()
 
+    comp = dict(comp)
+    comp["img_a"] = station_photo(a) or comp["img_a"]
+    comp["img_b"] = station_photo(b) or comp["img_b"]
     faq_html, faq_entries = render_faq(comp["faq"])
     json_ld = json.dumps({
         "@context": "https://schema.org",

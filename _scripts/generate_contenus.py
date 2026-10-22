@@ -30,6 +30,9 @@ import unicodedata
 from datetime import date
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import generate_comparatifs as gc  # noqa: E402  (éléments communs : barre ←, menu du bas)
+
 DEFAULT_ROOT = Path(__file__).resolve().parent.parent
 
 MONTHS_LONG = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet",
@@ -168,16 +171,54 @@ def render_card(a: dict) -> str:
 
 
 GRID_RE = re.compile(
-    r'(<h1>Toutes nos actus</h1>\s*<div class="grid">)(.*?)(</div>\s*</div>\s*</body>)',
+    r'(<h1>Toutes nos actus</h1>\s*(?:<div class="count">.*?</div>\s*)?<div class="grid">)(.*?)'
+    r'(</div>\s*</div>\s*(?:<nav class="sf-bottomnav">.*?</nav>\s*)?</body>)',
     re.S,
 )
+ACTUS_CSS_MARK = "/* SF-ACTUS-BAR */"
+FIN_TOPBAR = "<!-- ══ FIN TOP BAR ══ -->"
+
+
+def _actus_extras(page: str, n: int) -> str:
+    """Ajoute (une seule fois) la flèche ←, le style du compteur et le menu du bas ; met à jour le compteur."""
+    if ACTUS_CSS_MARK not in page and "</style>" in page:
+        css = (ACTUS_CSS_MARK + "\n" + gc.SF_BAR_CSS.replace("%MAXW%", "900px")
+               + ".count{display:inline-block;background:#e8f3fb;color:#1a5a8a;border:1px solid #d3e3f1;border-radius:14px;"
+                 "padding:4px 12px;font-weight:700;font-size:.9rem;margin:0 0 18px}\n"
+               + gc.SF_BOTTOMNAV_CSS)
+        page = page.replace("</style>", css + "</style>", 1)
+    if 'class="duel-bar"' not in page and FIN_TOPBAR in page:
+        page = page.replace(FIN_TOPBAR, FIN_TOPBAR + "\n" + gc.sf_bar_html("/index.html"), 1)
+    plural = "article" if n == 1 else "articles"
+    page = re.sub(r'(<h1>Toutes nos actus</h1>)(\s*<div class="count">.*?</div>)?',
+                  lambda m: f'{m.group(1)}\n  <div class="count">📰 {n} {plural}</div>', page, count=1, flags=re.S)
+    return page
 
 
 def build_actus_page(page: str, articles: list[dict]) -> str | None:
     if not GRID_RE.search(page):
         return None
+    page = _actus_extras(page, len(articles))
     cards = "\n\n".join(render_card(a) for a in articles)
-    return GRID_RE.sub(lambda m: m.group(1) + "\n\n" + cards + "\n\n  " + m.group(3), page, count=1)
+    return GRID_RE.sub(lambda m: m.group(1) + "\n\n" + cards + "\n\n  </div>\n</div>\n" + gc.SF_BOTTOMNAV_HTML + "</body>",
+                       page, count=1)
+
+
+def patch_article_page(page: str) -> str | None:
+    """Pages d'articles : ajoute (une seule fois) la flèche ← sous le bandeau et le menu du bas.
+    Renvoie None si la page n'a pas la structure attendue (bandeau complet + </style> + </body>)."""
+    if 'class="duel-bar"' in page and 'class="sf-bottomnav"' in page:
+        return page
+    if FIN_TOPBAR not in page or "</style>" not in page or "</body>" not in page:
+        return None
+    if 'class="duel-bar"' not in page:
+        page = page.replace("</style>", gc.SF_BAR_CSS.replace("%MAXW%", "720px") + "</style>", 1)
+        bar = gc.sf_bar_html("/articles/toutes-les-actus.html", "📰 Toutes nos actus")
+        page = page.replace(FIN_TOPBAR, FIN_TOPBAR + "\n" + bar, 1)
+    if 'class="sf-bottomnav"' not in page:
+        page = page.replace("</style>", gc.SF_BOTTOMNAV_CSS + "</style>", 1)
+        page = page.replace("</body>", gc.SF_BOTTOMNAV_HTML + "</body>", 1)
+    return page
 
 
 # ── Rendu : index.html ───────────────────────────────────────────────────────
@@ -362,6 +403,25 @@ def main() -> None:
     for p in found:
         apply(p, lambda t: (build_actus_page(t, articles), None) if GRID_RE.search(t)
               else (None, "grille « Toutes nos actus » non reconnue"))
+
+    # Pages d'articles : flèche ← + menu du bas (idempotent)
+    art_dir = root / "articles"
+    if art_dir.exists():
+        n_ok = n_skip = 0
+        for p in sorted(art_dir.glob("*.html")):
+            if p.name == "toutes-les-actus.html":
+                continue
+            old = p.read_text(encoding="utf-8")
+            new = patch_article_page(old)
+            if new is None:
+                n_skip += 1
+                print(f"⚠️  {p.name} : structure non reconnue, laissé intact")
+            elif new != old:
+                n_ok += 1
+                changed += 1
+                if not args.check:
+                    p.write_text(new, encoding="utf-8")
+        print(f"✓ Articles : {n_ok} page(s) complétée(s) (flèche ← + menu du bas), {n_skip} non reconnue(s)")
 
     print()
     if failed:
