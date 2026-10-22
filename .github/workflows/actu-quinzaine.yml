@@ -1,0 +1,83 @@
+name: Actualité (brouillon à valider)
+
+# Le mercredi des semaines paires (une semaine sur deux), prépare UN article d'actualité sourcé
+# et ouvre une pull request. Claude cherche l'actualité sur le web, rédige, puis le script vérifie
+# les chiffres et les sources avant d'ouvrir la pull request.
+# Rien n'est publié tant que vous n'avez pas fusionné ("Merge") la pull request.
+# S'il n'y a rien de notable cette semaine-là, aucune pull request n'est ouverte.
+#
+# Réglages nécessaires :
+#  - Secret ANTHROPIC_API_KEY (déjà créé pour les duels)
+#  - Console Anthropic : la recherche web doit être activée pour votre organisation
+#   . Sans cela, le workflow affiche une erreur explicite.
+#  - Settings > Actions > General > Workflow permissions : lecture/écriture + création de pull requests (déjà fait)
+
+on:
+  schedule:
+    - cron: "0 6 * * 3"       # mercredi 6 h UTC — seules les semaines paires sont traitées
+  workflow_dispatch:
+    inputs:
+      sujet:
+        description: "Thème imposé (facultatif), ex. : ouverture des stations"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  actu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Semaine concernée ?
+        id: sem
+        run: |
+          SEM=$((10#$(date +%V)))
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ $((SEM % 2)) -eq 0 ]; then
+            echo "go=oui" >> "$GITHUB_OUTPUT"
+          else
+            echo "Semaine impaire : pas d'actualité prévue."
+            echo "go=non" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.sem.outputs.go == 'oui'
+
+      - uses: actions/setup-python@v5
+        if: steps.sem.outputs.go == 'oui'
+        with:
+          python-version: "3.11"
+
+      - name: Installer le client Anthropic
+        if: steps.sem.outputs.go == 'oui'
+        run: pip install anthropic
+
+      - name: Préparer l'actualité
+        if: steps.sem.outputs.go == 'oui'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUJET: ${{ github.event.inputs.sujet }}
+        run: |
+          python3 _scripts/generate_actu_hebdo.py --sujet "$SUJET" --review-out /tmp/actu_review.md
+
+      - name: Ouvrir la pull request
+        if: steps.sem.outputs.go == 'oui'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Aucun changement (pas d'actualité notable)."
+            exit 0
+          fi
+          TITRE=$(python3 -c "import json;d=json.load(open('actus_hebdo.json'))[-1];print(d['title'])")
+          BRANCHE="actu/$(date +%Y-%m-%d-%H%M)"
+          git config user.name "SnowFinder Bot"
+          git config user.email "bot@snowfinder.fr"
+          git checkout -b "$BRANCHE"
+          git add articles actus_hebdo.json contenus.json
+          git commit -m "📰 Actualité : $TITRE"
+          git push origin "$BRANCHE"
+          gh pr create --base main --head "$BRANCHE" \
+            --title "Actualité : $TITRE" \
+            --body-file /tmp/actu_review.md

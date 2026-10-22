@@ -1,0 +1,81 @@
+name: Classement (brouillon à valider)
+
+# Le lundi des semaines paires (une semaine sur deux), prépare UN article « classement chiffré »
+# et ouvre une pull request. (Les semaines impaires, le lundi est réservé au guide saisonnier.)
+# Aucune IA : les chiffres viennent de stations-data.js, donc rien à payer et rien d'inventé.
+# Rien n'est publié tant que vous n'avez pas fusionné ("Merge") la pull request.
+# Pour refuser l'article : fermer la pull request sans la fusionner.
+#
+# Réglages nécessaires : les mêmes que pour « Duel de la semaine » (déjà faits)
+#  - Settings > Actions > General > Workflow permissions :
+#      "Read and write permissions" + cocher
+#      "Allow GitHub Actions to create and approve pull requests"
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"       # lundi 6 h UTC (7 h ou 8 h en France) — seules les semaines paires sont traitées
+  workflow_dispatch:
+    inputs:
+      sujet:
+        description: 'Sujet imposé (facultatif), ex. : prix:savoie (voir la liste en lançant le script avec --list)'
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  article:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Semaine concernée ?
+        id: sem
+        run: |
+          SEM=$((10#$(date +%V)))
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ $((SEM % 2)) -eq 0 ]; then
+            echo "go=oui" >> "$GITHUB_OUTPUT"
+          else
+            echo "Semaine impaire : pas de classement (c'est le tour du guide)."
+            echo "go=non" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.sem.outputs.go == 'oui'
+
+      - uses: actions/setup-python@v5
+        if: steps.sem.outputs.go == 'oui'
+        with:
+          python-version: "3.11"
+
+      - name: Préparer l'article
+        if: steps.sem.outputs.go == 'oui'
+        env:
+          SUJET: ${{ github.event.inputs.sujet }}
+        run: |
+          if [ -n "$SUJET" ]; then
+            python3 _scripts/generate_article_hebdo.py --key "$SUJET" --review-out /tmp/article_review.md
+          else
+            python3 _scripts/generate_article_hebdo.py --review-out /tmp/article_review.md
+          fi
+
+      - name: Ouvrir la pull request
+        if: steps.sem.outputs.go == 'oui'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Aucun changement."
+            exit 0
+          fi
+          TITRE=$(python3 -c "import json;d=json.load(open('articles_hebdo.json'))[-1];print(d['title'])")
+          BRANCHE="article/$(date +%Y-%m-%d-%H%M)"
+          git config user.name "SnowFinder Bot"
+          git config user.email "bot@snowfinder.fr"
+          git checkout -b "$BRANCHE"
+          git add articles articles_hebdo.json contenus.json
+          git commit -m "📰 Article de la semaine : $TITRE"
+          git push origin "$BRANCHE"
+          gh pr create --base main --head "$BRANCHE" \
+            --title "Article de la semaine : $TITRE" \
+            --body-file /tmp/article_review.md
