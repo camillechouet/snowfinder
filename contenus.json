@@ -2,6 +2,15 @@
   "_aide": "Manifeste des contenus SnowFinder. Un nouvel article = une entrée dans 'articles' (date ISO, le plus récent est trié en premier). Un nouveau duel = une entrée EN TÊTE de 'duels' (le premier est le héros de l'accueil, les 2 suivants les bandeaux). Le script generate_contenus.py reconstruit l'accueil et toutes-les-actus.html. Les duels marqués \"manuel\": true ont une page faite à la main (pas générée par generate_comparatifs.py) : ils restent dans les listes mais ne sont pas régénérés.",
   "articles": [
     {
+      "slug": "stations-ski-plus-hautes-france",
+      "title": "Les 10 stations de ski où l'on skie le plus haut en France",
+      "category": "Classement",
+      "excerpt": "Chamonix arrive en tête (3 842 m) : le classement chiffré des 10 stations en France, à partir des données SnowFinder.",
+      "img": "/img/chamonix1.jpg",
+      "date": "2026-10-22",
+      "read_min": 5
+    },
+    {
       "slug": "retour-est-alpes-neige-octobre-2026",
       "title": "Retour d'est dans les Alpes : jusqu'à 50 cm de neige cette semaine",
       "category": "Enneigement",
