@@ -29,6 +29,19 @@ h1{font-family:"DM Serif Display",serif;font-size:1.8rem;margin:0 0 24px}
 .card-title{font-family:"DM Serif Display",serif;font-size:1.08rem;line-height:1.35;margin-bottom:8px}
 .card-excerpt{font-size:.85rem;color:var(--text-mid);margin-bottom:10px}
 .card-meta{font-size:.72rem;color:var(--text-light)}
+/* SF-ACTUS-BAR */
+.duel-bar{display:flex;align-items:center;gap:10px;max-width:900px;margin:0 auto;padding:10px 16px 0}
+.duel-bar a{display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none!important;font-weight:700;font-size:.88rem;color:#1a5a8a;background:#fff;border:1.5px solid #eddcbf;border-radius:20px;padding:7px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.duel-bar a:active{background:#f7efe2}
+.duel-bar .back{width:38px;height:38px;padding:0;font-size:1.15rem}
+.count{display:inline-block;background:#e8f3fb;color:#1a5a8a;border:1px solid #d3e3f1;border-radius:14px;padding:4px 12px;font-weight:700;font-size:.9rem;margin:0 0 18px}
+.sf-bottomnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid #eddcbf;display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08)}
+.sf-bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px;font-size:1.18rem;text-decoration:none;color:#5c4a35;position:relative;gap:1px}
+.sf-bn-label{font-size:.54rem;font-weight:700;letter-spacing:.01em;line-height:1;color:inherit;opacity:.9}
+.sf-bn-home{flex:0 0 52px;margin-top:-16px}
+.sf-bn-home-circle{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#1a5a8a,#3a7db8);display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 6px 18px rgba(26,90,138,.4);border:3px solid #fff}
+.sf-bn-home .sf-bn-label{margin-top:2px}
+body{padding-bottom:66px}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -174,10 +187,15 @@ function acceptSfNotif(){
 })();
 </script>
 <!-- ══ FIN TOP BAR ══ -->
+<div class="duel-bar">
+  <a href="/index.html" class="back" aria-label="Page précédente" title="Page précédente" onclick="if(document.referrer.indexOf(location.host)>-1&&history.length>1){history.back();return false;}">←</a>
+</div>
+
 
 <div class="wrap">
   <div class="breadcrumb"><a href="/index.html">Accueil</a> › Toutes nos actus</div>
   <h1>Toutes nos actus</h1>
+  <div class="count">📰 18 articles</div>
   <div class="grid">
 
     <a class="card" href="/articles/retour-est-alpes-neige-octobre-2026.html">
@@ -362,5 +380,12 @@ function acceptSfNotif(){
 
   </div>
 </div>
+<nav class="sf-bottomnav">
+  <a href="/recherche.html" class="sf-bn-item" title="Trouver ma station">🔍<span class="sf-bn-label">Recherche</span></a>
+  <a href="/enneigement.html" class="sf-bn-item" title="Météo & enneigement">❄️<span class="sf-bn-label">Météo</span></a>
+  <a href="/index.html" class="sf-bn-item sf-bn-home" title="Accueil"><span class="sf-bn-home-circle">🏡</span><span class="sf-bn-label">Chalet</span></a>
+  <a href="/tinder.html" class="sf-bn-item" title="Tinder du ski">💕<span class="sf-bn-label">Tinder</span></a>
+  <a href="/hebergement.html" class="sf-bn-item" title="Hébergement">🛏️<span class="sf-bn-label">Héberg.</span></a>
+</nav>
 </body>
 </html>
