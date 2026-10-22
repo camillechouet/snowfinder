@@ -791,7 +791,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <link rel="canonical" href="{canonical}">
 <meta property="og:title" content="{a} vs {b} : le comparatif complet">
 <meta property="og:description" content="Quelle station choisir entre {a} et {b} ? Le guide SnowFinder.">
-<meta property="og:image" content="{BASE_URL}/img/{img_a}.jpg">
+<meta property="og:image" content="{og_image}">
 <meta property="og:type" content="article">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -840,21 +840,7 @@ h1 {{
 }}
 .subtitle {{ font-size:1.05rem; color:var(--text-mid); margin-bottom:32px; }}
 
-.hero-pair {{
-  display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:0 0 32px;
-}}
-.hero-card {{
-  position:relative; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
-  background:#fff; aspect-ratio:16/10;
-}}
-.hero-card img {{ width:100%; height:100%; object-fit:cover; display:block; }}
-.hero-card .tag {{
-  position:absolute; left:14px; top:14px; background:rgba(255,255,255,.92);
-  padding:6px 12px; border-radius:8px; font-weight:700; font-size:.95rem;
-  color:var(--text); box-shadow:var(--shadow);
-}}
 @media (max-width:700px) {{
-  .hero-pair {{ grid-template-columns:1fr; }}
   h1 {{ font-size:1.7rem; }}
   .page {{ padding:24px 16px 60px; }}
 }}
@@ -873,6 +859,24 @@ h2 {{
 .specs {{
   display:grid; grid-template-columns:1fr 1fr; gap:14px;
 }}
+.spec-col {{ display:flex; flex-direction:column; gap:10px; }}
+.station-banner {{ position:relative; overflow:hidden; border-radius:var(--radius); box-shadow:var(--shadow); min-height:96px; display:flex; align-items:flex-end; background:#1a3a5c; }}
+.station-banner .bg {{ position:absolute; inset:0; background-size:cover; background-position:center; }}
+.station-banner .overlay {{ position:absolute; inset:0; background:linear-gradient(135deg,rgba(13,34,64,.82),rgba(26,58,92,.62)); }}
+.station-banner .content {{ position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; width:100%; padding:16px 16px 18px; gap:10px; }}
+.station-banner .name {{ font-family:"DM Serif Display",serif; font-style:italic; font-weight:700; font-size:1.1rem; color:#fff; text-shadow:0 1px 6px rgba(0,0,0,.5); }}
+.station-banner .actions {{ display:flex; gap:8px; flex-shrink:0; }}
+.station-banner .icon-btn {{ background:rgba(255,255,255,.2); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.35); border-radius:20px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; font-size:1.05rem; cursor:pointer; color:#fff; padding:0; }}
+.station-banner .icon-btn.active {{ background:rgba(255,255,255,.92); color:#0d2240; }}
+.station-banner .credit {{ position:absolute; right:10px; top:6px; z-index:1; font-size:.62rem; color:rgba(255,255,255,.8); }}
+.station-fiche-link {{ font-size:.85rem; color:var(--wood-dark); text-decoration:underline; font-weight:600; }}
+.sf-bottomnav{{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08)}}
+.sf-bn-item{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px;font-size:1.18rem;text-decoration:none;color:var(--text-mid);position:relative;gap:1px}}
+.sf-bn-label{{font-size:.54rem;font-weight:700;letter-spacing:.01em;line-height:1;color:inherit;opacity:.9}}
+.sf-bn-home{{flex:0 0 52px;margin-top:-16px}}
+.sf-bn-home-circle{{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue-dark),#3a7db8);display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 6px 18px rgba(26,90,138,.4);border:3px solid #fff}}
+.sf-bn-home .sf-bn-label{{margin-top:2px}}
+body{{padding-bottom:66px}}
 .spec-card {{
   background:#fff; border:1px solid var(--border); border-radius:var(--radius);
   padding:22px; box-shadow:var(--shadow);
@@ -1025,30 +1029,25 @@ footer a {{ color:var(--text-light); }}
 <h1>{a} vs {b} : quelle station choisir ?</h1>
 <div class="subtitle">Comparatif complet : domaine, enneigement, ambiance, budget. Notre verdict pour vous aider à trancher.</div>
 
-<div class="hero-pair">
-  <div class="hero-card">
-    <img src="/img/{img_a}.jpg" alt="{a}" loading="eager"
-         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800&q=80'">
-    <div class="tag">{a}</div>
-  </div>
-  <div class="hero-card">
-    <img src="/img/{img_b}.jpg" alt="{b}" loading="eager"
-         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&q=80'">
-    <div class="tag">{b}</div>
-  </div>
-</div>
-
 <div class="teaser">{teaser}</div>
 
 <h2>📊 Les chiffres face à face</h2>
 <div class="specs">
-  <div class="spec-card">
-    <h3>{a}</h3>
-    {spec_a}
+  <div class="spec-col">
+    {banner_a}
+    <a href="/stations/{slug_a}.html" class="station-fiche-link">→ Voir la fiche complète</a>
+    <div class="spec-card">
+      <h3>{a}</h3>
+      {spec_a}
+    </div>
   </div>
-  <div class="spec-card">
-    <h3>{b}</h3>
-    {spec_b}
+  <div class="spec-col">
+    {banner_b}
+    <a href="/stations/{slug_b}.html" class="station-fiche-link">→ Voir la fiche complète</a>
+    <div class="spec-card">
+      <h3>{b}</h3>
+      {spec_b}
+    </div>
   </div>
 </div>
 
@@ -1139,11 +1138,52 @@ footer a {{ color:var(--text-light); }}
   <div class="book-disclaimer">Liens affiliés — prix identiques, aucune commission prélevée sur vous</div>
 </div>
 
+<div style="text-align:center;margin:36px 0 0">
+  <a href="/comparatifs/tous-les-comparatifs.html" style="display:inline-block;color:var(--wood-dark);font-weight:700;text-decoration:underline;font-size:.95rem">← Tous les duels de stations</a>
+</div>
+
 </main>
 
 <footer>
   © 2026 SnowFinder &nbsp;·&nbsp; <a href="/mentions-legales.html">Mentions légales</a> &nbsp;·&nbsp; <a href="/">Accueil</a>
 </footer>
+
+<nav class="sf-bottomnav">
+  <a href="/recherche.html" class="sf-bn-item" title="Trouver ma station">🔍<span class="sf-bn-label">Recherche</span></a>
+  <a href="/enneigement.html" class="sf-bn-item" title="Météo & enneigement">❄️<span class="sf-bn-label">Météo</span></a>
+  <a href="/index.html" class="sf-bn-item sf-bn-home" title="Accueil"><span class="sf-bn-home-circle">🏡</span><span class="sf-bn-label">Chalet</span></a>
+  <a href="/tinder.html" class="sf-bn-item" title="Tinder du ski">💕<span class="sf-bn-label">Tinder</span></a>
+  <a href="/hebergement.html" class="sf-bn-item" title="Hébergement">🛏️<span class="sf-bn-label">Héberg.</span></a>
+</nav>
+
+<script>
+function getFavs(){{try{{return JSON.parse(localStorage.getItem('sf_favorites')||'[]');}}catch(e){{return [];}}}}
+function isFav(id){{return getFavs().indexOf(id)!==-1;}}
+function toggleFav(id,btn){{
+  var favs=getFavs();
+  if(favs.indexOf(id)!==-1){{favs=favs.filter(function(x){{return x!==id;}});}}
+  else{{favs.push(id);if(navigator.vibrate)navigator.vibrate(40);}}
+  try{{localStorage.setItem('sf_favorites',JSON.stringify(favs));}}catch(e){{}}
+  var el=document.getElementById('sfFavCount'); if(el) el.textContent=favs.length;
+  if(btn){{btn.classList.toggle('active',isFav(id));btn.textContent=isFav(id)?'⭐':'☆';}}
+}}
+function getCompareList(){{try{{return JSON.parse(localStorage.getItem('sf_compare')||'[]');}}catch(e){{return [];}}}}
+function isInCompare(id){{return getCompareList().indexOf(id)!==-1;}}
+function toggleCompare(id,btn){{
+  var c=getCompareList();var idx=c.indexOf(id);
+  if(idx>=0){{c.splice(idx,1);}}
+  else{{ if(c.length>=3){{alert("Vous pouvez comparer 3 stations maximum. Retirez-en une avant d'en ajouter une nouvelle.");return;}} c.push(id);}}
+  try{{localStorage.setItem('sf_compare',JSON.stringify(c));}}catch(e){{}}
+  var el=document.getElementById('sfCompareCount'); if(el) el.textContent=c.length;
+  if(btn)btn.classList.toggle('active',isInCompare(id));
+}}
+document.querySelectorAll('[data-fav-id]').forEach(function(btn){{
+  if(isFav(parseInt(btn.getAttribute('data-fav-id'),10))){{btn.classList.add('active');btn.textContent='⭐';}}
+}});
+document.querySelectorAll('[data-compare-id]').forEach(function(btn){{
+  if(isInCompare(parseInt(btn.getAttribute('data-compare-id'),10)))btn.classList.add('active');
+}});
+</script>
 
 </body>
 </html>
@@ -1169,6 +1209,38 @@ def expedia_url(station_name: str, slug: str) -> str:
     encoded = urllib.parse.quote(target, safe="")
     return (f"https://www.jdoqocy.com/click-101709262-13904689"
             f"?sid=comparatif-{slug}&url={encoded}")
+
+
+# ── Bannière de station (photo réelle, sinon « Photo d'illustration ») ───────
+
+GENERIC_BG = "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=600&q=80"
+
+def has_photo(img_name: str) -> bool:
+    """Vrai si le fichier image existe dans le dépôt (img/xxx.jpg) ou si c'est une URL."""
+    if not img_name:
+        return False
+    if img_name.startswith("http"):
+        return True
+    rel = img_name.lstrip("/") if img_name.startswith("/") else f"img/{img_name}.jpg"
+    return (REPO_ROOT / rel).exists()
+
+def render_banner(name: str, station: dict, img_name: str) -> str:
+    sid = station["id"]
+    if has_photo(img_name):
+        bg, credit = img_src(img_name), ""
+    else:
+        bg, credit = GENERIC_BG, '<span class="credit">Photo d\'illustration</span>'
+    return (f'<div class="station-banner">\n'
+            f'      <div class="bg" style="background-image:url({bg})"></div>\n'
+            f'      <div class="overlay"></div>{credit}\n'
+            f'      <div class="content">\n'
+            f'        <span class="name">{name}</span>\n'
+            f'        <div class="actions">\n'
+            f'          <button class="icon-btn" data-fav-id="{sid}" onclick="toggleFav({sid},this)" title="Ajouter aux favoris">☆</button>\n'
+            f'          <button class="icon-btn" data-compare-id="{sid}" onclick="toggleCompare({sid},this)" title="Ajouter au comparateur">⚖️</button>\n'
+            f'        </div>\n'
+            f'      </div>\n'
+            f'    </div>')
 
 
 # ── Rendu d'une page ─────────────────────────────────────────────────────────
@@ -1397,7 +1469,7 @@ def build_page(comp: dict, stations_db: dict) -> tuple[str, str]:
             {"@type": "FAQPage", "mainEntity": faq_entries},
             {"@type": "Article",
              "headline": f"{a} vs {b} : quelle station choisir ?",
-             "image": f"{BASE_URL}/img/{comp['img_a']}.jpg",
+             "image": (f"{BASE_URL}{img_src(comp['img_a'])}" if has_photo(comp["img_a"]) and not comp["img_a"].startswith("http") else f"{BASE_URL}/logo.png"),
              "datePublished": pub_date,
              "author": {"@type": "Organization", "name": "SnowFinder"}}
         ]
@@ -1407,7 +1479,8 @@ def build_page(comp: dict, stations_db: dict) -> tuple[str, str]:
         a=a, b=b,
         canonical=canonical,
         BASE_URL=BASE_URL,
-        img_a=comp["img_a"], img_b=comp["img_b"],
+        og_image=(f"{BASE_URL}{img_src(comp['img_a'])}" if has_photo(comp["img_a"]) and not comp["img_a"].startswith("http") else f"{BASE_URL}/logo.png"),
+        banner_a=render_banner(a, sa, comp["img_a"]), banner_b=render_banner(b, sb, comp["img_b"]),
         slug_a=slug_a, slug_b=slug_b,
         teaser=comp["teaser"],
         spec_a=render_spec(sa), spec_b=render_spec(sb),
