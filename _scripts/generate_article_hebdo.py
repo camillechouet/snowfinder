@@ -156,6 +156,48 @@ def fmt_n(n) -> str:
     return f"{int(n):,}".replace(",", NBSP)
 
 
+# Domaines skiables reliés : une seule station par domaine dans les classements (évite les doublons).
+DOMAIN_GROUPS = {
+    "trois-vallees": ["Courchevel", "Méribel", "Val Thorens", "Les Menuires", "Saint-Martin-de-Belleville", "La Tania", "Orelle", "Brides-les-Bains", "Les Allues"],
+    "paradiski": ["Les Arcs", "La Plagne", "Peisey-Vallandry", "Champagny-en-Vanoise", "Montchavin-Les Coches", "Bourg-Saint-Maurice"],
+    "espace-killy": ["Val d'Isère", "Tignes"],
+    "alpe-d-huez": ["Alpe d'Huez", "Auris", "Oz-en-Oisans", "Vaujany", "Villard-Reculas"],
+    "sybelle": ["La Toussuire", "Le Corbier", "Saint-Sorlin-d'Arves", "Saint-Jean-d'Arves", "Les Bottières", "Saint-Colomban-des-Villards"],
+    "grand-massif": ["Flaine", "Samoëns", "Morillon", "Les Carroz", "Sixt-Fer-à-Cheval"],
+    "portes-du-soleil": ["Morzine", "Avoriaz", "Les Gets", "Châtel", "Morgins", "Champéry", "Abondance", "La Chapelle-d'Abondance", "Saint-Jean-d'Aulps"],
+    "evasion-mont-blanc": ["Megève", "Saint-Gervais", "Combloux", "Saint-Nicolas-de-Véroce", "Les Contamines-Montjoie", "Les Houches"],
+    "serre-chevalier": ["Serre Chevalier", "Briançon", "Le Monêtier-les-Bains"],
+    "vars-risoul": ["Vars", "Risoul"],
+    "val-d-allos": ["Pra-Loup", "Val d'Allos"],
+    "quatre-vallees": ["Verbier", "Nendaz", "Veysonnaz", "Thyon", "La Tzoumaz"],
+    "matterhorn": ["Zermatt", "Breuil-Cervinia", "Valtournenche"],
+    "monte-rosa": ["Champoluc", "Gressoney-La-Trinité", "Alagna Valsesia"],
+    "laax": ["Laax", "Flims", "Falera"],
+    "arosa-lenzerheide": ["Arosa", "Lenzerheide"],
+    "silvretta": ["Ischgl", "Samnaun"],
+    "tonale": ["Ponte di Legno", "Passo del Tonale"],
+    "arlberg": ["St. Anton am Arlberg", "St. Christoph", "Stuben", "Lech", "Zürs", "Warth-Schröcken"],
+    "skiwelt": ["Söll", "Ellmau", "Scheffau", "Going", "Brixen im Thale", "Westendorf", "Hopfgarten"],
+    "saalbach": ["Saalbach", "Hinterglemm", "Leogang", "Fieberbrunn"],
+    "kitzbuhel": ["Kitzbühel", "Kirchberg in Tirol"],
+    "serfaus": ["Serfaus", "Fiss", "Ladis"],
+    "zillertal": ["Zell am Ziller", "Gerlos", "Königsleiten", "Hochkrimml"],
+    "val-gardena": ["Ortisei", "Santa Cristina", "Selva di Val Gardena"],
+    "campiglio": ["Madonna di Campiglio", "Pinzolo", "Folgarida", "Marilleva"],
+    "grandvalira": ["Pas de la Casa", "Grau Roig", "Soldeu", "El Tarter", "Canillo", "Encamp"],
+    
+}
+_DOMAIN_OF = {n: k for k, ns in DOMAIN_GROUPS.items() for n in ns}
+
+
+def domain_key(s: dict):
+    if s["name"] in _DOMAIN_OF:
+        return ("grp", _DOMAIN_OF[s["name"]])
+    if s.get("km", 0) >= 30:
+        return (s.get("pays"), s.get("massif"), s["km"], s.get("alt_max"))
+    return None
+
+
 def ranking(fmt_key: str, scope_key: str, stations: list):
     """Retourne (entrées classées, nombre de stations étudiées) ; entrées = dict(station, value, shared)."""
     fmt, scope = FORMATS[fmt_key], SCOPES[scope_key]
@@ -165,15 +207,14 @@ def ranking(fmt_key: str, scope_key: str, stations: list):
                              -s.get("score", 0), -s.get("km", 0), s["name"]))
     entries, seen = [], {}
     for s in pool:
-        if fmt["dedupe_domain"] and s.get("km", 0) >= 30:
-            k = (s.get("pays"), s.get("massif"), s["km"], s.get("alt_max"))
-            if k in seen:
-                seen[k]["shared"].append(s["name"])
-                continue
+        k = domain_key(s) if fmt["dedupe_domain"] else None
+        if k is not None and k in seen:
+            seen[k]["shared"].append(s["name"])
+            continue
         e = {"s": s, "value": fmt["value"](s), "shared": []}
         entries.append(e)
-        if fmt["dedupe_domain"] and s.get("km", 0) >= 30:
-            seen[(s.get("pays"), s.get("massif"), s["km"], s.get("alt_max"))] = e
+        if k is not None:
+            seen[k] = e
     return entries, studied
 
 
