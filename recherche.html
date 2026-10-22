@@ -2777,19 +2777,19 @@ const GRAND_DOMAINS = {
   "Val Thorens": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:170,forfait:82,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
   "Orelle": {name:"Les 3 Vallées",short:"Les 3 Vallées",slug:"3-vallees",km:600,remontees:170,forfait:82,nstations:8,pistes:{v:55,b:178,r:113,n:54}},
   // TIGNES – VAL D'ISÈRE (ESPACE KILLY)
-  "Val d'Isère": {name:"Tignes – Val d'Isère (Espace Killy)",short:"Tignes – Val d'Isère",slug:"espace-killy",km:300,remontees:91,forfait:75,nstations:2,pistes:{v:8,b:41,r:70,n:36}},
-  "Tignes": {name:"Tignes – Val d'Isère (Espace Killy)",short:"Tignes – Val d'Isère",slug:"espace-killy",km:300,remontees:91,forfait:75,nstations:2,pistes:{v:8,b:41,r:70,n:36}},
+  "Val d'Isère": {name:"Tignes – Val d'Isère",short:"Tignes – Val d'Isère",slug:"espace-killy",km:300,remontees:71,forfait:78,nstations:2,pistes:{v:23,b:67,r:41,n:29}},
+  "Tignes": {name:"Tignes – Val d'Isère",short:"Tignes – Val d'Isère",slug:"espace-killy",km:300,remontees:71,forfait:78,nstations:2,pistes:{v:23,b:67,r:41,n:29}},
   // PARADISKI
   "La Plagne": {name:"Paradiski",short:"Paradiski",slug:"paradiski",km:425,remontees:160,forfait:68,nstations:4,pistes:{v:30,b:102,r:62,n:28}},
   "Les Arcs": {name:"Paradiski",short:"Paradiski",slug:"paradiski",km:425,remontees:160,forfait:68,nstations:4,pistes:{v:30,b:102,r:62,n:28}},
   "Peisey-Vallandry": {name:"Paradiski",short:"Paradiski",slug:"paradiski",km:425,remontees:160,forfait:68,nstations:4,pistes:{v:30,b:102,r:62,n:28}},
   "Montchavin-Les Coches": {name:"Paradiski",short:"Paradiski",slug:"paradiski",km:425,remontees:160,forfait:68,nstations:4,pistes:{v:30,b:102,r:62,n:28}},
   // LE GRAND MASSIF
-  "Flaine": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:265,remontees:60,forfait:63,nstations:5,pistes:{v:23,b:61,r:44,n:11}},
-  "Les Carroz": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:265,remontees:60,forfait:63,nstations:5,pistes:{v:23,b:61,r:44,n:11}},
-  "Morillon": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:265,remontees:60,forfait:63,nstations:5,pistes:{v:23,b:61,r:44,n:11}},
-  "Samoëns": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:265,remontees:60,forfait:63,nstations:5,pistes:{v:23,b:61,r:44,n:11}},
-  "Sixt-Fer-à-Cheval": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:265,remontees:60,forfait:63,nstations:5,pistes:{v:23,b:61,r:44,n:11}},
+  "Flaine": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:291,remontees:63,forfait:51,nstations:5,pistes:{v:22,b:69,r:48,n:16}},
+  "Les Carroz": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:291,remontees:63,forfait:51,nstations:5,pistes:{v:22,b:69,r:48,n:16}},
+  "Morillon": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:291,remontees:63,forfait:51,nstations:5,pistes:{v:22,b:69,r:48,n:16}},
+  "Samoëns": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:291,remontees:63,forfait:51,nstations:5,pistes:{v:22,b:69,r:48,n:16}},
+  "Sixt-Fer-à-Cheval": {name:"Le Grand Massif",short:"Grand Massif",slug:"grand-massif",km:291,remontees:63,forfait:51,nstations:5,pistes:{v:22,b:69,r:48,n:16}},
   // LES SYBELLES
   "La Toussuire": {name:"Les Sybelles",short:"Les Sybelles",slug:"sybelles",km:230,remontees:62,forfait:50,nstations:5,pistes:{v:26,b:56,r:51,n:13}},
   "Le Corbier": {name:"Les Sybelles",short:"Les Sybelles",slug:"sybelles",km:230,remontees:62,forfait:50,nstations:5,pistes:{v:26,b:56,r:51,n:13}},
@@ -3020,7 +3020,7 @@ function cardHook(s){
 
   // Cas spéciaux par nom
   const specials = {
-    "Val d'Isère":    "Le mythe du ski français. Espace Killy 300 km.",
+    "Val d'Isère":    "Le mythe du ski français. Tignes-Val d'Isère 300 km.",
     "Chamonix":       "Sous le Mont-Blanc. Le terrain de jeu des alpinistes.",
     "Val Thorens":    "La plus haute d'Europe. Neige garantie de nov. à mai.",
     "Courchevel":     "Le luxe alpin dans sa version la plus absolue.",
@@ -3044,7 +3044,7 @@ function cardHook(s){
   if(isLuxe)               return `L'élégance alpine. Chalets haut de gamme et pistes soignées.`;
   if(isFestif && isAvance) return `Après-ski animé et ${km} km de pistes pour les riders.`;
   if(isFestif)             return `Ambiance festive garantie au pied des pistes.`;
-  if(isFamille && isBudget)return `La montagne en famille sans se ruiner. Forfait dès ${sfEur(s.forfait)}€/j.`;
+  if(isFamille && isBudget)return `La montagne en famille sans se ruiner. Forfait dès ${s.forfait}€/j.`;
   if(isFamille && isGrand) return `${km} km de pistes pour toute la famille. Le grand domaine à prix raisonnable.`;
   if(isFamille)            return `Idéale pour les familles. Pistes variées et ambiance chaleureuse.`;
   if(isVillage && isNature)return `Village préservé, pistes de qualité, loin des foules.`;
@@ -3388,7 +3388,7 @@ function openModal(id){
   document.getElementById("modalDesc").textContent=s.desc;
   const vAlt = (typeof villageAlt === 'function') ? villageAlt(s) : (s.alt_min||0);
   const lKm = (typeof localKm === 'function') ? localKm(s) : s.km;
-  document.getElementById("modalStats").innerHTML=`<div class="sc"><div class="sc-val">🏘 ${vAlt}m</div><div class="sc-lbl">Village</div></div><div class="sc"><div class="sc-val">⛰ ${s.alt_max}m</div><div class="sc-lbl">Sommet</div></div><div class="sc"><div class="sc-val">🎿 ${lKm} km</div><div class="sc-lbl">Domaine</div></div><div class="sc"><div class="sc-val">${s.remontees}</div><div class="sc-lbl">Remontées</div></div><div class="sc"><div class="sc-val">${sfEur(s.forfait)}€</div><div class="sc-lbl">Forfait/j</div></div>${s.snow ? '<div class="sc" title="Hauteur de neige moyenne en pleine saison (janvier–février)"><div class="sc-val">❄️ ~'+s.snow+'cm</div><div class="sc-lbl">Neige moy.</div></div>' : ''}`;
+  document.getElementById("modalStats").innerHTML=`<div class="sc"><div class="sc-val">🏘 ${vAlt}m</div><div class="sc-lbl">Village</div></div><div class="sc"><div class="sc-val">⛰ ${s.alt_max}m</div><div class="sc-lbl">Sommet</div></div><div class="sc"><div class="sc-val">🎿 ${lKm} km</div><div class="sc-lbl">Domaine</div></div><div class="sc"><div class="sc-val">${s.remontees}</div><div class="sc-lbl">Remontées</div></div><div class="sc"><div class="sc-val">${s.forfait}€</div><div class="sc-lbl">Forfait/j</div></div>${s.snow ? '<div class="sc" title="Hauteur de neige moyenne en pleine saison (janvier–février)"><div class="sc-val">❄️ ~'+s.snow+'cm</div><div class="sc-lbl">Neige moy.</div></div>' : ''}`;
   const modalGd = GRAND_DOMAINS[s.name];
   const pisteHTML = (p, label, km, remontees, bgStyle) => `
     <div style="border-radius:10px;padding:11px 13px;margin-bottom:8px;${bgStyle}">
@@ -4454,8 +4454,8 @@ function compareVerdict(s1, s2) {
   if(km1 > km2 * 1.4) lines.push(`Pour explorer plus : <strong>${s1.name}</strong> (${km1} km vs ${km2} km)`);
   else if(km2 > km1 * 1.4) lines.push(`Pour explorer plus : <strong>${s2.name}</strong> (${km2} km vs ${km1} km)`);
   // Budget
-  if(s1.forfait < s2.forfait - 10) lines.push(`Pour le budget : <strong>${s1.name}</strong> (${sfEur(s1.forfait)}€/j vs ${sfEur(s2.forfait)}€/j)`);
-  else if(s2.forfait < s1.forfait - 10) lines.push(`Pour le budget : <strong>${s2.name}</strong> (${sfEur(s2.forfait)}€/j vs ${sfEur(s1.forfait)}€/j)`);
+  if(s1.forfait < s2.forfait - 10) lines.push(`Pour le budget : <strong>${s1.name}</strong> (${s1.forfait}€/j vs ${s2.forfait}€/j)`);
+  else if(s2.forfait < s1.forfait - 10) lines.push(`Pour le budget : <strong>${s2.name}</strong> (${s2.forfait}€/j vs ${s1.forfait}€/j)`);
   // Village vs station intégrée
   const s1Village = (s1.amb||[]).includes('village'), s2Village = (s2.amb||[]).includes('village');
   if(s1Village && !s2Village) lines.push(`Pour l'authenticité du village : <strong>${s1.name}</strong>`);
@@ -4980,7 +4980,7 @@ function getEteExplication(s) {
   if(activite === "sensations" && s.alt_max >= 2500) parts.push(`parapente à ${s.alt_max}m`);
   if(activite === "detente" && s.amb.includes("village")) parts.push("village & terrasses");
 
-  if(budget === "eco" && s.forfait <= 25) parts.push(`très abordable (${sfEur(s.forfait)}€/j)`);
+  if(budget === "eco" && s.forfait <= 25) parts.push(`très abordable (${s.forfait}€/j)`);
   if(ambiance === "nature" && s.amb.includes("nature")) parts.push("cadre naturel préservé");
   if(ambiance === "festive" && s.amb.includes("festif")) parts.push("ambiance festive réputée");
 
@@ -5330,7 +5330,7 @@ const IA_STATIONS = DATA;
               '<div class="ia-result-name">'+s.name+'</div>'+
               '<div class="ia-result-meta">'+(s.massif||'')+' · '+(s.region||'')+'</div>'+
               '<div class="ia-result-stats">'+
-                '<span>🎿 '+s.km+' km</span><span>🏔️ '+s.alt_min+'-'+s.alt_max+'m</span><span>🎫 '+sfEur(s.forfait)+'€</span><span>⭐ '+s.score+'</span>'+
+                '<span>🎿 '+s.km+' km</span><span>🏔️ '+s.alt_min+'-'+s.alt_max+'m</span><span>🎫 '+s.forfait+'€</span><span>⭐ '+s.score+'</span>'+
                 (nivStr?'<span>🎯 '+nivStr+'</span>':'')+
               '</div>'+
             '</div>'+
@@ -5586,7 +5586,7 @@ function renderFavList() {
       +'<div class="fav-item-img" style="background:'+bg+'"></div>'
       +'<div class="fav-item-info" onclick="closeFavModal();setTimeout(()=>openModalIfExists('+s.id+'),300)">'
         +'<div class="fav-item-name">'+s.name+'</div>'
-        +'<div class="fav-item-meta">📍 '+s.region+' · ⭐ '+s.score+' · 💶 '+sfEur(s.forfait)+'€/j*</div>'
+        +'<div class="fav-item-meta">📍 '+s.region+' · ⭐ '+s.score+' · 💶 '+s.forfait+'€/j*</div>'
       +'</div>'
       +'<div class="fav-item-actions">'
         +'<button class="fav-action-btn compare-btn'+(inComp?" active":"")+'" onclick="toggleFavCompare('+s.id+')" title="Comparer">⚖️</button>'
