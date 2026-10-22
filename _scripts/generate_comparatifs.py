@@ -1222,18 +1222,29 @@ def expedia_url(station_name: str, slug: str) -> str:
 
 # ── Bannière de station (photo réelle, sinon « Photo d'illustration ») ───────
 
-# « Photos de secours » (déjà utilisées par le site) : une photo est choisie selon la station,
-# toujours la même pour une station donnée.
+# Les 20 « photos de secours » choisies par Camille (identiques à FALLBACK_PHOTOS de recherche.html).
+# Même règle que le site : photo n° (id de la station % 20).
 RESCUE_PHOTOS = [
-    "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=600&q=80",
-    "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=600&q=80",
-    "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80",
-    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",
-    "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600&q=80",
-    "https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=600&q=80",
-    "https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=600&q=80",
-    "https://images.unsplash.com/photo-1418985991508-e47386d96a71?w=600&q=80",
-    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80",
+    "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800&q=80",
+    "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&q=80",
+    "https://images.unsplash.com/photo-1465220183275-1faa863377e3?w=800&q=80",
+    "https://images.unsplash.com/photo-1612450639537-d44bc045efc7?w=800&q=80",
+    "https://images.unsplash.com/photo-1623057896740-99f8c2f090fc?w=800&q=80",
+    "https://images.unsplash.com/photo-1614089916276-eb5be76854bd?w=800&q=80",
+    "https://images.unsplash.com/photo-1485516195719-e9edaa29d2ba?w=800&q=80",
+    "https://images.unsplash.com/photo-1654273102584-e48884efa8c5?w=800&q=80",
+    "https://images.unsplash.com/photo-1629730441758-e9b5cb99550d?w=800&q=80",
+    "https://images.unsplash.com/photo-1651135527891-da5b354b9f83?w=800&q=80",
+    "https://images.unsplash.com/photo-1629730441874-8f1d1445bd2c?w=800&q=80",
+    "https://images.unsplash.com/photo-1570396041540-e2bb67aa96c2?w=800&q=80",
+    "https://images.unsplash.com/photo-1588932716990-60d57f5382dd?w=800&q=80",
+    "https://images.unsplash.com/photo-1649280376955-8acd8deaa053?w=800&q=80",
+    "https://images.unsplash.com/photo-1528659862616-22886eb53642?w=800&q=80",
+    "https://images.unsplash.com/photo-1507534192483-69914c0692d7?w=800&q=80",
+    "https://images.unsplash.com/photo-1547019122-0428a4d59174?w=800&q=80",
+    "https://images.unsplash.com/photo-1613420365631-c588e7cac611?w=800&q=80",
+    "https://images.unsplash.com/photo-1664436341001-b02974ae7524?w=800&q=80",
+    "https://images.unsplash.com/photo-1562826542-449090f38c70?w=800&q=80",
 ]
 
 def has_photo(img_name: str) -> bool:
