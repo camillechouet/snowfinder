@@ -1,0 +1,84 @@
+name: Guide saisonnier (brouillon à valider)
+
+# Le lundi des semaines IMPAIRES (une semaine sur deux), prépare UN guide pratique sourcé
+# (ex. « Ski à Noël », « Première fois au ski »…) et ouvre une pull request.
+# Le sujet est choisi dans un calendrier selon le mois, sans jamais répéter un guide déjà publié.
+# (Les semaines paires, le lundi est réservé au classement.)
+# Rien n'est publié tant que vous n'avez pas fusionné ("Merge") la pull request.
+#
+# Réglages : les mêmes que pour « Actualité » (secret ANTHROPIC_API_KEY, recherche web activée,
+# permissions des Actions) — déjà faits.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"       # lundi 6 h UTC — seules les semaines impaires sont traitées
+  workflow_dispatch:
+    inputs:
+      sujet:
+        description: "Sujet imposé (facultatif), ex. : Ski à Pâques 2027. Vide = sujet du calendrier"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  guide:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Semaine concernée ?
+        id: sem
+        run: |
+          SEM=$((10#$(date +%V)))
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ $((SEM % 2)) -eq 1 ]; then
+            echo "go=oui" >> "$GITHUB_OUTPUT"
+          else
+            echo "Semaine paire : pas de guide (c'est le tour du classement)."
+            echo "go=non" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.sem.outputs.go == 'oui'
+
+      - uses: actions/setup-python@v5
+        if: steps.sem.outputs.go == 'oui'
+        with:
+          python-version: "3.11"
+
+      - name: Installer le client Anthropic
+        if: steps.sem.outputs.go == 'oui'
+        run: pip install anthropic
+
+      - name: Préparer le guide
+        if: steps.sem.outputs.go == 'oui'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUJET: ${{ github.event.inputs.sujet }}
+        run: |
+          if [ -n "$SUJET" ]; then
+            python3 _scripts/generate_guide_hebdo.py --sujet "$SUJET" --review-out /tmp/guide_review.md
+          else
+            python3 _scripts/generate_guide_hebdo.py --review-out /tmp/guide_review.md
+          fi
+
+      - name: Ouvrir la pull request
+        if: steps.sem.outputs.go == 'oui'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Aucun changement (pas de guide fiable cette fois)."
+            exit 0
+          fi
+          TITRE=$(python3 -c "import json;d=json.load(open('guides_hebdo.json'))[-1];print(d['title'])")
+          BRANCHE="guide/$(date +%Y-%m-%d-%H%M)"
+          git config user.name "SnowFinder Bot"
+          git config user.email "bot@snowfinder.fr"
+          git checkout -b "$BRANCHE"
+          git add articles guides_hebdo.json contenus.json
+          git commit -m "📘 Guide : $TITRE"
+          git push origin "$BRANCHE"
+          gh pr create --base main --head "$BRANCHE" \
+            --title "Guide : $TITRE" \
+            --body-file /tmp/guide_review.md
