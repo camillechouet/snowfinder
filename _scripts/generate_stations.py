@@ -305,14 +305,14 @@ DOMAINES = {
         "desc": "Le plus grand domaine skiable du monde, et ce n'est pas un slogan : 600 km de pistes qui s'enchaînent sans jamais reprendre la voiture, de Courchevel à Val Thorens en passant par Méribel et Les Menuires. Trois vallées à l'origine — Saint-Bon, Allues, Belleville — auxquelles s'est greffée Orelle côté Maurienne. C'est le royaume du ski d'altitude : Val Thorens culmine à 2300 m au village, la Cime Caron dépasse 3200 m, et la neige tient de novembre à mai. Chaque station a sa personnalité tranchée, du luxe assumé de Courchevel 1850 à l'esprit familial des Menuires. Prévoir plusieurs jours : personne ne fait le tour du domaine en une journée.",
     },
     "espace-killy": {
-        "name": "Tignes – Val d'Isère (Espace Killy)", "massif": "Alpes du Nord", "pays": ["France"],
+        "name": "Tignes – Val d'Isère", "massif": "Alpes du Nord", "pays": ["France"],
         "stations": ["Val d'Isère","Tignes"],
         "km_propre": {"Val d'Isère":150,"Tignes":150},
-        "km_total": 300, "remontees_total": 71, "forfait_domaine": 75,
+        "km_total": 300, "remontees_total": 71, "forfait_domaine": 78,
         "alt_min": 1550, "alt_max": 3456,
-        "pistes": {"v":8,"b":41,"r":70,"n":36},
+        "pistes": {"v":23,"b":67,"r":41,"n":29},
         "short": "Tignes – Val d'Isère",
-        "desc": "Tignes et Val d'Isère, réunies depuis 1965 par le col de Fresse, forment ce que les anciens appellent encore l'Espace Killy — hommage à Jean-Claude Killy, triple médaillé d'or à Grenoble en 1968 et enfant de Val. C'est le domaine des puristes : altitude élevée du bas jusqu'en haut, glacier de la Grande Motte skiable jusqu'à 3456 m, enneigement quasi garanti d'octobre à mai. Les deux stations se complètent plus qu'elles ne se ressemblent : Val d'Isère a le charme d'un vrai village savoyard et une réputation de station chic, Tignes assume son architecture des années 60 et son ambiance sportive. Le hors-piste y est parmi les plus réputés d'Europe.",
+        "desc": "Tignes et Val d'Isère, réunies depuis 1965 par le col de Fresse, forment un domaine skiable de 300 km, l'un des plus grands et des plus élevés des Alpes. C'est le domaine des puristes : altitude élevée du bas jusqu'en haut, glacier de la Grande Motte skiable jusqu'à 3456 m, enneigement quasi garanti d'octobre à mai. Les deux stations se complètent plus qu'elles ne se ressemblent : Val d'Isère a le charme d'un vrai village savoyard et une réputation de station chic, Tignes assume son architecture des années 60 et son ambiance sportive. Le hors-piste y est parmi les plus réputés d'Europe.",
     },
     "paradiski": {
         "name": "Paradiski", "massif": "Alpes du Nord", "pays": ["France"],
