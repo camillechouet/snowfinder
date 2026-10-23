@@ -124,7 +124,17 @@ DOMAIN_RULE = (
     "Ne donne pas à une station les kilomètres de pistes ou les chiffres de tout un domaine sans le préciser. "
     "Domaines reliés connus de la base : " + " ; ".join(f"{ah.DOMAIN_NAMES.get(k, k)} = " + ", ".join(v) for k, v in ah.DOMAIN_GROUPS.items()) + "."
 )
-SYSTEM += DOMAIN_RULE
+GROUNDING_RULE = (
+    "\n\nUN RELECTEUR VÉRIFIERA CHAQUE PHRASE contre tes « faits ». Pour passer ses contrôles : "
+    "(1) n'écris aucune phrase qui ne soit pas directement soutenue par un fait ; reste proche des faits plutôt que de développer ; "
+    "(2) ne cite jamais le nom d'un média ou d'un site dans le texte (les sources sont listées à part) ; "
+    "(3) chaque conseil doit être une recommandation générale sans date, sans chiffre ni promesse : pas de conseil qui ajoute une information non sourcée ; "
+    "(4) ne déduis rien (week-end prolongé, jour férié, comparaison, tendance) qui ne soit pas écrit dans un fait ; "
+    "(5) si deux sources donnent des chiffres différents, n'en cite aucun ou précise lequel vient de quelle source dans un fait ; "
+    "(6) privilégie un article court et solide (400 à 600 mots) plutôt qu'un article long."
+)
+SYSTEM += DOMAIN_RULE + GROUNDING_RULE
+RELEC_WARN: list = []
 
 _VOC_RE = re.compile(r"\bstations?\s+(?:de\s+|du\s+|des\s+|d['’])?(?:les\s+|la\s+|l['’])?(?:" + "|".join(re.escape(x) for x in BIG_DOMAINS) + r")\b", re.I)
 
@@ -189,7 +199,7 @@ def call_search_llm(system: str, user: str):
 
 SYSTEM_RELECTURE = """Tu es relecteur factuel pour SnowFinder. On te donne un article d'actualité et la liste des FAITS sourcés (fait + extrait de la page source). Les faits sont la SEULE source de vérité, avec les fiches stations fournies.
 Signale : toute affirmation de l'article absente des faits ou des fiches, toute contradiction, tout chiffre ou date faux, toute spéculation présentée comme un fait, tout propos pouvant mettre en cause une personne ou une entreprise.
-Ne signale PAS le style. Réponds UNIQUEMENT par un objet JSON, sans aucune explication avant ni après, sans guillemet droit dans les phrases : {"problemes": ["…"]} (liste vide si tout est soutenu)."""
+Ne signale PAS le style, ni le nom d'un média cité comme provenance, ni un conseil général qui n'affirme aucun fait précis. Réponds UNIQUEMENT par un objet JSON, sans aucune explication avant ni après, sans guillemet droit dans les phrases : {"problemes": ["…"]} (liste vide si tout est soutenu)."""
 
 
 def article_texts(d: dict) -> list:
@@ -401,6 +411,12 @@ def rediger(stations: list, deja: list, sujet: str, today: str) -> tuple[dict, l
             info = "\n".join(json.dumps({k: s.get(k) for k in dh.FIELDS_FOR_LLM}, ensure_ascii=False)
                              for s in stations if s["name"] in d["stations"])
             errs = relecture(d, info)
+            if errs and essai == MAX_TRIES:
+                # dernière chance : tous les contrôles stricts (chiffres, sources, extraits) sont passés ; seule la relecture IA
+                # a des réserves. On ouvre quand même la pull request, avec ces réserves en évidence, pour que vous tranchiez.
+                RELEC_WARN[:] = errs
+                notes.append(f"essai {essai} : réserves de la relecture IA signalées dans la pull request (à lire avant de fusionner)")
+                return d, notes, urls
             if errs:
                 notes.append(f"essai {essai} refusé par la relecture : " + " ; ".join(errs))
         else:
@@ -536,6 +552,11 @@ def review_md(d: dict, art: dict, notes: list, problems: list) -> str:
     L += ["", "### Faits contrôlés (fait → extrait de la source)", ""]
     for f in d["faits"]:
         L.append(f"- **{f['fait']}** — « {f['extrait']} » ([page]({f['url']}))")
+    if RELEC_WARN:
+        L[2:2] = ["### 🔴 Réserves de la relecture IA — à lire en premier", "",
+                  "Les contrôles stricts sont passés (chiffres, sources, extraits) mais la relecture IA a des doutes sur ces points. "
+                  "Si l'un d'eux est fondé, **fermez la pull request** (ou corrigez le texte avant de fusionner) :", ""] + \
+                 [f"- {x}" for x in RELEC_WARN] + [""]
     L += ["", "### Contrôles automatiques", ""] + [f"- {n}" for n in notes]
     if problems:
         L += ["", "### ⚠️ Points d'attention", ""] + [f"- {p}" for p in problems]

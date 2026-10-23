@@ -124,7 +124,7 @@ def main() -> None:
         return
     a.HISTORY = a.ROOT / "guides_hebdo.json"
     a.LABEL = "Guide"
-    a.SYSTEM = SYSTEM_GUIDE + a.DOMAIN_RULE
+    a.SYSTEM = SYSTEM_GUIDE + a.DOMAIN_RULE + a.GROUNDING_RULE.replace("(6) privilégie un article court et solide (400 à 600 mots) plutôt qu'un article long.", "(6) reste solide et sourcé plutôt que long.")
     a.CATEGORIES = CATEGORIES_GUIDE
     a.WORDS = (300, 1200) if "--mock" in argv else (500, 1150)
     a.MIN_FAITS = 5 if "--mock" in argv else 6
