@@ -193,7 +193,7 @@ def extract_json(txt: str) -> dict:
     i, j = txt.find("{"), txt.rfind("}")
     if i < 0 or j < 0:
         raise ValueError("pas de JSON dans la réponse")
-    return json.loads(txt[i:j + 1])
+    return json.loads(txt[i:j + 1], strict=False)
 
 
 # ── 3. Contrôles par script ──────────────────────────────────────────────────
@@ -350,15 +350,14 @@ def rediger(a: dict, b: dict) -> tuple[dict, list[str]]:
 # ── 4. Enregistrement + compte rendu ─────────────────────────────────────────
 
 def img_name(s: dict) -> str:
-    m = re.match(r"^/img/(.+)\.jpg$", s.get("photo", "") or "")
-    return m.group(1) if m else ""
+    """Nom du fichier photo n°1 de la station (convention img/valthorens1.jpg), '' si absent du dépôt."""
+    p = gc.station_photo(s["name"])
+    return Path(p).stem if p else ""
 
 
 def img_path_or_fallback(s: dict) -> str:
-    n = img_name(s)
-    if n and (ROOT / "img" / f"{n}.jpg").exists():
-        return f"/img/{n}.jpg"
-    return FALLBACK_IMG
+    p = gc.station_photo(s["name"])
+    return p or gc.RESCUE_PHOTOS[s["id"] % len(gc.RESCUE_PHOTOS)]
 
 
 def enregistrer(d: dict, a: dict, b: dict) -> None:

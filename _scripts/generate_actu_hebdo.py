@@ -54,6 +54,8 @@ MOCK = None
 WORDS = (320, 850)      # longueur attendue de l'article (mots)
 MIN_FAITS = 5
 LABEL = "Actualité"
+SECTIONS = (3, 5)
+LAST_STOP = [""]
 TOPIC_KEY = ""           # renseigné par le guide saisonnier (sujet du calendrier)
 
 CATEGORIES = ["Actualités", "Enneigement", "Forfaits & budget", "Calendrier hiver", "Saison d'automne",
@@ -91,6 +93,8 @@ RÈGLES ABSOLUES
 - Ton neutre, informatif, utile ; pas d'accroche racoleuse, pas d'affirmation sur l'avenir qui ne soit pas dans une source ; pas d'accusation contre une personne ou une entreprise.
 - Pas de HTML, pas de lien, pas de markdown dans les textes.
 - Si la recherche ne donne rien de notable et récent (moins de 12 jours) pour des skieurs français, réponds {"pas_d_actu": true}.
+- RÈGLE CHIFFRES : tout nombre de 10 ou plus, ou suivi d'une unité (km, m, €, %, pistes, remontées, jours…), écrit dans le texte doit figurer tel quel dans un « fait » (avec son extrait). Sinon, écris la phrase sans ce chiffre. N'additionne, ne convertis et n'arrondis aucun chiffre.
+- Dans les textes, n'utilise aucun guillemet droit (") : emploie « » ou l'apostrophe. Aucun retour à la ligne dans une chaîne JSON.
 
 FORMAT DE RÉPONSE : un unique objet JSON, rien d'autre :
 {
@@ -160,7 +164,7 @@ def call_search_llm(system: str, user: str):
     messages = [{"role": "user", "content": user}]
     urls: set = set()
     for _ in range(6):
-        resp = client.messages.create(model=MODEL, max_tokens=9000, system=system, tools=tools, messages=messages)
+        resp = client.messages.create(model=MODEL, max_tokens=16000, system=system, tools=tools, messages=messages)
         for b in resp.content:
             if getattr(b, "type", "") == "web_search_tool_result":
                 c = getattr(b, "content", None)
@@ -172,7 +176,14 @@ def call_search_llm(system: str, user: str):
         if resp.stop_reason == "pause_turn":
             messages.append({"role": "assistant", "content": [b.model_dump(exclude_none=True) for b in resp.content]})
             continue
-        return "".join(b.text for b in resp.content if getattr(b, "type", "") == "text"), urls
+        LAST_STOP[0] = str(resp.stop_reason)
+        texts = [b.text for b in resp.content if getattr(b, "type", "") == "text"]
+        # la réponse utile est le dernier bloc de texte contenant le JSON (les blocs précédents sont des commentaires de recherche)
+        full = "".join(texts)
+        for tx in reversed(texts):
+            if "{" in tx and "}" in tx and ('"titre"' in tx or '"pas_d_actu"' in tx):
+                return tx, urls
+        return full, urls
     raise SystemExit("❌ La recherche web n'a pas abouti (trop de pauses).")
 
 
@@ -233,8 +244,8 @@ def check_draft(d: dict, urls_seen: set, names: set, stations_blob: str, today: 
         errs.append(f"chapeau de {len(d['chapeau'])} caractères (attendu 150 à 520)")
     if not (3 <= len(d["a_retenir"]) <= 4):
         errs.append("« a_retenir » doit contenir 3 ou 4 points")
-    if not (3 <= len(d["sections"]) <= 5) or not all(isinstance(s, dict) and s.get("titre") and s.get("paragraphes") for s in d["sections"]):
-        errs.append("il faut 3 à 5 sections {titre, paragraphes}")
+    if not (SECTIONS[0] <= len(d["sections"]) <= SECTIONS[1]) or not all(isinstance(s, dict) and s.get("titre") and s.get("paragraphes") for s in d["sections"]):
+        errs.append(f"il faut {SECTIONS[0]} à {SECTIONS[1]} sections {{titre, paragraphes}}")
     if not (2 <= len(d["conseils"]) <= 4):
         errs.append("« conseils » doit contenir 2 à 4 éléments")
     w = words(d)
@@ -370,8 +381,8 @@ def rediger(stations: list, deja: list, sujet: str, today: str) -> tuple[dict, l
             try:
                 d = dh.extract_json(txt)
             except Exception as e:  # noqa: BLE001
-                retours = [f"réponse illisible ({e}) : renvoie uniquement l'objet JSON demandé"]
-                notes.append(f"essai {essai} : réponse illisible")
+                retours = [f"réponse illisible ({e}) : renvoie uniquement l'objet JSON demandé, valide ; n'utilise aucun guillemet droit \" dans les textes (utilise « » ou ') et aucun retour à la ligne dans les chaînes"]
+                notes.append(f"essai {essai} : réponse illisible ({e}) ; arrêt={LAST_STOP[0]} ; {len(txt)} car. ; début « {txt[:120]!r} » ; fin « {txt[-120:]!r} »")
                 continue
         if d.get("pas_d_actu"):
             return d, notes + ["Claude n'a rien trouvé de notable et de récent"], urls

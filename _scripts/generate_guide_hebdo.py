@@ -68,6 +68,8 @@ RÈGLES ABSOLUES
 - Ton clair, chaleureux et concret ; pas d'accroche racoleuse ; pas d'accusation contre une personne ou une entreprise.
 - Pas de HTML, pas de lien, pas de markdown dans les textes.
 - Si la recherche ne fournit pas assez d'informations fiables et à jour pour ce sujet, réponds {"pas_d_actu": true}.
+- RÈGLE CHIFFRES : tout nombre de 10 ou plus, ou suivi d'une unité (km, m, €, %, pistes, remontées, jours…), écrit dans le texte doit figurer tel quel dans un « fait » (avec son extrait) ou dans les données SnowFinder fournies. Sinon, écris la phrase sans ce chiffre. N'additionne, ne convertis et n'arrondis aucun chiffre.
+- Dans les textes, n'utilise aucun guillemet droit (") : emploie « » ou l'apostrophe. Aucun retour à la ligne dans une chaîne JSON.
 
 FORMAT DE RÉPONSE : un unique objet JSON, rien d'autre :
 {
