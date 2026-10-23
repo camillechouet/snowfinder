@@ -514,7 +514,50 @@ footer{margin:50px 0 30px;padding-top:24px;border-top:1px solid #e4e9ee;font-siz
 footer a{color:var(--blue)}
 .back-link{display:inline-block;margin:24px 0 0;font-size:.9rem;font-weight:600}
 """
-PAGE_CSS += gc.SF_BAR_CSS.replace("%MAXW%", "720px") + gc.SF_BOTTOMNAV_CSS
+ACTIONS_CSS = """
+.rank .actions{margin-left:auto;display:flex;gap:8px;align-self:center;flex:0 0 auto}
+.icon-btn{width:38px;height:38px;border-radius:50%;border:1px solid #cfe0ee;background:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem;cursor:pointer;padding:0;color:var(--blue-dark);-webkit-tap-highlight-color:transparent}
+.icon-btn.active{background:var(--blue-dark);border-color:var(--blue-dark);color:#fff}
+"""
+ACTIONS_JS = """<script>
+function getFavs(){try{return JSON.parse(localStorage.getItem('sf_favorites')||'[]');}catch(e){return [];}}
+function isFav(id){return getFavs().indexOf(id)!==-1;}
+function toggleFav(id,btn){
+  var favs=getFavs();
+  if(favs.indexOf(id)!==-1){favs=favs.filter(function(x){return x!==id;});}
+  else{favs.push(id);if(navigator.vibrate)navigator.vibrate(40);}
+  try{localStorage.setItem('sf_favorites',JSON.stringify(favs));}catch(e){}
+  var el=document.getElementById('sfFavCount'); if(el) el.textContent=favs.length;
+  if(btn){btn.classList.toggle('active',isFav(id));btn.textContent=isFav(id)?'⭐':'☆';}
+}
+function getCompareList(){try{return JSON.parse(localStorage.getItem('sf_compare')||'[]');}catch(e){return [];}}
+function isInCompare(id){return getCompareList().indexOf(id)!==-1;}
+function toggleCompare(id,btn){
+  var c=getCompareList();var idx=c.indexOf(id);
+  if(idx>=0){c.splice(idx,1);}
+  else{ if(c.length>=3){alert("Vous pouvez comparer 3 stations maximum. Retirez-en une avant d'en ajouter une nouvelle.");return;} c.push(id);}
+  try{localStorage.setItem('sf_compare',JSON.stringify(c));}catch(e){}
+  var el=document.getElementById('sfCompareCount'); if(el) el.textContent=c.length;
+  if(btn)btn.classList.toggle('active',isInCompare(id));
+}
+document.querySelectorAll('[data-fav-id]').forEach(function(btn){
+  if(isFav(parseInt(btn.getAttribute('data-fav-id'),10))){btn.classList.add('active');btn.textContent='⭐';}
+});
+document.querySelectorAll('[data-compare-id]').forEach(function(btn){
+  if(isInCompare(parseInt(btn.getAttribute('data-compare-id'),10)))btn.classList.add('active');
+});
+</script>
+"""
+PAGE_CSS += gc.SF_BAR_CSS.replace("%MAXW%", "720px") + gc.SF_BOTTOMNAV_CSS + ACTIONS_CSS
+
+
+def actions_html(s: dict) -> str:
+    """Boutons ☆ favoris et ⚖️ comparateur, identiques à ceux de la barre du site (mêmes clés de stockage)."""
+    sid, nm = s["id"], escape(s["name"], quote=True)
+    return (f'<span class="actions">'
+            f'<button class="icon-btn" data-fav-id="{sid}" onclick="toggleFav({sid},this)" title="Ajouter {nm} aux favoris" aria-label="Favoris">☆</button>'
+            f'<button class="icon-btn" data-compare-id="{sid}" onclick="toggleCompare({sid},this)" title="Ajouter {nm} au comparateur" aria-label="Comparateur">⚖️</button>'
+            f'</span>')
 
 
 MONTHS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août",
@@ -597,7 +640,7 @@ def render_page(*, slug: str, title: str, excerpt: str, category: str, body: str
     <p><a href="/recherche.html">Trouver une station</a> · <a href="/comparateur.html">Comparateur</a> · <a href="/mentions-legales.html">Mentions légales</a></p>
   </footer>
 </div>
-{gc.SF_BOTTOMNAV_HTML}</body>
+{gc.SF_BOTTOMNAV_HTML}{ACTIONS_JS}</body>
 </html>
 """
     return gc.add_ga(page)
@@ -620,7 +663,7 @@ def build(fk: str, sk: str, stations: list, today: str) -> dict:
     hero_is_real = bool(hero_photo)
     hero_src = hero_photo or gc.RESCUE_PHOTOS[entries[0]["s"]["id"] % len(gc.RESCUE_PHOTOS)]
     caption = (f"{escape(entry_name(entries[0]))}, n°1 de ce classement." if hero_is_real
-               else f"Photo d'illustration — {escape(entry_name(entries[0]))} est n°1 de ce classement.")
+               else "Photo d'illustration.")
 
     first_metric = metric_text(fk, entries[0])
     excerpt = (f"{entry_name(entries[0])} arrive en tête ({first_metric.replace(NBSP, ' ')}) : le classement chiffré "
@@ -629,7 +672,7 @@ def build(fk: str, sk: str, stations: list, today: str) -> dict:
     body = []
     for t in intro(fk, sc_en, studied, n, entries):
         body.append(f"    <p>{t}</p>")
-    body.append(f'    <figure>\n      <img src="{hero_src}" alt="{escape(hero_name)}" loading="lazy">\n      <figcaption>{caption}</figcaption>\n    </figure>')
+    body.append(f'    <figure>\n      <img src="{hero_src}" alt="{escape(hero_name) if hero_is_real else "Paysage de montagne enneigé (photo d'illustration)"}" loading="lazy">\n      <figcaption>{caption}</figcaption>\n    </figure>')
     body.append(f'    <div class="keys"><p>{keys_text(fk, sc_en, entries, entries_all, n)}</p></div>')
     body.append(f"    <h2>Le classement : {n} {unit_pl}</h2>")
     for i, e in enumerate(entries, 1):
@@ -637,7 +680,7 @@ def build(fk: str, sk: str, stations: list, today: str) -> dict:
         sl = gc.slugify(s["name"])
         pts = points_text(s)
         body.append(
-            f'    <h3 class="rank"><span class="n">{i}</span><span>{escape(entry_name(e))}</span></h3>\n'
+            f'    <h3 class="rank"><span class="n">{i}</span><span>{escape(entry_name(e))}</span>{actions_html(s)}</h3>\n'
             f'    <span class="metric">{metric_text(fk, e)}</span>\n'
             f'    <p>{entry_sentence(fk, e)}</p>\n'
             f'{detail_html(e)}'

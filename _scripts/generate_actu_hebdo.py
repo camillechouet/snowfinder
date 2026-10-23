@@ -449,8 +449,8 @@ def build(d: dict, stations: list, today: str) -> dict:
     first = cited[0]
     photo = gc.station_photo(first["name"])
     hero_src = photo or gc.RESCUE_PHOTOS[first["id"] % len(gc.RESCUE_PHOTOS)]
-    cap = (f"{escape(first['name'])}." if photo else f"Photo d'illustration — {escape(first['name'])}.")
-    body.append(f'    <figure>\n      <img src="{hero_src}" alt="{escape(first["name"])}" loading="lazy">\n      <figcaption>{cap}</figcaption>\n    </figure>')
+    cap = (f"{escape(first['name'])}." if photo else "Photo d'illustration.")
+    body.append(f'    <figure>\n      <img src="{hero_src}" alt="{escape(first["name"]) if photo else "Paysage de montagne enneigé (photo d'illustration)"}" loading="lazy">\n      <figcaption>{cap}</figcaption>\n    </figure>')
     body.append('    <div class="keys"><p><strong>À retenir :</strong> ' + " · ".join(escape(x) for x in d["a_retenir"]) + "</p></div>")
     for s in d["sections"]:
         body.append(f"    <h3>{escape(s['titre'])}</h3>")
@@ -461,7 +461,7 @@ def build(d: dict, stations: list, today: str) -> dict:
     for s in cited:
         sl = gc.slugify(s["name"])
         body.append(
-            f'    <h3>Partir à {escape(s["name"])} ?</h3>\n'
+            f'    <h3 class="rank"><span>Partir à {escape(s["name"])} ?</span>{ah.actions_html(s)}</h3>\n'
             f'    <p>Comparez les hébergements et retrouvez toutes les infos sur la station.</p>\n'
             f'    <div class="links">\n'
             f'      <a href="/stations/{sl}.html">Fiche complète</a>\n'
