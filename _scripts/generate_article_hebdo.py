@@ -484,7 +484,7 @@ PAGE_CSS = """:root{--blue:#3a7db8;--blue-dark:#1a5a8a;--text:#22303e;--text-mid
 body{font-family:"DM Sans",-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 a{color:var(--blue);text-decoration:none}
 article a{text-decoration:underline}
-.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
 .breadcrumb{font-size:.82rem;color:var(--text-light);margin:20px 0 8px}
 .breadcrumb a{color:var(--text-light)}
 .art-cat{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--cat);background:color-mix(in srgb, var(--cat) 12%, white);padding:4px 10px;border-radius:20px;margin-bottom:14px}
@@ -548,7 +548,62 @@ document.querySelectorAll('[data-compare-id]').forEach(function(btn){
 });
 </script>
 """
-PAGE_CSS += gc.SF_BAR_CSS.replace("%MAXW%", "720px") + gc.SF_BOTTOMNAV_CSS + ACTIONS_CSS
+PISTES_CSS = """
+.pst{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.pst span{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #d9e6f0;border-radius:14px;padding:3px 10px;font-size:.84rem;font-weight:600;color:var(--text)}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%}
+.dot.v{background:#2eab4f}.dot.b{background:#1e6fd9}.dot.r{background:#d93a2e}.dot.n{background:#1b1b1b}
+.legend{font-size:.88rem;color:var(--text-mid);margin:0 0 14px}
+.specs{font-size:.92rem;color:var(--text-mid);margin:0 0 8px}
+.card{background:#fff;border:1px solid #e1ebf3;border-radius:14px;padding:4px 18px 16px;margin:18px 0}
+"""
+PAGE_CSS += PISTES_CSS
+PAGE_CSS += gc.SF_BAR_CSS.replace("%MAXW%", "860px") + gc.SF_BOTTOMNAV_CSS + ACTIONS_CSS
+
+
+def pistes_html(s: dict) -> str:
+    """Pastilles vertes / bleues / rouges / noires avec le nombre de pistes (ou le %)."""
+    p = s.get("pistes") or {}
+    if not any(p.get(k) for k in ("v", "b", "r", "n")):
+        return ""
+    unit = "%" if p.get("pct") else ""
+    names = {"v": "vertes", "b": "bleues", "r": "rouges", "n": "noires"}
+    chips = "".join(f'<span title="Pistes {names[k]}"><i class="dot {k}"></i>{p[k]}{unit}</span>' for k in ("v", "b", "r", "n") if p.get(k) is not None)
+    return f'    <div class="pst">{chips}</div>\n'
+
+
+PISTES_LEGEND = ('<p class="legend"><span class="dot v"></span> piste verte : très facile · <span class="dot b"></span> bleue : facile · '
+                 '<span class="dot r"></span> rouge : difficile · <span class="dot n"></span> noire : très difficile</p>')
+
+
+def specs_text(s: dict) -> str:
+    bits = []
+    if s.get("alt_min") and s.get("alt_max"):
+        bits.append(f"{fmt_n(s['alt_min'])}{NBSP}–{NBSP}{fmt_n(s['alt_max'])}{NBSP}m")
+    if s.get("km"):
+        bits.append(f"{fmt_n(s['km'])}{NBSP}km de pistes")
+    if s.get("remontees"):
+        bits.append(f"{s['remontees']} remontées")
+    if s.get("forfait"):
+        bits.append(f"forfait journée {s['forfait']}{NBSP}€")
+    return " · ".join(bits)
+
+
+def station_card(s: dict, title: str = "") -> str:
+    """Bloc station : nom + ☆/⚖️, chiffres clés, pistes colorées, description, fiche + Booking + Expedia."""
+    sl = gc.slugify(s["name"])
+    d = (s.get("desc_long") or s.get("desc") or "").strip()
+    sp = specs_text(s)
+    return (f'    <div class="card">\n'
+            f'    <h3 class="rank"><span>{escape(title or s["name"])}</span>{actions_html(s)}</h3>\n'
+            + (f'    <p class="specs">{sp}</p>\n' if sp else "")
+            + pistes_html(s)
+            + (f'    <p>{escape(d)}</p>\n' if d else "")
+            + f'    <div class="links">\n'
+            f'      <a href="/stations/{sl}.html">Fiche complète</a>\n'
+            f'      <a class="bk" href="{gc.booking_url(s["name"], sl)}" target="_blank" rel="noopener sponsored">🏨 Booking</a>\n'
+            f'      <a class="ex" href="{gc.expedia_url(s["name"], sl)}" target="_blank" rel="noopener sponsored">✈️ Expedia</a>\n'
+            f'    </div>\n    </div>')
 
 
 def actions_html(s: dict) -> str:
@@ -672,7 +727,8 @@ def build(fk: str, sk: str, stations: list, today: str) -> dict:
     body = []
     for t in intro(fk, sc_en, studied, n, entries):
         body.append(f"    <p>{t}</p>")
-    body.append(f'    <figure>\n      <img src="{hero_src}" alt="{escape(hero_name) if hero_is_real else "Paysage de montagne enneigé (photo d'illustration)"}" loading="lazy">\n      <figcaption>{caption}</figcaption>\n    </figure>')
+    hero_alt = escape(hero_name) if hero_is_real else "Paysage de montagne enneigé (photo d'illustration)"
+    body.append(f'    <figure>\n      <img src="{hero_src}" alt="{hero_alt}" loading="lazy">\n      <figcaption>{caption}</figcaption>\n    </figure>')
     body.append(f'    <div class="keys"><p>{keys_text(fk, sc_en, entries, entries_all, n)}</p></div>')
     body.append(f"    <h2>Le classement : {n} {unit_pl}</h2>")
     for i, e in enumerate(entries, 1):
@@ -682,6 +738,7 @@ def build(fk: str, sk: str, stations: list, today: str) -> dict:
         body.append(
             f'    <h3 class="rank"><span class="n">{i}</span><span>{escape(entry_name(e))}</span>{actions_html(s)}</h3>\n'
             f'    <span class="metric">{metric_text(fk, e)}</span>\n'
+            f'{pistes_html(s)}'
             f'    <p>{entry_sentence(fk, e)}</p>\n'
             f'{detail_html(e)}'
             f'    <div class="links">\n'
