@@ -431,6 +431,31 @@ def faq_items(fk: str, sc_en: str, entries: list, entries_all: list, n: int) -> 
     ]
 
 
+def conclusion(fk: str, sc_en: str, entries: list, n: int) -> list:
+    a, z = entries[0], entries[-1]
+    A, Z = escape(entry_name(a)), escape(entry_name(z))
+    unit = "domaines" if FORMATS[fk]["dedupe_domain"] else "stations"
+    crit = {"altitude": "l'altitude", "prix": "le prix du forfait", "debutants": "la facilité des pistes",
+            "domaines": "la taille du domaine", "rapport": "le rapport km de pistes / prix", "notes": "la note SnowFinder"}[fk]
+    return [f"En résumé, {A} prend la première place de ce classement {sc_en} ({metric_text(fk, a)}) et {Z} clôt le top {n} ({metric_text(fk, z)}). "
+            f"Mais {crit} n'est qu'un critère parmi d'autres : l'ambiance, la taille du domaine, l'hébergement et votre budget comptent autant pour choisir.",
+            f"Pour affiner, consultez les fiches détaillées de ces {unit}, comparez-en deux ou trois dans notre comparateur, "
+            "ou filtrez toutes les stations selon vos critères."]
+
+
+def fiches_html(entries: list, stations: list) -> str:
+    by_name = {s["name"]: s for s in stations}
+    items = []
+    for e in entries:
+        names = [e["s"]["name"]] + list(e["shared"])
+        links = [f'<a href="/stations/{gc.slugify(n)}.html">{escape(n)}</a>' for n in names if n in by_name]
+        if not links:
+            continue
+        label = f"<strong>{escape(entry_name(e))}</strong> : " if e.get("group") else ""
+        items.append(f"<li>{label}{' · '.join(links)}</li>")
+    return "    <ul>\n      " + "\n      ".join(items) + "\n    </ul>"
+
+
 def keys_text(fk: str, sc_en: str, entries: list, vals_all: list, n: int) -> str:
     a, z = entries[0], entries[-1]
     A, Z = escape(entry_name(a)), escape(entry_name(z))
@@ -630,6 +655,11 @@ def build(fk: str, sk: str, stations: list, today: str) -> dict:
     body.append("    <h2>Questions fréquentes</h2>")
     for q_, a_ in faq:
         body.append(f"    <h3>{escape(q_)}</h3>\n    <p>{escape(a_)}</p>")
+    body.append("    <h2>Conclusion</h2>")
+    for t_ in conclusion(fk, sc_en, entries, n):
+        body.append(f"    <p>{t_}</p>")
+    body.append("    <h2>Les fiches des stations de ce classement</h2>")
+    body.append(fiches_html(entries, stations))
     body.append("    <h2>Comment lire ce classement ?</h2>")
     body.append(f"    <p>Le critère est le suivant : {fmt['cat_line']}. Les chiffres viennent de la base SnowFinder (domaine, altitudes, remontées, pistes). "
                 "Les prix sont des forfaits journée adulte au tarif public, donnés à titre indicatif : ils changent selon la date, la durée et les offres en ligne, "
@@ -657,7 +687,7 @@ def build(fk: str, sk: str, stations: list, today: str) -> dict:
                        today=today, read_min=read_min, hero_photo=hero_photo if hero_is_real else "",
                        extra_graph=[item_list, {"@type": "FAQPage", "mainEntity": [
                            {"@type": "Question", "name": q_, "acceptedAnswer": {"@type": "Answer", "text": a_}} for q_, a_ in faq]}])
-    return {"slug": slug, "title": title, "excerpt": excerpt, "html": page, "read_min": read_min,
+    return {"words": text_words, "slug": slug, "title": title, "excerpt": excerpt, "html": page, "read_min": read_min,
             "img": hero_photo or hero_src, "entries": entries, "studied": studied, "n": n,
             "hero_real": hero_is_real, "related": rel}
 
@@ -714,6 +744,10 @@ def review_md(art: dict, fk: str, sk: str, problems: list) -> str:
     for i, e in enumerate(art["entries"], 1):
         lines.append(f"| {i} | {entry_name(e)} | {metric_text(fk, e).replace(NBSP, ' ')} |")
     photo_txt = "photo réelle" if art["hero_real"] else "photo de secours avec la légende Photo d'illustration"
+    lines += ["", "### Plan de l'article (page complète : onglet « Files changed »)", "",
+              "1. Introduction · 2. Photo du n°1 · 3. « À retenir » · 4. Classement détaillé (texte + fiche + Booking + Expedia)",
+              "5. Analyse du classement · 6. Questions fréquentes · 7. Conclusion · 8. Fiches de toutes les stations citées",
+              f"({art.get('words', '?')} mots)"]
     lines += ["", "### À vérifier avant de fusionner", "",
               "- Le classement vous paraît-il cohérent ? (un nom de station ou un chiffre qui jure = refuser)",
               f"- Photo du n°1 : {photo_txt}",
