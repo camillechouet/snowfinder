@@ -189,7 +189,7 @@ def call_search_llm(system: str, user: str):
 
 SYSTEM_RELECTURE = """Tu es relecteur factuel pour SnowFinder. On te donne un article d'actualité et la liste des FAITS sourcés (fait + extrait de la page source). Les faits sont la SEULE source de vérité, avec les fiches stations fournies.
 Signale : toute affirmation de l'article absente des faits ou des fiches, toute contradiction, tout chiffre ou date faux, toute spéculation présentée comme un fait, tout propos pouvant mettre en cause une personne ou une entreprise.
-Ne signale PAS le style. Réponds par un unique objet JSON : {"problemes": ["…"]} (liste vide si tout est soutenu)."""
+Ne signale PAS le style. Réponds UNIQUEMENT par un objet JSON, sans aucune explication avant ni après, sans guillemet droit dans les phrases : {"problemes": ["…"]} (liste vide si tout est soutenu)."""
 
 
 def article_texts(d: dict) -> list:
@@ -210,13 +210,17 @@ def relecture(d: dict, stations_info: str) -> list:
     user = ("ARTICLE :\n" + "\n\n".join(article_texts(d)) +
             "\n\nFAITS SOURCÉS :\n" + "\n".join(f"- {f['fait']}  [extrait : « {f['extrait']} »]" for f in d["faits"]) +
             "\n\nFICHES STATIONS :\n" + stations_info)
-    msg = client.messages.create(model=MODEL, max_tokens=1500, system=SYSTEM_RELECTURE,
-                                 messages=[{"role": "user", "content": user}])
-    txt = "".join(b.text for b in msg.content if getattr(b, "type", "") == "text")
-    try:
-        return [str(x) for x in dh.extract_json(txt).get("problemes", [])]
-    except Exception:
-        return ["la relecture a renvoyé une réponse illisible"]
+    last = ""
+    for _ in range(2):
+        msg = client.messages.create(model=MODEL, max_tokens=6000, system=SYSTEM_RELECTURE,
+                                     messages=[{"role": "user", "content": user}])
+        txt = "".join(b.text for b in msg.content if getattr(b, "type", "") == "text")
+        last = txt
+        try:
+            return [str(x) for x in dh.extract_json(txt).get("problemes", [])]
+        except Exception:  # noqa: BLE001
+            continue
+    return [f"la relecture a renvoyé une réponse illisible (début : {last[:150]!r})"]
 
 
 # ── Contrôles par script ─────────────────────────────────────────────────────
