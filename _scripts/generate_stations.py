@@ -1042,8 +1042,7 @@ STATION_ANECDOTES = {
         "La ville a accueilli le tout premier office de tourisme de France, le « Comité des Promenades », créé en 1875.",
     ],
     "La Bresse-Hohneck": [
-        "C'est le plus grand domaine skiable du Nord-Est de la France (220 hectares), face au Hohneck, point culminant des Vosges (1 363 m).",
-        "La station actuelle a été créée en 1965 par la famille Rémy, après une première tentative avortée : la station voisine de Supervallée, ouverte en 1961, avait fermé dès 1972.",
+        "C'est l'une des rares stations de France à proposer des aurores et des nocturnes : il est possible de skier de 6 h à 22 h sur des pistes éclairées.",
     ],
     "Le Ballon d'Alsace": [
         "Le col du Ballon d'Alsace fut le tout premier col de montagne franchi dans l'histoire du Tour de France, le 11 juillet 1905 — cinq ans avant les premiers grands cols pyrénéens et alpins. Le coureur René Pottier en fut le premier à passer au sommet ; une stèle érigée à sa mémoire s'y trouve toujours.",
@@ -2679,7 +2678,7 @@ OFFICIAL_URLS = {
     "Guzet":                        "https://www.guzet.com",
     # VOSGES
     "Gérardmer":                    "https://www.gerardmer-montagne.com",
-    "La Bresse-Hohneck":            "https://www.labresse.net",
+    "La Bresse-Hohneck":            "https://labresse.labellemontagne.com/fr/",
     "Le Markstein":                 "https://www.lemarkstein.fr",
     # JURA
     "Métabief Mont d'Or":           "https://www.metabief.com",
@@ -2953,6 +2952,15 @@ def euro_scale_html(n):
         cls = "eu on" if i <= full else ("eu half" if half and i == full + 1 else "eu")
         spans.append(f'<span class="{cls}">€</span>')
     return f'<span class="euros" role="img" aria-label="Coût de la vie {n} sur 10" title="Coût de la vie sur place : {COUT_VIE_LABELS[grp]} ({n}/10)">{"".join(spans)}</span>'
+
+def fmt_eur(v):
+    """Prix affiché : 42 -> '42', 41.5 -> '41,50'."""
+    return str(int(v)) if float(v) == int(v) else f"{v:.2f}".replace('.', ',')
+
+# Infos pratiques complémentaires validées par la station (ajoutées après le forfait adulte)
+INFOS_PRATIQUES_EXTRA = {
+    "La Bresse-Hohneck": " Forfait étudiant 1 jour : <strong>27€</strong>.",
+}
 
 def region_prep(r):
     """(préposition, région) : 'dans les 3 Vallées, Savoie', 'dans le Grand Massif', sinon 'en ...'."""
@@ -3402,7 +3410,7 @@ def render_page(s):
             </div>
             <div class="icon-stat-tile">
               <span class="icon-stat-ico">💶</span>
-              <div class="icon-stat-val">{s['forfait']}€</div>
+              <div class="icon-stat-val">{fmt_eur(s['forfait'])}€</div>
               <div class="icon-stat-lbl">Forfait / jour *</div>
             </div>
           </div>
@@ -3462,7 +3470,7 @@ def render_page(s):
             </div>
             <div class="icon-stat-tile">
               <span class="icon-stat-ico">💶</span>
-              <div class="icon-stat-val">{s['forfait']}€</div>
+              <div class="icon-stat-val">{fmt_eur(s['forfait'])}€</div>
               <div class="icon-stat-lbl">Forfait / jour *</div>
             </div>
           </div>
@@ -3484,13 +3492,13 @@ def render_page(s):
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>{s['name']}{'' if pays_code(s) == 'FR' else ' (' + PAYS_NOM.get(pays_code(s), '') + ')'} — Station de ski : pistes, enneigement, hébergements | SnowFinder</title>
-  <meta name="description" content="{s['name']} : {km_meta_txt}, altitude {display_alt_min}-{display_alt_max}m, forfait {s['forfait']}€/jour. {s.get('desc','')[:100]}">
+  <meta name="description" content="{s['name']} : {km_meta_txt}, altitude {display_alt_min}-{display_alt_max}m, forfait {fmt_eur(s['forfait'])}€/jour. {s.get('desc','')[:100]}">
   <link rel="canonical" href="{canonical}">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SnowFinder">
   <meta property="og:url" content="{canonical}">
   <meta property="og:title" content="{s['name']}{'' if pays_code(s) == 'FR' else ' (' + PAYS_NOM.get(pays_code(s), '') + ')'} — Station de ski | SnowFinder">
-  <meta property="og:description" content="{km_og_txt} · {display_alt_max}m · {s['forfait']}€/j · {s['massif']}">
+  <meta property="og:description" content="{km_og_txt} · {display_alt_max}m · {fmt_eur(s['forfait'])}€/j · {s['massif']}">
   <meta property="og:image" content="{photo}">
   <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
@@ -4490,7 +4498,7 @@ function closeStation(){{
           <div class="section-title">Informations pratiques</div>
           <p style="font-size:.83rem;line-height:1.65;color:var(--text-mid)">
             <strong>{s['name']}</strong> est une station de ski du massif <strong>{s['massif']}</strong>,
-            {_region_pre} <strong>{_region_nom}</strong>. {infos_domaine_txt} Forfait journée <strong>{s['forfait']}€</strong> par adulte.
+            {_region_pre} <strong>{_region_nom}</strong>. {infos_domaine_txt} Forfait journée <strong>{fmt_eur(s['forfait'])}€</strong> par adulte.{INFOS_PRATIQUES_EXTRA.get(s['name'], '')}
           </p>
           <p style="font-size:.72rem;line-height:1.5;color:var(--text-soft);margin-top:.5rem">
             * Prix par adulte pour 1 journée, tarif public haute saison. Des tarifs réduits
