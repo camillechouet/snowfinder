@@ -109,6 +109,33 @@ FORMAT DE RÉPONSE : un unique objet JSON, rien d'autre :
 Exigences : 3 à 5 sections ; article total de 380 à 750 mots ; au moins 5 faits, appuyés par au moins 2 pages différentes ; chaque chiffre ou date de l'article doit apparaître dans un fait ; sources = les pages réellement utilisées (2 à 5)."""
 
 
+# ── Cohérence stations / domaines skiables ──────────────────────────────────
+BIG_DOMAINS = ["Trois Vallées", "3 Vallées", "Paradiski", "Portes du Soleil", "Grand Massif", "Sybelles", "4 Vallées",
+               "Quatre Vallées", "Ski Arlberg", "Grandvalira", "SkiWelt", "Zillertal Arena", "Évasion Mont-Blanc"]
+DOMAIN_RULE = (
+    "\n\nVOCABULAIRE : une STATION est un lieu (Val Thorens, Méribel, La Plagne…) ; un DOMAINE SKIABLE est un ensemble de pistes reliées "
+    "qui peut regrouper plusieurs stations (Les Trois Vallées, Paradiski, Les Portes du Soleil, Tignes – Val d'Isère…). "
+    "Ne dis jamais « la station des Trois Vallées » ou « la station de Paradiski » : dis « le domaine des Trois Vallées » et cite les stations qu'il comprend. "
+    "N'emploie plus le nom « Espace Killy » : il s'appelle désormais « Tignes – Val d'Isère ». "
+    "Ne donne pas à une station les kilomètres de pistes ou les chiffres de tout un domaine sans le préciser. "
+    "Domaines reliés connus de la base : " + " ; ".join(f"{ah.DOMAIN_NAMES.get(k, k)} = " + ", ".join(v) for k, v in ah.DOMAIN_GROUPS.items()) + "."
+)
+SYSTEM += DOMAIN_RULE
+
+_VOC_RE = re.compile(r"\bstations?\s+(?:de\s+|du\s+|des\s+|d['’])?(?:les\s+|la\s+|l['’])?(?:" + "|".join(re.escape(x) for x in BIG_DOMAINS) + r")\b", re.I)
+
+
+def vocabulary_errors(d: dict) -> list:
+    txt = " ".join(article_texts(d))
+    errs = []
+    if re.search(r"espace\s+killy", txt, re.I):
+        errs.append("« Espace Killy » est un ancien nom : écrire « Tignes – Val d'Isère »")
+    m = _VOC_RE.search(txt)
+    if m:
+        errs.append(f"confusion station / domaine : « {m.group(0)} » (un domaine n'est pas une station)")
+    return errs
+
+
 def build_user_prompt(today: str, stations_names: list, deja: list, sujet: str, retours: list) -> str:
     p = [f"Date du jour : {today}.",
          "Cherche l'actualité des stations de ski des 12 derniers jours qui intéressera le plus des skieurs français : "
@@ -217,6 +244,7 @@ def check_draft(d: dict, urls_seen: set, names: set, stations_blob: str, today: 
         if "<" in t or ">" in t or re.search(r"https?://|www\.", t):
             errs.append("HTML ou lien présent dans le texte de l'article")
             break
+    errs += vocabulary_errors(d)
     st = d["stations"]
     if not (1 <= len(st) <= 4) or any(s not in names for s in st):
         errs.append("« stations » : 1 à 4 noms exactement comme dans la liste fournie")

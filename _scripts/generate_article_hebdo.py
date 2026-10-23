@@ -103,7 +103,7 @@ FORMATS = {
         slug="stations-ski-plus-hautes", needs_price=False,
         eligible=lambda s: s.get("alt_max", 0) > 0 and s.get("km", 0) >= 10,
         value=lambda s: s["alt_max"], reverse=True, dedupe_domain=True,
-        title=lambda n, sc: f"Les {n} stations de ski où l'on skie le plus haut {sc}",
+        title=lambda n, sc: f"Les {n} domaines skiables où l'on skie le plus haut {sc}",
         cat_line="point culminant du domaine skiable"),
     "rapport": dict(
         slug="meilleur-rapport-pistes-prix", needs_price=True,
@@ -187,6 +187,18 @@ DOMAIN_GROUPS = {
     "grandvalira": ["Pas de la Casa", "Grau Roig", "Soldeu", "El Tarter", "Canillo", "Encamp"],
     
 }
+DOMAIN_NAMES = {
+    "trois-vallees": "Les Trois Vallées", "paradiski": "Paradiski", "espace-killy": "Tignes – Val d'Isère",
+    "alpe-d-huez": "Alpe d'Huez Grand Domaine", "sybelle": "Les Sybelles", "grand-massif": "Le Grand Massif",
+    "portes-du-soleil": "Les Portes du Soleil", "evasion-mont-blanc": "Évasion Mont-Blanc", "serre-chevalier": "Serre Chevalier Vallée",
+    "vars-risoul": "Vars – Risoul (Forêt Blanche)", "val-d-allos": "Pra-Loup – Val d'Allos (Espace Lumière)",
+    "quatre-vallees": "Les 4 Vallées", "matterhorn": "Zermatt – Cervinia (Matterhorn)", "monte-rosa": "Monterosa Ski",
+    "laax": "Flims – Laax – Falera", "arosa-lenzerheide": "Arosa – Lenzerheide", "silvretta": "Ischgl – Samnaun",
+    "tonale": "Ponte di Legno – Tonale", "arlberg": "Ski Arlberg", "skiwelt": "SkiWelt Wilder Kaiser – Brixental",
+    "saalbach": "Saalbach – Hinterglemm – Leogang – Fieberbrunn", "kitzbuhel": "Kitzbühel – Kirchberg", "serfaus": "Serfaus – Fiss – Ladis",
+    "zillertal": "Zillertal Arena", "val-gardena": "Val Gardena", "campiglio": "Madonna di Campiglio – Pinzolo",
+    "grandvalira": "Grandvalira",
+}
 _DOMAIN_OF = {n: k for k, ns in DOMAIN_GROUPS.items() for n in ns}
 
 
@@ -211,10 +223,13 @@ def ranking(fmt_key: str, scope_key: str, stations: list):
         if k is not None and k in seen:
             seen[k]["shared"].append(s["name"])
             continue
-        e = {"s": s, "value": fmt["value"](s), "shared": []}
+        e = {"s": s, "value": fmt["value"](s), "shared": [], "group": k[1] if (k and k[0] == "grp") else None}
         entries.append(e)
         if k is not None:
             seen[k] = e
+    for e in entries:
+        if not e["shared"]:
+            e["group"] = None          # station seule dans la base : on garde son nom
     return entries, studied
 
 
@@ -252,6 +267,21 @@ def link_station(name: str) -> str:
     return f'<a href="/stations/{gc.slugify(name)}.html">{escape(name)}</a>'
 
 
+def detail_html(e: dict) -> str:
+    """Description détaillée de la station (texte SnowFinder) ; pour un domaine, présentée comme un zoom sur sa station la plus haute."""
+    s = e["s"]
+    d = (s.get("desc_long") or s.get("desc") or "").strip()
+    if not d:
+        return ""
+    lead = f"<strong>Zoom sur {escape(s['name'])} :</strong> " if e.get("group") else ""
+    return f"    <p>{lead}{escape(d)}</p>\n"
+
+
+def entry_name(e: dict) -> str:
+    """Nom affiché : le domaine (si station reliée à d'autres) sinon la station."""
+    return DOMAIN_NAMES.get(e.get("group"), e["s"]["name"]) if e.get("group") else e["s"]["name"]
+
+
 def metric_text(fk: str, e: dict) -> str:
     s, v = e["s"], e["value"]
     return {
@@ -280,6 +310,12 @@ def entry_sentence(fk: str, e: dict) -> str:
         return (f"Forfait journée adulte à {s['forfait']}{NBSP}€, pour un domaine de {fmt_n(km)}{NBSP}km de pistes"
                 f"{rem_t}, {alt}.")
     if fk == "altitude":
+        if e.get("group"):
+            t = (f"Ce domaine relie plusieurs stations et culmine à {fmt_n(s['alt_max'])}{NBSP}m, "
+                 f"à {escape(s['name'])}." + (f" Forfait journée adulte à {escape(s['name'])} : {s['forfait']}{NBSP}€." if s.get("forfait") else ""))
+            if e["shared"]:
+                t += " Il comprend aussi " + ", ".join(escape(n) for n in e["shared"]) + "."
+            return t
         t = (f"Le domaine culmine à {fmt_n(s['alt_max'])}{NBSP}m (point bas : {fmt_n(s['alt_min'])}{NBSP}m), "
              f"sur {fmt_n(km)}{NBSP}km de pistes.{prix}")
         if e["shared"]:
@@ -312,29 +348,101 @@ def intro(fk: str, sc_en: str, studied: int, n: int, entries: list) -> list:
     d = {
         "domaines": f"Quelle est la plus grande station de ski {where} ? Pour répondre, nous avons classé les domaines skiables selon leur longueur, en kilomètres de pistes. {base}",
         "prix": f"Skier sans se ruiner, c'est possible : voici les stations de ski les moins chères {where}, classées selon le prix du forfait journée adulte. {base} Pour éviter les mini-domaines, nous ne gardons que ceux d'au moins {MIN_KM_PRICE}{NBSP}km de pistes.",
-        "altitude": f"L'altitude est le meilleur indice d'un enneigement durable. Voici les stations de ski où l'on skie le plus haut {where}, classées selon le point culminant de leur domaine skiable. {base}",
+        "altitude": f"L'altitude est le meilleur indice d'un enneigement durable. Voici les domaines skiables où l'on skie le plus haut {where}, classés selon leur point culminant. Une station reliée à d'autres est comptée avec son domaine. {base}",
         "rapport": f"Beaucoup de pistes pour peu d'euros : c'est le meilleur rapport qualité-prix sur la neige. Nous avons divisé les kilomètres de pistes de chaque domaine par le prix de son forfait journée adulte pour classer les stations {where}. {base} Seuls les domaines d'au moins {MIN_KM_PRICE}{NBSP}km sont retenus.",
         "debutants": f"Pour une première semaine de ski, mieux vaut un domaine aux pistes douces. Nous avons classé les stations {where} selon la part de pistes vertes et bleues dans leur domaine. {base}",
         "notes": f"Quelles sont les stations les mieux notées {where} ? Voici le classement établi à partir de la note SnowFinder, qui combine le domaine, l'enneigement, l'ambiance et l'équipement. {base}",
     }[fk]
     out = [d]
     if FORMATS[fk]["dedupe_domain"]:
-        out.append("Quand plusieurs stations partagent exactement le même domaine, nous n'en gardons qu'une (la mieux notée) et nous citons les autres dans sa description.")
+        out.append("Les stations reliées entre elles forment un seul domaine skiable : nous les regroupons et classons le domaine, représenté par sa station la plus haute. Les autres stations du domaine sont citées dans sa description.")
     return out
+
+
+def _names(entries, k=3):
+    return [escape(entry_name(e)) for e in entries[:k]]
+
+
+def analysis(fk: str, sc_en: str, entries: list, entries_all: list, n: int) -> list:
+    """Paragraphes d'analyse tirés des chiffres du classement (aucune donnée inventée)."""
+    a, z = entries[0], entries[-1]
+    A, Z = escape(entry_name(a)), escape(entry_name(z))
+    va, vz = a["value"], z["value"]
+    groups = [e for e in entries if e.get("group")]
+    out = []
+    if fk == "altitude":
+        above = sum(1 for e in entries if e["value"] >= 3000)
+        out.append(f"{A} domine ce classement avec {fmt_n(va)}{NBSP}m, soit {fmt_n(va - vz)}{NBSP}m de plus que le n°{n}, {Z} ({fmt_n(vz)}{NBSP}m). "
+                   f"{above} domaine{'s' if above > 1 else ''} sur {n} {'dépassent' if above > 1 else 'dépasse'} les 3{NBSP}000{NBSP}m.")
+        out.append("Pourquoi l'altitude compte : en moyenne, la température baisse d'environ 0,6 °C tous les 100 mètres. "
+                   "Plus un domaine monte haut, plus la neige a de chances de tenir longtemps, surtout en début et en fin de saison. "
+                   "Le point culminant n'est toutefois pas l'altitude des villages : un domaine peut culminer à 3 000 m tout en étant bâti à 1 800 m, "
+                   "et l'exposition des pistes pèse aussi sur la qualité de la neige.")
+        if groups:
+            out.append(f"{len(groups)} entrée{'s' if len(groups) > 1 else ''} de ce classement "
+                       f"{'sont des domaines qui regroupent' if len(groups) > 1 else 'est un domaine qui regroupe'} plusieurs stations reliées par les pistes "
+                       f"({', '.join(_names(groups, 3))}…). Elles sont comptées une seule fois, avec leur point le plus haut.")
+    elif fk == "prix":
+        out.append(f"{A} est la moins chère du classement ({metric_text(fk, a)}), contre {metric_text(fk, z)} pour {Z}, "
+                   f"soit {va and (vz - va)}{NBSP}€ d'écart sur une journée de ski.")
+        out.append("Le forfait journée adulte est le tarif public affiché : il baisse souvent avec un forfait de plusieurs jours, "
+                   "un achat en ligne à l'avance ou une période creuse hors vacances scolaires. Sur une semaine, l'écart entre ces stations se creuse.")
+    elif fk == "debutants":
+        out.append(f"{A} arrive en tête avec {metric_text(fk, a)}, devant {_names(entries[1:2])[0] if n > 1 else ''}. "
+                   f"Le n°{n}, {Z}, affiche encore {metric_text(fk, z)}.")
+        out.append("Une piste verte est très facile, une bleue facile : plus leur part est élevée, plus le domaine pardonne les premiers virages. "
+                   "Pensez aussi aux jardins des neiges, aux écoles de ski et aux remontées adaptées aux débutants avant de choisir.")
+    else:
+        out.append(f"{A} prend la tête du classement ({metric_text(fk, a)}), {Z} ferme la marche du top {n} ({metric_text(fk, z)}).")
+        out.append("Ce classement repose sur nos données chiffrées. Il donne un point de départ : le mieux est ensuite de comparer deux ou trois stations côte à côte.")
+    return out
+
+
+def faq_items(fk: str, sc_en: str, entries: list, entries_all: list, n: int) -> list:
+    """Questions / réponses (texte brut, sans HTML) tirées du classement."""
+    a = entries[0]
+    A, ma = entry_name(a), metric_text(fk, a).replace(NBSP, " ")
+    top3 = ", ".join(entry_name(e) for e in entries[:3])
+    if fk == "altitude":
+        return [
+            (f"Où skie-t-on le plus haut {sc_en} ?", f"D'après les données SnowFinder, {A} est le domaine qui culmine le plus haut {sc_en} : {ma}."),
+            (f"Quels domaines choisir pour avoir de la neige plus longtemps ?", f"Les domaines les plus hauts du classement ({top3}) sont généralement les plus sûrs en début et fin de saison, mais l'enneigement dépend aussi de la météo de l'année."),
+            ("Un point culminant élevé garantit-il de la neige partout ?", "Non. Le point culminant indique où le domaine monte, pas où se trouvent les villages ni toutes les pistes. Consultez l'enneigement en temps réel avant de partir."),
+        ]
+    if fk == "prix":
+        prices = [x["s"]["forfait"] for x in entries_all_price(entries_all)]
+        med = int(statistics.median(prices)) if prices else None
+        q2 = (f"Le forfait journée adulte médian {sc_en} est d'environ {med} € pour les stations d'au moins {MIN_KM_PRICE} km de pistes." if med else "Les tarifs varient selon la station et la date.")
+        return [
+            (f"Quelle est la station de ski la moins chère {sc_en} ?", f"D'après nos données, {A} est la moins chère : {ma}."),
+            (f"Combien coûte un forfait de ski {sc_en} ?", q2),
+            ("Comment payer moins cher son forfait ?", "Acheter en ligne à l'avance, choisir un forfait de plusieurs jours et éviter les vacances scolaires permettent en général de réduire la facture."),
+        ]
+    if fk == "debutants":
+        return [
+            (f"Quelle station choisir pour débuter {sc_en} ?", f"{A} arrive en tête de notre classement avec {ma}. Suivent {', '.join(entry_name(e) for e in entries[1:3])}."),
+            ("Que veut dire une piste verte ou bleue ?", "Une piste verte est très facile et une bleue facile : ce sont les plus adaptées aux premiers jours de ski."),
+            ("Faut-il prendre des cours quand on débute ?", "Les cours collectifs avec un moniteur permettent de progresser plus vite et en sécurité ; réservez-les avec le séjour."),
+        ]
+    return [
+        (f"Quel est le n°1 de ce classement {sc_en} ?", f"D'après les données SnowFinder, {A} arrive en tête : {ma}."),
+        ("Comment ce classement est-il établi ?", "À partir des données de notre base de stations, sans avis subjectif ; les critères sont détaillés plus bas."),
+        ("Peut-on comparer ces stations ?", "Oui, avec notre comparateur et nos duels de stations."),
+    ]
 
 
 def keys_text(fk: str, sc_en: str, entries: list, vals_all: list, n: int) -> str:
     a, z = entries[0], entries[-1]
-    A, Z = escape(a["s"]["name"]), escape(z["s"]["name"])
+    A, Z = escape(entry_name(a)), escape(entry_name(z))
     ma, mz = metric_text(fk, a), metric_text(fk, z)
     second = entries[1]
-    B, mb = escape(second["s"]["name"]), metric_text(fk, second)
+    B, mb = escape(entry_name(second)), metric_text(fk, second)
     extra = ""
     if fk in ("prix", "rapport"):
         prices = [x["s"]["forfait"] for x in entries_all_price(vals_all)]
         if prices:
             extra = f" · forfait journée médian {sc_en} (stations d'au moins {MIN_KM_PRICE}{NBSP}km) : {int(statistics.median(prices))}{NBSP}€"
-    lead = {"prix": "la moins chère", "domaines": "la plus grande", "altitude": "celle où l'on skie le plus haut",
+    lead = {"prix": "la moins chère", "domaines": "la plus grande", "altitude": "le domaine où l'on skie le plus haut",
             "rapport": "la mieux placée", "debutants": "la plus facile", "notes": "la mieux notée"}[fk]
     return (f"<strong>À retenir :</strong> {A} est {lead} ({ma}), devant {B} ({mb}) · "
             f"la {n}<sup>e</sup> du classement, {Z}, affiche {mz}{extra}.")
@@ -481,38 +589,47 @@ def build(fk: str, sk: str, stations: list, today: str) -> dict:
     title = fmt["title"](n, sc_en)
     slug = f"{fmt['slug']}-{scope[1]}"
 
+    unit_pl = "domaines skiables" if fmt["dedupe_domain"] else "stations"
     hero_name = entries[0]["s"]["name"]
     hero_photo = gc.station_photo(hero_name)
     hero_is_real = bool(hero_photo)
     hero_src = hero_photo or gc.RESCUE_PHOTOS[entries[0]["s"]["id"] % len(gc.RESCUE_PHOTOS)]
-    caption = (f"{escape(hero_name)}, n°1 de ce classement." if hero_is_real
-               else f"Photo d'illustration — {escape(hero_name)} est n°1 de ce classement.")
+    caption = (f"{escape(entry_name(entries[0]))}, n°1 de ce classement." if hero_is_real
+               else f"Photo d'illustration — {escape(entry_name(entries[0]))} est n°1 de ce classement.")
 
     first_metric = metric_text(fk, entries[0])
-    excerpt = (f"{hero_name} arrive en tête ({first_metric.replace(NBSP, ' ')}) : le classement chiffré "
-               f"des {n} stations {sc_en}, à partir des données SnowFinder.")
+    excerpt = (f"{entry_name(entries[0])} arrive en tête ({first_metric.replace(NBSP, ' ')}) : le classement chiffré "
+               f"des {n} {unit_pl} {sc_en}, à partir des données SnowFinder.")
 
     body = []
     for t in intro(fk, sc_en, studied, n, entries):
         body.append(f"    <p>{t}</p>")
     body.append(f'    <figure>\n      <img src="{hero_src}" alt="{escape(hero_name)}" loading="lazy">\n      <figcaption>{caption}</figcaption>\n    </figure>')
     body.append(f'    <div class="keys"><p>{keys_text(fk, sc_en, entries, entries_all, n)}</p></div>')
-    body.append(f"    <h2>Le classement : {n} stations</h2>")
+    body.append(f"    <h2>Le classement : {n} {unit_pl}</h2>")
     for i, e in enumerate(entries, 1):
         s = e["s"]
         sl = gc.slugify(s["name"])
         pts = points_text(s)
         body.append(
-            f'    <h3 class="rank"><span class="n">{i}</span><span>{escape(s["name"])}</span></h3>\n'
+            f'    <h3 class="rank"><span class="n">{i}</span><span>{escape(entry_name(e))}</span></h3>\n'
             f'    <span class="metric">{metric_text(fk, e)}</span>\n'
-            f'    <p>{entry_sentence(fk, e)} {pts}</p>\n'
+            f'    <p>{entry_sentence(fk, e)}</p>\n'
+            f'{detail_html(e)}'
             f'    <div class="links">\n'
-            f'      <a href="/stations/{sl}.html">Fiche complète</a>\n'
+            f'      <a href="/stations/{sl}.html">{"Fiche de " + escape(s["name"]) if e.get("group") else "Fiche complète"}</a>\n'
             f'      <a class="bk" href="{gc.booking_url(s["name"], sl)}" target="_blank" rel="noopener sponsored">🏨 Booking</a>\n'
             f'      <a class="ex" href="{gc.expedia_url(s["name"], sl)}" target="_blank" rel="noopener sponsored">✈️ Expedia</a>\n'
             f'    </div>')
     body.append('    <p class="disc">Liens affiliés — prix identiques, aucune commission prélevée sur vous.</p>')
 
+    body.append("    <h2>Ce que révèle ce classement</h2>")
+    for t_ in analysis(fk, sc_en, entries, entries_all, n):
+        body.append(f"    <p>{t_}</p>")
+    faq = faq_items(fk, sc_en, entries, entries_all, n)
+    body.append("    <h2>Questions fréquentes</h2>")
+    for q_, a_ in faq:
+        body.append(f"    <h3>{escape(q_)}</h3>\n    <p>{escape(a_)}</p>")
     body.append("    <h2>Comment lire ce classement ?</h2>")
     body.append(f"    <p>Le critère est le suivant : {fmt['cat_line']}. Les chiffres viennent de la base SnowFinder (domaine, altitudes, remontées, pistes). "
                 "Les prix sont des forfaits journée adulte au tarif public, donnés à titre indicatif : ils changent selon la date, la durée et les offres en ligne, "
@@ -533,12 +650,13 @@ def build(fk: str, sk: str, stations: list, today: str) -> dict:
     read_min = max(3, math.ceil(text_words / 200))
     item_list = {"@type": "ItemList", "name": title, "itemListOrder": "https://schema.org/ItemListOrderAscending",
                  "numberOfItems": n,
-                 "itemListElement": [{"@type": "ListItem", "position": i, "name": e["s"]["name"],
+                 "itemListElement": [{"@type": "ListItem", "position": i, "name": entry_name(e),
                                       "url": f"{BASE_URL}/stations/{gc.slugify(e['s']['name'])}.html"}
                                      for i, e in enumerate(entries, 1)]}
     page = render_page(slug=slug, title=title, excerpt=excerpt, category="Classement", body="\n".join(body),
                        today=today, read_min=read_min, hero_photo=hero_photo if hero_is_real else "",
-                       extra_graph=[item_list])
+                       extra_graph=[item_list, {"@type": "FAQPage", "mainEntity": [
+                           {"@type": "Question", "name": q_, "acceptedAnswer": {"@type": "Answer", "text": a_}} for q_, a_ in faq]}])
     return {"slug": slug, "title": title, "excerpt": excerpt, "html": page, "read_min": read_min,
             "img": hero_photo or hero_src, "entries": entries, "studied": studied, "n": n,
             "hero_real": hero_is_real, "related": rel}
@@ -563,6 +681,9 @@ def verify(art: dict, fk: str) -> list:
         pb.append("lien Booking/Expedia direct (non CJ)")
     if h.count('class="bk"') != len(art["entries"]) or h.count('class="ex"') != len(art["entries"]):
         pb.append("une station sans lien Booking/Expedia")
+    words = len(re.sub(r"<[^>]+>", " ", h[h.find("<h1"):h.find("Pour aller plus loin")]).split())
+    if words < 700:
+        pb.append(f"article trop court ({words} mots)")
     if not art["hero_real"] and "Photo d'illustration" not in h:
         pb.append("photo de secours sans légende")
     return pb
@@ -589,9 +710,9 @@ def review_md(art: dict, fk: str, sk: str, problems: list) -> str:
     lines = [f"## 📰 Article de la semaine : {art['title']}", "",
              f"Classement automatique (sans IA) — {art['studied']} stations étudiées, {art['n']} retenues. "
              f"Page : `articles/{art['slug']}.html`", "",
-             "| # | Station | Valeur |", "|---|---|---|"]
+             "| # | Station / domaine | Valeur |", "|---|---|---|"]
     for i, e in enumerate(art["entries"], 1):
-        lines.append(f"| {i} | {e['s']['name']} | {metric_text(fk, e).replace(NBSP, ' ')} |")
+        lines.append(f"| {i} | {entry_name(e)} | {metric_text(fk, e).replace(NBSP, ' ')} |")
     photo_txt = "photo réelle" if art["hero_real"] else "photo de secours avec la légende Photo d'illustration"
     lines += ["", "### À vérifier avant de fusionner", "",
               "- Le classement vous paraît-il cohérent ? (un nom de station ou un chiffre qui jure = refuser)",
