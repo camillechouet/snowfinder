@@ -555,10 +555,30 @@ PISTES_CSS = """
 .dot.v{background:#2eab4f}.dot.b{background:#1e6fd9}.dot.r{background:#d93a2e}.dot.n{background:#1b1b1b}
 .legend{font-size:.88rem;color:var(--text-mid);margin:0 0 14px}
 .specs{font-size:.92rem;color:var(--text-mid);margin:0 0 8px}
-.card{background:#fff;border:1px solid #e1ebf3;border-radius:14px;padding:4px 18px 16px;margin:18px 0}
+.card{background:#fff;border:1px solid #e1ebf3;border-radius:12px;padding:0 14px;margin:10px 0}
+.card[open]{padding-bottom:12px}
+.card summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:8px 0;min-height:44px}
+.card summary::-webkit-details-marker{display:none}
+.card .sm-name{font-family:"DM Serif Display",serif;font-size:1.1rem;color:var(--text);flex:1 1 auto}
+.card .actions{display:flex;gap:6px;flex:0 0 auto}
+.card .icon-btn{width:32px;height:32px;font-size:.95rem}
+.card .chev{flex:0 0 auto;color:var(--blue-dark);font-size:1.1rem;transition:transform .2s}
+.card[open] .chev{transform:rotate(180deg)}
 """
 PAGE_CSS += PISTES_CSS
 PAGE_CSS += gc.SF_BAR_CSS.replace("%MAXW%", "860px") + gc.SF_BOTTOMNAV_CSS + ACTIONS_CSS
+
+
+def pick_hero(stations: list) -> dict:
+    """Photo d'en-tête : la vraie photo de la première station qui en a une ; sinon une photo de secours, légendée « Photo d'illustration »
+    (jamais présentée comme la photo d'une station précise)."""
+    for s in stations:
+        ph = gc.station_photo(s["name"])
+        if ph:
+            return {"name": s["name"], "photo": ph, "real": True, "src": ph, "caption": escape(s["name"]) + "."}
+    s0 = stations[0]
+    return {"name": s0["name"], "photo": "", "real": False,
+            "src": gc.RESCUE_PHOTOS[s0["id"] % len(gc.RESCUE_PHOTOS)], "caption": "Photo d'illustration."}
 
 
 def pistes_html(s: dict) -> str:
@@ -594,8 +614,8 @@ def station_card(s: dict, title: str = "") -> str:
     sl = gc.slugify(s["name"])
     d = (s.get("desc_long") or s.get("desc") or "").strip()
     sp = specs_text(s)
-    return (f'    <div class="card">\n'
-            f'    <h3 class="rank"><span>{escape(title or s["name"])}</span>{actions_html(s)}</h3>\n'
+    return (f'    <details class="card">\n'
+            f'    <summary><span class="sm-name">{escape(title or s["name"])}</span>{actions_html(s, in_summary=True)}<span class="chev" aria-hidden="true">▾</span></summary>\n'
             + (f'    <p class="specs">{sp}</p>\n' if sp else "")
             + pistes_html(s)
             + (f'    <p>{escape(d)}</p>\n' if d else "")
@@ -603,15 +623,16 @@ def station_card(s: dict, title: str = "") -> str:
             f'      <a href="/stations/{sl}.html">Fiche complète</a>\n'
             f'      <a class="bk" href="{gc.booking_url(s["name"], sl)}" target="_blank" rel="noopener sponsored">🏨 Booking</a>\n'
             f'      <a class="ex" href="{gc.expedia_url(s["name"], sl)}" target="_blank" rel="noopener sponsored">✈️ Expedia</a>\n'
-            f'    </div>\n    </div>')
+            f'    </div>\n    </details>')
 
 
-def actions_html(s: dict) -> str:
+def actions_html(s: dict, in_summary: bool = False) -> str:
     """Boutons ☆ favoris et ⚖️ comparateur, identiques à ceux de la barre du site (mêmes clés de stockage)."""
     sid, nm = s["id"], escape(s["name"], quote=True)
+    pre = "event.preventDefault();event.stopPropagation();" if in_summary else ""
     return (f'<span class="actions">'
-            f'<button class="icon-btn" data-fav-id="{sid}" onclick="toggleFav({sid},this)" title="Ajouter {nm} aux favoris" aria-label="Favoris">☆</button>'
-            f'<button class="icon-btn" data-compare-id="{sid}" onclick="toggleCompare({sid},this)" title="Ajouter {nm} au comparateur" aria-label="Comparateur">⚖️</button>'
+            f'<button class="icon-btn" data-fav-id="{sid}" onclick="{pre}toggleFav({sid},this)" title="Ajouter {nm} aux favoris" aria-label="Favoris">☆</button>'
+            f'<button class="icon-btn" data-compare-id="{sid}" onclick="{pre}toggleCompare({sid},this)" title="Ajouter {nm} au comparateur" aria-label="Comparateur">⚖️</button>'
             f'</span>')
 
 
@@ -637,7 +658,7 @@ def related_duels(names: set) -> list:
 
 def render_page(*, slug: str, title: str, excerpt: str, category: str, body: str, today: str,
                 read_min: int, hero_photo: str = "", extra_graph: list | None = None) -> str:
-    """Gabarit commun à tous les articles automatiques (classements, actualités, portraits…)."""
+    """Gabarit commun à tous les articles automatiques (classements, actualités, guides)."""
     url = f"{BASE_URL}/articles/{slug}.html"
     og_img = f"{BASE_URL}{hero_photo}" if hero_photo else f"{BASE_URL}/logo.png"
     ld = json.dumps({
@@ -713,12 +734,8 @@ def build(fk: str, sk: str, stations: list, today: str) -> dict:
     slug = f"{fmt['slug']}-{scope[1]}"
 
     unit_pl = "domaines skiables" if fmt["dedupe_domain"] else "stations"
-    hero_name = entries[0]["s"]["name"]
-    hero_photo = gc.station_photo(hero_name)
-    hero_is_real = bool(hero_photo)
-    hero_src = hero_photo or gc.RESCUE_PHOTOS[entries[0]["s"]["id"] % len(gc.RESCUE_PHOTOS)]
-    caption = (f"{escape(entry_name(entries[0]))}, n°1 de ce classement." if hero_is_real
-               else "Photo d'illustration.")
+    hero = pick_hero([e["s"] for e in entries[:5]])
+    hero_name, hero_photo, hero_is_real, hero_src, caption = hero["name"], hero["photo"], hero["real"], hero["src"], hero["caption"]
 
     first_metric = metric_text(fk, entries[0])
     excerpt = (f"{entry_name(entries[0])} arrive en tête ({first_metric.replace(NBSP, ' ')}) : le classement chiffré "

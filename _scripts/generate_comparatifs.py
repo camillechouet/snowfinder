@@ -1274,10 +1274,11 @@ def has_photo(img_name: str) -> bool:
 
 def render_banner(name: str, station: dict, img_name: str) -> str:
     sid = station["id"]
+    credit = '<span class="credit">Photo d\'illustration</span>'   # toujours : vraie photo ou photo de secours
     if has_photo(img_name):
-        bg, credit = img_src(img_name), ""
+        bg = img_src(img_name)
     else:
-        bg, credit = RESCUE_PHOTOS[sid % len(RESCUE_PHOTOS)], '<span class="credit">Photo d\'illustration</span>'
+        bg = RESCUE_PHOTOS[sid % len(RESCUE_PHOTOS)]
     return (f'<div class="station-banner">\n'
             f'      <div class="bg" style="background-image:url({bg})"></div>\n'
             f'      <div class="overlay"></div>{credit}\n'

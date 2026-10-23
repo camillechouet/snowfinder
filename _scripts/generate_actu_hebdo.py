@@ -477,11 +477,9 @@ def build(d: dict, stations: list, today: str) -> dict:
     body = []
     body += [f"    <p>{p}</p>" for p in linkify([d["chapeau"]], stations, used)]
 
-    first = cited[0]
-    photo = gc.station_photo(first["name"])
-    hero_src = photo or gc.RESCUE_PHOTOS[first["id"] % len(gc.RESCUE_PHOTOS)]
-    cap = (f"{escape(first['name'])}." if photo else "Photo d'illustration.")
-    hero_alt = escape(first["name"]) if photo else "Paysage de montagne enneigé (photo d'illustration)"
+    hero = ah.pick_hero(cited)
+    first, photo, hero_src, cap = {"name": hero["name"]}, hero["photo"], hero["src"], hero["caption"]
+    hero_alt = escape(hero["name"]) if photo else "Paysage de montagne enneigé (photo d'illustration)"
     body.append(f'    <figure>\n      <img src="{hero_src}" alt="{hero_alt}" loading="lazy">\n      <figcaption>{cap}</figcaption>\n    </figure>')
     body.append('    <div class="keys"><p><strong>À retenir :</strong> ' + " · ".join(escape(x) for x in d["a_retenir"]) + "</p></div>")
     for s in d["sections"]:
