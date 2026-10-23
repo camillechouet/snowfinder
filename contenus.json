@@ -2,6 +2,15 @@
   "_aide": "Manifeste des contenus SnowFinder. Un nouvel article = une entrée dans 'articles' (date ISO, le plus récent est trié en premier). Un nouveau duel = une entrée EN TÊTE de 'duels' (le premier est le héros de l'accueil, les 2 suivants les bandeaux). Le script generate_contenus.py reconstruit l'accueil et toutes-les-actus.html. Les duels marqués \"manuel\": true ont une page faite à la main (pas générée par generate_comparatifs.py) : ils restent dans les listes mais ne sont pas régénérés.",
   "articles": [
     {
+      "slug": "ski-a-noel-et-au-nouvel-an-2026-2027-dates-des-vacances-ouvertures",
+      "title": "Ski à Noël et au Nouvel An 2026-2027 : dates des vacances, ouvertures, forfaits et réservation",
+      "category": "Saison d'hiver",
+      "excerpt": "Les vacances de Noël 2026-2027 ont lieu aux mêmes dates dans toute la France. Ce guide réunit les dates d'ouverture annoncées, des exemples de tarifs de forfaits et les taux de réservation de l'hiver dernier.",
+      "img": "/img/tignes1.jpg",
+      "date": "2026-10-23",
+      "read_min": 6
+    },
+    {
       "slug": "ski-de-fond-en-savoie-bessans-ouvre-le-samedi-31-octobre-les-saisies-octobre-2026",
       "title": "Ski de fond en Savoie : Bessans ouvre le samedi 31 octobre, Les Saisies le mercredi 11 novembre",
       "category": "Saison d'automne",
