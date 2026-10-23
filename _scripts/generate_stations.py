@@ -2679,6 +2679,7 @@ OFFICIAL_URLS = {
     # VOSGES
     "Gérardmer":                    "https://www.gerardmer-montagne.com",
     "La Bresse-Hohneck":            "https://labresse.labellemontagne.com/fr/",
+    "La Bresse Lispach":            "https://lispach.com/",
     "Le Markstein":                 "https://www.lemarkstein.fr",
     # JURA
     "Métabief Mont d'Or":           "https://www.metabief.com",
@@ -2960,6 +2961,7 @@ def fmt_eur(v):
 # Infos pratiques complémentaires validées par la station (ajoutées après le forfait adulte)
 INFOS_PRATIQUES_EXTRA = {
     "La Bresse-Hohneck": " Forfait étudiant 1 jour : <strong>27€</strong>.",
+    "La Bresse Lispach": " Pas besoin de louer votre matériel avant d'arriver : un service de location est disponible au pied des pistes (skis, raquettes, luges et vêtements). Sur place, une cafétéria et une terrasse exposée plein sud permettent de se restaurer en profitant de la vue sur les pistes et sur le lac.",
 }
 
 def region_prep(r):
@@ -2973,207 +2975,6 @@ def region_prep(r):
         if r.startswith(nom):
             return pre, r
     return "en", r
-
-
-# ── Contenu propre à chaque fiche : repères chiffrés, FAQ, liens internes (sans IA, tout vient des données) ──
-_LINKS_CACHE = {}
-
-
-def _dept_of(x):
-    return (x.get('region') or '').split(',')[-1].strip()
-
-
-def _clean(txt):
-    return re.sub(r'[\U0001F000-\U0001FFFF\u2600-\u27BF\uFE0F]', '', txt or '').strip()
-
-
-def _zone_of(x):
-    """Zone de comparaison : département pour la France, sinon région (Valais, Tyrol…)."""
-    parts = [_clean(p) for p in (x.get('region') or '').split(',') if _clean(p)]
-    if (x.get('pays') or 'FR') == 'FR':
-        return parts[-1] if parts else ''
-    return parts[-2] if len(parts) >= 2 else ''
-
-
-def _de(name):
-    """« de » + nom, avec contraction : des Menuires, du Lioran, d'Alpe d'Huez."""
-    if name.startswith('Les '):
-        return 'des ' + name[4:]
-    if name.startswith('Le '):
-        return 'du ' + name[3:]
-    if name[:1] in 'AEIOUÉÈÂÎÔÛ':
-        return "d'" + name
-    return 'de ' + name
-
-
-def _a(name):
-    """« à » + nom : aux Menuires, au Lioran."""
-    if name.startswith('Les '):
-        return 'aux ' + name[4:]
-    if name.startswith('Le '):
-        return 'au ' + name[3:]
-    return 'à ' + name
-
-
-def _fmt_n(n):
-    return f"{int(n):,}".replace(",", " ")
-
-
-def _links_index():
-    """slug station -> articles qui la citent (lien /stations/<slug>.html) ; slug station -> duels."""
-    if _LINKS_CACHE:
-        return _LINKS_CACHE
-    arts, duels = {}, {}
-    cont_path = os.path.join(root_dir, 'contenus.json')
-    titles = {}
-    try:
-        cont = json.loads(open(cont_path, encoding='utf-8').read())
-    except Exception:
-        cont = {}
-    for a in cont.get('articles', []):
-        titles[a.get('slug')] = a.get('title')
-    art_dir = os.path.join(root_dir, 'articles')
-    if os.path.isdir(art_dir):
-        for fn in sorted(os.listdir(art_dir)):
-            if not fn.endswith('.html') or fn == 'toutes-les-actus.html':
-                continue
-            st = fn[:-5]
-            if st not in titles:
-                continue
-            try:
-                txt = open(os.path.join(art_dir, fn), encoding='utf-8').read()
-            except Exception:
-                continue
-            for sl in set(re.findall(r'/stations/([a-z0-9-]+)\.html', txt)):
-                arts.setdefault(sl, []).append((st, titles[st]))
-    for d in cont.get('duels', []):
-        a_name, b_name = d.get('a'), d.get('b')
-        if not a_name or not b_name:
-            continue
-        dslug = slugify(a_name) + '-vs-' + slugify(b_name)
-        if not os.path.exists(os.path.join(root_dir, 'comparatifs', dslug + '.html')):
-            continue
-        duels.setdefault(slugify(a_name), []).append((dslug, a_name, b_name))
-        duels.setdefault(slugify(b_name), []).append((dslug, a_name, b_name))
-    _LINKS_CACHE['arts'] = arts
-    _LINKS_CACHE['duels'] = duels
-    _LINKS_CACHE['ok'] = True
-    return _LINKS_CACHE
-
-
-def render_extra_section(s, domaine, domaine_slug, sans_pistes):
-    """Retourne (html, liste de (question, réponse) pour la FAQ)."""
-    import statistics
-    from html import escape as esc
-    name, slug = s['name'], slugify(s['name'])
-    nm = esc(name)
-    pc = s.get('pays') or 'FR'
-    zone = _zone_of(s)
-    peers = [x for x in DATA if (x.get('pays') or 'FR') == pc and x['name'] != name and zone and _zone_of(x) == zone]
-    zone_lbl = zone
-    if len(peers) < 5:
-        peers = [x for x in DATA if (x.get('pays') or 'FR') == pc and x['name'] != name]
-        zone_lbl = _clean(PAYS_NOM.get(pc, ''))
-    en_zone = f"({zone_lbl})" if zone_lbl else ''
-
-    # ── Repères chiffrés ──
-    reperes = []
-    fo = s.get('forfait') or 0
-    prices = [x['forfait'] for x in peers if x.get('forfait')]
-    med = int(statistics.median(prices)) if len(prices) >= 5 else 0
-    if fo and med:
-        if fo < med - 2:
-            cmp_txt = f"inférieur à la médiane ({med} €)"
-        elif fo > med + 2:
-            cmp_txt = f"supérieur à la médiane ({med} €)"
-        else:
-            cmp_txt = f"proche de la médiane ({med} €)"
-        reperes.append(f"Forfait journée adulte : {fo} €, {cmp_txt} des {len(prices) + 1} stations de notre base {en_zone}.")
-    am = s.get('alt_max') or 0
-    alts = [x['alt_max'] for x in peers if x.get('alt_max')]
-    if am and len(alts) >= 5:
-        rank = 1 + sum(1 for v in alts if v > am)
-        reperes.append(f"Point culminant : {_fmt_n(am)} m, soit le n°{rank} sur {len(alts) + 1} stations de notre base {en_zone}.")
-    p = s.get('pistes') or {}
-    tot = sum(p.get(k, 0) or 0 for k in 'vbrn')
-    pct_mode = name in PISTES_PCT
-    easy_share = None
-    if tot >= 10 and not sans_pistes:
-        easy_share = round(100 * ((p.get('v', 0) or 0) + (p.get('b', 0) or 0)) / tot)
-        reperes.append(f"Pistes faciles : {easy_share} % de vertes et bleues, {round(100 * (p.get('r', 0) or 0) / tot)} % de rouges, {round(100 * (p.get('n', 0) or 0) / tot)} % de noires.")
-    if domaine and domaine.get('km_total'):
-        autres = [n for n in domaine['stations'] if n != name]
-        if autres:
-            reperes.append(f"Domaine relié : {esc(domaine['name'])} ({domaine['km_total']} km de pistes), avec {', '.join(esc(n) for n in autres[:6])}.")
-
-    # ── FAQ ──
-    faq = []
-    loc = s.get('region') or ''
-    loc_parts = [_clean(p) for p in loc.split(',') if _clean(p)]
-    pays_nom = _clean(PAYS_NOM.get(pc, 'France'))
-    if loc_parts and loc_parts[-1].lower() == pays_nom.lower():
-        loc_parts = loc_parts[:-1]
-    if pc == 'FR' and s.get('massif'):
-        loc_parts.insert(0, s['massif'] if s['massif'].lower().startswith('massif') else 'massif ' + s['massif'])
-    if loc_parts:
-        faq.append((f"Où se trouve la station {_de(name)} ?", f"{name} est une station de ski située dans cette zone : {', '.join(loc_parts)} ({pays_nom}). Retrouvez ses hébergements, son enneigement et ses stations voisines sur cette page."))
-    if s.get('alt_min') and am:
-        faq.append((f"Quelle est l'altitude de la station {_de(name)} ?", f"Le domaine skiable s'étend de {_fmt_n(s['alt_min'])} m à {_fmt_n(am)} m d'altitude."))
-    if fo:
-        t = f"Le forfait journée adulte {_a(name)} est affiché {fo} € au tarif public. Il baisse souvent avec un forfait de plusieurs jours ou un achat en ligne à l'avance : vérifiez le tarif sur le site officiel de la station avant de réserver."
-        if med:
-            t += f" À titre de repère, la médiane des stations de notre base {en_zone} est de {med} €."
-        faq.append((f"Combien coûte un forfait de ski {_a(name)} ?", t))
-    if easy_share is not None:
-        if easy_share >= 55:
-            lvl = "Le domaine compte une majorité de pistes faciles, ce qui convient bien aux premiers jours de ski."
-        elif easy_share >= 35:
-            lvl = "Le domaine mélange pistes faciles et pistes plus exigeantes : des débutants peuvent y skier, surtout avec des cours."
-        else:
-            lvl = "Les pistes faciles sont minoritaires : la station s'adresse plutôt à des skieurs déjà autonomes."
-        unit = " (répartition publiée en pourcentage)" if pct_mode else ""
-        faq.append((f"Peut-on débuter le ski {_a(name)} ?", f"Sur {name}, {easy_share} % des pistes sont vertes ou bleues{unit}. {lvl}"))
-    if am >= 2000:
-        per = f"Avec un domaine qui monte à {_fmt_n(am)} m, la neige est généralement bien présente de mi-décembre à fin mars ; la saison dépend toutefois de la météo de l'année."
-    elif am >= 1500:
-        per = f"À {_fmt_n(am)} m au plus haut, l'enneigement varie selon les années : janvier et février sont les mois les plus sûrs."
-    elif am:
-        per = f"Le domaine culmine à {_fmt_n(am)} m : l'enneigement est sensible aux variations climatiques, visez plutôt janvier et février."
-    else:
-        per = ""
-    if per:
-        faq.append((f"Quand skier {_a(name)} ?", per + " Consultez notre page Enneigement avant de partir."))
-
-    # ── Liens internes ──
-    idx = _links_index()
-    items = []
-    for dslug, a_name, b_name in (idx['duels'].get(slug) or [])[:3]:
-        items.append(f'<li>Duel : <a href="../comparatifs/{dslug}.html">{esc(a_name)} vs {esc(b_name)}</a></li>')
-    for aslug, atitle in (idx['arts'].get(slug) or [])[:3]:
-        items.append(f'<li>Article : <a href="../articles/{aslug}.html">{esc(atitle)}</a></li>')
-    if domaine:
-        items.append(f'<li>Domaine skiable : <a href="../domaines/{domaine_slug}.html">{esc(domaine["name"])}</a></li>')
-    same_zone = [x for x in peers if x.get('score')] if zone and zone_lbl == zone else []
-    same_sorted = sorted(same_zone, key=lambda x: -x['score'])[:6]
-    if same_sorted and zone:
-        liens = ' · '.join(f'<a href="{slugify(x["name"])}.html">{esc(x["name"])}</a>' for x in same_sorted)
-        items.append(f'<li>Autres stations ({esc(zone)}) : {liens}</li>')
-    items.append(f'<li><a href="../comparateur.html">Comparer {nm} avec une autre station</a> · <a href="../enneigement.html">Enneigement en temps réel</a></li>')
-
-    st_title = "font-family:'DM Serif Display',serif;font-size:1rem;color:#8a7060;text-transform:uppercase;letter-spacing:.05em;margin:0 0 10px;padding-bottom:7px;border-bottom:2px solid #f7efe2"
-    html_out = ''
-    if reperes:
-        lis = ''.join(f'<li style="margin-bottom:6px">{r}</li>' for r in reperes)
-        html_out += (f'\n  <div style="margin-top:22px"><div style="{st_title}">📊 {nm} en chiffres</div>'
-                     f'<ul style="margin:0 0 0 18px;font-size:.88rem;line-height:1.6;color:#5c4a35">{lis}</ul></div>')
-    if faq:
-        qa = ''.join(f'<div style="margin-bottom:12px"><h3 style="font-size:.95rem;margin:0 0 3px;color:#2a1f14">{esc(q)}</h3>'
-                     f'<p style="margin:0;font-size:.88rem;line-height:1.6;color:#5c4a35">{esc(a)}</p></div>' for q, a in faq)
-        html_out += f'\n  <div style="margin-top:22px"><div style="{st_title}">❓ Questions fréquentes sur {nm}</div>{qa}</div>'
-    if items:
-        html_out += (f'\n  <div style="margin-top:22px"><div style="{st_title}">🔗 Pour aller plus loin</div>'
-                     f'<ul style="margin:0 0 0 18px;font-size:.88rem;line-height:1.7;color:#5c4a35">{"".join(items)}</ul></div>')
-    return html_out, faq
 
 
 def render_page(s):
@@ -3575,10 +3376,6 @@ def render_page(s):
             }
         ]
     }
-    extra_html, extra_faq = render_extra_section(s, domaine, domaine_slug, sans_pistes)
-    if extra_faq:
-        schema_obj['@graph'].append({'@type': 'FAQPage', 'mainEntity': [
-            {'@type': 'Question', 'name': q_, 'acceptedAnswer': {'@type': 'Answer', 'text': a_}} for q_, a_ in extra_faq]})
     schema = json.dumps(schema_obj, ensure_ascii=False)
     similar_html = render_similar_section(s, exclude=soeurs)
     if sans_pistes:
@@ -4766,8 +4563,6 @@ function closeStation(){{
 {gallery_html}
 
         {similar_html}
-
-        {extra_html}
 
       </div>
 
