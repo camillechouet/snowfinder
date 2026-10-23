@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://snowfinder.fr/index.html</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -248,7 +248,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/domaines/paradiski.html</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1058,7 +1058,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/champagny-en-vanoise.html</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2252,7 +2252,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/la-plagne.html</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2522,7 +2522,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/les-arcs.html</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2930,7 +2930,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/montchavin-les-coches.html</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -3296,7 +3296,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/peisey-vallandry.html</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -3440,7 +3440,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/pralognan-la-vanoise.html</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4706,109 +4706,115 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/alpe-d-huez-vs-les-deux-alpes.html</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/avoriaz-vs-morzine.html</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/chamonix-vs-megeve.html</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/courchevel-vs-meribel.html</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/grand-tourmalet-vs-cauterets.html</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/la-clusaz-vs-le-grand-bornand.html</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/la-plagne-vs-les-arcs.html</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/les-carroz-vs-samoens.html</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/les-gets-vs-flaine.html</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/metabief-mont-d-or-vs-le-lioran.html</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/pra-loup-vs-val-d-allos.html</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/saint-lary-soulan-vs-ax-3-domaines.html</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/comparatifs/saint-martin-de-belleville-vs-la-tania.html</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/saint-veran-vs-molines-en-queyras.html</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/super-besse-vs-le-lioran.html</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/tous-les-comparatifs.html</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/val-d-isere-vs-serre-chevalier.html</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/val-d-isere-vs-tignes.html</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/val-thorens-vs-les-menuires.html</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -4826,13 +4832,13 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/forfaits-ski-2026-2027-prix-hausse-payer-moins.html</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/grand-ballon-fin-ski-alpin.html</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -4856,25 +4862,37 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/quand-ouvrent-stations-ski-2026-2027.html</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/quand-reserver-sejour-ski-moins-cher.html</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/retour-est-alpes-neige-octobre-2026.html</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/saint-francois-longchamp-rapport-qualite-prix-valmorel.html</loc>
     <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/articles/ski-a-noel-et-au-nouvel-an-2026-2027-dates-des-vacances-ouvertures.html</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/articles/ski-de-fond-en-savoie-bessans-ouvre-le-samedi-31-octobre-les-saisies-octobre-2026.html</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -4886,7 +4904,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/ski-fevrier-2027-stations-familiales-reserver.html</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -4898,13 +4916,19 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/skier-en-octobre-glaciers-neige-avant-ouverture.html</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/skier-sans-voiture-stations-accessibles-en-train.html</loc>
     <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/articles/stations-ski-plus-hautes-france.html</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -4916,7 +4940,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/toutes-les-actus.html</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

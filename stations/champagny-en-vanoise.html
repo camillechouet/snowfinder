@@ -192,6 +192,19 @@
     .tab-content{display:none;background:white;border:1px solid var(--border);border-radius:14px;padding:18px 14px;min-height:200px}
     .tab-content.active{display:block}
     
+    .plan-fig{margin:0}
+    .plan-open{position:relative;display:block;width:100%;padding:0;border:1px solid var(--border,#e3e3e3);border-radius:12px;overflow:hidden;background:#eaf3fb;cursor:zoom-in}
+    .plan-open img{display:block;width:100%;height:auto}
+    .plan-hint{position:absolute;right:8px;bottom:8px;background:rgba(20,40,70,.82);color:#fff;font-size:.72rem;font-weight:700;padding:6px 11px;border-radius:20px}
+    .plan-credit{margin-top:8px;font-size:.72rem;color:#7a7a7a;font-style:italic;line-height:1.4}
+    .plan-viewer{position:fixed;inset:0;z-index:10000;background:rgba(8,16,28,.96);display:none;flex-direction:column}
+    .plan-viewer.open{display:flex}
+    .plan-viewer-bar{display:flex;align-items:center;gap:8px;padding:10px 12px;color:#fff;flex:0 0 auto}
+    .plan-viewer-title{flex:1;font-size:.85rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .plan-viewer-bar button{width:40px;height:40px;border:none;border-radius:10px;background:rgba(255,255,255,.16);color:#fff;font-size:1.15rem;cursor:pointer}
+    .plan-viewer-stage{position:relative;flex:1;overflow:hidden;touch-action:none;cursor:grab}
+    .plan-viewer-stage img{position:absolute;left:0;top:0;max-width:none;transform-origin:0 0;user-select:none;-webkit-user-drag:none;will-change:transform}
+
     /* LIRE PLUS / VOIR MOINS — textes longs (avis, description) */
     .readmore-wrap{position:relative;max-height:var(--rm-max,118px);overflow:hidden;transition:max-height .35s ease}
     .readmore-wrap.expanded{max-height:3000px}
@@ -776,7 +789,7 @@ function acceptSfNotif(){
   <div class="tab-nav" id="tabNav">
     <button class="tab-btn active" onclick="switchTab('infos',this)">📖 La station</button>
     <button class="tab-btn" onclick="switchTab('domaine',this)">🔗 Grand domaine</button>
-    
+    <button class="tab-btn" onclick="switchTab('plan',this)">🗺️ Plan des pistes</button>
     
     <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Pour qui ?</button>
     <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Météo &amp; enneigement</button>
@@ -1495,7 +1508,13 @@ function closeStation(){
       </a></div>
       </div>
 
-      
+      <div class="tab-content" id="tab-plan"><figure class="plan-fig">
+  <button type="button" class="plan-open" onclick="openPlan('../plan-des-pistes/plan-champagnyenvanoise.webp','Plan des pistes de Champagny-en-Vanoise')" aria-label="Agrandir le plan des pistes">
+    <img src="../plan-des-pistes/plan-champagnyenvanoise.webp" alt="Plan des pistes de Champagny-en-Vanoise" loading="lazy">
+    <span class="plan-hint">🔍 Touchez pour agrandir et zoomer</span>
+  </button>
+  <figcaption class="plan-credit">Plan des pistes © Champagny-en-Vanoise — reproduit avec l'autorisation de la station.</figcaption>
+</figure></div>
 
       <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
       
@@ -1785,6 +1804,71 @@ function hideOfficialSheet(){
 </footer>
 
 <!-- LIGHTBOX GALERIE -->
+
+<div class="plan-viewer" id="planViewer" aria-hidden="true">
+  <div class="plan-viewer-bar">
+    <span class="plan-viewer-title" id="planViewerTitle"></span>
+    <button type="button" onclick="planZoom(1.5)" aria-label="Zoom avant">＋</button>
+    <button type="button" onclick="planZoom(1/1.5)" aria-label="Zoom arrière">－</button>
+    <button type="button" onclick="planFit()" aria-label="Plan entier">⤢</button>
+    <button type="button" onclick="closePlan()" aria-label="Fermer">✕</button>
+  </div>
+  <div class="plan-viewer-stage" id="planStage"><img id="planImg" alt="" draggable="false"></div>
+</div>
+<script>
+(function(){
+  var v=document.getElementById('planViewer'), st=document.getElementById('planStage'), im=document.getElementById('planImg');
+  if(!v||!st||!im) return;
+  var s=1,tx=0,ty=0,minS=0.1,maxS=8,ptrs={},pinch=null,lastTap=0,lastX=0,lastY=0;
+  function clamp(){
+    var sw=st.clientWidth, sh=st.clientHeight, w=im.naturalWidth*s, h=im.naturalHeight*s;
+    tx = w<=sw ? (sw-w)/2 : Math.min(0,Math.max(sw-w,tx));
+    ty = h<=sh ? (sh-h)/2 : Math.min(0,Math.max(sh-h,ty));
+  }
+  function apply(){ clamp(); im.style.transform='translate('+tx+'px,'+ty+'px) scale('+s+')'; }
+  function fit(){
+    var sw=st.clientWidth, sh=st.clientHeight, iw=im.naturalWidth||1, ih=im.naturalHeight||1;
+    minS=Math.min(sw/iw,sh/ih); s=minS; maxS=Math.max(minS*8,3); tx=0; ty=0; apply();
+  }
+  function zoomAt(f,cx,cy){
+    var ns=Math.min(maxS,Math.max(minS,s*f)); if(ns===s) return;
+    tx=cx-(cx-tx)*(ns/s); ty=cy-(cy-ty)*(ns/s); s=ns; apply();
+  }
+  function center(){ var r=st.getBoundingClientRect(); return [r.width/2,r.height/2]; }
+  window.openPlan=function(src,title){
+    document.getElementById('planViewerTitle').textContent=title||'';
+    v.classList.add('open'); v.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+    im.onload=fit; im.src=src; if(im.complete&&im.naturalWidth) fit();
+  };
+  window.closePlan=function(){ v.classList.remove('open'); v.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
+  window.planZoom=function(f){ var c=center(); zoomAt(f,c[0],c[1]); };
+  window.planFit=fit;
+  function dist(a,b){ return Math.hypot(a.x-b.x,a.y-b.y); }
+  st.addEventListener('pointerdown',function(e){
+    st.setPointerCapture(e.pointerId); ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+    var ids=Object.keys(ptrs);
+    if(ids.length===2){ pinch={d:dist(ptrs[ids[0]],ptrs[ids[1]])}; }
+    else { lastX=e.clientX; lastY=e.clientY;
+      var now=Date.now(); if(now-lastTap<300){ var r=st.getBoundingClientRect(); if(s<=minS*1.05) zoomAt(3,e.clientX-r.left,e.clientY-r.top); else fit(); lastTap=0; } else lastTap=now; }
+  });
+  st.addEventListener('pointermove',function(e){
+    if(!ptrs[e.pointerId]) return;
+    ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+    var ids=Object.keys(ptrs);
+    if(ids.length>=2&&pinch){
+      var a=ptrs[ids[0]], b=ptrs[ids[1]], d=dist(a,b), r=st.getBoundingClientRect();
+      zoomAt(d/pinch.d,(a.x+b.x)/2-r.left,(a.y+b.y)/2-r.top); pinch.d=d;
+    } else {
+      tx+=e.clientX-lastX; ty+=e.clientY-lastY; lastX=e.clientX; lastY=e.clientY; apply();
+    }
+  });
+  function up(e){ delete ptrs[e.pointerId]; pinch=null; var ids=Object.keys(ptrs); if(ids.length===1){ lastX=ptrs[ids[0]].x; lastY=ptrs[ids[0]].y; } }
+  st.addEventListener('pointerup',up); st.addEventListener('pointercancel',up);
+  st.addEventListener('wheel',function(e){ e.preventDefault(); var r=st.getBoundingClientRect(); zoomAt(e.deltaY<0?1.2:1/1.2,e.clientX-r.left,e.clientY-r.top); },{passive:false});
+  window.addEventListener('resize',function(){ if(v.classList.contains('open')) fit(); });
+  document.addEventListener('keydown',function(e){ if(!v.classList.contains('open')) return; if(e.key==='Escape') closePlan(); else if(e.key==='+') planZoom(1.5); else if(e.key==='-') planZoom(1/1.5); });
+})();
+</script>
 
 <div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
   <button class="lightbox-close" onclick="closeLightbox()" aria-label="Fermer">✕</button>
