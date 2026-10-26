@@ -2959,6 +2959,11 @@ def fmt_eur(v):
     return str(int(v)) if float(v) == int(v) else f"{v:.2f}".replace('.', ',')
 
 # Infos pratiques complémentaires validées par la station (ajoutées après le forfait adulte)
+# Crédit photo affiché en petit sur le héro de la fiche (clé = nom exact de la station)
+PHOTO_CREDITS = {
+    "Sainte-Foy-Tarentaise": "David André",
+}
+
 INFOS_PRATIQUES_EXTRA = {
     "Sainte-Foy-Tarentaise": " Le samedi, le forfait journée adulte descend à <strong>30€</strong>.",
     "La Bresse-Hohneck": " Forfait étudiant 1 jour : <strong>27€</strong>.",
@@ -3023,6 +3028,8 @@ def render_page(s):
     # Pas de galerie séparée : les photos sont toutes dans le carrousel hero
     gallery_html = ''
     gallery_urls_js = carousel_urls_js
+    _pc = PHOTO_CREDITS.get(s['name'])
+    _photo_credit_html = f'<div class="hero-photo-credit">📷 © {_pc}</div>' if _pc else ''
     # (Galerie séparée supprimée — toutes les photos sont dans le carrousel hero)
     if False:
         pass
@@ -3571,6 +3578,7 @@ def render_page(s):
     .hero-nav:hover{{background:rgba(255,255,255,.32);transform:translateY(-50%) scale(1.06)}}
     .hero-prev{{left:14px}}
     .hero-next{{right:14px}}
+    .hero-photo-credit{{position:absolute;bottom:6px;right:10px;z-index:6;font-size:.62rem;color:rgba(255,255,255,.85);text-shadow:0 1px 3px rgba(0,0,0,.7);pointer-events:none}}
     .hero-dots{{
       position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:6;
       display:flex;gap:7px;background:rgba(0,0,0,.32);padding:6px 12px;border-radius:20px;backdrop-filter:blur(6px)
@@ -4154,6 +4162,7 @@ def render_page(s):
   <button class="fav-star" id="favBtn" onclick="toggleFav()" title="Ajouter aux favoris">☆</button>
   <button class="compare-star" id="compareBtn" onclick="toggleCompare()" title="Ajouter au comparateur">⚖️</button>
 {carousel_nav_html}
+  {_photo_credit_html}
   <div class="hero-content">
     <div class="hero-massif">⛷ {s['massif']}</div>
     <h1>{s['name']}</h1>
