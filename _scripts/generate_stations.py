@@ -2960,6 +2960,7 @@ def fmt_eur(v):
 
 # Infos pratiques complémentaires validées par la station (ajoutées après le forfait adulte)
 INFOS_PRATIQUES_EXTRA = {
+    "Sainte-Foy-Tarentaise": " Le samedi, le forfait journée adulte descend à <strong>30€</strong>.",
     "La Bresse-Hohneck": " Forfait étudiant 1 jour : <strong>27€</strong>.",
     "La Bresse Lispach": " Pas besoin de louer votre matériel avant d'arriver : un service de location est disponible au pied des pistes (skis, raquettes, luges et vêtements). Sur place, une cafétéria et une terrasse exposée plein sud permettent de se restaurer en profitant de la vue sur les pistes et sur le lac.",
 }
