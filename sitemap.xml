@@ -2264,7 +2264,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/la-rosiere.html</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2522,7 +2522,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/les-arcs.html</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2930,7 +2930,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/montchavin-les-coches.html</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -3296,7 +3296,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/peisey-vallandry.html</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -3722,7 +3722,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/sainte-foy-tarentaise.html</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4238,7 +4238,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/tignes.html</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4346,7 +4346,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/val-d-isere.html</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4765,6 +4765,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/comparatifs/peisey-vallandry-vs-montchavin-les-coches.html</loc>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/comparatifs/pra-loup-vs-val-d-allos.html</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
@@ -4796,7 +4802,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/tous-les-comparatifs.html</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -4923,6 +4929,12 @@
   <url>
     <loc>https://snowfinder.fr/articles/skier-sans-voiture-stations-accessibles-en-train.html</loc>
     <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/articles/stations-ski-mieux-notees-alpes-du-nord.html</loc>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

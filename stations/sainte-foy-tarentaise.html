@@ -80,6 +80,7 @@
     .hero-nav:hover{background:rgba(255,255,255,.32);transform:translateY(-50%) scale(1.06)}
     .hero-prev{left:14px}
     .hero-next{right:14px}
+    .hero-photo-credit{position:absolute;bottom:6px;right:10px;z-index:6;font-size:.62rem;color:rgba(255,255,255,.85);text-shadow:0 1px 3px rgba(0,0,0,.7);pointer-events:none}
     .hero-dots{
       position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:6;
       display:flex;gap:7px;background:rgba(0,0,0,.32);padding:6px 12px;border-radius:20px;backdrop-filter:blur(6px)
@@ -748,6 +749,9 @@ function acceptSfNotif(){
   <div class="hero-slides">
     <img class="hero-slide active" data-idx="0" src="../img/saintefoytarentaise1.jpg" alt="Sainte-Foy-Tarentaise photo 1" loading="eager" onclick="heroLightbox(0)">
     <img class="hero-slide" data-idx="1" src="../img/saintefoytarentaise2.jpg" alt="Sainte-Foy-Tarentaise photo 2" loading="lazy" onclick="heroLightbox(1)">
+    <img class="hero-slide" data-idx="2" src="../img/saintefoytarentaise3.jpg" alt="Sainte-Foy-Tarentaise photo 3" loading="lazy" onclick="heroLightbox(2)">
+    <img class="hero-slide" data-idx="3" src="../img/saintefoytarentaise4.jpg" alt="Sainte-Foy-Tarentaise photo 4" loading="lazy" onclick="heroLightbox(3)">
+    <img class="hero-slide" data-idx="4" src="../img/saintefoytarentaise5.jpg" alt="Sainte-Foy-Tarentaise photo 5" loading="lazy" onclick="heroLightbox(4)">
   </div>
   <div class="hero-overlay"></div>
   <button class="hero-close" onclick="closeStation()" title="Retour" aria-label="Retour">✕</button>
@@ -759,7 +763,11 @@ function acceptSfNotif(){
   <div class="hero-dots">
       <button class="hero-dot active" data-idx="0" onclick="heroGoTo(0)" aria-label="Photo 1"></button>
       <button class="hero-dot" data-idx="1" onclick="heroGoTo(1)" aria-label="Photo 2"></button>
+      <button class="hero-dot" data-idx="2" onclick="heroGoTo(2)" aria-label="Photo 3"></button>
+      <button class="hero-dot" data-idx="3" onclick="heroGoTo(3)" aria-label="Photo 4"></button>
+      <button class="hero-dot" data-idx="4" onclick="heroGoTo(4)" aria-label="Photo 5"></button>
   </div>
+  <div class="hero-photo-credit">📷 © David André</div>
   <div class="hero-content">
     <div class="hero-massif">⛷ Alpes du Nord</div>
     <h1>Sainte-Foy-Tarentaise</h1>
@@ -1020,7 +1028,7 @@ function toggleReadMore(id, btn){
 })();
 
 // ── CARROUSEL HERO ──
-var HERO_URLS = ["../img/saintefoytarentaise1.jpg","../img/saintefoytarentaise2.jpg"];
+var HERO_URLS = ["../img/saintefoytarentaise1.jpg","../img/saintefoytarentaise2.jpg","../img/saintefoytarentaise3.jpg","../img/saintefoytarentaise4.jpg","../img/saintefoytarentaise5.jpg"];
 var heroIdx = 0;
 var heroAuto = null;
 function heroShow(i){
@@ -1660,7 +1668,7 @@ function hideOfficialSheet(){
   <div class="lightbox-count" id="lightboxCount"></div>
 </div>
 <script>
-var GALLERY_URLS = ["../img/saintefoytarentaise1.jpg","../img/saintefoytarentaise2.jpg"];
+var GALLERY_URLS = ["../img/saintefoytarentaise1.jpg","../img/saintefoytarentaise2.jpg","../img/saintefoytarentaise3.jpg","../img/saintefoytarentaise4.jpg","../img/saintefoytarentaise5.jpg"];
 var lbIdx = 0;
 function openLightbox(i){
   if(!GALLERY_URLS.length) return;

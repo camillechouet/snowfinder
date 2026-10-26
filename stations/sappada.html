@@ -80,6 +80,7 @@
     .hero-nav:hover{background:rgba(255,255,255,.32);transform:translateY(-50%) scale(1.06)}
     .hero-prev{left:14px}
     .hero-next{right:14px}
+    .hero-photo-credit{position:absolute;bottom:6px;right:10px;z-index:6;font-size:.62rem;color:rgba(255,255,255,.85);text-shadow:0 1px 3px rgba(0,0,0,.7);pointer-events:none}
     .hero-dots{
       position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:6;
       display:flex;gap:7px;background:rgba(0,0,0,.32);padding:6px 12px;border-radius:20px;backdrop-filter:blur(6px)
@@ -754,6 +755,7 @@ function acceptSfNotif(){
   <button class="fav-star" id="favBtn" onclick="toggleFav()" title="Ajouter aux favoris">☆</button>
   <button class="compare-star" id="compareBtn" onclick="toggleCompare()" title="Ajouter au comparateur">⚖️</button>
 
+  
   <div class="hero-content">
     <div class="hero-massif">⛷ Alpes du Nord</div>
     <h1>Sappada</h1>
