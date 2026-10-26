@@ -2,6 +2,15 @@
   "_aide": "Manifeste des contenus SnowFinder. Un nouvel article = une entrée dans 'articles' (date ISO, le plus récent est trié en premier). Un nouveau duel = une entrée EN TÊTE de 'duels' (le premier est le héros de l'accueil, les 2 suivants les bandeaux). Le script generate_contenus.py reconstruit l'accueil et toutes-les-actus.html. Les duels marqués \"manuel\": true ont une page faite à la main (pas générée par generate_comparatifs.py) : ils restent dans les listes mais ne sont pas régénérés.",
   "articles": [
     {
+      "slug": "stations-ski-mieux-notees-alpes-du-nord",
+      "title": "Les 10 stations de ski les mieux notées dans les Alpes du Nord françaises",
+      "category": "Classement",
+      "excerpt": "Val Thorens arrive en tête (note 4,9/5) : le classement chiffré des 10 stations dans les Alpes du Nord françaises, à partir des données SnowFinder.",
+      "img": "/img/valthorens1.jpg",
+      "date": "2026-10-26",
+      "read_min": 8
+    },
+    {
       "slug": "ski-a-noel-et-au-nouvel-an-2026-2027-dates-des-vacances-ouvertures",
       "title": "Ski à Noël et au Nouvel An 2026-2027 : dates des vacances, ouvertures, forfaits et réservation",
       "category": "Saison d'hiver",
