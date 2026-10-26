@@ -202,6 +202,12 @@
   ],
   "duels": [
     {
+      "a": "Peisey-Vallandry",
+      "b": "Montchavin-Les Coches",
+      "img": "https://images.unsplash.com/photo-1614089916276-eb5be76854bd?w=800&q=80",
+      "img_b": "https://images.unsplash.com/photo-1485516195719-e9edaa29d2ba?w=800&q=80"
+    },
+    {
       "a": "Saint-Martin-de-Belleville",
       "b": "La Tania",
       "img": "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=600&q=80",
