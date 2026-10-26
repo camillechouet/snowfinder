@@ -58,5 +58,65 @@
     ],
     "date": "2026-10-22",
     "modele": "claude-opus-5-5"
+  },
+  {
+    "a": "Peisey-Vallandry",
+    "b": "Montchavin-Les Coches",
+    "img_a": "",
+    "img_b": "",
+    "teaser": "Deux stations-villages de Tarentaise, toutes deux reliées au domaine Paradiski de 425 km : Peisey-Vallandry et Montchavin-Les Coches se ressemblent beaucoup. Elles partagent la même note de 4.0 et la même orientation famille. Les différences se jouent sur le domaine local, la répartition des pistes, l'altitude du village et quelques euros de forfait.",
+    "profils": [
+      [
+        "💶 Budget serré",
+        "Peisey-Vallandry",
+        "Le forfait y coûte 70 € contre 72 € à Montchavin-Les Coches, soit un écart de 2 € (3 %). La différence reste modeste, mais elle penche en faveur de Peisey-Vallandry."
+      ],
+      [
+        "👨‍👩‍👧 Familles avec enfants",
+        "Égalité",
+        "Les deux stations disposent d'une garderie et affichent une ambiance familiale. Peisey-Vallandry met en avant le label Famille Plus, tandis que Montchavin-Les Coches propose 78 pistes bleues pour progresser en douceur."
+      ],
+      [
+        "⚫ Amateurs de pistes noires",
+        "Montchavin-Les Coches",
+        "Le domaine local compte 21 pistes noires, contre 16 à Peisey-Vallandry. Son point culminant est aussi un peu plus haut, à 3250 m."
+      ],
+      [
+        "🔴 Skieurs intermédiaires à l'aise sur le rouge",
+        "Peisey-Vallandry",
+        "Avec 42 pistes rouges contre 35 à Montchavin-Les Coches, le domaine offre davantage de terrain aux skieurs qui veulent passer un cap."
+      ],
+      [
+        "🗺️ Grands rouleurs",
+        "Montchavin-Les Coches",
+        "Le domaine local atteint 225 km, soit 25 km de plus, et il est desservi par 77 remontées contre 53. Il donne en outre un accès direct à La Plagne et aux Arcs."
+      ],
+      [
+        "📸 Patrimoine et paysages",
+        "Peisey-Vallandry",
+        "Le village se distingue par son patrimoine baroque savoyard et sa vue sur le Mont-Blanc, aux portes de la Vanoise."
+      ]
+    ],
+    "verdict": "<strong>Peisey-Vallandry</strong> convient à ceux qui veulent un village situé à 1600 m, avec un accès à pied aux remontées, une vue sur le Mont-Blanc et un forfait légèrement moins cher. <strong>Montchavin-Les Coches</strong> offre un domaine local plus étendu, avec 225 km et 77 remontées, ainsi que davantage de pistes bleues et noires. Les deux stations ouvrent l'accès aux 425 km de Paradiski et partagent la même note de 4.0. Le choix dépend donc surtout du cadre de séjour recherché et du type de pistes que vous préférez au quotidien.",
+    "faq": [
+      [
+        "Quelle station a le forfait le moins cher ?",
+        "Le forfait de Peisey-Vallandry coûte 70 €, contre 72 € à Montchavin-Les Coches. L'écart est de 2 €, soit 3 %."
+      ],
+      [
+        "Peut-on skier sur tout Paradiski depuis les deux stations ?",
+        "Oui, les deux sont intégrées au domaine Paradiski de 425 km. Peisey-Vallandry dispose d'un accès direct aux Arcs par télécabine, et Montchavin-Les Coches d'un accès direct à La Plagne et aux Arcs."
+      ],
+      [
+        "Laquelle des deux stations est la plus haute ?",
+        "Le village de Peisey-Vallandry est situé à 1600 m, contre 1450 m pour Montchavin-Les Coches, dont le domaine descend jusqu'à 1250 m. En revanche, le point culminant de Montchavin-Les Coches, à 3250 m, dépasse de 24 m celui de Peisey-Vallandry, à 3226 m."
+      ],
+      [
+        "Quelle station choisir pour débuter ?",
+        "Les deux conviennent aux débutants et disposent d'une garderie. Montchavin-Les Coches compte 9 pistes vertes et 78 bleues, contre 10 vertes et 55 bleues à Peisey-Vallandry, qui détient de son côté le label Famille Plus."
+      ]
+    ],
+    "date": "2026-10-26",
+    "modele": "claude-opus-5-5"
   }
 ]
