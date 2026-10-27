@@ -1,7 +1,142 @@
 {
+ "0a42f66d7e63ce3af06f174927d122f900ddc976": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Garmisch-Partenkirchen</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Garmisch-Partenkirchen</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "12a7ccfe01f5c4a25247e088aa3a797888491102": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Canazei</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Canazei</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "19c0f991e39ed2d22341aafb26da204a848d4bbb": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Golm</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Golm</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "1c3a3bb76a14490b4458a528ab100ebb5c1a64ed": {
+  "fr": "Isola 2000 propose 120 km de pistes bien balisées — un domaine de taille intermédiaire idéal pour passer 4 à 5 jours sans jamais faire deux fois exactement la même chose. Les 20 remontées mécaniques sont généralement suffisantes pour absorber le débit en haute saison. La réputation familiale d'Isola 2000 n'est pas usurpée : espaces débutants dédiés, garderie bien organisée, pistes vertes bien entr",
+  "en": "",
+  "issue": "gardé en français : nombres différents (perdus : 4, 5 ; en trop : –)"
+ },
+ "253da6a9ec70a6c3e3b3fe9632488b5374cf5ffe": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Airolo</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Airolo</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "276f70fef2c3e959c3b36050c17940dbc226463b": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Vosges</t3> › <t4>Gérardmer</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Vosges</t3> › <t4>Gérardmer</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "397f6fa2ca506a17facf132ea583a66415118843": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Feldis</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Feldis</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
  "3af4646a16a5b89c538f17b612264bdae1d9b33f": {
   "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Achenkirch</t4>",
   "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Achenkirch</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "3b039d07f126ad28ec143a3e6bc65fa02a8996f8": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Fügen – Spieljoch</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Fügen – Spieljoch</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "40b37bbec4943b4bb5fa4d434ac2b91488368663": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Arolla</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Arolla</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "42e4a51509227c21bb5b02ec769b5bbc25968466": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Foppolo</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Foppolo</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "4ab78ecd4abe7b1c1d07994f6a0c41c48f10dc41": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Kirchberg in Tirol</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Kirchberg in Tirol</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "521ba6bf2bd4e8e999e2843ec5af728e2b74ade4": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Pyrénées</t3> › <t4>Camurac</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Pyrenees</t3> › <t4>Camurac</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "5f2fa4fbca370613921fc364257af210dd3e6410": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Breuil-Cervinia</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Breuil-Cervinia</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "6517890c2c04751149972cc25d7fe6ddebaaba96": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Alpe di Siusi</t4>",
+  "en": "<t1>Accueil</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Alpe di Siusi</t4>",
+  "issue": "nom modifié : Stations de ski"
+ },
+ "685a77afe7da2ca9a7bf9212cc9a85553c574d25": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › Alta Badia",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › Alta Badia",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "8e73f0303a8877fe119da58ee9f7e53e4391b05a": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Brand – Brandnertal</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Brand – Brandnertal</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "a3223ac8763d3caf43ab028703d8b04d4842267e": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Gemsstock (Andermatt)</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Gemsstock (Andermatt)</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "a5a1f23d33919d30dadf2eaec17c55e8c66e5388": {
+  "fr": "C'est l'une des rares stations de France à proposer des aurores et des nocturnes : il est possible de skier de 6 h à 22 h sur des pistes éclairées.",
+  "en": "",
+  "issue": "gardé en français : nombres différents (perdus : 22 ; en trop : 10)"
+ },
+ "ad1129a91efe1383135d55f4c9502872c105054b": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>La Tania</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>La Tania</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "b2d457e7df6d2300c6671d786842ef4c2eec8fbd": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Brides-les-Bains</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Brides-les-Bains</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "b46f3ec3b6baa3a99cec9114f45db49411bd1b70": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>La Thuile</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>La Thuile</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "b537a26c27fa256e85d7c0f0b2dbe8ead1a45366": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › Andermatt – Sedrun",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › Andermatt – Sedrun",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "c77bf543255dc393fa50360a47f42dd8059fa444": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Aussois</t4>",
+  "en": "<t1>Accueil</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Aussois</t4>",
+  "issue": "nom modifié : Stations de ski"
+ },
+ "ca8f17d647f3b5abda89e9d654cb67663438b442": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Alpe du Grand Serre</t4>",
+  "en": "<t1>Accueil</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Alpe du Grand Serre</t4>",
+  "issue": "nom modifié : Stations de ski"
+ },
+ "d2e8d40109964c68f0950390300ff9c1190c9954": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Vosges</t3> › <t4>La Planche des Belles Filles</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Vosges</t3> › <t4>La Planche des Belles Filles</t4>",
+  "issue": "nom modifié : Accueil, Stations de ski"
+ },
+ "e72e11b9367a84e80f32d69df0b91fb2e51fe47d": {
+  "fr": "Site officiel de Col de Porte",
+  "en": "Accueil",
+  "issue": "nom modifié : Col de Porte"
+ },
+ "e7ccf93ae65b5041e545a59cc9273e6b2496aaac": {
+  "fr": "<t1>Accueil</t1> › <t2>Stations de ski</t2> › <t3>Alpes du Nord</t3> › <t4>Kitzbühel</t4>",
+  "en": "<t1>Home</t1> › <t2>Ski resorts</t2> › <t3>Northern Alps</t3> › <t4>Kitzbühel</t4>",
   "issue": "nom modifié : Accueil, Stations de ski"
  }
 }

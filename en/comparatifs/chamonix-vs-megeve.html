@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Chamonix vs Megève: which resort to choose? — SnowFinder</title>
+<meta content="Chamonix or Megève? Full comparison: snow reliability, prices, atmosphere, ski area. Our view to help you choose the ideal resort." name="description"/>
+
+<meta content="Chamonix vs Megève: the full comparison" property="og:title"/>
+<meta content="Which resort to choose between Chamonix and Megève? The SnowFinder guide." property="og:description"/>
+<meta content="https://snowfinder.fr/img/chamonix1.jpg" property="og:image"/>
+<meta content="article" property="og:type"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=DM+Serif+Display&amp;display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:#faf6f0;
+  --wood-dark:#8b5e3c;
+  --wood:#a87547;
+  --wood-light:#eddcbf;
+  --wood-pale:#f7efe2;
+  --text:#2a1f14;
+  --text-mid:#5c4a35;
+  --text-light:#8a7060;
+  --border:#e8d8c4;
+  --blue-dark:#1a5a8a;
+  --blue:#5b9fd4;
+  --shadow:0 1px 4px rgba(0,0,0,.08);
+  --shadow-md:0 6px 20px rgba(0,0,0,.12);
+  --radius:14px;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:'DM Sans',-apple-system,sans-serif; line-height:1.6;
+}
+.nav {
+  background:#fff; border-bottom:1px solid var(--border); padding:14px 20px;
+  display:flex; align-items:center; gap:18px; position:sticky; top:0; z-index:10;
+}
+.nav a.brand { font-family:"DM Serif Display",serif; font-size:1.4rem; color:var(--text); text-decoration:none; }
+.nav .navlinks { display:flex; gap:18px; margin-left:auto; }
+.nav .navlinks a { color:var(--text-mid); text-decoration:none; font-size:.95rem; }
+.nav .navlinks a:hover { color:var(--wood-dark); }
+
+.page { max-width:1100px; margin:0 auto; padding:36px 24px 80px; }
+.crumbs { font-size:.85rem; color:var(--text-light); margin-bottom:14px; }
+.crumbs a { color:var(--text-light); text-decoration:none; }
+.crumbs a:hover { color:var(--wood-dark); }
+
+h1 {
+  font-family:"DM Serif Display",serif; font-size:2.4rem; line-height:1.15;
+  margin:0 0 12px; color:var(--text);
+}
+.subtitle { font-size:1.05rem; color:var(--text-mid); margin-bottom:32px; }
+
+@media (max-width:700px) {
+  h1 { font-size:1.7rem; }
+  .page { padding:24px 16px 60px; }
+}
+
+.teaser {
+  background:var(--wood-pale); border-left:4px solid var(--wood-dark);
+  padding:18px 22px; border-radius:0 var(--radius) var(--radius) 0;
+  margin:0 0 36px; font-size:1.02rem;
+}
+
+h2 {
+  font-family:"DM Serif Display",serif; font-size:1.7rem;
+  margin:48px 0 18px; color:var(--text); border-bottom:1px solid var(--border); padding-bottom:10px;
+}
+
+.specs {
+  display:grid; grid-template-columns:1fr 1fr; gap:14px;
+}
+.duel-bar { display:flex; align-items:center; gap:10px; max-width:1100px; margin:0 auto; padding:10px 16px 0; }
+.duel-bar a { display:inline-flex; align-items:center; gap:6px; text-decoration:none; font-weight:700; font-size:.88rem; color:var(--blue-dark); background:#fff; border:1.5px solid var(--wood-light); border-radius:20px; padding:7px 14px; box-shadow:var(--shadow); }
+.duel-bar a:active { background:var(--wood-pale); }
+.duel-bar .back { width:38px; height:38px; padding:0; justify-content:center; font-size:1.15rem; }
+.spec-col { display:flex; flex-direction:column; gap:10px; }
+.station-banner { position:relative; overflow:hidden; border-radius:var(--radius); box-shadow:var(--shadow); min-height:96px; display:flex; align-items:flex-end; background:#1a3a5c; }
+.station-banner .bg { position:absolute; inset:0; background-size:cover; background-position:center; }
+.station-banner .overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(13,34,64,.82),rgba(26,58,92,.62)); }
+.station-banner .content { position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; width:100%; padding:16px 16px 18px; gap:10px; }
+.station-banner .name { font-family:"DM Serif Display",serif; font-style:italic; font-weight:700; font-size:1.1rem; color:#fff; text-shadow:0 1px 6px rgba(0,0,0,.5); }
+.station-banner .actions { display:flex; gap:8px; flex-shrink:0; }
+.station-banner .icon-btn { background:rgba(255,255,255,.2); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.35); border-radius:20px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; font-size:1.05rem; cursor:pointer; color:#fff; padding:0; }
+.station-banner .icon-btn.active { background:rgba(255,255,255,.92); color:#0d2240; }
+.station-banner .credit { position:absolute; right:10px; top:8px; z-index:1; font-size:.68rem; font-style:italic; color:#fff; background:rgba(0,0,0,.35); padding:2px 8px; border-radius:10px; }
+.station-fiche-link { font-size:.85rem; color:var(--wood-dark); text-decoration:underline; font-weight:600; }
+.sf-bottomnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08)}
+.sf-bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px;font-size:1.18rem;text-decoration:none;color:var(--text-mid);position:relative;gap:1px}
+.sf-bn-label{font-size:.54rem;font-weight:700;letter-spacing:.01em;line-height:1;color:inherit;opacity:.9}
+.sf-bn-home{flex:0 0 52px;margin-top:-16px}
+.sf-bn-home-circle{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue-dark),#3a7db8);display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 6px 18px rgba(26,90,138,.4);border:3px solid #fff}
+.sf-bn-home .sf-bn-label{margin-top:2px}
+body{padding-bottom:66px}
+.spec-card {
+  background:#fff; border:1px solid var(--border); border-radius:var(--radius);
+  padding:22px; box-shadow:var(--shadow);
+}
+.spec-card h3 { margin:0 0 14px; font-family:"DM Serif Display",serif; font-size:1.3rem; color:var(--wood-dark); }
+.spec-card .row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dotted var(--border); font-size:.95rem; }
+.spec-card .row:last-child { border-bottom:none; }
+.spec-card .row span:first-child { color:var(--text-light); }
+.spec-card .row span:last-child { font-weight:600; color:var(--text); }
+@media (max-width:700px) { .specs { grid-template-columns:1fr; } }
+
+.profil-grid {
+  display:grid; grid-template-columns:1fr; gap:12px;
+}
+.profil-card {
+  background:#fff; border:1px solid var(--border); border-radius:var(--radius);
+  padding:18px 22px; box-shadow:var(--shadow);
+  border-left:4px solid var(--wood-dark);
+}
+.profil-head {
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  margin-bottom:6px; flex-wrap:wrap;
+}
+.profil-label {
+  font-weight:700; color:var(--text); font-size:1rem;
+}
+.profil-pick {
+  background:var(--wood-pale); color:var(--wood-dark);
+  padding:5px 12px; border-radius:14px; font-weight:700;
+  font-size:.88rem; white-space:nowrap;
+}
+.profil-pick::before { content:"→ "; opacity:.6; }
+.profil-reason {
+  color:var(--text-mid); font-size:.93rem; margin:0; line-height:1.55;
+}
+
+.verdict {
+  background:linear-gradient(135deg,#fff 0%,var(--wood-pale) 100%);
+  border:2px solid var(--wood-light); border-radius:var(--radius);
+  padding:28px 30px; box-shadow:var(--shadow-md); font-size:1.05rem; margin:30px 0;
+}
+.verdict h2 { margin-top:0; border:none; padding-bottom:0; color:var(--wood-dark); }
+
+.faq-item {
+  background:#fff; border:1px solid var(--border); border-radius:var(--radius);
+  margin-bottom:12px; padding:18px 22px; box-shadow:var(--shadow);
+}
+.faq-item h3 { margin:0 0 8px; font-size:1.05rem; color:var(--text); }
+.faq-item p { margin:0; color:var(--text-mid); }
+
+.book-cta {
+  background:#fff; border:1px solid var(--border); border-radius:var(--radius);
+  padding:24px; box-shadow:var(--shadow-md); margin:40px 0 0;
+}
+.book-cta h2 { margin-top:0; border:none; padding-bottom:0; text-align:center; }
+.book-cta p { text-align:center; color:var(--text-mid); margin:0 0 22px; }
+.book-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.book-station h3 {
+  margin:0 0 12px; color:var(--wood-dark); font-family:"DM Serif Display",serif;
+  font-size:1.25rem; text-align:center;
+}
+.book-stack {
+  border-radius:14px; overflow:hidden;
+  box-shadow:0 6px 20px rgba(13,34,64,.14); margin-bottom:10px;
+}
+.book-card {
+  display:block; text-decoration:none; overflow:hidden;
+  position:relative; transition:transform .15s;
+}
+.book-card + .book-card { border-top:2px solid white; }
+.book-card .img-wrap { position:relative; overflow:hidden; height:120px; }
+.book-card img {
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform .5s ease;
+}
+.book-card:hover img { transform:scale(1.05); }
+.book-card .overlay {
+  position:absolute; inset:0; display:flex; align-items:center;
+  padding:0 18px; gap:12px;
+}
+.book-card .icon {
+  font-size:1.7rem; filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));
+}
+.book-card .text { flex:1; }
+.book-card .title {
+  color:white; font-weight:800; font-size:.95rem;
+  text-shadow:0 1px 5px rgba(0,0,0,.6);
+}
+.book-card .sub {
+  color:rgba(255,255,255,.82); font-size:.72rem; margin-top:2px;
+}
+.book-card .btn-pill {
+  background:white; color:#003d96; font-size:.78rem; font-weight:800;
+  padding:7px 14px; border-radius:20px; white-space:nowrap;
+  box-shadow:0 3px 10px rgba(0,0,0,.25);
+}
+.book-card.expedia .btn-pill { background:#ffcc00; color:#1a2060; }
+.book-card.booking .overlay {
+  background:linear-gradient(to right,rgba(0,35,110,.78) 0%,rgba(0,35,110,.38) 55%,transparent 100%);
+}
+.book-card.expedia .overlay {
+  background:linear-gradient(to right,rgba(140,95,0,.8) 0%,rgba(140,95,0,.38) 55%,transparent 100%);
+}
+.book-disclaimer {
+  text-align:center; font-size:.62rem; color:var(--text-light); margin-top:6px;
+}
+.detail-link {
+  display:block; text-align:center; margin-top:10px; font-size:.88rem;
+  color:var(--blue-dark); text-decoration:none; font-weight:600;
+}
+.detail-link:hover { text-decoration:underline; }
+.officiel-link {
+  display:block; text-align:center; margin-top:12px; padding:9px 14px;
+  background:var(--wood-pale); color:var(--wood-dark); border-radius:10px;
+  font-size:.88rem; font-weight:700; text-decoration:none;
+  border:1px solid var(--wood-light);
+  transition:background .15s;
+}
+.officiel-link:hover { background:var(--wood-light); }
+@media (max-width:700px) { .book-grid { grid-template-columns:1fr; } }
+
+footer {
+  text-align:center; padding:30px 20px; color:var(--text-light); font-size:.85rem;
+  border-top:1px solid var(--border); margin-top:40px;
+}
+footer a { color:var(--text-light); }
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do Chamonix and Megève share a common lift pass?", "acceptedAnswer": {"@type": "Answer", "text": "Chamonix's Mont-Blanc Unlimited pass covers its entire ski area (Brévent-Flégère, Grands Montets, Aiguille du Midi, Les Houches) plus a few bonuses such as Courmayeur. Megève is part of the Évasion Mont-Blanc ski area (Megève, Saint-Gervais, Combloux, La Giettaz): it is a separate lift pass."}}, {"@type": "Question", "name": "Which resort suits beginners?", "acceptedAnswer": {"@type": "Answer", "text": "Megève, without hesitation. The Mont d'Arbois and Rochebrune area offers plenty of blue and green runs that are ideal for beginners. Chamonix has beginner areas at Brévent or Planards, but the valley's overall spirit leans more towards committed skiing."}}, {"@type": "Question", "name": "Can you do the Vallée Blanche as a family?", "acceptedAnswer": {"@type": "Answer", "text": "No. The Vallée Blanche is a 20 km glacier descent through high mountain terrain, requiring a guide and a minimum level of skiing experience. It is Chamonix's signature experience but reserved for experienced skiers."}}, {"@type": "Question", "name": "Is Megève really expensive?", "acceptedAnswer": {"@type": "Answer", "text": "At the very top end (palace hotels, starred restaurants), yes — Megève is in the exclusive club of France's most expensive resorts. But you will also find affordable rental accommodation, and lift passes are cheaper than in Val d'Isère or Courchevel."}}]}, {"@type": "Article", "headline": "Chamonix vs Megève: which resort to choose?", "image": "https://snowfinder.fr/img/chamonix1.jpg", "datePublished": "2026-10-22", "author": {"@type": "Organization", "name": "SnowFinder"}}]}</script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>
+<script>try{if(localStorage.getItem("sf_cookie_consent")==="refused")window["ga-disable-G-S0C748Y0DX"]=true;}catch(e){}window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-S0C748Y0DX");</script>
+<link href="https://snowfinder.fr/en/comparatifs/chamonix-vs-megeve.html" rel="canonical"/><link href="https://snowfinder.fr/comparatifs/chamonix-vs-megeve.html" hreflang="fr" rel="alternate"/><link href="https://snowfinder.fr/en/comparatifs/chamonix-vs-megeve.html" hreflang="en" rel="alternate"/><link href="https://snowfinder.fr/comparatifs/chamonix-vs-megeve.html" hreflang="x-default" rel="alternate"/></head>
+<body>
+<!-- ══ TOP BAR APP — identique à index.html (se cache au scroll vers le bas) ══ -->
+<style>
+body{padding-top:64px!important}
+.sf-topbar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid #eddcbf;display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 6px;z-index:600;transition:transform .28s ease;overflow:visible;gap:8px;font-family:'DM Sans',sans-serif;box-sizing:border-box}
+.sf-topbar *{box-sizing:border-box}
+.sf-topbar.sf-hide{transform:translateY(-100%);}
+.sf-topbar-logo{display:flex;align-items:center;gap:4px;text-decoration:none;flex-shrink:0;justify-self:start;min-width:0;}
+.sf-topbar-logo img{width:60px;height:60px;border-radius:12px;object-fit:contain;flex-shrink:0}
+.sf-topbar-wordtext{display:flex;flex-direction:column;justify-content:center;line-height:1.05;min-width:0;overflow:hidden}
+.sf-topbar-title{font-family:"DM Serif Display",serif;font-size:.95rem;font-weight:700;white-space:nowrap}
+.sf-topbar-title .sf-dark{color:#1a5a8a}
+.sf-topbar-title .sf-light{color:#3a7db8}
+.sf-topbar-slogan{font-size:.5rem;letter-spacing:.03em;color:#1a5a8a;opacity:.7;white-space:nowrap;text-transform:uppercase;margin-top:1px}
+.sf-topbar-app{display:flex;align-items:center;gap:4px;background:linear-gradient(135deg,#e8f3fb,#eaf4ff);border:1px solid #3a7db8;border-radius:14px;padding:4px 9px;font-size:.64rem;font-weight:700;color:#1a5a8a;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18);justify-self:end;}
+.sf-topbar-right{display:flex;align-items:center;justify-self:end;flex-shrink:0;}
+.sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:#1a5a8a;font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
+.sf-topbar-fav:active{background:#f7efe2}
+.sf-topbar-menu{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;border:1.5px solid #eddcbf;background:#fff;font-size:1rem;line-height:1;color:#1a5a8a;cursor:pointer;flex-shrink:0;padding:0;margin-left:2px}
+.sf-topbar-menu:active{background:#f7efe2}
+@media(max-width:480px){.sf-topbar{padding:0 4px;gap:4px}.sf-topbar-logo img{width:52px;height:52px}.sf-topbar-app{font-size:.58rem;padding:4px 7px}}
+/* Menu rapide + notifications */
+.sf-sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;backdrop-filter:blur(4px)}
+.sf-sheet-overlay.open{display:block}
+.sf-sheet{position:fixed;left:0;right:0;bottom:0;z-index:9001;background:#f5f1ec;border-radius:20px 20px 0 0;padding:10px 0 max(20px,env(safe-area-inset-bottom));box-shadow:0 -8px 40px rgba(0,0,0,.2);transform:translateY(100%);transition:transform .32s cubic-bezier(.32,.72,0,1);max-width:480px;margin:0 auto;font-family:'DM Sans',sans-serif;box-sizing:border-box}
+.sf-sheet.open{transform:translateY(0)}
+.sf-sheet-handle{width:40px;height:4px;background:#ddd;border-radius:3px;margin:0 auto 10px}
+.sf-sheet-title{text-align:center;font-family:"DM Serif Display",serif;font-size:1.05rem;color:#1a5a8a;margin-bottom:6px;padding:0 20px}
+.sf-menu-item{display:flex;align-items:center;gap:12px;width:100%;padding:15px 24px;background:none;border:none;border-top:1px solid #f7efe2;font-size:.95rem;font-weight:600;color:#2a1f14;text-decoration:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif;box-sizing:border-box}
+.sf-menu-item:active{background:#f7efe2}
+.sf-menu-item .em{font-size:1.15rem;flex-shrink:0}
+</style>
+<div class="sf-topbar" id="sfTopbar">
+<a class="sf-topbar-logo" href="/index.html"><img alt="SnowFinder" src="/logo.png"/> <span class="sf-topbar-wordtext"> <span class="sf-topbar-title"><span class="sf-dark">Snow</span><span class="sf-light">Finder</span></span> <span class="sf-topbar-slogan">Compare • Find • Ski</span> </span></a>
+<a class="sf-topbar-app" href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" style="position:relative;left:12px">📲 The app is out now!</a>
+<div class="sf-topbar-right">
+<a class="sf-topbar-fav" href="/comparateur.html" style="margin-right:2px;position:relative;left:10px">⚖️ <span id="sfCompareCount">0</span></a>
+<a class="sf-topbar-fav" href="/favoris.html">⭐ <span id="sfFavCount">0</span></a>
+<button aria-label="Menu" class="sf-topbar-menu" id="sfMenuBtn" onclick="openSfMenu()" type="button">☰</button>
+</div>
+</div>
+<div class="sf-sheet-overlay" id="sfMenuOverlay" onclick="closeSfMenu()"></div>
+<div class="sf-sheet" id="sfMenuSheet">
+<div class="sf-sheet-handle"></div>
+<div class="sf-sheet-title">Menu</div>
+<a class="sf-menu-item" href="/index.html"><span class="em">🏠</span><span>Accueil</span></a>
+<a class="sf-menu-item" href="/en/comparatifs/tous-les-comparatifs.html"><span class="em">⚔️</span><span>All resort head-to-heads</span></a>
+<a class="sf-menu-item" href="/en/articles/toutes-les-actus.html"><span class="em">📰</span><span>All our news</span></a>
+<button class="sf-menu-item" onclick="closeSfMenu();openContact()" type="button"><span class="em">📧</span><span>Contact us</span></button>
+<button class="sf-menu-item" onclick="closeSfMenu();openSfNotif()" type="button"><span class="em">🔔</span><span>Notifications</span></button>
+<a class="sf-menu-item" href="/mentions-legales.html"><span class="em">⚖️</span><span>Legal notice</span></a>
+</div>
+<div class="sf-sheet-overlay" id="sfNotifOverlay2" onclick="closeSfNotif()"></div>
+<div class="sf-sheet" id="sfNotifSheet2" style="text-align:center">
+<div class="sf-sheet-handle"></div>
+<div style="padding:8px 24px 4px">
+<div style="font-size:2.3rem;margin-bottom:8px">🔔</div>
+<div style="font-family:'DM Serif Display',serif;font-size:1.25rem;color:#1a3f6e;margin-bottom:8px;line-height:1.2">Powder alerts &amp; good deals?</div>
+<p style="font-size:.88rem;color:#5c4a35;line-height:1.6;margin-bottom:16px">Get an alert when the snow comes down heavily, or when there are good lift pass deals. <strong>Free, discreet, 1 to 2 times a week at most.</strong></p>
+</div>
+<div style="padding:0 20px;display:flex;flex-direction:column;gap:10px"><button onclick="acceptSfNotif()" style="background:linear-gradient(135deg,#1a5a8a,#3a7db8);color:white;border:none;border-radius:30px;padding:15px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(26,90,138,.3)" type="button">⛷️ Yes, I want to be alerted!</button> <button onclick="closeSfNotif()" style="background:transparent;color:#8a7060;border:none;padding:8px;font-size:.85rem;cursor:pointer;font-family:'DM Sans',sans-serif" type="button">No thanks</button></div>
+</div>
+<script>
+function openSfMenu(){document.getElementById('sfMenuOverlay').classList.add('open');document.getElementById('sfMenuSheet').classList.add('open');document.body.style.overflow='hidden';}
+function closeSfMenu(){document.getElementById('sfMenuOverlay').classList.remove('open');document.getElementById('sfMenuSheet').classList.remove('open');document.body.style.overflow='';}
+// « Nous contacter » : ouvre la modale de contact de l'accueil
+if (typeof openContact !== 'function') {
+  window.openContact = function(){ window.location.href = '/index.html#contact'; };
+}
+function openSfNotif(){
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Notifications are already enabled ✅'); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Notifications are blocked in your browser settings."); return; }
+  document.getElementById('sfNotifOverlay2').classList.add('open');
+  document.getElementById('sfNotifSheet2').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSfNotif(){
+  document.getElementById('sfNotifOverlay2').classList.remove('open');
+  document.getElementById('sfNotifSheet2').classList.remove('open');
+  document.body.style.overflow='';
+}
+function acceptSfNotif(){
+  closeSfNotif();
+  function ask(){
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred.push(async function(OneSignal){ try{ await OneSignal.Notifications.requestPermission(); }catch(e){} });
+  }
+  if(window.OneSignal || document.querySelector('script[src*="OneSignalSDK"]')){ ask(); return; }
+  var s=document.createElement('script');
+  s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; s.defer=true;
+  document.head.appendChild(s);
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(async function(OneSignal){
+    await OneSignal.init({appId:"df4757f7-ed59-4973-8a3d-782547295c9c",safari_web_id:"web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",serviceWorkerPath:"sw.js",notifyButton:{enable:false},welcomeNotification:{disable:true}});
+    try{ await OneSignal.Notifications.requestPermission(); }catch(e){}
+  });
+}
+// Masquer la barre au scroll vers le bas + compteurs favoris / comparateur
+(function(){
+  var bar = document.getElementById("sfTopbar");
+  var lastY = window.scrollY, ticking = false;
+  window.addEventListener("scroll", function(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY;
+      if(y > lastY && y > 60) bar.classList.add("sf-hide");
+      else bar.classList.remove("sf-hide");
+      lastY = y; ticking = false;
+    });
+  }, {passive:true});
+  function updateFavCount(){
+    var favs = [];
+    try { favs = JSON.parse(localStorage.getItem("sf_favorites")||"[]"); } catch(e){}
+    var el = document.getElementById("sfFavCount"); if(el) el.textContent = favs.length;
+  }
+  function updateCompareCount(){
+    var c = [];
+    try { c = JSON.parse(localStorage.getItem("sf_compare")||"[]"); } catch(e){}
+    var el = document.getElementById("sfCompareCount"); if(el) el.textContent = c.length;
+  }
+  updateFavCount(); updateCompareCount();
+  window.addEventListener("storage", updateFavCount);
+  window.addEventListener("storage", updateCompareCount);
+  window.addEventListener("focus", updateFavCount);
+  window.addEventListener("focus", updateCompareCount);
+})();
+</script>
+<!-- ══ FIN TOP BAR ══ -->
+<div class="duel-bar"><a aria-label="Previous page" class="back" href="/en/comparatifs/tous-les-comparatifs.html" onclick="if(document.referrer.indexOf(location.host)&gt;-1&amp;&amp;history.length&gt;1){history.back();return false;}" title="Previous page">←</a> <a href="/en/comparatifs/tous-les-comparatifs.html">⚔️ All resort head-to-heads</a></div>
+<main class="page">
+<div class="crumbs"><a href="/index.html">Accueil</a> · <a href="/en/comparatifs/tous-les-comparatifs.html">Comparisons</a> · Chamonix vs Megève</div>
+<h1>Chamonix vs Megève: which resort to choose?</h1>
+<div class="subtitle">Full comparison: ski area, snow reliability, atmosphere, budget. Our verdict to help you decide.</div>
+<div class="teaser">Two legends of Haute-Savoie at the foot of Mont Blanc, but two worlds apart. Chamonix, the world capital of mountaineering, raw and bold. Megève, a chic, refined village launched by the Rothschilds in the 1920s.</div>
+<h2>📊 The figures head to head</h2>
+<div class="specs">
+<div class="spec-col">
+<div class="station-banner">
+<div class="bg" style="background-image:url(/img/chamonix1.jpg)"></div>
+<div class="overlay"></div><span class="credit">Illustrative photo</span>
+<div class="content">
+<span class="name">Chamonix</span>
+<div class="actions">
+<button class="icon-btn" data-fav-id="5" onclick="toggleFav(5,this)" title="Add to favourites">☆</button>
+<button class="icon-btn" data-compare-id="5" onclick="toggleCompare(5,this)" title="Add to comparison tool">⚖️</button>
+</div>
+</div>
+</div>
+<a class="station-fiche-link" href="/en/stations/chamonix.html">→ See the full resort page</a>
+<div class="spec-card">
+<h3>Chamonix</h3>
+<div class="row"><span>Altitude</span><span>1,035 – 3,842 m</span></div>
+<div class="row"><span>Ski area</span><span>110 km</span></div>
+<div class="row"><span>Lifts</span><span>43</span></div>
+<div class="row"><span>Runs (green/blue/red/black)</span><span>16/43/44/16</span></div>
+<div class="row"><span>Day lift pass</span><span>77 €</span></div>
+<div class="row"><span>SnowFinder rating</span><span>4.9 / 5</span></div>
+<div class="row"><span>Region</span><span>Mont Blanc, Haute-Savoie</span></div>
+</div>
+</div>
+<div class="spec-col">
+<div class="station-banner">
+<div class="bg" style="background-image:url(/img/megeve1.jpg)"></div>
+<div class="overlay"></div><span class="credit">Illustrative photo</span>
+<div class="content">
+<span class="name">Megève</span>
+<div class="actions">
+<button class="icon-btn" data-fav-id="14" onclick="toggleFav(14,this)" title="Add to favourites">☆</button>
+<button class="icon-btn" data-compare-id="14" onclick="toggleCompare(14,this)" title="Add to comparison tool">⚖️</button>
+</div>
+</div>
+</div>
+<a class="station-fiche-link" href="/stations/megeve.html">→ See the full resort page</a>
+<div class="spec-card">
+<h3>Megève</h3>
+<div class="row"><span>Altitude</span><span>1,113 – 2,350 m</span></div>
+<div class="row"><span>Ski area</span><span>220 km</span></div>
+<div class="row"><span>Lifts</span><span>37</span></div>
+<div class="row"><span>Runs (green/blue/red/black)</span><span>25/33/47/20</span></div>
+<div class="row"><span>Day lift pass</span><span>65 €</span></div>
+<div class="row"><span>SnowFinder rating</span><span>4.7 / 5</span></div>
+<div class="row"><span>Region</span><span>Évasion Mont-Blanc, Haute-Savoie</span></div>
+</div>
+</div>
+</div>
+<h2>👤 Which resort for which profile?</h2>
+<div class="profil-grid">
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🏔️ Expert skiers / freeriders</div><div class="profil-pick">Chamonix</div></div><p class="profil-reason">La Vallée Blanche, the Grands Montets, the Brévent: a legendary playground for committed skiing. Megève is fun but without the same big thrill.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">✨ High-end travellers / discreet luxury</div><div class="profil-pick">Megève</div></div><p class="profil-reason">Preserved village architecture, palace hotels (Les Fermes de Marie, Le Chalet du Mont d'Arbois), Michelin-starred dining. Old-fashioned chic without ostentation.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">👨‍👩‍👧‍👦 Families with children</div><div class="profil-pick">Megève</div></div><p class="profil-reason">A more accessible ski area, plenty of beginner areas, a relaxed atmosphere. Chamonix is tougher for young children.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🍷 Top-level gastronomy</div><div class="profil-pick">Megève</div></div><p class="profil-reason">Several Michelin-starred restaurants (Flocons de Sel, La Table de l'Alpaga) and a strong culinary tradition. Chamonix also has good restaurants but fewer stars.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">⛰️ Authentic mountain atmosphere / adventure</div><div class="profil-pick">Chamonix</div></div><p class="profil-reason">The world capital of mountaineering, with a colourful, international atmosphere and unique energy. This is real high mountain.</p></div>
+<div class="profil-card"><div class="profil-head"><div class="profil-label">🚗 Access from Geneva (1h)</div><div class="profil-pick">Chamonix</div></div><p class="profil-reason">1h from Geneva by car, with a TGV connection via Saint-Gervais. Megève is also accessible but requires a little more driving from the airport.</p></div>
+</div>
+<div class="verdict">
+<h2>💡 Our verdict</h2>
+<p><strong>Chamonix</strong> is made for skiers who want to live high mountain life and committed skiing. <strong>Megève</strong> is made for those looking for a chic, gastronomic and restful stay. Both are excellent destinations, but they attract different crowds — choose according to your holiday mood.</p>
+</div>
+<h2>❓ Frequently asked questions</h2>
+<div class="faq-item"><h3>Do Chamonix and Megève share a common lift pass?</h3><p>Chamonix's Mont-Blanc Unlimited pass covers its entire ski area (Brévent-Flégère, Grands Montets, Aiguille du Midi, Les Houches) plus a few bonuses such as Courmayeur. Megève is part of the Évasion Mont-Blanc ski area (Megève, Saint-Gervais, Combloux, La Giettaz): it is a separate lift pass.</p></div>
+<div class="faq-item"><h3>Which resort suits beginners?</h3><p>Megève, without hesitation. The Mont d'Arbois and Rochebrune area offers plenty of blue and green runs that are ideal for beginners. Chamonix has beginner areas at Brévent or Planards, but the valley's overall spirit leans more towards committed skiing.</p></div>
+<div class="faq-item"><h3>Can you do the Vallée Blanche as a family?</h3><p>No. The Vallée Blanche is a 20 km glacier descent through high mountain terrain, requiring a guide and a minimum level of skiing experience. It is Chamonix's signature experience but reserved for experienced skiers.</p></div>
+<div class="faq-item"><h3>Is Megève really expensive?</h3><p>At the very top end (palace hotels, starred restaurants), yes — Megève is in the exclusive club of France's most expensive resorts. But you will also find affordable rental accommodation, and lift passes are cheaper than in Val d'Isère or Courchevel.</p></div>
+<div class="book-cta">
+<h2>🏨 Book your stay</h2>
+<p>Compare accommodation on Booking and Expedia, or see the detailed page for each resort.</p>
+<div class="book-grid">
+<div>
+<h3>Chamonix</h3>
+<div class="book-stack">
+<a class="book-card booking" href="https://www.tkqlhce.com/click-101709262-15734710?sid=comparatif-chamonix&amp;url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.fr.html%3Fss%3DChamonix%2Bski%2Bfrance%26nflt%3Dreview_score%253D80" rel="noopener sponsored" target="_blank">
+<div class="img-wrap">
+<img alt="Book on Booking" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=600&amp;q=80'" src="/img/chalet-booking.jpg"/>
+<div class="overlay">
+<span class="icon">🏨</span>
+<div class="text">
+<div class="title">Book on Booking.com</div>
+<div class="sub">Hotels · Chalets · Apartments</div>
+</div>
+<div class="btn-pill">See offers →</div>
+</div>
+</div>
+</a>
+<a class="book-card expedia" href="https://www.jdoqocy.com/click-101709262-13904689?sid=comparatif-chamonix&amp;url=https%3A%2F%2Fwww.expedia.fr%2Fgo%2Fhotel%2Fsearch%2FDestination%2F%3FCityName%3DChamonix%26City%3DChamonix%26SortBy%3Ddistance%26NumRoom%3D1%26NumAdult1%3D1" rel="noopener sponsored" target="_blank">
+<div class="img-wrap">
+<img alt="Book on Expedia" onerror="this.src='https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&amp;q=80'" src="/img/chalet-expedia.jpg"/>
+<div class="overlay">
+<span class="icon">✈️</span>
+<div class="text">
+<div class="title">Flight + Hotel on Expedia</div>
+<div class="sub">Ski packages · Save up to 30%</div>
+</div>
+<div class="btn-pill">Book →</div>
+</div>
+</div>
+</a>
+</div>
+<a class="officiel-link" href="https://www.chamonix.com" rel="noopener" target="_blank">🎿 Chamonix official website</a>
+<a class="detail-link" href="/en/stations/chamonix.html">→ See the full resort page for Chamonix</a>
+</div>
+<div>
+<h3>Megève</h3>
+<div class="book-stack">
+<a class="book-card booking" href="https://www.tkqlhce.com/click-101709262-15734710?sid=comparatif-megeve&amp;url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.fr.html%3Fss%3DMeg%25C3%25A8ve%2Bski%2Bfrance%26nflt%3Dreview_score%253D80" rel="noopener sponsored" target="_blank">
+<div class="img-wrap">
+<img alt="Book on Booking" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=600&amp;q=80'" src="/img/chalet-booking.jpg"/>
+<div class="overlay">
+<span class="icon">🏨</span>
+<div class="text">
+<div class="title">Book on Booking.com</div>
+<div class="sub">Hotels · Chalets · Apartments</div>
+</div>
+<div class="btn-pill">See offers →</div>
+</div>
+</div>
+</a>
+<a class="book-card expedia" href="https://www.jdoqocy.com/click-101709262-13904689?sid=comparatif-megeve&amp;url=https%3A%2F%2Fwww.expedia.fr%2Fgo%2Fhotel%2Fsearch%2FDestination%2F%3FCityName%3DMeg%C3%A8ve%26City%3DMeg%C3%A8ve%26SortBy%3Ddistance%26NumRoom%3D1%26NumAdult1%3D1" rel="noopener sponsored" target="_blank">
+<div class="img-wrap">
+<img alt="Book on Expedia" onerror="this.src='https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&amp;q=80'" src="/img/chalet-expedia.jpg"/>
+<div class="overlay">
+<span class="icon">✈️</span>
+<div class="text">
+<div class="title">Flight + Hotel on Expedia</div>
+<div class="sub">Ski packages · Save up to 30%</div>
+</div>
+<div class="btn-pill">Book →</div>
+</div>
+</div>
+</a>
+</div>
+<a class="officiel-link" href="https://www.megeve.com" rel="noopener" target="_blank">🎿 Megève official website</a>
+<a class="detail-link" href="/stations/megeve.html">→ See the full resort page for Megève</a>
+</div>
+</div>
+<div class="book-disclaimer">Affiliate links — same prices, no commission charged to you</div>
+</div>
+<div style="text-align:center;margin:36px 0 0"><a href="/en/comparatifs/tous-les-comparatifs.html" style="display:inline-block;color:var(--wood-dark);font-weight:700;text-decoration:underline;font-size:.95rem">← All resort head-to-heads</a></div>
+</main>
+<footer>© 2026 SnowFinder  ·  <a href="/mentions-legales.html">Legal notice</a>  ·  <a href="/index.html">Accueil</a></footer>
+<nav class="sf-bottomnav"><a class="sf-bn-item" href="/recherche.html" title="Find my resort">🔍<span class="sf-bn-label">Search</span></a> <a class="sf-bn-item" href="/enneigement.html" title="Weather &amp; snow reliability">❄️<span class="sf-bn-label">Weather</span></a> <a class="sf-bn-item sf-bn-home" href="/index.html" title="Accueil"><span class="sf-bn-home-circle">🏡</span><span class="sf-bn-label">Chalet</span></a> <a class="sf-bn-item" href="/tinder.html" title="Ski Tinder">💕<span class="sf-bn-label">Tinder</span></a> <a class="sf-bn-item" href="/hebergement.html" title="Accommodation">🛏️<span class="sf-bn-label">Accom.</span></a></nav>
+<script>
+function getFavs(){try{return JSON.parse(localStorage.getItem('sf_favorites')||'[]');}catch(e){return [];}}
+function isFav(id){return getFavs().indexOf(id)!==-1;}
+function toggleFav(id,btn){
+  var favs=getFavs();
+  if(favs.indexOf(id)!==-1){favs=favs.filter(function(x){return x!==id;});}
+  else{favs.push(id);if(navigator.vibrate)navigator.vibrate(40);}
+  try{localStorage.setItem('sf_favorites',JSON.stringify(favs));}catch(e){}
+  var el=document.getElementById('sfFavCount'); if(el) el.textContent=favs.length;
+  if(btn){btn.classList.toggle('active',isFav(id));btn.textContent=isFav(id)?'⭐':'☆';}
+}
+function getCompareList(){try{return JSON.parse(localStorage.getItem('sf_compare')||'[]');}catch(e){return [];}}
+function isInCompare(id){return getCompareList().indexOf(id)!==-1;}
+function toggleCompare(id,btn){
+  var c=getCompareList();var idx=c.indexOf(id);
+  if(idx>=0){c.splice(idx,1);}
+  else{ if(c.length>=3){alert("You can compare up to 3 resorts. Remove one before adding another.");return;} c.push(id);}
+  try{localStorage.setItem('sf_compare',JSON.stringify(c));}catch(e){}
+  var el=document.getElementById('sfCompareCount'); if(el) el.textContent=c.length;
+  if(btn)btn.classList.toggle('active',isInCompare(id));
+}
+document.querySelectorAll('[data-fav-id]').forEach(function(btn){
+  if(isFav(parseInt(btn.getAttribute('data-fav-id'),10))){btn.classList.add('active');btn.textContent='⭐';}
+});
+document.querySelectorAll('[data-compare-id]').forEach(function(btn){
+  if(isInCompare(parseInt(btn.getAttribute('data-compare-id'),10)))btn.classList.add('active');
+});
+</script>
+<!--sf-lang--><a class="sf-lang-switch" href="/comparatifs/chamonix-vs-megeve.html" hreflang="fr" lang="fr" rel="alternate">🇫🇷 Français</a><style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index:900;background:rgba(255,255,255,.94);color:#1d4f7a;border:1px solid #d6dde4;border-radius:20px;padding:6px 12px;font:600 .74rem/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}.sf-lang-switch:hover{background:#fff}</style><!--/sf-lang--></body>
+</html>

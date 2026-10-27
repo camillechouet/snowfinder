@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport"/>
+<title>All our news — SnowFinder</title>
+<meta content="Find all SnowFinder articles: tips, guides, snow reports and discoveries of ski resorts in France and across Europe." name="description"/>
+
+<link href="/logo.png" rel="apple-touch-icon"/>
+<link href="/logo.png" rel="icon" type="image/png"/>
+<style>
+:root{--blue:#3a7db8;--text:#22303e;--text-mid:#4a5a6a;--text-light:#8a97a3;--bg:#f7f9fb;--white:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"DM Sans",-apple-system,sans-serif;background:var(--bg);color:var(--text)}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+header{background:var(--white);border-bottom:1px solid #e4e9ee;padding:14px 0}
+.hlogo{display:flex;align-items:center;gap:10px;font-weight:700}
+.hlogo img{width:32px;height:32px;border-radius:8px}
+.breadcrumb{font-size:.82rem;color:var(--text-light);margin:20px 0 8px}
+.breadcrumb a{color:var(--text-light)}
+h1{font-family:"DM Serif Display",serif;font-size:1.8rem;margin:0 0 24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:40px}
+.card{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);transition:transform .15s}
+.card:hover{transform:translateY(-2px)}
+.card-img{height:130px;background-size:cover;background-position:center}
+.card-body{padding:16px}
+.card-cat{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--blue);margin-bottom:8px}
+.card-title{font-family:"DM Serif Display",serif;font-size:1.08rem;line-height:1.35;margin-bottom:8px}
+.card-excerpt{font-size:.85rem;color:var(--text-mid);margin-bottom:10px}
+.card-meta{font-size:.72rem;color:var(--text-light)}
+/* SF-ACTUS-BAR */
+.duel-bar{display:flex;align-items:center;gap:10px;max-width:900px;margin:0 auto;padding:10px 16px 0}
+.duel-bar a{display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none!important;font-weight:700;font-size:.88rem;color:#1a5a8a;background:#fff;border:1.5px solid #eddcbf;border-radius:20px;padding:7px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.duel-bar a:active{background:#f7efe2}
+.duel-bar .back{width:38px;height:38px;padding:0;font-size:1.15rem}
+.count{display:inline-block;background:#e8f3fb;color:#1a5a8a;border:1px solid #d3e3f1;border-radius:14px;padding:4px 12px;font-weight:700;font-size:.9rem;margin:0 0 18px}
+.sf-bottomnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid #eddcbf;display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08)}
+.sf-bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px;font-size:1.18rem;text-decoration:none;color:#5c4a35;position:relative;gap:1px}
+.sf-bn-label{font-size:.54rem;font-weight:700;letter-spacing:.01em;line-height:1;color:inherit;opacity:.9}
+.sf-bn-home{flex:0 0 52px;margin-top:-16px}
+.sf-bn-home-circle{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#1a5a8a,#3a7db8);display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 6px 18px rgba(26,90,138,.4);border:3px solid #fff}
+.sf-bn-home .sf-bn-label{margin-top:2px}
+body{padding-bottom:66px}
+</style>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>
+<script>try{if(localStorage.getItem("sf_cookie_consent")==="refused")window["ga-disable-G-S0C748Y0DX"]=true;}catch(e){}window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-S0C748Y0DX");</script>
+<link href="https://snowfinder.fr/en/articles/toutes-les-actus.html" rel="canonical"/><link href="https://snowfinder.fr/articles/toutes-les-actus.html" hreflang="fr" rel="alternate"/><link href="https://snowfinder.fr/en/articles/toutes-les-actus.html" hreflang="en" rel="alternate"/><link href="https://snowfinder.fr/articles/toutes-les-actus.html" hreflang="x-default" rel="alternate"/></head>
+<body>
+<!-- ══ TOP BAR APP — identique à index.html (se cache au scroll vers le bas) ══ -->
+<style>
+body{padding-top:64px!important}
+.sf-topbar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid #eddcbf;display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 6px;z-index:600;transition:transform .28s ease;overflow:visible;gap:8px;font-family:'DM Sans',sans-serif;box-sizing:border-box}
+.sf-topbar *{box-sizing:border-box}
+.sf-topbar.sf-hide{transform:translateY(-100%);}
+.sf-topbar-logo{display:flex;align-items:center;gap:4px;text-decoration:none;flex-shrink:0;justify-self:start;min-width:0;}
+.sf-topbar-logo img{width:60px;height:60px;border-radius:12px;object-fit:contain;flex-shrink:0}
+.sf-topbar-wordtext{display:flex;flex-direction:column;justify-content:center;line-height:1.05;min-width:0;overflow:hidden}
+.sf-topbar-title{font-family:"DM Serif Display",serif;font-size:.95rem;font-weight:700;white-space:nowrap}
+.sf-topbar-title .sf-dark{color:#1a5a8a}
+.sf-topbar-title .sf-light{color:#3a7db8}
+.sf-topbar-slogan{font-size:.5rem;letter-spacing:.03em;color:#1a5a8a;opacity:.7;white-space:nowrap;text-transform:uppercase;margin-top:1px}
+.sf-topbar-app{display:flex;align-items:center;gap:4px;background:linear-gradient(135deg,#e8f3fb,#eaf4ff);border:1px solid #3a7db8;border-radius:14px;padding:4px 9px;font-size:.64rem;font-weight:700;color:#1a5a8a;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18);justify-self:end;}
+.sf-topbar-right{display:flex;align-items:center;justify-self:end;flex-shrink:0;}
+.sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:#1a5a8a;font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
+.sf-topbar-fav:active{background:#f7efe2}
+.sf-topbar-menu{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;border:1.5px solid #eddcbf;background:#fff;font-size:1rem;line-height:1;color:#1a5a8a;cursor:pointer;flex-shrink:0;padding:0;margin-left:2px}
+.sf-topbar-menu:active{background:#f7efe2}
+@media(max-width:480px){.sf-topbar{padding:0 4px;gap:4px}.sf-topbar-logo img{width:52px;height:52px}.sf-topbar-app{font-size:.58rem;padding:4px 7px}}
+/* Menu rapide + notifications */
+.sf-sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;backdrop-filter:blur(4px)}
+.sf-sheet-overlay.open{display:block}
+.sf-sheet{position:fixed;left:0;right:0;bottom:0;z-index:9001;background:#f5f1ec;border-radius:20px 20px 0 0;padding:10px 0 max(20px,env(safe-area-inset-bottom));box-shadow:0 -8px 40px rgba(0,0,0,.2);transform:translateY(100%);transition:transform .32s cubic-bezier(.32,.72,0,1);max-width:480px;margin:0 auto;font-family:'DM Sans',sans-serif;box-sizing:border-box}
+.sf-sheet.open{transform:translateY(0)}
+.sf-sheet-handle{width:40px;height:4px;background:#ddd;border-radius:3px;margin:0 auto 10px}
+.sf-sheet-title{text-align:center;font-family:"DM Serif Display",serif;font-size:1.05rem;color:#1a5a8a;margin-bottom:6px;padding:0 20px}
+.sf-menu-item{display:flex;align-items:center;gap:12px;width:100%;padding:15px 24px;background:none;border:none;border-top:1px solid #f7efe2;font-size:.95rem;font-weight:600;color:#2a1f14;text-decoration:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif;box-sizing:border-box}
+.sf-menu-item:active{background:#f7efe2}
+.sf-menu-item .em{font-size:1.15rem;flex-shrink:0}
+</style>
+<div class="sf-topbar" id="sfTopbar">
+<a class="sf-topbar-logo" href="/index.html"><img alt="SnowFinder" src="/logo.png"/> <span class="sf-topbar-wordtext"> <span class="sf-topbar-title"><span class="sf-dark">Snow</span><span class="sf-light">Finder</span></span> <span class="sf-topbar-slogan">Compare • Find • Ski</span> </span></a>
+<a class="sf-topbar-app" href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" style="position:relative;left:12px">📲 The app is out now!</a>
+<div class="sf-topbar-right">
+<a class="sf-topbar-fav" href="/comparateur.html" style="margin-right:2px;position:relative;left:10px">⚖️ <span id="sfCompareCount">0</span></a>
+<a class="sf-topbar-fav" href="/favoris.html">⭐ <span id="sfFavCount">0</span></a>
+<button aria-label="Menu" class="sf-topbar-menu" id="sfMenuBtn" onclick="openSfMenu()" type="button">☰</button>
+</div>
+</div>
+<div class="sf-sheet-overlay" id="sfMenuOverlay" onclick="closeSfMenu()"></div>
+<div class="sf-sheet" id="sfMenuSheet">
+<div class="sf-sheet-handle"></div>
+<div class="sf-sheet-title">Menu</div>
+<button class="sf-menu-item" onclick="closeSfMenu();openContact()" type="button"><span class="em">📧</span><span>Contact us</span></button>
+<button class="sf-menu-item" onclick="closeSfMenu();openSfNotif()" type="button"><span class="em">🔔</span><span>Notifications</span></button>
+<a class="sf-menu-item" href="/mentions-legales.html"><span class="em">⚖️</span><span>Legal notice</span></a>
+</div>
+<div class="sf-sheet-overlay" id="sfNotifOverlay2" onclick="closeSfNotif()"></div>
+<div class="sf-sheet" id="sfNotifSheet2" style="text-align:center">
+<div class="sf-sheet-handle"></div>
+<div style="padding:8px 24px 4px">
+<div style="font-size:2.3rem;margin-bottom:8px">🔔</div>
+<div style="font-family:'DM Serif Display',serif;font-size:1.25rem;color:#1a3f6e;margin-bottom:8px;line-height:1.2">Powder alerts &amp; good deals?</div>
+<p style="font-size:.88rem;color:#5c4a35;line-height:1.6;margin-bottom:16px">Get an alert when the snow comes down heavily, or when there are good lift pass deals. <strong>Free, discreet, 1 to 2 times a week at most.</strong></p>
+</div>
+<div style="padding:0 20px;display:flex;flex-direction:column;gap:10px"><button onclick="acceptSfNotif()" style="background:linear-gradient(135deg,#1a5a8a,#3a7db8);color:white;border:none;border-radius:30px;padding:15px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(26,90,138,.3)" type="button">⛷️ Yes, I want to be alerted!</button> <button onclick="closeSfNotif()" style="background:transparent;color:#8a7060;border:none;padding:8px;font-size:.85rem;cursor:pointer;font-family:'DM Sans',sans-serif" type="button">No thanks</button></div>
+</div>
+<script>
+function openSfMenu(){document.getElementById('sfMenuOverlay').classList.add('open');document.getElementById('sfMenuSheet').classList.add('open');document.body.style.overflow='hidden';}
+function closeSfMenu(){document.getElementById('sfMenuOverlay').classList.remove('open');document.getElementById('sfMenuSheet').classList.remove('open');document.body.style.overflow='';}
+// « Nous contacter » : ouvre la modale de contact de l'accueil
+if (typeof openContact !== 'function') {
+  window.openContact = function(){ window.location.href = '/index.html#contact'; };
+}
+function openSfNotif(){
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Notifications are already enabled ✅'); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Notifications are blocked in your browser settings."); return; }
+  document.getElementById('sfNotifOverlay2').classList.add('open');
+  document.getElementById('sfNotifSheet2').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSfNotif(){
+  document.getElementById('sfNotifOverlay2').classList.remove('open');
+  document.getElementById('sfNotifSheet2').classList.remove('open');
+  document.body.style.overflow='';
+}
+function acceptSfNotif(){
+  closeSfNotif();
+  function ask(){
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred.push(async function(OneSignal){ try{ await OneSignal.Notifications.requestPermission(); }catch(e){} });
+  }
+  if(window.OneSignal || document.querySelector('script[src*="OneSignalSDK"]')){ ask(); return; }
+  var s=document.createElement('script');
+  s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; s.defer=true;
+  document.head.appendChild(s);
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(async function(OneSignal){
+    await OneSignal.init({appId:"df4757f7-ed59-4973-8a3d-782547295c9c",safari_web_id:"web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",serviceWorkerPath:"sw.js",notifyButton:{enable:false},welcomeNotification:{disable:true}});
+    try{ await OneSignal.Notifications.requestPermission(); }catch(e){}
+  });
+}
+// Masquer la barre au scroll vers le bas + compteurs favoris / comparateur
+(function(){
+  var bar = document.getElementById("sfTopbar");
+  var lastY = window.scrollY, ticking = false;
+  window.addEventListener("scroll", function(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY;
+      if(y > lastY && y > 60) bar.classList.add("sf-hide");
+      else bar.classList.remove("sf-hide");
+      lastY = y; ticking = false;
+    });
+  }, {passive:true});
+  function updateFavCount(){
+    var favs = [];
+    try { favs = JSON.parse(localStorage.getItem("sf_favorites")||"[]"); } catch(e){}
+    var el = document.getElementById("sfFavCount"); if(el) el.textContent = favs.length;
+  }
+  function updateCompareCount(){
+    var c = [];
+    try { c = JSON.parse(localStorage.getItem("sf_compare")||"[]"); } catch(e){}
+    var el = document.getElementById("sfCompareCount"); if(el) el.textContent = c.length;
+  }
+  updateFavCount(); updateCompareCount();
+  window.addEventListener("storage", updateFavCount);
+  window.addEventListener("storage", updateCompareCount);
+  window.addEventListener("focus", updateFavCount);
+  window.addEventListener("focus", updateCompareCount);
+})();
+</script>
+<!-- ══ FIN TOP BAR ══ -->
+<div class="duel-bar">
+<a aria-label="Previous page" class="back" href="/index.html" onclick="if(document.referrer.indexOf(location.host)&gt;-1&amp;&amp;history.length&gt;1){history.back();return false;}" title="Previous page">←</a>
+</div>
+<div class="wrap">
+<div class="breadcrumb"><a href="/index.html">Home</a> › All our news</div>
+<h1>All our news</h1>
+<div class="count">📰 22 articles</div>
+<div class="grid">
+<a class="card" href="/en/articles/stations-ski-mieux-notees-alpes-du-nord.html">
+<div class="card-img" style="background-image:url(/img/valthorens1.jpg)"></div>
+<div class="card-body">
+<div class="card-cat">Ranking</div>
+<div class="card-title">The 10 best-rated ski resorts in the French Northern Alps</div>
+<div class="card-excerpt">Val Thorens comes out on top (rating 4.9/5): the numerical ranking of the 10 resorts in the French Northern Alps, based on SnowFinder data.</div>
+<div class="card-meta">26 October 2026 · 8 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/ski-a-noel-et-au-nouvel-an-2026-2027-dates-des-vacances-ouvertures.html">
+<div class="card-img" style="background-image:url(/img/tignes1.jpg)"></div>
+<div class="card-body">
+<div class="card-cat">Winter season</div>
+<div class="card-title">Skiing at Christmas and New Year 2026-2027: holiday dates, openings, lift passes and bookings</div>
+<div class="card-excerpt">The Christmas holidays 2026-2027 fall on the same dates throughout France. This guide brings together the announced opening dates, examples of lift pass prices and the booking rates from last winter.</div>
+<div class="card-meta">23 October 2026 · 6 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/ski-de-fond-en-savoie-bessans-ouvre-le-samedi-31-octobre-les-saisies-octobre-2026.html">
+<div class="card-img" style="background-image:url(https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&amp;q=80)"></div>
+<div class="card-body">
+<div class="card-cat">Autumn season</div>
+<div class="card-title">Cross-country skiing in Savoie: Bessans opens on Saturday 31 October, Les Saisies on Wednesday 11 November</div>
+<div class="card-excerpt">Thanks to snow stored since spring, Bessans opens cross-country skiing on Saturday 31 October. Les Saisies follows on Wednesday 11 November. Here are the dates, prices and programme.</div>
+<div class="card-meta">23 October 2026 · 5 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/stations-ski-plus-hautes-france.html">
+<div class="card-img" style="background-image:url(/img/chamonix1.jpg)"></div>
+<div class="card-body">
+<div class="card-cat">Ranking</div>
+<div class="card-title">The 10 ski areas where you ski highest in France</div>
+<div class="card-excerpt">Chamonix comes top (3,842 m): the data-driven ranking of the 10 ski areas in France, based on SnowFinder data.</div>
+<div class="card-meta">23 October 2026 · 9 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/retour-est-alpes-neige-octobre-2026.html">
+<div class="card-img" style="background-image:url(/img/tignes1.jpg)"></div>
+<div class="card-body">
+<div class="card-cat">Snow reliability</div>
+<div class="card-title">Easterly airflow in the Alps: up to 50 cm of snow this week</div>
+<div class="card-excerpt">A cold front is shifting towards Italy: snow is expected from Tuesday 20 October, up to 40–50 cm on the highest peaks.</div>
+<div class="card-meta">20 October 2026 · 3 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/ski-fevrier-2027-stations-familiales-reserver.html">
+<div class="card-img" style="background-image:url(/img/legrandbornand1.jpg)"></div>
+<div class="card-body">
+<div class="card-cat">Family</div>
+<div class="card-title">Skiing in February 2027: family resorts to book now</div>
+<div class="card-excerpt">School holiday dates by zone, the week to avoid and five resorts that have proven themselves with children.</div>
+<div class="card-meta">15 October 2026 · 5 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/forfaits-ski-2026-2027-prix-hausse-payer-moins.html">
+<div class="card-img" style="background-image:url(/img/chamonix1.jpg)"></div>
+<div class="card-body">
+<div class="card-cat">Lift passes &amp; budget</div>
+<div class="card-title">Lift passes 2026-2027: what's changing and how to pay less</div>
+<div class="card-excerpt">Chamonix, Grand Massif, Monts Jura: the first price rises, the public prices of the major ski areas and tips for paying less.</div>
+<div class="card-meta">9 October 2026 · 5 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/skier-en-octobre-glaciers-neige-avant-ouverture.html">
+<div class="card-img" style="background-image:url(/img/tignes1.jpg)"></div>
+<div class="card-body">
+<div class="card-cat">Autumn season</div>
+<div class="card-title">Skiing in October: where to find snow before the French resorts open?</div>
+<div class="card-excerpt">French resorts don't open before 21 November. Swiss, Austrian and Italian glaciers, however, are already welcoming skiers.</div>
+<div class="card-meta">5 October 2026 · 4 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/grand-ballon-fin-ski-alpin.html">
+<div class="card-img" style="background-image:url(/img/grandballon1.jpg)"></div>
+<div class="card-body">
+<div class="card-cat">News</div>
+<div class="card-title">Le Grand Ballon ends alpine skiing: lifts permanently closed</div>
+<div class="card-excerpt">After Lac Blanc in July, Grand Ballon announces the end of its alpine skiing: the lifts will not reopen this winter.</div>
+<div class="card-meta">17 September 2026 · 4 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/quand-ouvrent-stations-ski-2026-2027.html">
+<div class="card-img" style="background-image:url(/img/valthorens1.jpg)"></div>
+<div class="card-body">
+<div class="card-cat">Winter calendar</div>
+<div class="card-title">When do ski resorts open? The 2026-2027 calendar</div>
+<div class="card-excerpt">Tignes and Val Thorens open as early as 21 November 2026. Full calendar and the resorts still among the first to open.</div>
+<div class="card-meta">8 September 2026 · 5 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/quand-reserver-sejour-ski-moins-cher.html">
+<div class="card-img" style="background-image:url(/img/valthorens1.jpg)"></div>
+<div class="card-body">
+<div class="card-cat">Budget tips</div>
+<div class="card-title">When to book your ski holiday to pay less?</div>
+<div class="card-excerpt">Lift passes, accommodation, trains: the ideal calendar for booking your 2027 ski holiday without breaking the bank.</div>
+<div class="card-meta">28 August 2026 · 5 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/skier-sans-voiture-stations-accessibles-en-train.html">
+<div class="card-img" style="background-image:url(/img/chamonix1.jpg)"></div>
+<div class="card-body">
+<div class="card-cat">Practical guide</div>
+<div class="card-title">Skiing without a car: a guide to resorts reachable by train</div>
+<div class="card-excerpt">No licence, no desire to drive on snow? Here are the resorts where the train drops you directly at the foot of the slopes, or almost.</div>
+<div class="card-meta">26 August 2026 · 5 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/saint-francois-longchamp-rapport-qualite-prix-valmorel.html">
+<div class="card-img" style="background-image:url(/img/saintfrancoislongchamp1.jpg)"></div>
+<div class="card-body">
+<div class="card-cat">Discovery</div>
+<div class="card-title">Saint-François-Longchamp: the best value for money in Savoie</div>
+<div class="card-excerpt">165 km of runs for a budget that has nothing in common with its large neighbours, thanks to the ski-link connection to Valmorel.</div>
+<div class="card-meta">25 August 2026 · 6 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/la-clusaz-usine-a-champions-freestyle.html">
+<div class="card-img" style="background-image:url(/img/laclusaz1.jpg)"></div>
+<div class="card-body">
+<div class="card-cat">Discovery</div>
+<div class="card-title">La Clusaz: how a small Savoyard village became the champion factory of French skiing</div>
+<div class="card-excerpt">11 world champions, 1 Olympic champion, the birth of freeskiing with Candide Thovex: La Clusaz is not a resort like any other.</div>
+<div class="card-meta">12 August 2026 · 6 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/isola-2000-ski-le-matin-mer-l-apres-midi.html">
+<div class="card-img" style="background-image:url(/img/isola20001.jpg)"></div>
+<div class="card-body">
+<div class="card-cat">Discovery</div>
+<div class="card-title">Isola 2000: the only resort in France where you can ski with a view of the Mediterranean</div>
+<div class="card-excerpt">Just 90 minutes from Nice, Isola 2000 is Europe's resort closest to the sea. Ski in the morning, beach in the afternoon.</div>
+<div class="card-meta">25 July 2026 · 6 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/ski-de-printemps-conseils.html">
+<div class="card-img" style="background-image:url(https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&amp;q=80)"></div>
+<div class="card-body">
+<div class="card-cat">Advice</div>
+<div class="card-title">Spring skiing: how to make the most of the last snow</div>
+<div class="card-excerpt">March and April sometimes offer the best conditions. Here's how to make the most of the end of the season.</div>
+<div class="card-meta">March 2025 · 4 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/10-stations-secretes-alpes.html">
+<div class="card-img" style="background-image:url(https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&amp;q=80)"></div>
+<div class="card-body">
+<div class="card-cat">Guide</div>
+<div class="card-title">The 10 secret resorts in the Alps that are worth the detour</div>
+<div class="card-excerpt">Among giants such as Courchevel or Val d'Isère, the Alps hide little-known and less crowded treasures.</div>
+<div class="card-meta">March 2025 · 5 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/bilan-neige-pyrenees-hiver-2025.html">
+<div class="card-img" style="background-image:url(https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600&amp;q=80)"></div>
+<div class="card-body">
+<div class="card-cat">Snow reliability</div>
+<div class="card-title">Winter 2025: what does the snow record look like for the Pyrenees?</div>
+<div class="card-excerpt">The 2024–2025 season in the Pyrenees was marked by a mix of glorious spells and sudden heatwaves.</div>
+<div class="card-meta">March 2025 · 3 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/top-5-stations-initier-enfants-ski.html">
+<div class="card-img" style="background-image:url(https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=600&amp;q=80)"></div>
+<div class="card-body">
+<div class="card-cat">Family</div>
+<div class="card-title">Top 5 resorts for introducing your children to skiing</div>
+<div class="card-excerpt">Choosing the right resort makes all the difference between a budding passion and a lasting trauma.</div>
+<div class="card-meta">Feb. 2025 · 4 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/jura-a-ski.html">
+<div class="card-img" style="background-image:url(https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=600&amp;q=80)"></div>
+<div class="card-body">
+<div class="card-cat">Discovery</div>
+<div class="card-title">Skiing in the Jura: the forgotten mountains of the French</div>
+<div class="card-excerpt">From AOP cheeses to frosty forests, the Jura hides affordable, authentic family resorts.</div>
+<div class="card-meta">Feb. 2025 · 5 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/vosges-ski-accessible.html">
+<div class="card-img" style="background-image:url(https://images.unsplash.com/photo-1418985991508-e47386d96a71?w=600&amp;q=80)"></div>
+<div class="card-body">
+<div class="card-cat">Guide</div>
+<div class="card-title">Vosges: skiing within 2h of Paris and Strasbourg</div>
+<div class="card-excerpt">The Vosges are often underrated. Yet they offer skiing that is simple, cosy and very affordable.</div>
+<div class="card-meta">Jan. 2025 · 3 min read</div>
+</div>
+</a>
+<a class="card" href="/en/articles/ski-sur-volcan-massif-central.html">
+<div class="card-img" style="background-image:url(https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&amp;q=80)"></div>
+<div class="card-body">
+<div class="card-cat">Discovery</div>
+<div class="card-title">Volcano skiing: the unique experience of the Massif Central</div>
+<div class="card-excerpt">Skiing down the flanks of the Puy de Sancy or the Plomb du Cantal is a unique skiing experience in France.</div>
+<div class="card-meta">Dec. 2024 · 4 min read</div>
+</div>
+</a>
+</div>
+</div>
+<nav class="sf-bottomnav"><a class="sf-bn-item" href="/recherche.html" title="Find my resort">🔍<span class="sf-bn-label">Search</span></a> <a class="sf-bn-item" href="/enneigement.html" title="Weather &amp; snow reliability">❄️<span class="sf-bn-label">Weather</span></a> <a class="sf-bn-item sf-bn-home" href="/index.html" title="Accueil"><span class="sf-bn-home-circle">🏡</span><span class="sf-bn-label">Chalet</span></a> <a class="sf-bn-item" href="/tinder.html" title="Ski Tinder">💕<span class="sf-bn-label">Tinder</span></a> <a class="sf-bn-item" href="/hebergement.html" title="Accommodation">🛏️<span class="sf-bn-label">Accom.</span></a></nav>
+<!--sf-lang--><a class="sf-lang-switch" href="/articles/toutes-les-actus.html" hreflang="fr" lang="fr" rel="alternate">🇫🇷 Français</a><style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index:900;background:rgba(255,255,255,.94);color:#1d4f7a;border:1px solid #d6dde4;border-radius:20px;padding:6px 12px;font:600 .74rem/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}.sf-lang-switch:hover{background:#fff}</style><!--/sf-lang--></body>
+</html>
