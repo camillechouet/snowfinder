@@ -34,6 +34,18 @@ on:
         description: "Plafond de dépense estimée en dollars (vide = 25)"
         required: false
         default: ""
+      model:
+        description: "Modèle (vide = claude-sonnet-5-5 ; ex. claude-haiku-5-5 pour économiser)"
+        required: false
+        default: ""
+      price_in:
+        description: "Prix du modèle en $ par million de tokens ENTRÉE (vide = 3, tarif Sonnet)"
+        required: false
+        default: ""
+      price_out:
+        description: "Prix du modèle en $ par million de tokens SORTIE (vide = 15, tarif Sonnet)"
+        required: false
+        default: ""
   workflow_run:
     workflows:
       - "Generate Station Pages"
@@ -76,12 +88,18 @@ jobs:
           ONLY: ${{ github.event.inputs.only }}
           DRY: ${{ github.event.inputs.dry_run }}
           BUDGET: ${{ github.event.inputs.budget }}
+          MODEL_IN: ${{ github.event.inputs.model }}
+          PIN: ${{ github.event.inputs.price_in }}
+          POUT: ${{ github.event.inputs.price_out }}
         run: |
           ARGS=""
           if [ -n "$LIMIT" ]; then ARGS="$ARGS --limit $LIMIT"; fi
           if [ -n "$ONLY" ]; then ARGS="$ARGS --only $ONLY"; fi
           if [ "$DRY" = "true" ]; then ARGS="$ARGS --dry-run"; fi
           if [ -n "$BUDGET" ]; then export BUDGET_USD="$BUDGET"; fi
+          if [ -n "$MODEL_IN" ]; then export TRANSLATE_MODEL="$MODEL_IN"; fi
+          if [ -n "$PIN" ]; then export PRICE_IN_PER_MTOK="$PIN"; fi
+          if [ -n "$POUT" ]; then export PRICE_OUT_PER_MTOK="$POUT"; fi
           python3 _scripts/translate_site.py $ARGS
 
       - name: Sitemap (avec hreflang fr/en)
