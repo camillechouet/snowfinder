@@ -409,13 +409,14 @@ def roman_to_int(s):
     return total
 
 
-def digits_ok(fr, en):
-    """Mêmes nombres FR/EN. Tolère qu'un chiffre romain (XIIe siècle) ou un nombre écrit en lettres
-    (douze) devienne un chiffre en anglais (12th century, 12) : seul un chiffre EN inconnu du français
-    ou un chiffre FR perdu est bloquant."""
-    a, b = digit_tokens(fr), digit_tokens(en)
-    if a == b:
-        return True
+DECADE_RE = re.compile(r"(\bann[ée]es?\s+)(\d0)\b", re.I)
+ORDINAL_RE = re.compile(r"\b(\d+)(?:er|re|e|ème|è|nd|d)\b")
+
+
+def digit_diff(fr, en):
+    """(nombres français perdus, chiffres anglais en trop) pour une variante donnée du français."""
+    best = None
+    variants = [fr, DECADE_RE.sub(lambda m: m.group(1) + "19" + m.group(2), fr)]
     allowed = []
     for m in ROMAN_RE.finditer(fr):
         try:
@@ -425,13 +426,26 @@ def digits_ok(fr, en):
     for w in re.findall(r"[a-zéèêûîô]+", fr.lower()):
         if w in FR_NUMBER_WORDS:
             allowed.append(str(FR_NUMBER_WORDS[w]))
-    rest = list(b)
-    for x in a:                      # tout nombre français doit se retrouver en anglais
-        if x in rest:
-            rest.remove(x)
-        else:
-            return False
-    return all(x in allowed for x in rest)   # les chiffres en plus doivent venir d'un romain / d'un mot
+    optional = [re.sub(r"\D", "", x) for x in ORDINAL_RE.findall(fr)]   # 1er, 2e… peuvent devenir « first »
+    for v in variants:
+        rest = list(digit_tokens(en))
+        lost = []
+        for x in digit_tokens(v):
+            if x in rest:
+                rest.remove(x)
+            elif x not in optional:
+                lost.append(x)
+        extra = [x for x in rest if x not in allowed]
+        if best is None or len(lost) + len(extra) < len(best[0]) + len(best[1]):
+            best = (lost, extra)
+    return best
+
+
+def digits_ok(fr, en):
+    """Mêmes nombres FR/EN, en tolérant les conversions normales : XIIe siècle -> 12th century,
+    douze -> twelve / 12, « années 70 » -> 1970s, « 1er » -> first."""
+    lost, extra = digit_diff(fr, en)
+    return not lost and not extra
 
 
 CENTURY_RE = re.compile(r"\b([IVXL]{1,6})(?:e|er|ème|è)\s+(?:siècle|century)\b")
@@ -459,8 +473,9 @@ def check(fr, en):
         return "traduction vide", None
     if tag_sig(fr) != tag_sig(en):
         return "balises différentes", None
-    if not digits_ok(fr, en):
-        return "nombres différents", None
+    lost, extra = digit_diff(fr, en)
+    if lost or extra:
+        return f"nombres différents (perdus : {', '.join(lost[:6]) or '–'} ; en trop : {', '.join(extra[:6]) or '–'})", None
     warn = []
     miss = [n for n in protected_in(fr) if n not in en]
     if miss:
