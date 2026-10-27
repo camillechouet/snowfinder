@@ -2962,9 +2962,11 @@ def fmt_eur(v):
 # Crédit photo affiché en petit sur le héro de la fiche (clé = nom exact de la station)
 PHOTO_CREDITS = {
     "Sainte-Foy-Tarentaise": "David André",
+    "Pralognan-la-Vanoise": "Pierre Guilbaud",
 }
 
 INFOS_PRATIQUES_EXTRA = {
+    "Pralognan-la-Vanoise": " Tarif réduit : <strong>35€</strong>.",
     "Sainte-Foy-Tarentaise": " Le samedi, le forfait journée adulte descend à <strong>30€</strong>.",
     "La Bresse-Hohneck": " Forfait étudiant 1 jour : <strong>27€</strong>.",
     "La Bresse Lispach": " Pas besoin de louer votre matériel avant d'arriver : un service de location est disponible au pied des pistes (skis, raquettes, luges et vêtements). Sur place, une cafétéria et une terrasse exposée plein sud permettent de se restaurer en profitant de la vue sur les pistes et sur le lac.",
