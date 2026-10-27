@@ -59,10 +59,10 @@ def slugify(name: str) -> str:
     s = name.lower()
     s = "".join(c for c in unicodedata.normalize("NFD", s)
                 if unicodedata.category(c) != "Mn")
-    s = re.sub(r"['\u2019\s]+", "-", s)
-    s = re.sub(r"[^a-z0-9-]", "", s)
-    s = re.sub(r"-+", "-", s).strip("-")
-    return s
+    # Même règle que generate_stations.py et que le JavaScript du site : tout ce qui n'est
+    # pas une lettre ou un chiffre devient un tiret (« Großarl » -> gro-arl, « A/B » -> a-b).
+    s = re.sub(r"[^a-z0-9]+", "-", s)
+    return s.strip("-")
 
 def photo_slug(name: str) -> str:
     """Convention des fichiers photos : minuscules, sans accents, sans tirets/espaces/apostrophes

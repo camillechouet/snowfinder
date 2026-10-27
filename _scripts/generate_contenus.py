@@ -55,14 +55,12 @@ def esc(s: str) -> str:
 
 
 def slugify(name: str) -> str:
-    """Identique à generate_comparatifs.py (slug canonique du site)."""
+    """Identique à generate_comparatifs.py et generate_stations.py (slug canonique du site)."""
     s = name.lower()
     s = "".join(c for c in unicodedata.normalize("NFD", s)
                 if unicodedata.category(c) != "Mn")
-    s = re.sub(r"['’\s]+", "-", s)
-    s = re.sub(r"[^a-z0-9-]", "", s)
-    s = re.sub(r"-+", "-", s).strip("-")
-    return s
+    s = re.sub(r"[^a-z0-9]+", "-", s)   # même règle que generate_stations.py
+    return s.strip("-")
 
 
 def day_label(d: date) -> str:
