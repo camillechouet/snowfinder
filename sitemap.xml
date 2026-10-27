@@ -418,6 +418,42 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/abetone.html"/>
   </url>
   <url>
+    <loc>https://snowfinder.fr/en/stations/abondance.html</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/abondance.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/stations/abondance.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/abondance.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/stations/abries-en-queyras.html</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/abries-en-queyras.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/stations/abries-en-queyras.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/abries-en-queyras.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/stations/achenkirch.html</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/achenkirch.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/stations/achenkirch.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/achenkirch.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/stations/adelboden.html</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/adelboden.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/stations/adelboden.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/adelboden.html"/>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/abetone.html</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
@@ -431,24 +467,36 @@
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/abondance.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/stations/abondance.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/abondance.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/abries-en-queyras.html</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/abries-en-queyras.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/stations/abries-en-queyras.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/abries-en-queyras.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/achenkirch.html</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/achenkirch.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/stations/achenkirch.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/achenkirch.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/adelboden.html</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/adelboden.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/stations/adelboden.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/adelboden.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/aeschiried.html</loc>
