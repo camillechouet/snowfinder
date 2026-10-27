@@ -1,0 +1,106 @@
+name: Traduction anglaise
+
+# Traduit automatiquement en anglais les pages françaises générées (stations, domaines,
+# duels, articles, listes) vers /en/…, puis met à jour le sitemap (hreflang fr/en).
+#
+# Se lance :
+#  - tout seul, dès qu'un des workflows de génération se termine avec succès
+#    (nouvelle page, nouveau duel, nouvel article…) ;
+#  - à la main : bouton "Run workflow".
+#      · Test conseillé la 1re fois : limite = 5 et « estimation seulement » cochée (aucun coût),
+#        puis limite = 5 sans la case (quelques centimes), puis vide = tout le site.
+#
+# Un texte déjà traduit n'est jamais retraduit (cache dans i18n/cache/en/).
+# Garde-fou : le script s'arrête quand la dépense estimée dépasse BUDGET_USD (25 $) ;
+# relancer le workflow à la main reprend où il s'était arrêté.
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Nombre de pages de test (vide = tout le site)"
+        required: false
+        default: ""
+      only:
+        description: "Seulement les pages dont le chemin contient ce texte (ex. stations/val-thorens)"
+        required: false
+        default: ""
+      dry_run:
+        description: "Estimation du coût seulement (aucun appel à l'API, aucune page écrite)"
+        type: boolean
+        required: false
+        default: false
+      budget:
+        description: "Plafond de dépense estimée en dollars (vide = 25)"
+        required: false
+        default: ""
+  workflow_run:
+    workflows:
+      - "Generate Station Pages"
+      - "Générer les comparatifs"
+      - "Mettre à jour les contenus (accueil + actus)"
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: snowfinder-traduction
+  cancel-in-progress: false
+
+jobs:
+  translate:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installer l'analyseur HTML
+        run: pip install beautifulsoup4
+
+      - name: Traduire
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LIMIT: ${{ github.event.inputs.limit }}
+          ONLY: ${{ github.event.inputs.only }}
+          DRY: ${{ github.event.inputs.dry_run }}
+          BUDGET: ${{ github.event.inputs.budget }}
+        run: |
+          ARGS=""
+          if [ -n "$LIMIT" ]; then ARGS="$ARGS --limit $LIMIT"; fi
+          if [ -n "$ONLY" ]; then ARGS="$ARGS --only $ONLY"; fi
+          if [ "$DRY" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          if [ -n "$BUDGET" ]; then export BUDGET_USD="$BUDGET"; fi
+          python3 _scripts/translate_site.py $ARGS
+
+      - name: Sitemap (avec hreflang fr/en)
+        if: github.event.inputs.dry_run != 'true'
+        run: python3 _scripts/generate_sitemap.py
+
+      - name: Commit si changement
+        if: github.event.inputs.dry_run != 'true'
+        run: |
+          git config user.name "SnowFinder Bot"
+          git config user.email "bot@snowfinder.fr"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "✓ Rien à mettre à jour"
+          else
+            git commit -m "🌍 Traduction anglaise automatique"
+            for i in 1 2 3 4; do
+              git pull --rebase --autostash origin main && git push origin HEAD:main && exit 0
+              echo "Push refusé (tentative $i), nouvel essai dans 15 s…"; sleep 15
+            done
+            echo "Échec du push après 4 essais"; exit 1
+          fi
