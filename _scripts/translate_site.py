@@ -59,7 +59,7 @@ SITE = "https://snowfinder.fr"
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.environ.get("SF_ROOT") or os.path.dirname(SCRIPT_DIR)
 
-MODEL = os.environ.get("TRANSLATE_MODEL", "claude-sonnet-5-5")
+MODEL = os.environ.get("TRANSLATE_MODEL", "claude-haiku-5-5")
 PROMPT_VERSION = "1"            # à incrémenter pour forcer une retraduction complète
 BUDGET_USD = float(os.environ.get("BUDGET_USD", "25"))
 PRICE_IN = float(os.environ.get("PRICE_IN_PER_MTOK", "3"))     # $ / million de tokens (estimation)
