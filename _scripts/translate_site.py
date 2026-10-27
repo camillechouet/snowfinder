@@ -147,6 +147,11 @@ Conseiller IA = AI Advisor · Comparateur = Comparison tool · Favoris = Favouri
 # ─────────────────────────────────────────────────────────────────────────────
 # Noms protégés (stations, domaines) — pour le contrôle qualité et le prompt
 # ─────────────────────────────────────────────────────────────────────────────
+# Libellés de menu / fil d'Ariane présents dans les "name" du générateur mais qui doivent être traduits
+GENERIC_LABELS = {"Accueil", "Stations de ski", "Recherche", "Comparateur", "Comparatifs", "Favoris",
+                  "Mentions légales", "Articles", "Actualités", "Domaines skiables", "Domaines"}
+
+
 def load_protected():
     names = set()
     def add(raw):
@@ -155,7 +160,7 @@ def load_protected():
         except Exception:
             n = raw
         n = n.strip()
-        if len(n) >= 6:
+        if len(n) >= 6 and n not in GENERIC_LABELS:
             names.add(n)
     for rel, pat in (("stations-data.js", r'"name"\s*:\s*"((?:[^"\\]|\\.)+)"'),
                      (os.path.join("_scripts", "generate_stations.py"), r'"name"\s*:\s*"((?:[^"\\]|\\.)+)"'),
@@ -396,7 +401,7 @@ def digit_tokens(s):
 FR_NUMBER_WORDS = {"deux": 2, "trois": 3, "quatre": 4, "cinq": 5, "six": 6, "sept": 7, "huit": 8,
                    "neuf": 9, "dix": 10, "onze": 11, "douze": 12, "treize": 13, "quatorze": 14,
                    "quinze": 15, "seize": 16, "vingt": 20, "trente": 30, "quarante": 40,
-                   "cinquante": 50, "soixante": 60, "cent": 100, "mille": 1000}
+                   "cinquante": 50, "soixante": 60, "cent": 100, "mil": 1000, "mille": 1000}
 ROMAN_VAL = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100}
 ROMAN_RE = re.compile(r"\b([IVXL]{1,6})(?:e|er|ème|è)\b")
 
@@ -472,8 +477,24 @@ def fix_en(en):
     return ALT_RE.sub(lambda m: m.group(1) + "," + m.group(2), en)
 
 
-def check(fr, en):
-    """Retourne (bloquant, avertissement). bloquant => on garde le français."""
+ARTICLE_RE = re.compile(r"^(?:Le|La|Les|L['’])\s*", re.I)
+
+
+def names_missing(fr, en):
+    out = []
+    for n in protected_in(fr):
+        if n in en:
+            continue
+        bare = ARTICLE_RE.sub("", n).strip()      # « Le Ballon d'Alsace » -> « The Ballon d'Alsace » est correct
+        if bare and bare != n and bare in en:
+            continue
+        out.append(n)
+    return out
+
+
+def check(fr, en, strict=True):
+    """Retourne (bloquant, avertissement). bloquant => on retente puis, au pire, on garde le français.
+    strict=True : un nom de station/domaine perdu est bloquant (au dernier essai : simple avertissement)."""
     if not en or not en.strip():
         return "traduction vide", None
     if tag_sig(fr) != tag_sig(en):
@@ -481,11 +502,13 @@ def check(fr, en):
     lost, extra = digit_diff(fr, en)
     if lost or extra:
         return f"nombres différents (perdus : {', '.join(lost[:6]) or '–'} ; en trop : {', '.join(extra[:6]) or '–'})", None
-    warn = []
-    miss = [n for n in protected_in(fr) if n not in en]
+    miss = names_missing(fr, en)
     if miss:
-        warn.append("nom modifié : " + ", ".join(miss[:3]))
-    return None, ("; ".join(warn) if warn else None)
+        msg = "nom modifié : " + ", ".join(miss[:3])
+        if strict:
+            return msg, None
+        return None, msg
+    return None, None
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -585,19 +608,33 @@ class Translator:
                     self.qa = json.load(f)
             except Exception:
                 self.qa = {}
+        n_purge = 0
+        for k, v in list(self.qa.items()):
+            if str(v.get("issue", "")).startswith("nom modifié") and not v.get("retried"):
+                if k in self.cache.data:
+                    self.cache.data.pop(k, None)
+                    self.cache.dirty.add(k[:2])
+                v["retried"] = True
+                n_purge += 1
+        if n_purge:
+            print(f"↻ {n_purge} traductions avec nom modifié seront retentées une fois")
 
     def over_budget(self):
         return SPEND.usd >= BUDGET_USD
 
-    def handle(self, fr, en):
-        blocking, warn = check(fr, en)
+    def handle(self, fr, en, strict=True):
+        blocking, warn = check(fr, en, strict)
         if blocking:
             return blocking
         self.cache.put(fr, en)
         k = key_of(fr)
         with self.lock:
+            prev = self.qa.get(k) or {}
             if warn:
-                self.qa[k] = {"fr": fr[:400], "en": en[:400], "issue": warn}
+                entry = {"fr": fr[:400], "en": en[:400], "issue": warn}
+                if prev.get("retried"):
+                    entry["retried"] = True
+                self.qa[k] = entry
             else:
                 self.qa.pop(k, None)
         return None
@@ -630,13 +667,13 @@ class Translator:
                 self.stop = True
                 return
             ok = False
-            for _ in range(2):
+            for attempt in range(2):
                 try:
                     en = translate_call([fr], note=f"A previous attempt failed a check ({problem}). "
                                         "Keep every <tN> marker and every number exactly.")[0]
                 except Exception:
                     break
-                problem = self.handle(fr, en)
+                problem = self.handle(fr, en, strict=(attempt == 0))
                 if not problem:
                     ok = True
                     break
