@@ -26,10 +26,34 @@ from pathlib import Path
 BASE_URL = "https://snowfinder.fr"
 REPO_ROOT = Path(__file__).resolve().parent.parent
 RECHERCHE_HTML = REPO_ROOT / "recherche.html"
+STATIONS_JS = REPO_ROOT / "stations-data.js"
 COMPARATIFS_DIR = REPO_ROOT / "comparatifs"
 SNIPPET_OUT = REPO_ROOT / "_scripts" / "_index_snippet.html"
+CONTENUS_JSON = REPO_ROOT / "contenus.json"
+HEBDO_JSON = REPO_ROOT / "duels_hebdo.json"
 
 # Slug canonique partagé avec generate_sitemap.py
+def fmt_eur(v):
+    """60.7 -> '60,70' ; les prix entiers restent inchangés."""
+    return f"{v:.2f}".replace(".", ",") if isinstance(v, float) and v % 1 else (int(v) if isinstance(v, float) else v)
+
+def de_nom(n: str) -> str:
+    """Contraction française : 'de Val Thorens', 'du Corbier', 'des Menuires', "d'Avoriaz", "de l'Alpe d'Huez"."""
+    n = str(n or "")
+    if re.match(r"^Les ", n, re.I): return "des " + n[4:]
+    if re.match(r"^Le ", n, re.I): return "du " + n[3:]
+    if re.match(r"^L['\u2019]", n, re.I): return "de l" + n[1] + n[2:]
+    if re.match(r"^[AEIOUÀÂÉÈÊÎÔÛŒ]", n, re.I): return "d'" + n
+    return "de " + n
+
+def a_nom(n: str) -> str:
+    """Contraction française : 'à Val Thorens', 'au Corbier', 'aux Menuires', "à l'Alpe d'Huez"."""
+    n = str(n or "")
+    if re.match(r"^Les ", n, re.I): return "aux " + n[4:]
+    if re.match(r"^Le ", n, re.I): return "au " + n[3:]
+    if re.match(r"^L['\u2019]", n, re.I): return "à l" + n[1] + n[2:]
+    return "à " + n
+
 def slugify(name: str) -> str:
     import unicodedata
     s = name.lower()
@@ -39,6 +63,27 @@ def slugify(name: str) -> str:
     s = re.sub(r"[^a-z0-9-]", "", s)
     s = re.sub(r"-+", "-", s).strip("-")
     return s
+
+def photo_slug(name: str) -> str:
+    """Convention des fichiers photos : minuscules, sans accents, sans tirets/espaces/apostrophes
+    (« Saint-Martin-de-Belleville » -> « saintmartindebelleville »)."""
+    import unicodedata
+    ascii_only = unicodedata.normalize("NFKD", name).encode("ASCII", "ignore").decode("ASCII")
+    return re.sub(r"[^a-z0-9]", "", ascii_only.lower())
+
+def station_photo(name: str) -> str:
+    """Chemin web (/img/xxx1.ext) de la photo n°1 d'une station si elle existe dans img/, sinon ''."""
+    base = photo_slug(name) + "1"
+    for ext in ("jpg", "jpeg", "png", "webp", "JPG", "JPEG", "PNG", "WEBP"):
+        if (REPO_ROOT / "img" / f"{base}.{ext}").exists():
+            return f"/img/{base}.{ext}"
+    return ""
+
+def img_src(v: str) -> str:
+    """Nom de fichier (ex. 'tignes1') -> /img/tignes1.jpg ; chemin ou URL complète laissés tels quels."""
+    return v if v.startswith(("/", "http")) else f"/img/{v}.jpg"
+
+
 # ── URL officielles des stations (copiées de generate_stations.py) ───────────
 
 OFFICIAL_URLS = {
@@ -205,6 +250,94 @@ OFFICIAL_URLS = {
     "Chalmazel":                    "https://www.chalmazel.fr",
     # CORSE
     "Ghisoni - Capanelle":          "https://www.ski-capanelle.com",
+    # PYRÉNÉES ESPAGNOLES
+    "Baqueira Beret":               "https://www.baqueira.es",
+    "Formigal":                     "https://www.formigal-panticosa.com",
+    "Panticosa":                    "https://www.formigal-panticosa.com",
+    "Astún":                        "https://www.astun.com",
+    "Candanchú":                    "https://www.candanchu.com",
+    "Cerler":                       "https://www.cerler.com",
+    "La Molina":                    "https://pirineu365.cat/es/lamolina/",
+    "Masella":                      "https://www.masella.com",
+    "Boí Taüll":                    "https://pirineu365.cat/es/boitaull/",
+    "Port Ainé":                    "https://www.portaine.cat",
+    "Espot":                        "https://www.espotesqui.cat",
+    "Vallter 2000":                 "https://www.vallter.cat",
+    "Vall de Núria":                "https://pirineu365.cat/valldenuria/",
+    # ANDORRE
+    "Pas de la Casa":               "https://www.grandvalira.com",
+    "Grau Roig":                    "https://www.grandvalira.com",
+    "Soldeu":                       "https://www.grandvalira.com",
+    "El Tarter":                    "https://www.grandvalira.com",
+    "Canillo":                      "https://www.grandvalira.com",
+    "Encamp":                       "https://www.grandvalira.com",
+    "Pal":                          "https://www.palarinsal.com",
+    "Arinsal":                      "https://www.palarinsal.com",
+    # SUISSE — VALAIS
+    "Verbier":                      "https://www.verbier4vallees.ch",
+    "Crans-Montana":                "https://www.crans-montana.ch",
+    "Zermatt":                      "https://www.zermatt.ch",
+    "Saas-Fee":                     "https://www.saas-fee.ch",
+    "Aletsch Arena":                "https://www.aletscharena.ch",
+    # SUISSE — VAUD ET FRIBOURG
+    "Villars-sur-Ollon":            "https://www.villars-diablerets.ch",
+    "Glacier 3000":                 "https://www.glacier3000.ch",
+    # SUISSE — BERNE
+    "Grindelwald":                  "https://www.jungfrau.ch",
+    "Adelboden":                    "https://www.adelboden-lenk.ch",
+    "Lenk":                         "https://www.adelboden-lenk.ch",
+    "Meiringen-Hasliberg":          "https://www.meiringen-hasliberg.ch",
+    "Saanenmöser – Schönried – Zweisimmen":"https://www.gstaad.ch",
+    "Gstaad – Saanen – Rougemont":  "https://www.gstaad.ch",
+    # SUISSE — GRISONS
+    "Samnaun":                      "https://www.samnaun.ch",
+    "Arosa":                        "https://arosalenzerheide.swiss",
+    "Lenzerheide":                  "https://arosalenzerheide.swiss",
+    "Laax":                         "https://www.flimslaax.com",
+    "Flims":                        "https://www.flimslaax.com",
+    "St. Moritz":                   "https://www.engadin.ch",
+    "Davos":                        "https://www.davos.ch",
+    "Klosters":                     "https://www.davos.ch",
+    "Andermatt":                    "https://www.andermatt-sedrun.ch",
+    "Sedrun":                       "https://www.andermatt-sedrun.ch",
+    # SUISSE — CENTRE, EST ET TESSIN
+    "Engelberg":                    "https://www.titlis.ch",
+    "Flumserberg":                  "https://www.flumserberg.ch",
+    # ALLEMAGNE
+    "Garmisch-Partenkirchen":       "https://zugspitze.de",
+    "Zugspitze":                    "https://zugspitze.de",
+    "Oberstdorf – Fellhorn/Kanzelwand":"https://www.ok-bergbahnen.com",
+    # ITALIE — AOSTE ET PIÉMONT / LIECHTENSTEIN
+    "Breuil-Cervinia":              "https://www.cervinia.it",
+    "Champoluc":                    "https://www.monterosaski.com",
+    "Alagna Valsesia":              "https://www.monterosaski.com",
+    "Pila":                         "https://www.pila.it",
+    "Courmayeur":                   "https://www.courmayeur-montblanc.com",
+    "Prato Nevoso":                 "https://www.mondoleski.it",
+    "Bardonecchia":                 "https://www.bardonecchiaski.com",
+    "Malbun":                       "https://www.bergbahnen.li",
+    # ITALIE — LOMBARDIE
+    "Livigno":                      "https://www.livigno.eu",
+    "Ponte di Legno":               "https://www.pontedilegnotonale.com",
+    "Passo del Tonale":             "https://www.pontedilegnotonale.com",
+    "Bormio":                       "https://www.bormio.eu",
+    # ITALIE — TRENTIN
+    "Madonna di Campiglio":         "https://www.ski.it",
+    "Pinzolo":                      "https://www.ski.it",
+    # ITALIE — HAUT-ADIGE
+    "Ortisei":                      "https://www.valgardena.it",
+    "Corvara":                      "https://www.altabadia.org",
+    "Brunico – Kronplatz":          "https://www.kronplatz.com",
+    "Sesto – 3 Zinnen":             "https://www.dreizinnen.com",
+    # ITALIE — VÉNÉTIE, FRIOUL, APENNINS
+    "Cortina d'Ampezzo":            "https://www.dolomiti.org",
+    "Arabba":                       "https://www.arabba.it",
+    # AUTRICHE — TYROL
+    "St. Anton am Arlberg":         "https://www.skiarlberg.at",
+    "Ischgl":                       "https://www.ischgl.com",
+    "Kitzbühel":                    "https://www.kitzski.at",
+    "Sölden":                       "https://www.soelden.com",
+    "Mayrhofen":                    "https://www.mayrhofner-bergbahnen.com",
 }
 
 def official_url(name: str) -> str:
@@ -670,11 +803,11 @@ COMPARAISONS = [
 ]
 
 def load_stations() -> dict:
-    """Charge IA_STATIONS depuis recherche.html, indexé par nom."""
-    content = RECHERCHE_HTML.read_text(encoding="utf-8")
-    m = re.search(r"const\s+IA_STATIONS\s*=\s*(\[.*?\]);", content, re.DOTALL)
+    """Charge les stations depuis stations-data.js, indexées par nom."""
+    content = STATIONS_JS.read_text(encoding="utf-8")
+    m = re.search(r"window\.SF_DATA\s*=\s*(\[.*\]);", content, re.DOTALL)
     if not m:
-        raise SystemExit("❌ IA_STATIONS introuvable dans recherche.html")
+        raise SystemExit("❌ window.SF_DATA introuvable dans stations-data.js")
     arr = json.loads(m.group(1))
     return {s["name"]: s for s in arr}
 
@@ -691,7 +824,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <link rel="canonical" href="{canonical}">
 <meta property="og:title" content="{a} vs {b} : le comparatif complet">
 <meta property="og:description" content="Quelle station choisir entre {a} et {b} ? Le guide SnowFinder.">
-<meta property="og:image" content="{BASE_URL}/img/{img_a}.jpg">
+<meta property="og:image" content="{og_image}">
 <meta property="og:type" content="article">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -740,21 +873,7 @@ h1 {{
 }}
 .subtitle {{ font-size:1.05rem; color:var(--text-mid); margin-bottom:32px; }}
 
-.hero-pair {{
-  display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:0 0 32px;
-}}
-.hero-card {{
-  position:relative; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
-  background:#fff; aspect-ratio:16/10;
-}}
-.hero-card img {{ width:100%; height:100%; object-fit:cover; display:block; }}
-.hero-card .tag {{
-  position:absolute; left:14px; top:14px; background:rgba(255,255,255,.92);
-  padding:6px 12px; border-radius:8px; font-weight:700; font-size:.95rem;
-  color:var(--text); box-shadow:var(--shadow);
-}}
 @media (max-width:700px) {{
-  .hero-pair {{ grid-template-columns:1fr; }}
   h1 {{ font-size:1.7rem; }}
   .page {{ padding:24px 16px 60px; }}
 }}
@@ -773,6 +892,28 @@ h2 {{
 .specs {{
   display:grid; grid-template-columns:1fr 1fr; gap:14px;
 }}
+.duel-bar {{ display:flex; align-items:center; gap:10px; max-width:1100px; margin:0 auto; padding:10px 16px 0; }}
+.duel-bar a {{ display:inline-flex; align-items:center; gap:6px; text-decoration:none; font-weight:700; font-size:.88rem; color:var(--blue-dark); background:#fff; border:1.5px solid var(--wood-light); border-radius:20px; padding:7px 14px; box-shadow:var(--shadow); }}
+.duel-bar a:active {{ background:var(--wood-pale); }}
+.duel-bar .back {{ width:38px; height:38px; padding:0; justify-content:center; font-size:1.15rem; }}
+.spec-col {{ display:flex; flex-direction:column; gap:10px; }}
+.station-banner {{ position:relative; overflow:hidden; border-radius:var(--radius); box-shadow:var(--shadow); min-height:96px; display:flex; align-items:flex-end; background:#1a3a5c; }}
+.station-banner .bg {{ position:absolute; inset:0; background-size:cover; background-position:center; }}
+.station-banner .overlay {{ position:absolute; inset:0; background:linear-gradient(135deg,rgba(13,34,64,.82),rgba(26,58,92,.62)); }}
+.station-banner .content {{ position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; width:100%; padding:16px 16px 18px; gap:10px; }}
+.station-banner .name {{ font-family:"DM Serif Display",serif; font-style:italic; font-weight:700; font-size:1.1rem; color:#fff; text-shadow:0 1px 6px rgba(0,0,0,.5); }}
+.station-banner .actions {{ display:flex; gap:8px; flex-shrink:0; }}
+.station-banner .icon-btn {{ background:rgba(255,255,255,.2); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.35); border-radius:20px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; font-size:1.05rem; cursor:pointer; color:#fff; padding:0; }}
+.station-banner .icon-btn.active {{ background:rgba(255,255,255,.92); color:#0d2240; }}
+.station-banner .credit {{ position:absolute; right:10px; top:8px; z-index:1; font-size:.68rem; font-style:italic; color:#fff; background:rgba(0,0,0,.35); padding:2px 8px; border-radius:10px; }}
+.station-fiche-link {{ font-size:.85rem; color:var(--wood-dark); text-decoration:underline; font-weight:600; }}
+.sf-bottomnav{{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08)}}
+.sf-bn-item{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px;font-size:1.18rem;text-decoration:none;color:var(--text-mid);position:relative;gap:1px}}
+.sf-bn-label{{font-size:.54rem;font-weight:700;letter-spacing:.01em;line-height:1;color:inherit;opacity:.9}}
+.sf-bn-home{{flex:0 0 52px;margin-top:-16px}}
+.sf-bn-home-circle{{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue-dark),#3a7db8);display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 6px 18px rgba(26,90,138,.4);border:3px solid #fff}}
+.sf-bn-home .sf-bn-label{{margin-top:2px}}
+body{{padding-bottom:66px}}
 .spec-card {{
   background:#fff; border:1px solid var(--border); border-radius:var(--radius);
   padding:22px; box-shadow:var(--shadow);
@@ -916,6 +1057,11 @@ footer a {{ color:var(--text-light); }}
   </div>
 </nav>
 
+<div class="duel-bar">
+  <a href="/comparatifs/tous-les-comparatifs.html" class="back" aria-label="Page précédente" title="Page précédente" onclick="if(document.referrer.indexOf(location.host)>-1&&history.length>1){{history.back();return false;}}">←</a>
+  <a href="/comparatifs/tous-les-comparatifs.html">⚔️ Tous les duels de stations</a>
+</div>
+
 <main class="page">
 
 <div class="crumbs">
@@ -925,30 +1071,25 @@ footer a {{ color:var(--text-light); }}
 <h1>{a} vs {b} : quelle station choisir ?</h1>
 <div class="subtitle">Comparatif complet : domaine, enneigement, ambiance, budget. Notre verdict pour vous aider à trancher.</div>
 
-<div class="hero-pair">
-  <div class="hero-card">
-    <img src="/img/{img_a}.jpg" alt="{a}" loading="eager"
-         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800&q=80'">
-    <div class="tag">{a}</div>
-  </div>
-  <div class="hero-card">
-    <img src="/img/{img_b}.jpg" alt="{b}" loading="eager"
-         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&q=80'">
-    <div class="tag">{b}</div>
-  </div>
-</div>
-
 <div class="teaser">{teaser}</div>
 
 <h2>📊 Les chiffres face à face</h2>
 <div class="specs">
-  <div class="spec-card">
-    <h3>{a}</h3>
-    {spec_a}
+  <div class="spec-col">
+    {banner_a}
+    <a href="/stations/{slug_a}.html" class="station-fiche-link">→ Voir la fiche complète</a>
+    <div class="spec-card">
+      <h3>{a}</h3>
+      {spec_a}
+    </div>
   </div>
-  <div class="spec-card">
-    <h3>{b}</h3>
-    {spec_b}
+  <div class="spec-col">
+    {banner_b}
+    <a href="/stations/{slug_b}.html" class="station-fiche-link">→ Voir la fiche complète</a>
+    <div class="spec-card">
+      <h3>{b}</h3>
+      {spec_b}
+    </div>
   </div>
 </div>
 
@@ -999,8 +1140,8 @@ footer a {{ color:var(--text-light); }}
           </div>
         </a>
       </div>
-      <a href="{officiel_a}" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel de {a}</a>
-      <a href="/stations/{slug_a}.html" class="detail-link">→ Fiche complète de {a}</a>
+      <a href="{officiel_a}" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel {a_de}</a>
+      <a href="/stations/{slug_a}.html" class="detail-link">→ Fiche complète {a_de}</a>
     </div>
     <div>
       <h3>{b}</h3>
@@ -1032,11 +1173,15 @@ footer a {{ color:var(--text-light); }}
           </div>
         </a>
       </div>
-      <a href="{officiel_b}" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel de {b}</a>
-      <a href="/stations/{slug_b}.html" class="detail-link">→ Fiche complète de {b}</a>
+      <a href="{officiel_b}" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel {b_de}</a>
+      <a href="/stations/{slug_b}.html" class="detail-link">→ Fiche complète {b_de}</a>
     </div>
   </div>
   <div class="book-disclaimer">Liens affiliés — prix identiques, aucune commission prélevée sur vous</div>
+</div>
+
+<div style="text-align:center;margin:36px 0 0">
+  <a href="/comparatifs/tous-les-comparatifs.html" style="display:inline-block;color:var(--wood-dark);font-weight:700;text-decoration:underline;font-size:.95rem">← Tous les duels de stations</a>
 </div>
 
 </main>
@@ -1045,6 +1190,43 @@ footer a {{ color:var(--text-light); }}
   © 2026 SnowFinder &nbsp;·&nbsp; <a href="/mentions-legales.html">Mentions légales</a> &nbsp;·&nbsp; <a href="/">Accueil</a>
 </footer>
 
+<nav class="sf-bottomnav">
+  <a href="/recherche.html" class="sf-bn-item" title="Trouver ma station">🔍<span class="sf-bn-label">Recherche</span></a>
+  <a href="/enneigement.html" class="sf-bn-item" title="Météo & enneigement">❄️<span class="sf-bn-label">Météo</span></a>
+  <a href="/index.html" class="sf-bn-item sf-bn-home" title="Accueil"><span class="sf-bn-home-circle">🏡</span><span class="sf-bn-label">Chalet</span></a>
+  <a href="/tinder.html" class="sf-bn-item" title="Tinder du ski">💕<span class="sf-bn-label">Tinder</span></a>
+  <a href="/hebergement.html" class="sf-bn-item" title="Hébergement">🛏️<span class="sf-bn-label">Héberg.</span></a>
+</nav>
+
+<script>
+function getFavs(){{try{{return JSON.parse(localStorage.getItem('sf_favorites')||'[]');}}catch(e){{return [];}}}}
+function isFav(id){{return getFavs().indexOf(id)!==-1;}}
+function toggleFav(id,btn){{
+  var favs=getFavs();
+  if(favs.indexOf(id)!==-1){{favs=favs.filter(function(x){{return x!==id;}});}}
+  else{{favs.push(id);if(navigator.vibrate)navigator.vibrate(40);}}
+  try{{localStorage.setItem('sf_favorites',JSON.stringify(favs));}}catch(e){{}}
+  var el=document.getElementById('sfFavCount'); if(el) el.textContent=favs.length;
+  if(btn){{btn.classList.toggle('active',isFav(id));btn.textContent=isFav(id)?'⭐':'☆';}}
+}}
+function getCompareList(){{try{{return JSON.parse(localStorage.getItem('sf_compare')||'[]');}}catch(e){{return [];}}}}
+function isInCompare(id){{return getCompareList().indexOf(id)!==-1;}}
+function toggleCompare(id,btn){{
+  var c=getCompareList();var idx=c.indexOf(id);
+  if(idx>=0){{c.splice(idx,1);}}
+  else{{ if(c.length>=3){{alert("Vous pouvez comparer 3 stations maximum. Retirez-en une avant d'en ajouter une nouvelle.");return;}} c.push(id);}}
+  try{{localStorage.setItem('sf_compare',JSON.stringify(c));}}catch(e){{}}
+  var el=document.getElementById('sfCompareCount'); if(el) el.textContent=c.length;
+  if(btn)btn.classList.toggle('active',isInCompare(id));
+}}
+document.querySelectorAll('[data-fav-id]').forEach(function(btn){{
+  if(isFav(parseInt(btn.getAttribute('data-fav-id'),10))){{btn.classList.add('active');btn.textContent='⭐';}}
+}});
+document.querySelectorAll('[data-compare-id]').forEach(function(btn){{
+  if(isInCompare(parseInt(btn.getAttribute('data-compare-id'),10)))btn.classList.add('active');
+}});
+</script>
+
 </body>
 </html>
 """
@@ -1052,10 +1234,14 @@ footer a {{ color:var(--text-light); }}
 
 # ── Construction des URL d'affiliation (format identique au site) ────────────
 
-def booking_url(station_name: str) -> str:
-    ss = station_name.lower().replace("'", "").replace(" ", "+") + "+france"
-    return (f"https://www.booking.com/searchresults.fr.html"
-            f"?ss={ss}&aid=SnowFinder&nflt=review_score%3D80")
+def booking_url(station_name: str, slug: str) -> str:
+    """Wraps Booking.com URL in CJ deep link for affiliate tracking (same format as index.html)."""
+    ss = urllib.parse.quote_plus(station_name + " ski france")
+    target = (f"https://www.booking.com/searchresults.fr.html"
+              f"?ss={ss}&nflt=review_score%3D80")
+    encoded = urllib.parse.quote(target, safe="")
+    return (f"https://www.tkqlhce.com/click-101709262-15734710"
+            f"?sid=comparatif-{slug}&url={encoded}")
 
 def expedia_url(station_name: str, slug: str) -> str:
     """Wraps Expedia URL in CJ deep link for affiliate tracking (same format as index.html)."""
@@ -1067,6 +1253,97 @@ def expedia_url(station_name: str, slug: str) -> str:
             f"?sid=comparatif-{slug}&url={encoded}")
 
 
+# ── Bannière de station (photo réelle, sinon « Photo d'illustration ») ───────
+
+# Les 20 « photos de secours » choisies par Camille (identiques à FALLBACK_PHOTOS de recherche.html).
+# Même règle que le site : photo n° (id de la station % 20).
+RESCUE_PHOTOS = [
+    "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800&q=80",
+    "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&q=80",
+    "https://images.unsplash.com/photo-1465220183275-1faa863377e3?w=800&q=80",
+    "https://images.unsplash.com/photo-1612450639537-d44bc045efc7?w=800&q=80",
+    "https://images.unsplash.com/photo-1623057896740-99f8c2f090fc?w=800&q=80",
+    "https://images.unsplash.com/photo-1614089916276-eb5be76854bd?w=800&q=80",
+    "https://images.unsplash.com/photo-1485516195719-e9edaa29d2ba?w=800&q=80",
+    "https://images.unsplash.com/photo-1654273102584-e48884efa8c5?w=800&q=80",
+    "https://images.unsplash.com/photo-1629730441758-e9b5cb99550d?w=800&q=80",
+    "https://images.unsplash.com/photo-1651135527891-da5b354b9f83?w=800&q=80",
+    "https://images.unsplash.com/photo-1629730441874-8f1d1445bd2c?w=800&q=80",
+    "https://images.unsplash.com/photo-1570396041540-e2bb67aa96c2?w=800&q=80",
+    "https://images.unsplash.com/photo-1588932716990-60d57f5382dd?w=800&q=80",
+    "https://images.unsplash.com/photo-1649280376955-8acd8deaa053?w=800&q=80",
+    "https://images.unsplash.com/photo-1528659862616-22886eb53642?w=800&q=80",
+    "https://images.unsplash.com/photo-1507534192483-69914c0692d7?w=800&q=80",
+    "https://images.unsplash.com/photo-1547019122-0428a4d59174?w=800&q=80",
+    "https://images.unsplash.com/photo-1613420365631-c588e7cac611?w=800&q=80",
+    "https://images.unsplash.com/photo-1664436341001-b02974ae7524?w=800&q=80",
+    "https://images.unsplash.com/photo-1562826542-449090f38c70?w=800&q=80",
+]
+
+def has_photo(img_name: str) -> bool:
+    """Vrai si le fichier image existe dans le dépôt (img/xxx.jpg) ou si c'est une URL."""
+    if not img_name:
+        return False
+    if img_name.startswith("http"):
+        return True
+    rel = img_name.lstrip("/") if img_name.startswith("/") else f"img/{img_name}.jpg"
+    return (REPO_ROOT / rel).exists()
+
+def render_banner(name: str, station: dict, img_name: str) -> str:
+    sid = station["id"]
+    credit = '<span class="credit">Photo d\'illustration</span>'   # toujours : vraie photo ou photo de secours
+    if has_photo(img_name):
+        bg = img_src(img_name)
+    else:
+        bg = RESCUE_PHOTOS[sid % len(RESCUE_PHOTOS)]
+    return (f'<div class="station-banner">\n'
+            f'      <div class="bg" style="background-image:url({bg})"></div>\n'
+            f'      <div class="overlay"></div>{credit}\n'
+            f'      <div class="content">\n'
+            f'        <span class="name">{name}</span>\n'
+            f'        <div class="actions">\n'
+            f'          <button class="icon-btn" data-fav-id="{sid}" onclick="toggleFav({sid},this)" title="Ajouter aux favoris">☆</button>\n'
+            f'          <button class="icon-btn" data-compare-id="{sid}" onclick="toggleCompare({sid},this)" title="Ajouter au comparateur">⚖️</button>\n'
+            f'        </div>\n'
+            f'      </div>\n'
+            f'    </div>')
+
+
+# ── Éléments communs aux pages de contenu (duels, articles, listes) ──────────
+SF_BOTTOMNAV_CSS = (
+    ".sf-bottomnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid #eddcbf;display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08)}\n"
+    ".sf-bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px;font-size:1.18rem;text-decoration:none;color:#5c4a35;position:relative;gap:1px}\n"
+    ".sf-bn-label{font-size:.54rem;font-weight:700;letter-spacing:.01em;line-height:1;color:inherit;opacity:.9}\n"
+    ".sf-bn-home{flex:0 0 52px;margin-top:-16px}\n"
+    ".sf-bn-home-circle{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#1a5a8a,#3a7db8);display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 6px 18px rgba(26,90,138,.4);border:3px solid #fff}\n"
+    ".sf-bn-home .sf-bn-label{margin-top:2px}\n"
+    "body{padding-bottom:66px}\n"
+)
+SF_BOTTOMNAV_HTML = """<nav class="sf-bottomnav">
+  <a href="/recherche.html" class="sf-bn-item" title="Trouver ma station">🔍<span class="sf-bn-label">Recherche</span></a>
+  <a href="/enneigement.html" class="sf-bn-item" title="Météo & enneigement">❄️<span class="sf-bn-label">Météo</span></a>
+  <a href="/index.html" class="sf-bn-item sf-bn-home" title="Accueil"><span class="sf-bn-home-circle">🏡</span><span class="sf-bn-label">Chalet</span></a>
+  <a href="/tinder.html" class="sf-bn-item" title="Tinder du ski">💕<span class="sf-bn-label">Tinder</span></a>
+  <a href="/hebergement.html" class="sf-bn-item" title="Hébergement">🛏️<span class="sf-bn-label">Héberg.</span></a>
+</nav>
+"""
+# Barre « ← précédent + lien vers la liste », placée sous le bandeau
+SF_BAR_CSS = (
+    ".duel-bar{display:flex;align-items:center;gap:10px;max-width:%MAXW%;margin:0 auto;padding:10px 16px 0}\n"
+    ".duel-bar a{display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none!important;font-weight:700;font-size:.88rem;color:#1a5a8a;background:#fff;border:1.5px solid #eddcbf;border-radius:20px;padding:7px 14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}\n"
+    ".duel-bar a:active{background:#f7efe2}\n"
+    ".duel-bar .back{width:38px;height:38px;padding:0;font-size:1.15rem}\n"
+)
+
+def sf_bar_html(back_href: str, list_label: str = "", list_href: str = "") -> str:
+    """Barre sous le bandeau : flèche ← (page précédente, sinon back_href) + lien facultatif vers la liste."""
+    lien = f'  <a href="{list_href or back_href}">{list_label}</a>\n' if list_label else ""
+    return (f'<div class="duel-bar">\n'
+            f'  <a href="{back_href}" class="back" aria-label="Page précédente" title="Page précédente" '
+            f'onclick="if(document.referrer.indexOf(location.host)>-1&&history.length>1){{history.back();return false;}}">←</a>\n'
+            f'{lien}</div>\n')
+
+
 # ── Rendu d'une page ─────────────────────────────────────────────────────────
 
 def render_spec(station: dict) -> str:
@@ -1075,8 +1352,8 @@ def render_spec(station: dict) -> str:
         f'<div class="row"><span>Altitude</span><span>{station["alt_min"]} – {station["alt_max"]} m</span></div>',
         f'<div class="row"><span>Domaine skiable</span><span>{station["km"]} km</span></div>',
         f'<div class="row"><span>Remontées</span><span>{station["remontees"]}</span></div>',
-        f'<div class="row"><span>Pistes (V/B/R/N)</span><span>{p["v"]}/{p["b"]}/{p["r"]}/{p["n"]}</span></div>',
-        f'<div class="row"><span>Forfait journée</span><span>{station["forfait"]} €</span></div>',
+        f'<div class="row"><span>Pistes (V/B/R/N)</span><span>{p["v"]}/{p["b"]}/{p["r"]}/{p["n"]}{" (en %)" if p.get("pct") else ""}</span></div>',
+        f'<div class="row"><span>Forfait journée</span><span>{fmt_eur(station["forfait"])} €</span></div>',
         f'<div class="row"><span>Note SnowFinder</span><span>{station["score"]} / 5</span></div>',
         f'<div class="row"><span>Région</span><span>{station["region"]}</span></div>',
     ])
@@ -1162,6 +1439,9 @@ body{padding-top:64px!important}
 <div class="sf-sheet" id="sfMenuSheet">
   <div class="sf-sheet-handle"></div>
   <div class="sf-sheet-title">Menu</div>
+  <a class="sf-menu-item" href="/index.html"><span class="em">🏠</span><span>Accueil</span></a>
+  <a class="sf-menu-item" href="/comparatifs/tous-les-comparatifs.html"><span class="em">⚔️</span><span>Tous les duels de stations</span></a>
+  <a class="sf-menu-item" href="/articles/toutes-les-actus.html"><span class="em">📰</span><span>Toutes nos actus</span></a>
   <button type="button" class="sf-menu-item" onclick="closeSfMenu();openContact()"><span class="em">📧</span><span>Nous contacter</span></button>
   <button type="button" class="sf-menu-item" onclick="closeSfMenu();openSfNotif()"><span class="em">🔔</span><span>Notifications</span></button>
   <a class="sf-menu-item" href="/mentions-legales.html"><span class="em">⚖️</span><span>Mentions légales</span></a>
@@ -1251,8 +1531,19 @@ function acceptSfNotif(){
 '''
 
 
+_SF_GA = '<!-- Google tag (gtag.js) -->\n<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>\n<script>try{if(localStorage.getItem("sf_cookie_consent")==="refused")window["ga-disable-G-S0C748Y0DX"]=true;}catch(e){}window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-S0C748Y0DX");</script>\n'
+
+
+def add_ga(page_html):
+    """Ajoute le tag Google Analytics s'il est absent."""
+    if 'googletagmanager.com/gtag' not in page_html:
+        page_html = page_html.replace('</head>', _SF_GA + '</head>', 1)
+    return page_html
+
+
 def add_topbar(html: str) -> str:
     """Remplace la <nav class="nav">…</nav> par le bandeau complet du site."""
+    html = add_ga(html)
     html = re.sub(r'<nav class="nav">.*?</nav>\s*', SF_TOPBAR + "\n", html, count=1, flags=re.S)
     return html
 
@@ -1266,6 +1557,18 @@ def build_page(comp: dict, stations_db: dict) -> tuple[str, str]:
     page_slug = f"{slug_a}-vs-{slug_b}"
     canonical = f"{BASE_URL}/comparatifs/{page_slug}.html"
 
+    # Date de publication stable : celle du duel (duels_hebdo.json), sinon celle déjà
+    # écrite dans la page existante, sinon aujourd'hui (première génération seulement).
+    pub_date = comp.get("date")
+    existing = COMPARATIFS_DIR / f"{page_slug}.html"
+    if not pub_date and existing.exists():
+        m = re.search(r'"datePublished":\s*"(\d{4}-\d{2}-\d{2})"', existing.read_text(encoding="utf-8"))
+        pub_date = m.group(1) if m else None
+    pub_date = pub_date or date.today().isoformat()
+
+    comp = dict(comp)
+    comp["img_a"] = station_photo(a) or comp["img_a"]
+    comp["img_b"] = station_photo(b) or comp["img_b"]
     faq_html, faq_entries = render_faq(comp["faq"])
     json_ld = json.dumps({
         "@context": "https://schema.org",
@@ -1273,17 +1576,18 @@ def build_page(comp: dict, stations_db: dict) -> tuple[str, str]:
             {"@type": "FAQPage", "mainEntity": faq_entries},
             {"@type": "Article",
              "headline": f"{a} vs {b} : quelle station choisir ?",
-             "image": f"{BASE_URL}/img/{comp['img_a']}.jpg",
-             "datePublished": date.today().isoformat(),
+             "image": (f"{BASE_URL}{img_src(comp['img_a'])}" if has_photo(comp["img_a"]) and not comp["img_a"].startswith("http") else f"{BASE_URL}/logo.png"),
+             "datePublished": pub_date,
              "author": {"@type": "Organization", "name": "SnowFinder"}}
         ]
     }, ensure_ascii=False, indent=2)
 
     html = PAGE_TEMPLATE.format(
-        a=a, b=b,
+        a=a, b=b, a_de=de_nom(a), b_de=de_nom(b),
         canonical=canonical,
         BASE_URL=BASE_URL,
-        img_a=comp["img_a"], img_b=comp["img_b"],
+        og_image=(f"{BASE_URL}{img_src(comp['img_a'])}" if has_photo(comp["img_a"]) and not comp["img_a"].startswith("http") else f"{BASE_URL}/logo.png"),
+        banner_a=render_banner(a, sa, comp["img_a"]), banner_b=render_banner(b, sb, comp["img_b"]),
         slug_a=slug_a, slug_b=slug_b,
         teaser=comp["teaser"],
         spec_a=render_spec(sa), spec_b=render_spec(sb),
@@ -1291,7 +1595,7 @@ def build_page(comp: dict, stations_db: dict) -> tuple[str, str]:
         officiel_a=official_url(a), officiel_b=official_url(b),
         verdict=comp["verdict"],
         faq_html=faq_html,
-        booking_a=booking_url(a), booking_b=booking_url(b),
+        booking_a=booking_url(a, slug_a), booking_b=booking_url(b, slug_b),
         expedia_a=expedia_url(a, slug_a), expedia_b=expedia_url(b, slug_b),
         json_ld=json_ld,
     )
@@ -1304,9 +1608,9 @@ def build_index(comparaisons_meta: list) -> str:
     cards = "\n".join(
         f'''<a href="/comparatifs/{slug}.html" class="comp-card">
               <div class="comp-imgs">
-                <img src="/img/{c["img_a"]}.jpg" alt="{c["a"]}" loading="lazy"
+                <img src="{img_src(c["img_a"])}" alt="{c["a"]}" loading="lazy"
                      onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=600&q=80'">
-                <img src="/img/{c["img_b"]}.jpg" alt="{c["b"]}" loading="lazy"
+                <img src="{img_src(c["img_b"])}" alt="{c["b"]}" loading="lazy"
                      onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=600&q=80'">
               </div>
               <div class="comp-body">
@@ -1323,7 +1627,7 @@ def build_index(comparaisons_meta: list) -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Comparatifs de stations de ski — SnowFinder</title>
-<meta name="description" content="Hésitation entre deux stations de ski françaises ? Découvrez nos comparatifs détaillés pour choisir la station qui vous correspond.">
+<meta name="description" content="Hésitation entre deux stations de ski ? Découvrez nos comparatifs détaillés pour choisir la station qui vous correspond.">
 <link rel="canonical" href="{BASE_URL}/comparatifs/tous-les-comparatifs.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
@@ -1338,18 +1642,22 @@ body {{ margin:0; background:var(--bg); color:var(--text); font-family:'DM Sans'
 .nav a.brand {{ font-family:"DM Serif Display",serif; font-size:1.4rem; color:var(--text); text-decoration:none; }}
 .nav .navlinks {{ display:flex; gap:18px; margin-left:auto; }}
 .nav .navlinks a {{ color:var(--text-mid); text-decoration:none; font-size:.95rem; }}
-.page {{ max-width:1100px; margin:0 auto; padding:36px 24px 80px; }}
-h1 {{ font-family:"DM Serif Display",serif; font-size:2.4rem; margin:0 0 10px; }}
+.page {{ max-width:1100px; margin:0 auto; padding:20px 24px 80px; }}
+h1 {{ font-family:"DM Serif Display",serif; font-size:2.2rem; line-height:1.15; margin:0 0 10px; }}
+.count {{ display:inline-block; background:var(--wood-pale); color:var(--wood-dark); border:1px solid var(--wood-light); border-radius:14px; padding:4px 12px; font-weight:700; font-size:.9rem; margin-bottom:14px; }}
+.duel-bar {{ display:flex; align-items:center; gap:10px; max-width:1100px; margin:0 auto; padding:10px 16px 0; }}
+.duel-bar a {{ display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; text-decoration:none; font-weight:700; font-size:1.15rem; color:#1a5a8a; background:#fff; border:1.5px solid var(--wood-light); border-radius:20px; box-shadow:var(--shadow); }}
+@media (max-width:700px) {{ h1 {{ font-size:1.7rem; }} .page {{ padding:16px 16px 70px; }} }}
 .lead {{ font-size:1.05rem; color:var(--text-mid); margin-bottom:32px; }}
-.grid {{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:18px; }}
+.grid {{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; }}
 .comp-card {{ background:#fff; border:1px solid var(--border); border-radius:var(--radius);
             overflow:hidden; box-shadow:var(--shadow); text-decoration:none; color:inherit;
             transition:transform .15s, box-shadow .15s; display:block; }}
 .comp-card:hover {{ transform:translateY(-3px); box-shadow:var(--shadow-md); }}
-.comp-imgs {{ display:grid; grid-template-columns:1fr 1fr; height:160px; overflow:hidden; }}
+.comp-imgs {{ display:grid; grid-template-columns:1fr 1fr; height:84px; overflow:hidden; }}
 .comp-imgs img {{ width:100%; height:100%; object-fit:cover; display:block; }}
-.comp-body {{ padding:16px 18px; position:relative; z-index:1; background:#fff; }}
-.comp-title {{ font-family:"DM Serif Display",serif; font-size:1.2rem; }}
+.comp-body {{ padding:12px 16px; position:relative; z-index:1; background:#fff; }}
+.comp-title {{ font-family:"DM Serif Display",serif; font-size:1.1rem; }}
 .comp-title .vs {{ color:var(--wood-dark); font-style:italic; font-size:.9rem; padding:0 4px; }}
 .comp-sub {{ font-size:.85rem; color:var(--text-light); margin-top:4px; }}
 </style>
@@ -1363,8 +1671,12 @@ h1 {{ font-family:"DM Serif Display",serif; font-size:2.4rem; margin:0 0 10px; }
     <a href="/tinder.html">Découvrir</a>
   </div>
 </nav>
+<div class="duel-bar">
+  <a href="/index.html" aria-label="Page précédente" title="Page précédente" onclick="if(document.referrer.indexOf(location.host)>-1&&history.length>1){{history.back();return false;}}">←</a>
+</div>
 <main class="page">
   <h1>Comparatifs : quelle station pour quel profil ?</h1>
+  <div class="count">⚔️ {len(comparaisons_meta)} duels de stations</div>
   <p class="lead">Hésitation entre deux stations ? Nos comparatifs vous aident à trancher selon votre profil : famille, sportif, fêtard, budget, débutant…</p>
   <div class="grid">
 {cards}
@@ -1395,9 +1707,9 @@ def build_snippet(comparaisons_meta: list) -> str:
     cards = "\n".join(
         f'''  <a href="/comparatifs/{slug}.html" class="comparatif-card">
     <div class="comparatif-imgs">
-      <img src="/img/{c["img_a"]}.jpg" alt="{c["a"]}" loading="lazy"
+      <img src="{img_src(c["img_a"])}" alt="{c["a"]}" loading="lazy"
            onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=600&q=80\'">
-      <img src="/img/{c["img_b"]}.jpg" alt="{c["b"]}" loading="lazy"
+      <img src="{img_src(c["img_b"])}" alt="{c["b"]}" loading="lazy"
            onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=600&q=80\'">
     </div>
     <div class="comparatif-body">
@@ -1462,23 +1774,114 @@ def build_snippet(comparaisons_meta: list) -> str:
 """
 
 
+def load_hebdo() -> list:
+    """Duels rédigés automatiquement (duels_hebdo.json), validés par pull request."""
+    if not HEBDO_JSON.exists():
+        return []
+    try:
+        return json.loads(HEBDO_JSON.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as e:
+        raise SystemExit(f"❌ duels_hebdo.json illisible : {e.msg} (ligne {e.lineno})")
+
+
+def merge_manifest(meta: list) -> list:
+    """
+    Aligne la liste des duels sur contenus.json :
+      - même ordre que le manifeste (le plus récent en tête),
+      - inclut les duels « manuels » (pages déjà présentes dans /comparatifs/ mais
+        absentes de COMPARAISONS), pour qu'ils ne disparaissent pas de la liste,
+      - les duels générés absents du manifeste sont ajoutés à la fin.
+    Sans contenus.json, la liste reste celle de COMPARAISONS.
+    """
+    if not CONTENUS_JSON.exists():
+        return meta
+    try:
+        data = json.loads(CONTENUS_JSON.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as e:
+        print(f"⚠️  contenus.json illisible ({e.msg}) : liste = COMPARAISONS seule")
+        return meta
+    generated = dict(meta)
+    ordered, seen = [], set()
+    for d in data.get("duels", []):
+        slug = f"{slugify(d['a'])}-vs-{slugify(d['b'])}"
+        if slug in seen:
+            continue
+        if slug in generated:
+            ordered.append((slug, generated[slug]))
+        elif (COMPARATIFS_DIR / f"{slug}.html").exists():
+            ordered.append((slug, {"a": d["a"], "b": d["b"],
+                                   "img_a": d["img"], "img_b": d.get("img_b", d["img"])}))
+        else:
+            print(f"⚠️  duel du manifeste sans page, ignoré : {slug}")
+            continue
+        seen.add(slug)
+    ordered += [(slug, comp) for slug, comp in meta if slug not in seen]
+    return ordered
+
+
+def fix_manual_affiliates() -> None:
+    """Duels faits à la main : remplace un lien Booking direct par le lien d'affiliation CJ
+    (idempotent : un lien déjà CJ n'est pas touché)."""
+    if not CONTENUS_JSON.exists():
+        return
+    try:
+        data = json.loads(CONTENUS_JSON.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return
+    pat = re.compile(r'href="(https://www\.booking\.com/searchresults[^"]*?[?&]ss=([^&"]+)[^"]*)"')
+    for d in data.get("duels", []):
+        if not d.get("manuel"):
+            continue
+        slug = f"{slugify(d['a'])}-vs-{slugify(d['b'])}"
+        f = COMPARATIFS_DIR / f"{slug}.html"
+        if not f.exists():
+            continue
+        html = f.read_text(encoding="utf-8")
+        def repl(m):
+            name = urllib.parse.unquote_plus(m.group(2))
+            name = re.sub(r"\s+(france|ski france)$", "", name, flags=re.I).strip()
+            nm = next((n for n in (d["a"], d["b"]) if slugify(n) == slugify(name)), name)
+            return f'href="{booking_url(nm, slugify(nm))}"'
+        new = pat.sub(repl, html)
+        if new != html:
+            f.write_text(new, encoding="utf-8")
+            print(f"  🔗 {slug} : lien Booking passé en affiliation CJ")
+
+
+def check_affiliates() -> None:
+    """Contrôle : chaque duel doit avoir des liens CJ pour Booking et Expedia."""
+    bad = []
+    for f in sorted(COMPARATIFS_DIR.glob("*-vs-*.html")):
+        h = f.read_text(encoding="utf-8")
+        if "tkqlhce.com" not in h or "jdoqocy.com" not in h or re.search(r'href="https://www\.booking\.com', h):
+            bad.append(f.name)
+    print("✓ Liens d'affiliation CJ présents sur tous les duels" if not bad
+          else "⚠️  Liens CJ manquants : " + ", ".join(bad))
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 def main() -> None:
     print(f"📍 Racine : {REPO_ROOT}")
     stations_db = load_stations()
-    print(f"✓ {len(stations_db)} stations chargées depuis recherche.html")
+    print(f"✓ {len(stations_db)} stations chargées depuis stations-data.js")
 
     COMPARATIFS_DIR.mkdir(exist_ok=True)
     print(f"✓ Dossier : {COMPARATIFS_DIR.relative_to(REPO_ROOT)}")
 
     meta = []
-    for comp in COMPARAISONS:
+    all_comps = COMPARAISONS + load_hebdo()
+    for comp in all_comps:
         slug, html = build_page(comp, stations_db)
         out = COMPARATIFS_DIR / f"{slug}.html"
         out.write_text(html, encoding="utf-8")
         print(f"  → {out.relative_to(REPO_ROOT)}")
         meta.append((slug, comp))
+
+    meta = merge_manifest(meta)
+    fix_manual_affiliates()
+    check_affiliates()
+    print(f"✓ {len(meta)} duels dans la liste (dont {len(meta) - len(all_comps)} manuels)")
 
     # Index des comparatifs
     (COMPARATIFS_DIR / "tous-les-comparatifs.html").write_text(build_index(meta), encoding="utf-8")
@@ -1490,11 +1893,11 @@ def main() -> None:
     print(f"  → {SNIPPET_OUT.relative_to(REPO_ROOT)}")
 
     print()
-    print(f"🎉 {len(COMPARAISONS)} comparatifs générés.")
+    print(f"🎉 {len(all_comps)} comparatifs générés.")
     print()
     print("📸 Photos requises dans /img/ :")
     photos_needed = set()
-    for c in COMPARAISONS:
+    for c in all_comps:
         photos_needed.add(f"{c['img_a']}.jpg")
         photos_needed.add(f"{c['img_b']}.jpg")
     for p in sorted(photos_needed):
