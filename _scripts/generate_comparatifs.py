@@ -37,6 +37,23 @@ def fmt_eur(v):
     """60.7 -> '60,70' ; les prix entiers restent inchangés."""
     return f"{v:.2f}".replace(".", ",") if isinstance(v, float) and v % 1 else (int(v) if isinstance(v, float) else v)
 
+def de_nom(n: str) -> str:
+    """Contraction française : 'de Val Thorens', 'du Corbier', 'des Menuires', "d'Avoriaz", "de l'Alpe d'Huez"."""
+    n = str(n or "")
+    if re.match(r"^Les ", n, re.I): return "des " + n[4:]
+    if re.match(r"^Le ", n, re.I): return "du " + n[3:]
+    if re.match(r"^L['\u2019]", n, re.I): return "de l" + n[1] + n[2:]
+    if re.match(r"^[AEIOUÀÂÉÈÊÎÔÛŒ]", n, re.I): return "d'" + n
+    return "de " + n
+
+def a_nom(n: str) -> str:
+    """Contraction française : 'à Val Thorens', 'au Corbier', 'aux Menuires', "à l'Alpe d'Huez"."""
+    n = str(n or "")
+    if re.match(r"^Les ", n, re.I): return "aux " + n[4:]
+    if re.match(r"^Le ", n, re.I): return "au " + n[3:]
+    if re.match(r"^L['\u2019]", n, re.I): return "à l" + n[1] + n[2:]
+    return "à " + n
+
 def slugify(name: str) -> str:
     import unicodedata
     s = name.lower()
@@ -1123,8 +1140,8 @@ footer a {{ color:var(--text-light); }}
           </div>
         </a>
       </div>
-      <a href="{officiel_a}" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel de {a}</a>
-      <a href="/stations/{slug_a}.html" class="detail-link">→ Fiche complète de {a}</a>
+      <a href="{officiel_a}" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel {a_de}</a>
+      <a href="/stations/{slug_a}.html" class="detail-link">→ Fiche complète {a_de}</a>
     </div>
     <div>
       <h3>{b}</h3>
@@ -1156,8 +1173,8 @@ footer a {{ color:var(--text-light); }}
           </div>
         </a>
       </div>
-      <a href="{officiel_b}" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel de {b}</a>
-      <a href="/stations/{slug_b}.html" class="detail-link">→ Fiche complète de {b}</a>
+      <a href="{officiel_b}" target="_blank" rel="noopener" class="officiel-link">🎿 Site officiel {b_de}</a>
+      <a href="/stations/{slug_b}.html" class="detail-link">→ Fiche complète {b_de}</a>
     </div>
   </div>
   <div class="book-disclaimer">Liens affiliés — prix identiques, aucune commission prélevée sur vous</div>
@@ -1566,7 +1583,7 @@ def build_page(comp: dict, stations_db: dict) -> tuple[str, str]:
     }, ensure_ascii=False, indent=2)
 
     html = PAGE_TEMPLATE.format(
-        a=a, b=b,
+        a=a, b=b, a_de=de_nom(a), b_de=de_nom(b),
         canonical=canonical,
         BASE_URL=BASE_URL,
         og_image=(f"{BASE_URL}{img_src(comp['img_a'])}" if has_photo(comp["img_a"]) and not comp["img_a"].startswith("http") else f"{BASE_URL}/logo.png"),

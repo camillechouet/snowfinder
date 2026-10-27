@@ -2280,6 +2280,8 @@ def generate_verdict(s):
         rem = s.get('remontees', 0)
     forfait = s['forfait']
     name  = s['name']
+    nom_de = de_nom(name)
+    nom_a = a_nom(name)
     massif = s.get('massif', '')
     pistes = s.get('pistes', {})
     total_pistes = (sum(pistes.values()) if pistes else 0) if s.get('name') not in PISTES_PCT else 0
@@ -2291,7 +2293,7 @@ def generate_verdict(s):
             f"que l'on rejoint par remontée mécanique.",
             f"Le village est à {alt_v} m et le domaine monte jusqu'à {alt} m : on dort en vallée "
             f"et on skie en altitude, avec l'enneigement du grand domaine.",
-            f"Le forfait journée est celui du grand domaine, à {forfait}€. L'intérêt de {name} se joue surtout "
+            f"Le forfait journée est celui du grand domaine, à {forfait}€. L'intérêt {nom_de} se joue surtout "
             f"côté hébergement, souvent plus abordable qu'en station d'altitude.",
             f"Il faut simplement compter chaque jour le trajet en remontée pour rejoindre les pistes.",
             f"En résumé : {name} convient à ceux qui veulent profiter du domaine {_dom['name']} en logeant au calme, en vallée.",
@@ -2309,7 +2311,7 @@ def generate_verdict(s):
         )
     elif km >= 150:
         parts.append(
-            f"Le domaine de {name} avec ses {km} km de pistes représente une belle offre pour tous les profils : "
+            f"Le domaine {nom_de} avec ses {km} km de pistes représente une belle offre pour tous les profils : "
             f"suffisamment grand pour ne pas tourner en rond pendant une semaine, mais aussi assez compact "
             f"pour retrouver ses secteurs favoris facilement. "
             f"Les {rem} remontées mécaniques permettent d'enchaîner les descentes sans longues attentes."
@@ -2338,7 +2340,7 @@ def generate_verdict(s):
     # ── AMBIANCE / PUBLIC ──
     if 'luxe' in ambs:
         parts.append(
-            f"L'ADN de {name}, c'est le haut de gamme : les hébergements, les restaurants d'altitude "
+            f"L'ADN {nom_de}, c'est le haut de gamme : les hébergements, les restaurants d'altitude "
             f"et les services en station reflètent une clientèle qui ne compte pas. "
             f"Avec un forfait journée à {forfait}€, le séjour a un prix, mais l'expérience est à la hauteur "
             f"pour qui veut se faire plaisir sans compromis."
@@ -2352,7 +2354,7 @@ def generate_verdict(s):
         )
     elif 'famille' in ambs and 'debutant' in nivs:
         parts.append(
-            f"La réputation familiale de {name} n'est pas usurpée : espaces débutants dédiés, "
+            f"La réputation familiale {nom_de} n'est pas usurpée : espaces débutants dédiés, "
             f"{'garderie bien organisée, ' if 'garderie' in equip else ''}pistes vertes bien entretenues "
             f"et ambiance bon enfant au pied des remontées. "
             f"C'est une des stations les plus rassurantes du {massif} pour poser les bases du ski "
@@ -2362,7 +2364,7 @@ def generate_verdict(s):
         noir_count = pistes.get('n', 0)
         rouge_count = pistes.get('r', 0)
         parts.append(
-            f"Le terrain technique est roi à {name} : avec {noir_count} pistes noires et "
+            f"Le terrain technique est roi {nom_a} : avec {noir_count} pistes noires et "
             f"{rouge_count} rouges au programme, les skieurs confirmés trouveront de quoi se challenger "
             f"sérieusement. "
             f"Le hors-piste et le freeride y sont pratiqués dans des conditions souvent excellentes "
@@ -2400,21 +2402,21 @@ def generate_verdict(s):
         )
     elif alt >= 2500:
         parts.append(
-            f"Avec un sommet à {alt} m et un village à {alt_v} m, l'enneigement de {name} est globalement "
+            f"Avec un sommet à {alt} m et un village à {alt_v} m, l'enneigement {nom_de} est globalement "
             f"fiable de janvier à fin mars. "
             f"Quelques hivers exceptionnellement doux peuvent créer des tensions en début de saison, "
             f"mais la situation se rétablit rapidement dès les premières chutes sérieuses."
         )
     elif alt >= 2000:
         parts.append(
-            f"L'altitude de {name} ({alt_v} m au départ, {alt} m en haut) lui permet de maintenir "
+            f"L'altitude {nom_de} ({alt_v} m au départ, {alt} m en haut) lui permet de maintenir "
             f"un enneigement correct en plein hiver. "
             f"Les mois de janvier et février sont les plus fiables ; en décembre et mars, il vaut mieux "
             f"vérifier les conditions avant de finaliser une réservation."
         )
     else:
         parts.append(
-            f"L'altitude modérée de {name} — départ à {alt_v} m, sommet à {alt} m — "
+            f"L'altitude modérée {nom_de} — départ à {alt_v} m, sommet à {alt} m — "
             f"la rend sensible aux variations climatiques. "
             f"Les mois de janvier et février restent les plus sûrs pour un enneigement optimal. "
             f"En dehors de cette fenêtre, le suivi des bulletins d'enneigement avant le départ est "
@@ -2443,7 +2445,7 @@ def generate_verdict(s):
         )
     else:
         parts.append(
-            f"Le budget séjour à {name} est clairement élevé : {forfait}€ le forfait journée, "
+            f"Le budget séjour {nom_a} est clairement élevé : {forfait}€ le forfait journée, "
             f"auxquels s'ajoutent des hébergements et des restaurants d'altitude parmi les plus chers "
             f"des Alpes. "
             f"C'est le prix de l'excellence — mais il faut en avoir conscience avant de partir."
@@ -2532,6 +2534,244 @@ def generate_meilleure_periode(s):
 
 
 OFFICIAL_URLS = {
+    # Autriche (lot 13)
+    "Stuben": "https://www.stuben-arlberg.at/en/ski-vacation-arlberg",
+    "Obergurgl – Hochgurgl": "https://www.tirol.tl/de/freizeit-aktiv/wintersport/skigebiete-in-tirol/obergurgl-hochgurgl-oetztal/",
+    "Kirchberg in Tirol": "https://www.tirol.tl/de/freizeit-aktiv/wintersport/skigebiete-in-tirol/kitzski-kitzbuehel-kirchberg-kitzbueheler-alpen/",
+    # Italie / Autriche (lot 12)
+    "Passo San Pellegrino": "https://www.fassa.com/en/interesting-spots/passo-san-pellegrino-falcade",
+    "Alpe Lusia": "https://www.fassa.com/it/cosa-fare/sci-alpino/skipass/prezzi-skipass-alpe-lusia-san-pellegrino",
+    "Waidring": "https://www.tyrol.tl/en/leisure-activities/winter-sports/skiing-areas-in-tyrol/steinplatte-pillerseetal",
+    # Italie (lot 11)
+    "La Thuile": "https://lovevda.it/en/sport/downhill-skiing/la-thuile",
+    "Gressoney-La-Trinité": "https://monterosaski.eu/en/",
+    "Gressoney-Saint-Jean": "https://monterosaski.eu/en/",
+    "Alpe di Mera": "https://monterosaski.eu/en/",
+    "Bielmonte": "https://monterosaski.eu/en/",
+    "Pejo 3000": "https://www.visittrentino.info/en/trentino/ski-areas/alpine-skiing/pejo_md_2187",
+    "Civetta": "https://www.dolomitisuperski.com/en/Experience/Ski-areas/Civetta/Towns",
+    "Artesina": "https://www.visitcuneese.it/en/dettaglio-punto-di-interesse/-/d/artesina-ski-station",
+    "Schöneben – Haideralm": "https://south-tirol.com/ski-holidays-south-tyrol/skiing/schoeneben",
+    "Campitello Matese": "https://www.italia.it/en/molise/campobasso/campitello-matese",
+    # Suisse (lot 10)
+    "Rigi": "https://www.rigi.ch/en/experience/winter-activites/the-perfect-ski-or-snowboarding-day",
+    "Amden": "https://amden-weesen.ch/en/winter/skiing-amden",
+    "Bosco Gurin": "https://www.ticino.ch/it/commons/details/Bosco-Gurin-Inverno/26945.html",
+    "Carì": "https://www.ticino.ch/fr/commons/details/Station-de-ski-Carì/26953.html",
+    "Les Bugnenets-Savagnières": "https://www.myswitzerland.com/en/destinations/bugnenets-savagnieres",
+    "Tschappina Heinzenberg": "https://www.graubuenden.ch/en/activities/winter/skiing/ski-resorts/tschappina-heinzenberg",
+    # Suisse (lot 9)
+    "Thyon": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/thyon",
+    "La Tzoumaz": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/la-tzoumaz",
+    "Saint-Luc / Chandolin": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/st-luc-et-chandolin",
+    "Vercorin": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/vercorin",
+    "Nax Mont-Noble": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/nax-mont-noble",
+    "Ovronnaz": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/ovronnaz",
+    "Les Marécottes": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/les-marecottes",
+    "Champex-Lac": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/champex-lac",
+    "La Fouly": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/la-fouly",
+    "Belalp": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/blatten-belalp",
+    "Lauchernalp": "https://www.loetschental.ch/en/activities/lauchernalp-loetschental-ski-area-129",
+    "Rosswald": "https://www.rosswald-bahnen.ch/en/?p=2149",
+    "Visperterminen": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/visperterminen",
+    "Bürchen-Moosalp": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/burchen-torbel",
+    "Unterbäch": "https://unterbaech.ch/en/",
+    "Eischoll": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/eischoll",
+    "Jeizinen": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/jeizinen",
+    "Les Rasses": "https://www.j3l.ch/en/P603/alpine-ski-area-sainte-croix-les-rasses",
+    "Schwarzsee": "https://www.schwarzsee.ch/",
+    "Obersaxen Mundaun": "https://www.graubuenden.ch/de/aktivitaeten/winter/skifahren/skigebiete/obersaxen-mundaun",
+    "Scuol": "https://www.graubuenden.ch/de/aktivitaeten/winter/skifahren/skigebiete/scuol",
+    "Disentis": "https://www.graubuenden.ch/de/aktivitaeten/winter/skifahren/skigebiete/disentis",
+    "Brigels": "https://www.graubuenden.ch/en/activities/winter/skiing/ski-resorts/bergbahnen-brigels",
+    "San Bernardino": "https://www.graubuenden.ch/de/aktivitaeten/winter/skifahren/skigebiete/san-bernardino",
+    "Tschiertschen": "https://www.graubuenden.ch/de/aktivitaeten/winter/skifahren/skigebiete/tschiertschen",
+    "Grüsch Danusa": "https://www.graubuenden.ch/de/aktivitaeten/winter/skifahren/skigebiete/gruesch-danusa",
+    "Splügen": "https://www.graubuenden.ch/en/activities/winter/skiing/ski-resorts/splugen-tambo",
+    "Vals": "https://www.graubuenden.ch/en/activities/winter/skiing/ski-resorts/vals",
+    "Brambrüesch": "https://www.graubuenden.ch/de/aktivitaeten/winter/skifahren/skigebiete/chur-brambrueesch",
+    "Bergün": "https://www.graubuenden.ch/de/aktivitaeten/winter/skifahren/skigebiete/berguen-filisur",
+    "Sörenberg": "https://www.luzern.com/de/poi/skigebiet-soerenberg",
+    "Stoos": "https://stoos-muotatal.ch/",
+    "Elm": "https://glarnerland.ch/en/offers/experiences/winter-experiences/ski-snowboard.html",
+    # AJOUTS AUDIT LIENS - lot 8 (Suisse / Italie / Autriche / Allemagne)
+    "Grimentz-Zinal": "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/zinal",
+    "Leukerbad": "https://leukerbad.ch/en/skiing",
+    "Grächen": "https://graechen.ch",
+    "Engstligenalp": "https://adelboden-lenk.ch/en/Experience/Region/Engstligenalp",
+    "Savognin": "https://www.graubuenden.ch/de/aktivitaeten/winter/skifahren/skigebiete/savognin",
+    "Bivio": "https://www.graubuenden.ch/de/aktivitaeten/winter/skifahren/skigebiete/bivio",
+    "Pizol": "https://www.graubuenden.ch/de/aktivitaeten/winter/skifahren/skigebiete/pizol",
+    "Ebenalp": "https://appenzell.ch/en/winter/skiing/skiing/wasserauen-ebenalp-cableway-ag.html",
+    "Grindelwald First": "https://jungfrauregion.swiss/en/map/detail/grindelwald-first-ski-area-817e68d6-3c8b-424f-a220-8f432b54c268.html",
+    "Torgon": "https://en.portesdusoleil.com/destination/resorts/torgon.html",
+    "Champéry - Les Crosets - Champoussin - Morgins": "https://en.portesdusoleil.com",
+    "Valtournenche": "https://lovevda.it/en/database/5/downhill-skiing/valtournenche/valtournenche-ski-resort/2629",
+    "Plose": "https://www.plose.org/winter",
+    "Corno del Renon": "https://www.ritten.com/en/3200-winter/21-skiing",
+    "Meran 2000": "https://meranerland.org/en/leisure-activities/winter-sports/skiing-areas/merano-2000-skiing-area",
+    "Speikboden": "https://www.pustertal.org/en/leisure-activities/winter-sports/skiing-areas/speikboden-skiing-area",
+    "Alpe Cermis": "https://trentino.com/en/leisure-activities/winter-sports/skiing-areas-in-trentino/alpe-cermis-skiing-area",
+    "Monte Bondone": "https://www.visittrentino.info/it/trentino/aree-sciistiche/trento-e-monte-bondone_md_2236",
+    "Solda": "https://www.vinschgau.net/en/mountain-holidays/skiing-winter-sports/skiing-areas/121145666-skigebiet-sulden.html",
+    "Sella Nevea": "https://www.turismofvg.it/livexperience/sella-nevea-la-regina-dello-sci-alpinismo",
+    "Sappada": "https://www.dolomiti.it/it/sappada",
+    "Paganella": "https://www.trentino.com/it/trentino/dolomiti-di-brenta-paganella/andalo/",
+    "Piancavallo": "https://www.italia.it/it/friuli-venezia-giulia/pordenone/piancavallo",
+    "Santa Caterina Valfurva": "https://www.italia.it/it/lombardia/sondrio/santa-caterina-valfurva",
+    "Nauders": "https://nauders.com",
+    "Achenkirch": "https://www.achensee.com",
+    "Wendelstein": "https://wendelsteinbahn.de",
+    # AJOUTS AUDIT LIENS - Suisse / Italie (lot 7) : sites ou offices de tourisme
+    "Saas-Grund": "https://www.saas-fee.ch/en/about-the-holiday-region/saas-grund",
+    "Saas-Almagell": "https://www.saas-fee.ch/en/about-the-holiday-region/saas-almagell",
+    "Veysonnaz": "https://valais.ch/en/explore/activities/ski-snowboard/ski-areas/veysonnaz",
+    "Anzère": "https://www.valais.ch/fr/explorer/activites/ski-snowboard/domaines-skiables/anzere",
+    "Evolène": "https://www.evolene-region.ch",
+    "Arolla": "https://www.evolene-region.ch/en/the-village-of-arolla-fp48573",
+    "Bellwald": "https://www.bellwald.ch",
+    "Gryon": "https://www.alpesvaudoises.ch/en/Z39/ski-areas-alpes-vaudoises",
+    "Les Diablerets": "https://www.alpesvaudoises.ch/en/Z39/ski-areas-alpes-vaudoises",
+    "Leysin": "https://www.alpesvaudoises.ch/en/Z39/ski-areas-alpes-vaudoises",
+    "Les Mosses": "https://www.alpesvaudoises.ch/en/Z39/ski-areas-alpes-vaudoises",
+    "La Berra": "https://fribourg.ch/en/la-gruyere/outdoor-activities/ski-and-snowboard-in-la-berra/",
+    "Charmey": "https://fribourg.ch/en/inspiration/winter-sports-fribourg-pre-alps/",
+    "Moléson": "https://fribourg.ch/en/inspiration/winter-sports-fribourg-pre-alps/",
+    "Les Paccots": "https://fribourg.ch/en/inspiration/winter-sports-fribourg-pre-alps/",
+    "Jakobshorn (Davos)": "https://www.davosklostersmountains.ch",
+    "Rinerhorn (Davos)": "https://www.davosklostersmountains.ch",
+    "Madrisa (Klosters)": "https://www.davosklostersmountains.ch",
+    "Schatzalp (Davos)": "https://www.davosklostersmountains.ch",
+    "Zuoz": "https://www.graubuenden.ch/en/activities/winter/skiing/ski-resorts/zuozengadin",
+    "Gemsstock (Andermatt)": "https://www.andermatt-swissalps.ch/en/sports/skiing/",
+    "Madesimo": "https://www.madesimo.eu",
+    "Folgaria": "https://www.alpecimbra.it",
+    "Lavarone": "https://www.alpecimbra.it",
+    "San Martino di Castrozza": "https://www.dolomitisuperski.com/it/comprensori/san-martino-di-castrozza-passo-rolle",
+    "Passo Rolle": "https://www.dolomitisuperski.com/it/comprensori/san-martino-di-castrozza-passo-rolle",
+    "Gitschberg Jochtal": "https://www.dolomitisuperski.com/en/Experience/Ski-areas/Gitschberg-Jochtal-Brixen/Lifts",
+    "Folgarida": "https://www.dolomiti.it/it/skiarea/campiglio-dolomiti-di-brenta",
+    "Marilleva": "https://www.dolomiti.it/it/skiarea/campiglio-dolomiti-di-brenta",
+    "Obereggen": "https://www.suedtirolerland.it/en/leisure-activities/winter-sports/skiing-areas-in-south-tyrol/latemar-obereggen/",
+    "Pampeago": "https://www.trentino.com/en/leisure-activities/winter-sports/skiing-areas-in-trentino/ski-center-latemar/",
+    "Predazzo": "https://www.trentino.com/en/leisure-activities/winter-sports/skiing-areas-in-trentino/ski-center-latemar/",
+    "San Vigilio di Marebbe": "https://www.sanvigilio.com",
+    "Santa Cristina": "https://www.val-gardena.com/it/santa-cristina/",
+    "Val Senales": "https://meranerland.org/en/meranos-valleys/val-senales",
+    "Antagnod": "https://lovevda.it/en/database/5/downhill-skiing/champoluc-ayas-antagnod/monterosa-ski-champoluc-ski-area/4028",
+    "Roccaraso": "https://turismo.abruzzo.it/en/skiing-in-abruzzo-best-resorts/",
+    "Ovindoli": "https://turismo.abruzzo.it/en/skiing-in-abruzzo-best-resorts/",
+    "Campo Felice": "https://turismo.abruzzo.it/en/skiing-in-abruzzo-best-resorts/",
+    "Limone Piemonte": "https://www.visitcuneese.it/en/dettaglio-localita/-/d/limone-piemonte-alpine-pearl-of-the-maritime-alps",
+    # AJOUTS AUDIT LIENS - Autriche / Allemagne / Andorre (lot 6)
+    "Söll": "https://www.skiwelt.at",
+    "Ellmau": "https://www.skiwelt.at",
+    "Scheffau": "https://www.skiwelt.at",
+    "Going": "https://www.skiwelt.at",
+    "Brixen im Thale": "https://www.skiwelt.at",
+    "Westendorf": "https://www.skiwelt.at",
+    "Hopfgarten": "https://www.skiwelt.at",
+    "Glacier de Hintertux": "https://www.hintertuxergletscher.at",
+    "Glacier du Kaunertal": "https://www.kaunertaler-gletscher.at",
+    "Glacier du Pitztal": "https://www.pitztaler-gletscher.at",
+    "Glacier du Stubai": "https://www.innsbruck.info/skifahren/ski-und-snowboard/skigebiete/stubaier-gletscher.html",
+    "Alpbach": "https://www.skijuwel.com",
+    "Wildschönau": "https://www.skijuwel.com",
+    "Niederau": "https://www.skijuwel.com",
+    "Hochfügen": "https://www.hochfuegenski.com",
+    "Kaltenbach": "https://www.hochfuegenski.com",
+    "Ehrwald": "https://zugspitzarena.com",
+    "Lermoos": "https://zugspitzarena.com",
+    "Berwang": "https://zugspitzarena.com",
+    "Glungezer": "https://glungezerbahn.at/en/",
+    "Kals-Matrei": "https://www.osttirol.com/en/active-outdoor/skiing/grossglockner-resort-kals-matrei",
+    "St. Johann in Tirol": "https://www.kitzbueheler-alpen.com/en/stjo/wi/ski/st-johann-in-tirol-ski-area.html",
+    "Kühtai": "https://www.tirol.at/aktivitaeten/sport/skifahren/skigebiete/skigebiet-kuehtai",
+    "Axamer Lizum": "https://www.tirol.at/aktivitaeten/sport/skifahren/skigebiete/skigebiet-axamer-lizum",
+    "Hochzeiger": "https://www.tirol.at/aktivitaeten/sport/skifahren/skigebiete/skigebiet-hochzeiger",
+    "Galtür": "https://www.tirol.at/aktivitaeten/sport/skifahren/skigebiete/skigebiet-silvapark-galtuer",
+    "Sillian": "https://www.tirol.at/aktivitaeten/sport/skifahren/skigebiete/skigebiet-hochpustertal-sillian",
+    "Schlick 2000": "https://www.tirol.at/aktivitaeten/sport/skifahren/skigebiete/skigebiet-schlick-2000",
+    "Kappl": "https://kappl.com",
+    "See": "https://www.paznaun-ischgl.com",
+    "St. Christoph": "https://www.arlberg.com/en/villages/st-christoph-am-arlberg/",
+    "Winterberg": "https://www.skiliftkarussell.de/en/",
+    "Willingen": "https://www.willingen.de",
+    "Bolsterlang": "https://hoernerdoerfer.de",
+    "Ofterschwang": "https://hoernerdoerfer.de",
+    "Oberstdorf – Nebelhorn": "https://www.oberstdorf.de/en/skiing/",
+    "Oberstdorf – Söllereck": "https://www.oberstdorf.de/en/skiing/",
+    "Ordino Arcalís": "https://visitandorra.com/en/ski/ordino-arcalis-ski-resort/",
+    # AJOUTS AUDIT LIENS - France (lot 5, dernier lot France) : offices de tourisme
+    "Sixt-Fer-à-Cheval":            "https://hautesavoiemontblanc-tourisme.com/offres/haut-giffre-tourisme-bureau-de-sixt-fer-a-cheval-sixt-fer-a-cheval-fr-5869161/",
+    "Col de Marcieu":               "https://www.chartreuse-tourisme.com/en/offers/domaine-alpin-du-col-de-marcieu-plateau-des-petites-roches-en-2716856",
+    "Col d'Ornon":                  "https://www.alpes-isere.com/?p=79340",
+    "Larche":                       "https://provence-alpes-cotedazur.com/decouvrir/les-stations-des-alpes/val-oronaye/",
+    "Mijanès-Donezan":              "https://www.ariegepyrenees.com/loisir-sportif/station-de-mijanes-donezan/",
+    "Le Mourtis":                   "https://www.tourisme-occitanie.com/station-du-mourtis/boutx",
+    "Goulier":                      "https://www.ariegepyrenees.com/preparer/partir-a-la-neige/les-stations-de-ski/goulier/",
+    "Beille":                       "https://en.pyrenees-ariegeoises.com/offers/nordic-skiing-at-beille-resort-les-cabannes-en-4565841/",
+    "Le Schnepfenried":             "https://vallee-munster.eu/fiche-sit/F231004822_station-du-schnepfenried-le-schnepfenried",
+    "Le Frenz":                     "https://visit.alsace/en/233002789-frenz-mountain-resort",
+    "Espace Alpin Bellefontaine":   "https://www.jura-tourism.com/activite/station-de-bellefontaine/",
+    "Brameloup":                    "https://www.tourisme-occitanie.com/fr/fiche/activite/station-de-ski-de-brameloup-saint-chely-d-aubrac_TFO12214-SPL-20221003161308921/",
+    "Roubion-Les Buisses":          "https://provence-alpes-cotedazur.com/sejourner/informations-pratiques/tous-les-services-pratiques/station-de-ski-roubion-les-buisses-roubion-fr-6691194/",
+    "Val d'Ese":                    "https://visit-corsica.com/nl/Mon-sejour/Activites-Loisirs/Toutes-les-activites/STATION-U-PIANU-D-ESE",
+    # AJOUTS AUDIT LIENS - Autriche / Suisse / Italie (lot 4) : domaines confirmés par recherche
+    "Serfaus":                      "https://www.serfaus-fiss-ladis.at",
+    "Fiss":                         "https://www.serfaus-fiss-ladis.at",
+    "Ladis":                        "https://www.serfaus-fiss-ladis.at",
+    "Zell am Ziller":               "https://www.zillertalarena.com",
+    "Gerlos":                       "https://www.zillertalarena.com",
+    "Königsleiten":                 "https://www.zillertalarena.com",
+    "Hochkrimml":                   "https://www.zillertalarena.com",
+    "Wengen":                       "https://www.jungfrau.ch/en-gb/jungfrau-ski-region",
+    "Mürren":                       "https://www.jungfrau.ch/en-gb/regions/muerren-schilthorn/",
+    "Corvatsch":                    "https://www.corvatsch-diavolezza.ch",
+    "Diavolezza":                   "https://www.corvatsch-diavolezza.ch",
+    "Nendaz":                       "https://www.valais.ch/en/explore/activities/ski-snowboard/ski-areas/nendaz",
+    "Alpe di Siusi":                "https://www.seiseralm.it",
+    # AJOUTS AUDIT LIENS - France (lot 3) : offices de tourisme
+    "Bellevaux-Hirmentaz":          "https://hautesavoiemontblanc-tourisme.com/offres/bellevaux-hirmentaz-bellevaux-fr-5887454/",
+    "Bernex":                       "https://www.leman-mountains-explore.com/en/discover/les-stations/bernex/",
+    "Les Aillons-Margeriaz":        "https://www.chamberymontagnes.com/en/fiche/les-aillons-margeriaz-tourist-information-center/aspect/hiver/",
+    "Gresse-en-Vercors":            "https://www.trieves-vercors.fr/en/trieves-highlights/gresse-en-vercors/",
+    "Col de Rousset":               "https://en.vercors-drome.com/a-la-neige/125288_domaine-alpin-du-col-de-rousset/",
+    "Col de Porte":                 "https://chartreuse-tourisme.com/en/offers/alpin-ski-area-of-col-de-porte-sarcenas-en-2716692",
+    "Saint-Pierre-de-Chartreuse":   "https://www.chartreuse-tourisme.com/en/essentials/winter/hit-the-slopes/",
+    "Beuil-les-Launes":             "https://provence-alpes-cotedazur.com/decouvrir/les-stations-des-alpes/beuil-les-launes/",
+    "Ancelle":                      "https://provence-alpes-cotedazur.com/en/get-inspired/alps-ski-resorts/ancelle-resort/",
+    "Chaillol":                     "https://provence-alpes-cotedazur.com/decouvrir/les-stations-des-alpes/chaillol/",
+    "Turini-Camp d'Argent":         "https://provence-alpes-cotedazur.com/decouvrir/les-stations-des-alpes/turini/",
+    # AJOUTS AUDIT LIENS - France (lot 2) : site officiel ou office de tourisme régional/départemental
+    "Le Lac Blanc":                 "https://www.lac-blanc.com",
+    "Crévoux":                      "https://provence-alpes-cotedazur.com/decouvrir/les-stations-des-alpes/crevoux/",
+    "Ceillac-en-Queyras":           "https://provence-alpes-cotedazur.com/decouvrir/les-stations-des-alpes/ceillac/",
+    "La Colmiane":                  "https://provence-alpes-cotedazur.com/decouvrir/les-stations-des-alpes/la-colmiane/",
+    "Montclar-les-2-Vallées":       "https://provence-alpes-cotedazur.com/decouvrir/les-stations-des-alpes/montclar-2-vallees/",
+    "L'Audibergue":                 "https://provence-alpes-cotedazur.com/decouvrir/les-stations-des-alpes/audibergue-mouiliere/",
+    "Gréolières-les-Neiges":        "https://cotedazurfrance.fr/a-faire/activites-neige-ski/greolieres-les-neiges/",
+    "Ascou-Pailhères":              "https://www.ariegepyrenees.com/en/preparer/go-to-the-snow/ski-resorts/ascou/",
+    "Porte-Puymorens":              "https://www.tourisme-occitanie.com/station-de-ski-de-porte-puymorens/porte-puymorens",
+    "Camurac":                      "https://www.tourisme-occitanie.com/domaine-skiable-de-camurac/camurac",
+    "Artouste":                     "https://www.tourisme64.com/activites/artouste/LOIAQU064FS0006J-station-de-ski-dartouste/",
+    "Laguiole":                     "https://www.tourisme-aveyron.com/en/diffusio/leisure/station-de-ski-de-laguiole-laguiole_TFO020711048813",
+    "Le Bleymard-Mont Lozère":      "https://www.tourisme-occitanie.com/station-de-ski-du-bleymard-mont-lozere/le-bleymard",
+    "Alti Aigoual":                 "https://www.tourismegard.com/fr/fiche/commerce-et-service/station-alti-aigoual-l-esperou_TFO6013209/",
+    "Les Plans d'Hotonnes":         "https://www.ain-tourisme.com/en/offers/ski-alpin-aux-plans-dhotonnes-haut-valromey-en-5380973/",
+    "La Source du Doubs-Mouthe":    "https://en.montagnes-du-jura.fr/nordic-ski-areas-in-the-jura-mountains/station-de-ski-alpin-espace-source-du-doubs",
+    # AJOUTS AUDIT LIENS (oct. 2026) - domaines confirmés par recherche
+    "Orcières Merlette 1850":       "https://www.orcieres.com",
+    "Molines-en-Queyras":           "https://www.molines-en-queyras.com",
+    "Valberg":                      "https://www.valberg.com",
+    "Saint-Véran":                  "https://www.saintveran.com",
+    "Réallon":                      "https://www.reallon-ski.com",
+    "Lech":                         "https://www.lechzuers.com",
+    "Zürs":                         "https://www.lechzuers.com",
+    "Canazei":                      "https://www.fassa.com",
+    "Campitello di Fassa":          "https://www.fassa.com",
+    "Pozza di Fassa":               "https://www.fassa.com",
+    "Vigo di Fassa":                "https://www.fassa.com",
     # SAVOIE / TARENTAISE
     "Val d'Isère":                  "https://www.valdisere.com",
     "Tignes":                       "https://www.tignes.net",
@@ -2915,6 +3155,30 @@ OFFICIAL_URLS = {
     "Golte":                        "https://www.golte.si",
     "Stari vrh":                    "https://www.starivrh.si",
 }
+def de_nom(name):
+    """Préposition française correcte : de / d' / du / des / de l'."""
+    if name.startswith("Les "):
+        return "des " + name[4:]
+    if name.startswith("Le "):
+        return "du " + name[3:]
+    if name.startswith("L'") or name.startswith("L’"):
+        return "de l" + name[1] + name[2:]
+    if name[:1] in "AEIOUÀÂÉÈÊÎÔÛŒ":
+        return "d'" + name
+    return "de " + name
+
+
+def a_nom(name):
+    """Préposition française correcte : à / au / aux / à l'."""
+    if name.startswith("Les "):
+        return "aux " + name[4:]
+    if name.startswith("Le "):
+        return "au " + name[3:]
+    if name.startswith("L'") or name.startswith("L’"):
+        return "à l" + name[1] + name[2:]
+    return "à " + name
+
+
 def get_official_url(name):
     return OFFICIAL_URLS.get(name, f"https://www.google.com/search?q={name.replace(' ', '+').replace(chr(39), '+')}+station+ski+site+officiel")
 
@@ -3050,7 +3314,7 @@ def render_page(s):
     expo_tab_btn = '<button class="tab-btn" onclick="switchTab(\'expo\',this)">🧭 Exposition</button>' if expo_html else ''
     # ── Plan des pistes (onglet présent uniquement si un plan existe dans plan-des-pistes/) ──
     plan_src, plan_credit = get_plan_pistes(s['name'])
-    _plan_alt = f"Plan des pistes de {s['name'].replace(chr(34), '').replace(chr(39), chr(8217))}"
+    _plan_alt = f"Plan des pistes {de_nom(s['name'].replace(chr(34), '').replace(chr(39), chr(8217)))}"
     plan_tab_btn = '<button class="tab-btn" onclick="switchTab(\'plan\',this)">🗺️ Plan des pistes</button>' if plan_src else ''
     plan_tab_html = (f'<div class="tab-content" id="tab-plan">{render_plan_figure(plan_src, _plan_alt, plan_credit)}</div>' if plan_src else '')
     plan_viewer_html = PLAN_VIEWER_HTML if plan_src else ''
@@ -3323,6 +3587,15 @@ def render_page(s):
         <div style="font-size:.68rem;color:#4a7a9b;line-height:1.4">{NIV_DESC.get(n,"")}</div>
       </div>''' for n in s.get('niv', []))
     official_url = get_official_url(s['name'])
+    has_official = s['name'] in OFFICIAL_URLS
+    nom_de = de_nom(s['name'])
+    nom_a = a_nom(s['name'])
+    off_title = f"Site officiel {nom_de}" if has_official else f"Trouver le site {nom_de}"
+    off_badge = "✓ Officiel" if has_official else "🔍 Recherche"
+    off_chip = "ℹ️ Infos officielles" if has_official else "ℹ️ Infos pratiques"
+    off_cta = "C'est par ici →" if has_official else "Lancer la recherche →"
+    off_mobile = "🎿 Site officiel" if has_official else "🎿 Trouver le site"
+    off_skip = "continuer vers le site officiel" if has_official else "rechercher le site"
     coords = STATION_COORDS.get(s['name'], {})
     snow_lat = coords.get('lat', 'null')
     snow_lon = coords.get('lon', 'null')
@@ -3390,7 +3663,7 @@ def render_page(s):
     similar_html = render_similar_section(s, exclude=soeurs)
     if sans_pistes:
         apercu_pistes_html = f'''<div style="background:var(--blue-light);border:1.5px solid #c8dff0;border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:.85rem;line-height:1.6;color:var(--text-mid)">
-            🚡 <strong>Pas de pistes au départ de {s['name']}.</strong> La station est reliée au domaine
+            🚡 <strong>Pas de pistes au départ {nom_de}.</strong> La station est reliée au domaine
             <a href="{domaine_url}" style="color:var(--blue-mid);font-weight:700;text-decoration:underline">{domaine['name']}</a>
             ({domaine['km_total']} km de pistes) par remontée mécanique. Le détail des pistes est dans l'onglet « Grand domaine ».
           </div>
@@ -4524,7 +4797,7 @@ function closeStation(){{
 
         <!-- À PROPOS -->
         <div class="section" style="margin-bottom:0">
-          <div class="section-title">À propos de {s['name']}</div>
+          <div class="section-title">À propos {nom_de}</div>
           {f'<img src="{photo_station}" alt="{s["name"]} pistes de ski" class="photo-station" loading="lazy">' if photo_station else ''}
           <div class="readmore-wrap" id="rm-desc">
             <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">{desc_long}</p>
@@ -4590,7 +4863,7 @@ function closeStation(){{
         <div class="meteo-widget" id="meteoWidget">
           <div class="meteo-head">
             <div>
-              <div class="meteo-title">❄️ Météo à {s['name']}</div>
+              <div class="meteo-title">❄️ Météo {nom_a}</div>
               <div class="meteo-sub">Conditions actuelles &amp; prévisions 5 jours</div>
             </div>
             <div class="meteo-now" id="meteoNow" style="display:none">
@@ -4705,15 +4978,15 @@ function closeStation(){{
       <!-- SITE OFFICIEL (avec interstitiel) — mis en avant en premier -->
       <button onclick="showOfficialSheet()" class="official-btn">
         <div class="official-btn-bg" style="background-image:url('{photo}')"></div>
-        <div class="official-btn-badge">✓ Officiel</div>
+        <div class="official-btn-badge">{off_badge}</div>
         <div class="official-btn-content">
           <div class="official-btn-chips">
             <span class="official-btn-chip">📹 Webcams</span>
             <span class="official-btn-chip">🗺️ Plan des pistes</span>
-            <span class="official-btn-chip">ℹ️ Infos officielles</span>
+            <span class="official-btn-chip">{off_chip}</span>
           </div>
-          <div class="official-btn-title">Site officiel de {s['name']}</div>
-          <div class="official-btn-cta">C'est par ici →</div>
+          <div class="official-btn-title">{off_title}</div>
+          <div class="official-btn-cta">{off_cta}</div>
         </div>
       </button>
 
@@ -4787,8 +5060,8 @@ function closeStation(){{
   <!-- Header -->
   <div style="padding:18px 24px 14px;text-align:center">
     <div style="font-size:1.7rem;font-weight:900;color:#2a1f14;margin-bottom:6px">🏔️ Hop, une seconde !</div>
-    <p style="font-size:1.05rem;font-weight:700;color:#2a1f14;margin-bottom:8px">T'as pensé à dormir où à <span style="color:#1a5a8a">{s['name']}</span> ?</p>
-    <p style="font-size:.9rem;color:#5c4a35;line-height:1.7">Les hébergements à {s['name']} partent vite en haute saison — surtout pendant les vacances scolaires.<br>Deux clics maintenant, et t'éviteras de dormir dans ta voiture. 🚗❄️</p>
+    <p style="font-size:1.05rem;font-weight:700;color:#2a1f14;margin-bottom:8px">T'as pensé à dormir où <span style="color:#1a5a8a">{nom_a}</span> ?</p>
+    <p style="font-size:.9rem;color:#5c4a35;line-height:1.7">Les hébergements {nom_a} partent vite en haute saison — surtout pendant les vacances scolaires.<br>Deux clics maintenant, et t'éviteras de dormir dans ta voiture. 🚗❄️</p>
   </div>
 
   <!-- Cards hébergement -->
@@ -4829,7 +5102,7 @@ function closeStation(){{
   <!-- Lien site officiel -->
   <div style="text-align:center;padding:0 24px">
     <a href="{official_url}" target="_blank" rel="noopener" onclick="hideOfficialSheet()" style="display:inline-block;font-size:.88rem;color:#5c4a35;font-weight:600;text-decoration:underline;padding:8px 16px">
-      Non merci — continuer vers le site officiel de {s['name']} →
+      Non merci — {off_skip} {nom_de} →
     </a>
   </div>
 
@@ -4839,7 +5112,7 @@ function closeStation(){{
 <div class="mobile-bar">
   <button onclick="showOfficialSheet()" class="mobile-bar-btn mobile-bar-official">
     <img src="{photo}" alt="" loading="lazy">
-    <span class="mobile-bar-btn-overlay">🎿 Site officiel</span>
+    <span class="mobile-bar-btn-overlay">{off_mobile}</span>
   </button>
   <a href="{booking_url}" target="_blank" rel="noopener sponsored" class="mobile-bar-btn mobile-bar-booking">
     <img src="../img/chalet-booking.jpg" alt="" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=400&q=80'">

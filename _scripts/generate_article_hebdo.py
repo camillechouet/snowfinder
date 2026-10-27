@@ -312,7 +312,7 @@ def entry_sentence(fk: str, e: dict) -> str:
     if fk == "altitude":
         if e.get("group"):
             t = (f"Ce domaine relie plusieurs stations et culmine à {fmt_n(s['alt_max'])}{NBSP}m, "
-                 f"à {escape(s['name'])}." + (f" Forfait journée adulte à {escape(s['name'])} : {s['forfait']}{NBSP}€." if s.get("forfait") else ""))
+                 f"{escape(gc.a_nom(s['name']))}." + (f" Forfait journée adulte {escape(gc.a_nom(s['name']))} : {s['forfait']}{NBSP}€." if s.get("forfait") else ""))
             if e["shared"]:
                 t += " Il comprend aussi " + ", ".join(escape(n) for n in e["shared"]) + "."
             return t
@@ -759,7 +759,7 @@ def build(fk: str, sk: str, stations: list, today: str) -> dict:
             f'    <p>{entry_sentence(fk, e)}</p>\n'
             f'{detail_html(e)}'
             f'    <div class="links">\n'
-            f'      <a href="/stations/{sl}.html">{"Fiche de " + escape(s["name"]) if e.get("group") else "Fiche complète"}</a>\n'
+            f'      <a href="/stations/{sl}.html">{"Fiche " + escape(gc.de_nom(s["name"])) if e.get("group") else "Fiche complète"}</a>\n'
             f'      <a class="bk" href="{gc.booking_url(s["name"], sl)}" target="_blank" rel="noopener sponsored">🏨 Booking</a>\n'
             f'      <a class="ex" href="{gc.expedia_url(s["name"], sl)}" target="_blank" rel="noopener sponsored">✈️ Expedia</a>\n'
             f'    </div>')
