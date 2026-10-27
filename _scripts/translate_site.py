@@ -434,6 +434,25 @@ def digits_ok(fr, en):
     return all(x in allowed for x in rest)   # les chiffres en plus doivent venir d'un romain / d'un mot
 
 
+CENTURY_RE = re.compile(r"\b([IVXL]{1,6})(?:e|er|ème|è)\s+(?:siècle|century)\b")
+
+
+def ordinal(n):
+    suf = "th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
+    return f"{n}{suf}"
+
+
+def fix_en(en):
+    """Corrections déterministes d'oublis fréquents : siècles en chiffres romains laissés en français
+    ('XIIe siècle' -> '12th century'). S'applique aussi aux textes déjà en cache."""
+    def rep(m):
+        try:
+            return ordinal(roman_to_int(m.group(1))) + " century"
+        except Exception:
+            return m.group(0)
+    return CENTURY_RE.sub(rep, en)
+
+
 def check(fr, en):
     """Retourne (bloquant, avertissement). bloquant => on garde le français."""
     if not en or not en.strip():
@@ -633,7 +652,8 @@ class Translator:
     def get(self, text):
         if text in self.failed:
             return None
-        return self.cache.get(text)
+        en = self.cache.get(text)
+        return fix_en(en) if en else en
 
 
 # ─────────────────────────────────────────────────────────────────────────────
