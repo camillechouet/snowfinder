@@ -858,6 +858,9 @@ const GRAND_DOMAINS = {
 
 
 /* ── Génère l'accroche émotionnelle d'une carte ── */
+/* Grammaire française devant un nom de station : de/du/des/d'/de l' et à/au/aux/à l' */
+function sfDe(n){n=String(n||'');if(/^Les /i.test(n))return 'des '+n.slice(4);if(/^Le /i.test(n))return 'du '+n.slice(3);if(/^L['\u2019]/i.test(n))return 'de l'+n.charAt(1)+n.slice(2);if(/^[AEIOUÀÂÉÈÊÎÔÛŒ]/i.test(n))return "d'"+n;return 'de '+n;}
+function sfA(n){n=String(n||'');if(/^Les /i.test(n))return 'aux '+n.slice(4);if(/^Le /i.test(n))return 'au '+n.slice(3);if(/^L['\u2019]/i.test(n))return 'à l'+n.charAt(1)+n.slice(2);return 'à '+n;}
 function cardHook(s){
   const km = s.km, alt = s.alt_max, score = s.score;
   const niv = s.niv || [], amb = s.amb || [], tags = s.tags || [];
@@ -2811,7 +2814,7 @@ function showSnowAlert(alerts){
       + '<div style="text-align:right"><div style="font-size:1.3rem">'+emoji+'</div>'
       + '<div style="font-size:.68rem;font-weight:700;color:#3a7db8;background:#e8f3fb;padding:2px 8px;border-radius:20px;margin-top:3px">'+a.snow+'cm · '+label+'</div></div>'
       + '</div>'
-      + '<p style="font-size:.82rem;color:#5c4a35;line-height:1.6;margin:0 0 12px">Hey ! <strong>'+a.snow+'cm de fraîche attendus</strong> à '+a.name+' dans les prochains jours. Va vite réserver avant que les prix s\'envolent !</p>'
+      + '<p style="font-size:.82rem;color:#5c4a35;line-height:1.6;margin:0 0 12px">Hey ! <strong>'+a.snow+'cm de fraîche attendus</strong> '+sfA(a.name)+' dans les prochains jours. Va vite réserver avant que les prix s\'envolent !</p>'
       + '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px">'
       + '<a href="'+bookingUrl+'" target="_blank" rel="noopener sponsored" style="background:#003580;color:white;border-radius:10px;padding:9px 6px;text-align:center;text-decoration:none;font-size:.72rem;font-weight:700" onclick="closeSnowAlert()">🏨 Booking</a>'
       + '<a href="'+expediaUrl+'" target="_blank" rel="noopener sponsored" style="background:#ffcc00;color:#003580;border-radius:10px;padding:9px 6px;text-align:center;text-decoration:none;font-size:.72rem;font-weight:700" onclick="closeSnowAlert()">✈️ Expedia</a>'

@@ -2591,6 +2591,9 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 // Normalisation : minuscules + suppression des accents (recherche tolérante)
+/* Grammaire française devant un nom de station : de/du/des/d'/de l' et à/au/aux/à l' */
+function sfDe(n){n=String(n||'');if(/^Les /i.test(n))return 'des '+n.slice(4);if(/^Le /i.test(n))return 'du '+n.slice(3);if(/^L['\u2019]/i.test(n))return 'de l'+n.charAt(1)+n.slice(2);if(/^[AEIOUÀÂÉÈÊÎÔÛŒ]/i.test(n))return "d'"+n;return 'de '+n;}
+function sfA(n){n=String(n||'');if(/^Les /i.test(n))return 'aux '+n.slice(4);if(/^Le /i.test(n))return 'au '+n.slice(3);if(/^L['\u2019]/i.test(n))return 'à l'+n.charAt(1)+n.slice(2);return 'à '+n;}
 function deacc(str){
   return (str||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 }
@@ -5971,7 +5974,7 @@ function getOuvertureIndicative(s) {
       var linksDiv = document.createElement("div");
       linksDiv.id = "stationBookingLinks";
       linksDiv.innerHTML = '<div style="margin-bottom:14px;padding:14px 16px;background:linear-gradient(135deg,#f0f7ff,#e8f3fb);border-radius:10px;border:1px solid #c8e0f8">'
-        + '<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#1a5a8a;margin-bottom:10px">🏨 Trouver un hébergement à ' + s.name + '</div>'
+        + '<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#1a5a8a;margin-bottom:10px">🏨 Trouver un hébergement ' + sfA(s.name) + '</div>'
         + '<div style="display:flex;gap:8px;flex-wrap:wrap">'
         + '<a href="https://www.tkqlhce.com/click-101709262-15734710?sid=recherche&url=' + encodeURIComponent('https://www.booking.com/searchresults.fr.html?ss=' + encodeURIComponent(s.name + ' ski') + '&lang=fr') + '" target="_blank" rel="noopener" style="flex:1;min-width:120px;display:flex;align-items:center;gap:8px;padding:10px 14px;background:#003580;color:white;border-radius:8px;text-decoration:none;font-size:.82rem;font-weight:700;transition:opacity .2s" onmouseover="this.style.opacity=\'.85\'" onmouseout="this.style.opacity=\'1\'">'
         + '<span style="font-size:1.2rem">🏨</span> Voir les prix sur Booking →</a>'

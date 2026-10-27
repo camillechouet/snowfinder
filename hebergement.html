@@ -317,6 +317,9 @@ const EXPEDIA_CJ = 'https://www.jdoqocy.com/click-101709262-13904689';
 })();
 </script>
 <script>
+/* Grammaire française devant un nom de station : de/du/des/d'/de l' et à/au/aux/à l' */
+function sfDe(n){n=String(n||'');if(/^Les /i.test(n))return 'des '+n.slice(4);if(/^Le /i.test(n))return 'du '+n.slice(3);if(/^L['\u2019]/i.test(n))return 'de l'+n.charAt(1)+n.slice(2);if(/^[AEIOUÀÂÉÈÊÎÔÛŒ]/i.test(n))return "d'"+n;return 'de '+n;}
+function sfA(n){n=String(n||'');if(/^Les /i.test(n))return 'aux '+n.slice(4);if(/^Le /i.test(n))return 'au '+n.slice(3);if(/^L['\u2019]/i.test(n))return 'à l'+n.charAt(1)+n.slice(2);return 'à '+n;}
 function getCompareList(){try{return JSON.parse(localStorage.getItem("sf_compare")||"[]");}catch(e){return [];}}
 function saveCompareList(arr){try{localStorage.setItem("sf_compare",JSON.stringify(arr));}catch(e){}}
 function isInCompare(id){return getCompareList().indexOf(id)!==-1;}
@@ -699,7 +702,7 @@ function lancerRecherche(){
   // Afficher résultats
   document.getElementById('placeholderWrap').style.display = 'none';
   document.getElementById('resultsWrap').style.display = 'block';
-  document.getElementById('resultsTitle').textContent = 'Hébergements à ' + dest;
+  document.getElementById('resultsTitle').textContent = 'Hébergements ' + sfA(dest);
 
   var nights = dateArr && dateDep ? Math.round((new Date(dateDep)-new Date(dateArr))/(1000*60*60*24)) : 7;
   document.getElementById('resultsSub').textContent =
@@ -780,7 +783,7 @@ function renderAnnonces(dest, budget, noteMin, type, dateArr, dateDep, adultes, 
     categories.map(function(cat){
       return '<a href="'+cat.url+'" target="_blank" rel="noopener" class="heb-visual-card" style="--card-color:'+cat.color+'">'
         +'<div class="hvc-img">'
-        +'<img src="'+cat.photo+'" alt="'+cat.label+' à '+dest+'" loading="lazy">'
+        +'<img src="'+cat.photo+'" alt="'+cat.label+' '+sfA(dest)+'" loading="lazy">'
         +'<span class="hvc-badge" style="background:'+cat.color+';color:'+cat.textColor+'">'+(cat.partner==='booking'?'Booking.com':'Expedia')+'</span>'
         +'</div>'
         +'<div class="hvc-body">'
@@ -801,7 +804,7 @@ function renderPartnerCtas(dest, dateArr, dateDep, adultes, enfants, chambres, b
   document.getElementById('partnerCtas').innerHTML =
     '<a class="partner-cta partner-booking" href="'+urlB+'" target="_blank" rel="noopener">'
     +'<div class="partner-logo">🏨</div>'
-    +'<div><div class="partner-name">Booking.com</div><div class="partner-desc">Voir tous les hébergements à '+dest+'</div></div>'
+    +'<div><div class="partner-name">Booking.com</div><div class="partner-desc">Voir tous les hébergements '+sfA(dest)+'</div></div>'
     +'<div class="partner-arrow">→</div>'
     +'</a>'
     +'<a class="partner-cta partner-expedia" href="'+urlE+'" target="_blank" rel="noopener">'

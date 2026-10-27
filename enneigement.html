@@ -335,6 +335,9 @@ function expediaUrl(station, sid) {
 })();
 </script>
 <script>
+/* Grammaire française devant un nom de station : de/du/des/d'/de l' et à/au/aux/à l' */
+function sfDe(n){n=String(n||'');if(/^Les /i.test(n))return 'des '+n.slice(4);if(/^Le /i.test(n))return 'du '+n.slice(3);if(/^L['\u2019]/i.test(n))return 'de l'+n.charAt(1)+n.slice(2);if(/^[AEIOUÀÂÉÈÊÎÔÛŒ]/i.test(n))return "d'"+n;return 'de '+n;}
+function sfA(n){n=String(n||'');if(/^Les /i.test(n))return 'aux '+n.slice(4);if(/^Le /i.test(n))return 'au '+n.slice(3);if(/^L['\u2019]/i.test(n))return 'à l'+n.charAt(1)+n.slice(2);return 'à '+n;}
 function getCompareList(){try{return JSON.parse(localStorage.getItem("sf_compare")||"[]");}catch(e){return [];}}
 function saveCompareList(arr){try{localStorage.setItem("sf_compare",JSON.stringify(arr));}catch(e){}}
 function isInCompare(id){return getCompareList().indexOf(id)!==-1;}
@@ -1461,7 +1464,7 @@ async function checkStation() {
   btn.textContent = '⏳ Chargement…';
 
   // État "chargement"
-  document.getElementById('meteoTitle').textContent = '❄️ Météo à ' + s.name;
+  document.getElementById('meteoTitle').textContent = '❄️ Météo ' + sfA(s.name);
   document.getElementById('meteoNow').style.display = 'none';
   document.getElementById('meteoLoading').style.display = 'block';
   document.getElementById('meteoLoading').textContent = 'Chargement…';
@@ -1490,7 +1493,7 @@ async function checkStation() {
   document.getElementById('fiabPic').textContent = (s.snow || '—') + ' cm moy.';
 
   document.getElementById('resFicheLink').href = 'stations/' + slugify(s.name) + '.html';
-  document.getElementById('resFicheLinkLabel').textContent = 'Voir la fiche complète de ' + s.name + ' →';
+  document.getElementById('resFicheLinkLabel').textContent = 'Voir la fiche complète ' + sfDe(s.name) + ' →';
   document.getElementById('resBookingLink').href = bookingUrl(s.name, 'enneigement');
 
   document.getElementById('resultPanel').classList.add('show');
@@ -1604,7 +1607,7 @@ async function checkStation() {
 // Slugify identique aux fiches stations
 function slugify(name) {
   return name.toLowerCase()
-    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9\s]/g, '')
     .replace(/\s+/g, '');
 }

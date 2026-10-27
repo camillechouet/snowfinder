@@ -777,6 +777,10 @@ function doCompare() {
 }
 
 // ── VERDICT ──
+/* Grammaire française devant un nom de station : de/du/des/d'/de l' et à/au/aux/à l' */
+function sfDe(n){n=String(n||'');var c=n.charAt(1);if(/^Les /.test(n))return 'des '+n.slice(4);if(/^Le /.test(n))return 'du '+n.slice(3);if(/^L['\u2019]/.test(n))return 'de l'+n.charAt(1)+n.slice(2);if(/^[AEIOUÀÂÉÈÊÎÔÛŒ]/.test(n))return "d'"+n;return 'de '+n;}
+function sfA(n){n=String(n||'');if(/^Les /.test(n))return 'aux '+n.slice(4);if(/^Le /.test(n))return 'au '+n.slice(3);if(/^L['\u2019]/.test(n))return 'à l'+n.charAt(1)+n.slice(2);return 'à '+n;}
+function sfMaj(t){return t.charAt(0).toUpperCase()+t.slice(1);}
 function buildVerdict(a, b) {
   const parts = [];
   const chips = [];
@@ -787,7 +791,7 @@ function buildVerdict(a, b) {
   const smaller = a.km >= b.km ? b : a;
 
   if (kmRatio >= 10) {
-    parts.push(`La comparaison sur le domaine skiable est sans appel : <strong>${bigger.name}</strong> offre ${bigger.km} km de pistes contre seulement ${smaller.km} km pour ${smaller.name} — soit un domaine ${Math.round(kmRatio)}× plus grand. Ce n'est tout simplement pas la même catégorie. À ${bigger.name}, vous pouvez skier une semaine entière sans jamais refaire le même itinéraire ; à ${smaller.name}, le domaine se visite en une journée.`);
+    parts.push(`La comparaison sur le domaine skiable est sans appel : <strong>${bigger.name}</strong> offre ${bigger.km} km de pistes contre seulement ${smaller.km} km pour ${smaller.name} — soit un domaine ${Math.round(kmRatio)}× plus grand. Ce n'est tout simplement pas la même catégorie. ${sfMaj(sfA(bigger.name))}, vous pouvez skier une semaine entière sans jamais refaire le même itinéraire ; ${sfA(smaller.name)}, le domaine se visite en une journée.`);
     chips.push({label:`${bigger.name} : domaine incomparable`, cls:'green'});
   } else if (kmRatio >= 3) {
     parts.push(`Sur la taille du domaine, <strong>${bigger.name}</strong> domine largement avec ${bigger.km} km contre ${smaller.km} km pour ${smaller.name} — environ ${Math.round(kmRatio)} fois plus grand. Sur un séjour d'une semaine, cette différence est vraiment significative.`);
@@ -859,7 +863,7 @@ function buildVerdict(a, b) {
     chips.push({label:`${higherAlt.name} : meilleur enneigement`, cls:'green'});
   // Cas 3 : village très différent mais sommet proche
   } else if (altMinDiff >= 400 && altMaxDiff < 300) {
-    parts.push(`Les sommets sont proches (${a.alt_max} m vs ${b.alt_max} m), mais le village de <strong>${higherVillage.name}</strong> est positionné bien plus haut (${higherVillage.alt_min} m contre ${lowerVillage.alt_min} m pour ${lowerVillage.name}). Concrètement, l'enneigement au départ des pistes et les remontées mécaniques basses seront plus fiables à ${higherVillage.name}.`);
+    parts.push(`Les sommets sont proches (${a.alt_max} m vs ${b.alt_max} m), mais le village <strong>${sfDe(higherVillage.name)}</strong> est positionné bien plus haut (${higherVillage.alt_min} m contre ${lowerVillage.alt_min} m pour ${lowerVillage.name}). Concrètement, l'enneigement au départ des pistes et les remontées mécaniques basses seront plus fiables ${sfA(higherVillage.name)}.`);
     chips.push({label:`${higherVillage.name} : village mieux enneigé`, cls:'green'});
   // Cas 4 : différences modérées → texte factuel sans exagération
   } else if (altMaxDiff >= 250 || altMinDiff >= 200) {
@@ -872,7 +876,7 @@ function buildVerdict(a, b) {
   const cheaper = a.forfait <= b.forfait ? a : b;
   const pricier  = a.forfait <= b.forfait ? b : a;
   if (priceDiff >= 15) {
-    parts.push(`Le budget est un facteur décisif ici : <strong>${cheaper.name}</strong> est bien plus économique avec un forfait à ${cheaper.forfait}€/jour contre ${pricier.forfait}€/jour à ${pricier.name}. Sur une semaine pour deux skieurs, l'écart dépasse ${priceDiff * 2 * 7}€ — sans compter l'hébergement.`);
+    parts.push(`Le budget est un facteur décisif ici : <strong>${cheaper.name}</strong> est bien plus économique avec un forfait à ${cheaper.forfait}€/jour contre ${pricier.forfait}€/jour ${sfA(pricier.name)}. Sur une semaine pour deux skieurs, l'écart dépasse ${priceDiff * 2 * 7}€ — sans compter l'hébergement.`);
     chips.push({label:`${cheaper.name} : meilleur prix`, cls:'amber'});
   } else if (priceDiff >= 8) {
     parts.push(`<strong>${cheaper.name}</strong> est un peu plus accessible (${cheaper.forfait}€/j vs ${pricier.forfait}€/j), un avantage non négligeable sur la durée d'un séjour.`);
