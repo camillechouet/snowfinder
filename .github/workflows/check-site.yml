@@ -1,0 +1,26 @@
+name: Contrôle du site
+
+# Gratuit : un petit script Python vérifie le site (grammaire des noms de stations, texte cassé,
+# pages manquantes, coordonnées, liens et images). S'il trouve un problème, ce workflow passe au
+# rouge et GitHub t'envoie un e-mail ; le détail est dans l'onglet « Summary » de l'exécution.
+on:
+  workflow_dispatch:            # bouton « Run workflow »
+  schedule:
+    - cron: "17 5 * * 1"        # chaque lundi, vers 7 h (heure de Paris)
+  workflow_run:                 # et après chaque génération
+    workflows: ["Generate Station Pages", "Générer les comparatifs", "Mettre à jour les contenus (accueil + actus)"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Contrôler le site
+        run: python3 _scripts/check_site.py

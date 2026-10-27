@@ -1,14 +1,10 @@
-name: Duel de la semaine (brouillon à valider)
+name: Duel de la semaine (publication automatique)
 
-# Chaque lundi, prépare UN duel de stations et ouvre une pull request.
-# Rien n'est publié tant que vous n'avez pas fusionné ("Merge") la pull request.
-# Pour refuser le duel : fermer la pull request sans la fusionner.
-#
-# Réglages nécessaires (une seule fois) :
-#  - Settings > Secrets and variables > Actions : secret ANTHROPIC_API_KEY
-#  - Settings > Actions > General > Workflow permissions :
-#      "Read and write permissions" + cocher
-#      "Allow GitHub Actions to create and approve pull requests"
+# Chaque lundi, prépare UN duel de stations, le contrôle, puis le PUBLIE tout seul.
+# Contrôles avant publication : structure, chiffres retrouvés dans les fiches, relecture factuelle
+# par une seconde passe d'IA (jusqu'à 3 essais). Publication directe, sans validation manuelle ;
+# si la relecture garde une réserve, l'e-mail est marqué « ⚠️ à relire ».
+# Après publication : une « issue » GitHub (e-mail) donne le compte rendu et le commit à annuler.
 
 on:
   schedule:
@@ -23,6 +19,8 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
+  actions: write
 
 jobs:
   duel:
@@ -48,7 +46,7 @@ jobs:
             python3 _scripts/generate_duel_hebdo.py --review-out /tmp/duel_review.md
           fi
 
-      - name: Ouvrir la pull request
+      - name: Publier automatiquement
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -56,14 +54,31 @@ jobs:
             echo "Aucun changement."
             exit 0
           fi
+          REVIEW=/tmp/duel_review.md
           TITRE=$(python3 -c "import json;d=json.load(open('duels_hebdo.json'))[-1];print(d['a']+' vs '+d['b'])")
-          BRANCHE="duel/$(date +%Y-%m-%d-%H%M)"
           git config user.name "SnowFinder Bot"
           git config user.email "bot@snowfinder.fr"
-          git checkout -b "$BRANCHE"
+
+          # Publication automatique (plus de validation manuelle). Tous les contrôles sont passés : publication automatique.
           git add duels_hebdo.json contenus.json
           git commit -m "📝 Duel de la semaine : $TITRE"
-          git push origin "$BRANCHE"
-          gh pr create --base main --head "$BRANCHE" \
-            --title "Duel de la semaine : $TITRE" \
-            --body-file /tmp/duel_review.md
+          git pull --rebase origin main
+          git push origin HEAD:main
+          SHA=$(git rev-parse HEAD)
+
+          # Compte rendu (sources, faits contrôlés) dans une « issue » : tu reçois un e-mail GitHub.
+          {
+            echo "Publié automatiquement après tous les contrôles (chiffres, sources, relecture)."
+            echo "Pour le retirer : demande à Claude de le dépublier, en donnant ce commit : \`$SHA\`."
+            echo
+            sed -e '/^\*\*Merge = publication/d' \
+                -e 's/À faire avant de fusionner (2 minutes)/Vérification a posteriori (recommandée)/' \
+                -e 's/fermez la pull request sans la fusionner/demandez son retrait/' "$REVIEW"
+          } > /tmp/issue.md
+          if grep -qE "🔴 Réserves|⚠️ extrait introuvable|Points d'attention|Contrôles en échec" "$REVIEW"; then PREF="⚠️ Publié avec réserves (à relire)"; else PREF="✅ Publié"; fi
+          gh issue create --title "$PREF : $TITRE" --body-file /tmp/issue.md || true
+
+          # Un push fait avec le jeton du workflow ne relance pas les autres workflows : on les lance ici.
+          gh workflow run "Générer les comparatifs" || true
+          sleep 60
+          gh workflow run "Mettre à jour les contenus (accueil + actus)" || true

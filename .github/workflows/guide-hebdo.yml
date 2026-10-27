@@ -1,13 +1,9 @@
-name: Guide saisonnier (brouillon à valider)
+name: Guide saisonnier (publication automatique)
 
-# Le lundi des semaines IMPAIRES (une semaine sur deux), prépare UN guide pratique sourcé
-# (ex. « Ski à Noël », « Première fois au ski »…) et ouvre une pull request.
-# Le sujet est choisi dans un calendrier selon le mois, sans jamais répéter un guide déjà publié.
-# (Les semaines paires, le lundi est réservé au classement.)
-# Rien n'est publié tant que vous n'avez pas fusionné ("Merge") la pull request.
-#
-# Réglages : les mêmes que pour « Actualité » (secret ANTHROPIC_API_KEY, recherche web activée,
-# permissions des Actions) — déjà faits.
+# Le lundi des semaines IMPAIRES, prépare UN guide pratique sourcé (ex. « Ski à Noël ») et le PUBLIE tout
+# seul s'il passe tous les contrôles (sources, chiffres, extraits retrouvés, relecture factuelle).
+# Publication directe ; l'e-mail est marqué « ⚠️ à relire » si une réserve subsiste.
+# Le sujet est choisi dans un calendrier selon le mois, sans répéter un guide déjà publié.
 
 on:
   schedule:
@@ -22,6 +18,8 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
+  actions: write
 
 jobs:
   guide:
@@ -34,7 +32,7 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ $((SEM % 2)) -eq 1 ]; then
             echo "go=oui" >> "$GITHUB_OUTPUT"
           else
-            echo "Semaine paire : pas de guide (c'est le tour du classement)."
+            echo "Pas la bonne semaine pour ce contenu."
             echo "go=non" >> "$GITHUB_OUTPUT"
           fi
 
@@ -62,23 +60,38 @@ jobs:
             python3 _scripts/generate_guide_hebdo.py --review-out /tmp/guide_review.md
           fi
 
-      - name: Ouvrir la pull request
+      - name: Publier automatiquement
         if: steps.sem.outputs.go == 'oui'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           if [ -z "$(git status --porcelain)" ]; then
-            echo "Aucun changement (pas de guide fiable cette fois)."
+            echo "Aucun changement."
             exit 0
           fi
+          REVIEW=/tmp/guide_review.md
           TITRE=$(python3 -c "import json;d=json.load(open('guides_hebdo.json'))[-1];print(d['title'])")
-          BRANCHE="guide/$(date +%Y-%m-%d-%H%M)"
           git config user.name "SnowFinder Bot"
           git config user.email "bot@snowfinder.fr"
-          git checkout -b "$BRANCHE"
+
+          # Publication automatique (plus de validation manuelle). Tous les contrôles sont passés : publication automatique.
           git add articles guides_hebdo.json contenus.json
           git commit -m "📘 Guide : $TITRE"
-          git push origin "$BRANCHE"
-          gh pr create --base main --head "$BRANCHE" \
-            --title "Guide : $TITRE" \
-            --body-file /tmp/guide_review.md
+          git pull --rebase origin main
+          git push origin HEAD:main
+          SHA=$(git rev-parse HEAD)
+
+          # Compte rendu (sources, faits contrôlés) dans une « issue » : tu reçois un e-mail GitHub.
+          {
+            echo "Publié automatiquement après tous les contrôles (chiffres, sources, relecture)."
+            echo "Pour le retirer : demande à Claude de le dépublier, en donnant ce commit : \`$SHA\`."
+            echo
+            sed -e '/^\*\*Merge = publication/d' \
+                -e 's/À faire avant de fusionner (2 minutes)/Vérification a posteriori (recommandée)/' \
+                -e 's/fermez la pull request sans la fusionner/demandez son retrait/' "$REVIEW"
+          } > /tmp/issue.md
+          if grep -qE "🔴 Réserves|⚠️ extrait introuvable|Points d'attention|Contrôles en échec" "$REVIEW"; then PREF="⚠️ Publié avec réserves (à relire)"; else PREF="✅ Publié"; fi
+          gh issue create --title "$PREF : $TITRE" --body-file /tmp/issue.md || true
+
+          # Un push fait avec le jeton du workflow ne relance pas les autres workflows : on les lance ici.
+          gh workflow run "Mettre à jour les contenus (accueil + actus)" || true

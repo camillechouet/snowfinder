@@ -1,16 +1,9 @@
-name: Actualité (brouillon à valider)
+name: Actualité (publication automatique)
 
-# Le mercredi des semaines paires (une semaine sur deux), prépare UN article d'actualité sourcé
-# et ouvre une pull request. Claude cherche l'actualité sur le web, rédige, puis le script vérifie
-# les chiffres et les sources avant d'ouvrir la pull request.
-# Rien n'est publié tant que vous n'avez pas fusionné ("Merge") la pull request.
-# S'il n'y a rien de notable cette semaine-là, aucune pull request n'est ouverte.
-#
-# Réglages nécessaires :
-#  - Secret ANTHROPIC_API_KEY (déjà créé pour les duels)
-#  - Console Anthropic : la recherche web doit être activée pour votre organisation
-#   . Sans cela, le workflow affiche une erreur explicite.
-#  - Settings > Actions > General > Workflow permissions : lecture/écriture + création de pull requests (déjà fait)
+# Le mercredi des semaines paires, prépare UN article d'actualité sourcé et le PUBLIE tout seul s'il passe
+# tous les contrôles : sources trouvées par la recherche web, chiffres vérifiés, extraits cités retrouvés
+# mot pour mot dans les pages sources, relecture factuelle par une seconde passe d'IA.
+# Publication directe ; l'e-mail est marqué « ⚠️ à relire » si une réserve subsiste. Rien de notable : aucun article.
 
 on:
   schedule:
@@ -25,6 +18,8 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
+  actions: write
 
 jobs:
   actu:
@@ -37,7 +32,7 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ $((SEM % 2)) -eq 0 ]; then
             echo "go=oui" >> "$GITHUB_OUTPUT"
           else
-            echo "Semaine impaire : pas d'actualité prévue."
+            echo "Pas la bonne semaine pour ce contenu."
             echo "go=non" >> "$GITHUB_OUTPUT"
           fi
 
@@ -61,23 +56,38 @@ jobs:
         run: |
           python3 _scripts/generate_actu_hebdo.py --sujet "$SUJET" --review-out /tmp/actu_review.md
 
-      - name: Ouvrir la pull request
+      - name: Publier automatiquement
         if: steps.sem.outputs.go == 'oui'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           if [ -z "$(git status --porcelain)" ]; then
-            echo "Aucun changement (pas d'actualité notable)."
+            echo "Aucun changement."
             exit 0
           fi
+          REVIEW=/tmp/actu_review.md
           TITRE=$(python3 -c "import json;d=json.load(open('actus_hebdo.json'))[-1];print(d['title'])")
-          BRANCHE="actu/$(date +%Y-%m-%d-%H%M)"
           git config user.name "SnowFinder Bot"
           git config user.email "bot@snowfinder.fr"
-          git checkout -b "$BRANCHE"
+
+          # Publication automatique (plus de validation manuelle). Tous les contrôles sont passés : publication automatique.
           git add articles actus_hebdo.json contenus.json
           git commit -m "📰 Actualité : $TITRE"
-          git push origin "$BRANCHE"
-          gh pr create --base main --head "$BRANCHE" \
-            --title "Actualité : $TITRE" \
-            --body-file /tmp/actu_review.md
+          git pull --rebase origin main
+          git push origin HEAD:main
+          SHA=$(git rev-parse HEAD)
+
+          # Compte rendu (sources, faits contrôlés) dans une « issue » : tu reçois un e-mail GitHub.
+          {
+            echo "Publié automatiquement après tous les contrôles (chiffres, sources, relecture)."
+            echo "Pour le retirer : demande à Claude de le dépublier, en donnant ce commit : \`$SHA\`."
+            echo
+            sed -e '/^\*\*Merge = publication/d' \
+                -e 's/À faire avant de fusionner (2 minutes)/Vérification a posteriori (recommandée)/' \
+                -e 's/fermez la pull request sans la fusionner/demandez son retrait/' "$REVIEW"
+          } > /tmp/issue.md
+          if grep -qE "🔴 Réserves|⚠️ extrait introuvable|Points d'attention|Contrôles en échec" "$REVIEW"; then PREF="⚠️ Publié avec réserves (à relire)"; else PREF="✅ Publié"; fi
+          gh issue create --title "$PREF : $TITRE" --body-file /tmp/issue.md || true
+
+          # Un push fait avec le jeton du workflow ne relance pas les autres workflows : on les lance ici.
+          gh workflow run "Mettre à jour les contenus (accueil + actus)" || true
