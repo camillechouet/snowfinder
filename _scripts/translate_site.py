@@ -451,6 +451,10 @@ def digits_ok(fr, en):
 CENTURY_RE = re.compile(r"\b([IVXL]{1,6})(?:e|er|ème|è)\s+(?:siècle|century)\b")
 
 
+# Altitudes / distances en mètres : 1600 m -> 1,600 m (y compris le début d'une plage « 1600 – 3226 m »)
+ALT_RE = re.compile(r"(?<![\d,.])([1-9])(\d{3})(?![\d,.])(?=\s*(?:[–-]\s*[\d,]+\s*)?m\b)")
+
+
 def ordinal(n):
     suf = "th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
     return f"{n}{suf}"
@@ -464,7 +468,8 @@ def fix_en(en):
             return ordinal(roman_to_int(m.group(1))) + " century"
         except Exception:
             return m.group(0)
-    return CENTURY_RE.sub(rep, en)
+    en = CENTURY_RE.sub(rep, en)
+    return ALT_RE.sub(lambda m: m.group(1) + "," + m.group(2), en)
 
 
 def check(fr, en):
@@ -805,7 +810,7 @@ def apply_js_fixes(s):
 
 
 def fix_breadcrumb(soup):
-    for nav in soup.select("nav.breadcrumb, .breadcrumb"):
+    for nav in soup.select("nav.breadcrumb, .breadcrumb, .crumbs"):
         for node in list(nav.find_all(string=True)):
             t = str(node).strip()
             if t in BREADCRUMB_FIXES:
