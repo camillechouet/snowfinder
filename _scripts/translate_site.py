@@ -62,8 +62,8 @@ ROOT = os.environ.get("SF_ROOT") or os.path.dirname(SCRIPT_DIR)
 MODEL = os.environ.get("TRANSLATE_MODEL", "claude-haiku-5-5")
 PROMPT_VERSION = "1"            # à incrémenter pour forcer une retraduction complète
 BUDGET_USD = float(os.environ.get("BUDGET_USD", "25"))
-PRICE_IN = float(os.environ.get("PRICE_IN_PER_MTOK", "3"))     # $ / million de tokens (estimation)
-PRICE_OUT = float(os.environ.get("PRICE_OUT_PER_MTOK", "15"))
+PRICE_IN = float(os.environ.get("PRICE_IN_PER_MTOK", "0.1"))     # $ / million de tokens (estimation)
+PRICE_OUT = float(os.environ.get("PRICE_OUT_PER_MTOK", "0.5"))
 WORKERS = int(os.environ.get("TRANSLATE_WORKERS", "4"))
 BATCH_ITEMS, BATCH_CHARS = 40, 7000
 
