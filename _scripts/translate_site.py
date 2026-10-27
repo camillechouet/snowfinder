@@ -680,6 +680,62 @@ LANG_CSS = ('<style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index
             'text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}.sf-lang-switch:hover{background:#fff}</style>')
 
 
+# Textes fabriqués par le JavaScript des pages (météo, boutons, alertes…) : remplacés tels quels
+# dans les scripts en ligne des pages anglaises. Remplacement exact, sans appel à l'API.
+JS_FIXES = [
+    ("['Dim','Lun','Mar','Mer','Jeu','Ven','Sam']", "['Sun','Mon','Tue','Wed','Thu','Fri','Sat']"),
+    ("'Auj.'", "'Today'"),
+    ("'Vent '", "'Wind '"),
+    ("'Neige au sol : '", "'Snow depth: '"),
+    ("'Au-dessus de la normale ('", "'Above average ('"),
+    ("'Dans la normale ('", "'Normal for the time of year ('"),
+    ("'En dessous de la normale ('", "'Below average ('"),
+    ("'Hors saison — enneigement non significatif'", "'Off-season — no significant snow cover'"),
+    ("'Météo indisponible pour cette station'", "'Weather unavailable for this resort'"),
+    ("'Météo momentanément indisponible'", "'Weather temporarily unavailable'"),
+    ("'Voir moins ▲'", "'Show less ▲'"),
+    ("'Lire plus ▼'", "'Read more ▼'"),
+    ("'Retirer des favoris'", "'Remove from favourites'"),
+    ("'Ajouter aux favoris'", "'Add to favourites'"),
+    ("Vous pouvez comparer 3 stations maximum. Retirez-en une avant d'en ajouter une nouvelle.",
+     "You can compare up to 3 resorts. Remove one before adding another."),
+    ("Vous pouvez comparer 3 domaines maximum. Retirez-en un avant d'en ajouter un nouveau.",
+     "You can compare up to 3 ski areas. Remove one before adding another."),
+    ("cm de neige prévus à ", "cm of snow forecast at "),
+    ("Va vite réserver avant que les prix montent !", "Book soon before prices go up!"),
+    ("'Tous pays'", "'All countries'"),
+    ("Les notifications sont déjà activées ✅", "Notifications are already enabled ✅"),
+    ("Les notifications sont bloquées dans les réglages de ton navigateur.",
+     "Notifications are blocked in your browser settings."),
+]
+
+# Fil d'Ariane (nav.breadcrumb) : libellés fixes, indépendants de l'API.
+BREADCRUMB_FIXES = {
+    "Accueil": "Home",
+    "Stations de ski": "Ski resorts",
+    "Recherche": "Search",
+    "Comparateur": "Comparison tool",
+    "Articles": "Articles",
+    "Domaines skiables": "Ski areas",
+    "Comparatifs": "Comparisons",
+    "Actualités": "News",
+}
+
+
+def apply_js_fixes(s):
+    for fr, en in JS_FIXES:
+        s = s.replace(fr, en)
+    return s
+
+
+def fix_breadcrumb(soup):
+    for nav in soup.select("nav.breadcrumb, .breadcrumb"):
+        for node in list(nav.find_all(string=True)):
+            t = str(node).strip()
+            if t in BREADCRUMB_FIXES:
+                node.replace_with(NavigableString(str(node).replace(t, BREADCRUMB_FIXES[t])))
+
+
 def apply_page(rel, src_html, tr, en_set):
     soup = BeautifulSoup(strip_markers(src_html), "html.parser")
     jobs = analyze(soup)
@@ -736,7 +792,8 @@ def apply_page(rel, src_html, tr, en_set):
                 el[a] = fix_script_paths(el[a])
         if el.name == "script" and not el.get("src") and (el.get("type") or "").lower() != "application/ld+json":
             if el.string:
-                el.string.replace_with(fix_script_paths(str(el.string)))
+                el.string.replace_with(apply_js_fixes(fix_script_paths(str(el.string))))
+    fix_breadcrumb(soup)
 
     # 4. langue, canonical, hreflang, sélecteur de langue
     if soup.html:
