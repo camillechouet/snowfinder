@@ -299,8 +299,8 @@ if (typeof openContact !== 'function') {
   window.openContact = function(){ window.location.href = '/index.html#contact'; };
 }
 function openSfNotif(){
-  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Les notifications sont déjà activées ✅'); return; }
-  if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Les notifications sont bloquées dans les réglages de ton navigateur."); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Notifications are already enabled ✅'); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Notifications are blocked in your browser settings."); return; }
   document.getElementById('sfNotifOverlay2').classList.add('open');
   document.getElementById('sfNotifSheet2').classList.add('open');
   document.body.style.overflow='hidden';
@@ -526,7 +526,7 @@ function isInCompare(id){return getCompareList().indexOf(id)!==-1;}
 function toggleCompare(id,btn){
   var c=getCompareList();var idx=c.indexOf(id);
   if(idx>=0){c.splice(idx,1);}
-  else{ if(c.length>=3){alert("Vous pouvez comparer 3 stations maximum. Retirez-en une avant d'en ajouter une nouvelle.");return;} c.push(id);}
+  else{ if(c.length>=3){alert("You can compare up to 3 resorts. Remove one before adding another.");return;} c.push(id);}
   try{localStorage.setItem('sf_compare',JSON.stringify(c));}catch(e){}
   var el=document.getElementById('sfCompareCount'); if(el) el.textContent=c.length;
   if(btn)btn.classList.toggle('active',isInCompare(id));

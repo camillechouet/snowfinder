@@ -226,8 +226,8 @@ if (typeof openContact !== 'function') {
   window.openContact = function(){ window.location.href = '/index.html#contact'; };
 }
 function openSfNotif(){
-  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Les notifications sont déjà activées ✅'); return; }
-  if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Les notifications sont bloquées dans les réglages de ton navigateur."); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Notifications are already enabled ✅'); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Notifications are blocked in your browser settings."); return; }
   document.getElementById('sfNotifOverlay2').classList.add('open');
   document.getElementById('sfNotifSheet2').classList.add('open');
   document.body.style.overflow='hidden';
@@ -319,7 +319,7 @@ function acceptSfNotif(){
     var on=domFavs().indexOf(DOM_SLUG)!==-1;
     b.textContent=on?'⭐':'☆';
     b.classList.toggle('active',on);
-    b.title=on?'Retirer des favoris':'Ajouter aux favoris';
+    b.title=on?'Remove from favourites':'Add to favourites';
   }
   function renderDomCompare(){
     var b=document.getElementById('dmCompare');
@@ -339,7 +339,7 @@ function acceptSfNotif(){
   if(cmpBtn) cmpBtn.addEventListener('click',function(){
     var c=domCompares(),i=c.indexOf(DOM_SLUG);
     if(i===-1){
-      if(c.length>=3){alert("Vous pouvez comparer 3 domaines maximum. Retirez-en un avant d'en ajouter un nouveau.");return;}
+      if(c.length>=3){alert("You can compare up to 3 ski areas. Remove one before adding another.");return;}
       c.push(DOM_SLUG);
     }else{c.splice(i,1);}
     saveDomCompares(c);renderDomCompare();
@@ -674,7 +674,7 @@ function acceptSfNotif(){
   function render(btn,on,isFav){
     if(isFav){
       btn.textContent = on ? '⭐' : '☆';
-      btn.title = on ? 'Retirer des favoris' : 'Ajouter aux favoris';
+      btn.title = on ? 'Remove from favourites' : 'Add to favourites';
     } else {
       btn.title = on ? 'Retirer du comparateur' : 'Ajouter au comparateur';
     }
@@ -722,7 +722,7 @@ function acceptSfNotif(){
 function toggleReadMore(id, btn){
   var el = document.getElementById(id);
   var expanded = el.classList.toggle('expanded');
-  btn.textContent = expanded ? 'Voir moins ▲' : 'Lire plus ▼';
+  btn.textContent = expanded ? 'Show less ▲' : 'Read more ▼';
 }
 // ── CARROUSEL HERO (photos du domaine) ──
 var DM_HERO_URLS = ["/img/courchevel1.jpg","/img/latania1.jpg","/img/meribel1.jpg","/img/saintmartindebelleville1.jpg","/img/lesmenuires1.jpg","/img/valthorens1.jpg"];

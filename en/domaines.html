@@ -164,8 +164,8 @@ if (typeof openContact !== 'function') {
   window.openContact = function(){ window.location.href = '/index.html#contact'; };
 }
 function openSfNotif(){
-  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Les notifications sont déjà activées ✅'); return; }
-  if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Les notifications sont bloquées dans les réglages de ton navigateur."); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Notifications are already enabled ✅'); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Notifications are blocked in your browser settings."); return; }
   document.getElementById('sfNotifOverlay2').classList.add('open');
   document.getElementById('sfNotifSheet2').classList.add('open');
   document.body.style.overflow='hidden';
@@ -1758,7 +1758,7 @@ function acceptSfNotif(){
   function majPaysBtn(){
     if(paysBtn) paysBtn.style.display = availablePays.length < 2 ? 'none' : '';
     if(!paysBtnLbl) return;
-    if(pays.length === availablePays.length) paysBtnLbl.textContent = 'Tous pays';
+    if(pays.length === availablePays.length) paysBtnLbl.textContent = 'All countries';
     else if(pays.length === 1) paysBtnLbl.textContent = EMOJI[pays[0]] || NOMS[pays[0]] || pays[0];
     else paysBtnLbl.textContent = pays.length + ' pays';
   }

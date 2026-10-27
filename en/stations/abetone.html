@@ -671,8 +671,8 @@ if (typeof openContact !== 'function') {
   window.openContact = function(){ window.location.href = '/index.html#contact'; };
 }
 function openSfNotif(){
-  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Les notifications sont déjà activées ✅'); return; }
-  if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Les notifications sont bloquées dans les réglages de ton navigateur."); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Notifications are already enabled ✅'); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Notifications are blocked in your browser settings."); return; }
   document.getElementById('sfNotifOverlay2').classList.add('open');
   document.getElementById('sfNotifSheet2').classList.add('open');
   document.body.style.overflow='hidden';
@@ -763,9 +763,9 @@ function updateStar(){
   var isFav=favs.indexOf(STATION_ID)!==-1;
   var btn=document.getElementById('favBtn');
   if(isFav){
-    if(btn){btn.textContent='⭐';btn.classList.add('active');btn.title='Retirer des favoris';}
+    if(btn){btn.textContent='⭐';btn.classList.add('active');btn.title='Remove from favourites';}
   }else{
-    if(btn){btn.textContent='☆';btn.classList.remove('active');btn.title='Ajouter aux favoris';}
+    if(btn){btn.textContent='☆';btn.classList.remove('active');btn.title='Add to favourites';}
   }
 }
 function toggleFav(){
@@ -802,7 +802,7 @@ function toggleCompare(){
   if(idx>=0){
     c.splice(idx,1);
   }else{
-    if(c.length>=3){alert("Vous pouvez comparer 3 stations maximum. Retirez-en une avant d'en ajouter une nouvelle.");return;}
+    if(c.length>=3){alert("You can compare up to 3 resorts. Remove one before adding another.");return;}
     c.push(STATION_ID);
   }
   saveCompareList(c);updateCompareBtn();
@@ -820,7 +820,7 @@ function checkSnowForNewFav(){
       if(maxSnow>=15){
         setTimeout(function(){
           var t=document.createElement('div');
-          t.innerHTML='🌨️ <strong>'+maxSnow+'cm de neige prévus à Abetone !</strong><br><span style="font-size:.78rem;opacity:.85">Va vite réserver avant que les prix montent !</span>';
+          t.innerHTML='🌨️ <strong>'+maxSnow+'cm of snow forecast at Abetone !</strong><br><span style="font-size:.78rem;opacity:.85">Book soon before prices go up!</span>';
           t.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#1a3f6e;color:white;padding:14px 22px;border-radius:16px;font-size:.88rem;font-weight:700;z-index:999;box-shadow:0 6px 28px rgba(0,0,0,.35);pointer-events:none;text-align:center;max-width:280px;line-height:1.5;transition:opacity .4s';
           document.body.appendChild(t);
           setTimeout(function(){t.style.opacity='0';},3500);
@@ -849,7 +849,7 @@ function switchTab(name, btn){
 function toggleReadMore(id, btn){
   var el = document.getElementById(id);
   var expanded = el.classList.toggle('expanded');
-  btn.textContent = expanded ? 'Voir moins ▲' : 'Lire plus ▼';
+  btn.textContent = expanded ? 'Show less ▲' : 'Read more ▼';
 }
 (function(){
   var nav = document.getElementById('tabNav'), wrap = document.getElementById('tabNavWrap'), hint = document.getElementById('tabScrollHint');
@@ -869,7 +869,7 @@ function toggleReadMore(id, btn){
   var lat=44.143, lon=10.663;
   if(lat===null||lon===null||isNaN(parseFloat(lat))){
     var ld=document.getElementById('meteoLoading');
-    if(ld) ld.textContent='Météo indisponible pour cette station';
+    if(ld) ld.textContent='Weather unavailable for this resort';
     return;
   }
   var url='https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,weathercode,snow_depth,wind_speed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,snowfall_sum&timezone=Europe%2FParis&forecast_days=5';
@@ -885,7 +885,7 @@ function toggleReadMore(id, btn){
     if(c<=86) return '🌨️';
     return '⛈️';
   }
-  var DAY_LBL=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  var DAY_LBL=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   fetch(url).then(function(r){return r.json();}).then(function(d){
     var ld=document.getElementById('meteoLoading');
     if(ld) ld.style.display='none';
@@ -896,8 +896,8 @@ function toggleReadMore(id, btn){
       document.getElementById('meteoNowIco').textContent=ico(d.current.weathercode);
       var sd=d.current.snow_depth;
       var sub='';
-      if(sd!=null&&sd>0) sub='Neige au sol : '+Math.round(sd*100)+' cm';
-      else if(d.current.wind_speed_10m!=null) sub='Vent '+Math.round(d.current.wind_speed_10m)+' km/h';
+      if(sd!=null&&sd>0) sub='Snow depth: '+Math.round(sd*100)+' cm';
+      else if(d.current.wind_speed_10m!=null) sub='Wind '+Math.round(d.current.wind_speed_10m)+' km/h';
       document.getElementById('meteoNowSnow').textContent=sub;
       nowEl.style.display='flex';
 
@@ -931,21 +931,21 @@ function toggleReadMore(id, btn){
         var pct=Math.min(150,Math.round((snowCm/snowMonthTypical)*100));
         barFill.style.width=Math.min(100,pct)+'%';
         barFill.style.background=pct>=90?'#2ea84e':pct>=60?'#f0a500':'#cc2200';
-        var txt=pct>=110?'Au-dessus de la normale ('+pct+'%)':pct>=80?'Dans la normale ('+pct+'%)':'En dessous de la normale ('+pct+'%)';
+        var txt=pct>=110?'Above average ('+pct+'%)':pct>=80?'Normal for the time of year ('+pct+'%)':'Below average ('+pct+'%)';
         barLabel.textContent=txt;
       }else if(barWrap&&snowMonthTypical===0){
         barWrap.style.display='block';
         if(barFill) barFill.style.width='0%';
-        if(barLabel) barLabel.textContent='Hors saison — enneigement non significatif';
+        if(barLabel) barLabel.textContent='Off-season — no significant snow cover';
       }
     }
     if(d.daily&&d.daily.time){
       var g=document.getElementById('meteoGrid');
       var h='';
-      var DAY_LBL=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+      var DAY_LBL=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
       for(var i=0;i<d.daily.time.length;i++){
         var dt=new Date(d.daily.time[i]+'T12:00:00');
-        var lbl=i===0?'Auj.':DAY_LBL[dt.getDay()];
+        var lbl=i===0?'Today':DAY_LBL[dt.getDay()];
         var tmax=Math.round(d.daily.temperature_2m_max[i]);
         var tmin=Math.round(d.daily.temperature_2m_min[i]);
         var sf=Math.round(d.daily.snowfall_sum[i]||0);
@@ -968,7 +968,7 @@ function toggleReadMore(id, btn){
         var bH='';var bL='';
         for(var i=0;i<sfArr.length;i++){
           var dt=new Date(d.daily.time[i]+'T12:00:00');
-          var lbl=i===0?'Auj.':DAY_LBL[dt.getDay()];
+          var lbl=i===0?'Today':DAY_LBL[dt.getDay()];
           var pct=Math.round((sfArr[i]/sfMax)*100);
           var color=sfArr[i]>0?'#3a7db8':'#e0eaf5';
           bH+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">'
@@ -985,7 +985,7 @@ function toggleReadMore(id, btn){
     }
   }).catch(function(){
     var ld=document.getElementById('meteoLoading');
-    if(ld) ld.textContent='Météo momentanément indisponible';
+    if(ld) ld.textContent='Weather temporarily unavailable';
   });
 })();
 
@@ -1044,7 +1044,7 @@ function closeStation(){
 }
 </script>
 <div class="container">
-<nav class="breadcrumb"><a href="/index.html">Accueil</a> › <a href="/recherche.html">Stations de ski</a> › <a href="/recherche.html">Apennines</a> › <span>Abetone</span></nav>
+<nav class="breadcrumb"><a href="/index.html">Home</a> › <a href="/recherche.html">Ski resorts</a> › <a href="/recherche.html">Apennines</a> › <span>Abetone</span></nav>
 <!-- Les statistiques de la station et l'encadré du grand domaine relié vivent désormais
        chacun dans leur propre onglet (La station / Grand domaine), plus jamais affichés
        ici de façon permanente au-dessus des onglets. -->
