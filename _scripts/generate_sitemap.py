@@ -13,6 +13,11 @@ générateur, qu'elles aient changé ou non. Une page tout juste créée/modifi�
 dans le même run (donc pas encore commit au moment où ce script s'exécute)
 reçoit la date du jour en repli.
 
+Version anglaise (dossier en/) : chaque page française qui a un équivalent
+en/… est liée à lui par des balises hreflang (xhtml:link) dans le sitemap, des
+deux côtés (fr, en, x-default). Les pages anglaises reprennent la priorité et
+la fréquence de leur page française.
+
 Déclenchement via GitHub Actions, ou manuellement :
     python3 _scripts/generate_sitemap.py
 
@@ -36,7 +41,7 @@ EXCLUDED_FILES = {
 }
 EXCLUDED_DIRS = {
     ".git", ".github", "_scripts", "node_modules",
-    "img", "images", "assets", "css", "js", ".well-known",
+    "img", "images", "assets", "css", "js", ".well-known", "i18n",
 }
 # Fragments / partiels : tout fichier commençant par "_" ou "partial"
 EXCLUDED_PATTERNS = (
@@ -72,8 +77,15 @@ def is_excluded(name):
     return any(p.search(name) for p in EXCLUDED_PATTERNS)
 
 
+def fr_path(rel_path):
+    """'en/stations/x.html' -> 'stations/x.html' ; une page française reste telle quelle."""
+    return rel_path[3:] if rel_path.startswith("en/") else rel_path
+
+
 def classify(rel_path):
-    """Retourne (priority, changefreq) pour un chemin relatif."""
+    """Retourne (priority, changefreq) pour un chemin relatif.
+    Une page anglaise est classée comme son équivalent français."""
+    rel_path = fr_path(rel_path)
     for pattern, prio, freq in RULES:
         if rel_path == pattern:
             return prio, freq
@@ -96,7 +108,7 @@ def load_git_lastmod(root_dir):
     try:
         out = subprocess.run(
             ["git", "log", "--name-only", "--pretty=format:@@%cd", "--date=short"],
-            cwd=root_dir, capture_output=True, text=True, check=True, timeout=120
+            cwd=root_dir, capture_output=True, text=True, check=True, timeout=300
         ).stdout
     except Exception as e:
         print(f"⚠ Historique Git indisponible ({e}) — repli sur la date du jour pour toutes les pages")
@@ -141,6 +153,18 @@ def collect_pages(root_dir):
             pages.append({"loc": f"{BASE_URL}/{rel}", "lastmod": lastmod,
                           "priority": prio, "changefreq": freq, "rel": rel})
     print(f"✓ lastmod : {n_from_git} pages depuis l'historique Git, {n_fallback} en repli sur la date du jour (nouvelles/modifiées)")
+
+    # Paires fr/en : une page n'a d'alternates que si les DEUX versions existent
+    existing = {p["rel"] for p in pages}
+    n_pairs = 0
+    for p in pages:
+        base = fr_path(p["rel"])
+        if base in existing and ("en/" + base) in existing:
+            p["alt_fr"] = f"{BASE_URL}/{base}"
+            p["alt_en"] = f"{BASE_URL}/en/{base}"
+            n_pairs += 1
+    print(f"✓ hreflang : {n_pairs // 2} paires fr/en reliées")
+
     # Tri : priorité décroissante, puis alphabétique
     pages.sort(key=lambda p: (-float(p["priority"]), p["rel"]))
     return pages
@@ -148,21 +172,26 @@ def collect_pages(root_dir):
 
 def build_xml(pages):
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
-             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+             'xmlns:xhtml="http://www.w3.org/1999/xhtml">']
     for p in pages:
         lines += ["  <url>",
                   f"    <loc>{escape_xml(p['loc'])}</loc>",
                   f"    <lastmod>{p['lastmod']}</lastmod>",
                   f"    <changefreq>{p['changefreq']}</changefreq>",
-                  f"    <priority>{p['priority']}</priority>",
-                  "  </url>"]
+                  f"    <priority>{p['priority']}</priority>"]
+        if p.get("alt_fr"):
+            lines += [f'    <xhtml:link rel="alternate" hreflang="fr" href="{escape_xml(p["alt_fr"])}"/>',
+                      f'    <xhtml:link rel="alternate" hreflang="en" href="{escape_xml(p["alt_en"])}"/>',
+                      f'    <xhtml:link rel="alternate" hreflang="x-default" href="{escape_xml(p["alt_fr"])}"/>']
+        lines.append("  </url>")
     lines.append("</urlset>")
     return "\n".join(lines) + "\n"
 
 
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    root_dir = os.path.dirname(script_dir)
+    root_dir = os.environ.get("SF_ROOT") or os.path.dirname(script_dir)
 
     pages = collect_pages(root_dir)
     if not pages:
@@ -178,11 +207,14 @@ def main():
     counts = {}
     for p in pages:
         folder = p["rel"].split("/")[0] if "/" in p["rel"] else "(racine)"
+        if p["rel"].startswith("en/"):
+            parts = p["rel"].split("/")
+            folder = "en/" + (parts[1] if len(parts) > 2 else "(racine)")
         counts[folder] = counts.get(folder, 0) + 1
 
     print(f"✓ sitemap.xml généré — {len(pages)} URLs")
     for folder, n in sorted(counts.items(), key=lambda x: -x[1]):
-        print(f"    {folder:<16} {n:>4}")
+        print(f"    {folder:<20} {n:>4}")
     return 0
 
 
