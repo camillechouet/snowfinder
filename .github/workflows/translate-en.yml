@@ -39,11 +39,11 @@ on:
         required: false
         default: ""
       price_in:
-        description: "Prix du modèle en $ par million de tokens ENTRÉE (vide = 3, tarif Sonnet)"
+        description: "Prix du modèle en $ par million de tokens ENTRÉE (vide = 0.1, tarif Haiku 5.5 ; Sonnet = 3)"
         required: false
         default: ""
       price_out:
-        description: "Prix du modèle en $ par million de tokens SORTIE (vide = 15, tarif Sonnet)"
+        description: "Prix du modèle en $ par million de tokens SORTIE (vide = 0.5, tarif Haiku 5.5 ; Sonnet = 15)"
         required: false
         default: ""
   workflow_run:
