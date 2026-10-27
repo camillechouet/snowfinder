@@ -35,7 +35,7 @@ on:
         required: false
         default: ""
       model:
-        description: "Modèle (vide = claude-sonnet-5-5 ; ex. claude-haiku-5-5 pour économiser)"
+        description: "Modèle (vide = claude-haiku-5-5 ; ex. claude-sonnet-5-5 pour la qualité maximale)"
         required: false
         default: ""
       price_in:
