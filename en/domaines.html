@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport"/>
+<title>The largest linked ski areas in Europe | SnowFinder</title>
+<meta content="The 58 largest linked ski areas in Europe: Portes du Soleil, 3 Vallées, 4 Vallées, Ski Arlberg, Val Gardena, Grandvalira... Kilometres of runs, member resorts, lift passes and altitudes." name="description"/>
+
+<meta content="website" property="og:type"/>
+<meta content="SnowFinder" property="og:site_name"/>
+<meta content="The largest linked ski areas in Europe" property="og:title"/>
+<meta content="58 ski areas, 179 linked resorts. Compare kilometres of runs, lift passes and altitudes." property="og:description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&amp;family=DM+Serif+Display&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root{--wood-pale:#f7efe2;--wood-light:#eddcbf;--wood:#c49a6c;--wood-dark:#8b5e3c;--blue:#5b9fd4;--blue-light:#e8f3fb;--blue-mid:#3a7db8;--blue-dark:#1a5a8a;--text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;--navy:#1a5a8a;--border:#e8d8c4;--bg:#f5f1ec}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{touch-action:pan-x pan-y;overflow-x:hidden;max-width:100%}
+  body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;padding-bottom:76px}
+  a{color:inherit}
+  .di-hero{background:linear-gradient(160deg,var(--blue-dark) 0%,var(--blue-mid) 50%,var(--blue) 100%);color:white;padding:40px 20px 32px;text-align:center;position:relative}
+  .di-hero h1{font-family:"DM Serif Display",serif;font-size:2rem;margin-bottom:9px;line-height:1.15}
+  .di-hero p{opacity:.88;font-size:.9rem;max-width:560px;margin:0 auto}
+  .di-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:white;font-size:1.05rem;display:flex;align-items:center;justify-content:center;text-decoration:none}
+  .di-tot{display:flex;justify-content:center;gap:22px;margin-top:16px;flex-wrap:wrap}
+  .di-tot div{text-align:center}
+  .di-tot b{display:block;font-family:"DM Serif Display",serif;font-size:1.35rem}
+  .di-tot span{font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;opacity:.8}
+  .di-wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .di-search-box{padding:20px 0 0;display:flex;gap:8px;align-items:center}
+  .di-search{flex:1;min-width:0;padding:12px 16px;border-radius:24px;border:1.5px solid var(--border);background:white;
+    font-family:"DM Sans",sans-serif;font-size:.88rem;color:var(--text);outline:none;transition:border-color .15s}
+  .di-search:focus{border-color:var(--blue-dark)}
+  .di-search::placeholder{color:var(--text-light)}
+  .di-pays-btn{flex-shrink:0;display:inline-flex;align-items:center;gap:4px;padding:10px 12px;background:white;border:1.5px solid var(--border);
+    border-radius:24px;font-family:"DM Sans",sans-serif;font-size:.85rem;font-weight:700;color:var(--text-mid);cursor:pointer}
+  .di-pays-btn .car{font-size:.62rem;margin-left:1px}
+  .di-pays-sheet-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;display:flex;align-items:flex-end;justify-content:center}
+  .di-pays-sheet{width:100%;max-width:440px;background:#fff;border-radius:18px 18px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));
+    font-family:"DM Sans",sans-serif}
+  .di-pays-sheet h3{margin:0 0 4px;font-family:"DM Serif Display",serif;font-size:1.15rem;font-weight:400;color:var(--text)}
+  .di-pays-sheet p{margin:0 0 14px;font-size:.78rem;color:var(--text-light)}
+  .di-pays-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .di-pays-flag{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:10px 4px;background:white;
+    border:1.5px solid var(--border);border-radius:10px;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:.7rem;font-weight:600;color:var(--text-mid)}
+  .di-pays-flag span:first-child{font-size:1.4rem}
+  .di-pays-flag.on{border-color:var(--blue-mid);background:var(--blue-light);color:var(--text)}
+  .di-pays-sheet .sf-sheet-ok{width:100%;margin-top:16px;padding:12px;background:var(--blue-mid);color:#fff;border:none;border-radius:10px;
+    font:inherit;font-size:.88rem;font-weight:700;cursor:pointer}
+  .di-filters{display:flex;gap:8px;flex-wrap:wrap;padding:20px 0 6px}
+  .di-f{padding:8px 15px;border-radius:20px;border:1.5px solid var(--border);background:white;
+    font-family:"DM Sans",sans-serif;font-size:.8rem;font-weight:700;color:var(--text-mid);cursor:pointer;transition:all .15s}
+  .di-f:hover{border-color:var(--blue-dark);color:var(--blue-dark)}
+  .di-f.on{background:var(--blue-dark);border-color:var(--blue-dark);color:white}
+  .di-count{font-size:.78rem;color:var(--text-mid);padding:6px 0 14px}
+  .di-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;padding-bottom:30px}
+  /* CARTE — même structure que les vignettes stations (.card) */
+  .di-card{display:block;background:white;border-radius:16px;border:1px solid rgba(200,220,240,.6);overflow:hidden;
+    text-decoration:none;box-shadow:0 4px 18px rgba(20,60,120,.10);transition:box-shadow .35s,transform .25s;position:relative}
+  .di-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.15)}
+  .di-top{height:190px;position:relative;display:flex;align-items:flex-end;padding:16px;background-size:cover;background-position:center}
+  .di-top-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,28,58,.82) 0%,rgba(10,30,60,.25) 50%,transparent 100%)}
+  .di-massif-tag{position:absolute;top:11px;left:11px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);color:white;font-size:.62rem;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em;z-index:1}
+  .di-km-tag{position:absolute;top:11px;right:11px;background:var(--wood);color:white;font-size:.78rem;font-weight:700;padding:3px 9px;border-radius:20px;z-index:1}
+  .di-top-text{position:relative;z-index:1}
+  .di-name{font-family:"DM Serif Display",serif;font-size:1.28rem;color:white;text-shadow:0 2px 10px rgba(0,0,0,.7);line-height:1.2;letter-spacing:-.01em}
+  .di-region-inline{font-size:.7rem;color:rgba(255,255,255,.75);margin-top:2px}
+  .di-illu-note{position:absolute;bottom:6px;right:11px;z-index:1;font-style:italic;font-size:.6rem;color:rgba(255,255,255,.5);text-shadow:0 1px 4px rgba(0,0,0,.6)}
+  .di-body{padding:12px 15px 8px}
+  .di-stats{display:flex;flex-wrap:wrap;align-items:center;gap:5px 12px;font-size:.78rem;color:var(--text-mid);margin-bottom:9px;font-weight:500}
+  .di-score-tag{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#d4a017,#b8860b);color:white;border-radius:20px;padding:3px 10px;font-size:.72rem;font-weight:700;white-space:nowrap}
+  .di-pistes{display:flex;gap:6px;align-items:center;margin-bottom:9px;flex-wrap:wrap}
+  .pd{display:flex;align-items:center;gap:3px;background:var(--bg);border-radius:6px;padding:3px 7px;font-size:.72rem;font-weight:700}
+  .pd-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+  .pd-v .pd-dot{background:#2ea84e}.pd-b .pd-dot{background:#3a7db8}.pd-r .pd-dot{background:#cc2200}.pd-n .pd-dot{background:#222}
+  .pd-v{color:#1a7a38}.pd-b{color:#1a4a8a}.pd-r{color:#aa1800}.pd-n{color:#111}
+  .di-flags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px}
+  .di-flag{font-size:.66rem;font-weight:700;background:var(--blue-light);color:var(--blue-dark);padding:3px 9px;border-radius:20px}
+  .di-flag-warn{background:#fff4e6;color:#a05a2c}
+  .di-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:2px}
+  .di-chip{font-size:.68rem;font-weight:600;background:var(--wood-pale);color:var(--wood-dark)}
+  .di-chip{padding:3px 9px;border-radius:20px}
+  .di-chip-more{background:var(--blue-dark);color:white;font-weight:800}
+  .di-footer{padding:10px 15px 13px;border-top:1px solid rgba(200,220,240,.5);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#f0f7ff,#f8f9ff)}
+  .di-price{font-family:"DM Serif Display",serif;font-size:1.15rem;color:var(--blue-mid)}
+  .di-price-lbl{font-size:.7rem;color:var(--text-light);margin-left:3px}
+  .di-go{font-size:.78rem;font-weight:800;color:var(--blue-dark)}
+  .di-empty{text-align:center;padding:40px 20px;color:var(--text-mid);font-size:.9rem}
+  .footer{text-align:center;padding:26px 20px 20px;font-size:.8rem;color:var(--text-mid)}
+  .footer a{color:var(--blue-dark);text-decoration:none;font-weight:600}
+  .sf-bottomnav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;align-items:center;padding:8px 0;box-shadow:0 -2px 10px rgba(0,0,0,.08);z-index:80}
+  .sf-bn-item{text-decoration:none;font-size:1.3rem;padding:6px 10px}
+  .sf-bn-home-circle{background:var(--blue-dark);color:white;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>
+<script>try{if(localStorage.getItem("sf_cookie_consent")==="refused")window["ga-disable-G-S0C748Y0DX"]=true;}catch(e){}window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-S0C748Y0DX");</script>
+<link href="https://snowfinder.fr/en/domaines.html" rel="canonical"/><link href="https://snowfinder.fr/domaines.html" hreflang="fr" rel="alternate"/><link href="https://snowfinder.fr/en/domaines.html" hreflang="en" rel="alternate"/><link href="https://snowfinder.fr/domaines.html" hreflang="x-default" rel="alternate"/></head>
+<body>
+<!-- ══ TOP BAR APP — identique à index.html (se cache au scroll vers le bas) ══ -->
+<style>
+body{padding-top:64px!important}
+.sf-topbar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid #eddcbf;display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 6px;z-index:600;transition:transform .28s ease;overflow:visible;gap:8px;font-family:'DM Sans',sans-serif;box-sizing:border-box}
+.sf-topbar *{box-sizing:border-box}
+.sf-topbar.sf-hide{transform:translateY(-100%);}
+.sf-topbar-logo{display:flex;align-items:center;gap:4px;text-decoration:none;flex-shrink:0;justify-self:start;min-width:0;}
+.sf-topbar-logo img{width:60px;height:60px;border-radius:12px;object-fit:contain;flex-shrink:0}
+.sf-topbar-wordtext{display:flex;flex-direction:column;justify-content:center;line-height:1.05;min-width:0;overflow:hidden}
+.sf-topbar-title{font-family:"DM Serif Display",serif;font-size:.95rem;font-weight:700;white-space:nowrap}
+.sf-topbar-title .sf-dark{color:#1a5a8a}
+.sf-topbar-title .sf-light{color:#3a7db8}
+.sf-topbar-slogan{font-size:.5rem;letter-spacing:.03em;color:#1a5a8a;opacity:.7;white-space:nowrap;text-transform:uppercase;margin-top:1px}
+.sf-topbar-app{display:flex;align-items:center;gap:4px;background:linear-gradient(135deg,#e8f3fb,#eaf4ff);border:1px solid #3a7db8;border-radius:14px;padding:4px 9px;font-size:.64rem;font-weight:700;color:#1a5a8a;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18);justify-self:end;}
+.sf-topbar-right{display:flex;align-items:center;justify-self:end;flex-shrink:0;}
+.sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:#1a5a8a;font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
+.sf-topbar-fav:active{background:#f7efe2}
+.sf-topbar-menu{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;border:1.5px solid #eddcbf;background:#fff;font-size:1rem;line-height:1;color:#1a5a8a;cursor:pointer;flex-shrink:0;padding:0;margin-left:2px}
+.sf-topbar-menu:active{background:#f7efe2}
+@media(max-width:480px){.sf-topbar{padding:0 4px;gap:4px}.sf-topbar-logo img{width:52px;height:52px}.sf-topbar-app{font-size:.58rem;padding:4px 7px}}
+/* Menu rapide + notifications */
+.sf-sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;backdrop-filter:blur(4px)}
+.sf-sheet-overlay.open{display:block}
+.sf-sheet{position:fixed;left:0;right:0;bottom:0;z-index:9001;background:#f5f1ec;border-radius:20px 20px 0 0;padding:10px 0 max(20px,env(safe-area-inset-bottom));box-shadow:0 -8px 40px rgba(0,0,0,.2);transform:translateY(100%);transition:transform .32s cubic-bezier(.32,.72,0,1);max-width:480px;margin:0 auto;font-family:'DM Sans',sans-serif;box-sizing:border-box}
+.sf-sheet.open{transform:translateY(0)}
+.sf-sheet-handle{width:40px;height:4px;background:#ddd;border-radius:3px;margin:0 auto 10px}
+.sf-sheet-title{text-align:center;font-family:"DM Serif Display",serif;font-size:1.05rem;color:#1a5a8a;margin-bottom:6px;padding:0 20px}
+.sf-menu-item{display:flex;align-items:center;gap:12px;width:100%;padding:15px 24px;background:none;border:none;border-top:1px solid #f7efe2;font-size:.95rem;font-weight:600;color:#2a1f14;text-decoration:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif;box-sizing:border-box}
+.sf-menu-item:active{background:#f7efe2}
+.sf-menu-item .em{font-size:1.15rem;flex-shrink:0}
+</style>
+<div class="sf-topbar" id="sfTopbar">
+<a class="sf-topbar-logo" href="/index.html"><img alt="SnowFinder" src="/logo.png"/> <span class="sf-topbar-wordtext"> <span class="sf-topbar-title"><span class="sf-dark">Snow</span><span class="sf-light">Finder</span></span> <span class="sf-topbar-slogan">Compare • Find • Ski</span> </span></a>
+<a class="sf-topbar-app" href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" style="position:relative;left:12px">📲 The app is out now!</a>
+<div class="sf-topbar-right">
+<a class="sf-topbar-fav" href="/comparateur.html" style="margin-right:2px;position:relative;left:10px">⚖️ <span id="sfCompareCount">0</span></a>
+<a class="sf-topbar-fav" href="/favoris.html">⭐ <span id="sfFavCount">0</span></a>
+<button aria-label="Menu" class="sf-topbar-menu" id="sfMenuBtn" onclick="openSfMenu()" type="button">☰</button>
+</div>
+</div>
+<div class="sf-sheet-overlay" id="sfMenuOverlay" onclick="closeSfMenu()"></div>
+<div class="sf-sheet" id="sfMenuSheet">
+<div class="sf-sheet-handle"></div>
+<div class="sf-sheet-title">Menu</div>
+<button class="sf-menu-item" onclick="closeSfMenu();openContact()" type="button"><span class="em">📧</span><span>Contact us</span></button>
+<button class="sf-menu-item" onclick="closeSfMenu();openSfNotif()" type="button"><span class="em">🔔</span><span>Notifications</span></button>
+<a class="sf-menu-item" href="/mentions-legales.html"><span class="em">⚖️</span><span>Legal notice</span></a>
+</div>
+<div class="sf-sheet-overlay" id="sfNotifOverlay2" onclick="closeSfNotif()"></div>
+<div class="sf-sheet" id="sfNotifSheet2" style="text-align:center">
+<div class="sf-sheet-handle"></div>
+<div style="padding:8px 24px 4px">
+<div style="font-size:2.3rem;margin-bottom:8px">🔔</div>
+<div style="font-family:'DM Serif Display',serif;font-size:1.25rem;color:#1a3f6e;margin-bottom:8px;line-height:1.2">Powder alerts &amp; good deals?</div>
+<p style="font-size:.88rem;color:#5c4a35;line-height:1.6;margin-bottom:16px">Get an alert when the snow comes down heavily, or when there are good lift pass deals. <strong>Free, discreet, 1 to 2 times a week at most.</strong></p>
+</div>
+<div style="padding:0 20px;display:flex;flex-direction:column;gap:10px"><button onclick="acceptSfNotif()" style="background:linear-gradient(135deg,#1a5a8a,#3a7db8);color:white;border:none;border-radius:30px;padding:15px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(26,90,138,.3)" type="button">⛷️ Yes, I want to be alerted!</button> <button onclick="closeSfNotif()" style="background:transparent;color:#8a7060;border:none;padding:8px;font-size:.85rem;cursor:pointer;font-family:'DM Sans',sans-serif" type="button">No thanks</button></div>
+</div>
+<script>
+function openSfMenu(){document.getElementById('sfMenuOverlay').classList.add('open');document.getElementById('sfMenuSheet').classList.add('open');document.body.style.overflow='hidden';}
+function closeSfMenu(){document.getElementById('sfMenuOverlay').classList.remove('open');document.getElementById('sfMenuSheet').classList.remove('open');document.body.style.overflow='';}
+// « Nous contacter » : ouvre la modale de contact de l'accueil
+if (typeof openContact !== 'function') {
+  window.openContact = function(){ window.location.href = '/index.html#contact'; };
+}
+function openSfNotif(){
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Les notifications sont déjà activées ✅'); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Les notifications sont bloquées dans les réglages de ton navigateur."); return; }
+  document.getElementById('sfNotifOverlay2').classList.add('open');
+  document.getElementById('sfNotifSheet2').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSfNotif(){
+  document.getElementById('sfNotifOverlay2').classList.remove('open');
+  document.getElementById('sfNotifSheet2').classList.remove('open');
+  document.body.style.overflow='';
+}
+function acceptSfNotif(){
+  closeSfNotif();
+  function ask(){
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred.push(async function(OneSignal){ try{ await OneSignal.Notifications.requestPermission(); }catch(e){} });
+  }
+  if(window.OneSignal || document.querySelector('script[src*="OneSignalSDK"]')){ ask(); return; }
+  var s=document.createElement('script');
+  s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; s.defer=true;
+  document.head.appendChild(s);
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(async function(OneSignal){
+    await OneSignal.init({appId:"df4757f7-ed59-4973-8a3d-782547295c9c",safari_web_id:"web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",serviceWorkerPath:"sw.js",notifyButton:{enable:false},welcomeNotification:{disable:true}});
+    try{ await OneSignal.Notifications.requestPermission(); }catch(e){}
+  });
+}
+// Masquer la barre au scroll vers le bas + compteurs favoris / comparateur
+(function(){
+  var bar = document.getElementById("sfTopbar");
+  var lastY = window.scrollY, ticking = false;
+  window.addEventListener("scroll", function(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY;
+      if(y > lastY && y > 60) bar.classList.add("sf-hide");
+      else bar.classList.remove("sf-hide");
+      lastY = y; ticking = false;
+    });
+  }, {passive:true});
+  function updateFavCount(){
+    var favs = [];
+    try { favs = JSON.parse(localStorage.getItem("sf_favorites")||"[]"); } catch(e){}
+    var el = document.getElementById("sfFavCount"); if(el) el.textContent = favs.length;
+  }
+  function updateCompareCount(){
+    var c = [];
+    try { c = JSON.parse(localStorage.getItem("sf_compare")||"[]"); } catch(e){}
+    var el = document.getElementById("sfCompareCount"); if(el) el.textContent = c.length;
+  }
+  updateFavCount(); updateCompareCount();
+  window.addEventListener("storage", updateFavCount);
+  window.addEventListener("storage", updateCompareCount);
+  window.addEventListener("focus", updateFavCount);
+  window.addEventListener("focus", updateCompareCount);
+})();
+</script>
+<!-- ══ FIN TOP BAR ══ -->
+<div class="di-hero">
+<a aria-label="Back" class="di-close" href="/recherche.html">✕</a>
+<h1>🏔️ The large linked ski areas</h1>
+<p>Several resorts connected on skis, under a single lift pass. The real deciding factor when you're after big skiing.</p>
+<div class="di-tot">
+<div><b>58</b><span>ski areas</span></div>
+<div><b>179</b><span>linked resorts</span></div>
+<div><b>10,869.7</b><span>km combined</span></div>
+</div>
+</div>
+<div class="di-wrap">
+<div class="di-search-box">
+<input autocomplete="off" class="di-search" id="diSearch" placeholder="Search for a ski area, a resort… (e.g. Portes du Soleil, Avoriaz)" type="text"/>
+<button class="di-pays-btn" id="diPaysBtnMain" type="button">🌍 <span id="diPaysBtnLbl">Countries</span><span class="car">▾</span></button>
+</div>
+<div class="di-filters"><button class="di-f on" data-m="">All</button> <button class="di-f" data-m="Alpes du Nord">Northern Alps</button><button class="di-f" data-m="Alpes du Sud">Southern Alps</button><button class="di-f" data-m="Massif Central">Massif Central</button><button class="di-f" data-m="Pyrénées">Pyrenees</button></div>
+<div class="di-count" id="diCount"></div>
+<div class="di-grid" id="diGrid">
+<a class="di-card" data-m="Alpes du Nord" data-pays="FR CH" data-search="les portes du soleil portes du soleil alpes du nord avoriaz morzine montriond les gets saint-jean-d'aulps abondance la chapelle d'abondance chatel" href="/domaines/portes-du-soleil.html">
+<div class="di-top" style="background-image:url('../img/avoriaz1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">600 km</div>
+<div class="di-top-text">
+<div class="di-name">Les Portes du Soleil</div>
+<div class="di-region-inline">8 linked resorts</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 208 lifts</span> <span>⛰ 930-2,466m</span> <span class="di-score-tag">⭐ 4.0</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>80</span>
+<span class="pd pd-b"><span class="pd-dot"></span>173</span>
+<span class="pd pd-r"><span class="pd-dot"></span>103</span>
+<span class="pd pd-n"><span class="pd-dot"></span>44</span>
+</div>
+<div class="di-flags"><span class="di-flag">🌍 France · Switzerland</span></div>
+<div class="di-chips"><span class="di-chip">Avoriaz</span><span class="di-chip">Morzine</span><span class="di-chip">Montriond</span><span class="di-chip">Les Gets</span><span class="di-chip">Saint-Jean-d'Aulps</span><span class="di-chip di-chip-more">+3</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">73€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="les 3 vallees les 3 vallees alpes du nord courchevel la tania meribel brides-les-bains saint-martin-de-belleville les menuires val thorens orelle" href="/en/domaines/3-vallees.html">
+<div class="di-top" style="background-image:url('../img/courchevel1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">600 km</div>
+<div class="di-top-text">
+<div class="di-name">Les 3 Vallées</div>
+<div class="di-region-inline">8 linked resorts</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 156 lifts</span> <span>⛰ 1,100-3,230m</span> <span class="di-score-tag">⭐ 4.3</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>55</span>
+<span class="pd pd-b"><span class="pd-dot"></span>178</span>
+<span class="pd pd-r"><span class="pd-dot"></span>113</span>
+<span class="pd pd-n"><span class="pd-dot"></span>54</span>
+</div>
+<div class="di-chips"><span class="di-chip">Courchevel</span><span class="di-chip">La Tania</span><span class="di-chip">Méribel</span><span class="di-chip">Brides-les-Bains</span><span class="di-chip">Saint-Martin-de-Belleville</span><span class="di-chip di-chip-more">+3</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">84€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="paradiski paradiski alpes du nord la plagne les arcs peisey-vallandry montchavin-les coches champagny-en-vanoise" href="/domaines/paradiski.html">
+<div class="di-top" style="background-image:url('../img/laplagne1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">425 km</div>
+<div class="di-top-text">
+<div class="di-name">Paradiski</div>
+<div class="di-region-inline">5 linked resorts</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 130 lifts</span> <span>⛰ 1,200-3,250m</span> <span class="di-score-tag">⭐ 4.2</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>31</span>
+<span class="pd pd-b"><span class="pd-dot"></span>106</span>
+<span class="pd pd-r"><span class="pd-dot"></span>62</span>
+<span class="pd pd-n"><span class="pd-dot"></span>31</span>
+</div>
+<div class="di-chips"><span class="di-chip">La Plagne</span><span class="di-chip">Les Arcs</span><span class="di-chip">Peisey-Vallandry</span><span class="di-chip">Montchavin-Les Coches</span><span class="di-chip">Champagny-en-Vanoise</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">78€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="les 4 vallees 4 vallees alpes du nord verbier nendaz veysonnaz thyon la tzoumaz" href="/domaines/4-vallees.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">412 km</div>
+<div class="di-top-text">
+<div class="di-name">Les 4 Vallées</div>
+<div class="di-region-inline">5 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 68 lifts</span> <span>⛰ 1,350-3,330m</span> <span class="di-score-tag">⭐ 4.3</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>26%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>49%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>25%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Verbier</span><span class="di-chip">Nendaz</span><span class="di-chip">Veysonnaz</span><span class="di-chip">Thyon</span><span class="di-chip">La Tzoumaz</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">99€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="evasion mont-blanc evasion mont-blanc alpes du nord megeve saint-gervais combloux la giettaz les contamines-montjoie" href="/domaines/evasion-mont-blanc.html">
+<div class="di-top" style="background-image:url('../img/megeve1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">400 km</div>
+<div class="di-top-text">
+<div class="di-name">Évasion Mont-Blanc</div>
+<div class="di-region-inline">5 linked resorts</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 107 lifts</span> <span>⛰ 850-2,353m</span> <span class="di-score-tag">⭐ 4.1</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>39</span>
+<span class="pd pd-b"><span class="pd-dot"></span>87</span>
+<span class="pd pd-r"><span class="pd-dot"></span>76</span>
+<span class="pd pd-n"><span class="pd-dot"></span>28</span>
+</div>
+<div class="di-chips"><span class="di-chip">Megève</span><span class="di-chip">Saint-Gervais</span><span class="di-chip">Combloux</span><span class="di-chip">La Giettaz</span><span class="di-chip">Les Contamines-Montjoie</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">65€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Sud" data-pays="FR IT" data-search="la voie lactee (via lattea) la voie lactee alpes du sud montgenevre" href="/domaines/voie-lactee.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Southern Alps</div>
+<div class="di-km-tag">400 km</div>
+<div class="di-top-text">
+<div class="di-name">La Voie Lactée (Via Lattea)</div>
+<div class="di-region-inline">1 linked resort</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 70 lifts</span> <span>⛰ 1,380-2,823m</span> <span class="di-score-tag">⭐ 4.0</span></div>
+<div class="di-flags"><span class="di-flag">🌍 France · Italy</span></div>
+<div class="di-chips"><span class="di-chip">Montgenèvre</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">57€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="CH IT" data-search="matterhorn ski paradise (zermatt – cervinia) matterhorn ski paradise alpes du nord zermatt breuil-cervinia valtournenche" href="/domaines/matterhorn-ski-paradise.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">322 km</div>
+<div class="di-top-text">
+<div class="di-name">Matterhorn Ski Paradise (Zermatt – Cervinia)</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 51 lifts</span> <span>⛰ 1,524-3,899m</span> <span class="di-score-tag">⭐ 4.6</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>23%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>68%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>9%</span>
+</div>
+<div class="di-flags"><span class="di-flag">🌍 Switzerland · Italy</span></div>
+<div class="di-chips"><span class="di-chip">Zermatt</span><span class="di-chip">Breuil-Cervinia</span><span class="di-chip">Valtournenche</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">123€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="les sybelles les sybelles alpes du nord la toussuire le corbier saint-sorlin-d'arves saint-jean-d'arves les bottieres saint-colomban-des-villards" href="/domaines/sybelles.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">310 km</div>
+<div class="di-top-text">
+<div class="di-name">Les Sybelles</div>
+<div class="di-region-inline">6 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 61 lifts</span> <span>⛰ 1,100-2,620m</span> <span class="di-score-tag">⭐ 3.6</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>55</span>
+<span class="pd pd-b"><span class="pd-dot"></span>120</span>
+<span class="pd pd-r"><span class="pd-dot"></span>78</span>
+<span class="pd pd-n"><span class="pd-dot"></span>31</span>
+</div>
+<div class="di-chips"><span class="di-chip">La Toussuire</span><span class="di-chip">Le Corbier</span><span class="di-chip">Saint-Sorlin-d'Arves</span><span class="di-chip">Saint-Jean-d'Arves</span><span class="di-chip">Les Bottières</span><span class="di-chip di-chip-more">+1</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">59€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="tignes – val d'isere tignes – val d'isere alpes du nord val d'isere tignes" href="/domaines/espace-killy.html">
+<div class="di-top" style="background-image:url('../img/valdisere1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">300 km</div>
+<div class="di-top-text">
+<div class="di-name">Tignes – Val d'Isère</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 71 lifts</span> <span>⛰ 1550-3456m</span> <span class="di-score-tag">⭐ 4.8</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>23</span>
+<span class="pd pd-b"><span class="pd-dot"></span>67</span>
+<span class="pd pd-r"><span class="pd-dot"></span>41</span>
+<span class="pd pd-n"><span class="pd-dot"></span>29</span>
+</div>
+<div class="di-chips"><span class="di-chip">Val d'Isère</span><span class="di-chip">Tignes</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">78€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="ski arlberg ski arlberg alpes du nord st. anton am arlberg st. christoph stuben lech zurs warth-schrocken" href="/domaines/ski-arlberg.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">300 km</div>
+<div class="di-top-text">
+<div class="di-name">Ski Arlberg</div>
+<div class="di-region-inline">6 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 85 lifts</span> <span>⛰ 1304-2811m</span> <span class="di-score-tag">⭐ 4.5</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>43%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>40%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>17%</span>
+</div>
+<div class="di-chips"><span class="di-chip">St. Anton am Arlberg</span><span class="di-chip">St. Christoph</span><span class="di-chip">Stuben</span><span class="di-chip">Lech</span><span class="di-chip">Zürs</span><span class="di-chip di-chip-more">+1</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">82€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="skiwelt wilder kaiser – brixental skiwelt alpes du nord soll ellmau scheffau going brixen im thale westendorf hopfgarten" href="/domaines/skiwelt.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">275 km</div>
+<div class="di-top-text">
+<div class="di-name">SkiWelt Wilder Kaiser – Brixental</div>
+<div class="di-region-inline">7 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 81 lifts</span> <span>⛰ 620-1869m</span> <span class="di-score-tag">⭐ 4.2</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>42%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>44%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>14%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Söll</span><span class="di-chip">Ellmau</span><span class="di-chip">Scheffau</span><span class="di-chip">Going</span><span class="di-chip">Brixen im Thale</span><span class="di-chip di-chip-more">+2</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">80€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="skicircus saalbach hinterglemm leogang fieberbrunn skicircus alpes du nord saalbach hinterglemm leogang fieberbrunn" href="/domaines/skicircus.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">270 km</div>
+<div class="di-top-text">
+<div class="di-name">Skicircus Saalbach Hinterglemm Leogang Fieberbrunn</div>
+<div class="di-region-inline">4 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 69 lifts</span> <span>⛰ 830-2096m</span> <span class="di-score-tag">⭐ 4.5</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>52%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>41%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>7%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Saalbach</span><span class="di-chip">Hinterglemm</span><span class="di-chip">Leogang</span><span class="di-chip">Fieberbrunn</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">82€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="le grand massif grand massif alpes du nord flaine les carroz morillon samoens sixt-fer-a-cheval" href="/domaines/grand-massif.html">
+<div class="di-top" style="background-image:url('../img/flaine1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">265 km</div>
+<div class="di-top-text">
+<div class="di-name">Le Grand Massif</div>
+<div class="di-region-inline">5 linked resorts</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 62 lifts</span> <span>⛰ 700-2500m</span> <span class="di-score-tag">⭐ 3.9</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>29</span>
+<span class="pd pd-b"><span class="pd-dot"></span>111</span>
+<span class="pd pd-r"><span class="pd-dot"></span>80</span>
+<span class="pd pd-n"><span class="pd-dot"></span>31</span>
+</div>
+<div class="di-chips"><span class="di-chip">Flaine</span><span class="di-chip">Les Carroz</span><span class="di-chip">Morillon</span><span class="di-chip">Samoëns</span><span class="di-chip">Sixt-Fer-à-Cheval</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">63€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="alpe d'huez grand domaine ski alpe d'huez alpes du nord alpe d'huez auris-en-oisans" href="/domaines/alpe-dhuez-grand-domaine.html">
+<div class="di-top" style="background-image:url('../img/alpedhuez1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">250 km</div>
+<div class="di-top-text">
+<div class="di-name">Alpe d'Huez Grand Domaine Ski</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 67 lifts</span> <span>⛰ 1130-3330m</span> <span class="di-score-tag">⭐ 4.2</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>16</span>
+<span class="pd pd-b"><span class="pd-dot"></span>68</span>
+<span class="pd pd-r"><span class="pd-dot"></span>82</span>
+<span class="pd pd-n"><span class="pd-dot"></span>22</span>
+</div>
+<div class="di-chips"><span class="di-chip">Alpe d'Huez</span><span class="di-chip">Auris-en-Oisans</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">68€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Sud" data-pays="FR" data-search="serre chevalier vallee serre chevalier alpes du sud serre chevalier" href="/domaines/serre-chevalier-vallee.html">
+<div class="di-top" style="background-image:url('../img/serrechevalier1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Southern Alps</div>
+<div class="di-km-tag">250 km</div>
+<div class="di-top-text">
+<div class="di-name">Serre Chevalier Vallée</div>
+<div class="di-region-inline">1 linked resort</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 58 lifts</span> <span>⛰ 1200-2830m</span> <span class="di-score-tag">⭐ 4.6</span></div>
+<div class="di-chips"><span class="di-chip">Serre Chevalier</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">65€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT CH" data-search="silvretta arena (ischgl – samnaun) silvretta arena alpes du nord ischgl samnaun" href="/domaines/silvretta-arena.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">239 km</div>
+<div class="di-top-text">
+<div class="di-name">Silvretta Arena (Ischgl – Samnaun)</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 45 lifts</span> <span>⛰ 1360-2872m</span> <span class="di-score-tag">⭐ 4.6</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>20%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>59%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>21%</span>
+</div>
+<div class="di-flags"><span class="di-flag">🌍 Austria · Switzerland</span></div>
+<div class="di-chips"><span class="di-chip">Ischgl</span><span class="di-chip">Samnaun</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">83€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="arosa lenzerheide arosa lenzerheide alpes du nord arosa lenzerheide" href="/domaines/arosa-lenzerheide.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">225 km</div>
+<div class="di-top-text">
+<div class="di-name">Arosa Lenzerheide</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 43 lifts</span> <span>⛰ 1229-2865m</span> <span class="di-score-tag">⭐ 4.5</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>49%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>39%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>12%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Arosa</span><span class="di-chip">Lenzerheide</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">94€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Pyrénées" data-pays="AD" data-search="grandvalira grandvalira pyrenees pas de la casa grau roig soldeu el tarter canillo encamp" href="/domaines/grandvalira.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Pyrenees</div>
+<div class="di-km-tag">215 km</div>
+<div class="di-top-text">
+<div class="di-name">Grandvalira</div>
+<div class="di-region-inline">6 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 74 lifts</span> <span>⛰ 1710-2640m</span> <span class="di-score-tag">⭐ 4.2</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>23</span>
+<span class="pd pd-b"><span class="pd-dot"></span>53</span>
+<span class="pd pd-r"><span class="pd-dot"></span>46</span>
+<span class="pd pd-n"><span class="pd-dot"></span>20</span>
+</div>
+<div class="di-chips"><span class="di-chip">Pas de la Casa</span><span class="di-chip">Grau Roig</span><span class="di-chip">Soldeu</span><span class="di-chip">El Tarter</span><span class="di-chip">Canillo</span><span class="di-chip di-chip-more">+1</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">69€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="espace diamant espace diamant alpes du nord les saisies crest-voland notre-dame-de-bellecombe flumet praz-sur-arly hauteluce" href="/domaines/espace-diamant.html">
+<div class="di-top" style="background-image:url('../img/lessaisies1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">200 km</div>
+<div class="di-top-text">
+<div class="di-name">Espace Diamant</div>
+<div class="di-region-inline">6 linked resorts</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 81 lifts</span> <span>⛰ 910-2069m</span> <span class="di-score-tag">⭐ 3.8</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>40</span>
+<span class="pd pd-b"><span class="pd-dot"></span>92</span>
+<span class="pd pd-r"><span class="pd-dot"></span>60</span>
+<span class="pd pd-n"><span class="pd-dot"></span>16</span>
+</div>
+<div class="di-chips"><span class="di-chip">Les Saisies</span><span class="di-chip">Crest-Voland</span><span class="di-chip">Notre-Dame-de-Bellecombe</span><span class="di-chip">Flumet</span><span class="di-chip">Praz-sur-Arly</span><span class="di-chip di-chip-more">+1</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">52€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="kitzski (kitzbuhel – kirchberg) kitzski alpes du nord kitzbuhel kirchberg in tirol" href="/domaines/kitzski.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">188 km</div>
+<div class="di-top-text">
+<div class="di-name">KitzSki (Kitzbühel – Kirchberg)</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 58 lifts</span> <span>⛰ 800-2000m</span> <span class="di-score-tag">⭐ 4.5</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>54%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>35%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>11%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Kitzbühel</span><span class="di-chip">Kirchberg in Tirol</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">83€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="serfaus-fiss-ladis serfaus-fiss-ladis alpes du nord serfaus fiss ladis" href="/domaines/serfaus-fiss-ladis.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">186 km</div>
+<div class="di-top-text">
+<div class="di-name">Serfaus-Fiss-Ladis</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 38 lifts</span> <span>⛰ 1200-2828m</span> <span class="di-score-tag">⭐ 4.4</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>25%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>60%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>15%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Serfaus</span><span class="di-chip">Fiss</span><span class="di-chip">Ladis</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">78€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Sud" data-pays="FR" data-search="la foret blanche la foret blanche alpes du sud vars risoul" href="/domaines/foret-blanche.html">
+<div class="di-top" style="background-image:url('../img/vars1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Southern Alps</div>
+<div class="di-km-tag">185 km</div>
+<div class="di-top-text">
+<div class="di-name">La Forêt Blanche</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 36 lifts</span> <span>⛰ 1650-2750m</span> <span class="di-score-tag">⭐ 4.1</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>26</span>
+<span class="pd pd-b"><span class="pd-dot"></span>66</span>
+<span class="pd pd-r"><span class="pd-dot"></span>52</span>
+<span class="pd pd-n"><span class="pd-dot"></span>16</span>
+</div>
+<div class="di-chips"><span class="di-chip">Vars</span><span class="di-chip">Risoul</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">58€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="val gardena val gardena alpes du nord ortisei santa cristina selva di val gardena" href="/domaines/val-gardena.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">181 km</div>
+<div class="di-top-text">
+<div class="di-name">Val Gardena</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 78 lifts</span> <span>⛰ 1236-2518m</span> <span class="di-score-tag">⭐ 4.5</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>29%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>60%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>11%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Ortisei</span><span class="di-chip">Santa Cristina</span><span class="di-chip">Selva di Val Gardena</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">80€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Sud" data-pays="FR" data-search="espace lumiere espace lumiere alpes du sud pra-loup val d'allos" href="/domaines/espace-lumiere.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Southern Alps</div>
+<div class="di-km-tag">180 km</div>
+<div class="di-top-text">
+<div class="di-name">Espace Lumière</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 37 lifts</span> <span>⛰ 1500-2600m</span> <span class="di-score-tag">⭐ 3.8</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>26</span>
+<span class="pd pd-b"><span class="pd-dot"></span>80</span>
+<span class="pd pd-r"><span class="pd-dot"></span>56</span>
+<span class="pd pd-n"><span class="pd-dot"></span>12</span>
+</div>
+<div class="di-chips"><span class="di-chip">Pra-Loup</span><span class="di-chip">Val d'Allos</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">49€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="flims laax falera flims laax falera alpes du nord laax flims falera" href="/domaines/flims-laax-falera.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">176 km</div>
+<div class="di-top-text">
+<div class="di-name">Flims Laax Falera</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 29 lifts</span> <span>⛰ 1100-3018m</span> <span class="di-score-tag">⭐ 4.4</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>48%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>43%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>9%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Laax</span><span class="di-chip">Flims</span><span class="di-chip">Falera</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">92€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="le grand domaine le grand domaine alpes du nord valmorel saint-francois-longchamp" href="/domaines/grand-domaine-valmorel.html">
+<div class="di-top" style="background-image:url('../img/valmorel1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">165 km</div>
+<div class="di-top-text">
+<div class="di-name">Le Grand Domaine</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 47 lifts</span> <span>⛰ 1200-2550m</span> <span class="di-score-tag">⭐ 4.2</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>20</span>
+<span class="pd pd-b"><span class="pd-dot"></span>40</span>
+<span class="pd pd-r"><span class="pd-dot"></span>32</span>
+<span class="pd pd-n"><span class="pd-dot"></span>9</span>
+</div>
+<div class="di-chips"><span class="di-chip">Valmorel</span><span class="di-chip">Saint-François-Longchamp</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">60€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="FR" data-search="galibier-thabor galibier-thabor alpes du nord valloire valmeinier" href="/domaines/galibier-thabor.html">
+<div class="di-top" style="background-image:url('../img/valloire1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">160 km</div>
+<div class="di-top-text">
+<div class="di-name">Galibier-Thabor</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 29 lifts</span> <span>⛰ 1430-2750m</span> <span class="di-score-tag">⭐ 4.1</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>26</span>
+<span class="pd pd-b"><span class="pd-dot"></span>60</span>
+<span class="pd pd-r"><span class="pd-dot"></span>54</span>
+<span class="pd pd-n"><span class="pd-dot"></span>18</span>
+</div>
+<div class="di-chips"><span class="di-chip">Valloire</span><span class="di-chip">Valmeinier</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">55€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="FR IT" data-search="espace san bernardo espace san bernardo alpes du nord la rosiere" href="/domaines/espace-san-bernardo.html">
+<div class="di-top" style="background-image:url('../img/larosiere1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">156 km</div>
+<div class="di-top-text">
+<div class="di-name">Espace San Bernardo</div>
+<div class="di-region-inline">1 linked resort</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 38 lifts</span> <span>⛰ 1190-2800m</span> <span class="di-score-tag">⭐ 4.1</span></div>
+<div class="di-flags"><span class="di-flag">🌍 France · Italy</span></div>
+<div class="di-chips"><span class="di-chip">La Rosière</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">54€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="skiarea campiglio skiarea campiglio alpes du nord madonna di campiglio pinzolo folgarida marilleva" href="/domaines/skiarea-campiglio.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">155 km</div>
+<div class="di-top-text">
+<div class="di-name">Skiarea Campiglio</div>
+<div class="di-region-inline">4 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 58 lifts</span> <span>⛰ 852-2504m</span> <span class="di-score-tag">⭐ 4.3</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>32%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>46%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>22%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Madonna di Campiglio</span><span class="di-chip">Pinzolo</span><span class="di-chip">Folgarida</span><span class="di-chip">Marilleva</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">85€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="zillertal arena zillertal arena alpes du nord zell am ziller gerlos konigsleiten hochkrimml" href="/domaines/zillertal-arena.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">150 km</div>
+<div class="di-top-text">
+<div class="di-name">Zillertal Arena</div>
+<div class="di-region-inline">4 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 52 lifts</span> <span>⛰ 580-2500m</span> <span class="di-score-tag">⭐ 4.3</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>33%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>59%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>8%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Zell am Ziller</span><span class="di-chip">Gerlos</span><span class="di-chip">Königsleiten</span><span class="di-chip">Hochkrimml</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">82€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Pyrénées" data-pays="ES" data-search="alp 2500 (la molina – masella) alp 2500 pyrenees la molina masella" href="/domaines/alp-2500.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Pyrenees</div>
+<div class="di-km-tag">145 km</div>
+<div class="di-top-text">
+<div class="di-name">Alp 2500 (La Molina – Masella)</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 33 lifts</span> <span>⛰ 1600-2537m</span> <span class="di-score-tag">⭐ 4.0</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>29</span>
+<span class="pd pd-b"><span class="pd-dot"></span>55</span>
+<span class="pd pd-r"><span class="pd-dot"></span>54</span>
+<span class="pd pd-n"><span class="pd-dot"></span>16</span>
+</div>
+<div class="di-chips"><span class="di-chip">La Molina</span><span class="di-chip">Masella</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">58€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="mayrhofen (penken – ahorn) mayrhofen alpes du nord mayrhofen finkenberg" href="/domaines/mayrhofen.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1528659862616-22886eb53642?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">142 km</div>
+<div class="di-top-text">
+<div class="di-name">Mayrhofen (Penken – Ahorn)</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 61 lifts</span> <span>⛰ 630-2500m</span> <span class="di-score-tag">⭐ 4.4</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>31%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>46%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>23%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Mayrhofen</span><span class="di-chip">Finkenberg</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">82€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="silvretta montafon silvretta montafon alpes du nord schruns st. gallenkirch gaschurn" href="/domaines/silvretta-montafon.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">141.6 km</div>
+<div class="di-top-text">
+<div class="di-name">Silvretta Montafon</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 35 lifts</span> <span>⛰ 700-2430m</span> <span class="di-score-tag">⭐ 4.4</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>42%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>36%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>22%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Schruns</span><span class="di-chip">St. Gallenkirch</span><span class="di-chip">Gaschurn</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">77€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="monterosa ski monterosa ski alpes du nord champoluc gressoney-la-trinite alagna valsesia" href="/domaines/monterosa-ski.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">132 km</div>
+<div class="di-top-text">
+<div class="di-name">Monterosa Ski</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 21 lifts</span> <span>⛰ 1212-3275m</span> <span class="di-score-tag">⭐ 4.4</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>22%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>67%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>11%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Champoluc</span><span class="di-chip">Gressoney-La-Trinité</span><span class="di-chip">Alagna Valsesia</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">69€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="alta badia alta badia alpes du nord corvara la villa san cassiano" href="/domaines/alta-badia.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">130 km</div>
+<div class="di-top-text">
+<div class="di-name">Alta Badia</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 53 lifts</span> <span>⛰ 1324-2778m</span> <span class="di-score-tag">⭐ 4.5</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>57%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>36%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>7%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Corvara</span><span class="di-chip">La Villa</span><span class="di-chip">San Cassiano</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">80€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="kronplatz kronplatz alpes du nord brunico – kronplatz san vigilio di marebbe valdaora – kronplatz" href="/domaines/kronplatz.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">125 km</div>
+<div class="di-top-text">
+<div class="di-name">Kronplatz</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 32 lifts</span> <span>⛰ 973-2275m</span> <span class="di-score-tag">⭐ 4.3</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>48%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>29%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>23%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Brunico – Kronplatz</span><span class="di-chip">San Vigilio di Marebbe</span><span class="di-chip">Valdaora – Kronplatz</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">80€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="schladming 4-berge-skischaukel 4-berge-skischaukel alpes du nord schladming haus im ennstal pichl – reiteralm" href="/domaines/schladming-4-berge.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">123 km</div>
+<div class="di-top-text">
+<div class="di-name">Schladming 4-Berge-Skischaukel</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 47 lifts</span> <span>⛰ 728-2015m</span> <span class="di-score-tag">⭐ 4.4</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>38%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>55%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>7%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Schladming</span><span class="di-chip">Haus im Ennstal</span><span class="di-chip">Pichl – Reiteralm</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">79€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="snow space salzburg snow space salzburg alpes du nord flachau wagrain st. johann-alpendorf" href="/domaines/snow-space-salzburg.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">120.1 km</div>
+<div class="di-top-text">
+<div class="di-name">Snow Space Salzburg</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 43 lifts</span> <span>⛰ 740-1980m</span> <span class="di-score-tag">⭐ 4.4</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>28%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>69%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>3%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Flachau</span><span class="di-chip">Wagrain</span><span class="di-chip">St. Johann-Alpendorf</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">75€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="hochkonig hochkonig alpes du nord maria alm dienten muhlbach am hochkonig" href="/domaines/hochkoenig.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">120 km</div>
+<div class="di-top-text">
+<div class="di-name">Hochkönig</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 34 lifts</span> <span>⛰ 800-1900m</span> <span class="di-score-tag">⭐ 4.3</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>43%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>35%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>22%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Maria Alm</span><span class="di-chip">Dienten</span><span class="di-chip">Mühlbach am Hochkönig</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">79€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Sud" data-pays="IT" data-search="mondole ski mondole ski alpes du sud prato nevoso artesina frabosa soprana" href="/domaines/mondole-ski.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1528659862616-22886eb53642?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Southern Alps</div>
+<div class="di-km-tag">105 km</div>
+<div class="di-top-text">
+<div class="di-name">Mondolè Ski</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 24 lifts</span> <span>⛰ 807-2085m</span> <span class="di-score-tag">⭐ 3.7</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>41%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>48%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>11%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Prato Nevoso</span><span class="di-chip">Artesina</span><span class="di-chip">Frabosa Soprana</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">52€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="grindelwald – wengen grindelwald-wengen alpes du nord grindelwald wengen" href="/domaines/grindelwald-wengen.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">101 km</div>
+<div class="di-top-text">
+<div class="di-name">Grindelwald – Wengen</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 23 lifts</span> <span>⛰ 944-2400m</span> <span class="di-score-tag">⭐ 4.5</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>33%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>54%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>13%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Grindelwald</span><span class="di-chip">Wengen</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">88€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Pyrénées" data-pays="FR" data-search="grand tourmalet – pic du midi grand tourmalet pyrenees la mongie bareges" href="/domaines/grand-tourmalet.html">
+<div class="di-top" style="background-image:url('../img/grandtourmalet1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Pyrenees</div>
+<div class="di-km-tag">100 km</div>
+<div class="di-top-text">
+<div class="di-name">Grand Tourmalet – Pic du Midi</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 28 lifts</span> <span>⛰ 1250-2500m</span> <span class="di-score-tag">⭐ 4.3</span></div>
+<div class="di-chips"><span class="di-chip">La Mongie</span><span class="di-chip">Barèges</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">53€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Sud" data-pays="FR" data-search="le devoluy le devoluy alpes du sud superdevoluy la joue du loup" href="/domaines/le-devoluy.html">
+<div class="di-top" style="background-image:url('../img/superdevoluy1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Southern Alps</div>
+<div class="di-km-tag">100 km</div>
+<div class="di-top-text">
+<div class="di-name">Le Dévoluy</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 22 lifts</span> <span>⛰ 1500-2500m</span> <span class="di-score-tag">⭐ 4.0</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>8</span>
+<span class="pd pd-b"><span class="pd-dot"></span>28</span>
+<span class="pd pd-r"><span class="pd-dot"></span>12</span>
+<span class="pd pd-n"><span class="pd-dot"></span>5</span>
+</div>
+<div class="di-chips"><span class="di-chip">Superdévoluy</span><span class="di-chip">La Joue du Loup</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">44€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="pontedilegno-tonale pontedilegno-tonale alpes du nord ponte di legno passo del tonale" href="/domaines/pontedilegno-tonale.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">100 km</div>
+<div class="di-top-text">
+<div class="di-name">Pontedilegno-Tonale</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 29 lifts</span> <span>⛰ 1,121-3,000m</span> <span class="di-score-tag">⭐ 4.2</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>24%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>60%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>16%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Ponte di Legno</span><span class="di-chip">Passo del Tonale</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">64€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="ski juwel alpbachtal wildschonau ski juwel alpes du nord alpbach wildschonau" href="/domaines/ski-juwel.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">98 km</div>
+<div class="di-top-text">
+<div class="di-name">Ski Juwel Alpbachtal Wildschönau</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 45 lifts</span> <span>⛰ 830-2,030m</span> <span class="di-score-tag">⭐ 4.2</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>33%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>54%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>13%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Alpbach</span><span class="di-chip">Wildschönau</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">72€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="parsenn (davos – klosters) parsenn alpes du nord davos klosters" href="/domaines/parsenn-davos-klosters.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">96 km</div>
+<div class="di-top-text">
+<div class="di-name">Parsenn (Davos – Klosters)</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 18 lifts</span> <span>⛰ 810-2,844m</span> <span class="di-score-tag">⭐ 4.4</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>18%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>63%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>19%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Davos</span><span class="di-chip">Klosters</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">91€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="hochzillertal – hochfugen hochzillertal alpes du nord kaltenbach hochfugen" href="/domaines/hochzillertal-hochfuegen.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">89 km</div>
+<div class="di-top-text">
+<div class="di-name">Hochzillertal – Hochfügen</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 38 lifts</span> <span>⛰ 600-2,378m</span> <span class="di-score-tag">⭐ 4.2</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>43%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>42%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>15%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Kaltenbach</span><span class="di-chip">Hochfügen</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">83€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="villars – gryon – les diablerets villars-gryon-diablerets alpes du nord villars-sur-ollon gryon les diablerets" href="/domaines/villars-gryon-diablerets.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1528659862616-22886eb53642?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">87 km</div>
+<div class="di-top-text">
+<div class="di-name">Villars – Gryon – Les Diablerets</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 30 lifts</span> <span>⛰ 1,224-2,120m</span> <span class="di-score-tag">⭐ 4.0</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>76%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>21%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>3%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Villars-sur-Ollon</span><span class="di-chip">Gryon</span><span class="di-chip">Les Diablerets</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">73€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="adelboden – lenk adelboden-lenk alpes du nord adelboden lenk" href="/domaines/adelboden-lenk.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">86 km</div>
+<div class="di-top-text">
+<div class="di-name">Adelboden – Lenk</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 22 lifts</span> <span>⛰ 1,068-2,200m</span> <span class="di-score-tag">⭐ 4.2</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>53%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>40%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>7%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Adelboden</span><span class="di-chip">Lenk</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">76€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Massif Central" data-pays="FR" data-search="le grand sancy le grand sancy massif central super besse le mont dore" href="/domaines/grand-sancy.html">
+<div class="di-top" style="background-image:url('../img/superbesse1.jpg')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Massif Central</div>
+<div class="di-km-tag">84 km</div>
+<div class="di-top-text">
+<div class="di-name">Le Grand Sancy</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 35 lifts</span> <span>⛰ 1,050-1,850m</span> <span class="di-score-tag">⭐ 3.8</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>13</span>
+<span class="pd pd-b"><span class="pd-dot"></span>22</span>
+<span class="pd pd-r"><span class="pd-dot"></span>16</span>
+<span class="pd pd-n"><span class="pd-dot"></span>4</span>
+</div>
+<div class="di-flags"><span class="di-flag di-flag-warn">⚠️ Link depends on snow conditions</span></div>
+<div class="di-chips"><span class="di-chip">Super Besse</span><span class="di-chip">Le Mont Dore</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">43€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="schlossalm – stubnerkogel (bad gastein – bad hofgastein) schlossalm – stubnerkogel alpes du nord bad gastein bad hofgastein" href="/domaines/gastein.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">82.7 km</div>
+<div class="di-top-text">
+<div class="di-name">Schlossalm – Stubnerkogel (Bad Gastein – Bad Hofgastein)</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 17 lifts</span> <span>⛰ 860-2,300m</span> <span class="di-score-tag">⭐ 4.5</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>37%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>60%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>3%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Bad Gastein</span><span class="di-chip">Bad Hofgastein</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">79€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="damuls – mellau damuls – mellau alpes du nord damuls mellau" href="/domaines/damuels-mellau.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">75.8 km</div>
+<div class="di-top-text">
+<div class="di-name">Damüls – Mellau</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 21 lifts</span> <span>⛰ 710-2050m</span> <span class="di-score-tag">⭐ 4.1</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>39%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>58%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>3%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Damüls</span><span class="di-chip">Mellau</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">73€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="CH" data-search="andermatt – sedrun andermatt-sedrun alpes du nord andermatt sedrun" href="/domaines/andermatt-sedrun.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">70 km</div>
+<div class="di-top-text">
+<div class="di-name">Andermatt – Sedrun</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 13 lifts</span> <span>⛰ 1444-2600m</span> <span class="di-score-tag">⭐ 4.2</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>26%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>57%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>17%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Andermatt</span><span class="di-chip">Sedrun</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">94€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT" data-search="dorfgastein – großarl dorfgastein – großarl alpes du nord dorfgastein großarl" href="/domaines/dorfgastein-grossarl.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">67.5 km</div>
+<div class="di-top-text">
+<div class="di-name">Dorfgastein – Großarl</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 16 lifts</span> <span>⛰ 849-2033m</span> <span class="di-score-tag">⭐ 4.2</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>46%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>52%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>2%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Dorfgastein</span><span class="di-chip">Großarl</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">82€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Pyrénées" data-pays="AD" data-search="pal arinsal pal arinsal pyrenees pal arinsal" href="/domaines/pal-arinsal.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Pyrenees</div>
+<div class="di-km-tag">63 km</div>
+<div class="di-top-text">
+<div class="di-name">Pal Arinsal</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 27 lifts</span> <span>⛰ 1550-2560m</span> <span class="di-score-tag">⭐ 4.0</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>7</span>
+<span class="pd pd-b"><span class="pd-dot"></span>19</span>
+<span class="pd pd-r"><span class="pd-dot"></span>17</span>
+<span class="pd pd-n"><span class="pd-dot"></span>4</span>
+</div>
+<div class="di-chips"><span class="di-chip">Pal</span><span class="di-chip">Arinsal</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">52€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="val di fassa (belvedere – col rodella – ciampac – buffaure) val di fassa alpes du nord canazei campitello di fassa pozza di fassa" href="/domaines/val-di-fassa.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">55 km</div>
+<div class="di-top-text">
+<div class="di-name">Val di Fassa (Belvedere – Col Rodella – Ciampac – Buffaure)</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 35 lifts</span> <span>⛰ 1320-2485m</span> <span class="di-score-tag">⭐ 4.3</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>13%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>74%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>13%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Canazei</span><span class="di-chip">Campitello di Fassa</span><span class="di-chip">Pozza di Fassa</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">76€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="IT" data-search="latemar latemar alpes du nord obereggen pampeago predazzo" href="/domaines/latemar.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">49 km</div>
+<div class="di-top-text">
+<div class="di-name">Latemar</div>
+<div class="di-region-inline">3 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 18 lifts</span> <span>⛰ 1018-2388m</span> <span class="di-score-tag">⭐ 4.0</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>19%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>67%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>14%</span>
+</div>
+<div class="di-chips"><span class="di-chip">Obereggen</span><span class="di-chip">Pampeago</span><span class="di-chip">Predazzo</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">71€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+<a class="di-card" data-m="Alpes du Nord" data-pays="AT DE" data-search="steinplatte – winklmoosalm steinplatte alpes du nord waidring reit im winkl – winklmoosalm" href="/domaines/steinplatte-winklmoosalm.html">
+<div class="di-top" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1400&amp;q=80')">
+<div class="di-top-overlay"></div>
+<div class="di-massif-tag">⛷ Northern Alps</div>
+<div class="di-km-tag">42 km</div>
+<div class="di-top-text">
+<div class="di-name">Steinplatte – Winklmoosalm</div>
+<div class="di-region-inline">2 linked resorts</div>
+</div>
+<div class="di-illu-note">Illustrative photo</div>
+</div>
+<div class="di-body">
+<div class="di-stats"><span>🚡 14 lifts</span> <span>⛰ 740-1860m</span> <span class="di-score-tag">⭐ 3.8</span></div>
+<div class="di-pistes">
+<span class="pd pd-v"><span class="pd-dot"></span>0%</span>
+<span class="pd pd-b"><span class="pd-dot"></span>48%</span>
+<span class="pd pd-r"><span class="pd-dot"></span>48%</span>
+<span class="pd pd-n"><span class="pd-dot"></span>4%</span>
+</div>
+<div class="di-flags"><span class="di-flag">🌍 Austria · Germany</span></div>
+<div class="di-chips"><span class="di-chip">Waidring</span><span class="di-chip">Reit im Winkl – Winklmoosalm</span></div>
+</div>
+<div class="di-footer">
+<div><span class="di-price">63€</span><span class="di-price-lbl">/day</span></div>
+<div class="di-go">See the ski area →</div>
+</div>
+</a>
+</div>
+<div class="di-empty" id="diEmpty" style="display:none">No ski areas in this mountain range.</div>
+</div>
+<footer class="footer"><strong>SnowFinder</strong> — The complete guide to ski resorts in Europe<br/> <a href="/index.html">Accueil</a> · <a href="/recherche.html">Search</a> · <a href="/comparateur.html">Comparison tool</a> · <a href="/mentions-legales.html">Legal notice</a><br/> <span style="font-size:.7rem;opacity:.7">Indicative data · High-season adult lift passes · Please check on the ski area's official website</span></footer>
+<nav class="sf-bottomnav">
+<a class="sf-bn-item" href="/recherche.html" title="Find my resort">🔍</a>
+<a class="sf-bn-item" href="/enneigement.html" title="Weather &amp; snow reliability">❄️</a>
+<a class="sf-bn-item sf-bn-home" href="/index.html" title="Accueil"><span class="sf-bn-home-circle">🏡</span></a>
+<a class="sf-bn-item" href="/tinder.html" title="Ski Tinder">💕</a>
+<a class="sf-bn-item" href="/hebergement.html" title="Accommodation">🛏️</a>
+</nav>
+<script>
+(function(){
+  var cards = [].slice.call(document.querySelectorAll('.di-card'));
+  var btns  = [].slice.call(document.querySelectorAll('.di-f'));
+  var count = document.getElementById('diCount');
+  var empty = document.getElementById('diEmpty');
+  var searchInput = document.getElementById('diSearch');
+  var curM = '';
+  function deacc(str){ return (str||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+  // Filtre pays : même stockage que Recherche/Accueil (localStorage "sf_pays_v1"),
+  // avec ici son propre sélecteur de drapeaux (domaines.html est une page autonome
+  // qui ne charge pas le module JS partagé window.SFPays).
+  var NOMS = {FR:"France",CH:"Suisse",IT:"Italie",ES:"Espagne",AD:"Andorre",DE:"Allemagne",LI:"Liechtenstein",AT:"Autriche",SI:"Slovénie"};
+  var EMOJI = {FR:"🇫🇷",CH:"🇨🇭",IT:"🇮🇹",ES:"🇪🇸",AD:"🇦🇩",DE:"🇩🇪",LI:"🇱🇮",AT:"🇦🇹",SI:"🇸🇮"};
+  var ORDER = ["FR","CH","IT","ES","AD","AT","DE","SI","LI"];
+  var availablePays = (function(){
+    var seen = {};
+    cards.forEach(function(c){ (c.dataset.pays||"FR").split(" ").forEach(function(p){ if(p) seen[p]=1; }); });
+    return ORDER.filter(function(p){ return seen[p]; });
+  })();
+  var pays = availablePays.slice();
+  try { var v = JSON.parse(localStorage.getItem("sf_pays_v1")); if (Array.isArray(v) && v.length) pays = v.filter(function(p){ return availablePays.indexOf(p)>-1; }); if(!pays.length) pays = availablePays.slice(); } catch(e) {}
+  function savePays(){ try{ localStorage.setItem("sf_pays_v1", JSON.stringify(pays)); }catch(e){} }
+  function paysOk(c){
+    return (c.dataset.pays || "FR").split(" ").some(function(p){ return pays.indexOf(p) > -1; });
+  }
+  var paysBtn = document.getElementById('diPaysBtnMain');
+  var paysBtnLbl = document.getElementById('diPaysBtnLbl');
+  function majPaysBtn(){
+    if(paysBtn) paysBtn.style.display = availablePays.length < 2 ? 'none' : '';
+    if(!paysBtnLbl) return;
+    if(pays.length === availablePays.length) paysBtnLbl.textContent = 'Tous pays';
+    else if(pays.length === 1) paysBtnLbl.textContent = EMOJI[pays[0]] || NOMS[pays[0]] || pays[0];
+    else paysBtnLbl.textContent = pays.length + ' pays';
+  }
+  function openPaysSheet(){
+    var ov = document.createElement('div');
+    ov.className = 'di-pays-sheet-ov';
+    ov.innerHTML = '<div class="di-pays-sheet" role="dialog" aria-modal="true" aria-label="Choix des pays">' +
+      '<h3>Pays</h3><p>Touche un drapeau pour l\'ajouter ou le retirer. Ton choix est mémorisé sur cet appareil.</p>' +
+      '<div class="di-pays-row"></div>' +
+      '<button type="button" class="sf-sheet-ok">Valider</button></div>';
+    document.body.appendChild(ov);
+    var prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    function renderRow(){
+      var row = ov.querySelector('.di-pays-row');
+      row.innerHTML = availablePays.map(function(p){
+        var on = pays.indexOf(p) > -1;
+        return '<button type="button" class="di-pays-flag'+(on?' on':'')+'" data-p="'+p+'"><span>'+(EMOJI[p]||'🏳️')+'</span><span>'+(NOMS[p]||p)+'</span></button>';
+      }).join('');
+    }
+    renderRow();
+    ov.addEventListener('click', function(e){
+      var f = e.target.closest && e.target.closest('.di-pays-flag[data-p]');
+      if(f){
+        var p = f.getAttribute('data-p');
+        var i = pays.indexOf(p);
+        if(i>-1){ if(pays.length>1) pays.splice(i,1); } else pays.push(p);
+        savePays(); renderRow(); majPaysBtn(); apply(curM);
+        return;
+      }
+      if(e.target === ov || (e.target.closest && e.target.closest('.sf-sheet-ok'))){
+        ov.remove(); document.body.style.overflow = prevOverflow;
+      }
+    });
+  }
+  if(paysBtn) paysBtn.addEventListener('click', openPaysSheet);
+  function apply(m){
+    curM = m;
+    var q = deacc(searchInput ? searchInput.value.trim() : '');
+    var n = 0;
+    cards.forEach(function(c){
+      var ok = (!m || c.dataset.m === m) && paysOk(c) && (!q || (c.dataset.search || '').indexOf(q) > -1);
+      c.style.display = ok ? '' : 'none';
+      if (ok) n++;
+    });
+    count.textContent = n + (n > 1 ? ' domaines' : ' domaine');
+    empty.style.display = n ? 'none' : 'block';
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      btns.forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      apply(b.dataset.m);
+    });
+  });
+  if(searchInput){
+    // La recherche filtre au fur et à mesure de la frappe, mais ne doit jamais faire
+    // défiler la page pendant que l'utilisateur écrit (cf. focus mobile).
+    searchInput.addEventListener('input', function(){ apply(curM); });
+  }
+  majPaysBtn();
+  apply('');
+})();
+</script>
+<!--sf-lang--><a class="sf-lang-switch" href="/domaines.html" hreflang="fr" lang="fr" rel="alternate">🇫🇷 Français</a><style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index:900;background:rgba(255,255,255,.94);color:#1d4f7a;border:1px solid #d6dde4;border-radius:20px;padding:6px 12px;font:600 .74rem/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}.sf-lang-switch:hover{background:#fff}</style><!--/sf-lang--></body>
+</html>

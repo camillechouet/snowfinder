@@ -11,6 +11,18 @@
     <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/domaines.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/domaines.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/domaines.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/domaines.html</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/domaines.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/domaines.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/domaines.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/enneigement.html</loc>
@@ -35,6 +47,9 @@
     <lastmod>2026-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/domaines/3-vallees.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/domaines/3-vallees.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/domaines/3-vallees.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/domaines/4-vallees.html</loc>
@@ -379,16 +394,37 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/en/domaines/3-vallees.html</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/domaines/3-vallees.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/domaines/3-vallees.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/domaines/3-vallees.html"/>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/hebergement.html</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/en/stations/abetone.html</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/abetone.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/stations/abetone.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/abetone.html"/>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/stations/abetone.html</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/abetone.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/stations/abetone.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/abetone.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/abondance.html</loc>
@@ -4709,6 +4745,9 @@
     <lastmod>2026-10-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/comparatifs/alpe-d-huez-vs-les-deux-alpes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/comparatifs/alpe-d-huez-vs-les-deux-alpes.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/alpe-d-huez-vs-les-deux-alpes.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/avoriaz-vs-morzine.html</loc>
@@ -4825,10 +4864,22 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://snowfinder.fr/en/comparatifs/alpe-d-huez-vs-les-deux-alpes.html</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/comparatifs/alpe-d-huez-vs-les-deux-alpes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/comparatifs/alpe-d-huez-vs-les-deux-alpes.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/alpe-d-huez-vs-les-deux-alpes.html"/>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/articles/10-stations-secretes-alpes.html</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/10-stations-secretes-alpes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/10-stations-secretes-alpes.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/10-stations-secretes-alpes.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/bilan-neige-pyrenees-hiver-2025.html</loc>
@@ -4961,6 +5012,15 @@
     <lastmod>2026-09-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/articles/10-stations-secretes-alpes.html</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/10-stations-secretes-alpes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/10-stations-secretes-alpes.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/10-stations-secretes-alpes.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/favoris.html</loc>
