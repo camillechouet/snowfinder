@@ -393,13 +393,54 @@ def digit_tokens(s):
     return sorted(re.sub(r"\D", "", t) for t in toks)
 
 
+FR_NUMBER_WORDS = {"deux": 2, "trois": 3, "quatre": 4, "cinq": 5, "six": 6, "sept": 7, "huit": 8,
+                   "neuf": 9, "dix": 10, "onze": 11, "douze": 12, "treize": 13, "quatorze": 14,
+                   "quinze": 15, "seize": 16, "vingt": 20, "trente": 30, "quarante": 40,
+                   "cinquante": 50, "soixante": 60, "cent": 100, "mille": 1000}
+ROMAN_VAL = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100}
+ROMAN_RE = re.compile(r"\b([IVXL]{1,6})(?:e|er|ème|è)\b")
+
+
+def roman_to_int(s):
+    total = 0
+    for i, c in enumerate(s):
+        v = ROMAN_VAL[c]
+        total += -v if i + 1 < len(s) and ROMAN_VAL[s[i + 1]] > v else v
+    return total
+
+
+def digits_ok(fr, en):
+    """Mêmes nombres FR/EN. Tolère qu'un chiffre romain (XIIe siècle) ou un nombre écrit en lettres
+    (douze) devienne un chiffre en anglais (12th century, 12) : seul un chiffre EN inconnu du français
+    ou un chiffre FR perdu est bloquant."""
+    a, b = digit_tokens(fr), digit_tokens(en)
+    if a == b:
+        return True
+    allowed = []
+    for m in ROMAN_RE.finditer(fr):
+        try:
+            allowed.append(str(roman_to_int(m.group(1))))
+        except Exception:
+            pass
+    for w in re.findall(r"[a-zéèêûîô]+", fr.lower()):
+        if w in FR_NUMBER_WORDS:
+            allowed.append(str(FR_NUMBER_WORDS[w]))
+    rest = list(b)
+    for x in a:                      # tout nombre français doit se retrouver en anglais
+        if x in rest:
+            rest.remove(x)
+        else:
+            return False
+    return all(x in allowed for x in rest)   # les chiffres en plus doivent venir d'un romain / d'un mot
+
+
 def check(fr, en):
     """Retourne (bloquant, avertissement). bloquant => on garde le français."""
     if not en or not en.strip():
         return "traduction vide", None
     if tag_sig(fr) != tag_sig(en):
         return "balises différentes", None
-    if digit_tokens(fr) != digit_tokens(en):
+    if not digits_ok(fr, en):
         return "nombres différents", None
     warn = []
     miss = [n for n in protected_in(fr) if n not in en]
