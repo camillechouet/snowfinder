@@ -843,7 +843,7 @@ function toggleCompare(){
 }
 updateCompareBtn();
 function checkSnowForNewFav(){
-  var coords={lat:42.9089,lon:0.1447};
+  var coords={lat:42.9392,lon:0.178};
   if(!coords.lat) return;
   fetch('https://api.open-meteo.com/v1/forecast?latitude='+coords.lat+'&longitude='+coords.lon+'&daily=snowfall_sum&forecast_days=5&timezone=Europe%2FParis')
     .then(function(r){return r.json();})
@@ -898,7 +898,7 @@ function toggleReadMore(id, btn){
 
 // ── MÉTÉO LIVE (Open-Meteo) ──
 (function loadMeteo(){
-  var lat=42.9089, lon=0.1447;
+  var lat=42.9392, lon=0.178;
   if(lat===null||lon===null||isNaN(parseFloat(lat))){
     var ld=document.getElementById('meteoLoading');
     if(ld) ld.textContent='Météo indisponible pour cette station';
