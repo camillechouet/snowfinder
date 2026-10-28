@@ -78,6 +78,12 @@ SOURCES = [
     "toutes-les-actus.html",
     "toutes-les-stations-du-moment.html",
     "domaines.html",
+    "recherche.html",
+    "comparateur.html",
+    "favoris.html",
+    "tinder.html",
+    "enneigement.html",
+    "hebergement.html",
 ]
 CACHE_DIR = os.path.join(ROOT, "i18n", "cache", "en")
 QA_FILE = os.path.join(ROOT, "i18n", "qa-en.json")
@@ -90,6 +96,7 @@ INLINE = {"a", "abbr", "b", "bdi", "bdo", "br", "cite", "em", "i", "mark", "q", 
           "button", "font", "del", "ins", "kbd", "samp", "var"}
 VOID = {"br", "img", "wbr"}
 TR_ATTRS = ("alt", "title", "placeholder", "aria-label", "aria-description")
+JS_TRANSLATE = True
 URL_ATTRS = ("href", "src", "data-src", "poster", "action")
 META_NAMES = {"description", "keywords", "twitter:title", "twitter:description"}
 META_PROPS = {"og:title", "og:description", "og:image:alt"}
@@ -315,7 +322,7 @@ def analyze(soup):
         info[k] = (only_inline_children, has)
         return info[k]
 
-    jobs = {"attr": [], "meta": [], "json": [], "orphan": [], "unit": []}
+    jobs = {"attr": [], "meta": [], "json": [], "orphan": [], "unit": [], "js": []}
 
     def select(el):
         for ch in list(el.children):
@@ -348,6 +355,11 @@ def analyze(soup):
             v = el.get("content")
             if isinstance(v, str) and has_letters(v) and (name in META_NAMES or prop in META_PROPS):
                 jobs["meta"].append({"el": el, "payload": collapse(v).strip()})
+        if is_inline_script(el) and JS_TRANSLATE and el.string:
+            fixed = apply_js_fixes(fix_script_paths(str(el.string)))
+            js = js_literal_jobs(fixed)
+            if js:
+                jobs["js"].append({"el": el, "code": fixed, "lits": js})
         if el.name == "script" and (el.get("type") or "").lower() == "application/ld+json":
             raw = el.string or el.get_text()
             try:
@@ -375,6 +387,273 @@ def analyze(soup):
     return jobs
 
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Textes français écrits dans le JavaScript des pages interactives
+# ─────────────────────────────────────────────────────────────────────────────
+JS_REGEX_PREV = set("(,=:[!&|?{};+-*%<>~^")
+JS_LOGIC_FUNCS = {"indexOf","includes","getElementById","querySelector","querySelectorAll","getAttribute","setAttribute",
+               "addEventListener","getItem","setItem","removeItem","split","startsWith","endsWith","createElement",
+               "contains","add","remove","toggle","matches","closest","log","warn","error","gtag","push","postMessage",
+               "dispatchEvent","RegExp","test","match","normalize","padStart","padEnd","fetch","open","require","import"}
+
+def scan_js(code):
+    """Retourne la liste des littéraux de chaîne : dict(start,end,q,body,prev,nxt,fn). start/end = bornes du CORPS."""
+    out = []
+    i, n = 0, len(code)
+    prev = ""          # dernier caractère significatif
+    prev_word = ""
+    def skip_ws(j):
+        while j < n:
+            if code[j].isspace(): j += 1
+            elif code.startswith("//", j):
+                k = code.find("\n", j); j = n if k < 0 else k + 1
+            elif code.startswith("/*", j):
+                k = code.find("*/", j + 2); j = n if k < 0 else k + 2
+            else: break
+        return j
+    def read_str(j, q):
+        k = j + 1
+        while k < n:
+            c = code[k]
+            if c == "\\": k += 2; continue
+            if c == q: return k
+            if c == "\n" and q != "`": return -1
+            if q == "`" and c == "$" and code.startswith("${", k):
+                depth = 1; k += 2
+                while k < n and depth:
+                    c2 = code[k]
+                    if c2 in "'\"`":
+                        e = read_str(k, c2)
+                        if e < 0: return -1
+                        k = e + 1; continue
+                    if c2 == "{": depth += 1
+                    elif c2 == "}": depth -= 1
+                    k += 1
+                continue
+            k += 1
+        return -1
+    while i < n:
+        c = code[i]
+        if c.isspace(): i += 1; continue
+        if code.startswith("//", i):
+            k = code.find("\n", i); i = n if k < 0 else k + 1; continue
+        if code.startswith("/*", i):
+            k = code.find("*/", i + 2); i = n if k < 0 else k + 2; continue
+        if c in "'\"`":
+            e = read_str(i, c)
+            if e < 0: i += 1; continue
+            # contexte
+            before = code[max(0, i-60):i].rstrip()
+            fn = ""
+            if before.endswith("("):
+                m = re.search(r"([A-Za-z_$][\w$]*)\s*\($", before)
+                fn = m.group(1) if m else ""
+            j = skip_ws(e + 1)
+            nxt = code[j] if j < n else ""
+            out.append(dict(start=i+1, end=e, q=c, body=code[i+1:e], prev=prev, prev_word=prev_word,
+                            before=before[-4:], nxt=nxt, fn=fn))
+            prev, prev_word = c, ""
+            i = e + 1; continue
+        if c == "/":
+            if prev == "" or prev in JS_REGEX_PREV or prev_word in ("return","typeof","case","in","of"):
+                k = i + 1; incls = False
+                while k < n:
+                    ch = code[k]
+                    if ch == "\\": k += 2; continue
+                    if ch == "[": incls = True
+                    elif ch == "]": incls = False
+                    elif ch == "/" and not incls: break
+                    elif ch == "\n": break
+                    k += 1
+                k += 1
+                while k < n and code[k].isalpha(): k += 1
+                prev, prev_word = ")", ""     # une regex se comporte comme une valeur
+                i = k; continue
+            prev, prev_word = "/", ""; i += 1; continue
+        if c.isalnum() or c in "_$":
+            m = re.compile(r"[\w$]+").match(code, i)
+            prev_word = m.group(0); prev = "a"; i = m.end(); continue
+        prev, prev_word = c, ""
+        i += 1
+    return out
+
+
+FR_ACCENT = re.compile(r"[àâäçéèêëîïôöùûüœÀÂÇÉÈÊÎÔÙÛŒ]")
+FR_WORDS = re.compile(
+    r"\b(le|la|les|des|du|une|et|ou|pour|vous|avec|dans|aux|est|pas|votre|vos|notre|nos|ton|tes|cette|ces|qui|que|"
+    r"très|tout|tous|toutes|mais|aucun|aucune|moins|sur|nuit|nuits|adulte|adultes|enfant|enfants|chambre|chambres|"
+    r"stations|prix|favoris|voir|choisir|ajouter|retirer|chargement|erreur|fermer|ouvrir|afficher|masquer|trier|"
+    r"résultats?|niveau|ambiance|neige|pistes|forfait|débutant|intermédiaire|avancé|expert|famille|familles|couple|"
+    r"amis|groupe|sans|selon|entre|depuis|jusqu|ça|déjà|comme|aussi|ici|être|avoir|faire|peut|peu|bien|"
+    r"hôtels?|chalets?|appartements?|hiver|été|jour|jours|semaine|mois|ans|an|gratuit|gratuite|ouvert|fermé|"
+    r"toute|toutes|autres?|chaque|même|nouveau|nouvelle|premier|première|dernier|dernière|"
+    r"lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche|janvier|février|mars|avril|mai|juin|juillet|août|"
+    r"septembre|octobre|novembre|décembre|tous|pays|massif|alpes|pyrénées|vosges|corse|nord|sud|"
+    r"pistes?|remontées|domaine|domaines|météo|enneigement|altitude|sommet|village|accueil|recherche|"
+    r"comparer|comparateur|supprimer|effacer|valider|annuler|envoyer|merci|bonjour|oui|non|aucun|"
+    r"conseiller|réponse|question|message|nom|prénom|sélection|sélectionné|sélectionnée|trouvé|trouvée|trouvés|"
+    r"budget|niveau|classement|meilleur|meilleure|meilleurs|idéal|idéale|parfait|parfaite)\b", re.I)
+
+TAG_RE = re.compile(r"<[^>]+>")
+ESC_RE = re.compile(r"\\(?:u[0-9a-fA-F]{4}|x[0-9a-fA-F]{2}|[nrtbfv0])")
+SIMPLE_ESC = re.compile(r"\\(['\"\\`/])")
+JS_IGNORE_PREV_WORDS = {"case"}
+
+
+CSSISH = re.compile(r"gradient\(|translate[XY]?\(|\bcalc\(|rgba?\(|\bvar\(|[{};]\s*[\w-]+\s*:|:\s*[\w#.%-]+\s*;|=>|\bfunction\b|\.\w+\s*\{|"
+                    r"\b\d+(?:px|em|rem|vh|vw|ms|s)\b|^[#.][\w-]+")
+PERSON_RE = re.compile(r"^[A-ZÀ-Ý][\wà-ÿ'-]+ [A-Z]\.(?:, \d+ ans)?(?: · .*)?$")
+
+
+def looks_french(text):
+    """Texte à envoyer au traducteur ? Les chaînes de plusieurs mots sont toutes candidates (le modèle laisse
+    inchangé ce qui est déjà anglais ou un nom propre) ; un mot isolé doit avoir l'air français."""
+    t = TAG_RE.sub(" ", text)
+    t = re.sub(r"\$\{[^}]*\}", " ", t)
+    if not has_letters(t):
+        return False
+    t = re.sub(r"&[a-z]+;|&#\d+;", " ", t)
+    s = t.strip()
+    if not has_letters(s):
+        return False
+    if "<" in t or ">" in t or '="' in t or s[:1] in "\"'" or s.endswith(("=", "(", "[", "{")):
+        return False                                           # morceau de balise HTML ou de code
+    if re.match(r"(?:https?:)?//|\?[\w%-]+=|mailto:|tel:", s) or re.search(r"https?://\S+$", s) and " " not in s:
+        return False                                           # URL, paramètres de requête
+    if re.fullmatch(r"[\w\-./#:?=&%@+~()]+", s):                 # un seul « mot »
+        if re.search(r"[/_#?=&@~]", s) or re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)+", s):
+            return False                                       # chemin, slug, identifiant
+        return bool(FR_ACCENT.search(s) or FR_WORDS.search(s))
+    if CSSISH.search(t) or PERSON_RE.match(s):
+        return False
+    if re.fullmatch(r"[\W\d_]*(?:[A-Za-z]{1,2}[\W\d_]*)?", s):
+        return False
+    return len(re.findall(r"[A-Za-zÀ-ÿŒœ]{2,}", t)) >= 1
+
+
+STATION_NAMES_ALL = set()
+
+
+def load_station_names():
+    p = os.path.join(ROOT, "stations-data.js")
+    if not os.path.exists(p):
+        return
+    with open(p, "r", encoding="utf-8") as f:
+        for m in re.finditer(r'"name"\s*:\s*"((?:[^"\\\\]|\\\\.)+)"', f.read()):
+            try:
+                STATION_NAMES_ALL.add(json.loads('"' + m.group(1) + '"').strip())
+            except Exception:
+                pass
+
+
+def _token_spans(body, q):
+    """Bornes (début, fin) des morceaux du corps qui ne sont pas du texte : ${…}, balises HTML, échappements."""
+    spans = []
+
+    def free(a, b):
+        return all(b <= x or a >= y for x, y in spans)
+
+    if q == "`":
+        i = 0
+        while i < len(body):
+            if body.startswith("${", i):
+                depth, k = 1, i + 2
+                while k < len(body) and depth:
+                    depth += (body[k] == "{") - (body[k] == "}")
+                    k += 1
+                spans.append((i, k))
+                i = k
+            else:
+                i += 1
+    if "<" in body:
+        for m in TAG_RE.finditer(body):
+            if free(m.start(), m.end()):
+                spans.append((m.start(), m.end()))
+    for m in ESC_RE.finditer(body):
+        if free(m.start(), m.end()):
+            spans.append((m.start(), m.end()))
+    return sorted(spans)
+
+
+def _clean(piece):
+    return SIMPLE_ESC.sub(lambda m: m.group(1), piece)
+
+
+def js_literal_jobs(code):
+    """Littéraux de chaîne français d'un script. Chaque job : bornes du corps à remplacer, payload (balises HTML,
+    ${…} et échappements remplacés par des jetons <tN/>), jetons, espaces de début/fin. Les littéraux qui
+    contiennent trop de jetons sont découpés en morceaux de texte indépendants."""
+    jobs = []
+    for lit in scan_js(code):
+        body, q = lit["body"], lit["q"]
+        if len(body) > 6000 or lit["fn"] in JS_LOGIC_FUNCS and lit["fn"] not in ("push", "log", "warn", "error", "open"):
+            continue
+        spans = _token_spans(body, q)
+        if len(spans) > 6:
+            pieces, pos = [], 0
+            for a, b in spans + [(len(body), len(body))]:
+                if a > pos:
+                    pieces.append((pos, a))
+                pos = b
+            cands = [(a, b, _clean(body[a:b]), []) for a, b in pieces]
+        else:
+            toks, out, pos = [], [], 0
+            for a, b in spans:
+                out.append(_clean(body[pos:a]))
+                toks.append(body[a:b])
+                out.append(f"<t{len(toks)}/>")
+                pos = b
+            out.append(_clean(body[pos:]))
+            cands = [(0, len(body), "".join(out), toks)]
+        for a, b, work, toks in cands:
+            lead = work[:len(work) - len(work.lstrip())]
+            trail = work[len(work.rstrip()):]
+            core = work.strip()
+            if not core or not looks_french(core):
+                continue
+            plain = TAG_RE.sub("", re.sub(r"<t\d+/>", "", core)).strip()
+            if not has_letters(plain) or plain in STATION_NAMES_ALL or core in STATION_NAMES_ALL:
+                continue
+            jobs.append({"start": lit["start"] + a, "end": lit["start"] + b, "q": q, "payload": core,
+                         "lead": lead, "trail": trail, "toks": toks})
+    return jobs
+
+
+def js_escape(text, q):
+    text = text.replace("\\", "\\\\").replace("\n", " ")
+    if q == "`":
+        return text.replace("`", "\\`")
+    return text.replace(q, "\\" + q)
+
+
+def js_apply(code, jobs, tr):
+    """Remplace dans `code` les littéraux traduits (de la fin vers le début pour garder les positions)."""
+    for j in sorted(jobs, key=lambda x: -x["start"]):
+        en = tr.get(j["payload"])
+        if en is None:
+            continue
+        toks = j["toks"]
+        used = [int(x) for x in re.findall(r"<t(\d+)/>", en)]
+        if sorted(used) != list(range(1, len(toks) + 1)):
+            continue
+        parts, pos = [], 0
+        for m in re.finditer(r"<t(\d+)/>", en):
+            parts.append(js_escape(en[pos:m.start()], j["q"]))
+            parts.append(toks[int(m.group(1)) - 1])
+            pos = m.end()
+        parts.append(js_escape(en[pos:], j["q"]))
+        new_body = j["lead"] + "".join(parts) + j["trail"]
+        code = code[:j["start"]] + new_body + code[j["end"]:]
+    return code
+
+
+def is_inline_script(el):
+    return (el.name == "script" and not el.get("src")
+            and (el.get("type") or "").lower() not in ("application/ld+json", "application/json", "importmap"))
+
+
+
 def all_payloads(jobs):
     out = []
     for j in jobs["attr"] + jobs["meta"] + jobs["orphan"] + jobs["unit"]:
@@ -382,6 +661,8 @@ def all_payloads(jobs):
     for j in jobs["json"]:
         for o, k in j["found"]:
             out.append(o[k])
+    for j in jobs["js"]:
+        out.extend(l["payload"] for l in j["lits"])
     return out
 
 
@@ -840,7 +1121,23 @@ BREADCRUMB_FIXES = {
 }
 
 
+BOOKING_RE = re.compile(r"searchresults\.fr\.html")
+
+
+JS_RE_FIXES = [
+    (re.compile(r"function sfDe\(n\)\{[^\n]*\n"), "function sfDe(n){return 'of '+String(n||'');}\n"),
+    (re.compile(r"function sfA\(n\)\{[^\n]*\n"), "function sfA(n){return 'in '+String(n||'');}\n"),
+    # Booking en anglais (même domaine, même affiliation)
+    (re.compile(r"searchresults\.fr\.html"), "searchresults.en-gb.html"),
+    (re.compile(r"([?&]|%26|%3F)lang=fr(?![\w-])"), r"\1lang=en-gb"),
+    # liens vers les fiches construits par le JavaScript → versions anglaises
+    (re.compile(r"""(?<=["'`])stations/(?=["']|[\w$])"""), "/en/stations/"),
+]
+
+
 def apply_js_fixes(s):
+    for rx, rep in JS_RE_FIXES:
+        s = rx.sub(rep, s)
     for fr, en in JS_FIXES:
         s = s.replace(fr, en)
     return s
@@ -905,12 +1202,23 @@ def apply_page(rel, src_html, tr, en_set):
             v = el.get(a)
             if isinstance(v, str):
                 el[a] = rewrite_url(v, rel, en_set)
+                if "booking.com" in el[a]:      # liens Booking encodés dans les URL d'affiliation
+                    el[a] = BOOKING_RE.sub("searchresults.en-gb.html", el[a])
+                    el[a] = re.sub(r"([?&]|%26|%3F)lang(?:=|%3D)fr(?![\w-])", lambda m: m.group(0).replace("fr", "en-gb"), el[a])
         for a in list(el.attrs):
             if a.startswith("on") and isinstance(el[a], str):
                 el[a] = fix_script_paths(el[a])
-        if el.name == "script" and not el.get("src") and (el.get("type") or "").lower() != "application/ld+json":
+        if el.name == "script" and DATA_EN_OK and posixpath.basename((el.get("src") or "").split("?")[0]) == "stations-data.js" \
+                and not (el.get("src") or "").startswith("http"):
+            el["src"] = "/en/stations-data.js"
+        if is_inline_script(el):
             if el.string:
                 el.string.replace_with(apply_js_fixes(fix_script_paths(str(el.string))))
+    for j in jobs["js"]:        # textes français des littéraux JavaScript (après les corrections fixes)
+        el = j["el"]
+        cur = str(el.string) if el.string else ""
+        if cur == j["code"]:
+            el.string.replace_with(js_apply(cur, j["lits"], tr))
     fix_breadcrumb(soup)
 
     # 4. langue, canonical, hreflang, sélecteur de langue
@@ -960,6 +1268,81 @@ def patch_french(rel, html):
     if re.search(r"</body>", html, re.I):
         html = re.sub(r"</body>", lambda m: sw + m.group(0), html, count=1, flags=re.I)
     return html
+
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Base de données des stations : copie anglaise /en/stations-data.js
+# (traduit massif, desc, desc_long, pts ; ni les noms, ni la région, ni les nombres)
+# ─────────────────────────────────────────────────────────────────────────────
+DATA_FIELDS = ("massif", "desc", "desc_long")
+DATA_EN_OK = False
+
+
+def _data_rows(path):
+    """(lignes du fichier, {index de ligne: objet}) pour les lignes {"id":…},"""
+    with open(path, "r", encoding="utf-8") as f:
+        lines = f.read().split("\n")
+    rows = {}
+    for i, ln in enumerate(lines):
+        t = ln.strip()
+        if t.startswith('{"id"'):
+            try:
+                rows[i] = json.loads(t.rstrip(","))
+            except Exception:
+                pass
+    return lines, rows
+
+
+def data_payloads():
+    p = os.path.join(ROOT, "stations-data.js")
+    if not os.path.exists(p):
+        return []
+    _, rows = _data_rows(p)
+    out = []
+    for o in rows.values():
+        for k in DATA_FIELDS:
+            if isinstance(o.get(k), str) and o[k].strip():
+                out.append(o[k])
+        for x in o.get("pts") or []:
+            if isinstance(x, str) and x.strip():
+                out.append(x)
+    return out
+
+
+def write_en_data(tr):
+    """Écrit en/stations-data.js ; un champ non traduit reste en français."""
+    global DATA_EN_OK
+    p = os.path.join(ROOT, "stations-data.js")
+    if not os.path.exists(p):
+        return 0
+    lines, rows = _data_rows(p)
+    missing = 0
+
+    def t(x):
+        nonlocal missing
+        en = tr.get(x) if isinstance(x, str) and x.strip() else None
+        if en is None:
+            missing += 1
+            return x
+        return en
+
+    for i, o in rows.items():
+        for k in DATA_FIELDS:
+            if isinstance(o.get(k), str):
+                o[k] = t(o[k])
+        if isinstance(o.get("pts"), list):
+            o["pts"] = [t(x) for x in o["pts"]]
+        comma = "," if lines[i].rstrip().endswith(",") else ""
+        lines[i] = json.dumps(o, ensure_ascii=False, separators=(",", ":")) + comma
+    head = "// SnowFinder — English copy of stations-data.js (generated by translate_site.py, do not edit by hand).\n"
+    dest = os.path.join(ROOT, "en", "stations-data.js")
+    os.makedirs(os.path.dirname(dest), exist_ok=True)
+    with open(dest, "w", encoding="utf-8") as f:
+        f.write(head + "\n".join(lines))
+    DATA_EN_OK = missing == 0
+    print(f"  en/stations-data.js : {len(rows)} stations, {missing} champ(s) resté(s) en français")
+    return missing
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1030,6 +1413,7 @@ def main():
         return 0
     print(f"✓ {len(pages)} page(s) à traiter — modèle {MODEL}{' (MOCK)' if MOCK else ''}")
 
+    load_station_names()
     cache = Cache()
     tr = Translator(cache)
 
@@ -1043,6 +1427,9 @@ def main():
         ps = all_payloads(analyze(soup))
         per_page[rel] = ps
         payloads.extend(ps)
+    uses_data = any("stations-data.js" in open(os.path.join(ROOT, r), encoding="utf-8").read() for r in pages)
+    data_pl = data_payloads() if uses_data else []
+    payloads.extend(data_pl)
     uniq = list(dict.fromkeys(payloads))
     new = [p for p in uniq if cache.get(p) is None]
     chars = sum(len(p) for p in new)
@@ -1060,6 +1447,8 @@ def main():
         print(f"⛔ Budget de {BUDGET_USD:.0f} $ atteint : les pages incomplètes seront terminées au prochain passage.")
 
     # Phase 3 : écrire les pages complètes
+    if data_pl:
+        write_en_data(tr)
     complete = [rel for rel in pages if all(tr.get(p) is not None or p in tr.failed for p in per_page[rel])]
     incomplete = [rel for rel in pages if rel not in complete]
     manifest = load_manifest()
