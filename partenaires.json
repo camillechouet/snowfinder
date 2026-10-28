@@ -1,0 +1,60 @@
+{
+  "_aide": [
+    "Fichier des offres affichées dans la colonne « Offres & bons plans » (fiches stations, articles, duels, en français et en anglais).",
+    "Pour ajouter une offre : copie un bloc { ... } de la liste « offres », colle-le à la suite (sépare les blocs par une virgule) et change les textes.",
+    "actif : true = affichée, false = cachée. debut / fin : dates AAAA-MM-JJ (facultatif, vide = sans limite).",
+    "stations : noms des stations concernées, exactement comme sur le site (ex. [\"Tignes\", \"Val d'Isère\"]). Liste vide [] = affichée partout.",
+    "pages : où l'afficher, parmi \"station\", \"article\", \"duel\" (facultatif, vide = partout).",
+    "type : location-ski | forfait | hebergement | bon-plan | station  (choisit l'icône).",
+    "label : mention affichée en haut de l'encart. Obligatoire d'être honnête : « Partenaire », « Bon plan » ou « Publicité ».",
+    "priorite : plus le nombre est grand, plus l'offre passe en premier. Maximum 2 offres affichées par page.",
+    "lien : adresse de l'offre (lien d'affiliation CJ ou lien du partenaire). Il s'ouvre dans un nouvel onglet, marqué « sponsored ».",
+    "image : adresse d'une image (facultatif). en : version anglaise du titre, du texte et du bouton (facultatif ; sans elle, le français s'affiche)."
+  ],
+  "offres": [
+    {
+      "id": "exemple-location-ski",
+      "actif": false,
+      "type": "location-ski",
+      "label": "Partenaire",
+      "partenaire": "Nom du loueur",
+      "titre": "Location de skis à -20 % avec SnowFinder",
+      "texte": "Réservez en ligne votre matériel avant le départ et récupérez-le en station.",
+      "cta": "Voir l'offre",
+      "lien": "https://www.exemple.fr/",
+      "image": "",
+      "stations": ["Tignes", "Val d'Isère"],
+      "pages": [],
+      "debut": "2026-11-01",
+      "fin": "2027-04-30",
+      "priorite": 5,
+      "en": {
+        "titre": "Ski rental 20% off with SnowFinder",
+        "texte": "Book your equipment online before you leave and pick it up in resort.",
+        "cta": "See the offer"
+      }
+    },
+    {
+      "id": "exemple-bon-plan",
+      "actif": false,
+      "type": "bon-plan",
+      "label": "Bon plan",
+      "partenaire": "",
+      "titre": "Bon plan du moment",
+      "texte": "Décris ici l'offre en une ou deux phrases courtes.",
+      "cta": "J'en profite",
+      "lien": "https://www.exemple.fr/",
+      "image": "",
+      "stations": [],
+      "pages": ["article", "duel"],
+      "debut": "",
+      "fin": "",
+      "priorite": 1,
+      "en": {
+        "titre": "Deal of the moment",
+        "texte": "Describe the offer here in one or two short sentences.",
+        "cta": "Get the deal"
+      }
+    }
+  ]
+}
