@@ -69,12 +69,16 @@ BATCH_ITEMS, BATCH_CHARS = 40, 7000
 
 # Pages à traduire (motifs relatifs à la racine). Les motifs sans correspondance sont ignorés.
 SOURCES = [
+    "*.html",
+    "*/*.html",
+    "*/*/*.html",
     "index.html",
     "stations/*.html",
     "domaines/*.html",
     "comparatifs/*.html",
     "articles/*.html",
     "stations-du-moment/*.html",
+    "station-du-moment/*.html",
     "tous-les-comparatifs.html",
     "toutes-les-actus.html",
     "toutes-les-stations-du-moment.html",
@@ -86,6 +90,7 @@ SOURCES = [
     "enneigement.html",
     "hebergement.html",
 ]
+EXCLUDE_DIRS = {"en", "i18n", "_scripts", "scripts", ".github", "node_modules", "assets", "img", "images", "fonts"}
 CACHE_DIR = os.path.join(ROOT, "i18n", "cache", "en")
 QA_FILE = os.path.join(ROOT, "i18n", "qa-en.json")
 MANIFEST_FILE = os.path.join(ROOT, "i18n", "manifest-en.json")
@@ -877,6 +882,13 @@ def translate_call(texts, note=""):
     return [str(x) for x in arr]
 
 
+FORCED_TR = {
+    "Luge d'été": "Summer tobogganing",
+    "Lac Léman": "Lake Geneva",
+    "votre@email.fr": "your@email.com",
+}
+
+
 class Translator:
     def __init__(self, cache):
         self.cache = cache
@@ -965,7 +977,7 @@ class Translator:
                     self.qa[key_of(fr)] = {"fr": fr[:400], "en": "", "issue": f"gardé en français : {problem}"}
 
     def translate_all(self, payloads):
-        todo = [p for p in dict.fromkeys(payloads) if self.cache.get(p) is None]
+        todo = [p for p in dict.fromkeys(payloads) if self.cache.get(p) is None and p not in FORCED_TR]
         batches, cur, size = [], [], 0
         for p in todo:
             if cur and (len(cur) >= BATCH_ITEMS or size + len(p) > BATCH_CHARS):
@@ -989,6 +1001,8 @@ class Translator:
         return len(todo), len(batches)
 
     def get(self, text):
+        if text in FORCED_TR:
+            return FORCED_TR[text]
         if text in self.failed:
             return None
         en = self.cache.get(text)
@@ -1364,6 +1378,8 @@ def discover():
             name = posixpath.basename(rel)
             if name.startswith("_") or name == "404.html":
                 continue
+            if rel.split("/")[0] in EXCLUDE_DIRS:
+                continue
             pages.append(rel)
     pages = sorted(set(pages))
     keep = []
@@ -1372,6 +1388,8 @@ def discover():
             head = f.read(6000).lower()
         if re.search(r'<meta[^>]+name=["\']robots["\'][^>]+noindex', head):
             continue
+        if "<body" not in head and "<html" not in head:
+            continue                                   # fichier de vérification, fragment…
         keep.append(rel)
     return keep
 
