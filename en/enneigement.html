@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<link href="/manifest.json" rel="manifest"/>
+<title>Live Snow Reports for Ski Resorts — Snow Weather | SnowFinder</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<meta content="Check real-time snow and weather at ski resorts in France and across Europe. Ski conditions, snowfall forecasts." name="description"/>
+
+<!-- Open Graph -->
+<meta content="website" property="og:type"/>
+<meta content="SnowFinder" property="og:site_name"/>
+<meta content="https://snowfinder.fr/en/enneigement.html" property="og:url"/>
+<meta content="Live Snow &amp; Ski Weather — SnowFinder" property="og:title"/>
+<meta content="Live snow conditions at ski resorts in France and across Europe. Weather, snow cover, forecasts." property="og:description"/>
+<meta content="https://snowfinder.fr/logo.png" property="og:image"/>
+<meta content="en_GB" property="og:locale"/>
+<!-- Twitter Card -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Live Snow &amp; Ski Weather — SnowFinder" name="twitter:title"/>
+<meta content="Live snow conditions at ski resorts in France and across Europe. Weather, snow cover, forecasts." name="twitter:description"/>
+<meta content="https://snowfinder.fr/logo.png" name="twitter:image"/>
+<meta content="#3a7db8" name="theme-color"/>
+<link href="/logo.png" rel="apple-touch-icon"/>
+<link href="/logo.png" rel="icon" type="image/png"/>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S0C748Y0DX');</script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{--wood-pale:#f7efe2;--wood-light:#eddcbf;--wood:#c49a6c;--wood-dark:#8b5e3c;--blue:#5b9fd4;--blue-light:#e8f3fb;--blue-mid:#3a7db8;--blue-dark:#1a5a8a;--green:#2a8a3a;--text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;--bg:#faf6f0;--white:#fff;--border:#e8d8c4;--shadow:0 1px 4px rgba(0,0,0,.08);--shadow-md:0 6px 20px rgba(0,0,0,.12);--radius:10px;--sb-w:230px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.sb{position:fixed;left:0;top:0;bottom:0;width:var(--sb-w);background:var(--white);border-right:1.5px solid var(--wood-light);z-index:300;display:flex;flex-direction:column;overflow-y:auto;transition:transform .3s;box-shadow:2px 0 12px rgba(0,0,0,.06)}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:14px 16px;text-decoration:none;border-bottom:1px solid var(--wood-light);background:var(--wood-pale)}
+.sb-logo img{width:52px;height:52px;border-radius:10px;flex-shrink:0}
+.sb-logo-text{font-family:"DM Serif Display",serif;font-size:1rem;color:var(--blue-dark);line-height:1.2}
+.sb-logo-text small{display:block;font-family:"DM Sans",sans-serif;font-size:.65rem;color:var(--text-light);font-style:normal}
+.saison-toggle{margin:10px 12px;border-radius:30px;overflow:hidden;border:2px solid var(--wood-light);display:flex;cursor:pointer}
+.saison-toggle-track{display:flex;width:100%}
+.saison-btn{flex:1;padding:7px 6px;text-align:center;font-size:.76rem;font-weight:700;border:none;cursor:pointer;background:none;color:var(--text-light);font-family:"DM Sans",sans-serif}
+.saison-btn.active-hiver{background:var(--blue-dark);color:white;border-radius:26px}
+.sb-links{display:flex;flex-direction:column;padding:4px 0;flex:1}
+.sb-link{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:.88rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:background .15s;cursor:pointer;background:none;border:none;width:100%;text-align:left;font-family:"DM Sans",sans-serif}
+.sb-link:hover{background:var(--wood-pale);color:var(--blue-mid)}
+.sb-link.active{background:var(--blue-light);color:var(--blue-mid);font-weight:700}
+.sb-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
+.sb-new{margin-left:auto;background:var(--blue-mid);color:white;font-size:.6rem;font-weight:700;padding:1px 6px;border-radius:10px}
+.sb-divider{height:1px;background:var(--wood-light);margin:6px 14px}
+.sb-footer{padding:12px 16px;border-top:1px solid var(--wood-light);background:var(--wood-pale)}
+.sb-footer-txt{font-size:.7rem;color:var(--text-light);line-height:1.5}
+.sb-hamburger{display:none;position:fixed;top:12px;left:12px;z-index:400;width:40px;height:40px;background:var(--white);border:2px solid var(--wood-light);border-radius:8px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:var(--shadow)}
+.sb-hamburger span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.sb-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.sb-hamburger.open span:nth-child(2){opacity:0}
+.sb-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:250}
+.sb-overlay.open{display:block}
+.page-wrap{margin-left:var(--sb-w);transition:margin-left .3s}
+@media(max-width:1024px){.sb{transform:translateX(calc(-1 * var(--sb-w)))}.sb.open{transform:translateX(0)}.sb-hamburger{display:flex}.page-wrap{margin-left:0}.page-wrap .topbar{padding-left:60px!important}}
+.topbar{background:var(--white);border-bottom:1px solid var(--wood-light);height:56px;display:flex;align-items:center;padding:0 20px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.topbar-panneau{display:block;height:44px;object-fit:contain;filter:drop-shadow(1px 2px 4px rgba(0,0,0,.3))}
+
+/* HERO SEARCH */
+.snow-hero{background:linear-gradient(160deg,var(--blue-dark) 0%,var(--blue-mid) 60%,#2a9acd 100%);padding:40px 24px 36px;text-align:center;position:relative;overflow:hidden}
+.snow-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.snow-hero-inner{position:relative;z-index:1;max-width:640px;margin:0 auto}
+.snow-hero h1{font-family:"DM Serif Display",serif;font-size:clamp(1.8rem,4vw,2.6rem);color:white;margin-bottom:8px;line-height:1.15}
+.snow-hero p{font-size:.95rem;color:rgba(255,255,255,.82);margin-bottom:24px;line-height:1.55}
+
+/* SEARCH BOX */
+.search-wrap{position:relative;max-width:520px;margin:0 auto}
+.search-label{font-family:"DM Serif Display",serif;font-size:1.1rem;color:rgba(255,255,255,.9);margin-bottom:10px}
+.search-input{width:100%;padding:14px 50px 14px 18px;border-radius:30px;border:none;font-family:"DM Sans",sans-serif;font-size:1rem;outline:none;box-shadow:0 4px 20px rgba(0,0,0,.25);color:var(--text)}
+.search-input::placeholder{color:var(--text-light)}
+.search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:1.3rem;pointer-events:none}
+.search-results-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:white;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.2);z-index:100;overflow:hidden;display:none;max-height:280px;overflow-y:auto}
+.search-results-dropdown.open{display:block}
+.search-result-item{padding:11px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:background .15s;border-bottom:1px solid var(--wood-pale)}
+.search-result-item:last-child{border-bottom:none}
+.search-result-item:hover{background:var(--blue-light)}
+.search-result-name{font-weight:600;font-size:.9rem;color:var(--text)}
+.search-result-region{font-size:.72rem;color:var(--text-light)}
+.search-result-snow{margin-left:auto;font-size:.78rem;font-weight:700;color:var(--blue-dark);background:var(--blue-light);padding:2px 8px;border-radius:10px}
+.search-result-fav{margin-left:auto;background:none;border:none;font-size:1.35rem;line-height:1;cursor:pointer;padding:6px 8px;border-radius:10px;transition:transform .15s,background .15s}
+.search-result-fav:hover{background:var(--blue-light)}
+.search-result-fav:active{transform:scale(1.25)}
+
+/* CHECK BUTTON */
+.check-btn{margin-top:12px;padding:13px 36px;background:white;color:var(--blue-dark);border:none;border-radius:30px;font-family:"DM Sans",sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+.check-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.check-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* RESULT PANEL */
+.result-panel{display:none;max-width:700px;margin:28px auto 0;padding:0 20px}
+.result-panel.show{display:block}
+.result-card{background:var(--white);border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow-md);overflow:hidden}
+.result-header{background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));padding:20px 22px;color:white}
+.result-name{font-family:"DM Serif Display",serif;font-size:1.8rem;margin-bottom:3px}
+.result-region{font-size:.85rem;opacity:.82}
+.result-body{padding:20px 22px}
+
+/* SNOW BARS */
+.snow-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.sn-box{background:var(--bg);border-radius:9px;padding:13px 15px;border:1px solid var(--border);text-align:center}
+.sn-lbl{font-size:.66rem;text-transform:uppercase;font-weight:700;letter-spacing:.05em;color:var(--text-light);margin-bottom:5px}
+.sn-val{font-family:"DM Serif Display",serif;font-size:1.9rem;color:var(--blue-dark)}
+.sn-sub{font-size:.66rem;color:var(--text-light)}
+.sn-track{height:7px;background:var(--border);border-radius:4px;overflow:hidden;margin:7px 0 3px}
+.sn-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue-light),var(--blue-mid))}
+.snow-status-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;border-radius:20px;font-weight:700;font-size:.8rem;margin:0 auto 16px;display:block;text-align:center;width:fit-content}
+.sst-good{background:#e6f5eb;color:#1a6a28}
+.sst-avg{background:#fff8e1;color:#7a5c00}
+.sst-low{background:#fde8e8;color:#c62828}
+
+/* METEO */
+.meteo-row{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:16px}
+.md{background:var(--bg);border-radius:8px;padding:9px 5px;text-align:center;border:1px solid var(--border)}
+.md-name{font-size:.62rem;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:4px}
+.md-icon{font-size:1.4rem;margin-bottom:3px}
+.md-temp{font-family:"DM Serif Display",serif;font-size:.88rem;color:var(--blue-dark)}
+.md-desc{font-size:.6rem;color:var(--text-light);margin-top:2px}
+
+/* AVALANCHE */
+.sec-lbl{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-light);margin-bottom:8px}
+.aval-row{display:flex;gap:4px;margin-bottom:4px}
+.aval{flex:1;height:9px;border-radius:3px}
+.a1{background:#90ee90}.a2{background:#ffd700}.a3{background:#ff8c00}.a4{background:#ff4444;opacity:.4}.a5{background:#8b0000;opacity:.4}
+
+/* PISTES */
+.pistes-mini{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.pm{border-radius:8px;padding:8px 12px;text-align:center;min-width:64px}
+.pm-v{background:#e8f5e9;border:1px solid #c8e6c9;color:#2e7d32}
+.pm-b{background:#e3f2fd;border:1px solid #b3d4f5;color:#1565c0}
+.pm-r{background:#fce4ec;border:1px solid #f8bbd0;color:#c62828}
+.pm-n{background:#f3e5f5;border:1px solid #e1bee7;color:#4a148c}
+.pm-num{font-family:"DM Serif Display",serif;font-size:1.3rem;line-height:1}
+.pm-tot{font-size:.62rem;opacity:.7}
+.pm-lbl{font-size:.68rem;font-weight:600;margin-top:2px}
+.piste-pct{background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));color:white;border-radius:9px;padding:12px 16px;display:flex;align-items:center;gap:14px}
+.piste-pct-num{font-family:"DM Serif Display",serif;font-size:2rem;color:white}
+.piste-pct-bar{flex:1}
+.pp-track{height:7px;background:rgba(255,255,255,.3);border-radius:4px;overflow:hidden;margin-bottom:3px}
+.pp-fill{height:100%;background:white;border-radius:4px}
+
+/* CTA HEBERG */
+.heb-mini{display:flex;gap:8px;margin-top:16px}
+.heb-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 14px;border-radius:9px;text-decoration:none;font-weight:700;font-size:.85rem;transition:opacity .2s}
+.heb-btn:hover{opacity:.85}
+.heb-booking{background:#003580;color:white}
+.heb-expedia{background:#ffcc00;color:#003580}
+
+/* WIDGET MÉTÉO — identique aux fiches stations (generate_stations.py) */
+.meteo-widget{background:linear-gradient(135deg,#1a5a8a 0%,#3a7db8 100%);border-radius:14px;padding:22px 26px;margin-bottom:16px;color:white;box-shadow:0 6px 22px rgba(26,90,138,.25);position:relative;overflow:hidden}
+.meteo-widget::before{content:"";position:absolute;top:-20px;right:-20px;width:140px;height:140px;background:radial-gradient(circle,rgba(255,255,255,.18) 0%,transparent 70%);pointer-events:none}
+.meteo-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:12px}
+.meteo-title{font-family:"DM Serif Display",serif;font-size:1.15rem;line-height:1.2;color:white}
+.meteo-sub{font-size:.78rem;color:rgba(255,255,255,.72);margin-top:3px}
+.meteo-now{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border-radius:12px;padding:8px 14px;backdrop-filter:blur(6px)}
+.meteo-now-temp{font-family:"DM Serif Display",serif;font-size:1.7rem;line-height:1;color:white}
+.meteo-now-ico{font-size:1.7rem;line-height:1}
+.meteo-now-snow{font-size:.72rem;color:rgba(255,255,255,.78);margin-top:2px}
+.meteo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.meteo-day{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:9px 4px;text-align:center}
+.meteo-day-lbl{font-size:.68rem;font-weight:700;color:rgba(255,255,255,.82);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.meteo-day-ico{font-size:1.2rem;margin-bottom:3px}
+.meteo-day-t{font-size:.78rem;font-weight:700;color:white}
+.meteo-day-snow{font-size:.65rem;color:#a8d8ff;margin-top:3px;font-weight:600}
+.meteo-loading{text-align:center;padding:14px 0;font-size:.85rem;color:rgba(255,255,255,.7)}
+@media(max-width:520px){.meteo-grid{grid-template-columns:repeat(5,1fr);gap:4px}.meteo-day{padding:7px 2px}.meteo-day-lbl{font-size:.6rem}.meteo-day-t{font-size:.72rem}}
+
+/* PLACEHOLDER STATE */
+.placeholder-state{text-align:center;padding:40px 20px;color:var(--text-light)}
+.placeholder-icon{font-size:3rem;margin-bottom:12px}
+
+/* VIGNETTES STATIONS À LA UNE */
+.vignette-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:18px}
+.vignette-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:14px 10px 12px;text-align:center;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:var(--shadow);position:relative}
+.vignette-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--blue-mid)}
+.vignette-card.vig-loading{opacity:.55}
+.vig-icon{font-size:1.7rem;margin-bottom:4px}
+.vig-name{font-weight:700;font-size:.86rem;color:var(--text);margin-bottom:1px;line-height:1.2}
+.vig-massif{font-size:.62rem;color:var(--text-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:.03em}
+.vig-temp{font-family:"DM Serif Display",serif;font-size:1.25rem;color:var(--blue-dark)}
+.vig-snow{margin-top:6px;font-size:.66rem;font-weight:700;color:var(--blue-dark);background:var(--blue-light);border-radius:10px;padding:2px 8px;display:inline-block}
+.vig-snow-rows{margin-top:8px;padding-top:7px;border-top:1px solid var(--border);display:none;flex-direction:column;gap:3px}
+.vig-snow-row{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:.66rem;line-height:1.25}
+.vig-snow-lbl{color:var(--text-light);text-transform:uppercase;letter-spacing:.03em;font-weight:700;font-size:.6rem}
+.vig-snow-val{font-weight:800;color:var(--blue-dark);white-space:nowrap}
+.vig-snow-val.is-zero{color:var(--text-light);font-weight:700}
+
+/* FOOTER */
+footer{background:var(--wood-dark);color:rgba(255,255,255,.7);text-align:center;padding:28px 20px;font-size:.82rem;margin-top:40px}
+footer strong{color:white}
+footer a{color:rgba(255,255,255,.5);text-decoration:none}
+@media(max-width:600px){.snow-compare,.meteo-row,.pistes-mini{flex-wrap:wrap}.meteo-row{grid-template-columns:repeat(3,1fr)}.snow-compare{grid-template-columns:1fr 1fr}}
+
+/* ── SIDEBAR ── */
+:root{--sb-w:230px}
+.sb{position:fixed;left:0;top:0;bottom:0;width:var(--sb-w);background:var(--white,#fff);border-right:1.5px solid var(--wood-light,#eddcbf);z-index:300;display:flex;flex-direction:column;overflow-y:auto;transition:transform .3s;box-shadow:2px 0 12px rgba(0,0,0,.06)}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:14px 16px;text-decoration:none;border-bottom:1px solid var(--wood-light,#eddcbf);background:var(--wood-pale,#f7efe2)}
+.sb-logo img{width:52px;height:52px;border-radius:10px;flex-shrink:0}
+.sb-logo-text{font-family:"DM Serif Display",serif;font-size:1rem;color:var(--blue-dark,#1a5a8a);line-height:1.2}
+.sb-logo-text small{display:block;font-family:"DM Sans",sans-serif;font-size:.65rem;color:var(--text-light,#8a7060);font-style:normal}
+.saison-toggle{margin:10px 12px;border-radius:30px;overflow:hidden;border:2px solid var(--wood-light,#eddcbf);display:flex;cursor:pointer}
+.saison-toggle-track{display:flex;width:100%}
+.saison-btn{flex:1;padding:7px 6px;text-align:center;font-size:.76rem;font-weight:700;border:none;cursor:pointer;background:none;color:var(--text-light,#8a7060);font-family:"DM Sans",sans-serif;transition:all .25s}
+.saison-btn.active-hiver{background:var(--blue-dark,#1a5a8a);color:white;border-radius:26px}
+.saison-btn.active-ete{background:#2a8a3a;color:white;border-radius:26px}
+.sb-links{display:flex;flex-direction:column;padding:4px 0;flex:1}
+.sb-link{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:.88rem;font-weight:500;color:var(--text-mid,#5c4a35);text-decoration:none;transition:background .15s;cursor:pointer;background:none;border:none;width:100%;text-align:left;font-family:"DM Sans",sans-serif}
+.sb-link:hover{background:var(--wood-pale,#f7efe2);color:var(--blue-mid,#3a7db8)}
+.sb-link.active{background:var(--blue-light,#e8f3fb);color:var(--blue-mid,#3a7db8);font-weight:700}
+.sb-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
+.sb-new{margin-left:auto;background:var(--blue-mid,#3a7db8);color:white;font-size:.6rem;font-weight:700;padding:1px 6px;border-radius:10px}
+.sb-divider{height:1px;background:var(--wood-light,#eddcbf);margin:6px 14px}
+.sb-footer{padding:12px 16px;border-top:1px solid var(--wood-light,#eddcbf);background:var(--wood-pale,#f7efe2)}
+.sb-footer-txt{font-size:.7rem;color:var(--text-light,#8a7060);line-height:1.5}
+.sb-footer-txt strong{color:var(--text-mid,#5c4a35)}
+.sb-hamburger{display:none;position:fixed;top:12px;left:12px;z-index:400;width:40px;height:40px;background:var(--white,#fff);border:2px solid var(--wood-light,#eddcbf);border-radius:8px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.sb-hamburger span{display:block;width:18px;height:2px;background:var(--text,#2a1f14);border-radius:2px;transition:all .3s}
+.sb-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.sb-hamburger.open span:nth-child(2){opacity:0}
+.sb-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:250}
+.sb-overlay.open{display:block}
+.page-wrap{margin-left:var(--sb-w);transition:margin-left .3s}
+@media(max-width:1024px){.sb{transform:translateX(calc(-1 * var(--sb-w)))}.sb.open{transform:translateX(0)}.sb-hamburger{display:flex}.page-wrap{margin-left:0}.page-wrap .topbar{padding-left:60px!important}}
+
+/* ── Flocons décoratifs ── */
+#pageSnow{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;mix-blend-mode:screen;opacity:1}
+</style>
+<script>
+/* ══════════════════════════════════════════════════
+   AFFILIATION — mettre à jour quand Booking valide
+   Remplacer 'SnowFinder' par votre vrai aid Booking
+   (format numérique, ex: 1234567)
+   ══════════════════════════════════════════════════ */
+const BOOKING_CJ = 'https://www.tkqlhce.com/click-101709262-15734710';
+function bookingUrl(station, sid, extra) {
+  var base = 'https://www.booking.com/searchresults.en-gb.html?ss='
+    + encodeURIComponent(station + ' ski') + '&lang=en-gb';
+  if (extra) base += extra;
+  return BOOKING_CJ + '?sid=' + (sid || '') + '&url=' + encodeURIComponent(base);
+}
+function expediaUrl(station, sid) {
+  var base = 'https://www.expedia.fr/go/hotel/search/Destination/?CityName='
+    + encodeURIComponent(station) + '&City=' + encodeURIComponent(station)
+    + '&SortBy=distance&NumRoom=1&NumAdult1=1';
+  return 'https://www.jdoqocy.com/click-101709262-13904689?sid='
+    + (sid || '') + '&url=' + encodeURIComponent(base);
+}
+</script>
+<link href="https://snowfinder.fr/en/enneigement.html" rel="canonical"/><link href="https://snowfinder.fr/enneigement.html" hreflang="fr" rel="alternate"/><link href="https://snowfinder.fr/en/enneigement.html" hreflang="en" rel="alternate"/><link href="https://snowfinder.fr/enneigement.html" hreflang="x-default" rel="alternate"/></head>
+<body>
+<canvas aria-hidden="true" id="pageSnow"></canvas>
+<style>
+.sf-topbar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--wood-light);display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 6px;z-index:600;transition:transform .28s ease;overflow:visible;gap:8px;}
+.sf-topbar.sf-hide{transform:translateY(-100%);}
+.sf-topbar-logo{display:flex;align-items:center;gap:4px;text-decoration:none;flex-shrink:0;justify-self:start;min-width:0;}
+.sf-topbar-logo img{width:60px;height:60px;border-radius:12px;object-fit:contain;flex-shrink:0}
+.sf-topbar-wordtext{display:flex;flex-direction:column;justify-content:center;line-height:1.05;min-width:0;overflow:hidden}
+.sf-topbar-title{font-family:"DM Serif Display",serif;font-size:.95rem;font-weight:700;white-space:nowrap}
+.sf-topbar-title .sf-dark{color:var(--blue-dark)}
+.sf-topbar-title .sf-light{color:var(--blue-mid)}
+.sf-topbar-slogan{font-size:.5rem;letter-spacing:.03em;color:var(--blue-dark);opacity:.7;white-space:nowrap;text-transform:uppercase;margin-top:1px}
+.sf-topbar-app{display:flex;align-items:center;gap:4px;background:linear-gradient(135deg,var(--blue-light),#eaf4ff);border:1px solid var(--blue-mid);border-radius:14px;padding:4px 9px;font-size:.64rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18);justify-self:end;}
+.sf-topbar-right{display:flex;align-items:center;justify-self:end;flex-shrink:0;}
+.sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
+.sf-topbar-fav:active{background:var(--wood-pale)}
+.sf-topbar-menu{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;border:1.5px solid var(--wood-light);background:var(--white);font-size:1rem;line-height:1;color:var(--blue-dark);cursor:pointer;flex-shrink:0;padding:0;margin-left:2px}
+.sf-topbar-menu:active{background:var(--wood-pale)}
+@media(max-width:480px){.sf-topbar{padding:0 4px;gap:4px}.sf-topbar-logo img{width:52px;height:52px}.sf-topbar-app{font-size:.58rem;padding:4px 7px}}
+.sf-bottomnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08);padding-bottom:env(safe-area-inset-bottom);}
+.sf-bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px;font-size:1.18rem;text-decoration:none;color:var(--text-mid);position:relative;gap:1px}
+.sf-bn-item.active{color:var(--blue-dark)}
+.sf-bn-item.active .sf-bn-label{font-weight:800}
+.sf-bn-item:not(.sf-bn-home).active{transform:translateY(-2px)}
+.sf-bn-item:not(.sf-bn-home).active::after{content:"";position:absolute;bottom:7px;width:4px;height:4px;border-radius:50%;background:var(--blue-dark)}
+.sf-bn-label{font-size:.54rem;font-weight:700;letter-spacing:.01em;line-height:1;color:inherit;opacity:.9}
+.sf-bn-home{flex:0 0 52px;margin-top:-16px}
+.sf-bn-home-circle{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 6px 18px rgba(26,90,138,.4);border:3px solid var(--white);transition:transform .2s,box-shadow .2s}
+.sf-bn-home .sf-bn-label{margin-top:2px}
+.sf-bn-home.active .sf-bn-home-circle{transform:scale(1.08);box-shadow:0 6px 22px rgba(26,90,138,.65)}
+.page-wrap{padding-top:64px!important;padding-bottom:66px!important;margin-left:0!important}
+</style>
+<div class="sf-topbar" id="sfTopbar">
+<a class="sf-topbar-logo" href="/index.html"><img alt="SnowFinder" src="/logo.png"/> <span class="sf-topbar-wordtext"> <span class="sf-topbar-title"><span class="sf-dark">Snow</span><span class="sf-light">Finder</span></span> <span class="sf-topbar-slogan">Compare • Find • Ski</span> </span></a>
+<a class="sf-topbar-app" href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" style="position:relative;left:12px">📲 The app is out now!</a>
+<div class="sf-topbar-right">
+<a class="sf-topbar-fav" href="/en/comparateur.html" style="margin-right:2px;position:relative;left:10px">⚖️ <span id="sfCompareCount">0</span></a>
+<a class="sf-topbar-fav" href="/en/favoris.html">⭐ <span id="sfFavCount">0</span></a>
+<button aria-label="Menu" class="sf-topbar-menu" id="sfMenuBtn" onclick="openSfMenu()" type="button">☰</button>
+</div>
+</div>
+<script>
+(function(){
+  var bar = document.getElementById("sfTopbar");
+  var lastY = window.scrollY, ticking = false;
+  window.addEventListener("scroll", function(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY;
+      if(y > lastY && y > 60) bar.classList.add("sf-hide");
+      else bar.classList.remove("sf-hide");
+      lastY = y;
+      ticking = false;
+    });
+  }, {passive:true});
+  function updateFavCount(){
+    var favs = [];
+    try { favs = JSON.parse(localStorage.getItem("sf_favorites")||"[]"); } catch(e){}
+    var el = document.getElementById("sfFavCount");
+    if(el) el.textContent = favs.length;
+  }
+  function updateCompareCount(){
+    var c = [];
+    try { c = JSON.parse(localStorage.getItem("sf_compare")||"[]"); } catch(e){}
+    var el = document.getElementById("sfCompareCount");
+    if(el) el.textContent = c.length;
+  }
+  updateFavCount();
+  updateCompareCount();
+  window.addEventListener("storage", updateFavCount);
+  window.addEventListener("storage", updateCompareCount);
+  window.addEventListener("focus", updateFavCount);
+  window.addEventListener("focus", updateCompareCount);
+})();
+</script>
+<script>
+/* Grammaire française devant un nom de station : de/du/des/d'/de l' et à/au/aux/à l' */
+function sfDe(n){return 'of '+String(n||'');}
+function sfA(n){return 'in '+String(n||'');}
+function getCompareList(){try{return JSON.parse(localStorage.getItem("sf_compare")||"[]");}catch(e){return [];}}
+function saveCompareList(arr){try{localStorage.setItem("sf_compare",JSON.stringify(arr));}catch(e){}}
+function isInCompare(id){return getCompareList().indexOf(id)!==-1;}
+function toggleCompareStation(id){
+  var c = getCompareList();
+  var idx = c.indexOf(id);
+  if(idx>=0){ c.splice(idx,1); }
+  else {
+    if(c.length>=3){ alert("You can compare up to 3 resorts. Remove one before adding another."); return isInCompare(id); }
+    c.push(id);
+  }
+  saveCompareList(c);
+  var el = document.getElementById("sfCompareCount");
+  if(el) el.textContent = c.length;
+  return isInCompare(id);
+}
+</script>
+<div class="page-wrap">
+<!-- ancienne nav retirée -->
+<style>
+@media(max-width:900px){#navLinks{display:none!important}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+</style>
+<!-- BANDE PREUVE SOCIALE -->
+<!-- HERO SEARCH -->
+<div class="snow-hero">
+<div class="snow-hero-inner">
+<h1>❄️ Weather and snow in…</h1>
+<p>Type a resort name to get current snow cover, the week's weather and the full resort page.</p>
+<div class="search-wrap">
+<div class="search-label">Search for a resort</div>
+<div style="position:relative">
+<input autocomplete="off" class="search-input" id="snowSearchInput" oninput="onSearchInput()" onkeydown="onSearchKey(event)" placeholder="e.g. Avoriaz, Val Thorens, Chamonix..." type="text"/>
+<span class="search-icon">❄️</span>
+<div class="search-results-dropdown" id="searchDropdown"></div>
+</div>
+<button class="check-btn" disabled="" id="checkBtn" onclick="checkStation()">Check snow →</button>
+</div>
+</div>
+</div>
+<!-- FAVORIS -->
+<div id="favSection" style="display:none;max-width:760px;margin:0 auto 24px;padding:0 16px">
+<div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:10px">⭐ My favourite resorts</div>
+<div class="vignette-grid" id="favList"></div>
+</div>
+<!-- RESULT PANEL — miroir exact de l'onglet "Météo & enneigement" des fiches stations -->
+<div class="result-panel" id="resultPanel">
+<div class="result-card" style="box-shadow:none;border:none;background:transparent;overflow:visible">
+<div style="max-width:620px;margin:0 auto;padding:0 4px">
+<!-- WIDGET MÉTÉO -->
+<div class="meteo-widget" id="meteoWidget">
+<div class="meteo-head">
+<div>
+<div class="meteo-title" id="meteoTitle">❄️ Weather in —</div>
+<div class="meteo-sub">Current conditions &amp; 5-day forecast</div>
+</div>
+<div class="meteo-now" id="meteoNow" style="display:none">
+<span class="meteo-now-ico" id="meteoNowIco">☁️</span>
+<div>
+<div class="meteo-now-temp" id="meteoNowTemp">—°</div>
+<div class="meteo-now-snow" id="meteoNowSnow"></div>
+</div>
+</div>
+</div>
+<div class="meteo-loading" id="meteoLoading">Loading…</div>
+<div class="meteo-grid" id="meteoGrid" style="display:none"></div>
+</div>
+<p style="font-size:.75rem;color:var(--text-light);text-align:center;margin:-6px 0 14px">Source: Open-Meteo.com · Data updated in real time</p>
+<!-- ENNEIGEMENT EN CE MOMENT -->
+<div style="background:linear-gradient(135deg,#e8f3fb,#d0e7f5);border-radius:14px;padding:20px;margin-bottom:14px">
+<div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#3a7db8;margin-bottom:14px">❄️ Snow depth right now (resort altitude)</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+<div style="background:white;border-radius:10px;padding:12px;text-align:center">
+<div style="font-size:.62rem;font-weight:700;color:var(--text-light);text-transform:uppercase;margin-bottom:6px">Currently</div>
+<div id="snowNowVal" style="font-family:'DM Serif Display',serif;font-size:2rem;color:#1a5a8a;line-height:1">—</div>
+<div style="font-size:.68rem;color:#3a7db8;font-weight:600;margin-top:2px">cm</div>
+</div>
+<div style="background:white;border-radius:10px;padding:12px;text-align:center">
+<div style="font-size:.62rem;font-weight:700;color:var(--text-light);text-transform:uppercase;margin-bottom:6px">Avg. this month</div>
+<div id="snowMonthVal" style="font-family:'DM Serif Display',serif;font-size:2rem;color:#2a6090;line-height:1">—</div>
+<div style="font-size:.68rem;color:#3a7db8;font-weight:600;margin-top:2px">cm</div>
+</div>
+<div style="background:white;border-radius:10px;padding:12px;text-align:center">
+<div style="font-size:.62rem;font-weight:700;color:var(--text-light);text-transform:uppercase;margin-bottom:6px">Annual avg.</div>
+<div id="snowAnnualVal" style="font-family:'DM Serif Display',serif;font-size:2rem;color:#3a7db8;line-height:1">—</div>
+<div style="font-size:.68rem;color:#3a7db8;font-weight:600;margin-top:2px">cm</div>
+</div>
+</div>
+<div id="snowCompareBar" style="display:none">
+<div style="font-size:.65rem;color:#3a7db8;font-weight:700;margin-bottom:6px">Current vs monthly average</div>
+<div style="background:rgba(255,255,255,.6);border-radius:8px;height:12px;overflow:hidden;margin-bottom:4px">
+<div id="snowBarFill" style="height:100%;background:#1a5a8a;border-radius:8px;transition:width .6s ease"></div>
+</div>
+<div id="snowCompareLabel" style="font-size:.68rem;color:#1a5a8a;font-weight:700"></div>
+</div>
+</div>
+<!-- VILLAGE VS SOMMET -->
+<div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px">
+<div id="villageVsSommetLbl" style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:12px">📍 Village vs Summit</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<div style="padding:12px;background:#f8f9ff;border-radius:10px">
+<div style="font-size:.72rem;font-weight:700;color:var(--text);margin-bottom:6px">🏘 In the village</div>
+<div id="villageTxt" style="font-size:.8rem;color:var(--text-mid);line-height:1.5">—</div>
+</div>
+<div style="padding:12px;background:#e8f3fb;border-radius:10px">
+<div style="font-size:.72rem;font-weight:700;color:#1a5a8a;margin-bottom:6px">⛰ At the summit</div>
+<div id="sommetTxt" style="font-size:.8rem;color:var(--text-mid);line-height:1.5">—</div>
+</div>
+</div>
+</div>
+<!-- CHUTES DE NEIGE PRÉVUES -->
+<div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px">
+<div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:10px">🌨 Snowfall forecast – 5 days</div>
+<div id="snowForecastBars" style="display:flex;gap:8px;align-items:flex-end;height:80px">
+<div style="color:var(--text-light);font-size:.75rem">Loading…</div>
+</div>
+<div id="snowForecastLabels" style="display:flex;gap:8px;margin-top:6px"></div>
+</div>
+<!-- FIABILITÉ ENNEIGEMENT -->
+<div style="background:linear-gradient(135deg,#f8f5f0,#f0e8da);border:1px solid var(--wood-light,#eddcbf);border-radius:12px;padding:16px;margin-bottom:16px">
+<div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-light);margin-bottom:10px">📊 Snow reliability</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<div>
+<div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Best time to go</div>
+<div id="fiabPeriode" style="font-size:.85rem;font-weight:700;color:var(--text)">—</div>
+</div>
+<div>
+<div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Overall reliability</div>
+<div id="fiabGlobale" style="font-size:.85rem;font-weight:700">—</div>
+</div>
+<div>
+<div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Base altitude</div>
+<div id="fiabAltitude" style="font-size:.85rem;font-weight:700;color:var(--text)">—</div>
+</div>
+<div>
+<div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:4px">Peak-season snow depth</div>
+<div id="fiabPic" style="font-size:.85rem;font-weight:700;color:var(--text)">—</div>
+</div>
+</div>
+</div>
+<!-- LIEN FICHE STATION + RÉSERVER -->
+<div style="display:flex;flex-direction:column;gap:10px"><a href="/en/recherche.html" id="resFicheLink" onmouseout="this.style.opacity='1'" onmouseover="this.style.opacity='.85'" style="display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));color:white;padding:14px 20px;border-radius:12px;text-decoration:none;font-weight:700;font-size:.95rem;transition:opacity .2s"> 🏔️ <span id="resFicheLinkLabel">See the full resort page →</span> </a> <a href="#" id="resBookingLink" onmouseout="this.style.opacity='1'" onmouseover="this.style.opacity='.85'" rel="noopener sponsored" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#003580;color:white;padding:14px 20px;border-radius:12px;text-decoration:none;font-weight:700;font-size:.95rem;transition:opacity .2s" target="_blank"> 🏨 Book accommodation → </a></div>
+</div>
+</div>
+</div>
+<!-- PLACEHOLDER / INTRO -->
+<div id="introState" style="text-align:center;padding:50px 20px 80px;max-width:500px;margin:0 auto">
+<div style="font-size:3.5rem;margin-bottom:16px">🏔</div>
+<div style="font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--text);margin-bottom:10px">700+ resorts at your fingertips</div>
+<div style="font-size:.88rem;color:var(--text-light);line-height:1.65">Type the first letters of a resort name to get all the information: current snow cover versus historical average, village and summit, 5-day weather.</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px"><button onclick="quickSearch('Avoriaz')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Avoriaz</button> <button onclick="quickSearch('Val Thorens')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Val Thorens</button> <button onclick="quickSearch('Chamonix')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Chamonix</button> <button onclick="quickSearch('Courchevel')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Courchevel</button> <button onclick="quickSearch('Alpe d'Huez')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Alpe d'Huez</button> <button onclick="quickSearch('Les Deux Alpes')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Les 2 Alpes</button></div>
+</div>
+</div>
+<script>
+
+// ══════════════════════════════════════════════════
+//  SnowFinder — Données temps réel
+//  Enneigement & météo : Open-Meteo
+// ══════════════════════════════════════════════════
+
+const STATIONS = [
+{id:1,name:"Val d'Isère",massif:"Northern Alps",alt_min:1850,alt_max:3456,snow:290,km:150,remontees:38,pistes:{v:15,b:33,r:22,n:11},lat:45.4497,lon:6.9797},
+{id:2,name:"Tignes",massif:"Northern Alps",alt_min:1550,alt_max:3456,snow:280,km:150,remontees:33,pistes:{v:6,b:38,r:20,n:16},lat:45.4686,lon:6.9086},
+{id:3,name:"Les Arcs",massif:"Northern Alps",alt_min:1200,alt_max:3226,snow:170,km:200,remontees:53,pistes:{v:10,b:55,r:42,n:16},lat:45.5686,lon:6.8086},
+{id:4,name:"La Plagne",massif:"Northern Alps",alt_min:1250,alt_max:3250,snow:160,km:225,remontees:76,pistes:{v:8,b:74,r:35,n:18},lat:45.5097,lon:6.6697},
+{id:5,name:"Chamonix",massif:"Northern Alps",alt_min:1035,alt_max:3842,snow:120,km:110,remontees:43,pistes:{v:16,b:43,r:44,n:16},lat:45.9237,lon:6.8694},
+{id:6,name:"Avoriaz",massif:"Northern Alps",alt_min:1150,alt_max:2277,snow:190,km:75,remontees:34,pistes:{v:8,b:25,r:14,n:6},lat:46.1936,lon:6.7714},
+{id:7,name:"Courchevel",massif:"Northern Alps",alt_min:1100,alt_max:2738,snow:180,km:150,remontees:58,pistes:{v:21,b:41,r:36,n:11},lat:45.4147,lon:6.6347},
+{id:8,name:"Méribel",massif:"Northern Alps",alt_min:1100,alt_max:2952,snow:160,km:150,remontees:43,pistes:{v:8,b:26,r:28,n:8},lat:45.4047,lon:6.5647},
+{id:9,name:"Val Thorens",massif:"Northern Alps",alt_min:2300,alt_max:3230,snow:250,km:150,remontees:32,pistes:{v:11,b:39,r:30,n:8},lat:45.2986,lon:6.5797},
+{id:10,name:"Les Menuires",massif:"Northern Alps",alt_min:1450,alt_max:2850,snow:220,km:160,remontees:31,pistes:{v:12,b:42,r:23,n:8},lat:45.3247,lon:6.5397},
+{id:11,name:"Saint-Martin-de-Belleville",massif:"Northern Alps",alt_min:1450,alt_max:2400,snow:150,km:160,remontees:31,pistes:{v:12,b:42,r:23,n:8},lat:45.3797,lon:6.5097},
+{id:12,name:"La Tania",massif:"Northern Alps",alt_min:1400,alt_max:2732,snow:155,km:150,remontees:58,pistes:{v:21,b:41,r:36,n:11},lat:45.4247,lon:6.5997},
+{id:13,name:"Orelle",massif:"Northern Alps",alt_min:2050,alt_max:3230,snow:220,km:13,remontees:4,pistes:{v:1,b:3,r:4,n:1},lat:45.2347,lon:6.5197},
+{id:14,name:"Megève",massif:"Northern Alps",alt_min:1113,alt_max:2350,snow:100,km:220,remontees:37,pistes:{v:25,b:33,r:47,n:20},lat:45.8569,lon:6.6172},
+{id:15,name:"Saint-Gervais",massif:"Northern Alps",alt_min:850,alt_max:2350,snow:90,km:55,remontees:31,pistes:{v:12,b:18,r:17,n:7},lat:45.8936,lon:6.7114},
+{id:16,name:"Les Houches",massif:"Northern Alps",alt_min:1008,alt_max:1900,snow:110,km:55,remontees:19,pistes:{v:4,b:6,r:16,n:2},lat:45.8936,lon:6.7997},
+{id:17,name:"Combloux",massif:"Northern Alps",alt_min:1000,alt_max:1852,snow:85,km:100,remontees:29,pistes:{v:12,b:16,r:14,n:3},lat:45.8936,lon:6.6547},
+{id:18,name:"Les Contamines-Montjoie",massif:"Northern Alps",alt_min:1164,alt_max:2480,snow:140,km:120,remontees:25,pistes:{v:8,b:28,r:20,n:10},lat:45.8236,lon:6.7297},
+{id:19,name:"Morzine",massif:"Northern Alps",alt_min:1000,alt_max:2466,snow:130,km:120,remontees:48,pistes:{v:4,b:32,r:27,n:9},lat:46.1786,lon:6.7097},
+{id:20,name:"Les Gets",massif:"Northern Alps",alt_min:1172,alt_max:2002,snow:125,km:120,remontees:48,pistes:{v:4,b:32,r:27,n:9},lat:46.1586,lon:6.6697},
+{id:21,name:"Châtel",massif:"Northern Alps",alt_min:1100,alt_max:2200,snow:145,km:120,remontees:56,pistes:{v:9,b:15,r:15,n:6},lat:46.2686,lon:6.8397},
+{id:22,name:"La Chapelle d'Abondance",massif:"Northern Alps",alt_min:1064,alt_max:2000,snow:120,km:120,remontees:56,pistes:{v:9,b:15,r:15,n:6},lat:46.2786,lon:6.8097},
+{id:23,name:"Abondance",massif:"Northern Alps",alt_min:930,alt_max:1730,snow:80,km:17,remontees:9,pistes:{v:2,b:4,r:3,n:1},lat:46.2786,lon:6.7297},
+{id:24,name:"Bellevaux-Hirmentaz",massif:"Northern Alps",alt_min:1100,alt_max:1607,snow:90,km:25,remontees:15,pistes:{v:5,b:9,r:9,n:2},lat:46.267,lon:6.517},
+{id:25,name:"Bernex",massif:"Northern Alps",alt_min:1000,alt_max:2000,snow:100,km:50,remontees:12,pistes:{v:3,b:6,r:8,n:2},lat:46.313,lon:6.633},
+{id:26,name:"Saint-Jean-d'Aulps",massif:"Northern Alps",alt_min:900,alt_max:1800,snow:85,km:50,remontees:16,pistes:{v:7,b:10,r:14,n:2},lat:46.213,lon:6.716},
+{id:27,name:"Praz-de-Lys Sommand",massif:"Northern Alps",alt_min:1500,alt_max:1700,snow:110,km:55,remontees:23,pistes:{v:16,b:22,r:12,n:3},lat:46.045,lon:6.567},
+{id:28,name:"Flaine",massif:"Northern Alps",alt_min:1600,alt_max:2480,snow:210,km:146,remontees:24,pistes:{v:8,b:26,r:25,n:5},lat:46.0086,lon:6.6797},
+{id:29,name:"Les Carroz",massif:"Northern Alps",alt_min:1140,alt_max:2480,snow:160,km:119,remontees:38,pistes:{v:4,b:16,r:8,n:4},lat:46.0286,lon:6.6397},
+{id:30,name:"Samoëns",massif:"Northern Alps",alt_min:710,alt_max:2480,snow:140,km:119,remontees:38,pistes:{v:5,b:11,r:11,n:6},lat:46.0786,lon:6.7197},
+{id:31,name:"Morillon",massif:"Northern Alps",alt_min:700,alt_max:2480,snow:130,km:119,remontees:38,pistes:{v:3,b:12,r:4,n:1},lat:46.0586,lon:6.6997},
+{id:32,name:"Sixt-Fer-à-Cheval",massif:"Northern Alps",alt_min:760,alt_max:1600,snow:80,km:15,remontees:4,pistes:{v:2,b:4,r:0,n:0},lat:46.017,lon:6.75},
+{id:33,name:"La Clusaz",massif:"Northern Alps",alt_min:1100,alt_max:2600,snow:130,km:125,remontees:49,pistes:{v:12,b:38,r:28,n:11},lat:45.9036,lon:6.4236},
+{id:34,name:"Le Grand-Bornand",massif:"Northern Alps",alt_min:1000,alt_max:2100,snow:110,km:90,remontees:24,pistes:{v:12,b:28,r:18,n:5},lat:45.9436,lon:6.4736},
+{id:35,name:"La Giettaz",massif:"Northern Alps",alt_min:1117,alt_max:2440,snow:120,km:100,remontees:29,pistes:{v:12,b:16,r:14,n:3},lat:45.8336,lon:6.5236},
+{id:36,name:"Praz-sur-Arly",massif:"Northern Alps",alt_min:1030,alt_max:2070,snow:95,km:90,remontees:36,pistes:{v:4,b:11,r:9,n:1},lat:45.8236,lon:6.5836},
+{id:37,name:"Flumet",massif:"Northern Alps",alt_min:911,alt_max:2070,snow:90,km:90,remontees:36,pistes:{v:2,b:4,r:2,n:0},lat:45.8136,lon:6.5336},
+{id:38,name:"Crest-Voland",massif:"Northern Alps",alt_min:1230,alt_max:2066,snow:95,km:35,remontees:16,pistes:{v:6,b:11,r:7,n:2},lat:45.7936,lon:6.5336},
+{id:39,name:"Notre-Dame-de-Bellecombe",massif:"Northern Alps",alt_min:1150,alt_max:2070,snow:95,km:90,remontees:36,pistes:{v:5,b:8,r:5,n:1},lat:45.7836,lon:6.5036},
+{id:40,name:"Les Saisies",massif:"Northern Alps",alt_min:1650,alt_max:2070,snow:140,km:83,remontees:31,pistes:{v:15,b:30,r:12,n:3},lat:45.7636,lon:6.5336},
+{id:41,name:"Arêches-Beaufort",massif:"Northern Alps",alt_min:1080,alt_max:2300,snow:130,km:50,remontees:14,pistes:{v:5,b:14,r:14,n:7},lat:45.6836,lon:6.5336},
+{id:42,name:"Sainte-Foy-Tarentaise",massif:"Northern Alps",alt_min:1550,alt_max:2620,snow:200,km:43,remontees:6,pistes:{v:2,b:7,r:11,n:4},lat:45.5386,lon:6.8586},
+{id:43,name:"La Rosière",massif:"Northern Alps",alt_min:1850,alt_max:2809,snow:180,km:65,remontees:20,pistes:{v:10,b:15,r:11,n:3},lat:45.6086,lon:6.8486},
+{id:44,name:"Champagny-en-Vanoise",massif:"Northern Alps",alt_min:1250,alt_max:3250,snow:160,km:15,remontees:4,pistes:{v:1,b:10,r:6,n:1},lat:45.4786,lon:6.6786},
+{id:45,name:"Peisey-Vallandry",massif:"Northern Alps",alt_min:1600,alt_max:3226,snow:165,km:200,remontees:53,pistes:{v:10,b:55,r:42,n:16},lat:45.5386,lon:6.7786},
+{id:46,name:"Montchavin-Les Coches",massif:"Northern Alps",alt_min:1250,alt_max:3250,snow:155,km:225,remontees:76,pistes:{v:8,b:74,r:35,n:18},lat:45.5086,lon:6.6986},
+{id:47,name:"Pralognan-la-Vanoise",massif:"Northern Alps",alt_min:1410,alt_max:2360,snow:120,km:25,remontees:12,pistes:{v:9,b:3,r:8,n:4},lat:45.3886,lon:6.7186},
+{id:48,name:"Brides-les-Bains",massif:"Northern Alps",alt_min:600,alt_max:2952,snow:160,km:0,remontees:1,pistes:{v:0,b:0,r:0,n:0},lat:45.4486,lon:6.5686},
+{id:49,name:"Valmorel",massif:"Northern Alps",alt_min:1400,alt_max:2550,snow:150,km:95,remontees:33,pistes:{v:13,b:31,r:12,n:5},lat:45.4686,lon:6.4686},
+{id:50,name:"La Toussuire",massif:"Northern Alps",alt_min:1750,alt_max:2620,snow:170,km:310,remontees:61,pistes:{v:4,b:14,r:15,n:2},lat:45.2886,lon:6.3086},
+{id:51,name:"Le Corbier",massif:"Northern Alps",alt_min:1550,alt_max:2265,snow:160,km:310,remontees:61,pistes:{v:10,b:15,r:12,n:4},lat:45.2686,lon:6.2686},
+{id:52,name:"Saint-Sorlin-d'Arves",massif:"Northern Alps",alt_min:1550,alt_max:2620,snow:175,km:310,remontees:61,pistes:{v:6,b:16,r:15,n:4},lat:45.2386,lon:6.2386},
+{id:53,name:"Saint-Jean-d'Arves",massif:"Northern Alps",alt_min:1550,alt_max:2620,snow:165,km:310,remontees:61,pistes:{v:5,b:8,r:5,n:2},lat:45.2186,lon:6.2086},
+{id:54,name:"Saint-Colomban-des-Villards",massif:"Northern Alps",alt_min:1100,alt_max:1600,snow:150,km:310,remontees:61,pistes:{v:2,b:1,r:0,n:0},lat:45.2686,lon:6.2986},
+{id:55,name:"Les Bottières",massif:"Northern Alps",alt_min:1300,alt_max:2400,snow:155,km:310,remontees:61,pistes:{v:1,b:3,r:4,n:1},lat:45.2486,lon:6.3286},
+{id:56,name:"Valloire",massif:"Northern Alps",alt_min:1430,alt_max:2600,snow:155,km:90,remontees:17,pistes:{v:10,b:19,r:20,n:5},lat:45.1636,lon:6.4336},
+{id:57,name:"Valmeinier",massif:"Northern Alps",alt_min:1500,alt_max:2600,snow:150,km:70,remontees:12,pistes:{v:7,b:12,r:13,n:3},lat:45.1836,lon:6.4636},
+{id:58,name:"Val Cenis",massif:"Northern Alps",alt_min:1400,alt_max:2800,snow:165,km:125,remontees:29,pistes:{v:15,b:21,r:24,n:5},lat:45.2536,lon:6.7936},
+{id:59,name:"Aussois",massif:"Northern Alps",alt_min:1500,alt_max:2750,snow:150,km:55,remontees:8,pistes:{v:5,b:6,r:7,n:3},lat:45.2236,lon:6.7436},
+{id:60,name:"Bonneval-sur-Arc",massif:"Northern Alps",alt_min:1800,alt_max:3000,snow:200,km:32,remontees:10,pistes:{v:6,b:10,r:7,n:3},lat:45.3636,lon:7.0536},
+{id:61,name:"Bessans",massif:"Northern Alps",alt_min:1740,alt_max:1900,snow:100,km:3,remontees:3,pistes:{v:1,b:2,r:0,n:0},lat:45.3236,lon:7.0036},
+{id:63,name:"Valfréjus",massif:"Northern Alps",alt_min:1550,alt_max:2737,snow:160,km:70,remontees:9,pistes:{v:3,b:12,r:5,n:3},lat:45.1936,lon:6.6636},
+{id:64,name:"La Norma",massif:"Northern Alps",alt_min:1350,alt_max:2750,snow:155,km:65,remontees:12,pistes:{v:7,b:7,r:11,n:2},lat:45.1736,lon:6.6236},
+{id:65,name:"Albiez-Montrond",massif:"Northern Alps",alt_min:1500,alt_max:2100,snow:120,km:35,remontees:11,pistes:{v:5,b:10,r:9,n:3},lat:45.2136,lon:6.3436},
+{id:66,name:"Saint-François-Longchamp",massif:"Northern Alps",alt_min:1450,alt_max:2650,snow:160,km:70,remontees:16,pistes:{v:12,b:18,r:9,n:3},lat:45.3836,lon:6.3636},
+{id:67,name:"Les Karellis",massif:"Northern Alps",alt_min:1600,alt_max:2520,snow:145,km:60,remontees:16,pistes:{v:7,b:6,r:11,n:4},lat:45.2736,lon:6.3836},
+{id:68,name:"Les Aillons-Margeriaz",massif:"Northern Alps",alt_min:1400,alt_max:1850,snow:80,km:22,remontees:10,pistes:{v:5,b:14,r:3,n:2},lat:45.5636,lon:6.1436},
+{id:70,name:"Chamrousse",massif:"Northern Alps",alt_min:1650,alt_max:2250,snow:120,km:83,remontees:17,pistes:{v:8,b:14,r:13,n:6},lat:45.1186,lon:5.8886},
+{id:71,name:"Les 7 Laux",massif:"Northern Alps",alt_min:1350,alt_max:2200,snow:115,km:120,remontees:22,pistes:{v:11,b:14,r:19,n:7},lat:45.2386,lon:5.9886},
+{id:72,name:"Alpe d'Huez",massif:"Northern Alps",alt_min:1135,alt_max:3330,snow:160,km:250,remontees:67,pistes:{v:19,b:17,r:16,n:10},lat:45.0886,lon:6.0686},
+{id:73,name:"Les Deux Alpes",massif:"Northern Alps",alt_min:1650,alt_max:3568,snow:200,km:220,remontees:44,pistes:{v:17,b:45,r:22,n:12},lat:45.0136,lon:6.1236},
+{id:74,name:"Auris-en-Oisans",massif:"Northern Alps",alt_min:1450,alt_max:2176,snow:155,km:45,remontees:10,pistes:{v:4,b:4,r:3,n:2},lat:45.0536,lon:6.0336},
+{id:75,name:"Alpe du Grand Serre",massif:"Northern Alps",alt_min:1400,alt_max:2197,snow:100,km:55,remontees:14,pistes:{v:5,b:16,r:11,n:3},lat:44.9536,lon:5.8836},
+{id:76,name:"Villard-de-Lans",massif:"Northern Alps",alt_min:1050,alt_max:2050,snow:90,km:125,remontees:21,pistes:{v:6,b:14,r:11,n:5},lat:45.0686,lon:5.5486},
+{id:77,name:"Corrençon-en-Vercors",massif:"Northern Alps",alt_min:1111,alt_max:2050,snow:85,km:125,remontees:21,pistes:{v:6,b:14,r:11,n:5},lat:45.0386,lon:5.5186},
+{id:78,name:"Autrans-Méaudre",massif:"Northern Alps",alt_min:1050,alt_max:1710,snow:70,km:40,remontees:8,pistes:{v:6,b:10,r:6,n:2},lat:45.1736,lon:5.5386},
+{id:79,name:"Lans-en-Vercors",massif:"Northern Alps",alt_min:1020,alt_max:1983,snow:80,km:24,remontees:14,pistes:{v:7,b:10,r:6,n:1},lat:45.1136,lon:5.5886},
+{id:80,name:"Gresse-en-Vercors",massif:"Northern Alps",alt_min:1205,alt_max:1776,snow:75,km:20,remontees:11,pistes:{v:9,b:6,r:9,n:2},lat:44.9136,lon:5.5386},
+{id:81,name:"Col de Rousset",massif:"Northern Alps",alt_min:1255,alt_max:1700,snow:65,km:22,remontees:11,pistes:{v:12,b:7,r:5,n:2},lat:44.8636,lon:5.4886},
+{id:82,name:"Font d'Urle",massif:"Northern Alps",alt_min:1510,alt_max:1765,snow:70,km:18,remontees:11,pistes:{v:13,b:6,r:5,n:1},lat:44.9036,lon:5.3886},
+{id:83,name:"Lus-la-Jarjatte",massif:"Northern Alps",alt_min:1060,alt_max:1654,snow:60,km:6,remontees:5,pistes:{v:2,b:3,r:1,n:0},lat:44.7536,lon:5.5136},
+{id:84,name:"Semnoz - Annecy",massif:"Northern Alps",alt_min:1200,alt_max:1699,snow:75,km:18,remontees:10,pistes:{v:7,b:5,r:6,n:0},lat:45.8236,lon:6.1236},
+{id:85,name:"Col de Porte",massif:"Northern Alps",alt_min:1326,alt_max:1788,snow:70,km:3,remontees:5,pistes:{v:2,b:2,r:1,n:0},lat:45.2636,lon:5.7736},
+{id:86,name:"Saint-Pierre-de-Chartreuse",massif:"Northern Alps",alt_min:900,alt_max:1800,snow:70,km:20,remontees:7,pistes:{v:4,b:6,r:6,n:2},lat:45.3336,lon:5.7836},
+{id:87,name:"Col de Marcieu",massif:"Northern Alps",alt_min:1300,alt_max:1700,snow:60,km:4,remontees:6,pistes:{v:2,b:2,r:2,n:0},lat:45.2036,lon:5.6836},
+{id:88,name:"Col d'Ornon",massif:"Northern Alps",alt_min:1360,alt_max:1745,snow:80,km:8,remontees:4,pistes:{v:4,b:1,r:2,n:1},lat:44.9736,lon:6.0136},
+{id:89,name:"Serre Chevalier",massif:"Southern Alps",alt_min:1200,alt_max:2800,snow:150,km:250,remontees:58,pistes:{v:15,b:26,r:28,n:13},lat:44.9336,lon:6.5236},
+{id:90,name:"Montgenèvre",massif:"Southern Alps",alt_min:1860,alt_max:2823,snow:160,km:95,remontees:24,pistes:{v:9,b:27,r:18,n:6},lat:44.9336,lon:6.7236},
+{id:91,name:"Vars",massif:"Southern Alps",alt_min:1650,alt_max:2750,snow:180,km:185,remontees:36,pistes:{v:18,b:49,r:38,n:10},lat:44.5586,lon:6.7036},
+{id:92,name:"Risoul",massif:"Southern Alps",alt_min:1850,alt_max:2750,snow:175,km:185,remontees:36,pistes:{v:18,b:49,r:38,n:10},lat:44.6236,lon:6.6236},
+{id:93,name:"La Grave - La Meije",massif:"Southern Alps",alt_min:1450,alt_max:3568,snow:210,km:2,remontees:3,pistes:{v:0,b:1,r:0,n:0},lat:45.0486,lon:6.3086},
+{id:94,name:"Puy-Saint-Vincent",massif:"Southern Alps",alt_min:1400,alt_max:2700,snow:140,km:75,remontees:12,pistes:{v:4,b:14,r:14,n:2},lat:44.8236,lon:6.4836},
+{id:95,name:"Orcières Merlette 1850",massif:"Southern Alps",alt_min:1850,alt_max:2725,snow:130,km:100,remontees:28,pistes:{v:7,b:14,r:17,n:6},lat:44.687,lon:6.325},
+{id:96,name:"Superdévoluy",massif:"Southern Alps",alt_min:1480,alt_max:2500,snow:160,km:100,remontees:22,pistes:{v:8,b:28,r:12,n:5},lat:44.6536,lon:5.9036},
+{id:97,name:"Les Orres",massif:"Southern Alps",alt_min:1650,alt_max:2720,snow:135,km:100,remontees:17,pistes:{v:9,b:5,r:18,n:4},lat:44.4836,lon:6.5236},
+{id:98,name:"Ancelle",massif:"Southern Alps",alt_min:1350,alt_max:1800,snow:80,km:30,remontees:12,pistes:{v:5,b:7,r:7,n:1},lat:44.6436,lon:6.1536},
+{id:99,name:"Saint-Léger-les-Mélèzes",massif:"Southern Alps",alt_min:1260,alt_max:1900,snow:75,km:25,remontees:9,pistes:{v:8,b:3,r:4,n:1},lat:44.6736,lon:6.1036},
+{id:100,name:"Réallon",massif:"Southern Alps",alt_min:1380,alt_max:2000,snow:85,km:30,remontees:6,pistes:{v:4,b:7,r:7,n:4},lat:44.5536,lon:6.3036},
+{id:101,name:"Crévoux",massif:"Southern Alps",alt_min:1600,alt_max:2100,snow:90,km:22,remontees:5,pistes:{v:3,b:7,r:5,n:1},lat:44.4836,lon:6.5836},
+{id:102,name:"Chaillol",massif:"Southern Alps",alt_min:1450,alt_max:2400,snow:100,km:15,remontees:8,pistes:{v:3,b:5,r:4,n:0},lat:44.7136,lon:6.1836},
+{id:103,name:"Sauze-Super-Sauze",massif:"Southern Alps",alt_min:1400,alt_max:2400,snow:130,km:65,remontees:18,pistes:{v:6,b:14,r:12,n:4},lat:44.3536,lon:6.6936},
+{id:104,name:"Pra-Loup",massif:"Southern Alps",alt_min:1500,alt_max:2600,snow:150,km:180,remontees:37,pistes:{v:11,b:27,r:34,n:8},lat:44.3836,lon:6.6036},
+{id:105,name:"Val d'Allos",massif:"Southern Alps",alt_min:1400,alt_max:2600,snow:145,km:180,remontees:37,pistes:{v:11,b:27,r:34,n:8},lat:44.2836,lon:6.6236},
+{id:106,name:"Chabanon",massif:"Southern Alps",alt_min:1600,alt_max:2000,snow:110,km:40,remontees:12,pistes:{v:9,b:9,r:13,n:4},lat:44.2236,lon:6.2036},
+{id:107,name:"Montclar-les-2-Vallées",massif:"Southern Alps",alt_min:1350,alt_max:2040,snow:100,km:55,remontees:8,pistes:{v:4,b:10,r:9,n:4},lat:44.2536,lon:6.2836},
+{id:108,name:"Larche",massif:"Southern Alps",alt_min:1700,alt_max:2200,snow:90,km:2,remontees:4,pistes:{v:2,b:1,r:0,n:0},lat:44.4236,lon:6.8836},
+{id:109,name:"Sainte-Anne-la-Condamine",massif:"Southern Alps",alt_min:1500,alt_max:1900,snow:80,km:35,remontees:9,pistes:{v:6,b:10,r:8,n:2},lat:44.3136,lon:6.7336},
+{id:110,name:"Isola 2000",massif:"Southern Alps",alt_min:1800,alt_max:2610,snow:170,km:120,remontees:20,pistes:{v:7,b:21,r:11,n:4},lat:44.1886,lon:7.1636},
+{id:111,name:"Auron",massif:"Southern Alps",alt_min:1600,alt_max:2450,snow:120,km:135,remontees:22,pistes:{v:3,b:17,r:15,n:8},lat:44.1936,lon:6.9936},
+{id:112,name:"Valberg",massif:"Southern Alps",alt_min:1430,alt_max:2100,snow:110,km:60,remontees:14,pistes:{v:5,b:13,r:10,n:4},lat:44.0836,lon:6.9236},
+{id:113,name:"Beuil-les-Launes",massif:"Southern Alps",alt_min:1400,alt_max:1800,snow:90,km:30,remontees:8,pistes:{v:3,b:7,r:5,n:1},lat:44.0936,lon:6.9836},
+{id:114,name:"La Colmiane",massif:"Southern Alps",alt_min:1500,alt_max:1800,snow:80,km:30,remontees:8,pistes:{v:4,b:8,r:6,n:2},lat:44.0736,lon:7.1036},
+{id:115,name:"Gréolières-les-Neiges",massif:"Southern Alps",alt_min:1400,alt_max:1800,snow:60,km:20,remontees:7,pistes:{v:3,b:2,r:9,n:1},lat:43.7836,lon:6.9636},
+{id:116,name:"L'Audibergue",massif:"Southern Alps",alt_min:1200,alt_max:1600,snow:50,km:10,remontees:3,pistes:{v:1,b:1,r:4,n:1},lat:43.7636,lon:6.8836},
+{id:117,name:"Abriès-en-Queyras",massif:"Southern Alps",alt_min:1550,alt_max:2390,snow:130,km:21,remontees:6,pistes:{v:2,b:3,r:10,n:1},lat:44.7836,lon:6.9436},
+{id:118,name:"Saint-Véran",massif:"Southern Alps",alt_min:1740,alt_max:2830,snow:155,km:35,remontees:13,pistes:{v:7,b:13,r:12,n:2},lat:44.7136,lon:6.8836},
+{id:119,name:"Ceillac-en-Queyras",massif:"Southern Alps",alt_min:1640,alt_max:2450,snow:140,km:14,remontees:5,pistes:{v:3,b:5,r:3,n:1},lat:44.6536,lon:6.7736},
+{id:120,name:"Molines-en-Queyras",massif:"Southern Alps",alt_min:1740,alt_max:2830,snow:150,km:35,remontees:13,pistes:{v:7,b:13,r:12,n:2},lat:44.7336,lon:6.9036},
+{id:121,name:"Arvieux-en-Queyras",massif:"Southern Alps",alt_min:1150,alt_max:2100,snow:120,km:12,remontees:4,pistes:{v:3,b:4,r:2,n:1},lat:44.7636,lon:6.7336},
+{id:122,name:"La Mongie",massif:"Pyrenees",alt_min:1800,alt_max:2500,snow:140,km:100,remontees:28,pistes:{v:17,b:23,r:21,n:6},lat:42.9089,lon:0.1447},
+{id:306,name:"Barèges",massif:"Pyrenees",alt_min:1250,alt_max:2500,snow:140,km:100,remontees:28,pistes:{v:17,b:23,r:21,n:6},lat:42.9083,lon:-0.0539},
+{id:123,name:"Saint-Lary-Soulan",massif:"Pyrenees",alt_min:830,alt_max:2450,snow:130,km:100,remontees:24,pistes:{v:7,b:26,r:15,n:11},lat:42.8186,lon:0.3236},
+{id:124,name:"Piau-Engaly",massif:"Pyrenees",alt_min:1850,alt_max:2500,snow:170,km:65,remontees:9,pistes:{v:5,b:19,r:9,n:7},lat:42.7886,lon:0.1536},
+{id:125,name:"Luz-Ardiden",massif:"Pyrenees",alt_min:1720,alt_max:2500,snow:135,km:60,remontees:9,pistes:{v:8,b:18,r:14,n:5},lat:42.8736,lon:0.0036},
+{id:126,name:"Cauterets",massif:"Pyrenees",alt_min:1000,alt_max:2350,snow:110,km:36,remontees:11,pistes:{v:3,b:8,r:7,n:2},lat:42.8886,lon:-0.1064},
+{id:127,name:"Gourette",massif:"Pyrenees",alt_min:1350,alt_max:2400,snow:120,km:30,remontees:12,pistes:{v:6,b:13,r:16,n:4},lat:42.9586,lon:-0.3364},
+{id:128,name:"La Pierre-Saint-Martin",massif:"Pyrenees",alt_min:1650,alt_max:2115,snow:140,km:27,remontees:12,pistes:{v:6,b:10,r:9,n:2},lat:43.0086,lon:-0.7864},
+{id:129,name:"Gavarnie-Gèdre",massif:"Pyrenees",alt_min:1350,alt_max:2400,snow:100,km:32,remontees:7,pistes:{v:5,b:9,r:6,n:4},lat:42.7386,lon:0.0136},
+{id:130,name:"Peyragudes",massif:"Pyrenees",alt_min:1600,alt_max:2400,snow:130,km:60,remontees:18,pistes:{v:7,b:23,r:18,n:4},lat:42.7986,lon:0.4536},
+{id:131,name:"Luchon-Superbagnères",massif:"Pyrenees",alt_min:1440,alt_max:2260,snow:100,km:33,remontees:11,pistes:{v:3,b:12,r:7,n:6},lat:42.7886,lon:0.5936},
+{id:132,name:"Val-Louron",massif:"Pyrenees",alt_min:1450,alt_max:2100,snow:115,km:22,remontees:10,pistes:{v:7,b:8,r:8,n:2},lat:42.8086,lon:0.4136},
+{id:136,name:"Ax-3-Domaines",massif:"Pyrenees",alt_min:1400,alt_max:2400,snow:120,km:80,remontees:20,pistes:{v:10,b:12,r:10,n:5},lat:42.7186,lon:1.8436},
+{id:137,name:"Les Monts d'Olmes",massif:"Pyrenees",alt_min:1430,alt_max:2000,snow:90,km:15,remontees:11,pistes:{v:5,b:8,r:6,n:2},lat:42.8086,lon:1.7536},
+{id:138,name:"Ascou-Pailhères",massif:"Pyrenees",alt_min:1500,alt_max:2001,snow:110,km:15,remontees:7,pistes:{v:4,b:6,r:5,n:2},lat:42.7386,lon:1.8736},
+{id:139,name:"Font-Romeu-Pyrénées 2000",massif:"Pyrenees",alt_min:1700,alt_max:2213,snow:90,km:58,remontees:24,pistes:{v:15,b:10,r:8,n:9},lat:42.5086,lon:2.0436},
+{id:140,name:"Les Angles",massif:"Pyrenees",alt_min:1600,alt_max:2400,snow:100,km:55,remontees:18,pistes:{v:7,b:18,r:15,n:5},lat:42.5586,lon:2.1036},
+{id:141,name:"Bolquère-Pyrénées 2000",massif:"Pyrenees",alt_min:1800,alt_max:2200,snow:85,km:42,remontees:23,pistes:{v:16,b:9,r:8,n:9},lat:42.5286,lon:2.0736},
+{id:142,name:"Formiguères",massif:"Pyrenees",alt_min:1750,alt_max:2400,snow:95,km:25,remontees:7,pistes:{v:5,b:6,r:6,n:2},lat:42.6086,lon:2.1036},
+{id:143,name:"Cambre d'Aze",massif:"Pyrenees",alt_min:1700,alt_max:2408,snow:110,km:22,remontees:13,pistes:{v:4,b:10,r:8,n:2},lat:42.5686,lon:2.1536},
+{id:146,name:"Porte-Puymorens",massif:"Pyrenees",alt_min:1600,alt_max:2450,snow:95,km:50,remontees:10,pistes:{v:9,b:17,r:7,n:2},lat:42.5686,lon:1.8236},
+{id:147,name:"Mijanès-Donezan",massif:"Pyrenees",alt_min:1700,alt_max:2020,snow:80,km:12,remontees:6,pistes:{v:3,b:5,r:4,n:3},lat:42.7586,lon:1.9736},
+{id:148,name:"Guzet",massif:"Pyrenees",alt_min:1100,alt_max:1800,snow:90,km:40,remontees:15,pistes:{v:7,b:9,r:9,n:4},lat:42.8386,lon:1.1136},
+{id:149,name:"Le Mourtis",massif:"Pyrenees",alt_min:1380,alt_max:1870,snow:85,km:23,remontees:10,pistes:{v:4,b:5,r:7,n:3},lat:43.0086,lon:0.8636},
+{id:150,name:"Camurac",massif:"Pyrenees",alt_min:1400,alt_max:1750,snow:70,km:15,remontees:5,pistes:{v:2,b:5,r:2,n:2},lat:42.8086,lon:2.0036},
+{id:152,name:"Goulier",massif:"Pyrenees",alt_min:800,alt_max:1550,snow:65,km:7,remontees:5,pistes:{v:2,b:3,r:2,n:1},lat:42.8186,lon:1.5536},
+{id:154,name:"Beille",massif:"Pyrenees",alt_min:1400,alt_max:1800,snow:70,km:4,remontees:2,pistes:{v:1,b:2,r:1,n:0},lat:42.7886,lon:1.6236},
+{id:155,name:"Artouste",massif:"Pyrenees",alt_min:1800,alt_max:2100,snow:110,km:17,remontees:8,pistes:{v:4,b:6,r:5,n:1},lat:42.9086,lon:-0.5364},
+{id:156,name:"Gérardmer",massif:"Vosges",alt_min:750,alt_max:1140,snow:80,km:40,remontees:18,pistes:{v:10,b:2,r:8,n:2},lat:48.0736,lon:6.8736},
+{id:157,name:"La Bresse-Hohneck",massif:"Vosges",alt_min:900,alt_max:1350,snow:90,km:21,remontees:15,pistes:{v:6,b:14,r:13,n:1},lat:47.9836,lon:6.8636},
+{id:158,name:"Le Markstein",massif:"Vosges",alt_min:1020,alt_max:1268,snow:75,km:12,remontees:8,pistes:{v:3,b:4,r:2,n:2},lat:47.9036,lon:7.0336},
+{id:159,name:"Le Schnepfenried",massif:"Vosges",alt_min:1010,alt_max:1258,snow:70,km:7,remontees:7,pistes:{v:4,b:3,r:5,n:5},lat:48.0036,lon:7.1036},
+{id:160,name:"Le Lac Blanc",massif:"Vosges",alt_min:900,alt_max:1200,snow:70,km:14,remontees:9,pistes:{v:6,b:1,r:7,n:1},lat:48.1036,lon:7.0836},
+{id:161,name:"La Schlucht",massif:"Vosges",alt_min:1139,alt_max:1250,snow:65,km:2,remontees:2,pistes:{v:0,b:1,r:1,n:0},lat:48.0536,lon:7.0136},
+{id:162,name:"Gaschney 360",massif:"Vosges",alt_min:970,alt_max:1290,snow:60,km:8,remontees:3,pistes:{v:1,b:1,r:5,n:0},lat:48.0236,lon:7.0636},
+{id:163,name:"Le Champ du Feu",massif:"Vosges",alt_min:900,alt_max:1099,snow:55,km:6,remontees:9,pistes:{v:5,b:4,r:4,n:0},lat:48.3936,lon:7.2836},
+{id:164,name:"Le Ballon d'Alsace",massif:"Vosges",alt_min:900,alt_max:1247,snow:65,km:6,remontees:9,pistes:{v:5,b:2,r:3,n:1},lat:47.8236,lon:6.8636},
+{id:165,name:"La Planche des Belles Filles",massif:"Vosges",alt_min:950,alt_max:1148,snow:60,km:3,remontees:5,pistes:{v:2,b:2,r:1,n:1},lat:47.7636,lon:6.7436},
+{id:166,name:"La Bresse Lispach",massif:"Vosges",alt_min:900,alt_max:1130,snow:75,km:14,remontees:5,pistes:{v:3,b:3,r:1,n:1},lat:47.9736,lon:6.8436},
+{id:168,name:"Ventron",massif:"Vosges",alt_min:870,alt_max:1110,snow:65,km:10,remontees:7,pistes:{v:2,b:3,r:3,n:1},lat:47.9436,lon:6.7436},
+{id:169,name:"Xonrupt-Le Poli",massif:"Vosges",alt_min:715,alt_max:980,snow:60,km:2,remontees:2,pistes:{v:2,b:2,r:0,n:0},lat:48.0836,lon:6.9136},
+{id:170,name:"Le Grand Valtin",massif:"Vosges",alt_min:855,alt_max:1147,snow:55,km:1,remontees:2,pistes:{v:2,b:2,r:0,n:0},lat:48.0436,lon:6.9836},
+{id:171,name:"Bussang-Larcenaire",massif:"Vosges",alt_min:600,alt_max:970,snow:50,km:2,remontees:4,pistes:{v:3,b:3,r:1,n:0},lat:47.8836,lon:6.8536},
+{id:172,name:"Métabief Mont d'Or",massif:"Jura",alt_min:900,alt_max:1423,snow:80,km:26,remontees:13,pistes:{v:7,b:10,r:8,n:1},lat:46.7736,lon:6.3336},
+{id:173,name:"Les Rousses",massif:"Jura",alt_min:1120,alt_max:1680,snow:90,km:34,remontees:23,pistes:{v:10,b:16,r:9,n:4},lat:46.4836,lon:6.0636},
+{id:175,name:"Les Fourgs",massif:"Jura",alt_min:1100,alt_max:1270,snow:70,km:6,remontees:7,pistes:{v:6,b:4,r:2,n:0},lat:46.8436,lon:6.3636},
+{id:176,name:"La Source du Doubs-Mouthe",massif:"Jura",alt_min:927,alt_max:1172,snow:65,km:3,remontees:3,pistes:{v:1,b:1,r:1,n:0},lat:46.7236,lon:6.2036},
+{id:177,name:"Espace Alpin Bellefontaine",massif:"Jura",alt_min:1000,alt_max:1261,snow:60,km:5,remontees:4,pistes:{v:1,b:3,r:1,n:0},lat:46.5436,lon:5.8836},
+{id:178,name:"La Combe Saint-Pierre",massif:"Jura",alt_min:880,alt_max:1035,snow:55,km:3,remontees:3,pistes:{v:1,b:3,r:0,n:0},lat:47.0536,lon:6.5036},
+{id:179,name:"Les Plans d'Hotonnes",massif:"Jura",alt_min:1150,alt_max:1350,snow:65,km:15,remontees:9,pistes:{v:2,b:7,r:4,n:0},lat:45.9236,lon:5.6836},
+{id:180,name:"Menthières",massif:"Jura",alt_min:1070,alt_max:1535,snow:55,km:3,remontees:4,pistes:{v:1,b:3,r:2,n:0},lat:45.8836,lon:5.6336},
+{id:181,name:"Le Lioran",massif:"Massif Central",alt_min:1160,alt_max:1850,snow:110,km:60,remontees:18,pistes:{v:10,b:14,r:15,n:5},lat:45.1036,lon:2.7536},
+{id:182,name:"Super Besse",massif:"Massif Central",alt_min:1350,alt_max:1850,snow:100,km:43,remontees:21,pistes:{v:6,b:12,r:9,n:5},lat:45.4836,lon:2.8636},
+{id:183,name:"Le Mont Dore",massif:"Massif Central",alt_min:1200,alt_max:1850,snow:95,km:41,remontees:14,pistes:{v:14,b:11,r:6,n:2},lat:45.5736,lon:2.8136},
+{id:184,name:"Chastreix-Sancy",massif:"Massif Central",alt_min:1350,alt_max:1730,snow:85,km:16,remontees:7,pistes:{v:6,b:5,r:5,n:2},lat:45.5136,lon:2.7936},
+{id:185,name:"Chalmazel",massif:"Massif Central",alt_min:1110,alt_max:1600,snow:70,km:12,remontees:8,pistes:{v:2,b:5,r:6,n:2},lat:45.7036,lon:3.8236},
+{id:186,name:"La Loge des Gardes",massif:"Massif Central",alt_min:1050,alt_max:1160,snow:55,km:2,remontees:3,pistes:{v:4,b:0,r:0,n:0},lat:46.0036,lon:3.6236},
+{id:187,name:"Laguiole",massif:"Massif Central",alt_min:1200,alt_max:1407,snow:65,km:8,remontees:11,pistes:{v:4,b:5,r:4,n:2},lat:44.6836,lon:2.8536},
+{id:188,name:"La Croix de Bauzon",massif:"Massif Central",alt_min:1250,alt_max:1511,snow:65,km:5,remontees:5,pistes:{v:3,b:6,r:1,n:1},lat:44.7036,lon:4.1036},
+{id:189,name:"Le Bleymard-Mont Lozère",massif:"Massif Central",alt_min:1400,alt_max:1702,snow:75,km:7,remontees:5,pistes:{v:2,b:1,r:3,n:1},lat:44.4836,lon:3.7236},
+{id:190,name:"Les Estables-Mézenc",massif:"Massif Central",alt_min:1350,alt_max:1690,snow:75,km:6,remontees:7,pistes:{v:3,b:3,r:1,n:1},lat:44.9336,lon:4.1436},
+{id:191,name:"Brameloup",massif:"Massif Central",alt_min:1200,alt_max:1390,snow:55,km:3,remontees:5,pistes:{v:3,b:3,r:1,n:1},lat:44.4536,lon:2.8036},
+{id:192,name:"Alti Aigoual",massif:"Massif Central",alt_min:1250,alt_max:1567,snow:65,km:9,remontees:10,pistes:{v:4,b:3,r:3,n:0},lat:44.1236,lon:3.5836},
+{id:193,name:"Prabouré",massif:"Massif Central",alt_min:1248,alt_max:1400,snow:55,km:4,remontees:3,pistes:{v:2,b:1,r:4,n:0},lat:44.3036,lon:2.9836},
+{id:194,name:"Ghisoni - Capanelle",massif:"Corsica",alt_min:1580,alt_max:1870,snow:60,km:3,remontees:3,pistes:{v:2,b:1,r:2,n:0},lat:42.0836,lon:9.2236},
+{id:195,name:"Val d'Ese",massif:"Corsica",alt_min:1620,alt_max:1940,snow:55,km:4,remontees:4,pistes:{v:1,b:1,r:4,n:0},lat:42.0036,lon:8.9836},
+{id:196,name:"Haut Asco",massif:"Corsica",alt_min:1440,alt_max:1510,snow:60,km:1,remontees:3,pistes:{v:2,b:2,r:0,n:0},lat:42.4436,lon:8.9036},
+{id:210,name:"Les Arêtes",massif:"Northern Alps",alt_min:900,alt_max:1500,snow:90,km:20,remontees:8,pistes:{v:8,b:8,r:4,n:0},lat:46.28,lon:5.73},
+{id:212,name:"Le Revard",massif:"Northern Alps",alt_min:1300,alt_max:1550,snow:75,km:7,remontees:3,pistes:{v:2,b:3,r:1,n:0},lat:45.667,lon:5.95},
+{id:214,name:"La Féclaz",massif:"Northern Alps",alt_min:1350,alt_max:1750,snow:90,km:25,remontees:8,pistes:{v:2,b:5,r:5,n:2},lat:45.641,lon:5.949},
+{id:221,name:"Vallouise",massif:"Southern Alps",alt_min:1200,alt_max:2500,snow:110,km:25,remontees:8,pistes:{v:2,b:9,r:5,n:2},lat:44.858,lon:6.48},
+{id:222,name:"La Joue du Loup",massif:"Southern Alps",alt_min:1400,alt_max:2464,snow:150,km:100,remontees:22,pistes:{v:8,b:28,r:12,n:5},lat:44.685,lon:5.883},
+{id:234,name:"Le Frenz",massif:"Vosges",alt_min:770,alt_max:1100,snow:55,km:1,remontees:1,pistes:{v:1,b:1,r:0,n:0},lat:47.933,lon:6.983},
+{id:237,name:"Mijoux-La Valserine",massif:"Jura",alt_min:1000,alt_max:1550,snow:80,km:15,remontees:6,pistes:{v:2,b:6,r:3,n:1},lat:46.333,lon:6.033},
+{id:238,name:"Lélex-Crozet",massif:"Jura",alt_min:900,alt_max:1680,snow:75,km:20,remontees:10,pistes:{v:7,b:6,r:6,n:2},lat:46.333,lon:6.017},
+{id:265,name:"Mont Serein",massif:"Southern Alps",alt_min:1400,alt_max:1900,snow:55,km:12,remontees:8,pistes:{v:3,b:4,r:6,n:3},lat:44.187,lon:5.267},
+{id:268,name:"Turini-Camp d'Argent",massif:"Southern Alps",alt_min:1600,alt_max:1800,snow:75,km:3,remontees:3,pistes:{v:1,b:2,r:1,n:0},lat:43.964,lon:7.404},
+{id:269,name:"Roubion-Les Buisses",massif:"Southern Alps",alt_min:1300,alt_max:1800,snow:70,km:30,remontees:8,pistes:{v:2,b:5,r:12,n:2},lat:44.153,lon:6.958},
+{id:273,name:"Hauteluce",massif:"Northern Alps",alt_min:1150,alt_max:2000,snow:130,km:83,remontees:31,pistes:{v:15,b:30,r:12,n:3},lat:45.75,lon:6.567},
+{id:283,name:"Aiguilles",massif:"Southern Alps",alt_min:1470,alt_max:1610,snow:120,km:2,remontees:1,pistes:{v:2,b:0,r:0,n:0},lat:44.789,lon:6.879},
+{id:286,name:"Montriond",massif:"Northern Alps",alt_min:970,alt_max:2350,snow:120,km:75,remontees:34,pistes:{v:8,b:25,r:14,n:6},lat:46.183,lon:6.733},
+{id:287,name:"Thollon-les-Mémises",massif:"Northern Alps",alt_min:900,alt_max:1980,snow:85,km:50,remontees:14,pistes:{v:2,b:4,r:9,n:1},lat:46.383,lon:6.75},
+{id:300,name:"Torgon",massif:"Northern Alps",alt_min:1085,alt_max:2300,snow:140,km:19,remontees:9,pistes:{v:2,b:7,r:8,n:0},lat:46.253,lon:6.808},
+{id:301,name:"Champéry - Les Crosets - Champoussin - Morgins",massif:"Northern Alps",alt_min:1050,alt_max:2277,snow:130,km:100,remontees:37,pistes:{v:0,b:21,r:17,n:3},lat:46.175,lon:6.867},
+{id:302,name:"La Thuile",massif:"Northern Alps",alt_min:1441,alt_max:2800,snow:190,km:78,remontees:18,pistes:{v:12,b:20,r:7,n:2},lat:45.717,lon:6.95},
+{id:303,name:"Sestrière",massif:"Southern Alps",alt_min:1840,alt_max:2840,snow:175,km:114,remontees:19,pistes:{v:0,b:30,r:38,n:14},lat:44.958,lon:6.878},
+{id:304,name:"Sauze d'Oulx",massif:"Southern Alps",alt_min:1509,alt_max:2507,snow:150,km:120,remontees:22,pistes:{v:5,b:15,r:25,n:5},lat:45.033,lon:6.833},
+{id:305,name:"Sansicario",massif:"Southern Alps",alt_min:1700,alt_max:2700,snow:140,km:60,remontees:7,pistes:{v:0,b:13,r:24,n:4},lat:44.967,lon:6.825},
+{id:310,name:"Baqueira Beret",massif:"Pyrenees",alt_min:1500,alt_max:2610,snow:200,km:173,remontees:36,pistes:{v:6,b:48,r:55,n:18},lat:42.6993,lon:0.9345},
+{id:311,name:"Formigal",massif:"Pyrenees",alt_min:1510,alt_max:2265,snow:180,km:143,remontees:21,pistes:{v:5,b:22,r:34,n:36},lat:42.7754,lon:-0.3714},
+{id:312,name:"Panticosa",massif:"Pyrenees",alt_min:1145,alt_max:2200,snow:120,km:39,remontees:15,pistes:{v:6,b:17,r:17,n:5},lat:42.7228,lon:-0.2819},
+{id:313,name:"Astún",massif:"Pyrenees",alt_min:1660,alt_max:2300,snow:180,km:50,remontees:15,pistes:{v:4,b:19,r:19,n:17},lat:42.8108,lon:-0.5053},
+{id:314,name:"Candanchú",massif:"Pyrenees",alt_min:1530,alt_max:2400,snow:170,km:50,remontees:22,pistes:{v:12,b:14,r:18,n:13},lat:42.7883,lon:-0.5275},
+{id:315,name:"Cerler",massif:"Pyrenees",alt_min:1500,alt_max:2630,snow:170,km:81,remontees:19,pistes:{v:10,b:20,r:29,n:15},lat:42.5906,lon:0.5406},
+{id:316,name:"La Molina",massif:"Pyrenees",alt_min:1667,alt_max:2537,snow:120,km:71,remontees:16,pistes:{v:20,b:18,r:22,n:6},lat:42.3377,lon:1.9435},
+{id:317,name:"Masella",massif:"Pyrenees",alt_min:1600,alt_max:2535,snow:130,km:74,remontees:17,pistes:{v:9,b:37,r:32,n:10},lat:42.349,lon:1.901},
+{id:318,name:"Boí Taüll",massif:"Pyrenees",alt_min:2040,alt_max:2751,snow:190,km:45,remontees:10,pistes:{v:6,b:6,r:15,n:16},lat:42.4772,lon:0.8735},
+{id:319,name:"Port Ainé",massif:"Pyrenees",alt_min:1650,alt_max:2440,snow:130,km:27,remontees:8,pistes:{v:6,b:4,r:11,n:4},lat:42.4283,lon:1.2119},
+{id:320,name:"Espot",massif:"Pyrenees",alt_min:1500,alt_max:2500,snow:140,km:25,remontees:5,pistes:{v:2,b:10,r:6,n:4},lat:42.568,lon:1.093},
+{id:321,name:"Port del Comte",massif:"Pyrenees",alt_min:1700,alt_max:2400,snow:90,km:43,remontees:14,pistes:{v:7,b:10,r:8,n:3},lat:42.18,lon:1.558},
+{id:322,name:"Vallter 2000",massif:"Pyrenees",alt_min:1959,alt_max:2535,snow:150,km:14,remontees:10,pistes:{v:4,b:4,r:6,n:0},lat:42.4269,lon:2.265},
+{id:323,name:"Vall de Núria",massif:"Pyrenees",alt_min:1964,alt_max:2252,snow:140,km:8,remontees:5,pistes:{v:3,b:3,r:3,n:2},lat:42.397,lon:2.153},
+{id:324,name:"Tavascan",massif:"Pyrenees",alt_min:1750,alt_max:2250,snow:100,km:7,remontees:3,pistes:{v:2,b:1,r:2,n:2},lat:42.69,lon:1.26},
+{id:330,name:"Pas de la Casa",massif:"Pyrenees",alt_min:2050,alt_max:2640,snow:170,km:215,remontees:74,pistes:{v:23,b:53,r:46,n:20},lat:42.5423,lon:1.7336},
+{id:331,name:"Grau Roig",massif:"Pyrenees",alt_min:2100,alt_max:2640,snow:170,km:215,remontees:74,pistes:{v:23,b:53,r:46,n:20},lat:42.533,lon:1.7},
+{id:332,name:"Soldeu",massif:"Pyrenees",alt_min:1800,alt_max:2640,snow:150,km:215,remontees:74,pistes:{v:23,b:53,r:46,n:20},lat:42.577,lon:1.668},
+{id:333,name:"El Tarter",massif:"Pyrenees",alt_min:1710,alt_max:2640,snow:140,km:215,remontees:74,pistes:{v:23,b:53,r:46,n:20},lat:42.579,lon:1.65},
+{id:334,name:"Canillo",massif:"Pyrenees",alt_min:1530,alt_max:2640,snow:140,km:215,remontees:74,pistes:{v:23,b:53,r:46,n:20},lat:42.567,lon:1.6},
+{id:335,name:"Encamp",massif:"Pyrenees",alt_min:1300,alt_max:2640,snow:140,km:215,remontees:74,pistes:{v:23,b:53,r:46,n:20},lat:42.535,lon:1.583},
+{id:336,name:"Pal",massif:"Pyrenees",alt_min:1780,alt_max:2560,snow:140,km:63,remontees:27,pistes:{v:7,b:19,r:17,n:4},lat:42.547,lon:1.483},
+{id:337,name:"Arinsal",massif:"Pyrenees",alt_min:1550,alt_max:2560,snow:150,km:63,remontees:27,pistes:{v:7,b:19,r:17,n:4},lat:42.572,lon:1.484},
+{id:338,name:"Ordino Arcalís",massif:"Pyrenees",alt_min:1940,alt_max:2625,snow:200,km:30,remontees:16,pistes:{v:8,b:6,r:11,n:2},lat:42.638,lon:1.487},
+{id:340,name:"Verbier",massif:"Northern Alps",alt_min:1500,alt_max:3330,snow:220,km:412,remontees:68,pistes:{v:0,b:26,r:49,n:25},lat:46.0963,lon:7.2286},
+{id:341,name:"Nendaz",massif:"Northern Alps",alt_min:1350,alt_max:3330,snow:220,km:412,remontees:68,pistes:{v:0,b:26,r:49,n:25},lat:46.1865,lon:7.2958},
+{id:342,name:"Veysonnaz",massif:"Northern Alps",alt_min:1400,alt_max:3330,snow:220,km:412,remontees:68,pistes:{v:0,b:26,r:49,n:25},lat:46.196,lon:7.336},
+{id:343,name:"Thyon",massif:"Northern Alps",alt_min:1800,alt_max:3330,snow:220,km:412,remontees:68,pistes:{v:0,b:26,r:49,n:25},lat:46.18,lon:7.372},
+{id:344,name:"La Tzoumaz",massif:"Northern Alps",alt_min:1535,alt_max:3330,snow:220,km:412,remontees:68,pistes:{v:0,b:26,r:49,n:25},lat:46.145,lon:7.235},
+{id:345,name:"Crans-Montana",massif:"Northern Alps",alt_min:1510,alt_max:2927,snow:180,km:140,remontees:24,pistes:{v:0,b:39,r:50,n:11},lat:46.311,lon:7.479},
+{id:346,name:"Zermatt",massif:"Northern Alps",alt_min:1562,alt_max:3899,snow:220,km:322,remontees:51,pistes:{v:0,b:23,r:68,n:9},lat:46.0207,lon:7.7491},
+{id:347,name:"Saas-Fee",massif:"Northern Alps",alt_min:1800,alt_max:3573,snow:220,km:100,remontees:23,pistes:{v:0,b:20,r:60,n:20},lat:46.1085,lon:7.928},
+{id:348,name:"Saas-Grund",massif:"Northern Alps",alt_min:1559,alt_max:3200,snow:220,km:26,remontees:8,pistes:{v:0,b:17,r:75,n:8},lat:46.123,lon:7.938},
+{id:349,name:"Saas-Almagell",massif:"Northern Alps",alt_min:1684,alt_max:2347,snow:140,km:15,remontees:7,pistes:{v:0,b:45,r:55,n:0},lat:46.094,lon:7.958},
+{id:350,name:"Aletsch Arena",massif:"Northern Alps",alt_min:1845,alt_max:2869,snow:180,km:104,remontees:35,pistes:{v:0,b:40,r:48,n:12},lat:46.38,lon:8.027},
+{id:351,name:"Grimentz-Zinal",massif:"Northern Alps",alt_min:1570,alt_max:2900,snow:180,km:115,remontees:21,pistes:{v:0,b:23,r:51,n:26},lat:46.179,lon:7.576},
+{id:352,name:"Saint-Luc / Chandolin",massif:"Northern Alps",alt_min:1680,alt_max:2980,snow:180,km:60,remontees:15,pistes:{v:0,b:33,r:50,n:17},lat:46.22,lon:7.597},
+{id:353,name:"Vercorin",massif:"Northern Alps",alt_min:1340,alt_max:2374,snow:140,km:35,remontees:10,pistes:{v:0,b:37,r:54,n:9},lat:46.256,lon:7.534},
+{id:354,name:"Anzère",massif:"Northern Alps",alt_min:1516,alt_max:2420,snow:140,km:58,remontees:12,pistes:{v:0,b:21,r:64,n:15},lat:46.298,lon:7.398},
+{id:355,name:"Nax Mont-Noble",massif:"Northern Alps",alt_min:1495,alt_max:2640,snow:140,km:35,remontees:6,pistes:{v:0,b:43,r:57,n:0},lat:46.228,lon:7.428},
+{id:356,name:"Evolène",massif:"Northern Alps",alt_min:1404,alt_max:2632,snow:140,km:41,remontees:5,pistes:{v:0,b:38,r:27,n:35},lat:46.113,lon:7.495},
+{id:357,name:"Arolla",massif:"Northern Alps",alt_min:1984,alt_max:2877,snow:180,km:27,remontees:6,pistes:{v:0,b:69,r:20,n:11},lat:46.025,lon:7.483},
+{id:358,name:"La Forclaz (VS)",massif:"Northern Alps",alt_min:1711,alt_max:2204,snow:110,km:5,remontees:4,pistes:{v:0,b:30,r:38,n:32},lat:46.081,lon:7.516},
+{id:359,name:"Ovronnaz",massif:"Northern Alps",alt_min:1400,alt_max:2427,snow:140,km:30,remontees:7,pistes:{v:0,b:17,r:67,n:16},lat:46.199,lon:7.17},
+{id:360,name:"Les Marécottes",massif:"Northern Alps",alt_min:1110,alt_max:2220,snow:110,km:9,remontees:4,pistes:{v:0,b:30,r:56,n:14},lat:46.11,lon:7.01},
+{id:361,name:"Champex-Lac",massif:"Northern Alps",alt_min:1468,alt_max:2194,snow:110,km:15,remontees:4,pistes:{v:0,b:70,r:20,n:10},lat:46.03,lon:7.117},
+{id:362,name:"La Fouly",massif:"Northern Alps",alt_min:1607,alt_max:2172,snow:110,km:15,remontees:4,pistes:{v:0,b:40,r:27,n:33},lat:45.933,lon:7.096},
+{id:363,name:"Vichères-Liddes",massif:"Northern Alps",alt_min:1595,alt_max:2265,snow:110,km:15,remontees:4,pistes:{v:0,b:47,r:33,n:20},lat:45.99,lon:7.18},
+{id:364,name:"Leukerbad",massif:"Northern Alps",alt_min:1411,alt_max:2610,snow:140,km:48,remontees:13,pistes:{v:0,b:7,r:57,n:36},lat:46.379,lon:7.627},
+{id:365,name:"Belalp",massif:"Northern Alps",alt_min:1322,alt_max:3118,snow:180,km:38,remontees:10,pistes:{v:0,b:40,r:32,n:28},lat:46.375,lon:7.968},
+{id:366,name:"Lauchernalp",massif:"Northern Alps",alt_min:1403,alt_max:3100,snow:180,km:40,remontees:6,pistes:{v:0,b:46,r:34,n:20},lat:46.418,lon:7.775},
+{id:367,name:"Grächen",massif:"Northern Alps",alt_min:1619,alt_max:2864,snow:180,km:44,remontees:10,pistes:{v:0,b:20,r:75,n:5},lat:46.195,lon:7.838},
+{id:368,name:"Bellwald",massif:"Northern Alps",alt_min:1600,alt_max:2558,snow:140,km:20,remontees:5,pistes:{v:0,b:52,r:39,n:9},lat:46.427,lon:8.16},
+{id:369,name:"Rosswald",massif:"Northern Alps",alt_min:1820,alt_max:2536,snow:140,km:9,remontees:6,pistes:{v:0,b:33,r:22,n:45},lat:46.305,lon:8.045},
+{id:370,name:"Rothwald",massif:"Northern Alps",alt_min:1750,alt_max:2270,snow:110,km:25,remontees:3,pistes:{v:0,b:20,r:60,n:20},lat:46.27,lon:8.04},
+{id:371,name:"Visperterminen",massif:"Northern Alps",alt_min:1381,alt_max:2309,snow:140,km:20,remontees:5,pistes:{v:0,b:17,r:61,n:22},lat:46.259,lon:7.902},
+{id:372,name:"Bürchen-Moosalp",massif:"Northern Alps",alt_min:1476,alt_max:2532,snow:140,km:25,remontees:7,pistes:{v:0,b:40,r:40,n:20},lat:46.281,lon:7.815},
+{id:373,name:"Unterbäch",massif:"Northern Alps",alt_min:1230,alt_max:2443,snow:140,km:19,remontees:7,pistes:{v:0,b:53,r:32,n:15},lat:46.284,lon:7.799},
+{id:374,name:"Eischoll",massif:"Northern Alps",alt_min:1260,alt_max:2200,snow:110,km:15,remontees:4,pistes:{v:0,b:67,r:30,n:3},lat:46.293,lon:7.781},
+{id:375,name:"Jeizinen",massif:"Northern Alps",alt_min:1519,alt_max:2193,snow:110,km:8,remontees:6,pistes:{v:0,b:75,r:25,n:0},lat:46.325,lon:7.723},
+{id:380,name:"Villars-sur-Ollon",massif:"Northern Alps",alt_min:1250,alt_max:2120,snow:130,km:87,remontees:30,pistes:{v:0,b:76,r:21,n:3},lat:46.299,lon:7.054},
+{id:381,name:"Gryon",massif:"Northern Alps",alt_min:1130,alt_max:2120,snow:130,km:87,remontees:30,pistes:{v:0,b:76,r:21,n:3},lat:46.274,lon:7.062},
+{id:382,name:"Les Diablerets",massif:"Northern Alps",alt_min:1150,alt_max:2120,snow:130,km:87,remontees:30,pistes:{v:0,b:76,r:21,n:3},lat:46.35,lon:7.159},
+{id:383,name:"Glacier 3000",massif:"Northern Alps",alt_min:1343,alt_max:3016,snow:220,km:28,remontees:11,pistes:{v:0,b:43,r:21,n:36},lat:46.362,lon:7.217},
+{id:384,name:"Leysin",massif:"Northern Alps",alt_min:1250,alt_max:2198,snow:130,km:60,remontees:12,pistes:{v:0,b:72,r:25,n:3},lat:46.344,lon:7.012},
+{id:385,name:"Les Mosses",massif:"Northern Alps",alt_min:1379,alt_max:1874,snow:90,km:40,remontees:14,pistes:{v:0,b:25,r:69,n:6},lat:46.397,lon:7.098},
+{id:386,name:"Les Pléiades",massif:"Northern Alps",alt_min:1080,alt_max:1397,snow:70,km:8,remontees:7,pistes:{v:0,b:49,r:51,n:0},lat:46.487,lon:6.918},
+{id:387,name:"Les Rasses",massif:"Jura",alt_min:1142,alt_max:1565,snow:70,km:20,remontees:7,pistes:{v:0,b:50,r:50,n:0},lat:46.83,lon:6.53},
+{id:388,name:"L'Abbaye",massif:"Jura",alt_min:1010,alt_max:1437,snow:70,km:11,remontees:4,pistes:{v:0,b:71,r:15,n:14},lat:46.649,lon:6.319},
+{id:389,name:"L'Orient",massif:"Jura",alt_min:1017,alt_max:1283,snow:70,km:6,remontees:1,pistes:{v:0,b:36,r:36,n:28},lat:46.601,lon:6.241},
+{id:390,name:"Charmey",massif:"Northern Alps",alt_min:875,alt_max:1626,snow:90,km:30,remontees:5,pistes:{v:0,b:65,r:25,n:10},lat:46.619,lon:7.165},
+{id:391,name:"Moléson",massif:"Northern Alps",alt_min:1109,alt_max:1978,snow:90,km:30,remontees:6,pistes:{v:0,b:63,r:13,n:24},lat:46.552,lon:7.017},
+{id:392,name:"La Berra",massif:"Northern Alps",alt_min:1040,alt_max:1636,snow:90,km:25,remontees:6,pistes:{v:0,b:20,r:80,n:0},lat:46.68,lon:7.179},
+{id:393,name:"Schwarzsee",massif:"Northern Alps",alt_min:1047,alt_max:1751,snow:90,km:20,remontees:6,pistes:{v:0,b:52,r:32,n:16},lat:46.669,lon:7.283},
+{id:394,name:"Jaun",massif:"Northern Alps",alt_min:1023,alt_max:1571,snow:70,km:20,remontees:4,pistes:{v:0,b:45,r:45,n:10},lat:46.611,lon:7.278},
+{id:395,name:"Les Paccots",massif:"Northern Alps",alt_min:1065,alt_max:1593,snow:70,km:9,remontees:11,pistes:{v:0,b:56,r:22,n:22},lat:46.521,lon:6.94},
+{id:396,name:"Rathvel",massif:"Northern Alps",alt_min:1211,alt_max:1491,snow:70,km:8,remontees:4,pistes:{v:0,b:62,r:38,n:0},lat:46.539,lon:6.986},
+{id:400,name:"Grindelwald",massif:"Northern Alps",alt_min:944,alt_max:2400,snow:130,km:101,remontees:23,pistes:{v:0,b:33,r:54,n:13},lat:46.6242,lon:8.0414},
+{id:401,name:"Wengen",massif:"Northern Alps",alt_min:944,alt_max:2400,snow:130,km:101,remontees:23,pistes:{v:0,b:33,r:54,n:13},lat:46.605,lon:7.922},
+{id:402,name:"Mürren",massif:"Northern Alps",alt_min:796,alt_max:2970,snow:220,km:54,remontees:17,pistes:{v:0,b:35,r:43,n:22},lat:46.559,lon:7.892},
+{id:403,name:"Grindelwald First",massif:"Northern Alps",alt_min:1034,alt_max:2500,snow:130,km:49,remontees:10,pistes:{v:0,b:61,r:22,n:17},lat:46.66,lon:8.054},
+{id:404,name:"Adelboden",massif:"Northern Alps",alt_min:1260,alt_max:2200,snow:130,km:86,remontees:22,pistes:{v:0,b:53,r:40,n:7},lat:46.492,lon:7.56},
+{id:405,name:"Lenk",massif:"Northern Alps",alt_min:1068,alt_max:2200,snow:130,km:86,remontees:22,pistes:{v:0,b:53,r:40,n:7},lat:46.458,lon:7.443},
+{id:406,name:"Betelberg (Lenk)",massif:"Northern Alps",alt_min:1083,alt_max:2001,snow:130,km:42,remontees:11,pistes:{v:0,b:52,r:46,n:2},lat:46.45,lon:7.43},
+{id:407,name:"Meiringen-Hasliberg",massif:"Northern Alps",alt_min:1065,alt_max:2433,snow:130,km:60,remontees:13,pistes:{v:0,b:33,r:57,n:10},lat:46.74,lon:8.2},
+{id:408,name:"Saanenmöser – Schönried – Zweisimmen",massif:"Northern Alps",alt_min:948,alt_max:2011,snow:130,km:105,remontees:16,pistes:{v:0,b:62,r:32,n:6},lat:46.515,lon:7.31},
+{id:409,name:"Gstaad – Saanen – Rougemont",massif:"Northern Alps",alt_min:992,alt_max:2151,snow:130,km:53,remontees:9,pistes:{v:0,b:64,r:28,n:8},lat:46.475,lon:7.286},
+{id:410,name:"Wispile (Gstaad)",massif:"Northern Alps",alt_min:1043,alt_max:1939,snow:90,km:9,remontees:5,pistes:{v:0,b:40,r:42,n:18},lat:46.46,lon:7.28},
+{id:411,name:"Wasserngrat (Gstaad)",massif:"Northern Alps",alt_min:1275,alt_max:1940,snow:90,km:10,remontees:1,pistes:{v:0,b:0,r:80,n:20},lat:46.47,lon:7.3},
+{id:412,name:"Elsigen-Metsch",massif:"Northern Alps",alt_min:1334,alt_max:2289,snow:130,km:30,remontees:11,pistes:{v:0,b:33,r:57,n:10},lat:46.56,lon:7.62},
+{id:413,name:"Engstligenalp",massif:"Northern Alps",alt_min:1971,alt_max:2353,snow:130,km:17,remontees:8,pistes:{v:0,b:41,r:35,n:24},lat:46.45,lon:7.56},
+{id:414,name:"TschentenAlp",massif:"Northern Alps",alt_min:1367,alt_max:1950,snow:90,km:10,remontees:4,pistes:{v:0,b:15,r:70,n:15},lat:46.5,lon:7.54},
+{id:415,name:"Kandersteg",massif:"Northern Alps",alt_min:1200,alt_max:1730,snow:90,km:13,remontees:6,pistes:{v:0,b:32,r:68,n:0},lat:46.495,lon:7.675},
+{id:416,name:"Axalp",massif:"Northern Alps",alt_min:1422,alt_max:1959,snow:90,km:15,remontees:6,pistes:{v:0,b:73,r:10,n:17},lat:46.715,lon:8.04},
+{id:417,name:"Sigriswil-Schwanden",massif:"Northern Alps",alt_min:1070,alt_max:1460,snow:70,km:20,remontees:3,pistes:{v:0,b:55,r:30,n:15},lat:46.72,lon:7.72},
+{id:418,name:"Rüschegg-Eywald",massif:"Northern Alps",alt_min:1050,alt_max:1559,snow:70,km:13,remontees:2,pistes:{v:0,b:62,r:31,n:7},lat:46.75,lon:7.4},
+{id:419,name:"Wiriehorn",massif:"Northern Alps",alt_min:984,alt_max:1868,snow:90,km:11,remontees:6,pistes:{v:0,b:43,r:57,n:0},lat:46.64,lon:7.58},
+{id:420,name:"Selital",massif:"Northern Alps",alt_min:1299,alt_max:1606,snow:90,km:10,remontees:3,pistes:{v:0,b:47,r:43,n:10},lat:46.72,lon:7.43},
+{id:421,name:"Bumbach",massif:"Northern Alps",alt_min:920,alt_max:1365,snow:70,km:10,remontees:4,pistes:{v:0,b:60,r:30,n:10},lat:46.82,lon:7.93},
+{id:422,name:"Aeschiried",massif:"Northern Alps",alt_min:927,alt_max:1389,snow:70,km:10,remontees:3,pistes:{v:0,b:68,r:32,n:0},lat:46.66,lon:7.74},
+{id:423,name:"Habkern",massif:"Northern Alps",alt_min:1128,alt_max:1481,snow:70,km:8,remontees:2,pistes:{v:0,b:25,r:50,n:25},lat:46.73,lon:7.86},
+{id:424,name:"Grimmialp",massif:"Northern Alps",alt_min:1233,alt_max:1833,snow:90,km:7,remontees:3,pistes:{v:0,b:42,r:19,n:39},lat:46.57,lon:7.47},
+{id:425,name:"Rossberg",massif:"Northern Alps",alt_min:1148,alt_max:1464,snow:70,km:7,remontees:2,pistes:{v:0,b:46,r:54,n:0},lat:46.65,lon:7.43},
+{id:426,name:"Jaunpass",massif:"Northern Alps",alt_min:1406,alt_max:1608,snow:90,km:6,remontees:4,pistes:{v:0,b:63,r:20,n:17},lat:46.59,lon:7.34},
+{id:427,name:"Springenboden",massif:"Northern Alps",alt_min:1207,alt_max:1523,snow:70,km:6,remontees:3,pistes:{v:0,b:25,r:67,n:8},lat:46.62,lon:7.49},
+{id:428,name:"Gantrisch-Gurnigel",massif:"Northern Alps",alt_min:1340,alt_max:1590,snow:70,km:6,remontees:3,pistes:{v:0,b:67,r:33,n:0},lat:46.73,lon:7.45},
+{id:429,name:"Eriz",massif:"Northern Alps",alt_min:1044,alt_max:1378,snow:70,km:6,remontees:6,pistes:{v:0,b:67,r:33,n:0},lat:46.77,lon:7.79},
+{id:430,name:"Les Bugnenets-Savagnières",massif:"Jura",alt_min:1078,alt_max:1449,snow:70,km:30,remontees:8,pistes:{v:0,b:33,r:33,n:34},lat:47.12,lon:6.98},
+{id:431,name:"Tramelan",massif:"Jura",alt_min:924,alt_max:1209,snow:70,km:12,remontees:3,pistes:{v:0,b:58,r:21,n:21},lat:47.22,lon:7.1},
+{id:432,name:"Les Breuleux",massif:"Jura",alt_min:1070,alt_max:1246,snow:70,km:10,remontees:2,pistes:{v:0,b:50,r:40,n:10},lat:47.21,lon:7.01},
+{id:440,name:"Samnaun",massif:"Northern Alps",alt_min:1360,alt_max:2872,snow:130,km:239,remontees:45,pistes:{v:0,b:20,r:59,n:21},lat:46.943,lon:10.36},
+{id:441,name:"Arosa",massif:"Northern Alps",alt_min:1229,alt_max:2865,snow:130,km:225,remontees:43,pistes:{v:0,b:49,r:39,n:12},lat:46.78,lon:9.679},
+{id:442,name:"Lenzerheide",massif:"Northern Alps",alt_min:1229,alt_max:2865,snow:130,km:225,remontees:43,pistes:{v:0,b:49,r:39,n:12},lat:46.728,lon:9.557},
+{id:443,name:"Laax",massif:"Northern Alps",alt_min:1100,alt_max:3018,snow:220,km:176,remontees:29,pistes:{v:0,b:48,r:43,n:9},lat:46.806,lon:9.258},
+{id:444,name:"Flims",massif:"Northern Alps",alt_min:1100,alt_max:3018,snow:220,km:176,remontees:29,pistes:{v:0,b:48,r:43,n:9},lat:46.835,lon:9.285},
+{id:445,name:"Falera",massif:"Northern Alps",alt_min:1100,alt_max:3018,snow:220,km:176,remontees:29,pistes:{v:0,b:48,r:43,n:9},lat:46.8,lon:9.23},
+{id:446,name:"St. Moritz",massif:"Northern Alps",alt_min:1772,alt_max:3057,snow:220,km:155,remontees:23,pistes:{v:0,b:27,r:51,n:22},lat:46.498,lon:9.839},
+{id:447,name:"Corvatsch",massif:"Northern Alps",alt_min:1797,alt_max:3303,snow:220,km:120,remontees:14,pistes:{v:0,b:11,r:74,n:15},lat:46.459,lon:9.795},
+{id:448,name:"Diavolezza",massif:"Northern Alps",alt_min:2093,alt_max:3006,snow:220,km:35,remontees:5,pistes:{v:0,b:0,r:77,n:23},lat:46.412,lon:9.964},
+{id:449,name:"Davos",massif:"Northern Alps",alt_min:810,alt_max:2844,snow:130,km:96,remontees:18,pistes:{v:0,b:18,r:63,n:19},lat:46.802,lon:9.836},
+{id:450,name:"Klosters",massif:"Northern Alps",alt_min:810,alt_max:2844,snow:130,km:96,remontees:18,pistes:{v:0,b:18,r:63,n:19},lat:46.869,lon:9.88},
+{id:451,name:"Jakobshorn (Davos)",massif:"Northern Alps",alt_min:1535,alt_max:2568,snow:130,km:41,remontees:13,pistes:{v:0,b:62,r:32,n:6},lat:46.79,lon:9.83},
+{id:452,name:"Rinerhorn (Davos)",massif:"Northern Alps",alt_min:1459,alt_max:2490,snow:130,km:52,remontees:7,pistes:{v:0,b:30,r:45,n:25},lat:46.76,lon:9.8},
+{id:453,name:"Madrisa (Klosters)",massif:"Northern Alps",alt_min:1142,alt_max:2602,snow:130,km:26,remontees:9,pistes:{v:0,b:29,r:60,n:11},lat:46.89,lon:9.91},
+{id:454,name:"Schatzalp (Davos)",massif:"Northern Alps",alt_min:1609,alt_max:2352,snow:130,km:8,remontees:4,pistes:{v:0,b:78,r:22,n:0},lat:46.8,lon:9.82},
+{id:455,name:"Obersaxen Mundaun",massif:"Northern Alps",alt_min:1201,alt_max:2310,snow:130,km:120,remontees:15,pistes:{v:0,b:42,r:42,n:16},lat:46.747,lon:9.09},
+{id:456,name:"Savognin",massif:"Northern Alps",alt_min:1168,alt_max:2713,snow:130,km:74,remontees:12,pistes:{v:0,b:44,r:52,n:4},lat:46.596,lon:9.598},
+{id:457,name:"Scuol",massif:"Northern Alps",alt_min:1250,alt_max:2785,snow:130,km:70,remontees:12,pistes:{v:0,b:39,r:46,n:15},lat:46.797,lon:10.298},
+{id:458,name:"Andermatt",massif:"Northern Alps",alt_min:1444,alt_max:2600,snow:130,km:70,remontees:13,pistes:{v:0,b:26,r:57,n:17},lat:46.636,lon:8.594},
+{id:459,name:"Sedrun",massif:"Northern Alps",alt_min:1444,alt_max:2600,snow:130,km:70,remontees:13,pistes:{v:0,b:26,r:57,n:17},lat:46.68,lon:8.775},
+{id:460,name:"Disentis",massif:"Northern Alps",alt_min:1227,alt_max:2833,snow:130,km:60,remontees:12,pistes:{v:0,b:33,r:50,n:17},lat:46.704,lon:8.852},
+{id:461,name:"Brigels",massif:"Northern Alps",alt_min:1102,alt_max:2418,snow:130,km:40,remontees:10,pistes:{v:0,b:28,r:65,n:7},lat:46.77,lon:9.065},
+{id:462,name:"San Bernardino",massif:"Northern Alps",alt_min:1637,alt_max:2525,snow:130,km:40,remontees:11,pistes:{v:0,b:49,r:41,n:10},lat:46.462,lon:9.186},
+{id:463,name:"Tschiertschen",massif:"Northern Alps",alt_min:1350,alt_max:2381,snow:130,km:32,remontees:4,pistes:{v:0,b:47,r:44,n:9},lat:46.818,lon:9.605},
+{id:464,name:"Grüsch Danusa",massif:"Northern Alps",alt_min:600,alt_max:1800,snow:90,km:31,remontees:6,pistes:{v:0,b:26,r:55,n:19},lat:46.98,lon:9.64},
+{id:465,name:"Splügen",massif:"Northern Alps",alt_min:1484,alt_max:2215,snow:130,km:30,remontees:7,pistes:{v:0,b:40,r:40,n:20},lat:46.551,lon:9.321},
+{id:466,name:"Bivio",massif:"Northern Alps",alt_min:1769,alt_max:2560,snow:130,km:27,remontees:4,pistes:{v:0,b:44,r:44,n:12},lat:46.469,lon:9.651},
+{id:467,name:"Vals",massif:"Northern Alps",alt_min:1286,alt_max:2851,snow:130,km:25,remontees:6,pistes:{v:0,b:20,r:60,n:20},lat:46.617,lon:9.18},
+{id:468,name:"Tschappina Heinzenberg",massif:"Northern Alps",alt_min:1580,alt_max:2180,snow:130,km:25,remontees:7,pistes:{v:0,b:16,r:84,n:0},lat:46.69,lon:9.38},
+{id:469,name:"Brambrüesch",massif:"Northern Alps",alt_min:1170,alt_max:2174,snow:130,km:20,remontees:5,pistes:{v:0,b:40,r:40,n:20},lat:46.83,lon:9.52},
+{id:470,name:"Bergün",massif:"Northern Alps",alt_min:1384,alt_max:2569,snow:130,km:20,remontees:3,pistes:{v:0,b:20,r:75,n:5},lat:46.63,lon:9.74},
+{id:471,name:"Sarn Heinzenberg",massif:"Northern Alps",alt_min:1300,alt_max:2075,snow:130,km:20,remontees:4,pistes:{v:0,b:40,r:50,n:10},lat:46.72,lon:9.39},
+{id:472,name:"Hochwang",massif:"Northern Alps",alt_min:1544,alt_max:2299,snow:130,km:20,remontees:3,pistes:{v:0,b:46,r:46,n:8},lat:46.86,lon:9.6},
+{id:473,name:"Minschuns",massif:"Northern Alps",alt_min:2126,alt_max:2673,snow:130,km:18,remontees:4,pistes:{v:0,b:33,r:44,n:23},lat:46.635,lon:10.33},
+{id:474,name:"Zuoz",massif:"Northern Alps",alt_min:1720,alt_max:2465,snow:130,km:15,remontees:5,pistes:{v:0,b:60,r:20,n:20},lat:46.6,lon:9.96},
+{id:475,name:"Fideriser Heuberge",massif:"Northern Alps",alt_min:1952,alt_max:2356,snow:130,km:15,remontees:4,pistes:{v:0,b:33,r:60,n:7},lat:46.88,lon:9.73},
+{id:476,name:"Feldis",massif:"Northern Alps",alt_min:1480,alt_max:1996,snow:90,km:10,remontees:4,pistes:{v:0,b:3,r:73,n:24},lat:46.79,lon:9.45},
+{id:477,name:"Avers",massif:"Northern Alps",alt_min:1988,alt_max:2539,snow:130,km:8,remontees:3,pistes:{v:0,b:25,r:25,n:50},lat:46.47,lon:9.51},
+{id:478,name:"Pany",massif:"Northern Alps",alt_min:1330,alt_max:1565,snow:70,km:7,remontees:2,pistes:{v:0,b:41,r:59,n:0},lat:46.92,lon:9.76},
+{id:480,name:"Engelberg",massif:"Northern Alps",alt_min:1003,alt_max:3020,snow:220,km:70,remontees:18,pistes:{v:0,b:26,r:61,n:13},lat:46.82,lon:8.401},
+{id:481,name:"Brunni (Engelberg)",massif:"Northern Alps",alt_min:1013,alt_max:2075,snow:130,km:8,remontees:10,pistes:{v:0,b:44,r:34,n:22},lat:46.83,lon:8.41},
+{id:482,name:"Hoch-Ybrig",massif:"Northern Alps",alt_min:1040,alt_max:1831,snow:90,km:50,remontees:12,pistes:{v:0,b:30,r:60,n:10},lat:47.02,lon:8.8},
+{id:483,name:"Mythenregion",massif:"Northern Alps",alt_min:1070,alt_max:1593,snow:70,km:50,remontees:17,pistes:{v:0,b:36,r:62,n:2},lat:47.04,lon:8.72},
+{id:484,name:"Sörenberg",massif:"Northern Alps",alt_min:1110,alt_max:2298,snow:130,km:42,remontees:14,pistes:{v:0,b:57,r:24,n:19},lat:46.823,lon:8.035},
+{id:485,name:"Klewenalp",massif:"Northern Alps",alt_min:1199,alt_max:1938,snow:90,km:40,remontees:15,pistes:{v:0,b:38,r:62,n:0},lat:46.95,lon:8.48},
+{id:486,name:"Melchsee-Frutt",massif:"Northern Alps",alt_min:1080,alt_max:2255,snow:130,km:36,remontees:15,pistes:{v:0,b:56,r:17,n:27},lat:46.775,lon:8.27},
+{id:487,name:"Stoos",massif:"Northern Alps",alt_min:1300,alt_max:1935,snow:90,km:35,remontees:8,pistes:{v:0,b:11,r:69,n:20},lat:46.977,lon:8.664},
+{id:488,name:"Gemsstock (Andermatt)",massif:"Northern Alps",alt_min:1444,alt_max:2961,snow:220,km:31,remontees:4,pistes:{v:0,b:0,r:45,n:55},lat:46.62,lon:8.61},
+{id:489,name:"Mörlialp",massif:"Northern Alps",alt_min:1355,alt_max:1837,snow:90,km:12,remontees:8,pistes:{v:0,b:23,r:60,n:17},lat:46.83,lon:8.16},
+{id:490,name:"Marbachegg",massif:"Northern Alps",alt_min:885,alt_max:1474,snow:70,km:10,remontees:5,pistes:{v:0,b:60,r:30,n:10},lat:46.85,lon:7.9},
+{id:491,name:"Neusell",massif:"Northern Alps",alt_min:954,alt_max:1328,snow:70,km:10,remontees:3,pistes:{v:0,b:35,r:50,n:15},lat:47.1,lon:8.67},
+{id:492,name:"Rigi",massif:"Northern Alps",alt_min:1315,alt_max:1752,snow:90,km:9,remontees:7,pistes:{v:0,b:50,r:50,n:0},lat:47.056,lon:8.485},
+{id:493,name:"Eggberge",massif:"Northern Alps",alt_min:1460,alt_max:1740,snow:90,km:8,remontees:2,pistes:{v:0,b:50,r:50,n:0},lat:46.89,lon:8.67},
+{id:494,name:"Biel-Kinzig",massif:"Northern Alps",alt_min:1630,alt_max:1930,snow:90,km:7,remontees:5,pistes:{v:0,b:36,r:64,n:0},lat:46.87,lon:8.7},
+{id:495,name:"Flumserberg",massif:"Northern Alps",alt_min:665,alt_max:2222,snow:130,km:65,remontees:17,pistes:{v:0,b:22,r:62,n:16},lat:47.09,lon:9.28},
+{id:496,name:"Toggenburg Chäserrugg",massif:"Northern Alps",alt_min:900,alt_max:2262,snow:130,km:50,remontees:12,pistes:{v:0,b:16,r:80,n:4},lat:47.197,lon:9.315},
+{id:497,name:"Wildhaus",massif:"Northern Alps",alt_min:1020,alt_max:2076,snow:130,km:28,remontees:6,pistes:{v:0,b:25,r:64,n:11},lat:47.205,lon:9.353},
+{id:498,name:"Pizol",massif:"Northern Alps",alt_min:509,alt_max:2250,snow:130,km:44,remontees:12,pistes:{v:0,b:43,r:42,n:15},lat:47.0,lon:9.45},
+{id:499,name:"Elm",massif:"Northern Alps",alt_min:1020,alt_max:2105,snow:130,km:40,remontees:5,pistes:{v:0,b:38,r:50,n:12},lat:46.918,lon:9.173},
+{id:500,name:"Amden",massif:"Northern Alps",alt_min:931,alt_max:1684,snow:90,km:17,remontees:6,pistes:{v:0,b:32,r:68,n:0},lat:47.15,lon:9.15},
+{id:501,name:"Wolzenalp",massif:"Northern Alps",alt_min:728,alt_max:1464,snow:70,km:12,remontees:6,pistes:{v:0,b:2,r:74,n:24},lat:47.25,lon:9.17},
+{id:502,name:"Ebenalp",massif:"Northern Alps",alt_min:848,alt_max:1720,snow:90,km:10,remontees:7,pistes:{v:0,b:10,r:75,n:15},lat:47.283,lon:9.41},
+{id:503,name:"Atzmännig",massif:"Northern Alps",alt_min:821,alt_max:1198,snow:70,km:8,remontees:5,pistes:{v:0,b:38,r:62,n:0},lat:47.27,lon:8.98},
+{id:504,name:"Sollegg",massif:"Northern Alps",alt_min:813,alt_max:1204,snow:70,km:7,remontees:2,pistes:{v:0,b:37,r:57,n:6},lat:47.32,lon:9.41},
+{id:505,name:"Schilt (Mollis)",massif:"Northern Alps",alt_min:1110,alt_max:1602,snow:90,km:6,remontees:2,pistes:{v:0,b:50,r:45,n:5},lat:47.09,lon:9.08},
+{id:506,name:"Airolo",massif:"Northern Alps",alt_min:1175,alt_max:2250,snow:130,km:30,remontees:8,pistes:{v:0,b:3,r:50,n:47},lat:46.528,lon:8.609},
+{id:507,name:"Nara",massif:"Northern Alps",alt_min:925,alt_max:2123,snow:130,km:30,remontees:7,pistes:{v:0,b:33,r:50,n:17},lat:46.47,lon:8.93},
+{id:508,name:"Bosco Gurin",massif:"Northern Alps",alt_min:1482,alt_max:2331,snow:130,km:30,remontees:7,pistes:{v:0,b:3,r:83,n:14},lat:46.317,lon:8.488},
+{id:509,name:"Carì",massif:"Northern Alps",alt_min:1650,alt_max:2280,snow:130,km:20,remontees:4,pistes:{v:0,b:40,r:40,n:20},lat:46.487,lon:8.844},
+{id:520,name:"Reit im Winkl – Winklmoosalm",massif:"Northern Alps",alt_min:740,alt_max:1860,snow:90,km:42,remontees:14,pistes:{v:0,b:48,r:48,n:4},lat:47.677,lon:12.47},
+{id:521,name:"Balderschwang",massif:"Northern Alps",alt_min:1000,alt_max:1500,snow:70,km:41,remontees:12,pistes:{v:0,b:39,r:35,n:26},lat:47.47,lon:10.1},
+{id:522,name:"Garmisch-Partenkirchen",massif:"Northern Alps",alt_min:740,alt_max:2050,snow:130,km:40,remontees:18,pistes:{v:0,b:30,r:45,n:25},lat:47.492,lon:11.096},
+{id:523,name:"Zugspitze",massif:"Northern Alps",alt_min:2000,alt_max:2650,snow:130,km:17,remontees:8,pistes:{v:0,b:24,r:76,n:0},lat:47.421,lon:10.986},
+{id:524,name:"Oberstdorf – Fellhorn/Kanzelwand",massif:"Northern Alps",alt_min:920,alt_max:1967,snow:90,km:36,remontees:13,pistes:{v:0,b:39,r:56,n:5},lat:47.37,lon:10.24},
+{id:525,name:"Oberstdorf – Nebelhorn",massif:"Northern Alps",alt_min:828,alt_max:2224,snow:130,km:13,remontees:6,pistes:{v:0,b:22,r:40,n:38},lat:47.4,lon:10.34},
+{id:526,name:"Oberstdorf – Söllereck",massif:"Northern Alps",alt_min:820,alt_max:1450,snow:70,km:14,remontees:8,pistes:{v:0,b:56,r:39,n:5},lat:47.39,lon:10.25},
+{id:527,name:"Oberjoch",massif:"Northern Alps",alt_min:1130,alt_max:1559,snow:70,km:32,remontees:5,pistes:{v:0,b:19,r:75,n:6},lat:47.517,lon:10.413},
+{id:528,name:"Sudelfeld",massif:"Northern Alps",alt_min:850,alt_max:1563,snow:70,km:32,remontees:13,pistes:{v:0,b:25,r:59,n:16},lat:47.67,lon:12.04},
+{id:529,name:"Brauneck",massif:"Northern Alps",alt_min:700,alt_max:1712,snow:90,km:31,remontees:15,pistes:{v:0,b:11,r:67,n:22},lat:47.66,lon:11.53},
+{id:530,name:"Hündle (Oberstaufen)",massif:"Northern Alps",alt_min:745,alt_max:1170,snow:70,km:18,remontees:8,pistes:{v:0,b:56,r:41,n:3},lat:47.53,lon:10.04},
+{id:531,name:"Steibis (Oberstaufen)",massif:"Northern Alps",alt_min:859,alt_max:1338,snow:70,km:18,remontees:12,pistes:{v:0,b:34,r:28,n:38},lat:47.51,lon:10.02},
+{id:532,name:"Bolsterlang",massif:"Northern Alps",alt_min:894,alt_max:1665,snow:90,km:17,remontees:5,pistes:{v:0,b:47,r:41,n:12},lat:47.47,lon:10.23},
+{id:533,name:"Ofterschwang",massif:"Northern Alps",alt_min:880,alt_max:1405,snow:70,km:17,remontees:7,pistes:{v:0,b:28,r:56,n:16},lat:47.5,lon:10.23},
+{id:534,name:"Kranzberg (Mittenwald)",massif:"Northern Alps",alt_min:980,alt_max:1350,snow:70,km:15,remontees:10,pistes:{v:0,b:40,r:47,n:13},lat:47.44,lon:11.24},
+{id:535,name:"Spitzingsee",massif:"Northern Alps",alt_min:980,alt_max:1580,snow:70,km:14,remontees:11,pistes:{v:0,b:12,r:58,n:30},lat:47.66,lon:11.89},
+{id:536,name:"Wendelstein",massif:"Northern Alps",alt_min:791,alt_max:1723,snow:90,km:11,remontees:4,pistes:{v:0,b:0,r:63,n:37},lat:47.703,lon:12.012},
+{id:537,name:"Grasgehren",massif:"Northern Alps",alt_min:1438,alt_max:1655,snow:90,km:11,remontees:5,pistes:{v:0,b:23,r:77,n:0},lat:47.48,lon:10.14},
+{id:538,name:"Feldberg",massif:"Mid-mountain",alt_min:950,alt_max:1450,snow:70,km:28,remontees:14,pistes:{v:0,b:43,r:36,n:21},lat:47.86,lon:8.01},
+{id:539,name:"Todtnauberg",massif:"Mid-mountain",alt_min:1000,alt_max:1400,snow:70,km:13,remontees:6,pistes:{v:0,b:27,r:73,n:0},lat:47.85,lon:7.95},
+{id:540,name:"Winterberg",massif:"Mid-mountain",alt_min:630,alt_max:820,snow:70,km:28,remontees:25,pistes:{v:0,b:51,r:44,n:5},lat:51.195,lon:8.53},
+{id:541,name:"Willingen",massif:"Mid-mountain",alt_min:578,alt_max:838,snow:70,km:16,remontees:12,pistes:{v:0,b:44,r:56,n:0},lat:51.294,lon:8.609},
+{id:542,name:"Fichtelberg (Oberwiesenthal)",massif:"Mid-mountain",alt_min:911,alt_max:1215,snow:70,km:16,remontees:6,pistes:{v:0,b:44,r:39,n:17},lat:50.429,lon:12.954},
+{id:543,name:"Kreuzberg (Rhön)",massif:"Mid-mountain",alt_min:610,alt_max:928,snow:70,km:13,remontees:4,pistes:{v:0,b:38,r:62,n:0},lat:50.37,lon:9.98},
+{id:544,name:"Wurmberg (Braunlage)",massif:"Mid-mountain",alt_min:565,alt_max:970,snow:70,km:12,remontees:5,pistes:{v:0,b:82,r:11,n:7},lat:51.755,lon:10.615},
+{id:545,name:"Arber",massif:"Mid-mountain",alt_min:1050,alt_max:1456,snow:70,km:12,remontees:6,pistes:{v:0,b:39,r:29,n:32},lat:49.112,lon:13.136},
+{id:560,name:"Breuil-Cervinia",massif:"Northern Alps",alt_min:1524,alt_max:3899,snow:220,km:322,remontees:51,pistes:{v:0,b:23,r:68,n:9},lat:45.933,lon:7.629},
+{id:561,name:"Valtournenche",massif:"Northern Alps",alt_min:1524,alt_max:3899,snow:220,km:322,remontees:51,pistes:{v:0,b:23,r:68,n:9},lat:45.877,lon:7.623},
+{id:562,name:"Champoluc",massif:"Northern Alps",alt_min:1212,alt_max:3275,snow:220,km:132,remontees:21,pistes:{v:0,b:22,r:67,n:11},lat:45.831,lon:7.727},
+{id:563,name:"Gressoney-La-Trinité",massif:"Northern Alps",alt_min:1212,alt_max:3275,snow:220,km:132,remontees:21,pistes:{v:0,b:22,r:67,n:11},lat:45.829,lon:7.824},
+{id:564,name:"Alagna Valsesia",massif:"Northern Alps",alt_min:1212,alt_max:3275,snow:220,km:132,remontees:21,pistes:{v:0,b:22,r:67,n:11},lat:45.854,lon:7.938},
+{id:565,name:"Pila",massif:"Northern Alps",alt_min:1540,alt_max:2740,snow:130,km:70,remontees:13,pistes:{v:0,b:16,r:73,n:11},lat:45.735,lon:7.315},
+{id:566,name:"Courmayeur",massif:"Northern Alps",alt_min:1205,alt_max:2755,snow:130,km:42,remontees:20,pistes:{v:0,b:39,r:52,n:9},lat:45.791,lon:6.972},
+{id:567,name:"Crévacol",massif:"Northern Alps",alt_min:1667,alt_max:2454,snow:130,km:21,remontees:3,pistes:{v:0,b:33,r:52,n:15},lat:45.82,lon:7.2},
+{id:568,name:"Torgnon",massif:"Northern Alps",alt_min:1515,alt_max:2246,snow:130,km:20,remontees:7,pistes:{v:0,b:30,r:60,n:10},lat:45.805,lon:7.563},
+{id:569,name:"Champorcher",massif:"Northern Alps",alt_min:1440,alt_max:2500,snow:130,km:14,remontees:7,pistes:{v:0,b:5,r:70,n:25},lat:45.62,lon:7.62},
+{id:570,name:"Gressoney-Saint-Jean",massif:"Northern Alps",alt_min:1348,alt_max:2023,snow:130,km:12,remontees:4,pistes:{v:0,b:50,r:33,n:17},lat:45.776,lon:7.826},
+{id:571,name:"Antagnod",massif:"Northern Alps",alt_min:1730,alt_max:2307,snow:130,km:11,remontees:4,pistes:{v:0,b:60,r:37,n:3},lat:45.808,lon:7.69},
+{id:572,name:"Prato Nevoso",massif:"Southern Alps",alt_min:807,alt_max:2085,snow:130,km:105,remontees:24,pistes:{v:0,b:41,r:48,n:11},lat:44.25,lon:7.78},
+{id:573,name:"Artesina",massif:"Southern Alps",alt_min:807,alt_max:2085,snow:130,km:105,remontees:24,pistes:{v:0,b:41,r:48,n:11},lat:44.242,lon:7.747},
+{id:574,name:"Frabosa Soprana",massif:"Southern Alps",alt_min:807,alt_max:2085,snow:130,km:105,remontees:24,pistes:{v:0,b:41,r:48,n:11},lat:44.288,lon:7.807},
+{id:575,name:"Bardonecchia",massif:"Southern Alps",alt_min:1312,alt_max:2800,snow:130,km:100,remontees:22,pistes:{v:0,b:54,r:38,n:8},lat:45.078,lon:6.705},
+{id:576,name:"Limone Piemonte",massif:"Southern Alps",alt_min:1046,alt_max:2060,snow:130,km:52,remontees:16,pistes:{v:0,b:13,r:54,n:33},lat:44.201,lon:7.576},
+{id:577,name:"Monte Alpet",massif:"Southern Alps",alt_min:1098,alt_max:1611,snow:90,km:35,remontees:8,pistes:{v:0,b:37,r:34,n:29},lat:44.29,lon:7.9},
+{id:578,name:"San Domenico",massif:"Northern Alps",alt_min:1420,alt_max:2500,snow:130,km:33,remontees:5,pistes:{v:0,b:17,r:39,n:44},lat:46.225,lon:8.17},
+{id:579,name:"Macugnaga",massif:"Northern Alps",alt_min:1347,alt_max:2900,snow:220,km:32,remontees:9,pistes:{v:0,b:22,r:69,n:9},lat:45.968,lon:7.968},
+{id:580,name:"Bielmonte",massif:"Northern Alps",alt_min:1229,alt_max:1621,snow:90,km:20,remontees:7,pistes:{v:0,b:50,r:40,n:10},lat:45.664,lon:8.1},
+{id:581,name:"Mottarone",massif:"Northern Alps",alt_min:1305,alt_max:1491,snow:70,km:18,remontees:6,pistes:{v:0,b:31,r:63,n:6},lat:45.883,lon:8.453},
+{id:582,name:"Sampeyre",massif:"Southern Alps",alt_min:995,alt_max:1860,snow:90,km:17,remontees:2,pistes:{v:0,b:55,r:40,n:5},lat:44.578,lon:7.187},
+{id:583,name:"Alpe di Mera",massif:"Northern Alps",alt_min:682,alt_max:1739,snow:90,km:17,remontees:7,pistes:{v:0,b:16,r:78,n:6},lat:45.79,lon:8.1},
+{id:584,name:"Lurisia",massif:"Southern Alps",alt_min:814,alt_max:1734,snow:90,km:17,remontees:5,pistes:{v:0,b:24,r:65,n:11},lat:44.315,lon:7.705},
+{id:585,name:"Pian Munè",massif:"Southern Alps",alt_min:1530,alt_max:2060,snow:130,km:16,remontees:4,pistes:{v:0,b:44,r:44,n:12},lat:44.667,lon:7.2},
+{id:586,name:"Garessio 2000",massif:"Southern Alps",alt_min:1342,alt_max:1578,snow:70,km:12,remontees:4,pistes:{v:0,b:60,r:35,n:5},lat:44.17,lon:7.99},
+{id:587,name:"Malbun",massif:"Northern Alps",alt_min:1600,alt_max:2000,snow:130,km:23,remontees:6,pistes:{v:0,b:48,r:39,n:13},lat:47.103,lon:9.61},
+{id:600,name:"Livigno",massif:"Northern Alps",alt_min:1816,alt_max:2798,snow:130,km:115,remontees:32,pistes:{v:0,b:28,r:55,n:17},lat:46.538,lon:10.135},
+{id:601,name:"Ponte di Legno",massif:"Northern Alps",alt_min:1121,alt_max:3000,snow:220,km:100,remontees:29,pistes:{v:0,b:24,r:60,n:16},lat:46.259,lon:10.51},
+{id:602,name:"Passo del Tonale",massif:"Northern Alps",alt_min:1121,alt_max:3000,snow:220,km:100,remontees:29,pistes:{v:0,b:24,r:60,n:16},lat:46.262,lon:10.583},
+{id:603,name:"Bormio",massif:"Northern Alps",alt_min:1200,alt_max:3017,snow:220,km:50,remontees:12,pistes:{v:0,b:32,r:44,n:24},lat:46.467,lon:10.37},
+{id:604,name:"Santa Caterina Valfurva",massif:"Northern Alps",alt_min:1722,alt_max:2880,snow:130,km:21,remontees:9,pistes:{v:0,b:7,r:76,n:17},lat:46.412,lon:10.495},
+{id:605,name:"San Colombano",massif:"Northern Alps",alt_min:1342,alt_max:2360,snow:130,km:20,remontees:10,pistes:{v:0,b:8,r:88,n:4},lat:46.465,lon:10.3},
+{id:606,name:"Aprica",massif:"Northern Alps",alt_min:1162,alt_max:2270,snow:130,km:50,remontees:16,pistes:{v:0,b:54,r:31,n:15},lat:46.153,lon:10.15},
+{id:607,name:"Madesimo",massif:"Northern Alps",alt_min:1550,alt_max:2948,snow:220,km:36,remontees:10,pistes:{v:0,b:33,r:53,n:14},lat:46.437,lon:9.357},
+{id:608,name:"Piani di Bobbio",massif:"Northern Alps",alt_min:1340,alt_max:1950,snow:90,km:35,remontees:12,pistes:{v:0,b:43,r:29,n:28},lat:45.965,lon:9.48},
+{id:609,name:"Montecampione",massif:"Northern Alps",alt_min:1149,alt_max:1841,snow:90,km:30,remontees:10,pistes:{v:0,b:12,r:70,n:18},lat:45.83,lon:10.23},
+{id:610,name:"Foppolo",massif:"Northern Alps",alt_min:1635,alt_max:2163,snow:130,km:22,remontees:9,pistes:{v:0,b:18,r:73,n:9},lat:46.043,lon:9.757},
+{id:611,name:"Valmalenco",massif:"Northern Alps",alt_min:1527,alt_max:2353,snow:130,km:21,remontees:9,pistes:{v:0,b:19,r:57,n:24},lat:46.27,lon:9.848},
+{id:612,name:"Colere",massif:"Northern Alps",alt_min:1060,alt_max:2178,snow:130,km:21,remontees:5,pistes:{v:0,b:0,r:55,n:45},lat:45.975,lon:10.085},
+{id:613,name:"Passo Maniva",massif:"Northern Alps",alt_min:1511,alt_max:2088,snow:130,km:20,remontees:7,pistes:{v:0,b:68,r:25,n:7},lat:45.8,lon:10.39},
+{id:614,name:"Lizzola",massif:"Northern Alps",alt_min:1262,alt_max:2028,snow:130,km:20,remontees:5,pistes:{v:0,b:10,r:90,n:0},lat:46.05,lon:10.03},
+{id:615,name:"Spiazzi di Gromo",massif:"Northern Alps",alt_min:1156,alt_max:1705,snow:90,km:15,remontees:4,pistes:{v:0,b:7,r:80,n:13},lat:45.99,lon:9.93},
+{id:616,name:"Monte Pora",massif:"Northern Alps",alt_min:1387,alt_max:1880,snow:90,km:14,remontees:7,pistes:{v:0,b:34,r:61,n:5},lat:45.87,lon:10.08},
+{id:617,name:"Borno",massif:"Northern Alps",alt_min:956,alt_max:1694,snow:90,km:13,remontees:6,pistes:{v:0,b:4,r:72,n:24},lat:45.95,lon:10.2},
+{id:630,name:"Madonna di Campiglio",massif:"Northern Alps",alt_min:852,alt_max:2504,snow:130,km:155,remontees:58,pistes:{v:0,b:32,r:46,n:22},lat:46.229,lon:10.826},
+{id:631,name:"Pinzolo",massif:"Northern Alps",alt_min:852,alt_max:2504,snow:130,km:155,remontees:58,pistes:{v:0,b:32,r:46,n:22},lat:46.16,lon:10.765},
+{id:632,name:"Folgarida",massif:"Northern Alps",alt_min:852,alt_max:2504,snow:130,km:155,remontees:58,pistes:{v:0,b:32,r:46,n:22},lat:46.303,lon:10.873},
+{id:633,name:"Marilleva",massif:"Northern Alps",alt_min:852,alt_max:2504,snow:130,km:155,remontees:58,pistes:{v:0,b:32,r:46,n:22},lat:46.302,lon:10.81},
+{id:634,name:"Canazei",massif:"Northern Alps",alt_min:1320,alt_max:2485,snow:130,km:55,remontees:35,pistes:{v:0,b:13,r:74,n:13},lat:46.477,lon:11.77},
+{id:635,name:"Campitello di Fassa",massif:"Northern Alps",alt_min:1320,alt_max:2485,snow:130,km:55,remontees:35,pistes:{v:0,b:13,r:74,n:13},lat:46.475,lon:11.741},
+{id:636,name:"Pozza di Fassa",massif:"Northern Alps",alt_min:1320,alt_max:2485,snow:130,km:55,remontees:35,pistes:{v:0,b:13,r:74,n:13},lat:46.428,lon:11.688},
+{id:637,name:"Vigo di Fassa",massif:"Northern Alps",alt_min:1322,alt_max:2095,snow:130,km:14,remontees:6,pistes:{v:0,b:47,r:46,n:7},lat:46.419,lon:11.673},
+{id:638,name:"Folgaria",massif:"Northern Alps",alt_min:1177,alt_max:1824,snow:90,km:74,remontees:28,pistes:{v:0,b:51,r:44,n:5},lat:45.917,lon:11.17},
+{id:639,name:"Lavarone",massif:"Northern Alps",alt_min:1174,alt_max:1600,snow:90,km:30,remontees:14,pistes:{v:0,b:73,r:20,n:7},lat:45.94,lon:11.26},
+{id:640,name:"San Martino di Castrozza",massif:"Northern Alps",alt_min:1404,alt_max:2357,snow:130,km:60,remontees:20,pistes:{v:0,b:27,r:53,n:20},lat:46.262,lon:11.8},
+{id:641,name:"Passo Rolle",massif:"Northern Alps",alt_min:1873,alt_max:2216,snow:130,km:15,remontees:6,pistes:{v:0,b:33,r:47,n:20},lat:46.297,lon:11.787},
+{id:642,name:"Passo San Pellegrino",massif:"Northern Alps",alt_min:1190,alt_max:2513,snow:130,km:68,remontees:15,pistes:{v:0,b:30,r:57,n:13},lat:46.38,lon:11.787},
+{id:643,name:"Alpe Lusia",massif:"Northern Alps",alt_min:1367,alt_max:2340,snow:130,km:28,remontees:8,pistes:{v:0,b:47,r:39,n:14},lat:46.376,lon:11.66},
+{id:644,name:"Alpe Cermis",massif:"Northern Alps",alt_min:860,alt_max:2250,snow:130,km:24,remontees:7,pistes:{v:0,b:42,r:38,n:20},lat:46.29,lon:11.459},
+{id:645,name:"Paganella",massif:"Northern Alps",alt_min:1040,alt_max:2125,snow:130,km:40,remontees:15,pistes:{v:0,b:32,r:62,n:6},lat:46.166,lon:11.004},
+{id:646,name:"Brentonico",massif:"Northern Alps",alt_min:1195,alt_max:1583,snow:70,km:22,remontees:7,pistes:{v:0,b:31,r:49,n:20},lat:45.82,lon:10.955},
+{id:647,name:"Pejo 3000",massif:"Northern Alps",alt_min:1400,alt_max:3000,snow:220,km:20,remontees:7,pistes:{v:0,b:25,r:64,n:11},lat:46.365,lon:10.668},
+{id:648,name:"Monte Bondone",massif:"Northern Alps",alt_min:1189,alt_max:2090,snow:130,km:19,remontees:4,pistes:{v:0,b:26,r:69,n:5},lat:46.02,lon:11.05},
+{id:649,name:"Panarotta",massif:"Northern Alps",alt_min:1518,alt_max:2002,snow:130,km:18,remontees:5,pistes:{v:0,b:33,r:33,n:34},lat:46.04,lon:11.32},
+{id:650,name:"Passo Brocon",massif:"Northern Alps",alt_min:1598,alt_max:2050,snow:130,km:10,remontees:4,pistes:{v:0,b:46,r:51,n:3},lat:46.11,lon:11.7},
+{id:660,name:"Ortisei",massif:"Northern Alps",alt_min:1236,alt_max:2518,snow:130,km:181,remontees:78,pistes:{v:0,b:29,r:60,n:11},lat:46.575,lon:11.672},
+{id:661,name:"Santa Cristina",massif:"Northern Alps",alt_min:1236,alt_max:2518,snow:130,km:181,remontees:78,pistes:{v:0,b:29,r:60,n:11},lat:46.558,lon:11.721},
+{id:662,name:"Selva di Val Gardena",massif:"Northern Alps",alt_min:1236,alt_max:2518,snow:130,km:181,remontees:78,pistes:{v:0,b:29,r:60,n:11},lat:46.556,lon:11.76},
+{id:663,name:"Corvara",massif:"Northern Alps",alt_min:1324,alt_max:2778,snow:130,km:130,remontees:53,pistes:{v:0,b:57,r:36,n:7},lat:46.55,lon:11.874},
+{id:664,name:"La Villa",massif:"Northern Alps",alt_min:1324,alt_max:2778,snow:130,km:130,remontees:53,pistes:{v:0,b:57,r:36,n:7},lat:46.587,lon:11.899},
+{id:665,name:"San Cassiano",massif:"Northern Alps",alt_min:1324,alt_max:2778,snow:130,km:130,remontees:53,pistes:{v:0,b:57,r:36,n:7},lat:46.571,lon:11.931},
+{id:666,name:"Brunico – Kronplatz",massif:"Northern Alps",alt_min:973,alt_max:2275,snow:130,km:125,remontees:32,pistes:{v:0,b:48,r:29,n:23},lat:46.786,lon:11.96},
+{id:667,name:"San Vigilio di Marebbe",massif:"Northern Alps",alt_min:973,alt_max:2275,snow:130,km:125,remontees:32,pistes:{v:0,b:48,r:29,n:23},lat:46.698,lon:11.935},
+{id:668,name:"Valdaora – Kronplatz",massif:"Northern Alps",alt_min:973,alt_max:2275,snow:130,km:125,remontees:32,pistes:{v:0,b:48,r:29,n:23},lat:46.76,lon:12.03},
+{id:669,name:"Sesto – 3 Zinnen",massif:"Northern Alps",alt_min:1130,alt_max:2225,snow:130,km:86,remontees:19,pistes:{v:0,b:47,r:44,n:9},lat:46.7,lon:12.35},
+{id:670,name:"Alpe di Siusi",massif:"Northern Alps",alt_min:1227,alt_max:2220,snow:130,km:73,remontees:21,pistes:{v:0,b:33,r:63,n:4},lat:46.542,lon:11.618},
+{id:671,name:"Schöneben – Haideralm",massif:"Northern Alps",alt_min:1460,alt_max:2390,snow:130,km:65,remontees:10,pistes:{v:0,b:45,r:46,n:9},lat:46.8,lon:10.5},
+{id:672,name:"Gitschberg Jochtal",massif:"Northern Alps",alt_min:1307,alt_max:2510,snow:130,km:55,remontees:14,pistes:{v:0,b:34,r:49,n:17},lat:46.79,lon:11.68},
+{id:673,name:"Obereggen",massif:"Northern Alps",alt_min:1540,alt_max:2388,snow:130,km:49,remontees:18,pistes:{v:0,b:19,r:67,n:14},lat:46.38,lon:11.52},
+{id:674,name:"Pampeago",massif:"Northern Alps",alt_min:1540,alt_max:2388,snow:130,km:49,remontees:18,pistes:{v:0,b:19,r:67,n:14},lat:46.335,lon:11.55},
+{id:675,name:"Predazzo",massif:"Northern Alps",alt_min:1540,alt_max:2388,snow:130,km:49,remontees:18,pistes:{v:0,b:19,r:67,n:14},lat:46.312,lon:11.602},
+{id:676,name:"Carezza",massif:"Northern Alps",alt_min:1182,alt_max:2337,snow:130,km:40,remontees:13,pistes:{v:0,b:48,r:40,n:12},lat:46.408,lon:11.6},
+{id:677,name:"Plose",massif:"Northern Alps",alt_min:1039,alt_max:2505,snow:130,km:43,remontees:7,pistes:{v:0,b:46,r:22,n:32},lat:46.7,lon:11.72},
+{id:678,name:"Val Senales",massif:"Northern Alps",alt_min:2011,alt_max:3212,snow:220,km:42,remontees:11,pistes:{v:0,b:24,r:43,n:33},lat:46.76,lon:10.81},
+{id:679,name:"Speikboden",massif:"Northern Alps",alt_min:950,alt_max:2400,snow:130,km:42,remontees:8,pistes:{v:0,b:55,r:31,n:14},lat:46.92,lon:11.94},
+{id:680,name:"Klausberg",massif:"Northern Alps",alt_min:1050,alt_max:2510,snow:130,km:41,remontees:11,pistes:{v:0,b:48,r:35,n:17},lat:47.01,lon:11.97},
+{id:681,name:"Solda",massif:"Northern Alps",alt_min:1900,alt_max:3250,snow:220,km:40,remontees:11,pistes:{v:0,b:49,r:32,n:19},lat:46.513,lon:10.594},
+{id:682,name:"Meran 2000",massif:"Northern Alps",alt_min:1609,alt_max:2350,snow:130,km:40,remontees:8,pistes:{v:0,b:30,r:62,n:8},lat:46.69,lon:11.23},
+{id:683,name:"Racines-Giovo",massif:"Northern Alps",alt_min:1300,alt_max:2100,snow:130,km:28,remontees:7,pistes:{v:0,b:20,r:77,n:3},lat:46.88,lon:11.33},
+{id:684,name:"Schwemmalm",massif:"Northern Alps",alt_min:1505,alt_max:2625,snow:130,km:27,remontees:8,pistes:{v:0,b:23,r:56,n:21},lat:46.55,lon:10.97},
+{id:685,name:"Reinswald",massif:"Northern Alps",alt_min:1570,alt_max:2460,snow:130,km:22,remontees:4,pistes:{v:0,b:14,r:77,n:9},lat:46.66,lon:11.45},
+{id:686,name:"Rosskopf",massif:"Northern Alps",alt_min:960,alt_max:2120,snow:130,km:20,remontees:3,pistes:{v:0,b:30,r:65,n:5},lat:46.895,lon:11.43},
+{id:687,name:"Pfelders",massif:"Northern Alps",alt_min:1601,alt_max:2502,snow:130,km:18,remontees:4,pistes:{v:0,b:28,r:50,n:22},lat:46.79,lon:11.08},
+{id:688,name:"Ladurns",massif:"Northern Alps",alt_min:1140,alt_max:2030,snow:130,km:18,remontees:3,pistes:{v:0,b:47,r:47,n:6},lat:46.97,lon:11.37},
+{id:689,name:"Watles",massif:"Northern Alps",alt_min:1750,alt_max:2520,snow:130,km:18,remontees:3,pistes:{v:0,b:28,r:56,n:16},lat:46.72,lon:10.52},
+{id:690,name:"Corno del Renon",massif:"Northern Alps",alt_min:1538,alt_max:2260,snow:130,km:13,remontees:3,pistes:{v:0,b:62,r:20,n:18},lat:46.62,lon:11.45},
+{id:691,name:"San Candido – Baranci",massif:"Northern Alps",alt_min:1175,alt_max:1610,snow:90,km:13,remontees:5,pistes:{v:0,b:57,r:40,n:3},lat:46.73,lon:12.28},
+{id:700,name:"Cortina d'Ampezzo",massif:"Northern Alps",alt_min:1217,alt_max:2828,snow:130,km:120,remontees:25,pistes:{v:0,b:38,r:49,n:13},lat:46.54,lon:12.136},
+{id:701,name:"Arabba",massif:"Northern Alps",alt_min:1446,alt_max:3269,snow:220,km:63,remontees:24,pistes:{v:0,b:37,r:48,n:15},lat:46.497,lon:11.874},
+{id:702,name:"Civetta",massif:"Northern Alps",alt_min:1000,alt_max:2100,snow:130,km:72,remontees:23,pistes:{v:0,b:39,r:50,n:11},lat:46.407,lon:12.02},
+{id:703,name:"Gallio – Le Melette",massif:"Northern Alps",alt_min:1413,alt_max:1733,snow:90,km:18,remontees:4,pistes:{v:0,b:12,r:65,n:23},lat:45.89,lon:11.55},
+{id:704,name:"Monte Verena",massif:"Northern Alps",alt_min:1640,alt_max:2020,snow:130,km:15,remontees:5,pistes:{v:0,b:33,r:20,n:47},lat:45.93,lon:11.42},
+{id:705,name:"Sella Nevea",massif:"Northern Alps",alt_min:1103,alt_max:2292,snow:130,km:30,remontees:10,pistes:{v:0,b:20,r:73,n:7},lat:46.389,lon:13.48},
+{id:706,name:"Zoncolan",massif:"Northern Alps",alt_min:900,alt_max:1970,snow:90,km:24,remontees:11,pistes:{v:0,b:37,r:46,n:17},lat:46.525,lon:12.922},
+{id:707,name:"Tarvisio",massif:"Northern Alps",alt_min:754,alt_max:1752,snow:90,km:23,remontees:13,pistes:{v:0,b:28,r:36,n:36},lat:46.505,lon:13.58},
+{id:708,name:"Sappada",massif:"Northern Alps",alt_min:1223,alt_max:2000,snow:130,km:15,remontees:9,pistes:{v:0,b:28,r:57,n:15},lat:46.567,lon:12.69},
+{id:709,name:"Piancavallo",massif:"Northern Alps",alt_min:1245,alt_max:1865,snow:90,km:13,remontees:12,pistes:{v:0,b:17,r:75,n:8},lat:46.106,lon:12.522},
+{id:710,name:"Forni di Sopra",massif:"Northern Alps",alt_min:882,alt_max:2066,snow:130,km:13,remontees:8,pistes:{v:0,b:9,r:85,n:6},lat:46.423,lon:12.582},
+{id:711,name:"Roccaraso",massif:"Apennins",alt_min:1309,alt_max:2141,snow:130,km:91,remontees:23,pistes:{v:0,b:41,r:36,n:23},lat:41.845,lon:14.08},
+{id:712,name:"Cimone",massif:"Apennins",alt_min:900,alt_max:1976,snow:90,km:50,remontees:18,pistes:{v:0,b:30,r:50,n:20},lat:44.23,lon:10.77},
+{id:713,name:"Abetone",massif:"Apennins",alt_min:1240,alt_max:1892,snow:90,km:44,remontees:17,pistes:{v:0,b:32,r:65,n:3},lat:44.143,lon:10.663},
+{id:714,name:"Campo Felice",massif:"Apennins",alt_min:1411,alt_max:1916,snow:90,km:31,remontees:15,pistes:{v:0,b:28,r:44,n:28},lat:42.22,lon:13.42},
+{id:715,name:"Ovindoli",massif:"Apennins",alt_min:1413,alt_max:2056,snow:130,km:22,remontees:12,pistes:{v:0,b:25,r:38,n:37},lat:42.14,lon:13.52},
+{id:716,name:"Palumbosila",massif:"Apennins",alt_min:1350,alt_max:1650,snow:90,km:20,remontees:3,pistes:{v:0,b:55,r:45,n:0},lat:39.24,lon:16.62},
+{id:717,name:"Campitello Matese",massif:"Apennins",alt_min:1417,alt_max:1827,snow:90,km:19,remontees:6,pistes:{v:0,b:21,r:67,n:12},lat:41.45,lon:14.38},
+{id:718,name:"Laceno",massif:"Apennins",alt_min:1109,alt_max:1652,snow:90,km:15,remontees:2,pistes:{v:0,b:37,r:14,n:49},lat:40.81,lon:15.08},
+{id:719,name:"Doganaccia",massif:"Apennins",alt_min:1446,alt_max:1795,snow:90,km:15,remontees:5,pistes:{v:0,b:53,r:33,n:14},lat:44.11,lon:10.74},
+{id:720,name:"Corno alle Scale",massif:"Apennins",alt_min:1418,alt_max:1945,snow:90,km:14,remontees:6,pistes:{v:0,b:36,r:50,n:14},lat:44.12,lon:10.84},
+{id:721,name:"Campo Stella",massif:"Apennins",alt_min:1129,alt_max:1696,snow:90,km:14,remontees:2,pistes:{v:0,b:79,r:7,n:14},lat:42.57,lon:12.96},
+{id:722,name:"Schia",massif:"Apennins",alt_min:1202,alt_max:1485,snow:70,km:13,remontees:3,pistes:{v:0,b:14,r:68,n:18},lat:44.47,lon:10.13},
+{id:723,name:"Monte Catria",massif:"Apennins",alt_min:572,alt_max:1478,snow:70,km:12,remontees:3,pistes:{v:0,b:18,r:79,n:3},lat:43.46,lon:12.7},
+{id:724,name:"Sassotetto",massif:"Apennins",alt_min:1289,alt_max:1592,snow:70,km:12,remontees:7,pistes:{v:0,b:22,r:70,n:8},lat:43.01,lon:13.24},
+{id:725,name:"Monte Carpegna",massif:"Apennins",alt_min:1236,alt_max:1397,snow:70,km:10,remontees:2,pistes:{v:0,b:34,r:66,n:0},lat:43.8,lon:12.33},
+{id:800,name:"St. Anton am Arlberg",massif:"Northern Alps",alt_min:1304,alt_max:2811,snow:160,km:300,remontees:85,pistes:{v:0,b:43,r:40,n:17},lat:47.129,lon:10.268},
+{id:801,name:"St. Christoph",massif:"Northern Alps",alt_min:1304,alt_max:2811,snow:160,km:300,remontees:85,pistes:{v:0,b:43,r:40,n:17},lat:47.132,lon:10.192},
+{id:802,name:"Stuben",massif:"Northern Alps",alt_min:1304,alt_max:2811,snow:160,km:300,remontees:85,pistes:{v:0,b:43,r:40,n:17},lat:47.135,lon:10.162},
+{id:803,name:"Lech",massif:"Northern Alps",alt_min:1304,alt_max:2811,snow:160,km:300,remontees:85,pistes:{v:0,b:43,r:40,n:17},lat:47.208,lon:10.142},
+{id:804,name:"Zürs",massif:"Northern Alps",alt_min:1304,alt_max:2811,snow:160,km:300,remontees:85,pistes:{v:0,b:43,r:40,n:17},lat:47.17,lon:10.169},
+{id:805,name:"Warth-Schröcken",massif:"Northern Alps",alt_min:1304,alt_max:2811,snow:160,km:300,remontees:85,pistes:{v:0,b:43,r:40,n:17},lat:47.256,lon:10.181},
+{id:806,name:"Söll",massif:"Northern Alps",alt_min:620,alt_max:1869,snow:90,km:275,remontees:81,pistes:{v:0,b:42,r:44,n:14},lat:47.504,lon:12.192},
+{id:807,name:"Ellmau",massif:"Northern Alps",alt_min:620,alt_max:1869,snow:90,km:275,remontees:81,pistes:{v:0,b:42,r:44,n:14},lat:47.513,lon:12.302},
+{id:808,name:"Scheffau",massif:"Northern Alps",alt_min:620,alt_max:1869,snow:90,km:275,remontees:81,pistes:{v:0,b:42,r:44,n:14},lat:47.53,lon:12.25},
+{id:809,name:"Going",massif:"Northern Alps",alt_min:620,alt_max:1869,snow:90,km:275,remontees:81,pistes:{v:0,b:42,r:44,n:14},lat:47.514,lon:12.335},
+{id:810,name:"Brixen im Thale",massif:"Northern Alps",alt_min:620,alt_max:1869,snow:90,km:275,remontees:81,pistes:{v:0,b:42,r:44,n:14},lat:47.448,lon:12.256},
+{id:811,name:"Westendorf",massif:"Northern Alps",alt_min:620,alt_max:1869,snow:90,km:275,remontees:81,pistes:{v:0,b:42,r:44,n:14},lat:47.431,lon:12.214},
+{id:812,name:"Hopfgarten",massif:"Northern Alps",alt_min:620,alt_max:1869,snow:90,km:275,remontees:81,pistes:{v:0,b:42,r:44,n:14},lat:47.452,lon:12.154},
+{id:813,name:"Ischgl",massif:"Northern Alps",alt_min:1360,alt_max:2872,snow:160,km:239,remontees:45,pistes:{v:0,b:20,r:59,n:21},lat:47.012,lon:10.292},
+{id:814,name:"Kitzbühel",massif:"Northern Alps",alt_min:800,alt_max:2000,snow:120,km:188,remontees:58,pistes:{v:0,b:54,r:35,n:11},lat:47.446,lon:12.392},
+{id:815,name:"Kirchberg in Tirol",massif:"Northern Alps",alt_min:800,alt_max:2000,snow:120,km:188,remontees:58,pistes:{v:0,b:54,r:35,n:11},lat:47.446,lon:12.318},
+{id:816,name:"Serfaus",massif:"Northern Alps",alt_min:1200,alt_max:2828,snow:160,km:186,remontees:38,pistes:{v:0,b:25,r:60,n:15},lat:47.04,lon:10.605},
+{id:817,name:"Fiss",massif:"Northern Alps",alt_min:1200,alt_max:2828,snow:160,km:186,remontees:38,pistes:{v:0,b:25,r:60,n:15},lat:47.06,lon:10.615},
+{id:818,name:"Ladis",massif:"Northern Alps",alt_min:1200,alt_max:2828,snow:160,km:186,remontees:38,pistes:{v:0,b:25,r:60,n:15},lat:47.07,lon:10.648},
+{id:819,name:"Zell am Ziller",massif:"Northern Alps",alt_min:580,alt_max:2500,snow:160,km:150,remontees:52,pistes:{v:0,b:33,r:59,n:8},lat:47.232,lon:11.884},
+{id:820,name:"Gerlos",massif:"Northern Alps",alt_min:580,alt_max:2500,snow:160,km:150,remontees:52,pistes:{v:0,b:33,r:59,n:8},lat:47.225,lon:12.035},
+{id:821,name:"Königsleiten",massif:"Northern Alps",alt_min:580,alt_max:2500,snow:160,km:150,remontees:52,pistes:{v:0,b:33,r:59,n:8},lat:47.208,lon:12.11},
+{id:822,name:"Hochkrimml",massif:"Northern Alps",alt_min:580,alt_max:2500,snow:160,km:150,remontees:52,pistes:{v:0,b:33,r:59,n:8},lat:47.213,lon:12.165},
+{id:823,name:"Sölden",massif:"Northern Alps",alt_min:1350,alt_max:3340,snow:220,km:146,remontees:31,pistes:{v:0,b:52,r:28,n:20},lat:46.965,lon:11.007},
+{id:824,name:"Mayrhofen",massif:"Northern Alps",alt_min:630,alt_max:2500,snow:160,km:142,remontees:61,pistes:{v:0,b:31,r:46,n:23},lat:47.166,lon:11.864},
+{id:825,name:"Finkenberg",massif:"Northern Alps",alt_min:630,alt_max:2500,snow:160,km:142,remontees:61,pistes:{v:0,b:31,r:46,n:23},lat:47.153,lon:11.82},
+{id:826,name:"Obergurgl – Hochgurgl",massif:"Northern Alps",alt_min:1793,alt_max:3030,snow:220,km:112,remontees:25,pistes:{v:0,b:54,r:30,n:16},lat:46.87,lon:11.027},
+{id:827,name:"Alpbach",massif:"Northern Alps",alt_min:830,alt_max:2030,snow:120,km:98,remontees:45,pistes:{v:0,b:33,r:54,n:13},lat:47.399,lon:11.944},
+{id:828,name:"Wildschönau",massif:"Northern Alps",alt_min:830,alt_max:2030,snow:120,km:98,remontees:45,pistes:{v:0,b:33,r:54,n:13},lat:47.406,lon:12.04},
+{id:829,name:"Kaltenbach",massif:"Northern Alps",alt_min:600,alt_max:2378,snow:160,km:89,remontees:38,pistes:{v:0,b:43,r:42,n:15},lat:47.289,lon:11.868},
+{id:830,name:"Hochfügen",massif:"Northern Alps",alt_min:600,alt_max:2378,snow:160,km:89,remontees:38,pistes:{v:0,b:43,r:42,n:15},lat:47.266,lon:11.844},
+{id:831,name:"Waidring",massif:"Northern Alps",alt_min:740,alt_max:1860,snow:90,km:42,remontees:14,pistes:{v:0,b:48,r:48,n:4},lat:47.583,lon:12.571},
+{id:832,name:"Nauders",massif:"Northern Alps",alt_min:1400,alt_max:2750,snow:160,km:75,remontees:11,pistes:{v:0,b:33,r:48,n:19},lat:46.892,lon:10.501},
+{id:833,name:"Glacier du Stubai",massif:"Northern Alps",alt_min:1695,alt_max:3210,snow:220,km:65,remontees:26,pistes:{v:0,b:60,r:36,n:4},lat:46.993,lon:11.115},
+{id:834,name:"Glacier de Hintertux",massif:"Northern Alps",alt_min:1500,alt_max:3250,snow:220,km:64,remontees:20,pistes:{v:0,b:27,r:55,n:18},lat:47.073,lon:11.685},
+{id:835,name:"Glacier du Kaunertal",massif:"Northern Alps",alt_min:2150,alt_max:3113,snow:220,km:55,remontees:9,pistes:{v:0,b:41,r:41,n:18},lat:46.869,lon:10.73},
+{id:836,name:"Hochzeiger",massif:"Northern Alps",alt_min:1450,alt_max:2488,snow:160,km:54,remontees:9,pistes:{v:0,b:28,r:51,n:21},lat:47.135,lon:10.74},
+{id:837,name:"Kühtai",massif:"Northern Alps",alt_min:1938,alt_max:2520,snow:160,km:50,remontees:12,pistes:{v:0,b:13,r:56,n:31},lat:47.214,lon:11.024},
+{id:838,name:"Galtür",massif:"Northern Alps",alt_min:1600,alt_max:2300,snow:160,km:43,remontees:8,pistes:{v:0,b:14,r:58,n:28},lat:46.968,lon:10.187},
+{id:839,name:"See",massif:"Northern Alps",alt_min:1040,alt_max:2570,snow:160,km:43,remontees:10,pistes:{v:0,b:24,r:60,n:16},lat:47.086,lon:10.47},
+{id:840,name:"Glacier du Pitztal",massif:"Northern Alps",alt_min:2685,alt_max:3440,snow:220,km:41,remontees:7,pistes:{v:0,b:27,r:68,n:5},lat:46.929,lon:10.88},
+{id:841,name:"Axamer Lizum",massif:"Northern Alps",alt_min:1560,alt_max:2340,snow:160,km:41,remontees:9,pistes:{v:0,b:18,r:39,n:43},lat:47.194,lon:11.303},
+{id:842,name:"Kals-Matrei",massif:"Northern Alps",alt_min:933,alt_max:2426,snow:160,km:40,remontees:12,pistes:{v:0,b:21,r:64,n:15},lat:47.0,lon:12.64},
+{id:843,name:"St. Johann in Tirol",massif:"Northern Alps",alt_min:659,alt_max:1604,snow:90,km:40,remontees:9,pistes:{v:0,b:54,r:45,n:1},lat:47.523,lon:12.424},
+{id:844,name:"Hochoetz",massif:"Northern Alps",alt_min:1410,alt_max:2272,snow:120,km:38,remontees:15,pistes:{v:0,b:45,r:44,n:11},lat:47.2,lon:10.895},
+{id:845,name:"Kappl",massif:"Northern Alps",alt_min:1175,alt_max:2690,snow:160,km:36,remontees:10,pistes:{v:0,b:17,r:64,n:19},lat:47.061,lon:10.378},
+{id:846,name:"Berwang",massif:"Northern Alps",alt_min:1079,alt_max:1743,snow:90,km:35,remontees:12,pistes:{v:0,b:52,r:44,n:4},lat:47.404,lon:10.75},
+{id:847,name:"Steinach am Brenner",massif:"Northern Alps",alt_min:1048,alt_max:2180,snow:120,km:29,remontees:7,pistes:{v:0,b:33,r:36,n:31},lat:47.085,lon:11.465},
+{id:848,name:"Ehrwald",massif:"Northern Alps",alt_min:1112,alt_max:1923,snow:120,km:28,remontees:8,pistes:{v:0,b:65,r:27,n:8},lat:47.4,lon:10.92},
+{id:849,name:"Achenkirch",massif:"Northern Alps",alt_min:950,alt_max:1800,snow:90,km:27,remontees:10,pistes:{v:0,b:22,r:59,n:19},lat:47.525,lon:11.707},
+{id:850,name:"Lermoos",massif:"Northern Alps",alt_min:1004,alt_max:2100,snow:120,km:27,remontees:8,pistes:{v:0,b:54,r:38,n:8},lat:47.402,lon:10.88},
+{id:851,name:"Rifflsee",massif:"Northern Alps",alt_min:1640,alt_max:2800,snow:160,km:26,remontees:6,pistes:{v:0,b:23,r:50,n:27},lat:46.95,lon:10.87},
+{id:852,name:"Schlick 2000",massif:"Northern Alps",alt_min:1000,alt_max:2240,snow:120,km:25,remontees:9,pistes:{v:0,b:54,r:32,n:14},lat:47.147,lon:11.35},
+{id:853,name:"Niederau",massif:"Northern Alps",alt_min:825,alt_max:1560,snow:90,km:24,remontees:12,pistes:{v:0,b:25,r:50,n:25},lat:47.437,lon:12.08},
+{id:854,name:"St. Jakob im Defereggental",massif:"Northern Alps",alt_min:1400,alt_max:2683,snow:160,km:24,remontees:7,pistes:{v:0,b:21,r:53,n:26},lat:46.916,lon:12.345},
+{id:855,name:"Glungezer",massif:"Northern Alps",alt_min:950,alt_max:2304,snow:160,km:23,remontees:6,pistes:{v:0,b:28,r:67,n:5},lat:47.26,lon:11.53},
+{id:856,name:"Sillian",massif:"Northern Alps",alt_min:1100,alt_max:2407,snow:160,km:22,remontees:7,pistes:{v:0,b:24,r:72,n:4},lat:46.75,lon:12.42},
+{id:857,name:"Hochkössen",massif:"Northern Alps",alt_min:613,alt_max:1688,snow:90,km:21,remontees:11,pistes:{v:0,b:44,r:42,n:14},lat:47.66,lon:12.415},
+{id:858,name:"Buchensteinwand",massif:"Northern Alps",alt_min:855,alt_max:1456,snow:90,km:21,remontees:9,pistes:{v:0,b:38,r:48,n:14},lat:47.49,lon:12.6},
+{id:859,name:"Zettersfeld",massif:"Northern Alps",alt_min:1660,alt_max:2278,snow:120,km:21,remontees:6,pistes:{v:0,b:38,r:54,n:8},lat:46.85,lon:12.78},
+{id:860,name:"Fügen – Spieljoch",massif:"Northern Alps",alt_min:610,alt_max:2054,snow:120,km:20,remontees:10,pistes:{v:0,b:28,r:59,n:13},lat:47.345,lon:11.845},
+{id:861,name:"Seefeld – Rosshütte",massif:"Northern Alps",alt_min:1230,alt_max:2064,snow:120,km:19,remontees:12,pistes:{v:0,b:59,r:31,n:10},lat:47.325,lon:11.2},
+{id:862,name:"Patscherkofel",massif:"Northern Alps",alt_min:1009,alt_max:1965,snow:120,km:19,remontees:6,pistes:{v:0,b:26,r:53,n:21},lat:47.225,lon:11.42},
+{id:863,name:"Kitzbüheler Horn",massif:"Northern Alps",alt_min:770,alt_max:2000,snow:120,km:17,remontees:10,pistes:{v:0,b:35,r:53,n:12},lat:47.455,lon:12.42},
+{id:864,name:"Muttereralm",massif:"Northern Alps",alt_min:897,alt_max:1804,snow:90,km:16,remontees:5,pistes:{v:0,b:41,r:53,n:6},lat:47.225,lon:11.37},
+{id:865,name:"Reutte – Hahnenkamm",massif:"Northern Alps",alt_min:854,alt_max:1900,snow:120,km:16,remontees:3,pistes:{v:0,b:31,r:57,n:12},lat:47.47,lon:10.69},
+{id:866,name:"Vent",massif:"Northern Alps",alt_min:1900,alt_max:2646,snow:160,km:15,remontees:4,pistes:{v:0,b:33,r:67,n:0},lat:46.857,lon:10.912},
+{id:867,name:"Venet",massif:"Northern Alps",alt_min:780,alt_max:2212,snow:120,km:15,remontees:6,pistes:{v:0,b:0,r:80,n:20},lat:47.155,lon:10.6},
+{id:868,name:"Kellerjoch",massif:"Northern Alps",alt_min:1352,alt_max:1887,snow:90,km:14,remontees:5,pistes:{v:0,b:68,r:17,n:15},lat:47.32,lon:11.745},
+{id:869,name:"Nordkette",massif:"Northern Alps",alt_min:860,alt_max:2256,snow:120,km:13,remontees:6,pistes:{v:0,b:4,r:93,n:3},lat:47.285,lon:11.395},
+{id:870,name:"Obertilliach",massif:"Northern Alps",alt_min:1430,alt_max:2248,snow:120,km:12,remontees:5,pistes:{v:0,b:28,r:64,n:8},lat:46.705,lon:12.622},
+{id:871,name:"Pertisau – Karwendel",massif:"Northern Alps",alt_min:960,alt_max:1560,snow:90,km:12,remontees:5,pistes:{v:0,b:50,r:50,n:0},lat:47.435,lon:11.69},
+{id:872,name:"Biberwier",massif:"Northern Alps",alt_min:1000,alt_max:1820,snow:90,km:11,remontees:5,pistes:{v:0,b:66,r:34,n:0},lat:47.38,lon:10.89},
+{id:873,name:"Maurach – Rofan",massif:"Northern Alps",alt_min:980,alt_max:1870,snow:90,km:11,remontees:5,pistes:{v:0,b:9,r:73,n:18},lat:47.42,lon:11.748},
+{id:874,name:"Hoch-Imst",massif:"Northern Alps",alt_min:1053,alt_max:2026,snow:120,km:10,remontees:4,pistes:{v:0,b:25,r:57,n:18},lat:47.25,lon:10.735},
+{id:875,name:"Saalbach",massif:"Northern Alps",alt_min:830,alt_max:2096,snow:120,km:270,remontees:69,pistes:{v:0,b:52,r:41,n:7},lat:47.391,lon:12.636},
+{id:876,name:"Hinterglemm",massif:"Northern Alps",alt_min:830,alt_max:2096,snow:120,km:270,remontees:69,pistes:{v:0,b:52,r:41,n:7},lat:47.377,lon:12.598},
+{id:877,name:"Leogang",massif:"Northern Alps",alt_min:830,alt_max:2096,snow:120,km:270,remontees:69,pistes:{v:0,b:52,r:41,n:7},lat:47.438,lon:12.762},
+{id:878,name:"Fieberbrunn",massif:"Northern Alps",alt_min:830,alt_max:2096,snow:120,km:270,remontees:69,pistes:{v:0,b:52,r:41,n:7},lat:47.476,lon:12.545},
+{id:879,name:"Flachau",massif:"Northern Alps",alt_min:740,alt_max:1980,snow:120,km:120,remontees:43,pistes:{v:0,b:28,r:69,n:3},lat:47.345,lon:13.391},
+{id:880,name:"Wagrain",massif:"Northern Alps",alt_min:740,alt_max:1980,snow:120,km:120,remontees:43,pistes:{v:0,b:28,r:69,n:3},lat:47.335,lon:13.299},
+{id:881,name:"St. Johann-Alpendorf",massif:"Northern Alps",alt_min:740,alt_max:1980,snow:120,km:120,remontees:43,pistes:{v:0,b:28,r:69,n:3},lat:47.33,lon:13.185},
+{id:882,name:"Maria Alm",massif:"Northern Alps",alt_min:800,alt_max:1900,snow:120,km:120,remontees:34,pistes:{v:0,b:43,r:35,n:22},lat:47.405,lon:12.901},
+{id:883,name:"Dienten",massif:"Northern Alps",alt_min:800,alt_max:1900,snow:120,km:120,remontees:34,pistes:{v:0,b:43,r:35,n:22},lat:47.383,lon:13.004},
+{id:884,name:"Mühlbach am Hochkönig",massif:"Northern Alps",alt_min:800,alt_max:1900,snow:120,km:120,remontees:34,pistes:{v:0,b:43,r:35,n:22},lat:47.378,lon:13.13},
+{id:885,name:"Bad Gastein",massif:"Northern Alps",alt_min:860,alt_max:2300,snow:160,km:82,remontees:17,pistes:{v:0,b:37,r:60,n:3},lat:47.115,lon:13.134},
+{id:886,name:"Bad Hofgastein",massif:"Northern Alps",alt_min:860,alt_max:2300,snow:160,km:82,remontees:17,pistes:{v:0,b:37,r:60,n:3},lat:47.171,lon:13.101},
+{id:887,name:"Dorfgastein",massif:"Northern Alps",alt_min:849,alt_max:2033,snow:120,km:67,remontees:16,pistes:{v:0,b:46,r:52,n:2},lat:47.241,lon:13.143},
+{id:888,name:"Großarl",massif:"Northern Alps",alt_min:849,alt_max:2033,snow:120,km:67,remontees:16,pistes:{v:0,b:46,r:52,n:2},lat:47.238,lon:13.2},
+{id:889,name:"Kaprun",massif:"Northern Alps",alt_min:768,alt_max:3029,snow:220,km:62,remontees:24,pistes:{v:0,b:49,r:35,n:16},lat:47.272,lon:12.759},
+{id:890,name:"Zell am See",massif:"Northern Alps",alt_min:760,alt_max:2000,snow:120,km:77,remontees:27,pistes:{v:0,b:39,r:36,n:25},lat:47.323,lon:12.797},
+{id:891,name:"Obertauern",massif:"Northern Alps",alt_min:1630,alt_max:2313,snow:160,km:100,remontees:26,pistes:{v:0,b:61,r:35,n:4},lat:47.25,lon:13.558},
+{id:892,name:"Wildkogel (Neukirchen – Bramberg)",massif:"Northern Alps",alt_min:820,alt_max:2150,snow:120,km:75,remontees:20,pistes:{v:0,b:47,r:40,n:13},lat:47.253,lon:12.277},
+{id:893,name:"Zauchensee",massif:"Northern Alps",alt_min:1000,alt_max:2176,snow:120,km:45,remontees:16,pistes:{v:0,b:52,r:38,n:10},lat:47.305,lon:13.448},
+{id:894,name:"Lofer",massif:"Northern Alps",alt_min:640,alt_max:1670,snow:90,km:46,remontees:10,pistes:{v:0,b:70,r:26,n:4},lat:47.584,lon:12.692},
+{id:895,name:"Mauterndorf – Grosseck-Speiereck",massif:"Northern Alps",alt_min:1095,alt_max:2400,snow:160,km:50,remontees:10,pistes:{v:0,b:52,r:34,n:14},lat:47.134,lon:13.679},
+{id:896,name:"Dachstein West",massif:"Northern Alps",alt_min:745,alt_max:1617,snow:90,km:51,remontees:24,pistes:{v:0,b:29,r:65,n:6},lat:47.55,lon:13.44},
+{id:897,name:"Rauris",massif:"Northern Alps",alt_min:950,alt_max:2175,snow:120,km:32,remontees:10,pistes:{v:0,b:46,r:39,n:15},lat:47.223,lon:12.994},
+{id:898,name:"Werfenweng",massif:"Northern Alps",alt_min:902,alt_max:1834,snow:90,km:29,remontees:9,pistes:{v:0,b:45,r:52,n:3},lat:47.462,lon:13.258},
+{id:899,name:"Kleinarl – Shuttleberg",massif:"Northern Alps",alt_min:1000,alt_max:1980,snow:120,km:28,remontees:10,pistes:{v:0,b:68,r:25,n:7},lat:47.275,lon:13.32},
+{id:900,name:"Fanningberg",massif:"Northern Alps",alt_min:1497,alt_max:2115,snow:120,km:24,remontees:6,pistes:{v:0,b:46,r:24,n:30},lat:47.18,lon:13.79},
+{id:901,name:"Uttendorf – Weissee",massif:"Northern Alps",alt_min:1482,alt_max:2600,snow:160,km:23,remontees:7,pistes:{v:0,b:26,r:65,n:9},lat:47.155,lon:12.6},
+{id:902,name:"Filzmoos",massif:"Northern Alps",alt_min:970,alt_max:1591,snow:90,km:20,remontees:8,pistes:{v:0,b:45,r:50,n:5},lat:47.428,lon:13.52},
+{id:903,name:"Sportgastein",massif:"Northern Alps",alt_min:1585,alt_max:2650,snow:160,km:18,remontees:3,pistes:{v:0,b:19,r:73,n:8},lat:47.075,lon:13.05},
+{id:904,name:"Radstadt – Altenmarkt",massif:"Northern Alps",alt_min:850,alt_max:1571,snow:90,km:17,remontees:7,pistes:{v:0,b:53,r:44,n:3},lat:47.382,lon:13.461},
+{id:905,name:"Forstau – Fageralm",massif:"Northern Alps",alt_min:930,alt_max:1885,snow:90,km:14,remontees:6,pistes:{v:0,b:65,r:35,n:0},lat:47.37,lon:13.56},
+{id:906,name:"Unken – Heutal",massif:"Northern Alps",alt_min:970,alt_max:1531,snow:90,km:12,remontees:4,pistes:{v:0,b:50,r:42,n:8},lat:47.64,lon:12.69},
+{id:907,name:"Schruns",massif:"Northern Alps",alt_min:700,alt_max:2430,snow:160,km:141,remontees:35,pistes:{v:0,b:42,r:36,n:22},lat:47.08,lon:9.919},
+{id:908,name:"St. Gallenkirch",massif:"Northern Alps",alt_min:700,alt_max:2430,snow:160,km:141,remontees:35,pistes:{v:0,b:42,r:36,n:22},lat:47.02,lon:9.978},
+{id:909,name:"Gaschurn",massif:"Northern Alps",alt_min:700,alt_max:2430,snow:160,km:141,remontees:35,pistes:{v:0,b:42,r:36,n:22},lat:46.986,lon:10.028},
+{id:910,name:"Damüls",massif:"Northern Alps",alt_min:710,alt_max:2050,snow:120,km:75,remontees:21,pistes:{v:0,b:39,r:58,n:3},lat:47.281,lon:9.892},
+{id:911,name:"Mellau",massif:"Northern Alps",alt_min:710,alt_max:2050,snow:120,km:75,remontees:21,pistes:{v:0,b:39,r:58,n:3},lat:47.35,lon:9.882},
+{id:912,name:"Brand – Brandnertal",massif:"Northern Alps",alt_min:904,alt_max:2000,snow:120,km:47,remontees:13,pistes:{v:0,b:48,r:49,n:3},lat:47.103,lon:9.738},
+{id:913,name:"Golm",massif:"Northern Alps",alt_min:650,alt_max:2100,snow:120,km:26,remontees:9,pistes:{v:0,b:50,r:44,n:6},lat:47.08,lon:9.87},
+{id:914,name:"Gargellen",massif:"Northern Alps",alt_min:1423,alt_max:2300,snow:160,km:29,remontees:8,pistes:{v:0,b:66,r:24,n:10},lat:46.97,lon:9.92},
+{id:915,name:"Schoppernau – Diedamskopf",massif:"Northern Alps",alt_min:820,alt_max:2060,snow:120,km:40,remontees:9,pistes:{v:0,b:32,r:46,n:22},lat:47.312,lon:10.02},
+{id:916,name:"Mittelberg – Walmendingerhorn",massif:"Northern Alps",alt_min:1070,alt_max:1946,snow:120,km:33,remontees:13,pistes:{v:0,b:58,r:35,n:7},lat:47.323,lon:10.155},
+{id:917,name:"Ifen (Kleinwalsertal)",massif:"Northern Alps",alt_min:1270,alt_max:2030,snow:120,km:24,remontees:4,pistes:{v:0,b:53,r:32,n:15},lat:47.345,lon:10.11},
+{id:918,name:"Sonnenkopf (Klösterle)",massif:"Northern Alps",alt_min:1000,alt_max:2300,snow:160,km:29,remontees:9,pistes:{v:0,b:43,r:54,n:3},lat:47.132,lon:10.055},
+{id:919,name:"Laterns – Gapfohl",massif:"Northern Alps",alt_min:1040,alt_max:1785,snow:90,km:27,remontees:5,pistes:{v:0,b:30,r:55,n:15},lat:47.265,lon:9.735},
+{id:920,name:"Bödele",massif:"Northern Alps",alt_min:700,alt_max:1467,snow:90,km:25,remontees:12,pistes:{v:0,b:36,r:48,n:16},lat:47.42,lon:9.82},
+{id:921,name:"Schetteregg",massif:"Northern Alps",alt_min:1070,alt_max:1325,snow:90,km:11,remontees:8,pistes:{v:0,b:36,r:55,n:9},lat:47.42,lon:9.925},
+{id:922,name:"Hochhäderich",massif:"Northern Alps",alt_min:1250,alt_max:1600,snow:90,km:10,remontees:5,pistes:{v:0,b:33,r:48,n:19},lat:47.49,lon:9.99},
+{id:923,name:"Schladming",massif:"Northern Alps",alt_min:728,alt_max:2015,snow:120,km:123,remontees:47,pistes:{v:0,b:38,r:55,n:7},lat:47.394,lon:13.687},
+{id:924,name:"Haus im Ennstal",massif:"Northern Alps",alt_min:728,alt_max:2015,snow:120,km:123,remontees:47,pistes:{v:0,b:38,r:55,n:7},lat:47.41,lon:13.767},
+{id:925,name:"Pichl – Reiteralm",massif:"Northern Alps",alt_min:728,alt_max:2015,snow:120,km:123,remontees:47,pistes:{v:0,b:38,r:55,n:7},lat:47.387,lon:13.618},
+{id:926,name:"Tauplitz",massif:"Northern Alps",alt_min:896,alt_max:1965,snow:120,km:43,remontees:17,pistes:{v:0,b:43,r:43,n:14},lat:47.565,lon:14.005},
+{id:927,name:"Turracher Höhe",massif:"Northern Alps",alt_min:1400,alt_max:2205,snow:120,km:42,remontees:15,pistes:{v:0,b:34,r:59,n:7},lat:46.915,lon:13.875},
+{id:928,name:"Kreischberg",massif:"Northern Alps",alt_min:868,alt_max:2118,snow:120,km:42,remontees:12,pistes:{v:0,b:41,r:38,n:21},lat:47.09,lon:14.1},
+{id:929,name:"Altaussee – Loser",massif:"Northern Alps",alt_min:850,alt_max:1800,snow:90,km:34,remontees:8,pistes:{v:0,b:62,r:35,n:3},lat:47.655,lon:13.77},
+{id:930,name:"Riesneralm",massif:"Northern Alps",alt_min:973,alt_max:1820,snow:90,km:33,remontees:8,pistes:{v:0,b:45,r:47,n:8},lat:47.41,lon:14.13},
+{id:931,name:"Lachtal",massif:"Northern Alps",alt_min:1600,alt_max:2222,snow:120,km:26,remontees:10,pistes:{v:0,b:27,r:62,n:11},lat:47.25,lon:14.38},
+{id:932,name:"Spital am Semmering – Stuhleck",massif:"Northern Alps",alt_min:777,alt_max:1774,snow:90,km:25,remontees:11,pistes:{v:0,b:77,r:23,n:0},lat:47.6,lon:15.79},
+{id:933,name:"Präbichl",massif:"Northern Alps",alt_min:1100,alt_max:1608,snow:90,km:20,remontees:6,pistes:{v:0,b:30,r:55,n:15},lat:47.52,lon:14.95},
+{id:934,name:"Planneralm",massif:"Northern Alps",alt_min:1600,alt_max:2000,snow:120,km:16,remontees:6,pistes:{v:0,b:38,r:43,n:19},lat:47.41,lon:14.2},
+{id:935,name:"St. Lambrecht – Grebenzen",massif:"Northern Alps",alt_min:1010,alt_max:1870,snow:90,km:14,remontees:8,pistes:{v:0,b:21,r:77,n:2},lat:47.06,lon:14.3},
+{id:936,name:"Pruggern – Galsterberg",massif:"Northern Alps",alt_min:1142,alt_max:1984,snow:120,km:13,remontees:4,pistes:{v:0,b:39,r:57,n:4},lat:47.42,lon:13.86},
+{id:937,name:"Obdach – Rieseralm",massif:"Northern Alps",alt_min:1320,alt_max:1620,snow:90,km:13,remontees:6,pistes:{v:0,b:38,r:47,n:15},lat:47.05,lon:14.65},
+{id:938,name:"Ramsau am Dachstein – Rittisberg",massif:"Northern Alps",alt_min:1035,alt_max:1636,snow:90,km:12,remontees:8,pistes:{v:0,b:60,r:32,n:8},lat:47.42,lon:13.65},
+{id:939,name:"Niederalpl",massif:"Northern Alps",alt_min:1220,alt_max:1460,snow:90,km:12,remontees:6,pistes:{v:0,b:33,r:67,n:0},lat:47.66,lon:15.55},
+{id:940,name:"Hirschegg – Salzstiegl",massif:"Northern Alps",alt_min:1320,alt_max:1740,snow:90,km:12,remontees:7,pistes:{v:0,b:50,r:33,n:17},lat:47.03,lon:14.94},
+{id:941,name:"Mariazell – Bürgeralpe",massif:"Northern Alps",alt_min:851,alt_max:1267,snow:90,km:11,remontees:4,pistes:{v:0,b:61,r:26,n:13},lat:47.77,lon:15.32},
+{id:942,name:"Hohentauern",massif:"Northern Alps",alt_min:1241,alt_max:1734,snow:90,km:11,remontees:6,pistes:{v:0,b:27,r:64,n:9},lat:47.435,lon:14.48},
+{id:943,name:"Veitsch – Brunnalm",massif:"Northern Alps",alt_min:1064,alt_max:1450,snow:90,km:10,remontees:6,pistes:{v:0,b:48,r:33,n:19},lat:47.6,lon:15.44},
+{id:944,name:"Nassfeld",massif:"Northern Alps",alt_min:600,alt_max:2002,snow:120,km:110,remontees:29,pistes:{v:0,b:27,r:63,n:10},lat:46.56,lon:13.28},
+{id:945,name:"Bad Kleinkirchheim",massif:"Northern Alps",alt_min:1087,alt_max:2055,snow:120,km:103,remontees:24,pistes:{v:0,b:11,r:81,n:8},lat:46.814,lon:13.797},
+{id:946,name:"Katschberg",massif:"Northern Alps",alt_min:1066,alt_max:2220,snow:120,km:80,remontees:17,pistes:{v:0,b:15,r:70,n:15},lat:47.06,lon:13.62},
+{id:947,name:"Heiligenblut",massif:"Northern Alps",alt_min:1301,alt_max:2902,snow:160,km:55,remontees:11,pistes:{v:0,b:36,r:62,n:2},lat:47.04,lon:12.843},
+{id:948,name:"Gerlitzen",massif:"Northern Alps",alt_min:1000,alt_max:1911,snow:120,km:52,remontees:21,pistes:{v:0,b:17,r:70,n:13},lat:46.69,lon:13.91},
+{id:949,name:"Mölltaler Gletscher",massif:"Northern Alps",alt_min:2108,alt_max:3122,snow:220,km:36,remontees:8,pistes:{v:0,b:18,r:56,n:26},lat:46.99,lon:13.02},
+{id:950,name:"Klippitztörl",massif:"Northern Alps",alt_min:1460,alt_max:1818,snow:90,km:28,remontees:6,pistes:{v:0,b:64,r:36,n:0},lat:46.87,lon:14.68},
+{id:951,name:"Spittal – Goldeck",massif:"Northern Alps",alt_min:547,alt_max:2142,snow:120,km:24,remontees:6,pistes:{v:0,b:45,r:28,n:27},lat:46.77,lon:13.47},
+{id:952,name:"Hochrindl",massif:"Northern Alps",alt_min:1470,alt_max:1832,snow:90,km:20,remontees:7,pistes:{v:0,b:26,r:56,n:18},lat:46.89,lon:14.06},
+{id:953,name:"Koralpe",massif:"Northern Alps",alt_min:1650,alt_max:2070,snow:120,km:18,remontees:5,pistes:{v:0,b:39,r:50,n:11},lat:46.79,lon:14.97},
+{id:954,name:"Weinebene",massif:"Northern Alps",alt_min:1580,alt_max:1886,snow:90,km:18,remontees:8,pistes:{v:0,b:44,r:56,n:0},lat:46.84,lon:15.01},
+{id:955,name:"Petzen",massif:"Northern Alps",alt_min:650,alt_max:1900,snow:120,km:16,remontees:6,pistes:{v:0,b:56,r:42,n:2},lat:46.51,lon:14.77},
+{id:956,name:"St. Urban – Simonhöhe",massif:"Northern Alps",alt_min:1042,alt_max:1340,snow:90,km:15,remontees:8,pistes:{v:0,b:53,r:47,n:0},lat:46.75,lon:14.19},
+{id:957,name:"Arnoldstein – Dreiländereck",massif:"Northern Alps",alt_min:680,alt_max:1552,snow:90,km:13,remontees:7,pistes:{v:0,b:35,r:53,n:12},lat:46.54,lon:13.7},
+{id:958,name:"Mallnitz – Ankogel",massif:"Northern Alps",alt_min:1266,alt_max:2636,snow:160,km:12,remontees:5,pistes:{v:0,b:22,r:39,n:39},lat:46.99,lon:13.17},
+{id:959,name:"Flattnitz – Hirnkopf",massif:"Northern Alps",alt_min:1400,alt_max:1840,snow:90,km:11,remontees:5,pistes:{v:0,b:49,r:13,n:38},lat:46.94,lon:14.05},
+{id:960,name:"Falkert – Heidialm",massif:"Northern Alps",alt_min:1840,alt_max:2107,snow:120,km:11,remontees:4,pistes:{v:0,b:27,r:73,n:0},lat:46.87,lon:13.83},
+{id:961,name:"Hinterstoder – Höss",massif:"Northern Alps",alt_min:600,alt_max:2000,snow:120,km:39,remontees:13,pistes:{v:0,b:30,r:45,n:25},lat:47.69,lon:14.15},
+{id:962,name:"Grünau – Kasberg",massif:"Northern Alps",alt_min:620,alt_max:1600,snow:90,km:23,remontees:13,pistes:{v:0,b:57,r:34,n:9},lat:47.83,lon:13.96},
+{id:963,name:"Spital am Pyhrn – Wurzeralm",massif:"Northern Alps",alt_min:810,alt_max:1870,snow:90,km:22,remontees:8,pistes:{v:0,b:47,r:44,n:9},lat:47.65,lon:14.29},
+{id:964,name:"Hochficht",massif:"Northern Alps",alt_min:866,alt_max:1338,snow:90,km:20,remontees:9,pistes:{v:0,b:45,r:50,n:5},lat:48.75,lon:13.92},
+{id:965,name:"Obertraun – Krippenstein",massif:"Northern Alps",alt_min:609,alt_max:2109,snow:120,km:12,remontees:7,pistes:{v:0,b:25,r:75,n:0},lat:47.555,lon:13.69},
+{id:966,name:"Ebensee – Feuerkogel",massif:"Northern Alps",alt_min:1055,alt_max:1648,snow:90,km:10,remontees:8,pistes:{v:0,b:61,r:30,n:9},lat:47.81,lon:13.72},
+{id:967,name:"Göstling – Hochkar",massif:"Northern Alps",alt_min:1380,alt_max:1808,snow:90,km:19,remontees:8,pistes:{v:0,b:29,r:56,n:15},lat:47.72,lon:14.92},
+{id:968,name:"Unterberg",massif:"Northern Alps",alt_min:710,alt_max:1324,snow:90,km:16,remontees:5,pistes:{v:0,b:69,r:31,n:0},lat:47.86,lon:15.79},
+{id:969,name:"Lackenhof – Ötscher",massif:"Northern Alps",alt_min:810,alt_max:1426,snow:90,km:15,remontees:7,pistes:{v:0,b:34,r:43,n:23},lat:47.79,lon:15.13},
+{id:970,name:"Mitterbach – Gemeindealpe",massif:"Northern Alps",alt_min:800,alt_max:1626,snow:90,km:15,remontees:4,pistes:{v:0,b:45,r:45,n:10},lat:47.81,lon:15.29},
+{id:971,name:"Semmering – Zauberberg",massif:"Northern Alps",alt_min:985,alt_max:1350,snow:90,km:14,remontees:2,pistes:{v:0,b:46,r:47,n:7},lat:47.635,lon:15.83},
+{id:972,name:"Mönichkirchen – Mariensee",massif:"Northern Alps",alt_min:865,alt_max:1432,snow:90,km:13,remontees:7,pistes:{v:0,b:41,r:44,n:15},lat:47.51,lon:16.03},
+{id:973,name:"Annaberg",massif:"Northern Alps",alt_min:896,alt_max:1300,snow:90,km:12,remontees:6,pistes:{v:0,b:64,r:20,n:16},lat:47.88,lon:15.36},
+{id:974,name:"Maribor – Pohorje",massif:"Mid-mountain",alt_min:328,alt_max:1327,snow:90,km:35,remontees:13,pistes:{v:0,b:57,r:34,n:9},lat:46.535,lon:15.595},
+{id:975,name:"Krvavec",massif:"Northern Alps",alt_min:1450,alt_max:1971,snow:120,km:30,remontees:13,pistes:{v:0,b:23,r:50,n:27},lat:46.297,lon:14.535},
+{id:976,name:"Vogel",massif:"Northern Alps",alt_min:569,alt_max:1800,snow:90,km:22,remontees:9,pistes:{v:0,b:43,r:57,n:0},lat:46.263,lon:13.838},
+{id:977,name:"Kranjska Gora",massif:"Northern Alps",alt_min:807,alt_max:1282,snow:90,km:20,remontees:15,pistes:{v:0,b:50,r:40,n:10},lat:46.484,lon:13.785},
+{id:978,name:"Cerkno",massif:"Mid-mountain",alt_min:935,alt_max:1287,snow:90,km:18,remontees:7,pistes:{v:0,b:50,r:44,n:6},lat:46.146,lon:13.945},
+{id:979,name:"Rogla",massif:"Mid-mountain",alt_min:1050,alt_max:1517,snow:90,km:12,remontees:12,pistes:{v:0,b:17,r:71,n:12},lat:46.453,lon:15.335},
+{id:980,name:"Golte",massif:"Northern Alps",alt_min:1150,alt_max:1570,snow:90,km:12,remontees:7,pistes:{v:0,b:58,r:34,n:8},lat:46.373,lon:14.925},
+{id:981,name:"Stari vrh",massif:"Mid-mountain",alt_min:580,alt_max:1217,snow:90,km:12,remontees:4,pistes:{v:0,b:33,r:50,n:17},lat:46.182,lon:14.186}
+];
+
+// ── Correspondance codes WMO → emoji et description ──
+const WMO_ICON = {
+  0:'☀️',1:'🌤️',2:'⛅',3:'☁️',
+  45:'🌫️',48:'🌫️',
+  51:'🌦️',53:'🌦️',55:'🌧️',56:'🌨️',57:'🌨️',
+  61:'🌧️',63:'🌧️',65:'🌧️',66:'🌨️',67:'🌨️',
+  71:'🌨️',73:'❄️',75:'❄️',77:'❄️',
+  80:'🌦️',81:'🌧️',82:'🌧️',85:'🌨️',86:'❄️',
+  95:'⛈️',96:'⛈️',99:'⛈️'
+};
+const WMO_DESC = {
+  0:'Fine weather',1:'Mostly clear',2:'Hazy',3:'Couvert',
+  45:'Brouillard',48:'Freezing fog',
+  51:'Bruine',53:'Bruine',55:'Heavy drizzle',56:'Verglas',57:'Verglas',
+  61:'Pluie',63:'Pluie',65:'Heavy rain',66:'Freezing rain',67:'Freezing rain',
+  71:'Light snow',73:'Snow ❄️',75:'Heavy snow ❄️',77:'Sleet',
+  80:'Averses',81:'Averses',82:'Heavy showers',85:'Snow showers',86:'Snow showers ❄️',
+  95:'Orage',96:'Thunderstorm + hail',99:'Violent thunderstorm'
+};
+
+// ── Moyenne saisonnière estimée (cm) selon altitude + mois ──
+function getSeasonalAvg(altMax, month) {
+  var base = altMax > 3000 ? 210 : altMax > 2500 ? 165 : altMax > 2000 ? 120 : altMax > 1500 ? 75 : altMax > 1000 ? 35 : 15;
+  var mf = [1.05,1.15,1.0,0.72,0.18,0,0,0,0,0.08,0.45,0.78][month];
+  return Math.round(base * (mf || 0.3));
+}
+
+// ── Calcul risque avalanche depuis données météo ──
+function computeAvalRisk(recentSnow3d, maxWindKmh, altMax, tempMinC) {
+  // Base selon altitude
+  var risk = altMax > 3000 ? 3 : altMax > 2000 ? 2 : 1;
+  // Chutes de neige récentes importantes
+  if (recentSnow3d > 50) risk = Math.min(5, risk + 2);
+  else if (recentSnow3d > 25) risk = Math.min(5, risk + 1);
+  // Vent fort = formation de plaques
+  if (maxWindKmh > 65) risk = Math.min(5, risk + 1);
+  else if (maxWindKmh > 45) risk = Math.min(5, risk + 0.5);
+  // Température proche de 0°C = instabilité du manteau neigeux
+  if (tempMinC > -4 && tempMinC < 1) risk = Math.min(5, risk + 1);
+  return Math.max(1, Math.min(5, Math.round(risk)));
+}
+
+// ── Aperçu enneigement dans le dropdown (estimation rapide) ──
+function getSimSnow(s) {
+  var m = new Date().getMonth();
+  var avg = getSeasonalAvg(s.alt_max, m);
+  return Math.max(10, avg + Math.round((s.id % 7 - 3) * 8));
+}
+
+// ── Vignettes météo/neige — mêmes données & même appel Open-Meteo que les fiches stations ──
+// Réutilisée pour la section "Mes stations favorites"
+function wmoIcoFiche(c) {
+  if (c == null) return '☁️';
+  if (c === 0) return '☀️';
+  if (c <= 3) return '🌤️';
+  if (c <= 48) return '🌫️';
+  if (c <= 57) return '🌦️';
+  if (c <= 67) return '🌧️';
+  if (c <= 77) return '❄️';
+  if (c <= 82) return '🌧️';
+  if (c <= 86) return '🌨️';
+  return '⛈️';
+}
+
+// ── Enneigement estimé au sommet ──
+// Open-Meteo ne renvoie la hauteur de neige qu'au point de grille (≈ altitude station).
+// On extrapole vers le sommet : gradient altitudinal + garde-fou saisonnier (getSeasonalAvg).
+function estimateSommetSnow(s, stationCm) {
+  var altMin = s.alt_min || 1500, altMax = s.alt_max || altMin;
+  var deltaKm = Math.max(0, (altMax - altMin)) / 1000;
+  var month = new Date().getMonth();
+  // Facteur mensuel strict (getSeasonalAvg retombe sur 0.3 l'été à cause du "|| 0.3")
+  var MF = [1.05,1.15,1.00,0.72,0.18,0,0,0,0,0.08,0.45,0.78];
+  var base = altMax > 3000 ? 210 : altMax > 2500 ? 165 : altMax > 2000 ? 120 : altMax > 1500 ? 75 : altMax > 1000 ? 35 : 15;
+  var modelSommet = Math.round(base * MF[month]);   // moyenne saisonnière au sommet
+  if (stationCm > 0) {
+    // +80 % de hauteur par 1000 m de dénivelé (ordre de grandeur alpin)
+    var ratio = 1 + deltaKm * 0.8;
+    return Math.max(stationCm, Math.round(stationCm * ratio));
+  }
+  // Rien au village : le sommet peut quand même être enneigé (ou pas, hors saison)
+  return Math.round(modelSommet * 0.45);
+}
+
+async function renderWeatherVignettes(grid, stations) {
+  if (!grid || !stations.length) return;
+
+  grid.innerHTML = stations.map(function(s){
+    return '<div class="vignette-card vig-loading" data-vid="'+s.id+'" onclick="selectStation('+s.id+');checkStation()">'
+      + '<div class="vig-icon">⏳</div>'
+      + '<div class="vig-name">⭐ '+s.name+'</div>'
+      + '<div class="vig-massif">'+s.massif+'</div>'
+      + '<div class="vig-temp">—</div>'
+      + '<div class="vig-snow-rows">'
+      +   '<div class="vig-snow-row"><span class="vig-snow-lbl">🏔 Resort</span><span class="vig-snow-val" data-snow="station">—</span></div>'
+      +   '<div class="vig-snow-row"><span class="vig-snow-lbl">🔺 Summit</span><span class="vig-snow-val" data-snow="sommet">—</span></div>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+
+  // Un appel Open-Meteo par station — identique au widget des fiches stations (loadMeteo)
+  stations.forEach(function(s) {
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + s.lat + '&longitude=' + s.lon
+      + '&current=temperature_2m,weathercode,snow_depth,wind_speed_10m&timezone=Europe%2FParis';
+    fetch(url).then(function(r){ return r.json(); }).then(function(d){
+      var card = grid.querySelector('[data-vid="'+s.id+'"]');
+      if (!card || !d.current) return;
+      card.classList.remove('vig-loading');
+      var temp = Math.round(d.current.temperature_2m);
+      card.querySelector('.vig-icon').textContent = wmoIcoFiche(d.current.weathercode);
+      card.querySelector('.vig-temp').innerHTML = temp + '°';
+      var sd = d.current.snow_depth;
+      var snowCm = (sd != null && sd > 0) ? Math.round(sd * 100) : 0;
+      var sommetCm = estimateSommetSnow(s, snowCm);
+
+      // Hors saison (rien au sol nulle part) → on n'affiche pas le bloc neige
+      var rows = card.querySelector('.vig-snow-rows');
+      if (rows && (snowCm > 0 || sommetCm > 0)) {
+        var elSt = rows.querySelector('[data-snow="station"]');
+        var elSo = rows.querySelector('[data-snow="sommet"]');
+        elSt.textContent = snowCm + ' cm';
+        elSt.className = 'vig-snow-val' + (snowCm > 0 ? '' : ' is-zero');
+        elSo.textContent = '≈ ' + sommetCm + ' cm';
+        elSo.className = 'vig-snow-val' + (sommetCm > 0 ? '' : ' is-zero');
+        rows.style.display = 'flex';
+      }
+    }).catch(function(){
+      var card = grid.querySelector('[data-vid="'+s.id+'"]');
+      if (!card) return;
+      card.classList.remove('vig-loading');
+      var icon = card.querySelector('.vig-icon'); if (icon) icon.textContent = '🏔';
+      var temp = card.querySelector('.vig-temp'); if (temp) temp.textContent = 'View →';
+    });
+  });
+}
+
+var selectedStation = null;
+
+// ── Recherche / autocomplete ──
+function onSearchInput() {
+  var q = document.getElementById('snowSearchInput').value.toLowerCase().trim();
+  var dd = document.getElementById('searchDropdown');
+  document.getElementById('checkBtn').disabled = true;
+  selectedStation = null;
+  if (q.length < 2) { dd.classList.remove('open'); return; }
+  var matches = STATIONS.filter(s => s.name.toLowerCase().includes(q)).slice(0, 8);
+  if (!matches.length) { dd.classList.remove('open'); return; }
+  dd.innerHTML = matches.map(s =>
+    '<div class="search-result-item" onclick="selectStation(' + s.id + ')">'
+    + '<div><div class="search-result-name">' + s.name + '</div>'
+    + '<div class="search-result-region">' + s.massif + '</div></div>'
+    + '<button type="button" class="search-result-fav" id="favStarBtn' + s.id + '" onclick="toggleFavStation(' + s.id + ',event)" title="Ajouter aux favoris">' + (isFavStation(s.id) ? '⭐' : '☆') + '</button>'
+    + '</div>'
+  ).join('');
+  dd.classList.add('open');
+}
+
+// ── Favoris rapides depuis la recherche (sans ouvrir la fiche) ──
+function isFavStation(id) {
+  try { return JSON.parse(localStorage.getItem('sf_favorites')||'[]').includes(id); } catch(e) { return false; }
+}
+function toggleFavStation(id, evt) {
+  if (evt) { evt.stopPropagation(); evt.preventDefault(); }
+  var favs = [];
+  try { favs = JSON.parse(localStorage.getItem('sf_favorites')||'[]'); } catch(e){}
+  if (favs.includes(id)) favs = favs.filter(function(x){ return x !== id; });
+  else { favs.push(id); if (navigator.vibrate) navigator.vibrate(40); }
+  try { localStorage.setItem('sf_favorites', JSON.stringify(favs)); } catch(e){}
+
+  var btn = document.getElementById('favStarBtn' + id);
+  if (btn) btn.textContent = isFavStation(id) ? '⭐' : '☆';
+  var sfc = document.getElementById('sfFavCount');
+  if (sfc) sfc.textContent = favs.length;
+
+  loadFavorites(); // rafraîchit les vignettes "Mes stations favorites" en dessous
+}
+
+function onSearchKey(e) {
+  if (e.key === 'Enter') { document.getElementById('searchDropdown').classList.remove('open'); checkStation(); }
+  if (e.key === 'Escape') { document.getElementById('searchDropdown').classList.remove('open'); }
+}
+
+function selectStation(id) {
+  selectedStation = STATIONS.find(s => s.id === id);
+  if (!selectedStation) return;
+  document.getElementById('snowSearchInput').value = selectedStation.name;
+  document.getElementById('searchDropdown').classList.remove('open');
+  document.getElementById('checkBtn').disabled = false;
+}
+
+function quickSearch(name) {
+  document.getElementById('snowSearchInput').value = name;
+  selectedStation = STATIONS.find(s => s.name === name);
+  if (selectedStation) { document.getElementById('checkBtn').disabled = false; checkStation(); }
+}
+
+// ══════════════════════════════════════════════════
+//  FONCTION PRINCIPALE — Open-Meteo (météo + enneigement)
+//  Miroir exact du widget "Météo & enneigement" des fiches stations
+// ══════════════════════════════════════════════════
+async function checkStation() {
+  if (!selectedStation) {
+    var q = document.getElementById('snowSearchInput').value.toLowerCase().trim();
+    selectedStation = STATIONS.find(s => s.name.toLowerCase().includes(q));
+  }
+  if (!selectedStation) return;
+  var s = selectedStation;
+
+  var btn = document.getElementById('checkBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Loading…';
+
+  // État "chargement"
+  document.getElementById('meteoTitle').textContent = '❄️ Weather ' + sfA(s.name);
+  document.getElementById('meteoNow').style.display = 'none';
+  document.getElementById('meteoLoading').style.display = 'block';
+  document.getElementById('meteoLoading').textContent = 'Loading…';
+  document.getElementById('meteoGrid').style.display = 'none';
+  document.getElementById('snowNowVal').textContent = '—';
+  document.getElementById('snowMonthVal').textContent = '—';
+  document.getElementById('snowAnnualVal').textContent = s.snow || '—';
+  document.getElementById('snowCompareBar').style.display = 'none';
+  document.getElementById('villageVsSommetLbl').textContent = '📍 Village (' + s.alt_min + ' m) vs Sommet (' + s.alt_max + ' m)';
+  document.getElementById('villageTxt').textContent =
+    s.alt_min >= 1800 ? 'Snow guaranteed from November — high-altitude village.' :
+    s.alt_min >= 1200 ? 'Good snow cover from January to March on average.' :
+    'Snow cover varies from year to year: check before you go.';
+  document.getElementById('sommetTxt').textContent =
+    s.alt_max >= 3200 ? "Permanent glacier — open almost all year round." :
+    s.alt_max >= 2500 ? 'Good-quality snow from December to April.' :
+    s.alt_max >= 2000 ? 'Good snow from January to March.' :
+    "Conditions vary depending on the winter.";
+  document.getElementById('snowForecastBars').innerHTML = '<div style="color:var(--text-light);font-size:.75rem">Loading…</div>';
+  document.getElementById('snowForecastLabels').innerHTML = '';
+  document.getElementById('fiabPeriode').textContent = s.alt_max >= 3000 ? 'Dec → Apr ✓' : s.alt_max >= 2500 ? 'Jan → Mar ✓' : s.alt_max >= 2000 ? 'Jan → Feb ✓' : 'January only';
+  var fiabEl = document.getElementById('fiabGlobale');
+  fiabEl.textContent = s.alt_max >= 2500 ? 'Excellent ●●●' : s.alt_max >= 2000 ? 'Good ●●○' : 'Average ●○○';
+  fiabEl.style.color = s.alt_max >= 2500 ? '#2ea84e' : s.alt_max >= 2000 ? '#f0a500' : '#cc2200';
+  document.getElementById('fiabAltitude').textContent = s.alt_min + ' m ' + (s.alt_min >= 1500 ? '✓' : '⚠️');
+  document.getElementById('fiabPic').textContent = (s.snow || '—') + ' cm avg.';
+
+  document.getElementById('resFicheLink').href = '/en/stations/' + slugify(s.name) + '.html';
+  document.getElementById('resFicheLinkLabel').textContent = 'See the full resort page ' + sfDe(s.name) + ' →';
+  document.getElementById('resBookingLink').href = bookingUrl(s.name, 'snow reliability');
+
+  document.getElementById('resultPanel').classList.add('show');
+  document.getElementById('introState').style.display = 'none';
+  document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // ── Même appel Open-Meteo, mêmes paramètres que le widget des fiches stations (loadMeteo) ──
+  var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + s.lat + '&longitude=' + s.lon
+    + '&current=temperature_2m,weathercode,snow_depth,wind_speed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,snowfall_sum&timezone=Europe%2FParis&forecast_days=5';
+  var DAY_LBL = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  try {
+    var resp = await fetch(url);
+    var d = await resp.json();
+    document.getElementById('meteoLoading').style.display = 'none';
+
+    if (d.current) {
+      var t = Math.round(d.current.temperature_2m);
+      document.getElementById('meteoNowTemp').textContent = t + '°';
+      document.getElementById('meteoNowIco').textContent = wmoIcoFiche(d.current.weathercode);
+      var sd = d.current.snow_depth;
+      var sub = '';
+      if (sd != null && sd > 0) sub = 'Snow depth: ' + Math.round(sd * 100) + ' cm';
+      else if (d.current.wind_speed_10m != null) sub = 'Wind ' + Math.round(d.current.wind_speed_10m) + ' km/h';
+      document.getElementById('meteoNowSnow').textContent = sub;
+      document.getElementById('meteoNow').style.display = 'flex';
+
+      // Enneigement — valeurs comparatives (même calcul que les fiches stations)
+      var snowCm = (sd != null && sd > 0) ? Math.round(sd * 100) : 0;
+      document.getElementById('snowNowVal').textContent = snowCm;
+
+      var monthFactors = [0,0.90,1.00,0.80,0.45,0.10,0,0,0,0,0.05,0.20,0.50];
+      var altMax = s.alt_max;
+      var altBonus = altMax >= 3000 ? 1.8 : altMax >= 2500 ? 1.5 : altMax >= 2000 ? 1.2 : altMax >= 1500 ? 0.9 : 0.6;
+      var curMonth = new Date().getMonth() + 1;
+      var factor = (monthFactors[curMonth] || 0) * altBonus;
+      var snowAnnual = s.snow || 100;
+      var snowMonthTypical = Math.round(snowAnnual * factor);
+      document.getElementById('snowMonthVal').textContent = snowMonthTypical;
+      document.getElementById('snowAnnualVal').textContent = snowAnnual;
+
+      var barWrap = document.getElementById('snowCompareBar');
+      var barFill = document.getElementById('snowBarFill');
+      var barLabel = document.getElementById('snowCompareLabel');
+      if (snowMonthTypical > 0) {
+        barWrap.style.display = 'block';
+        var pct = Math.min(150, Math.round((snowCm / snowMonthTypical) * 100));
+        barFill.style.width = Math.min(100, pct) + '%';
+        barFill.style.background = pct >= 90 ? '#2ea84e' : pct >= 60 ? '#f0a500' : '#cc2200';
+        barLabel.textContent = pct >= 110 ? 'Above average (' + pct + '%)' : pct >= 80 ? 'Normal for the time of year (' + pct + '%)' : 'Below average (' + pct + '%)';
+      } else {
+        barWrap.style.display = 'block';
+        barFill.style.width = '0%';
+        barLabel.textContent = 'Off-season — no significant snow cover';
+      }
+    }
+
+    if (d.daily && d.daily.time) {
+      var g = document.getElementById('meteoGrid');
+      var h = '';
+      for (var i = 0; i < d.daily.time.length; i++) {
+        var dt = new Date(d.daily.time[i] + 'T12:00:00');
+        var lbl = i === 0 ? 'Today' : DAY_LBL[dt.getDay()];
+        var tmax = Math.round(d.daily.temperature_2m_max[i]);
+        var tmin = Math.round(d.daily.temperature_2m_min[i]);
+        var sf = Math.round(d.daily.snowfall_sum[i] || 0);
+        h += '<div class="meteo-day">'
+          + '<div class="meteo-day-lbl">' + lbl + '</div>'
+          + '<div class="meteo-day-ico">' + wmoIcoFiche(d.daily.weathercode[i]) + '</div>'
+          + '<div class="meteo-day-t">' + tmax + '° / ' + tmin + '°</div>'
+          + (sf > 0 ? '<div class="meteo-day-snow">❄ ' + sf + 'cm</div>' : '')
+          + '</div>';
+      }
+      g.innerHTML = h;
+      g.style.display = 'grid';
+
+      // Barres de chutes prévues — 5 jours
+      var barsEl = document.getElementById('snowForecastBars');
+      var lblsEl = document.getElementById('snowForecastLabels');
+      if (barsEl && lblsEl && d.daily.snowfall_sum) {
+        var sfArr = d.daily.snowfall_sum.map(function(v){ return Math.round(v || 0); });
+        var sfMax = Math.max(1, Math.max.apply(null, sfArr));
+        var bH = '', bL = '';
+        for (var j = 0; j < sfArr.length; j++) {
+          var dtj = new Date(d.daily.time[j] + 'T12:00:00');
+          var lblj = j === 0 ? 'Today' : DAY_LBL[dtj.getDay()];
+          var pctj = Math.round((sfArr[j] / sfMax) * 100);
+          var colorj = sfArr[j] > 0 ? '#3a7db8' : '#e0eaf5';
+          bH += '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">'
+            + '<div style="font-size:.68rem;font-weight:700;color:#1a5a8a">' + (sfArr[j] > 0 ? sfArr[j] + 'cm' : '') + '</div>'
+            + '<div style="width:100%;background:' + colorj + ';border-radius:4px 4px 0 0;height:' + Math.max(4, pctj * 0.55) + 'px;transition:height .3s"></div>'
+            + '</div>';
+          bL += '<div style="flex:1;text-align:center;font-size:.65rem;color:var(--text-light);font-weight:600">' + lblj + '</div>';
+        }
+        barsEl.style.cssText = 'display:flex;gap:6px;align-items:flex-end;height:80px;padding-bottom:0';
+        barsEl.innerHTML = bH;
+        lblsEl.style.cssText = 'display:flex;gap:6px;margin-top:4px';
+        lblsEl.innerHTML = bL;
+      }
+    }
+  } catch (err) {
+    console.error('API error:', err);
+    document.getElementById('meteoLoading').style.display = 'block';
+    document.getElementById('meteoLoading').textContent = 'Weather temporarily unavailable';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Refresh →';
+}
+
+// Slugify identique aux fiches stations
+function slugify(name) {
+  return name.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s]/g, '')
+    .replace(/\s+/g, '');
+}
+
+// ── Favoris (depuis localStorage sf_favorites) ──
+function loadFavorites() {
+  var favSection = document.getElementById('favSection');
+  var favList    = document.getElementById('favList');
+  try {
+    var favIds = JSON.parse(localStorage.getItem('sf_favorites') || '[]');
+    if (!favIds.length) { favSection.style.display='none'; return; }
+    // Chercher les noms dans STATIONS — correspondance par id ou slug
+    var found = [];
+    favIds.forEach(function(fav) {
+      // fav peut être un id numérique ou un slug string
+      var match = STATIONS.find(function(s) {
+        return s.id === fav || s.id === parseInt(fav) || slugify(s.name) === fav;
+      });
+      if (match) found.push(match);
+    });
+    if (!found.length) { favSection.style.display='none'; return; }
+    favSection.style.display = 'block';
+    renderWeatherVignettes(favList, found);
+  } catch(e) { favSection.style.display='none'; }
+}
+loadFavorites();
+
+// Close dropdown on outside click
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.search-wrap')) document.getElementById('searchDropdown').classList.remove('open');
+});
+</script>
+<footer style="background:var(--wood-dark);color:rgba(255,255,255,.75);padding:44px 24px 28px;margin-top:60px">
+<div style="max-width:900px;margin:0 auto">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;justify-content:center">
+<div style="background:rgba(255,255,255,.14);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">⛷</div>
+<div>
+<div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:white">SnowFinder</div>
+<div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:1px">The guide to ski resorts in Europe</div>
+</div>
+</div>
+<div style="display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">700+</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Resorts</div></div>
+<div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">9</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Countries</div></div>
+<div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">Live</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Weather</div></div>
+<div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">100%</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Free</div></div>
+</div>
+<div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:16px;font-size:.82rem"><a href="/index.html" style="color:rgba(255,255,255,.55);text-decoration:none">Home</a> <a href="/en/recherche.html" style="color:rgba(255,255,255,.55);text-decoration:none">All resorts</a> <a href="/en/tinder.html" style="color:rgba(255,255,255,.55);text-decoration:none">Ski Tinder</a> <a href="/en/comparateur.html" style="color:rgba(255,255,255,.55);text-decoration:none">Comparison tool</a> <a href="/en/enneigement.html" style="color:rgba(255,255,255,.55);text-decoration:none">Snow reliability</a> <a href="/en/hebergement.html" style="color:rgba(255,255,255,.55);text-decoration:none">Accommodation</a> <a href="/en/favoris.html" style="color:rgba(255,255,255,.55);text-decoration:none">My favourites</a> <a href="/index.html" style="color:rgba(255,255,255,.55);text-decoration:none">Resort of the moment</a> <a href="/mentions-legales.html" style="color:rgba(255,255,255,.55);text-decoration:none">Legal notice</a></div>
+<div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;flex-wrap:wrap"><span style="font-size:.68rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.05em">Partners</span> <span style="background:#003580;color:white;font-size:.66rem;font-weight:700;padding:3px 10px;border-radius:4px">Booking.com</span> <span style="background:#f26024;color:white;font-size:.66rem;font-weight:700;padding:3px 10px;border-radius:4px">Expedia</span></div>
+<div style="text-align:center;font-size:.7rem;color:rgba(255,255,255,.28);line-height:1.8"><span style="color:rgba(255,255,255,.18)">✅ Weather &amp; snowfall forecasts: Open-Meteo</span><br/> © 2025 SnowFinder — All rights reserved  ·  <a href="/mentions-legales.html" style="color:rgba(255,255,255,.38);text-decoration:underline">Legal notice &amp; GDPR</a></div>
+</div>
+</footer>
+<script>
+/* ── Flocons légers ── */
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var c=document.getElementById('pageSnow');
+  if(!c)return;
+  var ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize(); window.addEventListener('resize',resize);
+  var N=80, flakes=[];
+  for(var i=0;i<N;i++) flakes.push({
+    x:Math.random()*c.width, y:Math.random()*c.height,
+    r:Math.random()*2.5+0.7, speed:Math.random()*0.9+0.35,
+    wind:Math.random()*.35-.17, opacity:Math.random()*0.42+0.15,
+    wobble:Math.random()*Math.PI*2, ws:Math.random()*.018+.005
+  });
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    flakes.forEach(function(f){
+      f.wobble+=f.ws; f.x+=f.wind+Math.sin(f.wobble)*.3; f.y+=f.speed;
+      if(f.y>c.height+6){f.y=-6;f.x=Math.random()*c.width;}
+      if(f.x>c.width+6)f.x=-6; if(f.x<-6)f.x=c.width+6;
+      ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,'+f.opacity+')'; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+<nav class="sf-bottomnav"><a class="sf-bn-item" href="/en/recherche.html" title="Find my resort">🔍<span class="sf-bn-label">Search</span></a> <a class="sf-bn-item active" href="/en/enneigement.html" title="Weather &amp; snow reliability">❄️<span class="sf-bn-label">Weather</span></a> <a class="sf-bn-item sf-bn-home" href="/index.html" title="Accueil"><span class="sf-bn-home-circle">🏡</span><span class="sf-bn-label">Chalet</span></a> <a class="sf-bn-item" href="/en/tinder.html" title="Ski Tinder">💕<span class="sf-bn-label">Tinder</span></a> <a class="sf-bn-item" href="/en/hebergement.html" title="Accommodation">🛏️<span class="sf-bn-label">Accom.</span></a></nav>
+<!-- ══ MENU RAPIDE (icône ☰ en haut à droite) ══ -->
+<style>
+.sf-sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;backdrop-filter:blur(4px)}
+.sf-sheet-overlay.open{display:block}
+.sf-sheet{position:fixed;left:0;right:0;bottom:0;z-index:9001;background:#f5f1ec;border-radius:20px 20px 0 0;padding:10px 0 max(20px,env(safe-area-inset-bottom));box-shadow:0 -8px 40px rgba(0,0,0,.2);transform:translateY(100%);transition:transform .32s cubic-bezier(.32,.72,0,1);max-width:480px;margin:0 auto}
+.sf-sheet.open{transform:translateY(0)}
+.sf-sheet-handle{width:40px;height:4px;background:#ddd;border-radius:3px;margin:0 auto 10px}
+.sf-sheet-title{text-align:center;font-family:"DM Serif Display",serif;font-size:1.05rem;color:var(--blue-dark,#1a3f6e);margin-bottom:6px;padding:0 20px}
+.sf-menu-item{display:flex;align-items:center;gap:12px;width:100%;padding:15px 24px;background:none;border:none;border-top:1px solid var(--wood-pale,#eee);font-size:.95rem;font-weight:600;color:var(--text,#2a1f14);text-decoration:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif}
+.sf-menu-item:active{background:var(--wood-pale,#f0e8da)}
+.sf-menu-item .em{font-size:1.15rem;flex-shrink:0}
+</style>
+<div class="sf-sheet-overlay" id="sfMenuOverlay" onclick="closeSfMenu()"></div>
+<div class="sf-sheet" id="sfMenuSheet">
+<div class="sf-sheet-handle"></div>
+<div class="sf-sheet-title">Menu</div>
+<button class="sf-menu-item" onclick="closeSfMenu();openContact()" type="button"><span class="em">📧</span><span>Contact us</span></button>
+<button class="sf-menu-item" onclick="closeSfMenu();openSfNotif()" type="button"><span class="em">🔔</span><span>Notifications</span></button>
+<a class="sf-menu-item" href="/mentions-legales.html"><span class="em">⚖️</span><span>Legal notice</span></a>
+</div>
+<div class="sf-sheet-overlay" id="sfNotifOverlay2" onclick="closeSfNotif()"></div>
+<div class="sf-sheet" id="sfNotifSheet2" style="text-align:center">
+<div class="sf-sheet-handle"></div>
+<div style="padding:8px 24px 4px">
+<div style="font-size:2.3rem;margin-bottom:8px">🔔</div>
+<div style="font-family:'DM Serif Display',serif;font-size:1.25rem;color:#1a3f6e;margin-bottom:8px;line-height:1.2">Powder alerts &amp; good deals?</div>
+<p style="font-size:.88rem;color:#5c4a35;line-height:1.6;margin-bottom:16px">Get an alert when the snow comes down heavily, or when there are good lift pass deals. <strong>Free, discreet, 1 to 2 times a week at most.</strong></p>
+</div>
+<div style="padding:0 20px;display:flex;flex-direction:column;gap:10px"><button onclick="acceptSfNotif()" style="background:linear-gradient(135deg,#1a5a8a,#3a7db8);color:white;border:none;border-radius:30px;padding:15px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(26,90,138,.3)" type="button">⛷️ Yes, I want to be alerted!</button> <button onclick="closeSfNotif()" style="background:transparent;color:#8a7060;border:none;padding:8px;font-size:.85rem;cursor:pointer;font-family:'DM Sans',sans-serif" type="button">No thanks</button></div>
+</div>
+<script>
+function openSfMenu(){document.getElementById('sfMenuOverlay').classList.add('open');document.getElementById('sfMenuSheet').classList.add('open');document.body.style.overflow='hidden';}
+function closeSfMenu(){document.getElementById('sfMenuOverlay').classList.remove('open');document.getElementById('sfMenuSheet').classList.remove('open');document.body.style.overflow='';}
+
+// Fallback : si la page n'a pas sa propre modale "Nous contacter" (voir index.html / recherche.html),
+// on renvoie vers la modale du site principal.
+if (typeof openContact !== 'function') {
+  window.openContact = function(){ window.location.href = 'index.html#contact'; };
+}
+
+function openSfNotif(){
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){
+    alert('Notifications are already enabled ✅'); return;
+  }
+  if(typeof Notification!=='undefined' && Notification.permission==='denied'){
+    alert("Notifications are blocked in your browser settings."); return;
+  }
+  document.getElementById('sfNotifOverlay2').classList.add('open');
+  document.getElementById('sfNotifSheet2').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSfNotif(){
+  document.getElementById('sfNotifOverlay2').classList.remove('open');
+  document.getElementById('sfNotifSheet2').classList.remove('open');
+  document.body.style.overflow='';
+}
+function acceptSfNotif(){
+  closeSfNotif();
+  function ask(){
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred.push(async function(OneSignal){
+      try{ await OneSignal.Notifications.requestPermission(); }catch(e){}
+    });
+  }
+  if(window.OneSignal || document.querySelector('script[src*="OneSignalSDK"]')){ ask(); return; }
+  var s=document.createElement('script');
+  s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; s.defer=true;
+  document.head.appendChild(s);
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(async function(OneSignal){
+    await OneSignal.init({appId:"df4757f7-ed59-4973-8a3d-782547295c9c",safari_web_id:"web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",serviceWorkerPath:"sw.js",notifyButton:{enable:false},welcomeNotification:{disable:true}});
+    try{ await OneSignal.Notifications.requestPermission(); }catch(e){}
+  });
+}
+</script>
+<!--sf-lang--><a class="sf-lang-switch" href="/enneigement.html" hreflang="fr" lang="fr" rel="alternate">🇫🇷 Français</a><style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index:900;background:rgba(255,255,255,.94);color:#1d4f7a;border:1px solid #d6dde4;border-radius:20px;padding:6px 12px;font:600 .74rem/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}.sf-lang-switch:hover{background:#fff}</style><!--/sf-lang--></body>
+</html>

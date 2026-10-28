@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="/manifest.json" rel="manifest"/>
+<script src="/en/stations-data.js"></script>
+<title>Ski Accommodation — Chalets &amp; Hotels | SnowFinder</title>
+<meta content="Compare ski accommodation on Booking.com and Expedia. Chalets, apartments and hotels at the foot of the slopes. Free cancellation on most offers." name="description"/>
+
+<!-- Open Graph -->
+<meta content="website" property="og:type"/>
+<meta content="SnowFinder" property="og:site_name"/>
+<meta content="https://snowfinder.fr/en/hebergement.html" property="og:url"/>
+<meta content="Book your ski accommodation — SnowFinder" property="og:title"/>
+<meta content="Ski chalets, apartments and hotels. Compare Booking.com and Expedia to find the best deal." property="og:description"/>
+<meta content="https://snowfinder.fr/logo.png" property="og:image"/>
+<meta content="en_GB" property="og:locale"/>
+<!-- Twitter Card -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Book your ski accommodation — SnowFinder" name="twitter:title"/>
+<meta content="Ski chalets, apartments and hotels. Compare Booking.com and Expedia to find the best deal." name="twitter:description"/>
+<meta content="https://snowfinder.fr/logo.png" name="twitter:image"/>
+<meta content="#3a7db8" name="theme-color"/>
+<link href="/logo.png" rel="apple-touch-icon"/>
+<link href="/logo.png" rel="icon" type="image/png"/>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S0C748Y0DX');</script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --wood-pale:#f7efe2;--wood-light:#eddcbf;--wood:#c49a6c;--wood-dark:#8b5e3c;
+  --blue:#5b9fd4;--blue-light:#e8f3fb;--blue-mid:#3a7db8;--blue-dark:#1a5a8a;
+  --green:#2a8a3a;--green-light:#e6f5eb;
+  --text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;
+  --bg:#faf6f0;--white:#fff;--border:#e8d8c4;
+  --shadow:0 1px 4px rgba(0,0,0,.08);--shadow-md:0 6px 20px rgba(0,0,0,.12);--shadow-lg:0 12px 40px rgba(0,0,0,.16);
+  --radius:10px;--sb-w:230px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* ── SIDEBAR (injected by sidebar.js) ── */
+:root{--sb-w:230px}
+.sb{position:fixed;left:0;top:0;bottom:0;width:var(--sb-w);background:var(--white);border-right:1.5px solid var(--wood-light);z-index:300;display:flex;flex-direction:column;overflow-y:auto;transition:transform .3s;box-shadow:2px 0 12px rgba(0,0,0,.06)}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:14px 16px;text-decoration:none;border-bottom:1px solid var(--wood-light);background:var(--wood-pale)}
+.sb-logo img{width:52px;height:52px;border-radius:10px;flex-shrink:0}
+.sb-logo-text{font-family:"DM Serif Display",serif;font-size:1rem;color:var(--blue-dark);line-height:1.2}
+.sb-logo-text small{display:block;font-family:"DM Sans",sans-serif;font-size:.65rem;color:var(--text-light);font-style:normal}
+.saison-toggle{margin:10px 12px;border-radius:30px;overflow:hidden;border:2px solid var(--wood-light);display:flex;cursor:pointer}
+.saison-toggle-track{display:flex;width:100%}
+.saison-btn{flex:1;padding:7px 6px;text-align:center;font-size:.76rem;font-weight:700;border:none;cursor:pointer;background:none;color:var(--text-light);font-family:"DM Sans",sans-serif;transition:all .25s}
+.saison-btn.active-hiver{background:var(--blue-dark);color:white;border-radius:26px}
+.saison-btn.active-ete{background:#2a8a3a;color:white;border-radius:26px}
+.sb-links{display:flex;flex-direction:column;padding:4px 0;flex:1}
+.sb-link{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:.88rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:background .15s;cursor:pointer;background:none;border:none;width:100%;text-align:left;font-family:"DM Sans",sans-serif}
+.sb-link:hover{background:var(--wood-pale);color:var(--blue-mid)}
+.sb-link.active{background:var(--blue-light);color:var(--blue-mid);font-weight:700}
+.sb-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
+.sb-new{margin-left:auto;background:var(--blue-mid);color:white;font-size:.6rem;font-weight:700;padding:1px 6px;border-radius:10px}
+.sb-divider{height:1px;background:var(--wood-light);margin:6px 14px}
+.sb-footer{padding:12px 16px;border-top:1px solid var(--wood-light);background:var(--wood-pale)}
+.sb-footer-txt{font-size:.7rem;color:var(--text-light);line-height:1.5}
+.sb-footer-txt strong{color:var(--text-mid)}
+.sb-hamburger{display:none;position:fixed;top:12px;left:12px;z-index:400;width:40px;height:40px;background:var(--white);border:2px solid var(--wood-light);border-radius:8px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:var(--shadow)}
+.sb-hamburger span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.sb-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.sb-hamburger.open span:nth-child(2){opacity:0}
+.sb-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:250}
+.sb-overlay.open{display:block}
+.page-wrap{margin-left:var(--sb-w);transition:margin-left .3s}
+@media(max-width:900px){.sb{transform:translateX(calc(-1 * var(--sb-w)))}.sb.open{transform:translateX(0)}.sb-hamburger{display:flex}.page-wrap{margin-left:0}.page-wrap .topbar{padding-left:60px!important}}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--white);border-bottom:1px solid var(--wood-light);height:56px;display:flex;align-items:center;padding:0 20px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.topbar-panneau{display:block;height:44px;object-fit:contain;filter:drop-shadow(1px 2px 4px rgba(0,0,0,.3))}
+
+/* ── HERO ── */
+.heb-hero{background:linear-gradient(160deg,var(--blue-dark) 0%,var(--blue-mid) 55%,#2a6a5a 100%);padding:48px 24px 0;position:relative;overflow:hidden}
+.heb-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M40 0l40 40-40 40L0 40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.heb-hero-inner{position:relative;z-index:1;max-width:860px;margin:0 auto;text-align:center;padding-bottom:32px}
+.heb-hero h1{font-family:"DM Serif Display",serif;font-size:clamp(1.8rem,4vw,2.8rem);color:white;margin-bottom:10px;line-height:1.15}
+.heb-hero p{font-size:.95rem;color:rgba(255,255,255,.82);margin-bottom:32px}
+
+/* ── SEARCH FORM ── */
+.search-card{background:white;border-radius:20px;padding:28px;box-shadow:var(--shadow-lg);max-width:860px;margin:0 auto;position:relative;z-index:2;transform:translateY(32px)}
+.search-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.search-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+.field-group{display:flex;flex-direction:column;gap:5px}
+.field-group label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-light)}
+.field-group .field-icon{position:relative}
+.field-group .field-icon input,
+.field-group .field-icon select{padding-left:36px}
+.field-group .fi{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:1rem;pointer-events:none}
+.field-input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--text);background:var(--bg);outline:none;transition:border-color .2s}
+.field-input:focus{border-color:var(--blue-mid);background:white}
+.field-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a7060' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer}
+
+/* Autocomplete */
+.autocomplete-wrap{position:relative}
+.autocomplete-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:1.5px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-md);z-index:200;max-height:220px;overflow-y:auto;display:none}
+.autocomplete-dropdown.open{display:block}
+.autocomplete-item{padding:9px 14px;cursor:pointer;font-size:.88rem;display:flex;align-items:center;gap:10px;transition:background .12s;border-bottom:1px solid var(--wood-pale)}
+.autocomplete-item:last-child{border-bottom:none}
+.autocomplete-item:hover,.autocomplete-item.selected{background:var(--blue-light)}
+.autocomplete-item-name{font-weight:600;color:var(--text)}
+.autocomplete-item-massif{font-size:.72rem;color:var(--text-light)}
+
+/* Équipements checkboxes */
+.equip-grid{display:flex;flex-wrap:wrap;gap:8px}
+.equip-chip{display:flex;align-items:center;gap:6px;padding:6px 12px;border:1.5px solid var(--border);border-radius:20px;cursor:pointer;font-size:.8rem;font-weight:500;color:var(--text-mid);transition:all .15s;user-select:none;background:var(--bg)}
+.equip-chip input{display:none}
+.equip-chip:has(input:checked),.equip-chip.checked{background:var(--blue-dark);border-color:var(--blue-dark);color:white}
+
+/* Bouton recherche */
+.search-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));color:white;border:none;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:8px}
+.search-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,90,138,.4)}
+
+/* ── RÉSULTATS ── */
+.results-wrap{max-width:900px;margin:64px auto 0;padding:0 20px 60px}
+.results-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.results-title{font-family:"DM Serif Display",serif;font-size:1.4rem;color:var(--text)}
+.results-sub{font-size:.82rem;color:var(--text-light);margin-top:2px}
+.results-sort{display:flex;gap:8px}
+.sort-btn{padding:6px 14px;border:1.5px solid var(--border);border-radius:20px;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;background:var(--bg);color:var(--text-mid);transition:all .15s}
+.sort-btn.active{background:var(--blue-dark);border-color:var(--blue-dark);color:white}
+
+/* Annonce card */
+.annonces-list{display:flex;flex-direction:column;gap:16px}
+.annonce-card{background:white;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;display:grid;grid-template-columns:220px 1fr;transition:box-shadow .2s,transform .15s;cursor:pointer}
+.annonce-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.annonce-img{position:relative;overflow:hidden;height:160px}
+.annonce-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.annonce-card:hover .annonce-img img{transform:scale(1.05)}
+.annonce-badge{position:absolute;top:10px;left:10px;padding:3px 9px;border-radius:6px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.badge-booking{background:#003580;color:white}
+.badge-expedia{background:#ffcc00;color:#003580}
+.annonce-promo{position:absolute;top:10px;right:10px;background:#e83535;color:white;padding:3px 8px;border-radius:6px;font-size:.68rem;font-weight:700}
+.annonce-body{padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between}
+.annonce-top{}
+.annonce-name{font-family:"DM Serif Display",serif;font-size:1.05rem;color:var(--text);margin-bottom:4px;line-height:1.3}
+.annonce-location{font-size:.75rem;color:var(--text-light);margin-bottom:8px;display:flex;align-items:center;gap:4px}
+.annonce-stars{color:#f5c518;font-size:.85rem;letter-spacing:1px}
+.annonce-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.annonce-tag{padding:3px 9px;background:var(--bg);border:1px solid var(--border);border-radius:12px;font-size:.7rem;color:var(--text-mid)}
+.annonce-bottom{display:flex;align-items:flex-end;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--wood-pale)}
+.annonce-price-wrap{}
+.annonce-price-old{font-size:.75rem;color:var(--text-light);text-decoration:line-through}
+.annonce-price{font-family:"DM Serif Display",serif;font-size:1.5rem;color:var(--blue-dark);line-height:1}
+.annonce-price-unit{font-size:.72rem;color:var(--text-light);margin-top:2px}
+.annonce-note{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.annonce-score{background:var(--blue-dark);color:white;font-weight:700;font-size:.88rem;padding:4px 10px;border-radius:8px}
+.annonce-score-lbl{font-size:.68rem;color:var(--text-light)}
+.annonce-cta{padding:9px 20px;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:opacity .2s;white-space:nowrap}
+.annonce-cta:hover{opacity:.88}
+
+/* Blocs partenaires */
+.partner-ctas{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+.partner-cta{display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:14px;text-decoration:none;transition:all .2s;border:2px solid transparent}
+.partner-cta:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.partner-booking{background:#003580;color:white}
+.partner-booking:hover{border-color:#002060}
+.partner-expedia{background:#ffcc00;color:#003580}
+.partner-expedia:hover{border-color:#e0b000}
+.partner-logo{font-size:2rem;flex-shrink:0}
+.partner-name{font-weight:700;font-size:1rem;margin-bottom:2px}
+.partner-desc{font-size:.78rem;opacity:.82}
+.partner-arrow{margin-left:auto;font-size:1.2rem}
+
+/* Disclaimer */
+.disclaimer{margin-top:20px;padding:12px 16px;background:var(--wood-pale);border-radius:8px;border:1px solid var(--wood-light);font-size:.72rem;color:var(--text-light);line-height:1.6;text-align:center}
+
+/* Placeholder état vide */
+.results-placeholder{text-align:center;padding:60px 20px;color:var(--text-light)}
+.results-placeholder-icon{font-size:3.5rem;margin-bottom:16px}
+.results-placeholder h3{font-family:"DM Serif Display",serif;font-size:1.3rem;color:var(--text);margin-bottom:8px}
+
+/* footer */
+footer{background:var(--wood-dark);color:rgba(255,255,255,.7);text-align:center;padding:28px 20px;font-size:.82rem;margin-top:0}
+footer strong{color:white}
+footer a{color:rgba(255,255,255,.5);text-decoration:none}
+
+/* Responsive */
+@media(max-width:700px){
+  .search-row,.search-row-3{grid-template-columns:1fr}
+  .annonce-card{grid-template-columns:1fr;grid-template-rows:180px 1fr}
+  .annonce-img{height:180px}
+  .partner-ctas{grid-template-columns:1fr}
+  .results-sort{flex-wrap:wrap}
+}
+@media(max-width:500px){
+  .search-card{padding:18px}
+}
+
+/* ── Flocons décoratifs ── */
+#pageSnow{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;mix-blend-mode:screen;opacity:1}
+
+/* ── Redirect cards hébergement ── */
+.heb-redirect-card{display:flex;align-items:center;gap:16px;padding:18px 20px;margin-bottom:14px;background:white;border-radius:14px;border:1.5px solid rgba(0,0,0,.08);text-decoration:none;color:inherit;cursor:pointer;transition:box-shadow .25s,transform .2s;box-shadow:0 3px 14px rgba(0,0,0,.07)}
+.heb-redirect-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.14);transform:translateY(-2px)}
+.hrc-icon{width:52px;height:52px;border-radius:12px;background:var(--card-color);color:var(--card-text);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
+.hrc-body{flex:1;min-width:0}
+.hrc-title{font-family:'DM Serif Display',serif;font-size:1.05rem;font-weight:700;color:#1a2a3a;margin-bottom:3px}
+.hrc-desc{font-size:.8rem;color:#6a7a8a}
+.hrc-cta{font-size:.8rem;font-weight:700;color:var(--card-color);white-space:nowrap;display:flex;align-items:center;gap:6px}
+.hrc-arrow{background:var(--card-color);color:var(--card-text);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:transform .2s}
+.heb-redirect-card:hover .hrc-arrow{transform:translateX(3px)}
+@media(max-width:600px){.hrc-cta{display:none}.heb-redirect-card{padding:14px 16px}}
+
+/* ── Cartes visuelles hébergement (photo + tags) ── */
+.heb-visual-card{display:grid;grid-template-columns:190px 1fr;background:white;border-radius:14px;overflow:hidden;border:1px solid rgba(0,0,0,.08);box-shadow:0 3px 14px rgba(0,0,0,.07);text-decoration:none;color:inherit;margin-bottom:16px;transition:box-shadow .25s,transform .2s}
+.heb-visual-card:hover{box-shadow:0 10px 32px rgba(0,0,0,.16);transform:translateY(-3px)}
+.hvc-img{position:relative;overflow:hidden;min-height:150px}
+.hvc-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.heb-visual-card:hover .hvc-img img{transform:scale(1.06)}
+.hvc-badge{position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:6px;font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.hvc-body{padding:16px 20px;display:flex;flex-direction:column;justify-content:center;gap:5px}
+.hvc-title{font-family:'DM Serif Display',serif;font-size:1.12rem;color:#1a2a3a}
+.hvc-desc{font-size:.82rem;color:#6a7a8a}
+.hvc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+.hvc-tag{font-size:.68rem;padding:3px 9px;background:var(--bg);border:1px solid var(--border);border-radius:12px;color:var(--text-mid);white-space:nowrap}
+.hvc-cta{margin-top:10px;display:inline-flex;align-items:center;gap:6px;font-size:.83rem;font-weight:700;color:var(--card-color)}
+@media(max-width:600px){.heb-visual-card{grid-template-columns:104px 1fr}.hvc-img{min-height:120px}.hvc-body{padding:12px 14px;gap:4px}.hvc-title{font-size:.95rem}.hvc-desc{font-size:.76rem}.hvc-tags{display:none}.hvc-badge{font-size:.58rem;padding:2px 7px;top:6px;left:6px}}
+</style>
+<script>
+/* ══════════════════════════════════════════════════
+   AFFILIATION — liens trackés via Commission Junction
+   ══════════════════════════════════════════════════ */
+const BOOKING_CJ = 'https://www.tkqlhce.com/click-101709262-15734710';
+const EXPEDIA_CJ = 'https://www.jdoqocy.com/click-101709262-13904689';
+</script>
+<link href="https://snowfinder.fr/en/hebergement.html" rel="canonical"/><link href="https://snowfinder.fr/hebergement.html" hreflang="fr" rel="alternate"/><link href="https://snowfinder.fr/en/hebergement.html" hreflang="en" rel="alternate"/><link href="https://snowfinder.fr/hebergement.html" hreflang="x-default" rel="alternate"/></head>
+<body>
+<canvas aria-hidden="true" id="pageSnow"></canvas>
+<style>
+.sf-topbar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--wood-light);display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 6px;z-index:600;transition:transform .28s ease;overflow:visible;gap:8px;}
+.sf-topbar.sf-hide{transform:translateY(-100%);}
+.sf-topbar-logo{display:flex;align-items:center;gap:4px;text-decoration:none;flex-shrink:0;justify-self:start;min-width:0;}
+.sf-topbar-logo img{width:60px;height:60px;border-radius:12px;object-fit:contain;flex-shrink:0}
+.sf-topbar-wordtext{display:flex;flex-direction:column;justify-content:center;line-height:1.05;min-width:0;overflow:hidden}
+.sf-topbar-title{font-family:"DM Serif Display",serif;font-size:.95rem;font-weight:700;white-space:nowrap}
+.sf-topbar-title .sf-dark{color:var(--blue-dark)}
+.sf-topbar-title .sf-light{color:var(--blue-mid)}
+.sf-topbar-slogan{font-size:.5rem;letter-spacing:.03em;color:var(--blue-dark);opacity:.7;white-space:nowrap;text-transform:uppercase;margin-top:1px}
+.sf-topbar-app{display:flex;align-items:center;gap:4px;background:linear-gradient(135deg,var(--blue-light),#eaf4ff);border:1px solid var(--blue-mid);border-radius:14px;padding:4px 9px;font-size:.64rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18);justify-self:end;}
+.sf-topbar-right{display:flex;align-items:center;justify-self:end;flex-shrink:0;}
+.sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
+.sf-topbar-fav:active{background:var(--wood-pale)}
+.sf-topbar-menu{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;border:1.5px solid var(--wood-light);background:var(--white);font-size:1rem;line-height:1;color:var(--blue-dark);cursor:pointer;flex-shrink:0;padding:0;margin-left:2px}
+.sf-topbar-menu:active{background:var(--wood-pale)}
+@media(max-width:480px){.sf-topbar{padding:0 4px;gap:4px}.sf-topbar-logo img{width:52px;height:52px}.sf-topbar-app{font-size:.58rem;padding:4px 7px}}
+.sf-bottomnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08);padding-bottom:env(safe-area-inset-bottom);}
+.sf-bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px;font-size:1.18rem;text-decoration:none;color:var(--text-mid);position:relative;gap:1px}
+.sf-bn-item.active{color:var(--blue-dark)}
+.sf-bn-item.active .sf-bn-label{font-weight:800}
+.sf-bn-item:not(.sf-bn-home).active{transform:translateY(-2px)}
+.sf-bn-item:not(.sf-bn-home).active::after{content:"";position:absolute;bottom:7px;width:4px;height:4px;border-radius:50%;background:var(--blue-dark)}
+.sf-bn-label{font-size:.54rem;font-weight:700;letter-spacing:.01em;line-height:1;color:inherit;opacity:.9}
+.sf-bn-home{flex:0 0 52px;margin-top:-16px}
+.sf-bn-home-circle{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 6px 18px rgba(26,90,138,.4);border:3px solid var(--white);transition:transform .2s,box-shadow .2s}
+.sf-bn-home .sf-bn-label{margin-top:2px}
+.sf-bn-home.active .sf-bn-home-circle{transform:scale(1.08);box-shadow:0 6px 22px rgba(26,90,138,.65)}
+.page-wrap{padding-top:64px!important;padding-bottom:66px!important;margin-left:0!important}
+</style>
+<div class="sf-topbar" id="sfTopbar">
+<a class="sf-topbar-logo" href="/index.html"><img alt="SnowFinder" src="/logo.png"/> <span class="sf-topbar-wordtext"> <span class="sf-topbar-title"><span class="sf-dark">Snow</span><span class="sf-light">Finder</span></span> <span class="sf-topbar-slogan">Compare • Find • Ski</span> </span></a>
+<a class="sf-topbar-app" href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" style="position:relative;left:12px">📲 The app is out now!</a>
+<div class="sf-topbar-right">
+<a class="sf-topbar-fav" href="/en/comparateur.html" style="margin-right:2px;position:relative;left:10px">⚖️ <span id="sfCompareCount">0</span></a>
+<a class="sf-topbar-fav" href="/en/favoris.html">⭐ <span id="sfFavCount">0</span></a>
+<button aria-label="Menu" class="sf-topbar-menu" id="sfMenuBtn" onclick="openSfMenu()" type="button">☰</button>
+</div>
+</div>
+<script>
+(function(){
+  var bar = document.getElementById("sfTopbar");
+  var lastY = window.scrollY, ticking = false;
+  window.addEventListener("scroll", function(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY;
+      if(y > lastY && y > 60) bar.classList.add("sf-hide");
+      else bar.classList.remove("sf-hide");
+      lastY = y;
+      ticking = false;
+    });
+  }, {passive:true});
+  function updateFavCount(){
+    var favs = [];
+    try { favs = JSON.parse(localStorage.getItem("sf_favorites")||"[]"); } catch(e){}
+    var el = document.getElementById("sfFavCount");
+    if(el) el.textContent = favs.length;
+  }
+  function updateCompareCount(){
+    var c = [];
+    try { c = JSON.parse(localStorage.getItem("sf_compare")||"[]"); } catch(e){}
+    var el = document.getElementById("sfCompareCount");
+    if(el) el.textContent = c.length;
+  }
+  updateFavCount();
+  updateCompareCount();
+  window.addEventListener("storage", updateFavCount);
+  window.addEventListener("storage", updateCompareCount);
+  window.addEventListener("focus", updateFavCount);
+  window.addEventListener("focus", updateCompareCount);
+})();
+</script>
+<script>
+/* Grammaire française devant un nom de station : de/du/des/d'/de l' et à/au/aux/à l' */
+function sfDe(n){return 'of '+String(n||'');}
+function sfA(n){return 'in '+String(n||'');}
+function getCompareList(){try{return JSON.parse(localStorage.getItem("sf_compare")||"[]");}catch(e){return [];}}
+function saveCompareList(arr){try{localStorage.setItem("sf_compare",JSON.stringify(arr));}catch(e){}}
+function isInCompare(id){return getCompareList().indexOf(id)!==-1;}
+function toggleCompareStation(id){
+  var c = getCompareList();
+  var idx = c.indexOf(id);
+  if(idx>=0){ c.splice(idx,1); }
+  else {
+    if(c.length>=3){ alert("You can compare up to 3 resorts. Remove one before adding another."); return isInCompare(id); }
+    c.push(id);
+  }
+  saveCompareList(c);
+  var el = document.getElementById("sfCompareCount");
+  if(el) el.textContent = c.length;
+  return isInCompare(id);
+}
+</script>
+<div class="page-wrap">
+<!-- ancienne nav retirée -->
+<style>
+@media(max-width:900px){#navLinks{display:none!important}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+</style>
+<!-- HÉBERGEMENT CTA — identique à index.html -->
+<div style="max-width:860px;margin:16px auto 0;padding:0 20px">
+<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:12px;text-align:center">🏡 Find accommodation</div>
+<div style="border-radius:16px;overflow:hidden;box-shadow:0 8px 28px rgba(13,34,64,.14)">
+<!-- BOOKING -->
+<a href="https://www.tkqlhce.com/click-101709262-15734710?sid=accueil&amp;url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.en-gb.html%3Fss%3Dalpes%2Bski%2Bfrance%26nflt%3Dreview_score%253D80" onmouseout="this.querySelector('img').style.transform='scale(1)'" onmouseover="this.querySelector('img').style.transform='scale(1.05)'" rel="noopener sponsored" style="display:block;text-decoration:none;overflow:hidden;position:relative" target="_blank">
+<div style="position:relative;overflow:hidden;height:148px">
+<img alt="Book on Booking" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=600&amp;q=80'" src="/img/chalet-booking.jpg" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease"/>
+<div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,35,110,.78) 0%,rgba(0,35,110,.38) 55%,transparent 100%);display:flex;align-items:center;padding:0 22px;gap:14px">
+<span style="font-size:2rem;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))">🏨</span>
+<div>
+<div style="color:white;font-weight:800;font-size:1.05rem;text-shadow:0 1px 5px rgba(0,0,0,.6)">Book on Booking.com</div>
+<div style="color:rgba(255,255,255,.82);font-size:.75rem;margin-top:2px">Hotels · Chalets · Apartments</div>
+</div>
+<div style="margin-left:auto;background:white;color:#003d96;font-size:.82rem;font-weight:800;padding:8px 16px;border-radius:22px;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.25)">See offers →</div>
+</div>
+</div>
+</a>
+<!-- EXPEDIA -->
+<a href="https://www.jdoqocy.com/click-101709262-13904689?sid=accueil&amp;url=https%3A%2F%2Fwww.expedia.fr%2Fgo%2Fhotel%2Fsearch%2FDestination%2F%3FCityName%3Dalpes%2520ski%2520france%26City%3Dalpes%2520ski%2520france%26SortBy%3Ddistance%26NumRoom%3D1%26NumAdult1%3D1" onmouseout="this.querySelector('img').style.transform='scale(1)'" onmouseover="this.querySelector('img').style.transform='scale(1.05)'" rel="noopener sponsored" style="display:block;text-decoration:none;overflow:hidden;position:relative;border-top:2px solid white" target="_blank">
+<div style="position:relative;overflow:hidden;height:148px">
+<img alt="Book on Expedia" onerror="this.src='https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&amp;q=80'" src="/img/chalet-expedia.jpg" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease"/>
+<div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(140,95,0,.8) 0%,rgba(140,95,0,.38) 55%,transparent 100%);display:flex;align-items:center;padding:0 22px;gap:14px">
+<span style="font-size:1.9rem;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))">✈️</span>
+<div>
+<div style="color:white;font-weight:800;font-size:1rem;text-shadow:0 1px 5px rgba(0,0,0,.6)">Flight + Hotel on Expedia</div>
+<div style="color:rgba(255,255,255,.82);font-size:.73rem;margin-top:2px">Ski packages · Save up to 30%</div>
+</div>
+<div style="margin-left:auto;background:#ffcc00;color:#1a2060;font-size:.8rem;font-weight:800;padding:8px 16px;border-radius:22px;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.2)">Book →</div>
+</div>
+</div>
+</a>
+</div>
+<div style="text-align:center;font-size:.65rem;color:var(--text-light);margin-top:8px">Affiliate links — same prices, no commission charged to you</div>
+</div>
+<!-- HERO + FORMULAIRE -->
+<div class="heb-hero">
+<div class="heb-hero-inner">
+<h1>🏨 Find your ski accommodation</h1>
+<p>Compare hotels, chalets and apartments on Booking.com and Expedia</p>
+<div class="search-card">
+<!-- Ligne 1 : Destination + type -->
+<div class="search-row">
+<div class="field-group">
+<label>📍 Destination / Resort</label>
+<div class="field-icon autocomplete-wrap">
+<span class="fi">🏔</span>
+<input autocomplete="off" class="field-input" id="destInput" oninput="onDestInput()" onkeydown="onDestKey(event)" placeholder="e.g. Val Thorens, Chamonix…" type="text"/>
+<div class="autocomplete-dropdown" id="destDropdown"></div>
+</div>
+</div>
+<div class="field-group">
+<label>🏠 Type of accommodation</label>
+<div class="field-icon">
+<span class="fi">🏘</span>
+<select class="field-input field-select" id="typeLogement">
+<option value="">All types</option>
+<option value="hotel">🏨 Hotel</option>
+<option value="chalet">🏔 Chalet</option>
+<option value="appartement">🏢 Apartment / Residence</option>
+<option value="auberge">🛏 Hostel / Gîte</option>
+<option value="luxe">💎 Luxury (5★)</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Ligne 2 : Dates -->
+<div class="search-row">
+<div class="field-group">
+<label>📅 Arrival</label>
+<div class="field-icon">
+<span class="fi">📅</span>
+<input class="field-input" id="dateArrivee" type="date"/>
+</div>
+</div>
+<div class="field-group">
+<label>📅 Departure</label>
+<div class="field-icon">
+<span class="fi">📅</span>
+<input class="field-input" id="dateDepart" type="date"/>
+</div>
+</div>
+</div>
+<!-- Ligne 3 : Voyageurs + chambres + budget -->
+<div class="search-row-3">
+<div class="field-group">
+<label>👤 Adults</label>
+<div class="field-icon">
+<span class="fi">👤</span>
+<select class="field-input field-select" id="adultes">
+<option value="1">1 adult</option>
+<option selected="" value="2">2 adults</option>
+<option value="3">3 adults</option>
+<option value="4">4 adults</option>
+<option value="5">5 adults</option>
+<option value="6">6 adults</option>
+<option value="7">7 adults</option>
+<option value="8">8+ adults</option>
+</select>
+</div>
+</div>
+<div class="field-group">
+<label>👶 Children</label>
+<div class="field-icon">
+<span class="fi">👶</span>
+<select class="field-input field-select" id="enfants">
+<option selected="" value="0">No children</option>
+<option value="1">1 child</option>
+<option value="2">2 children</option>
+<option value="3">3 children</option>
+<option value="4">4 children</option>
+<option value="5">5 children</option>
+<option value="6">6+ children</option>
+</select>
+</div>
+</div>
+<div class="field-group">
+<label>🛏 Bedrooms</label>
+<div class="field-icon">
+<span class="fi">🛏</span>
+<select class="field-input field-select" id="chambres">
+<option selected="" value="">Doesn't matter</option>
+<option value="1">1 bedroom</option>
+<option value="2">2 bedrooms</option>
+<option value="3">3 bedrooms</option>
+<option value="4">4 bedrooms</option>
+<option value="5">5+ bedrooms</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Ligne 4 : Budget + Ski-in/ski-out -->
+<div class="search-row">
+<div class="field-group">
+<label>💶 Budget / night</label>
+<div class="field-icon">
+<span class="fi">💶</span>
+<select class="field-input field-select" id="budget">
+<option value="">Doesn't matter</option>
+<option value="50">Under €50</option>
+<option value="100">Under €100</option>
+<option value="150">Under €150</option>
+<option value="200">Under €200</option>
+<option value="300">Under €300</option>
+<option value="999">€300 and above (luxury)</option>
+</select>
+</div>
+</div>
+<div class="field-group">
+<label>⭐ Minimum rating</label>
+<div class="field-icon">
+<span class="fi">⭐</span>
+<select class="field-input field-select" id="noteMin">
+<option value="">All ratings</option>
+<option value="7">7+ / Good</option>
+<option value="8">8+ / Very good</option>
+<option value="9">9+ / Exceptional</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Équipements -->
+<div class="field-group" style="margin-bottom:16px">
+<label>🎯 Desired facilities</label>
+<div class="equip-grid" style="margin-top:8px">
+<label class="equip-chip"><input type="checkbox" value="ski"/> ⛷ Ski-in / ski-out</label>
+<label class="equip-chip"><input type="checkbox" value="spa"/> 💆 Spa / Sauna</label>
+<label class="equip-chip"><input type="checkbox" value="parking"/> 🚗 Parking included</label>
+<label class="equip-chip"><input type="checkbox" value="piscine"/> 🏊 Pool</label>
+<label class="equip-chip"><input type="checkbox" value="animaux"/> 🐾 Pets welcome</label>
+<label class="equip-chip"><input type="checkbox" value="cuisine"/> 🍳 Equipped kitchen</label>
+<label class="equip-chip"><input type="checkbox" value="wifi"/> 📶 Free Wi-Fi</label>
+<label class="equip-chip"><input type="checkbox" value="petitdej"/> ☕ Breakfast included</label>
+</div>
+</div>
+<button class="search-btn" onclick="lancerRecherche()">🔍 Search accommodation</button>
+</div>
+</div>
+</div>
+<!-- RÉSULTATS -->
+<div class="results-wrap" id="resultsWrap" style="display:none">
+<div class="results-header">
+<div>
+<div class="results-title" id="resultsTitle">Accommodation in Val Thorens</div>
+<div class="results-sub" id="resultsSub">Results found on Booking.com and Expedia</div>
+</div>
+<div class="results-sort"><button class="sort-btn active" onclick="setSortAnnonces('prix',this)">💶 Price</button> <button class="sort-btn" onclick="setSortAnnonces('note',this)">⭐ Rating</button> <button class="sort-btn" onclick="setSortAnnonces('pop',this)">🔥 Popularity</button></div>
+</div>
+<div class="annonces-list" id="annoncesList"></div>
+<!-- Boutons partenaires -->
+<div class="partner-ctas" id="partnerCtas"></div>
+<div class="disclaimer">🔗 SnowFinder redirects you to Booking.com and Expedia with your criteria pre-filled. You go directly to real-time availability and prices. SnowFinder may receive a commission on bookings made through these links, at no extra cost to you.</div>
+</div>
+<!-- PLACEHOLDER ÉTAT INITIAL -->
+<div class="results-wrap" id="placeholderWrap">
+<div class="results-placeholder">
+<div class="results-placeholder-icon">🏔</div>
+<h3>Ready to find your cosy nest on the slopes?</h3>
+<p style="font-size:.88rem;max-width:400px;margin:0 auto;line-height:1.65">Enter your destination and dates to compare the best offers on Booking.com and Expedia.</p>
+<div style="display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap"><button onclick="quickDest('Val Thorens')" style="padding:8px 18px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Val Thorens</button> <button onclick="quickDest('Chamonix')" style="padding:8px 18px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Chamonix</button> <button onclick="quickDest('Courchevel')" style="padding:8px 18px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Courchevel</button> <button onclick="quickDest('Avoriaz')" style="padding:8px 18px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Avoriaz</button> <button onclick="quickDest('Méribel')" style="padding:8px 18px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Méribel</button></div>
+</div>
+</div>
+<footer><strong>SnowFinder</strong> — over 700 ski resorts in Europe<br/> <a href="/mentions-legales.html">Legal notice</a> · <a href="/index.html">Home</a></footer>
+</div>
+<script>
+
+  function expediaUrl(destination, dateArr, dateDep, adultes, chambres) {
+    var base = 'https://www.expedia.fr/Hotel-Search?destination=' + encodeURIComponent(destination + ' ski');
+    if(dateArr) base += '&startDate=' + dateArr;
+    if(dateDep)  base += '&endDate='   + dateDep;
+    base += '&adults=' + (adultes||2);
+    if(chambres) base += '&rooms=' + chambres;
+    return EXPEDIA_CJ + '?sid=hebergement&url=' + encodeURIComponent(base);
+  }
+
+// ── STATIONS pour autocomplete ──
+// Construite dynamiquement à partir de stations-data.js (source unique, 700+ stations,
+// toute l'Europe) au lieu d'une liste écrite à la main et forcément incomplète.
+// Fallback minimal si le script n'a pas pu charger, pour ne jamais casser la recherche.
+const STATIONS_HEB_FALLBACK = [
+  "Val Thorens","Val d'Isère","Tignes","Chamonix","Courchevel","Méribel","Les Arcs","La Plagne",
+  "Avoriaz","Morzine","Les Deux Alpes","Alpe d'Huez","La Clusaz","Serre Chevalier",
+  "Verbier","Zermatt","St. Anton am Arlberg","Kitzbühel"
+];
+const STATIONS_HEB = (typeof window.SF_DATA !== "undefined" && window.SF_DATA.length)
+  ? window.SF_DATA.map(function(s){ return {name:s.name, region:s.region||""}; })
+  : STATIONS_HEB_FALLBACK.map(function(n){ return {name:n, region:""}; });
+
+var currentDest = "";
+var currentSort = "price";
+
+// ── Initialisation dates par défaut (semaine prochaine) ──
+(function initDates(){
+  var today = new Date();
+  var arr = new Date(today); arr.setDate(arr.getDate() + 7);
+  var dep = new Date(arr);   dep.setDate(dep.getDate() + 7);
+  var fmt = function(d){ return d.toISOString().split('T')[0]; };
+  document.getElementById('dateArrivee').value = fmt(arr);
+  document.getElementById('dateDepart').value  = fmt(dep);
+  document.getElementById('dateArrivee').min   = fmt(today);
+  document.getElementById('dateDepart').min    = fmt(arr);
+  document.getElementById('dateArrivee').addEventListener('change', function(){
+    var newArr = new Date(this.value);
+    var depVal = new Date(document.getElementById('dateDepart').value);
+    if(depVal <= newArr){ var newDep = new Date(newArr); newDep.setDate(newDep.getDate()+7); document.getElementById('dateDepart').value = fmt(newDep); }
+    document.getElementById('dateDepart').min = this.value;
+  });
+})();
+
+// ── Autocomplete destination ──
+function normDest(s){
+  return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+}
+function onDestInput(){
+  var qRaw = document.getElementById('destInput').value.trim();
+  var q = normDest(qRaw);
+  var dd = document.getElementById('destDropdown');
+  if(q.length < 2){ dd.classList.remove('open'); return; }
+  var starts = [], contains = [];
+  STATIONS_HEB.forEach(function(s){
+    var n = normDest(s.name);
+    if(n.indexOf(q) === 0) starts.push(s);
+    else if(n.indexOf(q) > -1) contains.push(s);
+  });
+  var matches = starts.concat(contains).slice(0,8);
+  if(!matches.length){ dd.classList.remove('open'); return; }
+  dd.innerHTML = matches.map(function(s){
+    return '<div class="autocomplete-item" onclick="selectDest(\''+s.name.replace(/'/g,"\\'")+'\')">'
+      +'<span>🏔</span>'
+      +'<div><div class="autocomplete-item-name">'+s.name+'</div>'
+      +(s.region?'<div class="autocomplete-item-massif">'+s.region+'</div>':'')
+      +'</div>'
+      +'</div>';
+  }).join('');
+  dd.classList.add('open');
+}
+function onDestKey(e){
+  if(e.key==='Enter'){ document.getElementById('destDropdown').classList.remove('open'); lancerRecherche(); }
+  if(e.key==='Escape'){ document.getElementById('destDropdown').classList.remove('open'); }
+}
+function selectDest(name){
+  document.getElementById('destInput').value = name;
+  document.getElementById('destDropdown').classList.remove('open');
+  currentDest = name;
+}
+function quickDest(name){
+  document.getElementById('destInput').value = name;
+  currentDest = name;
+  lancerRecherche();
+}
+document.addEventListener('click', function(e){
+  if(!e.target.closest('.autocomplete-wrap')) document.getElementById('destDropdown').classList.remove('open');
+});
+
+// ── Chips équipements ──
+document.querySelectorAll('.equip-chip').forEach(function(chip){
+  chip.addEventListener('click', function(){
+    this.classList.toggle('checked');
+  });
+});
+
+// ── Lancer la recherche ──
+function lancerRecherche(){
+  var dest = document.getElementById('destInput').value.trim();
+  if(!dest){ document.getElementById('destInput').focus(); document.getElementById('destInput').style.borderColor='#e83535'; setTimeout(function(){document.getElementById('destInput').style.borderColor='';},1500); return; }
+  currentDest = dest;
+
+  var dateArr   = document.getElementById('dateArrivee').value;
+  var dateDep   = document.getElementById('dateDepart').value;
+  var adultes   = document.getElementById('adultes').value;
+  var enfants   = document.getElementById('enfants').value;
+  var chambres  = document.getElementById('chambres').value;
+  var budget    = document.getElementById('budget').value;
+  var noteMin   = document.getElementById('noteMin').value;
+  var type      = document.getElementById('typeLogement').value;
+
+  // Afficher résultats
+  document.getElementById('placeholderWrap').style.display = 'none';
+  document.getElementById('resultsWrap').style.display = 'block';
+  document.getElementById('resultsTitle').textContent = 'Accommodation ' + sfA(dest);
+
+  var nights = dateArr && dateDep ? Math.round((new Date(dateDep)-new Date(dateArr))/(1000*60*60*24)) : 7;
+  document.getElementById('resultsSub').textContent =
+    (dateArr ? formatDate(dateArr)+' → '+formatDate(dateDep)+' · ' : '') +
+    nights + ' night' + (nights>1?'s':'') + ' · ' + adultes + ' adult'+(adultes>1?'s':'') +
+    (enfants>0?' · '+enfants+' child'+(enfants>1?'s':''):'') + ' · ' + chambres + ' room'+(chambres>1?'s':'');
+
+  renderAnnonces(dest, budget, noteMin, type, dateArr, dateDep, adultes, enfants, chambres);
+  renderPartnerCtas(dest, dateArr, dateDep, adultes, enfants, chambres, budget, type);
+
+  setTimeout(function(){
+    document.getElementById('resultsWrap').scrollIntoView({behavior:'smooth',block:'start'});
+  }, 100);
+}
+
+function formatDate(str){
+  if(!str) return '';
+  var d = new Date(str);
+  return d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
+}
+
+// ── Rendu annonces — vraies redirections Booking ──
+function renderAnnonces(dest, budget, noteMin, type, dateArr, dateDep, adultes, enfants, chambres){
+  var urlE = buildUrl('expedia', dest, dateArr, dateDep, adultes, enfants, chambres);
+
+  // Catégories de logement avec vraies URLs Booking filtrées (filtre inséré AVANT l'encodage CJ)
+  var categories = [
+    {
+      icon:'🏨', label:'Hotels', desc:'Half board, breakfast, on-site services',
+      color:'#003580', textColor:'white',
+      photo:'https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=500&q=80',
+      tags:['🍳 Breakfast often included','🛎️ Room service','↩️ Free cancellation on many offers'],
+      url: buildUrl('booking', dest, dateArr, dateDep, adultes, enfants, chambres, '&nflt=ht_id%3D204'),
+      cta:'See hotels on Booking',
+      partner:'booking'
+    },
+    {
+      icon:'🏔', label:'Chalets', desc:'Independent, sauna, mountain view',
+      color:'#2a5a2a', textColor:'white',
+      photo:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500&q=80',
+      tags:['🔥 Fireplace & wood','💆 Sauna / spa often included','👨‍👩‍👧‍👦 Ideal for groups & families'],
+      url: buildUrl('booking', dest, dateArr, dateDep, adultes, enfants, chambres, '&nflt=property_type%3D67'),
+      cta:'See chalets on Booking',
+      partner:'booking'
+    },
+    {
+      icon:'🏢', label:'Apartments & Residences', desc:'Equipped kitchen, ideal for families',
+      color:'#1a4a7a', textColor:'white',
+      photo:'https://images.unsplash.com/photo-1601024445121-e5b82f020549?w=500&q=80',
+      tags:['🍳 Equipped kitchen','🧺 More space and independence','💰 Often the best value for money per person'],
+      url: buildUrl('booking', dest, dateArr, dateDep, adultes, enfants, chambres, '&nflt=ht_id%3D201'),
+      cta:'See apartments on Booking',
+      partner:'booking'
+    },
+    {
+      icon:'✈️', label:'Hotels + Combined Flights', desc:'All-in-one on Expedia',
+      color:'#c98a00', textColor:'white',
+      photo:'https://images.unsplash.com/photo-1548133612-cb5a8c886b4c?w=500&q=80',
+      tags:['✈️ Flight + hotel in one click','🧳 Handy for long journeys','🔍 Compare several options'],
+      url: urlE,
+      cta:'See the deals on Expedia',
+      partner:'expedia'
+    }
+  ];
+
+  // Filtrer si type sélectionné
+  if(type === 'hotel')      categories = [categories[0]];
+  else if(type === 'chalet') categories = [categories[1]];
+  else if(type === 'apartment') categories = [categories[2]];
+
+  var list = document.getElementById('annoncesList');
+  list.innerHTML = [
+    '<div style="font-size:.85rem;color:var(--text-light);margin-bottom:16px;line-height:1.5">',
+    'Choose a type of accommodation for <strong style="color:var(--text)">'+dest+'</strong>',
+    (dateArr ? ' · ' + formatDate(dateArr) + ' → ' + formatDate(dateDep) : ''),
+    ' — you\'ll be redirected to Booking.com or Expedia with your criteria already filled in, to see real-time availability and prices.',
+    '</div>',
+    categories.map(function(cat){
+      return '<a href="'+cat.url+'" target="_blank" rel="noopener" class="heb-visual-card" style="--card-color:'+cat.color+'">'
+        +'<div class="hvc-img">'
+        +'<img src="'+cat.photo+'" alt="'+cat.label+' '+sfA(dest)+'" loading="lazy">'
+        +'<span class="hvc-badge" style="background:'+cat.color+';color:'+cat.textColor+'">'+(cat.partner==='booking'?'Booking.com':'Expedia')+'</span>'
+        +'</div>'
+        +'<div class="hvc-body">'
+        +'<div class="hvc-title">'+cat.icon+' '+cat.label+'</div>'
+        +'<div class="hvc-desc">'+cat.desc+'</div>'
+        +'<div class="hvc-tags">'+cat.tags.map(function(t){return '<span class="hvc-tag">'+t+'</span>';}).join('')+'</div>'
+        +'<div class="hvc-cta">'+cat.cta+' <span>→</span></div>'
+        +'</div>'
+        +'</a>';
+    }).join('')
+  ].join('');
+}
+
+// ── Boutons partenaires ──
+function renderPartnerCtas(dest, dateArr, dateDep, adultes, enfants, chambres, budget, type){
+  var urlB = buildUrl('booking', dest, dateArr, dateDep, adultes, enfants, chambres);
+  var urlE = buildUrl('expedia', dest, dateArr, dateDep, adultes, enfants, chambres);
+  document.getElementById('partnerCtas').innerHTML =
+    '<a class="partner-cta partner-booking" href="'+urlB+'" target="_blank" rel="noopener">'
+    +'<div class="partner-logo">🏨</div>'
+    +'<div><div class="partner-name">Booking.com</div><div class="partner-desc">See all accommodation '+sfA(dest)+'</div></div>'
+    +'<div class="partner-arrow">→</div>'
+    +'</a>'
+    +'<a class="partner-cta partner-expedia" href="'+urlE+'" target="_blank" rel="noopener">'
+    +'<div class="partner-logo">✈️</div>'
+    +'<div><div class="partner-name">Expedia</div><div class="partner-desc">Hotels + combined flights</div></div>'
+    +'<div class="partner-arrow">→</div>'
+    +'</a>';
+}
+
+// ── Construction URLs affiliées ──
+function buildUrl(source, dest, dateArr, dateDep, adultes, enfants, chambres, extra){
+  var enc = encodeURIComponent(dest + ' ski');
+  if(source === 'booking'){
+    var base = 'https://www.booking.com/searchresults.en-gb.html?ss='+enc+'&lang=en-gb';
+    if(dateArr) base += '&checkin='+dateArr;
+    if(dateDep) base += '&checkout='+dateDep;
+    base += '&group_adults='+adultes;
+    if(enfants && enfants>0){ base += '&group_children='+enfants; for(var i=0;i<enfants;i++) base+='&age=8'; }
+    base += '&no_rooms='+chambres;
+    if(extra) base += extra; // filtres (nflt=...) — doivent être DANS l'URL Booking, avant l'encodage CJ
+    return BOOKING_CJ + '?sid=hebergement&url=' + encodeURIComponent(base);
+  } else {
+    return expediaUrl(dest, dateArr, dateDep, adultes, chambres);
+  }
+}
+
+// ── Tri ──
+function setSortAnnonces(sort, btn){
+  currentSort = sort;
+  document.querySelectorAll('.sort-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  if(currentDest) lancerRecherche();
+}
+
+// ── Lire params URL (ex: depuis une fiche station) ──
+(function readUrlParams(){
+  var params = new URLSearchParams(window.location.search);
+  var station = params.get('station');
+  if(station){
+    document.getElementById('destInput').value = station;
+    currentDest = station;
+    setTimeout(lancerRecherche, 300);
+  }
+})();
+</script>
+<footer style="background:var(--wood-dark);color:rgba(255,255,255,.75);padding:44px 24px 28px;margin-top:60px">
+<div style="max-width:900px;margin:0 auto">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;justify-content:center">
+<div style="background:rgba(255,255,255,.14);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">⛷</div>
+<div>
+<div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:white">SnowFinder</div>
+<div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:1px">The guide to ski resorts in Europe</div>
+</div>
+</div>
+<div style="display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">700+</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Resorts</div></div>
+<div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">9</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Countries</div></div>
+<div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">Live</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Weather</div></div>
+<div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">100%</div><div style="font-size:.66rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em">Free</div></div>
+</div>
+<div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:16px;font-size:.82rem"><a href="/index.html" style="color:rgba(255,255,255,.55);text-decoration:none">Home</a> <a href="/en/recherche.html" style="color:rgba(255,255,255,.55);text-decoration:none">All resorts</a> <a href="/en/tinder.html" style="color:rgba(255,255,255,.55);text-decoration:none">Ski Tinder</a> <a href="/en/comparateur.html" style="color:rgba(255,255,255,.55);text-decoration:none">Comparison tool</a> <a href="/en/enneigement.html" style="color:rgba(255,255,255,.55);text-decoration:none">Snow reliability</a> <a href="/en/hebergement.html" style="color:rgba(255,255,255,.55);text-decoration:none">Accommodation</a> <a href="/en/favoris.html" style="color:rgba(255,255,255,.55);text-decoration:none">My favourites</a> <a href="/index.html" style="color:rgba(255,255,255,.55);text-decoration:none">Resort of the moment</a> <a href="/mentions-legales.html" style="color:rgba(255,255,255,.55);text-decoration:none">Legal notice</a></div>
+<div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;flex-wrap:wrap"><span style="font-size:.66rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.05em">Partners</span> <span style="background:#003580;color:white;font-size:.66rem;font-weight:700;padding:3px 10px;border-radius:4px">Booking.com</span> <span style="background:#f26024;color:white;font-size:.66rem;font-weight:700;padding:3px 10px;border-radius:4px">Expedia</span></div>
+<div style="text-align:center;font-size:.7rem;color:rgba(255,255,255,.28);line-height:1.8">© 2025 SnowFinder — All rights reserved  ·  <a href="/mentions-legales.html" style="color:rgba(255,255,255,.38);text-decoration:underline">Legal notice &amp; GDPR</a></div>
+</div>
+</footer>
+<script>
+/* ── Flocons légers ── */
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var c=document.getElementById('pageSnow');
+  if(!c)return;
+  var ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize(); window.addEventListener('resize',resize);
+  var N=45, flakes=[];
+  for(var i=0;i<N;i++) flakes.push({
+    x:Math.random()*c.width, y:Math.random()*c.height,
+    r:Math.random()*2.0+0.5, speed:Math.random()*0.7+0.28,
+    wind:Math.random()*.35-.17, opacity:Math.random()*0.3+0.1,
+    wobble:Math.random()*Math.PI*2, ws:Math.random()*.018+.005
+  });
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    flakes.forEach(function(f){
+      f.wobble+=f.ws; f.x+=f.wind+Math.sin(f.wobble)*.3; f.y+=f.speed;
+      if(f.y>c.height+6){f.y=-6;f.x=Math.random()*c.width;}
+      if(f.x>c.width+6)f.x=-6; if(f.x<-6)f.x=c.width+6;
+      ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,'+f.opacity+')'; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+<nav class="sf-bottomnav"><a class="sf-bn-item" href="/en/recherche.html" title="Find my resort">🔍<span class="sf-bn-label">Search</span></a> <a class="sf-bn-item" href="/en/enneigement.html" title="Weather &amp; snow reliability">❄️<span class="sf-bn-label">Weather</span></a> <a class="sf-bn-item sf-bn-home" href="/index.html" title="Accueil"><span class="sf-bn-home-circle">🏡</span><span class="sf-bn-label">Chalet</span></a> <a class="sf-bn-item" href="/en/tinder.html" title="Ski Tinder">💕<span class="sf-bn-label">Tinder</span></a> <a class="sf-bn-item active" href="/en/hebergement.html" title="Accommodation">🛏️<span class="sf-bn-label">Accom.</span></a></nav>
+<!-- ══ MENU RAPIDE (icône ☰ en haut à droite) ══ -->
+<style>
+.sf-sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;backdrop-filter:blur(4px)}
+.sf-sheet-overlay.open{display:block}
+.sf-sheet{position:fixed;left:0;right:0;bottom:0;z-index:9001;background:#f5f1ec;border-radius:20px 20px 0 0;padding:10px 0 max(20px,env(safe-area-inset-bottom));box-shadow:0 -8px 40px rgba(0,0,0,.2);transform:translateY(100%);transition:transform .32s cubic-bezier(.32,.72,0,1);max-width:480px;margin:0 auto}
+.sf-sheet.open{transform:translateY(0)}
+.sf-sheet-handle{width:40px;height:4px;background:#ddd;border-radius:3px;margin:0 auto 10px}
+.sf-sheet-title{text-align:center;font-family:"DM Serif Display",serif;font-size:1.05rem;color:var(--blue-dark,#1a3f6e);margin-bottom:6px;padding:0 20px}
+.sf-menu-item{display:flex;align-items:center;gap:12px;width:100%;padding:15px 24px;background:none;border:none;border-top:1px solid var(--wood-pale,#eee);font-size:.95rem;font-weight:600;color:var(--text,#2a1f14);text-decoration:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif}
+.sf-menu-item:active{background:var(--wood-pale,#f0e8da)}
+.sf-menu-item .em{font-size:1.15rem;flex-shrink:0}
+</style>
+<div class="sf-sheet-overlay" id="sfMenuOverlay" onclick="closeSfMenu()"></div>
+<div class="sf-sheet" id="sfMenuSheet">
+<div class="sf-sheet-handle"></div>
+<div class="sf-sheet-title">Menu</div>
+<button class="sf-menu-item" onclick="closeSfMenu();openContact()" type="button"><span class="em">📧</span><span>Contact us</span></button>
+<button class="sf-menu-item" onclick="closeSfMenu();openSfNotif()" type="button"><span class="em">🔔</span><span>Notifications</span></button>
+<a class="sf-menu-item" href="/mentions-legales.html"><span class="em">⚖️</span><span>Legal notice</span></a>
+</div>
+<div class="sf-sheet-overlay" id="sfNotifOverlay2" onclick="closeSfNotif()"></div>
+<div class="sf-sheet" id="sfNotifSheet2" style="text-align:center">
+<div class="sf-sheet-handle"></div>
+<div style="padding:8px 24px 4px">
+<div style="font-size:2.3rem;margin-bottom:8px">🔔</div>
+<div style="font-family:'DM Serif Display',serif;font-size:1.25rem;color:#1a3f6e;margin-bottom:8px;line-height:1.2">Powder alerts &amp; good deals?</div>
+<p style="font-size:.88rem;color:#5c4a35;line-height:1.6;margin-bottom:16px">Get an alert when the snow comes down heavily, or when there are good lift pass deals. <strong>Free, discreet, 1 to 2 times a week at most.</strong></p>
+</div>
+<div style="padding:0 20px;display:flex;flex-direction:column;gap:10px"><button onclick="acceptSfNotif()" style="background:linear-gradient(135deg,#1a5a8a,#3a7db8);color:white;border:none;border-radius:30px;padding:15px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(26,90,138,.3)" type="button">⛷️ Yes, I want to be alerted!</button> <button onclick="closeSfNotif()" style="background:transparent;color:#8a7060;border:none;padding:8px;font-size:.85rem;cursor:pointer;font-family:'DM Sans',sans-serif" type="button">No thanks</button></div>
+</div>
+<script>
+function openSfMenu(){document.getElementById('sfMenuOverlay').classList.add('open');document.getElementById('sfMenuSheet').classList.add('open');document.body.style.overflow='hidden';}
+function closeSfMenu(){document.getElementById('sfMenuOverlay').classList.remove('open');document.getElementById('sfMenuSheet').classList.remove('open');document.body.style.overflow='';}
+
+// Fallback : si la page n'a pas sa propre modale "Nous contacter" (voir index.html / recherche.html),
+// on renvoie vers la modale du site principal.
+if (typeof openContact !== 'function') {
+  window.openContact = function(){ window.location.href = 'index.html#contact'; };
+}
+
+function openSfNotif(){
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){
+    alert('Notifications are already enabled ✅'); return;
+  }
+  if(typeof Notification!=='undefined' && Notification.permission==='denied'){
+    alert("Notifications are blocked in your browser settings."); return;
+  }
+  document.getElementById('sfNotifOverlay2').classList.add('open');
+  document.getElementById('sfNotifSheet2').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSfNotif(){
+  document.getElementById('sfNotifOverlay2').classList.remove('open');
+  document.getElementById('sfNotifSheet2').classList.remove('open');
+  document.body.style.overflow='';
+}
+function acceptSfNotif(){
+  closeSfNotif();
+  function ask(){
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred.push(async function(OneSignal){
+      try{ await OneSignal.Notifications.requestPermission(); }catch(e){}
+    });
+  }
+  if(window.OneSignal || document.querySelector('script[src*="OneSignalSDK"]')){ ask(); return; }
+  var s=document.createElement('script');
+  s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; s.defer=true;
+  document.head.appendChild(s);
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(async function(OneSignal){
+    await OneSignal.init({appId:"df4757f7-ed59-4973-8a3d-782547295c9c",safari_web_id:"web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",serviceWorkerPath:"sw.js",notifyButton:{enable:false},welcomeNotification:{disable:true}});
+    try{ await OneSignal.Notifications.requestPermission(); }catch(e){}
+  });
+}
+</script>
+<!--sf-lang--><a class="sf-lang-switch" href="/hebergement.html" hreflang="fr" lang="fr" rel="alternate">🇫🇷 Français</a><style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index:900;background:rgba(255,255,255,.94);color:#1d4f7a;border:1px solid #d6dde4;border-radius:20px;padding:6px 12px;font:600 .74rem/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}.sf-lang-switch:hover{background:#fff}</style><!--/sf-lang--></body>
+</html>

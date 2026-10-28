@@ -41,6 +41,7 @@
 "6b4bdae54e5a67f8ed9861de46fdad5bc43e0bcc": "Have you thought about where to stay <t1>in Rosswald</t1>?",
 "6b4d5f6a51cd95cb3ce08f3676d8baf8aa3c8fe1": "Waymarked trails, panoramas",
 "6b53122149769b2539be9a13c9ae2296d090080f": "22 km",
+"6b53db2be0293c61d57b7d2d1cb2c35f74e95ec1": "cm of snow forecast at Bellwald !<t1/><t2/><t3/>Book soon before prices go up!<t4/>",
 "6b57b77e10a977b5c6d3a7a479e5b55a8536028b": "A resort on a human scale, Le Mont Dore focuses on warm welcome and closeness rather than impressive figures. Its 41 km of runs are well suited to a stay of 3 to 4 days, especially for families or skiers who don't need to constantly change terrain. Le Mont Dore's family reputation is well earned: dedicated beginner areas, a well-organised childcare service, well-groomed green runs and a friendly atmosphere at the foot of the lifts. It is one of the most reassuring resorts in the Massif Central for laying the foundations of skiing with children. The modest altitude of Le Mont Dore (base at 1050 m, summit at 1850 m) makes it sensitive to climate variations. January and February remain the safest months for optimal snow cover. Outside that window, checking the snow reports before setting off is strongly recommended. At 43€ a day, the lift pass places Le Mont Dore in the mid-range category on price: neither cheap nor exorbitant. The quality of the ski area and its facilities justifies the cost for most skiers. In short: Le Mont Dore is one of those rare resorts that combines a real village, a sincere family atmosphere and runs suited to everyone. It's hard to have a bad stay here.",
 "6b5a5f531247a99508c1f9da32d97092ee602296": "Have you thought about where to stay <t1>in Les Gets</t1>?",
 "6b5d83cf3e3c1ad3ba0a008923998030342ac47c": "See all resorts →",
@@ -63,6 +64,7 @@
 "6b7e54819e87c55c1e83eb350df7e97c1348dd61": "🎿 Snowpark",
 "6b847835e6c1c077acd91b2f2e809df21999235f": "✍️ Our verdict on Kellerjoch",
 "6b8ba2e54465a2920ebf0a72537f521eeace17a7": "Gemsstock (Andermatt) (Switzerland) — Ski resort: runs, snow reliability, accommodation | SnowFinder",
+"6b8bd43bd6d13e736bb4c2d0f615478ca78e31aa": "Facilities",
 "6b8d8fd06c37d7cf315cf2f453f5c7ed8369e5fc": "February holidays",
 "6b8f31b90bef470873e97e1d3ff4b47f19a06c62": "🎿 96 km · 2 resorts · 91€/day",
 "6b9499ed6cb2e1a28e465e1571113d2846db2c6a": "Accommodation in Spital am Semmering – Stuhleck goes quickly in high season, especially during school holidays.<t1/>Two clicks now and you won't have to sleep in your car. 🚗❄️",
@@ -79,10 +81,12 @@
 "6bb53eefb20f9d00fb5e84d211faa83f423d1fd4": "❄️ Weather at Semmering – Zauberberg",
 "6bbc42a54648b1c2aeaf4d2e06377797be1e4803": "Wondering where to stay <t1>in Madesimo</t1>?",
 "6bbcba7f9fa12cc382d6644bcb70eac9ce78f067": "📍 Village (927 m) vs Summit (1172 m)",
+"6bc4b71b5f2a984e535b9457f1d9e8436374f50d": "cm of snow forecast at Samnaun !<t1/><t2/><t3/>Book soon before prices go up!<t4/>",
 "6bc891bfa8d522f9a2bacad43a0d0a5aca2e9b45": "Arêches-Beaufort — Ski resort: runs, snow reliability, accommodation | SnowFinder",
 "6bd036456aceb3071ca44f94a029bf43e98ca24c": "Font d'Urle is a small, low-key resort — 18 km of runs for an intimate skiing experience, far from the bustle of the big resorts. This is where people come for calm, authenticity and no queues at the lifts. Font d'Urle's family reputation is well deserved: dedicated beginner areas, well-groomed green runs and a friendly atmosphere at the foot of the lifts. It is one of the most reassuring resorts in the Northern Alps for laying the foundations of skiing with children. Font d'Urle's modest altitude — starting at 1,510 m and topping out at 1,765 m — makes it sensitive to climate variations. January and February remain the safest months for optimal snow cover. Outside this window, checking the snow reports before setting off is strongly advised. With a day lift pass at just 16€, Font d'Urle is one of the most affordable destinations in France. For families on a tight budget or skiers who want to multiply their days on the slopes without breaking the bank, it is a sincere and often overlooked choice. In short: Font d'Urle does not rival the giants of skiing, and does not pretend to. It is an honest destination, often underestimated, that deserves to be (re)discovered.",
 "6bd19be0ae9a6dd4daa539f74d2d5fac2719ab8d": "Tavascan: 7 km of runs, altitude 1,750–2,250 m, lift pass €22/day. Small resort at Pleta del Prat, best known for its Nordic skiing. ⚠️ Alpine runs closed",
 "6bd2fcab1d7a38b5cea38abe3f9945a3c1710fef": "15 km",
+"6bd34fe07711a2d00a47f6a32d810f881ac7280a": "resorts).",
 "6bd42f761c875da91ccdf415f83552cb1626e1d2": "La Rosière runs",
 "6bd4d8f081335775b9133a5d9b475afeff240d09": "Official website of Villars-sur-Ollon",
 "6bda340bb9c2470fc3f2d1ce4de6fe47e89c27e8": "Gressoney-La-Trinité: 132 km of runs, altitude 1,637-3,275 m, lift pass 69€/day. Walser village at the centre of the Monterosa Ski area.",
@@ -100,5 +104,6 @@
 "6bf33ccfe27d9a90e3d8deefd7201b43b36b7856": "Flower-filled meadows, alpine wildlife",
 "6bf679dbf8be80c8715c55313f74bebfb058bc1d": "<t1>Arêches-Beaufort</t1> is a ski resort in the <t2>Northern Alps</t2>, in <t3>Beaufortain, Savoie</t3>. The ski area stretches over <t4>50 km of pistes</t4> between 1,080 m and 2,300 m, served by 14 lifts. Day lift pass <t5>39€</t5> per adult.",
 "6bfab27c9c5fe40ddb831980af29cc37baab739a": "Accommodation in Les Houches goes fast in high season, especially during the school holidays.<t1/>Just two clicks away, and you won't have to sleep in your car. 🚗❄️",
-"6bfd06d8d39bdc45ac67c7c0fddcacc6943c8cad": "🎿 155 km · 4 resorts · 85€/day"
+"6bfd06d8d39bdc45ac67c7c0fddcacc6943c8cad": "🎿 155 km · 4 resorts · 85€/day",
+"6bfe59fa1c6789c22a260fa8b8dc71220abba920": "cm of snow forecast at Ovronnaz !<t1/><t2/><t3/>Book soon before prices go up!<t4/>"
 }

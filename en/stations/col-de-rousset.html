@@ -640,8 +640,8 @@ body{padding-top:64px!important}
 <a class="sf-topbar-logo" href="/index.html"><img alt="SnowFinder" src="/logo.png"/> <span class="sf-topbar-wordtext"> <span class="sf-topbar-title"><span class="sf-dark">Snow</span><span class="sf-light">Finder</span></span> <span class="sf-topbar-slogan">Compare • Find • Ski</span> </span></a>
 <a class="sf-topbar-app" href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" style="position:relative;left:12px">📲 The app is out now!</a>
 <div class="sf-topbar-right">
-<a class="sf-topbar-fav" href="/comparateur.html" style="margin-right:2px;position:relative;left:10px">⚖️ <span id="sfCompareCount">0</span></a>
-<a class="sf-topbar-fav" href="/favoris.html">⭐ <span id="sfFavCount">0</span></a>
+<a class="sf-topbar-fav" href="/en/comparateur.html" style="margin-right:2px;position:relative;left:10px">⚖️ <span id="sfCompareCount">0</span></a>
+<a class="sf-topbar-fav" href="/en/favoris.html">⭐ <span id="sfFavCount">0</span></a>
 <button aria-label="Menu" class="sf-topbar-menu" id="sfMenuBtn" onclick="openSfMenu()" type="button">☰</button>
 </div>
 </div>
@@ -793,7 +793,7 @@ function updateCompareBtn(){
   var btn=document.getElementById('compareBtn');
   if(btn){
     btn.classList.toggle('active',isIn);
-    btn.title=isIn?'Retirer du comparateur':'Ajouter au comparateur';
+    btn.title=isIn?'Remove from comparison':'Add to comparison tool';
   }
 }
 function toggleCompare(){
@@ -831,7 +831,7 @@ function checkSnowForNewFav(){
 }
 function showFavToast(added){
   var t=document.createElement('div');
-  t.textContent=added?'⭐ Ajouté aux favoris !':'☆ Retiré des favoris';
+  t.textContent=added?'⭐ Added to favourites!':'☆ Removed from favourites';
   t.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#2a1f14;color:white;padding:12px 22px;border-radius:30px;font-size:.88rem;font-weight:700;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,.3);pointer-events:none;transition:opacity .3s';
   document.body.appendChild(t);
   setTimeout(function(){t.style.opacity='0';},1800);
@@ -1044,7 +1044,7 @@ function closeStation(){
 }
 </script>
 <div class="container">
-<nav class="breadcrumb"><a href="/index.html">Home</a> › <a href="/recherche.html">Ski resorts</a> › <a href="/recherche.html">Alpes du Nord</a> › <span>Col de Rousset</span></nav>
+<nav class="breadcrumb"><a href="/index.html">Home</a> › <a href="/en/recherche.html">Ski resorts</a> › <a href="/en/recherche.html">Alpes du Nord</a> › <span>Col de Rousset</span></nav>
 <!-- Les statistiques de la station et l'encadré du grand domaine relié vivent désormais
        chacun dans leur propre onglet (La station / Grand domaine), plus jamais affichés
        ici de façon permanente au-dessus des onglets. -->
@@ -1276,7 +1276,7 @@ function closeStation(){
 <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:.75rem;color:#5c4a35;font-weight:600">125 km · 2,050m</span> <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~72€/night</span></div>
 </a>
 </div>
-<a href="/recherche.html" style="display:block;text-align:center;margin-top:12px;padding:9px;background:#f7efe2;border-radius:8px;font-size:.82rem;font-weight:600;color:#3a7db8;border:1.5px solid #eddcbf">See all resorts →</a>
+<a href="/en/recherche.html" style="display:block;text-align:center;margin-top:12px;padding:9px;background:#f7efe2;border-radius:8px;font-size:.82rem;font-weight:600;color:#3a7db8;border:1.5px solid #eddcbf">See all resorts →</a>
 </div>
 </div>
 <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
@@ -1390,7 +1390,7 @@ function closeStation(){
 </button>
 <!-- BOOKING / EXPEDIA — style index -->
 <div style="border-radius:16px;overflow:hidden;box-shadow:0 8px 28px rgba(13,34,64,.18);margin-bottom:16px">
-<a href="https://www.tkqlhce.com/click-101709262-15734710?sid=station-col-de-rousset&amp;url=https%3A//www.booking.com/searchresults.fr.html%3Fss%3DCol%2520de%2520Rousset%2520ski%2520france%26lang%3Dfr" onmouseout="this.querySelector('img').style.transform='scale(1)'" onmouseover="this.querySelector('img').style.transform='scale(1.05)'" rel="noopener sponsored" style="display:block;text-decoration:none;overflow:hidden;position:relative" target="_blank">
+<a href="https://www.tkqlhce.com/click-101709262-15734710?sid=station-col-de-rousset&amp;url=https%3A//www.booking.com/searchresults.en-gb.html%3Fss%3DCol%2520de%2520Rousset%2520ski%2520france%26lang%3Den-gb" onmouseout="this.querySelector('img').style.transform='scale(1)'" onmouseover="this.querySelector('img').style.transform='scale(1.05)'" rel="noopener sponsored" style="display:block;text-decoration:none;overflow:hidden;position:relative" target="_blank">
 <div style="position:relative;overflow:hidden;height:130px">
 <img alt="Book on Booking" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=600&amp;q=80'" src="/img/chalet-booking.jpg" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease"/>
 <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,35,110,.82) 0%,rgba(0,35,110,.4) 55%,transparent 100%);display:flex;align-items:center;padding:0 18px;gap:12px">
@@ -1421,10 +1421,10 @@ function closeStation(){
 <!-- EXPLORER -->
 <div class="section" style="margin-bottom:0">
 <div class="section-title">Explore</div>
-<a class="related-link" href="/recherche.html">📍 Other Northern Alps resorts <span>→</span></a>
-<a class="related-link" href="/comparateur.html">⚖️ Compare resorts <span>→</span></a>
-<a class="related-link" href="/enneigement.html">❄️ Live snow conditions <span>→</span></a>
-<a class="related-link" href="/hebergement.html">🏨 Search for accommodation <span>→</span></a>
+<a class="related-link" href="/en/recherche.html">📍 Other Northern Alps resorts <span>→</span></a>
+<a class="related-link" href="/en/comparateur.html">⚖️ Compare resorts <span>→</span></a>
+<a class="related-link" href="/en/enneigement.html">❄️ Live snow conditions <span>→</span></a>
+<a class="related-link" href="/en/hebergement.html">🏨 Search for accommodation <span>→</span></a>
 </div>
 </div>
 </div>
@@ -1445,7 +1445,7 @@ function closeStation(){
 <!-- Cards hébergement -->
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px 16px">
 <!-- Booking -->
-<a href="https://www.tkqlhce.com/click-101709262-15734710?sid=station-col-de-rousset&amp;url=https%3A//www.booking.com/searchresults.fr.html%3Fss%3DCol%2520de%2520Rousset%2520ski%2520france%26lang%3Dfr" onclick="hideOfficialSheet()" rel="noopener sponsored" style="text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.15);display:block" target="_blank">
+<a href="https://www.tkqlhce.com/click-101709262-15734710?sid=station-col-de-rousset&amp;url=https%3A//www.booking.com/searchresults.en-gb.html%3Fss%3DCol%2520de%2520Rousset%2520ski%2520france%26lang%3Den-gb" onclick="hideOfficialSheet()" rel="noopener sponsored" style="text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.15);display:block" target="_blank">
 <div style="position:relative;height:120px;overflow:hidden">
 <img alt="Ski chalet Booking" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=400&amp;q=80'" src="/img/chalet-booking.jpg" style="width:100%;height:100%;object-fit:cover"/>
 <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,35,128,.9) 0%,rgba(0,35,128,.3) 60%,transparent 100%)"></div>
@@ -1473,7 +1473,7 @@ function closeStation(){
 <div style="text-align:center;padding:0 24px"><a href="https://en.vercors-drome.com/a-la-neige/125288_domaine-alpin-du-col-de-rousset/" onclick="hideOfficialSheet()" rel="noopener" style="display:inline-block;font-size:.88rem;color:#5c4a35;font-weight:600;text-decoration:underline;padding:8px 16px" target="_blank"> No thanks, continue to the official website of Col de Rousset → </a></div>
 </div>
 <!-- BARRE MOBILE FIXE -->
-<div class="mobile-bar"><button class="mobile-bar-btn mobile-bar-official" onclick="showOfficialSheet()"> <img alt="" loading="lazy" src="https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1200&amp;q=80"/> <span class="mobile-bar-btn-overlay">🎿 Official site</span> </button> <a class="mobile-bar-btn mobile-bar-booking" href="https://www.tkqlhce.com/click-101709262-15734710?sid=station-col-de-rousset&amp;url=https%3A//www.booking.com/searchresults.fr.html%3Fss%3DCol%2520de%2520Rousset%2520ski%2520france%26lang%3Dfr" rel="noopener sponsored" target="_blank"> <img alt="" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=400&amp;q=80'" src="/img/chalet-booking.jpg"/> <span class="mobile-bar-btn-overlay">🏨 Book</span> </a></div>
+<div class="mobile-bar"><button class="mobile-bar-btn mobile-bar-official" onclick="showOfficialSheet()"> <img alt="" loading="lazy" src="https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1200&amp;q=80"/> <span class="mobile-bar-btn-overlay">🎿 Official site</span> </button> <a class="mobile-bar-btn mobile-bar-booking" href="https://www.tkqlhce.com/click-101709262-15734710?sid=station-col-de-rousset&amp;url=https%3A//www.booking.com/searchresults.en-gb.html%3Fss%3DCol%2520de%2520Rousset%2520ski%2520france%26lang%3Den-gb" rel="noopener sponsored" target="_blank"> <img alt="" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=400&amp;q=80'" src="/img/chalet-booking.jpg"/> <span class="mobile-bar-btn-overlay">🏨 Book</span> </a></div>
 <script>
 function showOfficialSheet(){
   document.getElementById('officialOverlay').style.display='block';
@@ -1494,7 +1494,7 @@ function hideOfficialSheet(){
   setTimeout(function(){ s.style.display='none'; }, 380);
 }
 </script>
-<footer class="footer"><strong>SnowFinder</strong> – The complete guide to ski resorts in Europe<br/> <a href="/index.html">Accueil</a> · <a href="/recherche.html">Search</a> · <a href="/comparateur.html">Comparison tool</a> · <a href="/mentions-legales.html">Legal notice</a><br/> <span style="font-size:.7rem;opacity:.7">Indicative data · High-season adult lift passes · Check the official website of each resort</span></footer>
+<footer class="footer"><strong>SnowFinder</strong> – The complete guide to ski resorts in Europe<br/> <a href="/index.html">Accueil</a> · <a href="/en/recherche.html">Search</a> · <a href="/en/comparateur.html">Comparison tool</a> · <a href="/mentions-legales.html">Legal notice</a><br/> <span style="font-size:.7rem;opacity:.7">Indicative data · High-season adult lift passes · Check the official website of each resort</span></footer>
 <!-- LIGHTBOX GALERIE -->
 <div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
 <button aria-label="Close" class="lightbox-close" onclick="closeLightbox()">✕</button>
@@ -1538,11 +1538,11 @@ document.addEventListener('keydown', function(e){
 });
 </script>
 <nav class="sf-bottomnav">
-<a class="sf-bn-item" href="/recherche.html" title="Find my resort">🔍</a>
-<a class="sf-bn-item" href="/enneigement.html" title="Weather &amp; snow reliability">❄️</a>
+<a class="sf-bn-item" href="/en/recherche.html" title="Find my resort">🔍</a>
+<a class="sf-bn-item" href="/en/enneigement.html" title="Weather &amp; snow reliability">❄️</a>
 <a class="sf-bn-item sf-bn-home" href="/index.html" title="Accueil"><span class="sf-bn-home-circle">🏡</span></a>
-<a class="sf-bn-item" href="/tinder.html" title="Ski Tinder">💕</a>
-<a class="sf-bn-item" href="/hebergement.html" title="Accommodation">🛏️</a>
+<a class="sf-bn-item" href="/en/tinder.html" title="Ski Tinder">💕</a>
+<a class="sf-bn-item" href="/en/hebergement.html" title="Accommodation">🛏️</a>
 </nav>
 <!--sf-lang--><a class="sf-lang-switch" href="/stations/col-de-rousset.html" hreflang="fr" lang="fr" rel="alternate">🇫🇷 Français</a><style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index:900;background:rgba(255,255,255,.94);color:#1d4f7a;border:1px solid #d6dde4;border-radius:20px;padding:6px 12px;font:600 .74rem/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}.sf-lang-switch:hover{background:#fff}</style><!--/sf-lang--></body>
 </html>

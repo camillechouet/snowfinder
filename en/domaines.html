@@ -133,8 +133,8 @@ body{padding-top:64px!important}
 <a class="sf-topbar-logo" href="/index.html"><img alt="SnowFinder" src="/logo.png"/> <span class="sf-topbar-wordtext"> <span class="sf-topbar-title"><span class="sf-dark">Snow</span><span class="sf-light">Finder</span></span> <span class="sf-topbar-slogan">Compare • Find • Ski</span> </span></a>
 <a class="sf-topbar-app" href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" style="position:relative;left:12px">📲 The app is out now!</a>
 <div class="sf-topbar-right">
-<a class="sf-topbar-fav" href="/comparateur.html" style="margin-right:2px;position:relative;left:10px">⚖️ <span id="sfCompareCount">0</span></a>
-<a class="sf-topbar-fav" href="/favoris.html">⭐ <span id="sfFavCount">0</span></a>
+<a class="sf-topbar-fav" href="/en/comparateur.html" style="margin-right:2px;position:relative;left:10px">⚖️ <span id="sfCompareCount">0</span></a>
+<a class="sf-topbar-fav" href="/en/favoris.html">⭐ <span id="sfFavCount">0</span></a>
 <button aria-label="Menu" class="sf-topbar-menu" id="sfMenuBtn" onclick="openSfMenu()" type="button">☰</button>
 </div>
 </div>
@@ -224,7 +224,7 @@ function acceptSfNotif(){
 </script>
 <!-- ══ FIN TOP BAR ══ -->
 <div class="di-hero">
-<a aria-label="Back" class="di-close" href="/recherche.html">✕</a>
+<a aria-label="Back" class="di-close" href="/en/recherche.html">✕</a>
 <h1>🏔️ The large linked ski areas</h1>
 <p>Several resorts connected on skis, under a single lift pass. The real deciding factor when you're after big skiing.</p>
 <div class="di-tot">
@@ -1719,13 +1719,13 @@ function acceptSfNotif(){
 </div>
 <div class="di-empty" id="diEmpty" style="display:none">No ski areas in this mountain range.</div>
 </div>
-<footer class="footer"><strong>SnowFinder</strong> — The complete guide to ski resorts in Europe<br/> <a href="/index.html">Accueil</a> · <a href="/recherche.html">Search</a> · <a href="/comparateur.html">Comparison tool</a> · <a href="/mentions-legales.html">Legal notice</a><br/> <span style="font-size:.7rem;opacity:.7">Indicative data · High-season adult lift passes · Please check on the ski area's official website</span></footer>
+<footer class="footer"><strong>SnowFinder</strong> — The complete guide to ski resorts in Europe<br/> <a href="/index.html">Accueil</a> · <a href="/en/recherche.html">Search</a> · <a href="/en/comparateur.html">Comparison tool</a> · <a href="/mentions-legales.html">Legal notice</a><br/> <span style="font-size:.7rem;opacity:.7">Indicative data · High-season adult lift passes · Please check on the ski area's official website</span></footer>
 <nav class="sf-bottomnav">
-<a class="sf-bn-item" href="/recherche.html" title="Find my resort">🔍</a>
-<a class="sf-bn-item" href="/enneigement.html" title="Weather &amp; snow reliability">❄️</a>
+<a class="sf-bn-item" href="/en/recherche.html" title="Find my resort">🔍</a>
+<a class="sf-bn-item" href="/en/enneigement.html" title="Weather &amp; snow reliability">❄️</a>
 <a class="sf-bn-item sf-bn-home" href="/index.html" title="Accueil"><span class="sf-bn-home-circle">🏡</span></a>
-<a class="sf-bn-item" href="/tinder.html" title="Ski Tinder">💕</a>
-<a class="sf-bn-item" href="/hebergement.html" title="Accommodation">🛏️</a>
+<a class="sf-bn-item" href="/en/tinder.html" title="Ski Tinder">💕</a>
+<a class="sf-bn-item" href="/en/hebergement.html" title="Accommodation">🛏️</a>
 </nav>
 <script>
 (function(){
@@ -1739,7 +1739,7 @@ function acceptSfNotif(){
   // Filtre pays : même stockage que Recherche/Accueil (localStorage "sf_pays_v1"),
   // avec ici son propre sélecteur de drapeaux (domaines.html est une page autonome
   // qui ne charge pas le module JS partagé window.SFPays).
-  var NOMS = {FR:"France",CH:"Suisse",IT:"Italie",ES:"Espagne",AD:"Andorre",DE:"Allemagne",LI:"Liechtenstein",AT:"Autriche",SI:"Slovénie"};
+  var NOMS = {FR:"France",CH:"Suisse",IT:"Italie",ES:"Espagne",AD:"Andorre",DE:"Allemagne",LI:"Liechtenstein",AT:"Autriche",SI:"Slovenia"};
   var EMOJI = {FR:"🇫🇷",CH:"🇨🇭",IT:"🇮🇹",ES:"🇪🇸",AD:"🇦🇩",DE:"🇩🇪",LI:"🇱🇮",AT:"🇦🇹",SI:"🇸🇮"};
   var ORDER = ["FR","CH","IT","ES","AD","AT","DE","SI","LI"];
   var availablePays = (function(){
@@ -1760,15 +1760,15 @@ function acceptSfNotif(){
     if(!paysBtnLbl) return;
     if(pays.length === availablePays.length) paysBtnLbl.textContent = 'All countries';
     else if(pays.length === 1) paysBtnLbl.textContent = EMOJI[pays[0]] || NOMS[pays[0]] || pays[0];
-    else paysBtnLbl.textContent = pays.length + ' pays';
+    else paysBtnLbl.textContent = pays.length + ' country';
   }
   function openPaysSheet(){
     var ov = document.createElement('div');
     ov.className = 'di-pays-sheet-ov';
     ov.innerHTML = '<div class="di-pays-sheet" role="dialog" aria-modal="true" aria-label="Choix des pays">' +
-      '<h3>Pays</h3><p>Touche un drapeau pour l\'ajouter ou le retirer. Ton choix est mémorisé sur cet appareil.</p>' +
+      '<h3>Country</h3><p>Tap a flag to add or remove it. Your choice is saved on this device.</p>' +
       '<div class="di-pays-row"></div>' +
-      '<button type="button" class="sf-sheet-ok">Valider</button></div>';
+      '<button type="button" class="sf-sheet-ok">Confirm</button></div>';
     document.body.appendChild(ov);
     var prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -1804,7 +1804,7 @@ function acceptSfNotif(){
       c.style.display = ok ? '' : 'none';
       if (ok) n++;
     });
-    count.textContent = n + (n > 1 ? ' domaines' : ' domaine');
+    count.textContent = n + (n > 1 ? ' ski areas' : ' ski area');
     empty.style.display = n ? 'none' : 'block';
   }
   btns.forEach(function(b){

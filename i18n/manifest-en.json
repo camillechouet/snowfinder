@@ -22,6 +22,7 @@
 "articles/top-5-stations-initier-enfants-ski.html",
 "articles/toutes-les-actus.html",
 "articles/vosges-ski-accessible.html",
+"comparateur.html",
 "comparatifs/alpe-d-huez-vs-les-deux-alpes.html",
 "comparatifs/avoriaz-vs-morzine.html",
 "comparatifs/chamonix-vs-megeve.html",
@@ -101,6 +102,9 @@
 "domaines/villars-gryon-diablerets.html",
 "domaines/voie-lactee.html",
 "domaines/zillertal-arena.html",
+"enneigement.html",
+"favoris.html",
+"hebergement.html",
 "recherche.html",
 "stations/abetone.html",
 "stations/abondance.html",
@@ -820,5 +824,6 @@
 "stations/zoncolan.html",
 "stations/zugspitze.html",
 "stations/zuoz.html",
-"stations/zurs.html"
+"stations/zurs.html",
+"tinder.html"
 ]

@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Ski resort comparison tool — SnowFinder</title>
+<meta content="Compare 2 or 3 ski resorts across Europe in detail: altitude, ski area, prices, snow reliability, atmosphere, facilities. 700+ resorts in 9 countries. Free tool from SnowFinder." name="description"/>
+
+<meta content="website" property="og:type"/>
+<meta content="SnowFinder" property="og:site_name"/>
+<meta content="https://snowfinder.fr/en/comparateur.html" property="og:url"/>
+<meta content="Ski resort comparison tool — SnowFinder" property="og:title"/>
+<meta content="Compare two ski resorts side by side: runs, altitude, prices, atmosphere and snow reliability." property="og:description"/>
+<meta content="https://snowfinder.fr/logo.png" property="og:image"/>
+<link href="/logo.png" rel="icon" type="image/png"/>
+<link href="/manifest.json" rel="manifest"/>
+<meta content="#1a5a8a" name="theme-color"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --wood-pale:#f7efe2;--wood-light:#eddcbf;--wood:#c49a6c;--wood-dark:#8b5e3c;
+      --blue-light:#e8f3fb;--blue-mid:#3a7db8;--blue-dark:#1a5a8a;
+      --text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7060;
+      --white:#fff;--bg:#f5f1ec;--radius:14px;
+    }
+    body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh}
+    a{color:inherit;text-decoration:none}
+
+    /* NAV */
+    .nav{background:var(--white);border-bottom:2px solid var(--wood-light);height:60px;display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.07);gap:0}
+    .nav-logo{display:flex;align-items:center;gap:9px;font-family:"DM Serif Display",serif;font-size:1.15rem;color:var(--blue-dark);text-decoration:none}
+    .nav-logo img{width:36px;height:36px;border-radius:8px}
+    .nav-links{display:flex;align-items:center;gap:2px;margin-left:20px;flex:1}
+    .nav-link{padding:7px 13px;border-radius:20px;font-size:.85rem;font-weight:500;color:var(--text-mid);text-decoration:none;transition:all .15s;white-space:nowrap}
+    .nav-link:hover,.nav-link.active{background:var(--wood-pale);color:var(--blue-mid)}
+    .nav-link.active{font-weight:700;color:var(--blue-dark)}
+    @media(max-width:600px){.nav-links{display:none}}
+
+    /* HERO */
+    .hero{background:linear-gradient(135deg,var(--blue-dark) 0%,#2c7ab8 100%);padding:44px 24px 36px;text-align:center;position:relative;overflow:hidden}
+    .hero::before{content:"⚖️";position:absolute;font-size:12rem;opacity:.05;top:-20px;right:-20px;line-height:1}
+    .hero h1{font-family:"DM Serif Display",serif;font-size:clamp(1.7rem,5vw,2.6rem);color:white;margin-bottom:10px;position:relative}
+    .hero p{color:rgba(255,255,255,.75);font-size:.95rem;max-width:480px;margin:0 auto;position:relative}
+
+    /* MAIN */
+    .container{max-width:900px;margin:0 auto;padding:28px 16px 60px}
+
+    /* SELECTOR CARD */
+    .selector-card{background:white;border-radius:20px;padding:28px 24px;box-shadow:0 4px 24px rgba(0,0,0,.09);margin-bottom:32px}
+    .selector-title{font-family:"DM Serif Display",serif;font-size:1.25rem;color:var(--blue-dark);margin-bottom:20px;text-align:center}
+    .selector-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .selector-grid.cols-3{grid-template-columns:1fr 1fr 1fr}
+    @media(max-width:560px){.selector-grid,.selector-grid.cols-3{grid-template-columns:1fr}}
+    @media(max-width:900px) and (min-width:561px){.selector-grid.cols-3{grid-template-columns:1fr 1fr}}
+    .group3-label-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+    .group3-remove{cursor:pointer;font-size:.72rem;font-weight:700;color:var(--text-light);background:var(--wood-pale);border:1px solid var(--wood-light);border-radius:20px;padding:2px 9px}
+    .group3-remove:hover{color:#b23}
+    .add-station-btn{display:block;width:100%;margin-top:14px;padding:11px;background:var(--wood-pale);border:1.5px dashed var(--wood);color:var(--blue-dark);border-radius:12px;font-family:"DM Sans",sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;text-align:center}
+    .add-station-btn:hover{background:var(--wood-light)}
+    .add-station-btn.hidden{display:none}
+    .selector-group label{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:700;color:var(--text-mid);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+    .selector-num{width:22px;height:22px;border-radius:50%;background:var(--blue-dark);color:white;font-size:.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .search-wrapper{position:relative}
+    .search-input{width:100%;padding:12px 16px 12px 42px;border:2px solid var(--wood-light);border-radius:12px;font-family:"DM Sans",sans-serif;font-size:.9rem;color:var(--text);background:var(--wood-pale);transition:border-color .2s,background .2s;outline:none}
+    .search-input:focus{border-color:var(--blue-mid);background:white}
+    .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:1rem;pointer-events:none}
+    .dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:white;border:1.5px solid var(--wood-light);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.12);max-height:240px;overflow-y:auto;z-index:50;display:none}
+    .dropdown.open{display:block}
+    .dropdown-item{padding:10px 14px;cursor:pointer;font-size:.88rem;border-bottom:1px solid var(--wood-pale);transition:background .1s}
+    .dropdown-item:hover{background:var(--wood-pale)}
+    .dropdown-item:last-child{border-bottom:none}
+    .dropdown-item .item-name{font-weight:600;color:var(--text)}
+    .dropdown-item .item-meta{font-size:.73rem;color:var(--text-light);margin-top:1px}
+    .selected-pill{display:inline-flex;align-items:center;gap:6px;background:var(--blue-light);border:1.5px solid #b8d8f0;border-radius:20px;padding:5px 12px;font-size:.82rem;font-weight:600;color:var(--blue-dark);margin-top:6px}
+    .pill-remove{cursor:pointer;opacity:.6;font-size:.9rem;line-height:1}
+    .pill-remove:hover{opacity:1}
+    .pill-dom-tag{font-size:.68rem;font-weight:700;color:#a05a2c;background:#fff4e6;border-radius:12px;padding:1px 7px;margin-right:2px}
+    .compare-btn{display:block;width:100%;margin-top:22px;padding:15px;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));color:white;border:none;border-radius:14px;font-family:"DM Sans",sans-serif;font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:.01em;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 16px rgba(26,90,138,.3)}
+    .compare-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(26,90,138,.4)}
+    .compare-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+    /* RESULT */
+    #result{display:none}
+    .result-header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-bottom:24px}
+    .result-header.cols-3{grid-template-columns:1fr auto 1fr auto 1fr}
+    @media(max-width:560px){.result-header.cols-3{grid-template-columns:1fr;gap:8px}.result-header.cols-3 .vs-badge{display:none}}
+    .station-header-card{background:white;border-radius:16px;padding:16px 10px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+    .station-header-name{font-family:"DM Serif Display",serif;font-size:1.05rem;color:var(--blue-dark);margin-bottom:4px}
+    .header-domaine-note{font-size:.68rem;color:#a05a2c;background:#fff4e6;border-radius:10px;padding:5px 9px;margin:0 0 7px;line-height:1.35}
+    .header-station-note{font-size:.68rem;color:#1a5a8a;background:#eaf4ff;border-radius:10px;padding:5px 9px;margin:0 0 7px;line-height:1.35}
+    .station-header-meta{font-size:.72rem;color:var(--text-light)}
+    .vs-badge{font-family:"DM Serif Display",serif;font-size:1.6rem;color:var(--text-mid);text-align:center}
+
+    /* COMPARISON TABLE */
+    .comp-section{background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08);margin-bottom:20px}
+    .comp-section-title{background:var(--wood-pale);padding:14px 20px;font-weight:700;font-size:.85rem;color:var(--text-mid);text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--wood-light);display:flex;align-items:center;gap:8px}
+    .comp-row{display:grid;grid-template-columns:1fr 120px 1fr;align-items:center;padding:14px 20px;border-bottom:1px solid var(--wood-pale);gap:8px}
+    .comp-row.cols-3{grid-template-columns:90px 1fr 1fr 1fr}
+    .comp-row:last-child{border-bottom:none}
+    .comp-row:nth-child(even){background:#fdf9f5}
+    .comp-val{font-size:.92rem;font-weight:600;color:var(--text);text-align:center}
+    .comp-row:not(.cols-3) .comp-val.left{text-align:right}
+    .comp-row:not(.cols-3) .comp-val.right{text-align:left}
+    .comp-label{text-align:center;font-size:.72rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.05em}
+    .comp-val.winner{color:#1a7a3a;background:#e8f7ee;padding:4px 8px;border-radius:8px}
+    .comp-val.loser{color:var(--text-light)}
+    .progress-bar{height:8px;border-radius:4px;background:#e8e8e8;overflow:hidden;margin-top:3px}
+    .progress-fill{height:100%;border-radius:4px;transition:width .6s ease}
+
+    /* TAGS display */
+    .mini-tags{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+    .mini-tags.right{justify-content:flex-start}
+    .comp-row.cols-3 .mini-tags{justify-content:center}
+    .mini-tag{background:var(--wood-pale);border:1px solid var(--wood-light);border-radius:10px;padding:2px 7px;font-size:.65rem;font-weight:600;color:var(--text-mid)}
+
+    @media(max-width:600px){
+      .comp-row.cols-3{grid-template-columns:60px 1fr 1fr 1fr;padding:10px 8px;gap:3px}
+      .comp-row.cols-3 .comp-val{font-size:.72rem}
+      .comp-row.cols-3 .comp-label{font-size:.56rem}
+    }
+
+    /* SIDEBAR FAVORIS (injectés dynamiquement) */
+    .sb-fav-section{margin:4px 16px 10px;padding-top:10px;border-top:1px solid var(--wood-light)}
+    .sb-fav-title{font-size:.68rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+    .sb-fav-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;font-size:.82rem;color:var(--text-mid);text-decoration:none}
+    .sb-fav-item:hover{background:var(--wood-pale);color:var(--blue-mid)}
+    .sb-fav-star{font-size:.8rem;flex-shrink:0}
+
+    /* VERDICT / COMMENTAIRE */
+    .verdict-card{background:linear-gradient(135deg,#1a5a8a 0%,#2c7ab8 100%);border-radius:20px;padding:28px 24px;margin-bottom:24px;color:white;position:relative;overflow:hidden}
+    .verdict-card::before{content:"💬";position:absolute;font-size:8rem;opacity:.07;right:-10px;bottom:-20px;line-height:1}
+    .verdict-title{font-family:"DM Serif Display",serif;font-size:1.3rem;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+    .verdict-subtitle{font-size:.78rem;opacity:.7;margin-bottom:18px;letter-spacing:.03em;text-transform:uppercase}
+    .verdict-text{font-size:.92rem;line-height:1.7;color:rgba(255,255,255,.92)}
+    .verdict-text p{margin-bottom:12px}
+    .verdict-text p:last-child{margin-bottom:0}
+    .verdict-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+    .verdict-chip{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 13px;font-size:.75rem;font-weight:600}
+    .verdict-chip.green{background:rgba(40,180,80,.25);border-color:rgba(40,180,80,.4)}
+    .verdict-chip.amber{background:rgba(255,180,0,.2);border-color:rgba(255,180,0,.35)}
+
+    /* BOOKING BUTTONS — style fiches stations */
+    .booking-block{border-radius:16px;overflow:hidden;box-shadow:0 8px 28px rgba(13,34,64,.18);margin-bottom:20px}
+    .booking-block a{display:block;text-decoration:none;overflow:hidden;position:relative}
+    .booking-block a:hover img{transform:scale(1.05)}
+    .booking-inner{position:relative;overflow:hidden;height:130px}
+    .booking-inner img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+    .booking-overlay{position:absolute;inset:0;display:flex;align-items:center;padding:0 18px;gap:12px}
+    .booking-overlay-blue{background:linear-gradient(to right,rgba(0,35,110,.82) 0%,rgba(0,35,110,.4) 55%,transparent 100%)}
+    .booking-overlay-amber{background:linear-gradient(to right,rgba(140,95,0,.85) 0%,rgba(140,95,0,.4) 55%,transparent 100%)}
+    .booking-icon{font-size:1.7rem;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));flex-shrink:0}
+    .booking-name{color:white;font-weight:800;font-size:.95rem;text-shadow:0 1px 5px rgba(0,0,0,.6)}
+    .booking-sub{color:rgba(255,255,255,.82);font-size:.7rem;margin-top:1px}
+    .booking-btn{margin-left:auto;font-size:.75rem;font-weight:800;padding:6px 12px;border-radius:20px;white-space:nowrap}
+    .booking-btn-blue{background:white;color:#003d96}
+    .booking-btn-amber{background:#ffcc00;color:#1a2060}
+    .booking-expedia-sep{border-top:2px solid white}
+    .booking-notice{text-align:center;font-size:.62rem;color:var(--text-light);padding:7px 0;background:#faf9f7}
+
+    /* FOOTER */
+    footer{background:var(--wood-dark);color:rgba(255,255,255,.75);padding:44px 24px 28px;margin-top:60px}
+    .footer-inner{max-width:900px;margin:0 auto}
+
+    /* COOKIE BANNER */
+    #cookieBanner{position:fixed;bottom:0;left:0;right:0;background:rgba(26,30,40,.97);color:rgba(255,255,255,.88);padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;z-index:1000;font-size:.8rem;backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.1)}
+    .cookie-btn{padding:7px 16px;border-radius:20px;font-size:.8rem;font-weight:700;border:none;cursor:pointer}
+    .cookie-accept{background:#3a7db8;color:white}
+    .cookie-refuse{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
+    #cookieBanner a{color:#7db8e8;text-decoration:underline}
+
+    /* LOADING */
+    .spinner{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    @media(max-width:600px){
+      .comp-row{grid-template-columns:1fr 80px 1fr;padding:11px 12px;gap:4px}
+      .comp-val{font-size:.82rem}
+      .comp-label{font-size:.62rem}
+      .result-header{grid-template-columns:1fr auto 1fr}
+    }
+  
+  /* ── SIDEBAR ── */
+  :root { --sb-w: 230px; }
+  .sb {
+    position: fixed; left: 0; top: 0; bottom: 0; width: var(--sb-w);
+    background: var(--white); border-right: 1.5px solid var(--wood-light);
+    z-index: 300; display: flex; flex-direction: column;
+    overflow-y: auto; transition: transform .3s;
+    box-shadow: 2px 0 12px rgba(0,0,0,.06);
+  }
+  .sb-logo { display: flex; align-items: center; gap: 10px; padding: 14px 16px; text-decoration: none; border-bottom: 1px solid var(--wood-light); background: var(--wood-pale); }
+  .sb-logo img { width: 52px; height: 52px; border-radius: 10px; flex-shrink: 0; }
+  .sb-logo-text { font-family: "DM Serif Display", serif; font-size: 1rem; color: var(--blue-dark); line-height: 1.2; }
+  .sb-logo-text small { display: block; font-family: "DM Sans", sans-serif; font-size: .65rem; color: var(--text-light); font-style: normal; }
+  .sb-links { display: flex; flex-direction: column; padding: 4px 0; flex: 1; }
+  .sb-link { display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-size: .88rem; font-weight: 500; color: var(--text-mid); text-decoration: none; transition: background .15s; cursor: pointer; background: none; border: none; width: 100%; text-align: left; font-family: "DM Sans", sans-serif; }
+  .sb-link:hover { background: var(--wood-pale); color: var(--blue-mid); }
+  .sb-link.active { background: var(--blue-light); color: var(--blue-mid); font-weight: 700; }
+  .sb-icon { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+  .sb-new { margin-left: auto; background: var(--blue-mid); color: white; font-size: .6rem; font-weight: 700; padding: 1px 6px; border-radius: 10px; }
+  .sb-divider { height: 1px; background: var(--wood-light); margin: 6px 14px; }
+  .sb-footer { padding: 12px 16px; border-top: 1px solid var(--wood-light); background: var(--wood-pale); }
+  .sb-footer-txt { font-size: .7rem; color: var(--text-light); line-height: 1.5; }
+  .sb-footer-txt strong { color: var(--text-mid); }
+  .sb-hamburger {
+    display: none; position: fixed; top: 12px; left: 12px; z-index: 400;
+    width: 40px; height: 40px; background: var(--white);
+    border: 2px solid var(--wood-light); border-radius: 8px;
+    cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  }
+  .sb-hamburger span { display: block; width: 18px; height: 2px; background: var(--text); border-radius: 2px; transition: all .3s; }
+  .sb-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .sb-hamburger.open span:nth-child(2) { opacity: 0; }
+  .sb-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  .sb-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 250; }
+  .sb-overlay.open { display: block; }
+  .page-wrap { margin-left: var(--sb-w); transition: margin-left .3s; }
+  @media(max-width: 900px) {
+    .sb { transform: translateX(calc(-1 * var(--sb-w))); display: flex; }
+    .sb.open { transform: translateX(0); }
+    .sb-hamburger { display: flex !important; }
+    .page-wrap { margin-left: 0 !important; }
+    .nav { padding-left: 60px; }
+  }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>
+<script>try{if(localStorage.getItem("sf_cookie_consent")==="refused")window["ga-disable-G-S0C748Y0DX"]=true;}catch(e){}window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-S0C748Y0DX");</script>
+<script src="/en/stations-data.js"></script>
+<link href="https://snowfinder.fr/en/comparateur.html" rel="canonical"/><link href="https://snowfinder.fr/comparateur.html" hreflang="fr" rel="alternate"/><link href="https://snowfinder.fr/en/comparateur.html" hreflang="en" rel="alternate"/><link href="https://snowfinder.fr/comparateur.html" hreflang="x-default" rel="alternate"/></head>
+<body>
+<style>
+.sf-topbar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--wood-light);display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 6px;z-index:600;transition:transform .28s ease;overflow:visible;gap:8px;}
+.sf-topbar.sf-hide{transform:translateY(-100%);}
+.sf-topbar-logo{display:flex;align-items:center;gap:4px;text-decoration:none;flex-shrink:0;justify-self:start;min-width:0;}
+.sf-topbar-logo img{width:60px;height:60px;border-radius:12px;object-fit:contain;flex-shrink:0}
+.sf-topbar-wordtext{display:flex;flex-direction:column;justify-content:center;line-height:1.05;min-width:0;overflow:hidden}
+.sf-topbar-title{font-family:"DM Serif Display",serif;font-size:.95rem;font-weight:700;white-space:nowrap}
+.sf-topbar-title .sf-dark{color:var(--blue-dark)}
+.sf-topbar-title .sf-light{color:var(--blue-mid)}
+.sf-topbar-slogan{font-size:.5rem;letter-spacing:.03em;color:var(--blue-dark);opacity:.7;white-space:nowrap;text-transform:uppercase;margin-top:1px}
+.sf-topbar-app{display:flex;align-items:center;gap:4px;background:linear-gradient(135deg,var(--blue-light),#eaf4ff);border:1px solid var(--blue-mid);border-radius:14px;padding:4px 9px;font-size:.64rem;font-weight:700;color:var(--blue-dark);text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18);justify-self:end;}
+.sf-topbar-right{display:flex;align-items:center;justify-self:end;flex-shrink:0;}
+.sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--blue-dark);font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
+.sf-topbar-fav:active{background:var(--wood-pale)}
+.sf-topbar-menu{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;border:1.5px solid var(--wood-light);background:var(--white);font-size:1rem;line-height:1;color:var(--blue-dark);cursor:pointer;flex-shrink:0;padding:0;margin-left:2px}
+.sf-topbar-menu:active{background:var(--wood-pale)}
+@media(max-width:480px){.sf-topbar{padding:0 4px;gap:4px}.sf-topbar-logo img{width:52px;height:52px}.sf-topbar-app{font-size:.58rem;padding:4px 7px}}
+.sf-bottomnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-top:2px solid var(--wood-light);display:flex;align-items:center;justify-content:space-around;z-index:550;box-shadow:0 -2px 16px rgba(0,0,0,.08);padding-bottom:env(safe-area-inset-bottom);}
+.sf-bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:60px;font-size:1.18rem;text-decoration:none;color:var(--text-mid);position:relative;gap:1px}
+.sf-bn-item.active{color:var(--blue-dark)}
+.sf-bn-item.active .sf-bn-label{font-weight:800}
+.sf-bn-item:not(.sf-bn-home).active{transform:translateY(-2px)}
+.sf-bn-item:not(.sf-bn-home).active::after{content:"";position:absolute;bottom:7px;width:4px;height:4px;border-radius:50%;background:var(--blue-dark)}
+.sf-bn-label{font-size:.54rem;font-weight:700;letter-spacing:.01em;line-height:1;color:inherit;opacity:.9}
+.sf-bn-home{flex:0 0 52px;margin-top:-16px}
+.sf-bn-home-circle{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 6px 18px rgba(26,90,138,.4);border:3px solid var(--white);transition:transform .2s,box-shadow .2s}
+.sf-bn-home .sf-bn-label{margin-top:2px}
+.sf-bn-home.active .sf-bn-home-circle{transform:scale(1.08);box-shadow:0 6px 22px rgba(26,90,138,.65)}
+.page-wrap{padding-top:64px!important;padding-bottom:66px!important;margin-left:0!important}
+</style>
+<div class="sf-topbar" id="sfTopbar">
+<a class="sf-topbar-logo" href="/index.html"><img alt="SnowFinder" src="/logo.png"/> <span class="sf-topbar-wordtext"> <span class="sf-topbar-title"><span class="sf-dark">Snow</span><span class="sf-light">Finder</span></span> <span class="sf-topbar-slogan">Compare • Find • Ski</span> </span></a>
+<a class="sf-topbar-app" href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" style="position:relative;left:12px">📲 The app is out now!</a>
+<div class="sf-topbar-right">
+<a class="sf-topbar-fav" href="/en/comparateur.html" style="margin-right:2px;position:relative;left:10px">⚖️ <span id="sfCompareCount">0</span></a>
+<a class="sf-topbar-fav" href="/en/favoris.html">⭐ <span id="sfFavCount">0</span></a>
+<button aria-label="Menu" class="sf-topbar-menu" id="sfMenuBtn" onclick="openSfMenu()" type="button">☰</button>
+</div>
+</div>
+<script>
+(function(){
+  var bar = document.getElementById("sfTopbar");
+  var lastY = window.scrollY, ticking = false;
+  window.addEventListener("scroll", function(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY;
+      if(y > lastY && y > 60) bar.classList.add("sf-hide");
+      else bar.classList.remove("sf-hide");
+      lastY = y;
+      ticking = false;
+    });
+  }, {passive:true});
+  function updateFavCount(){
+    var favs = [], domFavs = [];
+    try { favs = JSON.parse(localStorage.getItem("sf_favorites")||"[]"); } catch(e){}
+    try { domFavs = JSON.parse(localStorage.getItem("sf_fav_domaines")||"[]"); } catch(e){}
+    var el = document.getElementById("sfFavCount");
+    if(el) el.textContent = favs.length + domFavs.length;
+  }
+  function updateCompareCount(){
+    var c = [], domC = [];
+    try { c = JSON.parse(localStorage.getItem("sf_compare")||"[]"); } catch(e){}
+    try { domC = JSON.parse(localStorage.getItem("sf_compare_domaines")||"[]"); } catch(e){}
+    var el = document.getElementById("sfCompareCount");
+    if(el) el.textContent = c.length + domC.length;
+  }
+  updateFavCount();
+  updateCompareCount();
+  window.addEventListener("storage", updateFavCount);
+  window.addEventListener("storage", updateCompareCount);
+  window.addEventListener("focus", updateFavCount);
+  window.addEventListener("focus", updateCompareCount);
+})();
+</script>
+<script>
+function getCompareList(){try{return JSON.parse(localStorage.getItem("sf_compare")||"[]");}catch(e){return [];}}
+function saveCompareList(arr){try{localStorage.setItem("sf_compare",JSON.stringify(arr));}catch(e){}}
+function isInCompare(id){return getCompareList().indexOf(id)!==-1;}
+function toggleCompareStation(id){
+  var c = getCompareList();
+  var idx = c.indexOf(id);
+  if(idx>=0){ c.splice(idx,1); }
+  else {
+    if(c.length>=3){ alert("You can compare up to 3 resorts. Remove one before adding another."); return isInCompare(id); }
+    c.push(id);
+  }
+  saveCompareList(c);
+  var el = document.getElementById("sfCompareCount");
+  if(el) el.textContent = c.length;
+  return isInCompare(id);
+}
+</script>
+<div class="page-wrap">
+<!-- ancienne nav retirée -->
+<!-- HERO -->
+<div class="hero">
+<h1>Compare resorts</h1>
+<p>Select 2 or 3 resorts to compare them on every criterion: altitude, ski area, prices, weather, snow reliability, atmosphere and much more.</p>
+</div>
+<!-- MAIN -->
+<div class="container">
+<!-- SELECTOR -->
+<div class="selector-card">
+<div class="selector-title" id="selectorTitle">Choose your resorts</div>
+<div class="selector-grid" id="selectorGrid">
+<!-- Station 1 -->
+<div class="selector-group" id="group1">
+<label><span class="selector-num">1</span> First resort</label>
+<div class="search-wrapper">
+<span class="search-icon">🔍</span>
+<input autocomplete="off" class="search-input" id="search1" onblur="setTimeout(()=&gt;closeDrop(1),200)" onfocus="openDrop(1)" oninput="filterDropdown(1)" placeholder="Search for a resort…" type="text"/>
+<div class="dropdown" id="drop1"></div>
+</div>
+<div id="pill1"></div>
+</div>
+<!-- Station 2 -->
+<div class="selector-group" id="group2">
+<label><span class="selector-num">2</span> Second resort</label>
+<div class="search-wrapper">
+<span class="search-icon">🔍</span>
+<input autocomplete="off" class="search-input" id="search2" onblur="setTimeout(()=&gt;closeDrop(2),200)" onfocus="openDrop(2)" oninput="filterDropdown(2)" placeholder="Search for a resort…" type="text"/>
+<div class="dropdown" id="drop2"></div>
+</div>
+<div id="pill2"></div>
+</div>
+<!-- Station 3 (optionnelle) -->
+<div class="selector-group" id="group3" style="display:none">
+<div class="group3-label-row"><label style="margin-bottom:0"><span class="selector-num">3</span> Third resort</label> <span class="group3-remove" onclick="removeThirdStation()">✕ Remove</span></div>
+<div class="search-wrapper">
+<span class="search-icon">🔍</span>
+<input autocomplete="off" class="search-input" id="search3" onblur="setTimeout(()=&gt;closeDrop(3),200)" onfocus="openDrop(3)" oninput="filterDropdown(3)" placeholder="Search for a resort…" type="text"/>
+<div class="dropdown" id="drop3"></div>
+</div>
+<div id="pill3"></div>
+</div>
+</div>
+<button class="add-station-btn" id="addStationBtn" onclick="addThirdStation()" type="button">+ Compare a 3rd resort</button>
+<button class="compare-btn" disabled="" id="compareBtn" onclick="doCompare()">⚖️ Compare</button>
+</div>
+<!-- RESULT -->
+<div id="result">
+<!-- Headers -->
+<div class="result-header" id="resultHeader"></div>
+<!-- SECTION : Domaine skiable -->
+<div class="comp-section">
+<div class="comp-section-title">⛷ Ski area</div>
+<div id="sec-domaine"></div>
+</div>
+<!-- SECTION : Altitude -->
+<div class="comp-section">
+<div class="comp-section-title">🏔️ Altitude &amp; snow reliability</div>
+<div id="sec-altitude"></div>
+</div>
+<!-- SECTION : Prix -->
+<div class="comp-section">
+<div class="comp-section-title">💶 Prices &amp; budget</div>
+<div id="sec-prix"></div>
+</div>
+<!-- SECTION : Profil & ambiance -->
+<div class="comp-section">
+<div class="comp-section-title">🎿 Profile &amp; atmosphere</div>
+<div id="sec-profil"></div>
+</div>
+<!-- SECTION : Équipements -->
+<div class="comp-section">
+<div class="comp-section-title">🎯 Facilities</div>
+<div id="sec-equip"></div>
+</div>
+<!-- VERDICT IA -->
+<div class="verdict-card" id="verdictCard">
+<div class="verdict-title">💬 <span>Our analysis</span></div>
+<div class="verdict-subtitle">Personalised comparison · SnowFinder</div>
+<div class="verdict-text" id="verdictText"></div>
+<div class="verdict-chips" id="verdictChips"></div>
+</div>
+<!-- BOOKING / EXPEDIA — style fiches stations -->
+<div style="margin-bottom:6px;font-size:.72rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.07em">🏨 Book your stay</div>
+<div class="booking-block">
+<!-- BOOKING -->
+<a href="#" id="bookingLink" rel="noopener sponsored" target="_blank">
+<div class="booking-inner">
+<img alt="Book on Booking" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=600&amp;q=80'" src="/img/chalet-booking.jpg"/>
+<div class="booking-overlay booking-overlay-blue">
+<span class="booking-icon">🏨</span>
+<div>
+<div class="booking-name">Booking.com</div>
+<div class="booking-sub" id="bookingSub">Best prices · Free cancellation</div>
+</div>
+<div class="booking-btn booking-btn-blue">View →</div>
+</div>
+</div>
+</a>
+<!-- EXPEDIA -->
+<a class="booking-expedia-sep" href="#" id="expediaLink" rel="noopener sponsored" target="_blank">
+<div class="booking-inner">
+<img alt="Book on Expedia" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&amp;q=80'" src="/img/chalet-expedia.jpg"/>
+<div class="booking-overlay booking-overlay-amber">
+<span class="booking-icon">✈️</span>
+<div>
+<div class="booking-name">Expedia</div>
+<div class="booking-sub">Flight + Hotel · Ski packages</div>
+</div>
+<div class="booking-btn booking-btn-amber">Book →</div>
+</div>
+</div>
+</a>
+<div class="booking-notice">Affiliate links – same prices for you</div>
+</div>
+</div><!-- /result -->
+</div><!-- /container -->
+</div>
+<!-- FOOTER -->
+<footer>
+<div class="footer-inner">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;justify-content:center">
+<div style="background:rgba(255,255,255,.14);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">⛷</div>
+<div>
+<div style="font-family:'DM Serif Display',serif;font-size:1.35rem;color:white">SnowFinder</div>
+<div style="font-size:.7rem;color:rgba(255,255,255,.5);margin-top:1px">The guide to ski resorts in Europe</div>
+</div>
+</div>
+<div style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.1)">
+<div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">700+</div><div style="font-size:.68rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.05em">Resorts</div></div>
+<div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">9</div><div style="font-size:.68rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.05em">Countries</div></div>
+<div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">Live</div><div style="font-size:.68rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.05em">Weather</div></div>
+<div style="text-align:center"><div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:white">100%</div><div style="font-size:.68rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.05em">Free</div></div>
+</div>
+<div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:18px;font-size:.82rem"><a href="/index.html" style="color:rgba(255,255,255,.6)">Home</a> <a href="/en/recherche.html" style="color:rgba(255,255,255,.6)">All resorts</a> <a href="/en/tinder.html" style="color:rgba(255,255,255,.6)">Ski Tinder</a> <a href="/en/comparateur.html" style="color:rgba(255,255,255,.6)">Comparison tool</a> <a href="/en/enneigement.html" style="color:rgba(255,255,255,.6)">Snow reliability</a> <a href="/en/hebergement.html" style="color:rgba(255,255,255,.6)">Accommodation</a> <a href="/en/favoris.html" style="color:rgba(255,255,255,.6)">My favourites</a> <a href="/index.html" style="color:rgba(255,255,255,.6)">Resort of the moment</a> <a href="/mentions-legales.html" style="color:rgba(255,255,255,.6)">Legal notice</a></div>
+<div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;flex-wrap:wrap"><span style="font-size:.75rem;color:rgba(255,255,255,.4)">Partners</span> <a href="https://www.tkqlhce.com/click-101709262-15734710?sid=comparateur-footer&amp;url=https%3A%2F%2Fwww.booking.com%2F" rel="noopener sponsored" style="color:rgba(255,255,255,.55);font-size:.78rem" target="_blank">Booking.com</a> <a href="https://www.jdoqocy.com/click-101709262-13904689?sid=comparateur-footer&amp;url=https%3A%2F%2Fwww.expedia.fr%2F" rel="noopener sponsored" style="color:rgba(255,255,255,.55);font-size:.78rem" target="_blank">Expedia</a></div>
+<div style="text-align:center;font-size:.72rem;color:rgba(255,255,255,.35)">© 2025 SnowFinder — All rights reserved · <a href="/mentions-legales.html" style="color:rgba(255,255,255,.45)">Legal notice &amp; GDPR</a></div>
+</div>
+</footer>
+<!-- COOKIE BANNER -->
+<div id="cookieBanner" style="display:none"><span>🍪 SnowFinder uses Google Analytics to measure its audience anonymously. No personally identifiable data is collected. <a href="/mentions-legales.html">Learn more</a></span> <button class="cookie-btn cookie-refuse" onclick="rejectCookies()">Decline</button> <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accept</button></div>
+<script>
+const DATA = window.SF_DATA;
+
+const DOMAINES_META = {"portes-du-soleil": {"name": "Les Portes du Soleil", "mountain range": "Northern Alps", "km": 600, "rem": 197, "lift pass": 58, "alt_min": 930, "alt_max": 2466, "n": 8, "resorts": ["Avoriaz", "Morzine", "Montriond", "Les Gets", "Saint-Jean-d'Aulps", "Abondance", "La Chapelle d'Abondance", "Châtel"], "runs": {"v": 80, "b": 173, "r": 103, "n": 44}}, "3-vallees": {"name": "Les 3 Vallées", "mountain range": "Northern Alps", "km": 600, "rem": 170, "lift pass": 82, "alt_min": 1100, "alt_max": 3230, "n": 8, "resorts": ["Courchevel", "La Tania", "Méribel", "Brides-les-Bains", "Saint-Martin-de-Belleville", "Les Menuires", "Val Thorens", "Orelle"], "runs": {"v": 55, "b": 178, "r": 113, "n": 54}}, "espace-killy": {"name": "Tignes – Val d'Isère", "mountain range": "Northern Alps", "km": 300, "rem": 71, "lift pass": 78, "alt_min": 1550, "alt_max": 3456, "n": 2, "resorts": ["Val d'Isère", "Tignes"], "runs": {"v": 23, "b": 67, "r": 41, "n": 29}}, "paradiski": {"name": "Paradiski", "mountain range": "Northern Alps", "km": 425, "rem": 130, "lift pass": 68, "alt_min": 1200, "alt_max": 3250, "n": 5, "resorts": ["La Plagne", "Les Arcs", "Peisey-Vallandry", "Montchavin-Les Coches", "Champagny-en-Vanoise"], "runs": {"v": 31, "b": 106, "r": 62, "n": 31}}, "grand-massif": {"name": "Le Grand Massif", "mountain range": "Northern Alps", "km": 265, "rem": 62, "lift pass": 51, "alt_min": 700, "alt_max": 2500, "n": 5, "resorts": ["Flaine", "Les Carroz", "Morillon", "Samoëns", "Sixt-Fer-à-Cheval"], "runs": {"v": 29, "b": 111, "r": 80, "n": 31}}, "sybelles": {"name": "Les Sybelles", "mountain range": "Northern Alps", "km": 310, "rem": 68, "lift pass": 50, "alt_min": 1100, "alt_max": 2620, "n": 6, "resorts": ["La Toussuire", "Le Corbier", "Saint-Sorlin-d'Arves", "Saint-Jean-d'Arves", "Les Bottières", "Saint-Colomban-des-Villards"], "runs": {"v": 55, "b": 120, "r": 78, "n": 31}}, "espace-diamant": {"name": "Espace Diamant", "mountain range": "Northern Alps", "km": 192, "rem": 81, "lift pass": 46, "alt_min": 910, "alt_max": 2069, "n": 6, "resorts": ["Les Saisies", "Crest-Voland", "Notre-Dame-de-Bellecombe", "Flumet", "Praz-sur-Arly", "Hauteluce"], "runs": {"v": 40, "b": 92, "r": 60, "n": 16}}, "evasion-mont-blanc": {"name": "Évasion Mont-Blanc", "mountain range": "Northern Alps", "km": 263, "rem": 107, "lift pass": 50, "alt_min": 850, "alt_max": 2353, "n": 5, "resorts": ["Megève", "Saint-Gervais", "Combloux", "La Giettaz", "Les Contamines-Montjoie"], "runs": {"v": 39, "b": 87, "r": 76, "n": 28}}, "espace-san-bernardo": {"name": "Espace San Bernardo", "mountain range": "Northern Alps", "km": 156, "rem": 38, "lift pass": 54, "alt_min": 1190, "alt_max": 2800, "n": 1, "resorts": ["La Rosière"], "runs": {"v": 10, "b": 15, "r": 11, "n": 3}}, "galibier-thabor": {"name": "Galibier-Thabor", "mountain range": "Northern Alps", "km": 160, "rem": 33, "lift pass": 54, "alt_min": 1430, "alt_max": 2750, "n": 2, "resorts": ["Valloire", "Valmeinier"], "runs": {"v": 26, "b": 60, "r": 54, "n": 18}}, "alpe-dhuez-grand-domaine": {"name": "Alpe d'Huez Grand Domaine Ski", "mountain range": "Northern Alps", "km": 250, "rem": 67, "lift pass": 62, "alt_min": 1130, "alt_max": 3330, "n": 2, "resorts": ["Alpe d'Huez", "Auris-en-Oisans"], "runs": {"v": 16, "b": 68, "r": 82, "n": 22}}, "serre-chevalier-vallee": {"name": "Serre Chevalier Vallée", "mountain range": "Southern Alps", "km": 250, "rem": 60, "lift pass": 63, "alt_min": 1200, "alt_max": 2830, "n": 1, "resorts": ["Serre Chevalier"], "runs": {"v": 15, "b": 26, "r": 28, "n": 13}}, "voie-lactee": {"name": "La Voie Lactée (Via Lattea)", "mountain range": "Southern Alps", "km": 400, "rem": 70, "lift pass": 57, "alt_min": 1380, "alt_max": 2823, "n": 1, "resorts": ["Montgenèvre"], "runs": {"v": 9, "b": 27, "r": 18, "n": 6}}, "foret-blanche": {"name": "La Forêt Blanche", "mountain range": "Southern Alps", "km": 185, "rem": 51, "lift pass": 46, "alt_min": 1650, "alt_max": 2750, "n": 2, "resorts": ["Vars", "Risoul"], "runs": {"v": 26, "b": 66, "r": 52, "n": 16}}, "grand-tourmalet": {"name": "Grand Tourmalet – Pic du Midi", "mountain range": "Pyrenees", "km": 100, "rem": 30, "lift pass": 38, "alt_min": 1250, "alt_max": 2500, "n": 2, "resorts": ["La Mongie", "Barèges"], "runs": {"v": 17, "b": 23, "r": 21, "n": 6}}, "grand-domaine-valmorel": {"name": "Le Grand Domaine", "mountain range": "Northern Alps", "km": 165, "rem": 47, "lift pass": 58, "alt_min": 1200, "alt_max": 2550, "n": 2, "resorts": ["Valmorel", "Saint-François-Longchamp"], "runs": {"v": 20, "b": 40, "r": 32, "n": 9}}, "le-devoluy": {"name": "Le Dévoluy", "mountain range": "Southern Alps", "km": 100, "rem": 26, "lift pass": 40, "alt_min": 1500, "alt_max": 2500, "n": 2, "resorts": ["Superdévoluy", "La Joue du Loup"], "runs": {"v": 8, "b": 22, "r": 16, "n": 5}}, "espace-lumiere": {"name": "Espace Lumière", "mountain range": "Southern Alps", "km": 180, "rem": 53, "lift pass": 47, "alt_min": 1500, "alt_max": 2600, "n": 2, "resorts": ["Pra-Loup", "Val d'Allos"], "runs": {"v": 26, "b": 80, "r": 56, "n": 12}}, "grand-sancy": {"name": "Le Grand Sancy", "mountain range": "Massif Central", "km": 84, "rem": 35, "lift pass": 43, "alt_min": 1050, "alt_max": 1850, "n": 2, "resorts": ["Super Besse", "Le Mont Dore"], "runs": {"v": 13, "b": 22, "r": 16, "n": 4}}, "alp-2500": {"name": "Alp 2500 (La Molina – Masella)", "mountain range": "Pyrenees", "km": 145, "rem": 33, "lift pass": 58, "alt_min": 1600, "alt_max": 2537, "n": 2, "resorts": ["La Molina", "Masella"], "runs": {"v": 29, "b": 55, "r": 54, "n": 16}}, "grandvalira": {"name": "Grandvalira", "mountain range": "Pyrenees", "km": 215, "rem": 74, "lift pass": 69, "alt_min": 1710, "alt_max": 2640, "n": 6, "resorts": ["Pas de la Casa", "Grau Roig", "Soldeu", "El Tarter", "Canillo", "Encamp"], "runs": {"v": 23, "b": 53, "r": 46, "n": 20}}, "pal-arinsal": {"name": "Pal Arinsal", "mountain range": "Pyrenees", "km": 63, "rem": 27, "lift pass": 52, "alt_min": 1550, "alt_max": 2560, "n": 2, "resorts": ["Pal", "Arinsal"], "runs": {"v": 7, "b": 19, "r": 17, "n": 4}}, "4-vallees": {"name": "Les 4 Vallées", "mountain range": "Northern Alps", "km": 412, "rem": 68, "lift pass": 99, "alt_min": 1350, "alt_max": 3330, "n": 5, "resorts": ["Verbier", "Nendaz", "Veysonnaz", "Thyon", "La Tzoumaz"], "runs": {"v": 0, "b": 26, "r": 49, "n": 25}}, "villars-gryon-diablerets": {"name": "Villars – Gryon – Les Diablerets", "mountain range": "Northern Alps", "km": 87, "rem": 30, "lift pass": 73, "alt_min": 1224, "alt_max": 2120, "n": 3, "resorts": ["Villars-sur-Ollon", "Gryon", "Les Diablerets"], "runs": {"v": 0, "b": 76, "r": 21, "n": 3}}, "grindelwald-wengen": {"name": "Grindelwald – Wengen", "mountain range": "Northern Alps", "km": 101, "rem": 23, "lift pass": 88, "alt_min": 944, "alt_max": 2400, "n": 2, "resorts": ["Grindelwald", "Wengen"], "runs": {"v": 0, "b": 33, "r": 54, "n": 13}}, "adelboden-lenk": {"name": "Adelboden – Lenk", "mountain range": "Northern Alps", "km": 86, "rem": 22, "lift pass": 76, "alt_min": 1068, "alt_max": 2200, "n": 2, "resorts": ["Adelboden", "Lenk"], "runs": {"v": 0, "b": 53, "r": 40, "n": 7}}, "arosa-lenzerheide": {"name": "Arosa Lenzerheide", "mountain range": "Northern Alps", "km": 225, "rem": 43, "lift pass": 94, "alt_min": 1229, "alt_max": 2865, "n": 2, "resorts": ["Arosa", "Lenzerheide"], "runs": {"v": 0, "b": 49, "r": 39, "n": 12}}, "flims-laax-falera": {"name": "Flims Laax Falera", "mountain range": "Northern Alps", "km": 176, "rem": 29, "lift pass": 92, "alt_min": 1100, "alt_max": 3018, "n": 3, "resorts": ["Laax", "Flims", "Falera"], "runs": {"v": 0, "b": 48, "r": 43, "n": 9}}, "parsenn-davos-klosters": {"name": "Parsenn (Davos – Klosters)", "mountain range": "Northern Alps", "km": 96, "rem": 18, "lift pass": 91, "alt_min": 810, "alt_max": 2844, "n": 2, "resorts": ["Davos", "Klosters"], "runs": {"v": 0, "b": 18, "r": 63, "n": 19}}, "andermatt-sedrun": {"name": "Andermatt – Sedrun", "mountain range": "Northern Alps", "km": 70, "rem": 13, "lift pass": 94, "alt_min": 1444, "alt_max": 2600, "n": 2, "resorts": ["Andermatt", "Sedrun"], "runs": {"v": 0, "b": 26, "r": 57, "n": 17}}, "matterhorn-ski-paradise": {"name": "Matterhorn Ski Paradise (Zermatt – Cervinia)", "mountain range": "Northern Alps", "km": 322, "rem": 51, "lift pass": 123, "alt_min": 1524, "alt_max": 3899, "n": 3, "resorts": ["Zermatt", "Breuil-Cervinia", "Valtournenche"], "runs": {"v": 0, "b": 23, "r": 68, "n": 9}}, "monterosa-ski": {"name": "Monterosa Ski", "mountain range": "Northern Alps", "km": 132, "rem": 21, "lift pass": 69, "alt_min": 1212, "alt_max": 3275, "n": 3, "resorts": ["Champoluc", "Gressoney-La-Trinité", "Alagna Valsesia"], "runs": {"v": 0, "b": 22, "r": 67, "n": 11}}, "mondole-ski": {"name": "Mondolè Ski", "mountain range": "Southern Alps", "km": 105, "rem": 24, "lift pass": 52, "alt_min": 807, "alt_max": 2085, "n": 3, "resorts": ["Prato Nevoso", "Artesina", "Frabosa Soprana"], "runs": {"v": 0, "b": 41, "r": 48, "n": 11}}, "pontedilegno-tonale": {"name": "Pontedilegno-Tonale", "mountain range": "Northern Alps", "km": 100, "rem": 29, "lift pass": 64, "alt_min": 1121, "alt_max": 3000, "n": 2, "resorts": ["Ponte di Legno", "Passo del Tonale"], "runs": {"v": 0, "b": 24, "r": 60, "n": 16}}, "skiarea-campiglio": {"name": "Skiarea Campiglio", "mountain range": "Northern Alps", "km": 155, "rem": 58, "lift pass": 85, "alt_min": 852, "alt_max": 2504, "n": 4, "resorts": ["Madonna di Campiglio", "Pinzolo", "Folgarida", "Marilleva"], "runs": {"v": 0, "b": 32, "r": 46, "n": 22}}, "val-di-fassa": {"name": "Val di Fassa (Belvedere – Col Rodella – Ciampac – Buffaure)", "mountain range": "Northern Alps", "km": 55, "rem": 35, "lift pass": 76, "alt_min": 1320, "alt_max": 2485, "n": 3, "resorts": ["Canazei", "Campitello di Fassa", "Pozza di Fassa"], "runs": {"v": 0, "b": 13, "r": 74, "n": 13}}, "val-gardena": {"name": "Val Gardena", "mountain range": "Northern Alps", "km": 181, "rem": 78, "lift pass": 80, "alt_min": 1236, "alt_max": 2518, "n": 3, "resorts": ["Ortisei", "Santa Cristina", "Selva di Val Gardena"], "runs": {"v": 0, "b": 29, "r": 60, "n": 11}}, "alta-badia": {"name": "Alta Badia", "mountain range": "Northern Alps", "km": 130, "rem": 53, "lift pass": 80, "alt_min": 1324, "alt_max": 2778, "n": 3, "resorts": ["Corvara", "La Villa", "San Cassiano"], "runs": {"v": 0, "b": 57, "r": 36, "n": 7}}, "kronplatz": {"name": "Kronplatz", "mountain range": "Northern Alps", "km": 125, "rem": 32, "lift pass": 80, "alt_min": 973, "alt_max": 2275, "n": 3, "resorts": ["Brunico – Kronplatz", "San Vigilio di Marebbe", "Valdaora – Kronplatz"], "runs": {"v": 0, "b": 48, "r": 29, "n": 23}}, "latemar": {"name": "Latemar", "mountain range": "Northern Alps", "km": 49, "rem": 18, "lift pass": 71, "alt_min": 1018, "alt_max": 2388, "n": 3, "resorts": ["Obereggen", "Pampeago", "Predazzo"], "runs": {"v": 0, "b": 19, "r": 67, "n": 14}}, "ski-arlberg": {"name": "Ski Arlberg", "mountain range": "Northern Alps", "km": 300, "rem": 85, "lift pass": 82, "alt_min": 1304, "alt_max": 2811, "n": 6, "resorts": ["St. Anton am Arlberg", "St. Christoph", "Stuben", "Lech", "Zürs", "Warth-Schröcken"], "runs": {"v": 0, "b": 43, "r": 40, "n": 17}}, "skiwelt": {"name": "SkiWelt Wilder Kaiser – Brixental", "mountain range": "Northern Alps", "km": 275, "rem": 81, "lift pass": 80, "alt_min": 620, "alt_max": 1869, "n": 7, "resorts": ["Söll", "Ellmau", "Scheffau", "Going", "Brixen im Thale", "Westendorf", "Hopfgarten"], "runs": {"v": 0, "b": 42, "r": 44, "n": 14}}, "silvretta-arena": {"name": "Silvretta Arena (Ischgl – Samnaun)", "mountain range": "Northern Alps", "km": 239, "rem": 45, "lift pass": 83, "alt_min": 1360, "alt_max": 2872, "n": 2, "resorts": ["Ischgl", "Samnaun"], "runs": {"v": 0, "b": 20, "r": 59, "n": 21}}, "kitzski": {"name": "KitzSki (Kitzbühel – Kirchberg)", "mountain range": "Northern Alps", "km": 188, "rem": 58, "lift pass": 83, "alt_min": 800, "alt_max": 2000, "n": 2, "resorts": ["Kitzbühel", "Kirchberg in Tirol"], "runs": {"v": 0, "b": 54, "r": 35, "n": 11}}, "serfaus-fiss-ladis": {"name": "Serfaus-Fiss-Ladis", "mountain range": "Northern Alps", "km": 186, "rem": 38, "lift pass": 78, "alt_min": 1200, "alt_max": 2828, "n": 3, "resorts": ["Serfaus", "Fiss", "Ladis"], "runs": {"v": 0, "b": 25, "r": 60, "n": 15}}, "zillertal-arena": {"name": "Zillertal Arena", "mountain range": "Northern Alps", "km": 150, "rem": 52, "lift pass": 82, "alt_min": 580, "alt_max": 2500, "n": 4, "resorts": ["Zell am Ziller", "Gerlos", "Königsleiten", "Hochkrimml"], "runs": {"v": 0, "b": 33, "r": 59, "n": 8}}, "mayrhofen": {"name": "Mayrhofen (Penken – Ahorn)", "mountain range": "Northern Alps", "km": 142, "rem": 61, "lift pass": 82, "alt_min": 630, "alt_max": 2500, "n": 2, "resorts": ["Mayrhofen", "Finkenberg"], "runs": {"v": 0, "b": 31, "r": 46, "n": 23}}, "ski-juwel": {"name": "Ski Juwel Alpbachtal Wildschönau", "mountain range": "Northern Alps", "km": 98, "rem": 45, "lift pass": 72, "alt_min": 830, "alt_max": 2030, "n": 2, "resorts": ["Alpbach", "Wildschönau"], "runs": {"v": 0, "b": 33, "r": 54, "n": 13}}, "hochzillertal-hochfuegen": {"name": "Hochzillertal – Hochfügen", "mountain range": "Northern Alps", "km": 89, "rem": 38, "lift pass": 83, "alt_min": 600, "alt_max": 2378, "n": 2, "resorts": ["Kaltenbach", "Hochfügen"], "runs": {"v": 0, "b": 43, "r": 42, "n": 15}}, "steinplatte-winklmoosalm": {"name": "Steinplatte – Winklmoosalm", "mountain range": "Northern Alps", "km": 42, "rem": 14, "lift pass": 63, "alt_min": 740, "alt_max": 1860, "n": 2, "resorts": ["Waidring", "Reit im Winkl – Winklmoosalm"], "runs": {"v": 0, "b": 48, "r": 48, "n": 4}}, "skicircus": {"name": "Skicircus Saalbach Hinterglemm Leogang Fieberbrunn", "mountain range": "Northern Alps", "km": 270, "rem": 69, "lift pass": 82, "alt_min": 830, "alt_max": 2096, "n": 4, "resorts": ["Saalbach", "Hinterglemm", "Leogang", "Fieberbrunn"], "runs": {"v": 0, "b": 52, "r": 41, "n": 7}}, "snow-space-salzburg": {"name": "Snow Space Salzburg", "mountain range": "Northern Alps", "km": 120.1, "rem": 43, "lift pass": 75, "alt_min": 740, "alt_max": 1980, "n": 3, "resorts": ["Flachau", "Wagrain", "St. Johann-Alpendorf"], "runs": {"v": 0, "b": 28, "r": 69, "n": 3}}, "hochkoenig": {"name": "Hochkönig", "mountain range": "Northern Alps", "km": 120, "rem": 34, "lift pass": 79, "alt_min": 800, "alt_max": 1900, "n": 3, "resorts": ["Maria Alm", "Dienten", "Mühlbach am Hochkönig"], "runs": {"v": 0, "b": 43, "r": 35, "n": 22}}, "gastein": {"name": "Schlossalm – Stubnerkogel (Bad Gastein – Bad Hofgastein)", "mountain range": "Northern Alps", "km": 82.7, "rem": 17, "lift pass": 79, "alt_min": 860, "alt_max": 2300, "n": 2, "resorts": ["Bad Gastein", "Bad Hofgastein"], "runs": {"v": 0, "b": 37, "r": 60, "n": 3}}, "dorfgastein-grossarl": {"name": "Dorfgastein – Großarl", "mountain range": "Northern Alps", "km": 67.5, "rem": 16, "lift pass": 82, "alt_min": 849, "alt_max": 2033, "n": 2, "resorts": ["Dorfgastein", "Großarl"], "runs": {"v": 0, "b": 46, "r": 52, "n": 2}}, "silvretta-montafon": {"name": "Silvretta Montafon", "mountain range": "Northern Alps", "km": 141.6, "rem": 35, "lift pass": 77, "alt_min": 700, "alt_max": 2430, "n": 3, "resorts": ["Schruns", "St. Gallenkirch", "Gaschurn"], "runs": {"v": 0, "b": 42, "r": 36, "n": 22}}, "damuels-mellau": {"name": "Damüls – Mellau", "mountain range": "Northern Alps", "km": 75.8, "rem": 21, "lift pass": 73, "alt_min": 710, "alt_max": 2050, "n": 2, "resorts": ["Damüls", "Mellau"], "runs": {"v": 0, "b": 39, "r": 58, "n": 3}}, "schladming-4-berge": {"name": "Schladming 4-Berge-Skischaukel", "mountain range": "Northern Alps", "km": 123, "rem": 47, "lift pass": 79, "alt_min": 728, "alt_max": 2015, "n": 3, "resorts": ["Schladming", "Haus im Ennstal", "Pichl – Reiteralm"], "runs": {"v": 0, "b": 38, "r": 55, "n": 7}}};
+// ── Grands domaines adaptés au même format que DATA, pour pouvoir les
+// sélectionner et les comparer dans cet outil au même titre que des stations ──
+const DOMAINES_DATA = Object.keys(DOMAINES_META).map(function(slug, idx) {
+  const d = DOMAINES_META[slug];
+  const members = DATA.filter(function(s) { return d.stations.indexOf(s.name) !== -1; });
+  const avgScore = members.length ? members.reduce(function(a,s){return a+s.score;},0) / members.length : 4.0;
+  const avgSnow = members.length ? Math.round(members.reduce(function(a,s){return a+(s.snow||0);},0) / members.length) : 0;
+  const nivSet = {}, ambSet = {}, equipSet = {}, tagSet = {};
+  members.forEach(function(s) {
+    (s.niv||[]).forEach(function(x){nivSet[x]=1;});
+    (s.amb||[]).forEach(function(x){ambSet[x]=1;});
+    (s.equip||[]).forEach(function(x){equipSet[x]=1;});
+    (s.tags||[]).forEach(function(x){tagSet[x]=1;});
+  });
+  return {
+    id: -1000 - idx,
+    is_domaine: true,
+    slug: slug,
+    name: d.name,
+    massif: d.massif,
+    region: d.massif,
+    km: d.km,
+    remontees: d.rem,
+    forfait: d.forfait,
+    alt_min: d.alt_min,
+    alt_max: d.alt_max,
+    pistes: d.pistes,
+    score: Math.round(avgScore * 10) / 10,
+    snow: avgSnow,
+    niv: Object.keys(nivSet),
+    amb: Object.keys(ambSet),
+    equip: Object.keys(equipSet),
+    tags: Object.keys(tagSet),
+    n_stations: d.n
+  };
+});
+// Recherche unifiée : stations + grands domaines
+const SEARCHABLE = DATA.concat(DOMAINES_DATA);
+function findItem(id) { return SEARCHABLE.find(function(x) { return x.id === id; }); }
+// Table inverse : nom de station -> le grand domaine relié dont elle fait partie (s'il y en a un)
+const STATION_TO_DOMAINE = {};
+Object.keys(DOMAINES_META).forEach(function(slug) {
+  const d = DOMAINES_META[slug];
+  d.stations.forEach(function(stName) {
+    STATION_TO_DOMAINE[stName] = { name: d.name, km: d.km, n: d.n };
+  });
+});
+// Compare-list des domaines (clé séparée sf_compare_domaines, cohérente avec les
+// boutons ⚖️ des fiches et vignettes domaines)
+function getDomCompareList(){try{return JSON.parse(localStorage.getItem("sf_compare_domaines")||"[]");}catch(e){return [];}}
+function saveDomCompareList(arr){try{localStorage.setItem("sf_compare_domaines",JSON.stringify(arr));}catch(e){}}
+
+const NIV_LABEL = {debutant:"Beginner",intermediaire:"Intermediate",avance:"Advanced",expert:"Expert"};
+const AMB_LABEL = {luxe:"Luxury 💎",festif:"Festive 🎉",famille:"Family 👨‍👩‍👧",nature:"Nature 🌿",village:"Village 🏡",rider:"Rider ⚡",soleil:"Sunshine ☀️"};
+
+let sel = [null, null, null];
+let thirdActive = false;
+
+function addThirdStation(){
+  thirdActive = true;
+  document.getElementById('group3').style.display = '';
+  document.getElementById('selectorGrid').classList.add('cols-3');
+  document.getElementById('addStationBtn').classList.add('hidden');
+  document.getElementById('selectorTitle').textContent = 'Choose your 3 resorts';
+}
+function removeThirdStation(){
+  thirdActive = false;
+  clearStation(3);
+  document.getElementById('group3').style.display = 'none';
+  document.getElementById('selectorGrid').classList.remove('cols-3');
+  document.getElementById('addStationBtn').classList.remove('hidden');
+  document.getElementById('selectorTitle').textContent = 'Choose your resorts';
+  if (document.getElementById('result').style.display !== 'none') doCompare();
+}
+
+// ── DROPDOWN ──
+function filterDropdown(n) {
+  const q = document.getElementById('search'+n).value.toLowerCase().trim();
+  const drop = document.getElementById('drop'+n);
+  if (!q) { drop.innerHTML=''; drop.classList.remove('open'); return; }
+  const hits = SEARCHABLE.filter(s => s.name.toLowerCase().includes(q) || s.massif.toLowerCase().includes(q)).slice(0,12);
+  drop.innerHTML = hits.map(s => {
+    const meta = s.is_domaine
+      ? `🏔️ Large ski area · ${s.n_stations} resorts · ${s.km} km · ${s.forfait}€/day`
+      : `${s.massif} · ${s.km} km · ${s.alt_max} m · ${s.forfait}€/day`;
+    return `
+    <div class="dropdown-item" onmousedown="selectStation(${n},${s.id})">
+      <div class="item-name">${s.name}</div>
+      <div class="item-meta">${meta}</div>
+    </div>`;
+  }).join('');
+  drop.classList.add('open');
+}
+function openDrop(n){filterDropdown(n)}
+function closeDrop(n){document.getElementById('drop'+n).classList.remove('open')}
+
+function selectStation(n, id) {
+  const s = findItem(id);
+  if (!s) return;
+  sel[n-1] = s;
+  document.getElementById('search'+n).value = s.name;
+  closeDrop(n);
+  const pill = document.getElementById('pill'+n);
+  const domTag = s.is_domaine ? ' <span class="pill-dom-tag">🏔️ ski area</span>' : '';
+  pill.innerHTML = `<span class="selected-pill">${s.name}${domTag} <span class="pill-remove" onclick="clearStation(${n})">✕</span></span>`;
+  document.getElementById('compareBtn').disabled = !(sel[0] && sel[1]);
+  document.getElementById('result').style.display = 'none';
+}
+function refreshCompareCounter() {
+  var c = getCompareList(), cd = getDomCompareList();
+  var el = document.getElementById("sfCompareCount");
+  if (el) el.textContent = c.length + cd.length;
+}
+function clearStation(n) {
+  var removed = sel[n-1];
+  sel[n-1] = null;
+  document.getElementById('search'+n).value = '';
+  document.getElementById('pill'+n).innerHTML = '';
+  if (n !== 3) document.getElementById('compareBtn').disabled = true;
+  document.getElementById('result').style.display = 'none';
+  // Retire aussi l'élément de sa liste persistante (sf_compare pour une station,
+  // sf_compare_domaines pour un domaine), sinon il reste dans le compteur ⚖️
+  // et reréapparaît au prochain chargement de la page.
+  if (removed) {
+    if (removed.is_domaine) {
+      var cd = getDomCompareList();
+      var idxD = cd.indexOf(removed.slug);
+      if (idxD !== -1) { cd.splice(idxD, 1); saveDomCompareList(cd); }
+    } else {
+      var c = getCompareList();
+      var idx = c.indexOf(removed.id);
+      if (idx !== -1) { c.splice(idx, 1); saveCompareList(c); }
+    }
+    refreshCompareCounter();
+  }
+}
+
+// ── Pré-remplissage depuis les listes "Comparer" (⚖️), stations et domaines ──
+(function(){
+  function prefill(){
+    var stationIds = (typeof getCompareList === 'function') ? getCompareList() : [];
+    var domSlugs = (typeof getDomCompareList === 'function') ? getDomCompareList() : [];
+    var domIds = domSlugs.map(function(slug){
+      var found = DOMAINES_DATA.find(function(d){ return d.slug === slug; });
+      return found ? found.id : null;
+    }).filter(function(x){ return x !== null; });
+    var combined = stationIds.concat(domIds).slice(0,3);
+    if(!combined.length) return;
+    if(combined[0] !== undefined) selectStation(1, combined[0]);
+    if(combined[1] !== undefined) selectStation(2, combined[1]);
+    if(combined[2] !== undefined){ addThirdStation(); selectStation(3, combined[2]); }
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', prefill);
+  } else {
+    prefill();
+  }
+})();
+
+// ── COMPARISON ──
+function doCompare() {
+  const stations = sel.filter(Boolean);
+  if (stations.length < 2) return;
+  const isMulti = stations.length === 3;
+
+  // Headers
+  const hdr = document.getElementById('resultHeader');
+  hdr.className = 'result-header' + (isMulti ? ' cols-3' : '');
+  hdr.innerHTML = stations.map((s,i)=>{
+    let note = '';
+    if (s.is_domaine) {
+      note = `<div class="header-domaine-note">🏔️ Quick reminder: this is a ski area (several linked resorts), not a single resort on its own — the figures below are for the whole ski area.</div>`;
+    } else {
+      const dom = STATION_TO_DOMAINE[s.name];
+      if (dom) {
+        note = `<div class="header-station-note">⛷️ ${s.name} is a resort in its own right — the figures below are its own. It is linked to the ski area <strong>${dom.name}</strong> (${dom.km} km in total with its ${dom.n} resorts).</div>`;
+      }
+    }
+    const card = `<div class="station-header-card"><div class="station-header-name">${s.name}</div>${note}<div class="station-header-meta">${s.massif}<br>${s.km} km · ${s.alt_max} m · ${s.forfait}€/j</div></div>`;
+    return i < stations.length-1 ? card + '<div class="vs-badge">VS</div>' : card;
+  }).join('');
+
+  function pistesStr(s) {
+    const p = s.pistes||{};
+    var u=p.pct?'%':''; return [p.v&&`🟢${p.v}${u}`,p.b&&`🔵${p.b}${u}`,p.r&&`🔴${p.r}${u}`,p.n&&`⚫${p.n}${u}`].filter(Boolean).join(' ')||'—';
+  }
+  function tagsHtml(arr, labelMap) {
+    if (!arr||!arr.length) return '—';
+    return `<div class="mini-tags">${arr.map(x=>`<span class="mini-tag">${labelMap[x]||x}</span>`).join('')}</div>`;
+  }
+  // Génère une ligne du tableau, avec surlignage du "gagnant" si higherWins est défini
+  function buildRow(label, getVal, opts={}) {
+    const vals = stations.map(getVal);
+    let winnerIdx = -1;
+    if (opts.higherWins !== undefined && vals.every(v=>typeof v==='number')) {
+      const best = opts.higherWins ? Math.max(...vals) : Math.min(...vals);
+      if (vals.filter(v=>v===best).length === 1) winnerIdx = vals.indexOf(best);
+    }
+    const cells = vals.map((v,i)=>{
+      const content = opts.html ? v : ((opts.formatter?opts.formatter(v):v) + (opts.suffix||''));
+      let cls = winnerIdx===-1 ? '' : (i===winnerIdx?' winner':' loser');
+      if (!isMulti) cls += (i===0?' left':' right');
+      return `<div class="comp-val${cls}">${content}</div>`;
+    });
+    if (isMulti) return `<div class="comp-row cols-3"><div class="comp-label">${label}</div>${cells.join('')}</div>`;
+    return `<div class="comp-row">${cells[0]}<div class="comp-label">${label}</div>${cells[1]}</div>`;
+  }
+
+  document.getElementById('sec-domaine').innerHTML =
+    buildRow('Piste km', s=>s.km, {higherWins:true, suffix:' km'}) +
+    buildRow('Lifts', s=>s.remontees, {higherWins:true}) +
+    buildRow('Runs', s=>pistesStr(s), {html:true});
+
+  document.getElementById('sec-altitude').innerHTML =
+    buildRow('Summit', s=>s.alt_max, {higherWins:true, suffix:' m'}) +
+    buildRow('Village', s=>s.alt_min, {higherWins:true, suffix:' m'}) +
+    buildRow('Vertical drop', s=>s.alt_max-s.alt_min, {higherWins:true, suffix:' m'}) +
+    buildRow('Snow reliability', s=>s.snow||0, {higherWins:true, suffix:' cm'});
+
+  document.getElementById('sec-prix').innerHTML =
+    buildRow('Forfait/jour', s=>s.forfait, {higherWins:false, suffix:'€'}) +
+    buildRow('Accommodation ~night', s=>Math.round(s.forfait*2.4), {higherWins:false, suffix:'€'});
+
+  document.getElementById('sec-profil').innerHTML =
+    buildRow('Niveaux', s=>tagsHtml(s.niv, NIV_LABEL), {html:true}) +
+    buildRow('Atmosphere', s=>tagsHtml(s.amb, AMB_LABEL), {html:true}) +
+    buildRow('Massif', s=>s.massif, {}) +
+    buildRow('Note', s=>s.score, {higherWins:true, suffix:' ⭐'});
+
+  const EQUIP_LABEL = {snowpark:'Snowpark',garderie:'Garderie',restaurants:'Restaurants',telesiege:'Chairlift'};
+  document.getElementById('sec-equip').innerHTML =
+    buildRow('Facilities', s=>tagsHtml(s.equip, EQUIP_LABEL), {html:true});
+
+  // VERDICT
+  if (isMulti) buildVerdictMulti(stations); else buildVerdict(stations[0], stations[1]);
+
+  // BOOKING LINKS
+  function bookingUrl(s) {
+    const base = `https://www.booking.com/searchresults.en-gb.html?ss=${encodeURIComponent(s.name)}+ski+france&lang=en-gb`;
+    return `https://www.tkqlhce.com/click-101709262-15734710?sid=comparateur&url=${encodeURIComponent(base)}`;
+  }
+  function expediaUrl(s) {
+    const base = `https://www.expedia.fr/go/hotel/search/Destination/?CityName=${encodeURIComponent(s.name)}&City=${encodeURIComponent(s.name)}&SortBy=distance&NumRoom=1&NumAdult1=1`;
+    return `https://www.jdoqocy.com/click-101709262-13904689?sid=comparateur&url=${encodeURIComponent(base)}`;
+  }
+  // Utilise la 1ère station pour les liens
+  const a = stations[0];
+  document.getElementById('bookingLink').href = bookingUrl(a);
+  document.getElementById('expediaLink').href = expediaUrl(a);
+  document.getElementById('bookingSub').textContent = `${a.name} · ~${Math.round(a.forfait*2.4)}€/night`;
+
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ── VERDICT ──
+/* Grammaire française devant un nom de station : de/du/des/d'/de l' et à/au/aux/à l' */
+function sfDe(n){return 'of '+String(n||'');}
+function sfA(n){return 'in '+String(n||'');}
+function sfMaj(t){return t.charAt(0).toUpperCase()+t.slice(1);}
+function buildVerdict(a, b) {
+  const parts = [];
+  const chips = [];
+
+  // ── 1. DOMAINE : ratio réel, formulation adaptée ──
+  const kmRatio = a.km > 0 && b.km > 0 ? Math.max(a.km, b.km) / Math.min(a.km, b.km) : 1;
+  const bigger  = a.km >= b.km ? a : b;
+  const smaller = a.km >= b.km ? b : a;
+
+  if (kmRatio >= 10) {
+    parts.push(`The comparison of ski areas is clear-cut: <strong>${bigger.name}</strong> offre ${bigger.km} km of runs compared with only ${smaller.km} km for ${smaller.name} — making it a ski area ${Math.round(kmRatio)}× larger. It is simply not in the same category. ${sfMaj(sfA(bigger.name))}, you can ski for a whole week without ever repeating the same route; ${sfA(smaller.name)}, the ski area can be explored in a single day.`);
+    chips.push({label:`${bigger.name}: an unmatched ski area`, cls:'green'});
+  } else if (kmRatio >= 3) {
+    parts.push(`When it comes to the size of the ski area, <strong>${bigger.name}</strong> clearly leads with ${bigger.km} km compared with ${smaller.km} km for ${smaller.name} — roughly ${Math.round(kmRatio)} times larger. Over a week-long stay, this difference is really significant.`);
+    chips.push({label:`${bigger.name}: much larger ski area`, cls:'green'});
+  } else if (kmRatio >= 1.4) {
+    parts.push(`<strong>${bigger.name}</strong> has a more extensive ski area (${bigger.km} km vs ${smaller.km} km for ${smaller.name}), which gives more variety over a long stay.`);
+    chips.push({label:`${bigger.name}: larger ski area`, cls:'green'});
+  } else {
+    parts.push(`The two resorts offer ski areas that are comparable in size (${a.km} km vs ${b.km} km). The choice will therefore not be decided by the quantity of runs, but by the quality of the terrain and the atmosphere.`);
+  }
+
+  // ── 2. NIVEAU / PROFIL SKIEUR : basé sur les données réelles ──
+  const aExpert  = a.niv && a.niv.includes('expert');
+  const bExpert  = b.niv && b.niv.includes('expert');
+  const aRiderTag = a.tags && a.tags.includes('rider');
+  const bRiderTag = b.tags && b.tags.includes('rider');
+  const aBlackPistes = (a.pistes && !a.pistes.pct && a.pistes.n) || 0;
+  const bBlackPistes = (b.pistes && !b.pistes.pct && b.pistes.n) || 0;
+  const aGreenPistes = (a.pistes && !a.pistes.pct && a.pistes.v) || 0;
+  const bGreenPistes = (b.pistes && !b.pistes.pct && b.pistes.v) || 0;
+  const aDeb = a.niv && a.niv.includes('debutant');
+  const bDeb = b.niv && b.niv.includes('debutant');
+
+  // Station "rider/expert" = tag rider explicite OU (expert + pistes noires nombreuses)
+  const aIsRider = aRiderTag || (aExpert && aBlackPistes >= 4);
+  const bIsRider = bRiderTag || (bExpert && bBlackPistes >= 4);
+
+  if (aIsRider && !bIsRider) {
+    parts.push(`For confident skiers, <strong>${a.name}</strong> is clearly better suited, with ${aBlackPistes} black runs and terrain that rewards good skiers. ${b.name} is more all-round${bDeb ? ', particulièrement adaptée aux débutants et aux familles' : ''} — which is a strength, but not what you choose when you want demanding terrain.`);
+    chips.push({label:`${a.name}: demanding terrain`, cls:'green'});
+  } else if (bIsRider && !aIsRider) {
+    parts.push(`For confident skiers, <strong>${b.name}</strong> is clearly better suited, with ${bBlackPistes} black runs and terrain that rewards good skiers. ${a.name} is more all-round${aDeb ? ', particulièrement adaptée aux débutants et aux familles' : ''} — which is a strength, but not what you choose when you want demanding terrain.`);
+    chips.push({label:`${b.name}: demanding terrain`, cls:'green'});
+  } else if (aIsRider && bIsRider) {
+    if (aBlackPistes > bBlackPistes + 3) {
+      parts.push(`Both resorts cater to demanding skiers, but <strong>${a.name}</strong> goes further with ${aBlackPistes} black runs compared with ${bBlackPistes} for ${b.name}.`);
+    } else {
+      parts.push(`Both resorts offer serious technical terrain — ${aBlackPistes} black runs for ${a.name}, ${bBlackPistes} for ${b.name}. Riders will find what they need in both cases.`);
+    }
+  }
+
+  // ── 3. FAMILLE : uniquement si tag famille explicite ──
+  const aFam = a.amb && a.amb.includes('famille');
+  const bFam = b.amb && b.amb.includes('famille');
+  if (aFam && !bFam) {
+    parts.push(`For families, <strong>${a.name}</strong> has the advantage${aDeb ? " avec de bonnes pistes vertes pour les débutants" : ""}. ${b.name} will suit self-sufficient groups better.`);
+    chips.push({label:`${a.name}: ideal for families`, cls:'green'});
+  } else if (bFam && !aFam) {
+    parts.push(`For families, <strong>${b.name}</strong> has the advantage${bDeb ? " avec de bonnes pistes vertes pour les débutants" : ""}. ${a.name} will suit self-sufficient groups better.`);
+    chips.push({label:`${b.name}: ideal for families`, cls:'green'});
+  }
+  // Si les deux sont famille, ne rien dire (évite les verdicts creux)
+
+  // ── 4. ALTITUDE / ENNEIGEMENT : village + sommet ──
+  const altMaxDiff = Math.abs(a.alt_max - b.alt_max);
+  const altMinDiff = Math.abs(a.alt_min - b.alt_min);
+  const higherAlt  = a.alt_max >= b.alt_max ? a : b;
+  const lowerAlt   = a.alt_max >= b.alt_max ? b : a;
+  const higherVillage = a.alt_min >= b.alt_min ? a : b;
+  const lowerVillage  = a.alt_min >= b.alt_min ? b : a;
+
+  // Cas 1 : grosse différence sommet ET village → texte complet
+  if (altMaxDiff >= 400 && altMinDiff >= 300) {
+    parts.push(`Altitude is a clear advantage for <strong>${higherAlt.name}</strong> at all levels: the village already sits at ${higherVillage.alt_min} m (versus ${lowerVillage.alt_min} m for ${lowerAlt.name}), and the summit reaches ${higherAlt.alt_max} m versus ${lowerAlt.alt_max} m. Result: snow reliability at the foot of the runs is more dependable, and conditions at the end of the season or in difficult winters are noticeably better.`);
+    chips.push({label:`${higherAlt.name}: higher snow reliability`, cls:'green'});
+  // Cas 2 : grosse différence sommet seulement
+  } else if (altMaxDiff >= 500) {
+    parts.push(`In terms of snow reliability, <strong>${higherAlt.name}</strong> a l'avantage au sommet (${higherAlt.alt_max} m versus ${lowerAlt.alt_max} m for ${lowerAlt.name}). Les villages sont à des altitudes plus proches (${a.alt_min} m for ${a.name}, ${b.alt_min} m for ${b.name}), but the difference at the top guarantees better conditions late in the season.`);
+    chips.push({label:`${higherAlt.name}: better snow reliability`, cls:'green'});
+  // Cas 3 : village très différent mais sommet proche
+  } else if (altMinDiff >= 400 && altMaxDiff < 300) {
+    parts.push(`Les sommets sont proches (${a.alt_max} m vs ${b.alt_max} m), but the village <strong>${sfDe(higherVillage.name)}</strong> est positionné bien plus haut (${higherVillage.alt_min} m versus ${lowerVillage.alt_min} m for ${lowerVillage.name}). In practice, snow reliability at the foot of the runs and on the lower lifts will be more dependable ${sfA(higherVillage.name)}.`);
+    chips.push({label:`${higherVillage.name}: village with better snow cover`, cls:'green'});
+  // Cas 4 : différences modérées → texte factuel sans exagération
+  } else if (altMaxDiff >= 250 || altMinDiff >= 200) {
+    parts.push(`<strong>${higherAlt.name}</strong> is generally a little higher (village at ${higherVillage.alt_min} m, summit at ${higherAlt.alt_max} m) versus ${lowerVillage.alt_min} m and ${lowerAlt.alt_max} m for ${lowerAlt.name}. A modest advantage for snow reliability late in the season.`);
+  }
+  // Sinon : altitudes très proches, on ne dit rien plutôt qu'un verdict artificiel
+
+  // ── 5. PRIX ──
+  const priceDiff = Math.abs(a.forfait - b.forfait);
+  const cheaper = a.forfait <= b.forfait ? a : b;
+  const pricier  = a.forfait <= b.forfait ? b : a;
+  if (priceDiff >= 15) {
+    parts.push(`The budget is a decisive factor here: <strong>${cheaper.name}</strong> is much more economical, with a lift pass at ${cheaper.forfait}€/day versus ${pricier.forfait}€/day ${sfA(pricier.name)}. Over a week for two skiers, the gap exceeds ${priceDiff * 2 * 7}€, not counting accommodation.`);
+    chips.push({label:`${cheaper.name}: better value`, cls:'amber'});
+  } else if (priceDiff >= 8) {
+    parts.push(`<strong>${cheaper.name}</strong> is a little more affordable (${cheaper.forfait}€/day vs ${pricier.forfait}€/day), a not insignificant advantage over the length of a stay.`);
+    chips.push({label:`${cheaper.name}: better value`, cls:'amber'});
+  } else {
+    parts.push(`Lift passes are almost identical (${a.forfait}€ vs ${b.forfait}€ per day), so budget is not the factor that will make the difference.`);
+  }
+
+  // ── 6. AMBIANCE : luxe vs authenticité ──
+  const aLuxe    = a.amb && a.amb.includes('luxe');
+  const bLuxe    = b.amb && b.amb.includes('luxe');
+  const aVillage = a.amb && (a.amb.includes('village') || a.amb.includes('nature'));
+  const bVillage = b.amb && (b.amb.includes('village') || b.amb.includes('nature'));
+  const aFestif  = a.amb && a.amb.includes('festif');
+  const bFestif  = b.amb && b.amb.includes('festif');
+  if (aLuxe && bVillage && !bLuxe) {
+    parts.push(`The atmosphere is radically different: <strong>${a.name}</strong> plays the card of prestige and high end, while <strong>${b.name}</strong> focuses on authenticity and mountain charm. Neither is better; it all depends on what you are looking for.`);
+  } else if (bLuxe && aVillage && !aLuxe) {
+    parts.push(`The atmosphere is radically different: <strong>${b.name}</strong> plays the card of prestige and high end, while <strong>${a.name}</strong> focuses on authenticity and mountain charm. Neither is better; it all depends on what you are looking for.`);
+  } else if (aFestif && !bFestif) {
+    parts.push(`For après-ski and resort entertainment, <strong>${a.name}</strong> clearly has more to offer. If nightlife and atmosphere matter as much as the skiing, that is a serious argument.`);
+  } else if (bFestif && !aFestif) {
+    parts.push(`For après-ski and resort entertainment, <strong>${b.name}</strong> clearly has more to offer. If nightlife and atmosphere matter as much as the skiing, that is a serious argument.`);
+  }
+
+  // ── 7. CONCLUSION ──
+  const aScore = a.score, bScore = b.score;
+  const scoreDiff = Math.abs(aScore - bScore);
+  const betterScore = aScore >= bScore ? a : b;
+  const worseScore  = aScore >= bScore ? b : a;
+
+  // Cas extrême : domaines incomparables → conclusion directe
+  if (kmRatio >= 5) {
+    parts.push(`In summary, <strong>${bigger.name}</strong> and <strong>${smaller.name}</strong> are not really in direct competition, as they have different positioning. ${bigger.name} is a large resort for keen intensive skiers; ${smaller.name} is a discreet destination for those seeking authenticity and an escape away from the crowds.`);
+  } else if (scoreDiff >= 0.4) {
+    parts.push(`Overall, <strong>${betterScore.name}</strong> comes out with a higher rating (${betterScore.score}⭐ vs ${worseScore.score}⭐), reflecting a generally more complete offer. But ${worseScore.name} has its own strengths, so read the details above carefully to see whether they are the ones you need.`);
+  } else {
+    parts.push(`The two resorts are very close in overall rating (${aScore}⭐ for ${a.name}, ${bScore}⭐ for ${b.name}). The right choice depends solely on your profile: review each resort's strengths above to decide.`);
+  }
+
+  document.getElementById('verdictText').innerHTML = parts.map(p=>`<p>${p}</p>`).join('');
+  document.getElementById('verdictChips').innerHTML = chips.map(c=>`<span class="verdict-chip ${c.cls}">${c.label}</span>`).join('');
+}
+
+// ── VERDICT MULTI (3 stations) ──
+function buildVerdictMulti(stations) {
+  const parts = [];
+  const chips = [];
+  const names = stations.map(s=>s.name);
+
+  const byKm = [...stations].sort((a,b)=>b.km-a.km);
+  const byAlt = [...stations].sort((a,b)=>b.alt_max-a.alt_max);
+  const byPrice = [...stations].sort((a,b)=>a.forfait-b.forfait);
+  const byScore = [...stations].sort((a,b)=>b.score-a.score);
+
+  parts.push(`Here are <strong>${names.join(', ')}</strong> put to the test on the essential criteria.`);
+
+  if (byKm[0].km > byKm[byKm.length-1].km * 1.3) {
+    parts.push(`In terms of ski area, <strong>${byKm[0].name}</strong> clearly comes out on top with ${byKm[0].km} km of runs, well ahead of ${byKm[byKm.length-1].name} and its ${byKm[byKm.length-1].km} km.`);
+    chips.push({label:`${byKm[0].name}: largest ski area`, cls:'green'});
+  } else {
+    parts.push(`The ski areas are fairly similar in size (${stations.map(s=>`${s.name} ${s.km} km`).join(', ')}).`);
+  }
+
+  if (byAlt[0].alt_max - byAlt[byAlt.length-1].alt_max >= 400) {
+    parts.push(`For snow reliability, <strong>${byAlt[0].name}</strong> tops out at ${byAlt[0].alt_max} m, a clear advantage in difficult winters.`);
+    chips.push({label:`${byAlt[0].name}: highest altitude`, cls:'green'});
+  }
+
+  parts.push(`On budget, <strong>${byPrice[0].name}</strong> is the most economical, with a day lift pass at ${byPrice[0].forfait}€/day, compared with ${byPrice[byPrice.length-1].forfait}€/day for ${byPrice[byPrice.length-1].name}.`);
+  chips.push({label:`${byPrice[0].name}: better value`, cls:'amber'});
+
+  if (byScore[0].score - byScore[byScore.length-1].score >= 0.3) {
+    parts.push(`Overall, <strong>${byScore[0].name}</strong> earns the top rating (${byScore[0].score}⭐). But each resort has its own character – the details above will help you decide according to your priorities.`);
+    chips.push({label:`${byScore[0].name}: best rated`, cls:'green'});
+  } else {
+    parts.push(`Overall ratings are very close (${stations.map(s=>`${s.name} ${s.score}⭐`).join(', ')}) – the choice will come down mostly to atmosphere and budget rather than perceived quality.`);
+  }
+
+  document.getElementById('verdictText').innerHTML = parts.map(p=>`<p>${p}</p>`).join('');
+  document.getElementById('verdictChips').innerHTML = chips.map(c=>`<span class="verdict-chip ${c.cls}">${c.label}</span>`).join('');
+}
+
+// ── COOKIES ──
+(function(){
+  if (!localStorage.getItem('cookieChoice')) {
+    document.getElementById('cookieBanner').style.display = 'flex';
+  }
+})();
+function acceptCookies(){
+  localStorage.setItem('cookieChoice','accepted');
+  document.getElementById('cookieBanner').style.display='none';
+}
+function rejectCookies(){
+  localStorage.setItem('cookieChoice','refused');
+  document.getElementById('cookieBanner').style.display='none';
+}
+</script>
+<!-- Affiche les stations favorites en bas du menu latéral -->
+<script>
+(function(){
+  function slugifyStation(name){
+    return name.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .replace(/['’]/g,'-')
+      .replace(/[^a-z0-9]+/g,'-')
+      .replace(/^-+|-+$/g,'');
+  }
+  function renderSidebarFavorites(){
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar || document.getElementById('sbFavSection')) return;
+    let favs = [];
+    try { favs = JSON.parse(localStorage.getItem('sf_favorites')||'[]'); } catch(e){}
+    if (!favs.length) return;
+    const stations = favs.map(id=>DATA.find(s=>s.id===id)).filter(Boolean).slice(0,8);
+    if (!stations.length) return;
+    const section = document.createElement('div');
+    section.className = 'sb-fav-section';
+    section.id = 'sbFavSection';
+    section.innerHTML = `<div class="sb-fav-title">⭐ My favourites</div>` +
+      stations.map(s=>`<a class="sb-fav-item" href="/en/stations/${slugifyStation(s.name)}.html"><span class="sb-fav-star">⛷</span>${s.name}</a>`).join('');
+    const footer = sidebar.querySelector('.sb-footer');
+    if (footer) sidebar.insertBefore(section, footer);
+    else sidebar.appendChild(section);
+  }
+  const obs = new MutationObserver(function(){ renderSidebarFavorites(); });
+  obs.observe(document.body, {childList:true, subtree:true});
+  renderSidebarFavorites();
+})();
+</script>
+<nav class="sf-bottomnav"><a class="sf-bn-item" href="/en/recherche.html" title="Find my resort">🔍<span class="sf-bn-label">Search</span></a> <a class="sf-bn-item" href="/en/enneigement.html" title="Weather &amp; snow reliability">❄️<span class="sf-bn-label">Weather</span></a> <a class="sf-bn-item sf-bn-home" href="/index.html" title="Accueil"><span class="sf-bn-home-circle">🏡</span><span class="sf-bn-label">Chalet</span></a> <a class="sf-bn-item" href="/en/tinder.html" title="Ski Tinder">💕<span class="sf-bn-label">Tinder</span></a> <a class="sf-bn-item" href="/en/hebergement.html" title="Accommodation">🛏️<span class="sf-bn-label">Accom.</span></a></nav>
+<!-- ══ MENU RAPIDE (icône ☰ en haut à droite) ══ -->
+<style>
+.sf-sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;backdrop-filter:blur(4px)}
+.sf-sheet-overlay.open{display:block}
+.sf-sheet{position:fixed;left:0;right:0;bottom:0;z-index:9001;background:#f5f1ec;border-radius:20px 20px 0 0;padding:10px 0 max(20px,env(safe-area-inset-bottom));box-shadow:0 -8px 40px rgba(0,0,0,.2);transform:translateY(100%);transition:transform .32s cubic-bezier(.32,.72,0,1);max-width:480px;margin:0 auto}
+.sf-sheet.open{transform:translateY(0)}
+.sf-sheet-handle{width:40px;height:4px;background:#ddd;border-radius:3px;margin:0 auto 10px}
+.sf-sheet-title{text-align:center;font-family:"DM Serif Display",serif;font-size:1.05rem;color:var(--blue-dark,#1a3f6e);margin-bottom:6px;padding:0 20px}
+.sf-menu-item{display:flex;align-items:center;gap:12px;width:100%;padding:15px 24px;background:none;border:none;border-top:1px solid var(--wood-pale,#eee);font-size:.95rem;font-weight:600;color:var(--text,#2a1f14);text-decoration:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif}
+.sf-menu-item:active{background:var(--wood-pale,#f0e8da)}
+.sf-menu-item .em{font-size:1.15rem;flex-shrink:0}
+</style>
+<div class="sf-sheet-overlay" id="sfMenuOverlay" onclick="closeSfMenu()"></div>
+<div class="sf-sheet" id="sfMenuSheet">
+<div class="sf-sheet-handle"></div>
+<div class="sf-sheet-title">Menu</div>
+<button class="sf-menu-item" onclick="closeSfMenu();openContact()" type="button"><span class="em">📧</span><span>Contact us</span></button>
+<button class="sf-menu-item" onclick="closeSfMenu();openSfNotif()" type="button"><span class="em">🔔</span><span>Notifications</span></button>
+<a class="sf-menu-item" href="/mentions-legales.html"><span class="em">⚖️</span><span>Legal notice</span></a>
+</div>
+<div class="sf-sheet-overlay" id="sfNotifOverlay2" onclick="closeSfNotif()"></div>
+<div class="sf-sheet" id="sfNotifSheet2" style="text-align:center">
+<div class="sf-sheet-handle"></div>
+<div style="padding:8px 24px 4px">
+<div style="font-size:2.3rem;margin-bottom:8px">🔔</div>
+<div style="font-family:'DM Serif Display',serif;font-size:1.25rem;color:#1a3f6e;margin-bottom:8px;line-height:1.2">Powder alerts &amp; good deals?</div>
+<p style="font-size:.88rem;color:#5c4a35;line-height:1.6;margin-bottom:16px">Get an alert when the snow comes down heavily, or when there are good lift pass deals. <strong>Free, discreet, 1 to 2 times a week at most.</strong></p>
+</div>
+<div style="padding:0 20px;display:flex;flex-direction:column;gap:10px"><button onclick="acceptSfNotif()" style="background:linear-gradient(135deg,#1a5a8a,#3a7db8);color:white;border:none;border-radius:30px;padding:15px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(26,90,138,.3)" type="button">⛷️ Yes, I want to be alerted!</button> <button onclick="closeSfNotif()" style="background:transparent;color:#8a7060;border:none;padding:8px;font-size:.85rem;cursor:pointer;font-family:'DM Sans',sans-serif" type="button">No thanks</button></div>
+</div>
+<script>
+function openSfMenu(){document.getElementById('sfMenuOverlay').classList.add('open');document.getElementById('sfMenuSheet').classList.add('open');document.body.style.overflow='hidden';}
+function closeSfMenu(){document.getElementById('sfMenuOverlay').classList.remove('open');document.getElementById('sfMenuSheet').classList.remove('open');document.body.style.overflow='';}
+
+// Fallback : si la page n'a pas sa propre modale "Nous contacter" (voir index.html / recherche.html),
+// on renvoie vers la modale du site principal.
+if (typeof openContact !== 'function') {
+  window.openContact = function(){ window.location.href = 'index.html#contact'; };
+}
+
+function openSfNotif(){
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){
+    alert('Notifications are already enabled ✅'); return;
+  }
+  if(typeof Notification!=='undefined' && Notification.permission==='denied'){
+    alert("Notifications are blocked in your browser settings."); return;
+  }
+  document.getElementById('sfNotifOverlay2').classList.add('open');
+  document.getElementById('sfNotifSheet2').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSfNotif(){
+  document.getElementById('sfNotifOverlay2').classList.remove('open');
+  document.getElementById('sfNotifSheet2').classList.remove('open');
+  document.body.style.overflow='';
+}
+function acceptSfNotif(){
+  closeSfNotif();
+  function ask(){
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred.push(async function(OneSignal){
+      try{ await OneSignal.Notifications.requestPermission(); }catch(e){}
+    });
+  }
+  if(window.OneSignal || document.querySelector('script[src*="OneSignalSDK"]')){ ask(); return; }
+  var s=document.createElement('script');
+  s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; s.defer=true;
+  document.head.appendChild(s);
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(async function(OneSignal){
+    await OneSignal.init({appId:"df4757f7-ed59-4973-8a3d-782547295c9c",safari_web_id:"web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",serviceWorkerPath:"sw.js",notifyButton:{enable:false},welcomeNotification:{disable:true}});
+    try{ await OneSignal.Notifications.requestPermission(); }catch(e){}
+  });
+}
+</script>
+<!--sf-lang--><a class="sf-lang-switch" href="/comparateur.html" hreflang="fr" lang="fr" rel="alternate">🇫🇷 Français</a><style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index:900;background:rgba(255,255,255,.94);color:#1d4f7a;border:1px solid #d6dde4;border-radius:20px;padding:6px 12px;font:600 .74rem/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}.sf-lang-switch:hover{background:#fff}</style><!--/sf-lang--></body>
+</html>
