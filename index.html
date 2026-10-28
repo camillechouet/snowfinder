@@ -1449,7 +1449,7 @@ document.getElementById("eteOverlay").addEventListener("click", e => {
 function openSfMenu(){document.getElementById('sfMenuOverlay').classList.add('open');document.getElementById('sfMenuSheet').classList.add('open');document.body.style.overflow='hidden';}
 function closeSfMenu(){document.getElementById('sfMenuOverlay').classList.remove('open');document.getElementById('sfMenuSheet').classList.remove('open');document.body.style.overflow='';}
 function openSfNotifFromMenu(){
-  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Les notifications sont déjà activées ✅'); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ try{ if(window.sfLoadOneSignal) window.sfLoadOneSignal(); }catch(e){} alert('Les notifications sont déjà activées ✅'); return; }
   if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Les notifications sont bloquées dans les réglages de ton navigateur."); return; }
   var overlay = document.getElementById('notifOverlay');
   var sheet   = document.getElementById('notifSheet');
@@ -2758,6 +2758,11 @@ function refuseCookies() {
     }, 4500);
   }
 
+  // Permission déjà accordée : on (ré)enregistre l'abonnement chez OneSignal sans rien demander
+  if(typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+    setTimeout(function(){ try{ window.sfLoadOneSignal(); }catch(e){} }, 2500);
+  }
+
   window.dismissNotifPopup = function() {
     localStorage.setItem('sf_notif_ask', Date.now());
     var sheet = document.getElementById('notifSheet');
@@ -2770,7 +2775,12 @@ function refuseCookies() {
   window.acceptNotifPopup = function() {
     localStorage.setItem('sf_notif_ask', Date.now());
     dismissNotifPopup();
+    window.sfLoadOneSignal();
+  };
 
+  window.sfLoadOneSignal = function() {
+    if(window._sfOSLoaded) return;
+    window._sfOSLoaded = true;
     var s = document.createElement('script');
     s.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
     s.onload = function() {
