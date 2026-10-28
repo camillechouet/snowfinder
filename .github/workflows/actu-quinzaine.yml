@@ -57,6 +57,7 @@ jobs:
           python3 _scripts/generate_actu_hebdo.py --sujet "$SUJET" --review-out /tmp/actu_review.md
 
       - name: Publier automatiquement
+        id: pub
         if: steps.sem.outputs.go == 'oui'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -75,6 +76,7 @@ jobs:
           git commit -m "📰 Actualité : $TITRE"
           git pull --rebase origin main
           git push origin HEAD:main
+          echo "publie=oui" >> "$GITHUB_OUTPUT"
           SHA=$(git rev-parse HEAD)
 
           # Compte rendu (sources, faits contrôlés) dans une « issue » : tu reçois un e-mail GitHub.
@@ -91,3 +93,25 @@ jobs:
 
           # Un push fait avec le jeton du workflow ne relance pas les autres workflows : on les lance ici.
           gh workflow run "Mettre à jour les contenus (accueil + actus)" || true
+
+      - name: Notifier les abonnés (lien direct vers l'article)
+        if: steps.pub.outputs.publie == 'oui'
+        env:
+          ONESIGNAL_APP_ID:  ${{ secrets.ONESIGNAL_APP_ID }}
+          ONESIGNAL_API_KEY: ${{ secrets.ONESIGNAL_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          TITRE=$(python3 -c "import json;print(json.load(open('actus_hebdo.json'))[-1]['title'])")
+          SLUG=$(python3 -c "import json;print(json.load(open('actus_hebdo.json'))[-1]['slug'])")
+          EXCERPT=$(python3 -c "import json;print(json.load(open('contenus.json'))['articles'][0]['excerpt'])")
+          URL="https://snowfinder.fr/articles/${SLUG}.html"
+          # On attend que la page soit réellement en ligne (GitHub Pages met 1 à 3 minutes), 15 minutes maximum.
+          for i in $(seq 1 30); do
+            CODE=$(curl -s -o /dev/null -w "%{http_code}" "$URL" || true)
+            if [ "$CODE" = "200" ]; then echo "Page en ligne."; break; fi
+            echo "Page pas encore en ligne (code $CODE), nouvel essai dans 30 s..."
+            sleep 30
+          done
+          # La notification ne doit jamais faire échouer la publication.
+          NOTIF_TYPE=article NOTIF_TITRE="📰 $TITRE" NOTIF_CORPS="$EXCERPT" NOTIF_URL="$URL" \
+            python3 _scripts/onesignal_manual_notif.py || echo "⚠️ Notification non envoyée"
