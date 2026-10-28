@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Become a partner — SnowFinder</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --deep: #0B2942;
+    --deep-2: #123A5A;
+    --blue: #1C6FA5;
+    --sky: #4E97C7;
+    --ice: #EAF4FB;
+    --frost: #F7FBFE;
+    --ink: #16232E;
+    --ink-soft: #4C6072;
+    --line: #DCE7EF;
+    --accent: #E8763A;
+    --accent-deep: #C25B25;
+    --card: #FFFFFF;
+    --gold: #C9A24B;
+    --heading: #0B2942;
+    --btn-dark: #0B2942;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --deep: #06131F; --deep-2: #0C2338; --blue: #4E97C7; --sky: #7BB6DE;
+      --ice: #0E2033; --frost: #0A1826; --ink: #E8F1F8; --ink-soft: #A9BFCF;
+      --line: #1E3548; --card: #10202F; --heading: #EAF4FB; --btn-dark: #4E97C7;
+    }
+  }
+  :root[data-theme="dark"] {
+    --deep: #06131F; --deep-2: #0C2338; --blue: #4E97C7; --sky: #7BB6DE;
+    --ice: #0E2033; --frost: #0A1826; --ink: #E8F1F8; --ink-soft: #A9BFCF;
+    --line: #1E3548; --card: #10202F; --heading: #EAF4FB; --btn-dark: #4E97C7;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--frost);
+    color: var(--ink);
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.6;
+  }
+  h1, h2, h3, .display { font-family: 'Fraunces', Georgia, serif; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+  a { color: inherit; }
+
+  /* ---------- HERO ---------- */
+  .launch-banner {
+    background: var(--accent); color: #fff; text-align: center;
+    font-size: 0.82rem; font-weight: 600; padding: 8px 16px;
+  }
+  .hero {
+    background: linear-gradient(175deg, var(--deep) 0%, var(--deep-2) 55%, var(--blue) 130%);
+    color: #EAF4FB;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 40px;
+  }
+  .hero .wrap { padding-top: 36px; padding-bottom: 32px; position: relative; z-index: 2; }
+  .brand {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 22px; flex-wrap: wrap;
+  }
+  .brand img { height: 44px; width: 44px; border-radius: 12px; object-fit: cover; box-shadow: 0 0 0 1px rgba(255,255,255,0.15); }
+  .brand span { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 600; color: #EAF4FB; }
+  .brand-sub {
+    font-family: 'Inter', sans-serif !important; font-weight: 600 !important; font-size: 0.8rem !important;
+    color: #BFE0F5; padding: 5px 12px; border-radius: 999px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+  }
+  .hero h1 {
+    font-size: clamp(1.15rem, 4.6vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.18;
+    white-space: normal;
+    margin: 0 0 14px;
+  }
+  .hero p.lead {
+    font-size: 1.1rem;
+    color: #C7DCEA;
+    max-width: 52ch;
+    margin: 0 0 32px;
+  }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 30px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 600; font-size: 0.98rem;
+    padding: 14px 26px; border-radius: 10px;
+    text-decoration: none; border: 1px solid transparent;
+    transition: transform .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-deep); }
+  .btn-ghost { background: transparent; border-color: rgba(255,255,255,0.35); color: #EAF4FB; }
+
+
+  .mtn-svg { position: absolute; bottom: -2px; left: 0; width: 100%; height: auto; z-index: 1; opacity: 0.9; }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: 30px 0; }
+  .section-head { max-width: 60ch; margin-bottom: 26px; }
+  .section-head .kicker {
+    font-size: 0.8rem; font-weight: 700; color: var(--blue); letter-spacing: 0.02em;
+    margin-bottom: 8px; text-transform: uppercase;
+  }
+  .section-head h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); margin: 0 0 8px; color: var(--heading); font-weight: 600; }
+  .section-head p { color: var(--ink-soft); font-size: 1rem; margin: 0; }
+
+  /* value props */
+  .props { display: flex; flex-direction: column; gap: 12px; }
+  .prop-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 14px 18px; display: flex; align-items: flex-start; gap: 14px;
+  }
+  .prop-card .ico { width: 26px; height: 26px; flex-shrink: 0; margin-top: 2px; }
+  .prop-card h3 { font-size: 0.98rem; margin: 0 0 2px; color: var(--ink); font-weight: 600; }
+  .prop-card p { margin: 0; color: var(--ink-soft); font-size: 0.88rem; }
+
+  /* offers comparison table */
+  .free-badge-box {
+    display: flex; align-items: center; gap: 20px;
+    background: linear-gradient(135deg, var(--ice) 0%, var(--frost) 100%);
+    border: 1px solid var(--line); border-radius: 16px;
+    padding: 18px 22px; margin-bottom: 22px;
+  }
+  .free-badge-box-img { flex-shrink: 0; width: 160px; height: auto; }
+  .free-badge-box-tag {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
+    color: var(--blue); margin-bottom: 4px;
+  }
+  .free-badge-box h3 { font-size: 1.05rem; margin: 0 0 6px; color: var(--heading); font-weight: 600; }
+  .free-badge-box p { margin: 0; color: var(--ink-soft); font-size: 0.86rem; }
+  @media (max-width: 560px) {
+    .free-badge-box { flex-direction: column; align-items: flex-start; }
+    .free-badge-box-img { width: 190px; }
+  }
+  .table-scroll-hint {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; color: var(--blue); font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .table-scroll-hint svg { animation: nudge 1.4s ease-in-out infinite; }
+  @keyframes nudge { 0%,100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+  .table-wrap {
+    overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--card);
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+  .fmt-name { font-weight: 600; color: var(--ink); }
+  .fmt-desc { display: block; font-weight: 400; color: var(--ink-soft); font-size: 0.83rem; margin-top: 3px; }
+
+  /* generic à la carte table */
+  table:not(.offers-table) { min-width: 560px; table-layout: fixed; }
+  colgroup col.col-format { width: 42%; }
+  colgroup col.col-price { width: 19.3%; }
+  table:not(.offers-table) thead th {
+    text-align: left; font-weight: 600; font-size: 0.82rem; color: var(--blue);
+    padding: 13px 15px; border-bottom: 2px solid var(--line); text-transform: uppercase; letter-spacing: 0.02em;
+  }
+  table:not(.offers-table) thead th:not(:first-child) { text-align: right; }
+  table:not(.offers-table) tbody td { padding: 13px 15px; border-bottom: 1px solid var(--line); vertical-align: top; overflow-wrap: break-word; }
+  table:not(.offers-table) tbody td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+  table:not(.offers-table) tbody tr:last-child td { border-bottom: none; }
+
+  .offers-table { min-width: 520px; table-layout: fixed; }
+  .offers-table col.oc-name { width: 38%; }
+  .offers-table col.oc-price { width: 21%; }
+  .offers-table col.oc-disp { width: 18%; }
+  .offers-table col.oc-cta { width: 23%; }
+  .offers-table th, .offers-table td { padding: 12px 12px; vertical-align: top; text-align: left; }
+  .offers-table .col-head-row th {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase;
+    color: var(--blue); border-bottom: 2px solid var(--line); background: var(--frost); padding: 10px 12px;
+  }
+  .offers-table .grp-row td {
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase;
+    padding: 8px 12px;
+  }
+  .offers-table .grp-row td span { font-weight: 600; text-transform: none; opacity: 0.9; margin-left: 8px; }
+  .grp-cumulable { background: var(--blue); color: #fff; }
+  .grp-rare { background: #4B5563; color: #fff; }
+  .grp-unique { background: #8A6B12; color: #FFF6DD; }
+  .row-cumulable { background: rgba(28,111,165,0.06); }
+  .row-rare { background: rgba(75,85,99,0.07); }
+  .row-unique { background: rgba(138,107,18,0.08); }
+  .offers-table td { border-bottom: 1px solid var(--line); font-size: 0.85rem; color: var(--ink-soft); }
+  .offers-table .fmt-name { font-weight: 600; color: var(--ink); font-size: 0.9rem; }
+  .offers-table ul.fmt-inc { list-style: none; margin: 6px 0 0; padding: 0; }
+  .offers-table ul.fmt-inc li {
+    font-style: italic; font-weight: 400; font-size: 0.78rem; color: var(--ink-soft);
+    margin-bottom: 3px; padding-left: 12px; position: relative;
+  }
+  .offers-table ul.fmt-inc li::before { content: "•"; position: absolute; left: 0; }
+  .offers-table .price-cell { font-size: 0.9rem; white-space: nowrap; }
+  .offers-table .price-cell b { color: var(--heading); font-family: 'Fraunces', serif; font-size: 1rem; }
+  .offers-table .price-cell span { font-size: 0.74rem; color: var(--ink-soft); }
+  .offers-table .price-old { text-decoration: line-through; color: var(--ink-soft); font-size: 0.74rem; display: block; }
+  .offers-table .promo-tag {
+    display: inline-block; background: var(--accent); color: #fff;
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;
+    padding: 2px 7px; border-radius: 5px; margin-bottom: 3px;
+  }
+  .offers-table .always { color: var(--blue); font-weight: 600; font-size: 0.82rem; }
+  .offers-table .slots { font-weight: 700; font-size: 0.82rem; color: var(--ink); }
+  .btn-small {
+    display: inline-block; text-decoration: none; text-align: center; width: 100%;
+    font-weight: 600; font-size: 0.82rem; padding: 8px 8px; border-radius: 8px;
+    background: var(--btn-dark); color: #fff;
+  }
+  .btn-small-rare { background: #4B5563; }
+  .btn-small-unique { background: #8A6B12; }
+  .offers-note { color: var(--ink-soft); font-size: 0.85rem; margin: 12px 0 0; }
+
+  /* steps */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; counter-reset: step; }
+  @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+  .step { position: relative; padding-left: 4px; }
+  .step .n {
+    font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 600; color: var(--sky);
+    margin-bottom: 10px; display: block;
+  }
+  .step h3 { font-size: 1.02rem; margin: 0 0 8px; color: var(--heading); font-weight: 600; }
+  .step p { margin: 0; color: var(--ink-soft); font-size: 0.93rem; }
+
+  .cta-final {
+    background: linear-gradient(160deg, var(--deep), var(--blue));
+    border-radius: 20px; padding: 30px 28px; color: #EAF4FB; text-align: center;
+    margin: 0 24px 36px;
+  }
+  .cta-final h2 { font-size: clamp(1.3rem, 3vw, 1.8rem); margin: 0 0 10px; font-weight: 600; }
+  .cta-final p { color: #C7DCEA; max-width: 50ch; margin: 0 auto 30px; }
+
+  footer { text-align: center; padding: 30px 24px 50px; color: var(--ink-soft); font-size: 0.85rem; }
+</style>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>
+<script>try{if(localStorage.getItem("sf_cookie_consent")==="refused")window["ga-disable-G-S0C748Y0DX"]=true;}catch(e){}window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-S0C748Y0DX");</script>
+<link href="https://snowfinder.fr/en/grille-tarifaire.html" rel="canonical"/><link href="https://snowfinder.fr/grille-tarifaire.html" hreflang="fr" rel="alternate"/><link href="https://snowfinder.fr/en/grille-tarifaire.html" hreflang="en" rel="alternate"/><link href="https://snowfinder.fr/grille-tarifaire.html" hreflang="x-default" rel="alternate"/></head>
+<body>
+<!-- ══ TOP BAR APP — identique à index.html (se cache au scroll vers le bas) ══ -->
+<style>
+body{padding-top:64px!important}
+.sf-topbar{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:2px solid #eddcbf;display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 6px;z-index:600;transition:transform .28s ease;overflow:visible;gap:8px;font-family:'DM Sans',sans-serif;box-sizing:border-box}
+.sf-topbar *{box-sizing:border-box}
+.sf-topbar.sf-hide{transform:translateY(-100%);}
+.sf-topbar-logo{display:flex;align-items:center;gap:4px;text-decoration:none;flex-shrink:0;justify-self:start;min-width:0;}
+.sf-topbar-logo img{width:60px;height:60px;border-radius:12px;object-fit:contain;flex-shrink:0}
+.sf-topbar-wordtext{display:flex;flex-direction:column;justify-content:center;line-height:1.05;min-width:0;overflow:hidden}
+.sf-topbar-title{font-family:"DM Serif Display",serif;font-size:.95rem;font-weight:700;white-space:nowrap}
+.sf-topbar-title .sf-dark{color:#1a5a8a}
+.sf-topbar-title .sf-light{color:#3a7db8}
+.sf-topbar-slogan{font-size:.5rem;letter-spacing:.03em;color:#1a5a8a;opacity:.7;white-space:nowrap;text-transform:uppercase;margin-top:1px}
+.sf-topbar-app{display:flex;align-items:center;gap:4px;background:linear-gradient(135deg,#e8f3fb,#eaf4ff);border:1px solid #3a7db8;border-radius:14px;padding:4px 9px;font-size:.64rem;font-weight:700;color:#1a5a8a;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(58,125,184,.18);justify-self:end;}
+.sf-topbar-right{display:flex;align-items:center;justify-self:end;flex-shrink:0;}
+.sf-topbar-fav{display:flex;align-items:center;gap:4px;text-decoration:none;color:#1a5a8a;font-weight:700;font-size:.85rem;flex-shrink:0;padding:5px 9px;border-radius:16px}
+.sf-topbar-fav:active{background:#f7efe2}
+.sf-topbar-menu{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;border:1.5px solid #eddcbf;background:#fff;font-size:1rem;line-height:1;color:#1a5a8a;cursor:pointer;flex-shrink:0;padding:0;margin-left:2px}
+.sf-topbar-menu:active{background:#f7efe2}
+@media(max-width:480px){.sf-topbar{padding:0 4px;gap:4px}.sf-topbar-logo img{width:52px;height:52px}.sf-topbar-app{font-size:.58rem;padding:4px 7px}}
+/* Menu rapide + notifications */
+.sf-sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;backdrop-filter:blur(4px)}
+.sf-sheet-overlay.open{display:block}
+.sf-sheet{position:fixed;left:0;right:0;bottom:0;z-index:9001;background:#f5f1ec;border-radius:20px 20px 0 0;padding:10px 0 max(20px,env(safe-area-inset-bottom));box-shadow:0 -8px 40px rgba(0,0,0,.2);transform:translateY(100%);transition:transform .32s cubic-bezier(.32,.72,0,1);max-width:480px;margin:0 auto;font-family:'DM Sans',sans-serif;box-sizing:border-box}
+.sf-sheet.open{transform:translateY(0)}
+.sf-sheet-handle{width:40px;height:4px;background:#ddd;border-radius:3px;margin:0 auto 10px}
+.sf-sheet-title{text-align:center;font-family:"DM Serif Display",serif;font-size:1.05rem;color:#1a5a8a;margin-bottom:6px;padding:0 20px}
+.sf-menu-item{display:flex;align-items:center;gap:12px;width:100%;padding:15px 24px;background:none;border:none;border-top:1px solid #f7efe2;font-size:.95rem;font-weight:600;color:#2a1f14;text-decoration:none;cursor:pointer;text-align:left;font-family:"DM Sans",sans-serif;box-sizing:border-box}
+.sf-menu-item:active{background:#f7efe2}
+.sf-menu-item .em{font-size:1.15rem;flex-shrink:0}
+</style>
+<div class="sf-topbar" id="sfTopbar">
+<a class="sf-topbar-logo" href="/en/index.html"><img alt="SnowFinder" src="/logo.png"/> <span class="sf-topbar-wordtext"> <span class="sf-topbar-title"><span class="sf-dark">Snow</span><span class="sf-light">Finder</span></span> <span class="sf-topbar-slogan">Compare • Find • Ski</span> </span></a>
+<a class="sf-topbar-app" href="https://play.google.com/store/apps/details?id=fr.snowfinder.twa" style="position:relative;left:12px">📲 The app is out now!</a>
+<div class="sf-topbar-right">
+<a class="sf-topbar-fav" href="/en/comparateur.html" style="margin-right:2px;position:relative;left:10px">⚖️ <span id="sfCompareCount">0</span></a>
+<a class="sf-topbar-fav" href="/en/favoris.html">⭐ <span id="sfFavCount">0</span></a>
+<button aria-label="Menu" class="sf-topbar-menu" id="sfMenuBtn" onclick="openSfMenu()" type="button">☰</button>
+</div>
+</div>
+<div class="sf-sheet-overlay" id="sfMenuOverlay" onclick="closeSfMenu()"></div>
+<div class="sf-sheet" id="sfMenuSheet">
+<div class="sf-sheet-handle"></div>
+<div class="sf-sheet-title">Menu</div>
+<button class="sf-menu-item" onclick="closeSfMenu();openContact()" type="button"><span class="em">📧</span><span>Contact us</span></button>
+<button class="sf-menu-item" onclick="closeSfMenu();openSfNotif()" type="button"><span class="em">🔔</span><span>Notifications</span></button>
+<a class="sf-menu-item" href="/en/mentions-legales.html"><span class="em">⚖️</span><span>Legal notice</span></a>
+</div>
+<div class="sf-sheet-overlay" id="sfNotifOverlay2" onclick="closeSfNotif()"></div>
+<div class="sf-sheet" id="sfNotifSheet2" style="text-align:center">
+<div class="sf-sheet-handle"></div>
+<div style="padding:8px 24px 4px">
+<div style="font-size:2.3rem;margin-bottom:8px">🔔</div>
+<div style="font-family:'DM Serif Display',serif;font-size:1.25rem;color:#1a3f6e;margin-bottom:8px;line-height:1.2">Powder alerts &amp; good deals?</div>
+<p style="font-size:.88rem;color:#5c4a35;line-height:1.6;margin-bottom:16px">Get an alert when the snow comes down heavily, or when there are good lift pass deals. <strong>Free, discreet, 1 to 2 times a week at most.</strong></p>
+</div>
+<div style="padding:0 20px;display:flex;flex-direction:column;gap:10px"><button onclick="acceptSfNotif()" style="background:linear-gradient(135deg,#1a5a8a,#3a7db8);color:white;border:none;border-radius:30px;padding:15px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(26,90,138,.3)" type="button">⛷️ Yes, I want to be alerted!</button> <button onclick="closeSfNotif()" style="background:transparent;color:#8a7060;border:none;padding:8px;font-size:.85rem;cursor:pointer;font-family:'DM Sans',sans-serif" type="button">No thanks</button></div>
+</div>
+<script>
+function openSfMenu(){document.getElementById('sfMenuOverlay').classList.add('open');document.getElementById('sfMenuSheet').classList.add('open');document.body.style.overflow='hidden';}
+function closeSfMenu(){document.getElementById('sfMenuOverlay').classList.remove('open');document.getElementById('sfMenuSheet').classList.remove('open');document.body.style.overflow='';}
+// « Nous contacter » : ouvre la modale de contact de l'accueil
+if (typeof openContact !== 'function') {
+  window.openContact = function(){ window.location.href = '/index.html#contact'; };
+}
+function openSfNotif(){
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Notifications are already enabled ✅'); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Notifications are blocked in your browser settings."); return; }
+  document.getElementById('sfNotifOverlay2').classList.add('open');
+  document.getElementById('sfNotifSheet2').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSfNotif(){
+  document.getElementById('sfNotifOverlay2').classList.remove('open');
+  document.getElementById('sfNotifSheet2').classList.remove('open');
+  document.body.style.overflow='';
+}
+function acceptSfNotif(){
+  closeSfNotif();
+  function ask(){
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred.push(async function(OneSignal){ try{ await OneSignal.Notifications.requestPermission(); }catch(e){} });
+  }
+  if(window.OneSignal || document.querySelector('script[src*="OneSignalSDK"]')){ ask(); return; }
+  var s=document.createElement('script');
+  s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; s.defer=true;
+  document.head.appendChild(s);
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(async function(OneSignal){
+    await OneSignal.init({appId:"df4757f7-ed59-4973-8a3d-782547295c9c",safari_web_id:"web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",serviceWorkerPath:"sw.js",notifyButton:{enable:false},welcomeNotification:{disable:true}});
+    try{ await OneSignal.Notifications.requestPermission(); }catch(e){}
+  });
+}
+// Masquer la barre au scroll vers le bas + compteurs favoris / comparateur
+(function(){
+  var bar = document.getElementById("sfTopbar");
+  var lastY = window.scrollY, ticking = false;
+  window.addEventListener("scroll", function(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY;
+      if(y > lastY && y > 60) bar.classList.add("sf-hide");
+      else bar.classList.remove("sf-hide");
+      lastY = y; ticking = false;
+    });
+  }, {passive:true});
+  function updateFavCount(){
+    var favs = [];
+    try { favs = JSON.parse(localStorage.getItem("sf_favorites")||"[]"); } catch(e){}
+    var el = document.getElementById("sfFavCount"); if(el) el.textContent = favs.length;
+  }
+  function updateCompareCount(){
+    var c = [];
+    try { c = JSON.parse(localStorage.getItem("sf_compare")||"[]"); } catch(e){}
+    var el = document.getElementById("sfCompareCount"); if(el) el.textContent = c.length;
+  }
+  updateFavCount(); updateCompareCount();
+  window.addEventListener("storage", updateFavCount);
+  window.addEventListener("storage", updateCompareCount);
+  window.addEventListener("focus", updateFavCount);
+  window.addEventListener("focus", updateCompareCount);
+})();
+</script>
+<!-- ══ FIN TOP BAR ══ -->
+<div class="launch-banner">Site under development — launch prices up to 40% off, subject to change</div>
+<div class="hero">
+<div class="wrap">
+<div class="brand"><img alt="SnowFinder logo" src="/logo.png"/><span>SnowFinder</span><span class="brand-sub">Partner area</span></div>
+<h1>Give your resort the visibility it deserves</h1>
+<p class="lead">SnowFinder lists and compares over 700 ski resorts across 9 European countries, including over 200 in France, to help skiers find the destination that suits them. Join the first partner resorts on the platform.</p>
+<div class="hero-cta"><a class="btn btn-primary" href="mailto:contact.snowfinder@gmail.com?subject=Devenir%20partenaire%20SnowFinder">Become a partner</a> <a class="btn btn-ghost" href="#formules">View the packages</a></div>
+</div>
+<svg class="mtn-svg" preserveaspectratio="none" viewbox="0 0 1200 160" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 160 L0 100 L140 40 L230 90 L340 20 L470 100 L560 55 L680 120 L760 70 L900 130 L1000 60 L1100 110 L1200 70 L1200 160 Z" fill="#F7FBFE" opacity="0.06"></path>
+<path d="M0 160 L0 120 L180 60 L300 110 L420 45 L540 115 L660 75 L800 140 L920 90 L1040 135 L1200 95 L1200 160 Z" fill="#F7FBFE" opacity="0.1"></path>
+</svg>
+</div>
+<section id="formules">
+<div class="wrap">
+<div class="section-head">
+<div class="kicker">Our packages</div>
+<h2>Compare everything at a glance</h2>
+<p>3 packages that can be combined, 2 limited-availability placements, and the site's rarest placement.</p>
+</div>
+<div class="free-badge-box">
+<img alt="SnowFinder Official Partner badge" class="free-badge-box-img" height="66" src="/img/badge-partenaire.svg" width="220"/>
+<div class="free-badge-box-text">
+<div class="free-badge-box-tag">Included for all partner resorts</div>
+<h3>The “Official Partner” badge</h3>
+<p>As soon as you join us, this badge appears on your resort page, your thumbnail in search results, and in our articles and news that concern you. You can also display it on your own website, with a link back to SnowFinder.</p>
+</div>
+</div>
+<div class="table-scroll-hint"> Swipe to compare all packages <svg fill="none" height="16" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="16"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</div>
+<div class="table-wrap">
+<table class="offers-table">
+<colgroup>
+<col class="oc-name"/><col class="oc-price"/><col class="oc-disp"/><col class="oc-cta"/>
+</colgroup>
+<thead>
+<tr class="col-head-row">
+<th>Package</th><th>Price</th><th>Availability</th><th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="grp-row grp-row-cumulable"><td class="grp grp-cumulable" colspan="4">Combinable packs</td></tr>
+<tr class="offer-row row-cumulable">
+<td class="fmt-name">Discovery Pack<ul class="fmt-inc"><li>Sponsored article</li><li>Priority in results</li></ul></td>
+<td class="price-cell"><span class="promo-tag">Launch</span><span class="price-old">99 €</span><b>69 €</b><span>/ season</span></td>
+<td class="always">Always<br/> available</td>
+<td><a class="btn-small" href="mailto:contact.snowfinder@gmail.com?subject=Pack%20D%C3%A9couverte%20SnowFinder">Choose</a></td>
+</tr>
+<tr class="offer-row row-cumulable">
+<td class="fmt-name">Visibility Pack<ul class="fmt-inc"><li>Everything in the Discovery Pack</li><li>Priority mention in the AI Advisor</li></ul></td>
+<td class="price-cell"><span class="promo-tag">Launch</span><span class="price-old">189 €</span><b>119 €</b><span>/ season</span></td>
+<td class="always">Always<br/> available</td>
+<td><a class="btn-small" href="mailto:contact.snowfinder@gmail.com?subject=Pack%20Visibilit%C3%A9%20SnowFinder">Choose</a></td>
+</tr>
+<tr class="offer-row row-cumulable">
+<td class="fmt-name">Full Presence Pack<ul class="fmt-inc"><li>Everything in the Visibility Pack</li><li>2 regional push notifications</li></ul></td>
+<td class="price-cell"><span class="promo-tag">Launch</span><span class="price-old">289 €</span><b>179 €</b><span>/ season</span></td>
+<td class="always">Always<br/> available</td>
+<td><a class="btn-small" href="mailto:contact.snowfinder@gmail.com?subject=Pack%20Pr%C3%A9sence%20compl%C3%A8te%20SnowFinder">Choose</a></td>
+</tr>
+<tr class="grp-row grp-row-rare"><td class="grp grp-rare" colspan="4">Limited-availability packs <span>3 max/season</span></td></tr>
+<tr class="offer-row row-rare">
+<td class="fmt-name">Horizontal banner<ul class="fmt-inc"><li>Homepage and search results</li><li>Rotated among partners</li></ul></td>
+<td class="price-cell"><b>19 €</b><span>/month</span><br/><b>49 €</b><span>/3 months</span><br/><span class="price-old">119 €</span><b>79 €</b><span>/season</span></td>
+<td class="slots" id="slots-banniere">0 / 3 spots taken</td>
+<td><a class="btn-small btn-small-rare" href="mailto:contact.snowfinder@gmail.com?subject=Banni%C3%A8re%20SnowFinder">Book</a></td>
+</tr>
+<tr class="offer-row row-rare">
+<td class="fmt-name">Splash screen<ul class="fmt-inc"><li>Site hero image</li><li>App hero image</li></ul></td>
+<td class="price-cell"><b>€29</b><span>/month</span><br/><b>€79</b><span>/3 months</span><br/><span class="price-old">€179</span><b>€119</b><span>/season</span></td>
+<td class="slots" id="slots-ecran">0 / 3 spots taken</td>
+<td><a class="btn-small btn-small-rare" href="mailto:contact.snowfinder@gmail.com?subject=%C3%89cran%20d%27ouverture%20SnowFinder">Book</a></td>
+</tr>
+<tr class="grp-row grp-row-unique"><td class="grp grp-unique" colspan="4">Scarcity Pack <span>1 spot</span></td></tr>
+<tr class="offer-row row-unique">
+<td class="fmt-name">Resort of the Moment Pack<ul class="fmt-inc"><li>Featured on the homepage</li><li>One resort at a time, across the whole site</li></ul></td>
+<td class="price-cell"><b>€39</b><span>/month</span><br/><b>€79</b><span>/2 months</span><br/><span class="price-old">€259</span><b>€159</b><span>/season</span></td>
+<td class="slots" id="spotlight-avail">Available immediately</td>
+<td><a class="btn-small btn-small-unique" href="mailto:contact.snowfinder@gmail.com?subject=Station%20du%20moment%20SnowFinder">Book</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="offers-note">The 3 combinable packages can be added together freely, and alongside the limited-availability placements. The banner and the opening screen are sold independently of each other (you don't need to take both).</p>
+<p class="offers-note"><b>On the Resort of the moment</b>: if nobody has booked the next slot by the time yours ends, you stay in place. You never lose your visibility as long as no other resort has taken over.</p>
+</div>
+</section>
+<section>
+<div class="wrap">
+<div class="section-head">
+<div class="kicker">How it works</div>
+<h2>Online within a few days</h2>
+</div>
+<div class="steps">
+<div class="step"><span class="n">1</span><h3>You get in touch with us</h3><p>A single email is enough to start the conversation. No complicated forms, and no compulsory sales call.</p></div>
+<div class="step"><span class="n">2</span><h3>We choose the package together</h3><p>We look at your goals and adjust the package to what makes sense for your resort.</p></div>
+<div class="step"><span class="n">3</span><h3>You go live</h3><p>Your presence is set up quickly, with direct follow-up throughout the season.</p></div>
+</div>
+</div>
+</section>
+<div class="cta-final">
+<h2>Ready to talk?</h2>
+<p>Write to us and we will reply personally. No bots, no anonymous customer service.</p>
+<a class="btn btn-primary" href="mailto:contact.snowfinder@gmail.com?subject=Devenir%20partenaire%20SnowFinder">Write to us</a>
+</div>
+<footer>SnowFinder — Partner area. Indicative price list, subject to change.</footer>
+<script>
+(function() {
+  // Lit places-limitees.json (même dossier que cette page) pour afficher
+  // les places réellement prises. Si le fichier est absent ou inaccessible
+  // (ex: ouverture du fichier en local sans serveur), le texte par défaut
+  // déjà présent dans le HTML reste affiché tel quel.
+  fetch('places-limitees.json', { cache: 'no-store' })
+    .then(function(r) { if (!r.ok) throw new Error('not found'); return r.json(); })
+    .then(function(data) {
+      var b = data.banniere, e = data.ecran;
+      var elB = document.getElementById('slots-banniere');
+      var elE = document.getElementById('slots-ecran');
+      if (b && elB) elB.textContent = b.prises + ' / ' + b.total + ' spots taken';
+      if (e && elE) elE.textContent = e.prises + ' / ' + e.total + ' spots taken';
+      var sdm = data.stationDuMoment;
+      var elAvail = document.getElementById('spotlight-avail');
+      if (sdm && elAvail) elAvail.textContent = sdm.statut;
+      // Grise le bouton de réservation si les deux formats sont complets
+      if (b && e && b.prises >= b.total && e.prises >= e.total) {
+        var btn = document.querySelector('.rare-box .btn-primary');
+        if (btn) {
+          btn.textContent = 'Fully booked. Contact us to join the waiting list';
+          btn.style.opacity = '0.75';
+        }
+      }
+    })
+    .catch(function() { /* fichier non trouvé : on garde le texte par défaut du HTML */ });
+})();
+</script>
+<!--sf-lang--><a class="sf-lang-switch" href="/grille-tarifaire.html" hreflang="fr" lang="fr" rel="alternate">🇫🇷 Français</a><style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index:900;background:rgba(255,255,255,.94);color:#1d4f7a;border:1px solid #d6dde4;border-radius:20px;padding:6px 12px;font:600 .74rem/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}.sf-lang-switch:hover{background:#fff}</style><!--/sf-lang--></body>
+</html>

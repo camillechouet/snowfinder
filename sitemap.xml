@@ -11,7 +11,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/index.html</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/index.html"/>
@@ -14896,6 +14896,33 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/favoris.html"/>
   </url>
   <url>
+    <loc>https://snowfinder.fr/en/station-du-moment/le-lioran-tour-de-france-2026.html</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/station-du-moment/le-lioran-tour-de-france-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/station-du-moment/le-lioran-tour-de-france-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/station-du-moment/le-lioran-tour-de-france-2026.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/station-du-moment/saint-francois-longchamp-ouverture-hiver-2026.html</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/station-du-moment/saint-francois-longchamp-ouverture-hiver-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/station-du-moment/saint-francois-longchamp-ouverture-hiver-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/station-du-moment/saint-francois-longchamp-ouverture-hiver-2026.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/station-du-moment/toutes-les-stations-du-moment.html</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/station-du-moment/toutes-les-stations-du-moment.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/station-du-moment/toutes-les-stations-du-moment.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/station-du-moment/toutes-les-stations-du-moment.html"/>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/favoris.html</loc>
     <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
@@ -14909,17 +14936,26 @@
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/station-du-moment/le-lioran-tour-de-france-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/station-du-moment/le-lioran-tour-de-france-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/station-du-moment/le-lioran-tour-de-france-2026.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/station-du-moment/saint-francois-longchamp-ouverture-hiver-2026.html</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/station-du-moment/saint-francois-longchamp-ouverture-hiver-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/station-du-moment/saint-francois-longchamp-ouverture-hiver-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/station-du-moment/saint-francois-longchamp-ouverture-hiver-2026.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/station-du-moment/toutes-les-stations-du-moment.html</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/station-du-moment/toutes-les-stations-du-moment.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/station-du-moment/toutes-les-stations-du-moment.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/station-du-moment/toutes-les-stations-du-moment.html"/>
   </url>
 </urlset>
