@@ -1264,10 +1264,11 @@ def patch_french(rel, html):
     """Ajoute hreflang + sélecteur de langue sur la page française (idempotent)."""
     html = re.sub(r"<!--sf-i18n-->.*?<!--/sf-i18n-->", "", html, flags=re.S)
     html = re.sub(r"<!--sf-lang-->.*?<!--/sf-lang-->", "", html, flags=re.S)
+    fr_rel = "" if rel == "index.html" else rel
     block = ("<!--sf-i18n-->"
-             f'<link rel="alternate" hreflang="fr" href="{SITE}/{rel if rel != 'index.html' else ''}">'
+             f'<link rel="alternate" hreflang="fr" href="{SITE}/{fr_rel}">'
              f'<link rel="alternate" hreflang="en" href="{SITE}/en/{rel}">'
-             f'<link rel="alternate" hreflang="x-default" href="{SITE}/{rel if rel != 'index.html' else ''}">'
+             f'<link rel="alternate" hreflang="x-default" href="{SITE}/{fr_rel}">'
              "<!--/sf-i18n-->")
     if re.search(r"</head>", html, re.I):
         html = re.sub(r"</head>", lambda m: block + m.group(0), html, count=1, flags=re.I)
