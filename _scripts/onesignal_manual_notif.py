@@ -23,7 +23,7 @@ TYPE  = os.environ.get('NOTIF_TYPE', 'autre').strip()
 def send_notif(title, body, url, topic):
     payload = {
         "app_id": ONESIGNAL_APP_ID,
-        "included_segments": ["All"],
+        "included_segments": ["Total Subscriptions"],
         "headings": {"fr": title, "en": title},
         "contents": {"fr": body,  "en": body},
         "url": url,
