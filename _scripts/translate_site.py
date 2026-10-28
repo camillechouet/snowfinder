@@ -1125,6 +1125,9 @@ BOOKING_RE = re.compile(r"searchresults\.fr\.html")
 
 
 JS_RE_FIXES = [
+    # pages anglaises : interface toujours en anglais (noms de pays, libellés L(fr,en)), quel que soit le navigateur
+    (re.compile(r"var FR_UI\s*=\s*/\^fr/i\.test\([^;]*\);"), "var FR_UI = false;"),
+    (re.compile(r"(<span class=\"cdb-km-lbl\">)au total(</span>)"), r"\1in total\2"),
     (re.compile(r"function sfDe\(n\)\{[^\n]*\n"), "function sfDe(n){return 'of '+String(n||'');}\n"),
     (re.compile(r"function sfA\(n\)\{[^\n]*\n"), "function sfA(n){return 'in '+String(n||'');}\n"),
     # Booking en anglais (même domaine, même affiliation)
