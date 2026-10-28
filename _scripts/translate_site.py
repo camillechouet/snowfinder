@@ -69,6 +69,7 @@ BATCH_ITEMS, BATCH_CHARS = 40, 7000
 
 # Pages à traduire (motifs relatifs à la racine). Les motifs sans correspondance sont ignorés.
 SOURCES = [
+    "index.html",
     "stations/*.html",
     "domaines/*.html",
     "comparatifs/*.html",
@@ -343,7 +344,7 @@ def analyze(soup):
     select(root)
 
     for el in soup.find_all(True):
-        if el.name in SKIP_TAGS and el.name != "script":
+        if el.name in SKIP_TAGS and el.name not in ("script", "textarea"):
             continue
         for a in TR_ATTRS:
             v = el.get(a)
@@ -1236,7 +1237,7 @@ def apply_page(rel, src_html, tr, en_set):
             r = l.get("rel") or []
             if "canonical" in r or ("alternate" in r and l.get("hreflang")):
                 l.decompose()
-        fr_url, en_url = f"{SITE}/{rel}", f"{SITE}/en/{rel}"
+        fr_url, en_url = (f"{SITE}/" if rel == "index.html" else f"{SITE}/{rel}"), f"{SITE}/en/{rel}"
         for h in (("canonical", None, en_url), ("alternate", "fr", fr_url),
                   ("alternate", "en", en_url), ("alternate", "x-default", fr_url)):
             attrs = {"rel": h[0], "href": h[2]}
@@ -1264,9 +1265,9 @@ def patch_french(rel, html):
     html = re.sub(r"<!--sf-i18n-->.*?<!--/sf-i18n-->", "", html, flags=re.S)
     html = re.sub(r"<!--sf-lang-->.*?<!--/sf-lang-->", "", html, flags=re.S)
     block = ("<!--sf-i18n-->"
-             f'<link rel="alternate" hreflang="fr" href="{SITE}/{rel}">'
+             f'<link rel="alternate" hreflang="fr" href="{SITE}/{rel if rel != 'index.html' else ''}">'
              f'<link rel="alternate" hreflang="en" href="{SITE}/en/{rel}">'
-             f'<link rel="alternate" hreflang="x-default" href="{SITE}/{rel}">'
+             f'<link rel="alternate" hreflang="x-default" href="{SITE}/{rel if rel != 'index.html' else ''}">'
              "<!--/sf-i18n-->")
     if re.search(r"</head>", html, re.I):
         html = re.sub(r"</head>", lambda m: block + m.group(0), html, count=1, flags=re.I)
@@ -1360,7 +1361,7 @@ def discover():
         for p in glob.glob(os.path.join(ROOT, pat)):
             rel = os.path.relpath(p, ROOT).replace(os.sep, "/")
             name = posixpath.basename(rel)
-            if name.startswith("_") or name in ("404.html", "index.html"):
+            if name.startswith("_") or name == "404.html":
                 continue
             pages.append(rel)
     pages = sorted(set(pages))
