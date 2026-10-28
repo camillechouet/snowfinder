@@ -46,6 +46,20 @@ on:
         description: "Prix du modèle en $ par million de tokens SORTIE (vide = 0.5, tarif Haiku 5.5 ; Sonnet = 15)"
         required: false
         default: ""
+  schedule:
+    - cron: "43 4 * * *"      # filet de sécurité : chaque nuit, traduit ce qui n'aurait pas encore été traduit (rien à payer s'il n'y a rien de nouveau)
+  push:                        # une page ajoutée ou modifiée à la main (ou par Claude) est aussi prise en compte
+    branches: [main]
+    paths:
+      - "*.html"
+      - "stations/**"
+      - "station-du-moment/**"
+      - "stations-du-moment/**"
+      - "articles/**"
+      - "comparatifs/**"
+      - "duels/**"
+      - "domaines/**"
+      - "stations-data.js"
   workflow_run:
     workflows:
       - "Generate Station Pages"
@@ -63,7 +77,7 @@ concurrency:
 
 jobs:
   translate:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 330
     steps:
