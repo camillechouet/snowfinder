@@ -163,12 +163,44 @@ def get_forecast(lat, lon, days=16):
     snow  = [round(v or 0) for v in data["daily"]["snowfall_sum"]]
     return list(zip(dates, snow))  # [(date_str, cm), ...] index 0 = aujourd'hui
 
+def translate_en(title, body):
+    """Traduit titre + texte en anglais (Claude Haiku). Repli : texte français si échec."""
+    key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+    if not key:
+        return title, body
+    try:
+        prompt = ("Translate this French push notification of a ski-resort comparison website "
+                  "into natural, short, catchy British English. Keep emojis, numbers and "
+                  "station names unchanged. Answer ONLY with JSON: "
+                  '{"title": "...", "body": "..."}\n\n'
+                  + json.dumps({"title": title, "body": body}, ensure_ascii=False))
+        data = json.dumps({
+            "model": "claude-haiku-5-5",
+            "max_tokens": 400,
+            "messages": [{"role": "user", "content": prompt}],
+        }).encode()
+        req = urllib.request.Request(
+            "https://api.anthropic.com/v1/messages", data=data, method="POST",
+            headers={"x-api-key": key, "anthropic-version": "2023-06-01",
+                     "content-type": "application/json"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            txt = json.loads(r.read())["content"][0]["text"]
+        txt = txt[txt.index("{"): txt.rindex("}") + 1]
+        out = json.loads(txt)
+        t, b = out["title"].strip(), out["body"].strip()
+        if t and b:
+            return t, b
+    except Exception as e:
+        print(f"⚠️  Traduction anglaise impossible, texte français utilisé : {e}")
+    return title, body
+
 def send_notif(title, body, url, topic):
+    title_en, body_en = translate_en(title, body)
     payload = {
         "app_id": ONESIGNAL_APP_ID,
         "included_segments": ["Total Subscriptions"],
-        "headings": {"fr": title, "en": title},
-        "contents": {"fr": body,  "en": body},
+        "headings": {"fr": title, "en": title_en},
+        "contents": {"fr": body,  "en": body_en},
         "url": url,
         "chrome_web_icon": "https://snowfinder.fr/logo.png",
         "web_push_topic": topic,
