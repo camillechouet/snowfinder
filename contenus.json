@@ -2,6 +2,15 @@
   "_aide": "Manifeste des contenus SnowFinder. Un nouvel article = une entrée dans 'articles' (date ISO, le plus récent est trié en premier). Un nouveau duel = une entrée EN TÊTE de 'duels' (le premier est le héros de l'accueil, les 2 suivants les bandeaux). Le script generate_contenus.py reconstruit l'accueil et toutes-les-actus.html. Les duels marqués \"manuel\": true ont une page faite à la main (pas générée par generate_comparatifs.py) : ils restent dans les listes mais ne sont pas régénérés.",
   "articles": [
     {
+      "slug": "fiabilite-de-la-neige-les-arcs-les-trois-vallees-et-l-alpe-d-huez-octobre-2026",
+      "title": "Fiabilité de la neige : Les Arcs, les Trois Vallées et l'Alpe d'Huez parmi les meilleurs d'Europe",
+      "category": "Enneigement",
+      "excerpt": "Le voyagiste britannique Inghams place cinq domaines français dans son top 10 européen de la fiabilité. Les Arcs sont troisièmes, derrière Pontedilegno-Tonale et Obertauern.",
+      "img": "/img/lesarcs1.jpg",
+      "date": "2026-10-28",
+      "read_min": 5
+    },
+    {
       "slug": "stations-ski-mieux-notees-alpes-du-nord",
       "title": "Les 10 stations de ski les mieux notées dans les Alpes du Nord françaises",
       "category": "Classement",
