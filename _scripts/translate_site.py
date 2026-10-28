@@ -1097,6 +1097,7 @@ LANG_CSS = ('<style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index
 # Textes fabriqués par le JavaScript des pages (météo, boutons, alertes…) : remplacés tels quels
 # dans les scripts en ligne des pages anglaises. Remplacement exact, sans appel à l'API.
 JS_FIXES = [
+    ('acceptButton: "Confirmer"', 'acceptButton: "Confirm"'),
     (">Reliée au grand domaine<", ">Part of a large ski area<"),
     (">Pas de grand domaine relié<", ">Not part of a large ski area<"),
     (">Station indépendante<", ">Independent resort<"),
