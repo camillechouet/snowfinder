@@ -95,6 +95,9 @@ jobs:
       - name: Installer l'analyseur HTML
         run: pip install beautifulsoup4
 
+      - name: Encart « Offres & bons plans » sur les pages (idempotent)
+        run: python3 _scripts/add_offres.py
+
       - name: Traduire
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
