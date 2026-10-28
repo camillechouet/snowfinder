@@ -1283,7 +1283,7 @@ function expediaUrl(station, sid) {
 <script>
 (function(){
   var KEY = "sf_pays_v1", SEEN = "sf_pays_banner_seen";
-  var FR_UI = /^fr/i.test((navigator.language || "fr"));
+  var FR_UI = false;
   function L(fr, en){ return FR_UI ? fr : en; }
 
   var ORDER = ["FR","ES","AD","IT","CH","AT","DE","SI","LI"];
@@ -3001,7 +3001,7 @@ function renderGrid(stations){
                      <i class="cdbp cdbp-r"></i>${pistesTot.r}${pistesTot.pct?'%':''}
                      <i class="cdbp cdbp-n"></i>${pistesTot.n}${pistesTot.pct?'%':''}
                    </span>
-                   <span class="cdb-km-lbl">au total</span>
+                   <span class="cdb-km-lbl">in total</span>
                  </div>
                </div>`
             : ``
@@ -5585,7 +5585,7 @@ const STATION_TEMOIGNAGES = {
     { stars: 4, text: "The atmosphere can be a bit snobby at times. But the runs are excellent, and the Rochebrune-Côte 2000 area is really worth the detour.", auteur: "Alexis M.", profil: "Group of friends · Lyon" }
   ],
   "Morzine": [
-    { stars: 5, text: "Village authentique avec des vrais habitants, pas une station-fantôme après 17h. Le bar Le Tibetan pour l'après-ski, le marché du jeudi... On y vit, pas juste on y skie.", auteur: "Chloé D.", profil: "Couple · Paris" },
+    { stars: 5, text: "An authentic village with real locals, not a ghost resort after 17h. The Le Tibetan bar for après-ski, the Thursday market... People actually live here, not just ski here.", auteur: "Chloé D.", profil: "Couple · Paris" },
     { stars: 5, text: "With the Portes du Soleil you have enough for a whole week without ever taking the same run twice. And Avoriaz is skiable from Morzine.", auteur: "Thomas F.", profil: "Intermediate skier · Nantes" },
     { stars: 4, text: "Morzine's local ski area is fairly limited, but access to the Portes du Soleil more than makes up for it. Make sure you get the matching pass.", auteur: "Sarah K.", profil: "Skier, 31 years old · Strasbourg" }
   ],
@@ -5610,7 +5610,7 @@ const STATION_TEMOIGNAGES = {
     { stars: 4, text: "Good resort, but the accommodation in Vars les Claux is often ageing apartment blocks. Better to choose your flat carefully.", auteur: "Nicolas F.", profil: "Group of friends · Nice" }
   ],
   "Saint-Lary-Soulan": [
-    { stars: 5, text: "Les thermes après le ski c'est le bonheur absolu. On sort des pistes à 17h, on est dans l'eau chaude à 17h30 avec les Pyrénées devant soi. Rien de mieux.", auteur: "Hélène G.", profil: "Couple · Toulouse" },
+    { stars: 5, text: "The thermal baths after skiing are pure bliss. We come off the runs at 17h, and we're in the warm water by 17h30 with the Pyrenees in front of us. Nothing better.", auteur: "Hélène G.", profil: "Couple · Toulouse" },
     { stars: 5, text: "Saint-Lary has been our Pyrenees resort for 6 years. The Pyrenees have a different charm from the Alps, wilder and less crowded. And the prices are noticeably gentler.", auteur: "Christophe D.", profil: "Family · Bordeaux" },
     { stars: 4, text: "Good ski area, but the lifts are sometimes outdated. The investment of recent years shows, and it's getting better.", auteur: "Sandra V.", profil: "Intermediate skier · Pau" }
   ],
