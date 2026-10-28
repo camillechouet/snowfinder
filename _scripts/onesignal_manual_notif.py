@@ -33,7 +33,7 @@ def translate_en(title, body):
                   + json.dumps({"title": title, "body": body}, ensure_ascii=False))
         data = json.dumps({
             "model": "claude-haiku-5-5",
-            "max_tokens": 400,
+            "max_tokens": 2000,
             "messages": [{"role": "user", "content": prompt}],
         }).encode()
         req = urllib.request.Request(
@@ -41,7 +41,8 @@ def translate_en(title, body):
             headers={"x-api-key": key, "anthropic-version": "2023-06-01",
                      "content-type": "application/json"})
         with urllib.request.urlopen(req, timeout=30) as r:
-            txt = json.loads(r.read())["content"][0]["text"]
+            blocks = json.loads(r.read()).get("content", [])
+        txt = "".join(x.get("text", "") for x in blocks if x.get("type") == "text")
         txt = txt[txt.index("{"): txt.rindex("}") + 1]
         out = json.loads(txt)
         t, b = out["title"].strip(), out["body"].strip()
