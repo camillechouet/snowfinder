@@ -3,6 +3,8 @@
 SnowFinder — Notifications push.
 
 Logique :
+  - (Simplifié le 28/10/2026 : plus de notif vacances, plus de message hors saison, plus de notif
+    "enneigement exceptionnel" du lundi. Les actualités sont notifiées par le workflow actu-quinzaine.)
   - Saison (nov-avril) :
       * Cascade neige en 4 étapes selon la fiabilité des prévisions météo :
           J-10ish (leadtime 8-11j) : "tendance" — pas de chiffre ferme, juste un signal
@@ -346,27 +348,9 @@ def main():
 
     print(f"=== SnowFinder — {today} — {'saison' if en_saison else 'hors saison'} ===")
 
-    # ── 1. VACANCES (tous les jours, J-14 et J-7, toute l'année) ─────────────
-    nom_vac, days = check_vacances()
-    if nom_vac:
-        print(f"\n📅 Vacances '{nom_vac}' dans {days} jours !")
-        titre, corps = random.choice(MSG_VACANCES)
-        titre = titre.format(days=days)
-        corps = corps.format(days=days)
-        n = send_notif(titre, corps, "https://snowfinder.fr/recherche.html", "vacances")
-        print(f"✅ Notif vacances envoyée → {n} abonné(s)")
-        notifs_envoyees += 1
-
-    # ── 2. HORS SAISON : 1 message humour toutes les 2 semaines (lundi) ──────
+    # ── HORS SAISON : aucune notification (les actualités sont envoyées par leur propre workflow) ──
     if not en_saison:
-        semaine_paire = today.isocalendar()[1] % 2 == 0
-        if today.weekday() == 0 and semaine_paire and notifs_envoyees == 0:
-            titre, corps = random.choice(MSG_ETE)
-            print(f"\n☀️ Message hors-saison (lundi, semaine paire)")
-            send_notif(titre, corps, "https://snowfinder.fr/recherche.html", "off_season")
-            print("✅ Notif été envoyée")
-        else:
-            print("\nHors saison — pas le bon lundi (1x/2 semaines) ou déjà 1 notif.")
+        print("\nHors saison — aucune notification neige.")
         return
 
     # ── 3. CASCADE NEIGE (tous les jours en saison) ──────────────────────────
@@ -387,23 +371,7 @@ def main():
             print(f"  {key} → {ep['top_station']} ({ep['snow_cm']}cm) "
                   f"étapes envoyées: {ep['stages_sent']}")
 
-    # ── 4. Fallback enneigement exceptionnel (si aucun épisode ce jour, 1x/sem) ──
-    if sent == 0 and today.weekday() == 0:
-        best_massif = None
-        for massif in MASSIFS:
-            top = top_station_for_massif_day(forecasts, massif, 0)
-            if top and top[1] >= 50:
-                best_massif = massif
-                break
-        if best_massif:
-            titre, corps = random.choice(MSG_ENNEI)
-            titre = titre.format(massif=best_massif)
-            corps = corps.format(massif=best_massif)
-            print(f"\n🏔️ Enneigement top : {best_massif}")
-            send_notif(titre, corps, "https://snowfinder.fr/enneigement.html", "enneigement_top")
-            print("✅ Notif enneigement envoyée")
-
-    print(f"\n=== Total : {notifs_envoyees} notif(s) neige/vacances ===")
+    print(f"\n=== Total : {notifs_envoyees} notif(s) neige ===")
 
 if __name__ == "__main__":
     main()
