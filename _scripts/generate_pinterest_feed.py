@@ -8,13 +8,18 @@ verticale 1000x1500 (photo de img/ + titre + chiffres clés + snowfinder.fr) dan
 img/pins/, et écrit pinterest-feed.xml (RSS) avec les épingles des FENETRE_JOURS
 derniers jours. Pinterest lit ce flux et publie seul les nouveaux éléments.
 
+Chaque image porte une ACCROCHE (l'atout n°1 de la station) écrite une seule fois
+par l'IA à partir de la fiche de la station (stations-data.js uniquement), puis
+mémorisée dans pinterest-hooks.json. Sans clé API, repli sur le 1er « point fort »
+de la fiche. Le domaine skiable vient de pinterest-domaines.json.
+
 Seules les photos déjà présentes dans img/ sont utilisées ; le crédit
 (PHOTO_CREDITS) est repris dans la description de l'épingle.
 
 Usage : python3 _scripts/generate_pinterest_feed.py [--date AAAA-MM-JJ]
 Nécessite Pillow (pip install pillow).
 """
-import os, re, json, random, unicodedata, sys, argparse
+import os, re, json, random, unicodedata, sys, argparse, time
 from datetime import date, datetime, timedelta, timezone
 from email.utils import format_datetime
 from xml.sax.saxutils import escape
@@ -26,7 +31,7 @@ PINS_PAR_JOUR = 3
 FENETRE_JOURS = 7
 W, H = 1000, 1500
 SEED = "snowfinder-pinterest-v1"
-PIN_VERSION = "v2"   # change-la pour régénérer toutes les images après un changement de design
+PIN_VERSION = "v3"   # change-la pour régénérer toutes les images après un changement de design
 FONT_BOLD = ["/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
              "/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf"]
 FONT_REG = ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
@@ -87,44 +92,83 @@ def wrap(draw, text, font, max_w):
     return lines
 
 
-def make_pin(station, photo_path, out_path):
+def draw_logo(img):
+    """Logo SnowFinder (logo.png à la racine) + nom, en haut à gauche."""
+    d = ImageDraw.Draw(img)
+    f = load_font(FONT_BOLD, 40)
+    x = 56
+    lp = os.path.join(ROOT, "logo.png")
+    if os.path.exists(lp):
+        try:
+            lg = Image.open(lp).convert("RGBA")
+            lg.thumbnail((92, 92), Image.LANCZOS)
+            badge = Image.new("RGBA", (lg.width + 20, lg.height + 20), (0, 0, 0, 0))
+            ImageDraw.Draw(badge).rounded_rectangle((0, 0, badge.width - 1, badge.height - 1),
+                                                    radius=24, fill=(255, 255, 255, 235))
+            img.alpha_composite(badge, (50, 46))
+            img.alpha_composite(lg, (60, 56))
+            x = 50 + badge.width + 18
+        except Exception as e:  # noqa: BLE001
+            print("⚠ logo illisible :", e)
+    ty = 46 + 10 + (92 - 40) // 2
+    d.text((x + 1, ty + 2), "SnowFinder", font=f, fill=(0, 0, 0, 110))
+    d.text((x, ty), "SnowFinder", font=f, fill="white")
+
+
+def make_pin(station, photo_path, out_path, hook=None, domaine=None):
     img = Image.open(photo_path).convert("RGB")
-    # recadrage "cover" vers 1000x1500
     r = max(W / img.width, H / img.height)
     img = img.resize((int(img.width * r) + 1, int(img.height * r) + 1), Image.LANCZOS)
     x, y = (img.width - W) // 2, (img.height - H) // 2
     img = img.crop((x, y, x + W, y + H))
-    # dégradé sombre bas + léger haut
     ov = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     od = ImageDraw.Draw(ov)
-    for i in range(700):
-        a = int(215 * (i / 700) ** 1.6)
-        od.line([(0, H - 700 + i), (W, H - 700 + i)], fill=(8, 28, 48, a))
+    for i in range(780):
+        a = int(220 * (i / 780) ** 1.5)
+        od.line([(0, H - 780 + i), (W, H - 780 + i)], fill=(8, 28, 48, a))
     for i in range(260):
         a = int(120 * (1 - i / 260) ** 1.5)
         od.line([(0, i), (W, i)], fill=(8, 28, 48, a))
     img = Image.alpha_composite(img.convert("RGBA"), ov)
     d = ImageDraw.Draw(img)
+    draw_logo(img)
+    d = ImageDraw.Draw(img)
 
-    f_top = load_font(FONT_BOLD, 38)
-    f_title = load_font(FONT_BOLD, 108)
-    f_sub = load_font(FONT_REG, 46)
-    f_stat = load_font(FONT_BOLD, 50)
-    f_url = load_font(FONT_BOLD, 42)
+    MX, MW = 60, W - 120
 
-    d.text((60, 60), "❄ SNOWFINDER" if False else "SNOWFINDER", font=f_top, fill=(255, 255, 255, 235))
+    # accroche (2 lignes max, taille adaptée)
+    hook_lines, hs = [], 60
+    if hook:
+        while hs >= 42:
+            fh = load_font(FONT_BOLD, hs)
+            hook_lines = wrap(d, hook, fh, MW - 34)
+            if len(hook_lines) <= 3 and all(d.textlength(l_, font=fh) <= MW - 34 for l_ in hook_lines):
+                break
+            hs -= 4
+        f_hook = load_font(FONT_BOLD, hs)
+    hl = hs + 12
 
-    # titre (réduit si trop long)
+    # nom de la station
     name = station["name"]
-    size = 108
-    while size > 56:
+    size = 84
+    while size > 46:
         f_title = load_font(FONT_BOLD, size)
-        lines = wrap(d, name, f_title, W - 120)
-        if len(lines) <= 2 and all(d.textlength(l_, font=f_title) <= W - 120 for l_ in lines):
+        lines = wrap(d, name, f_title, MW)
+        if len(lines) <= 2 and all(d.textlength(l_, font=f_title) <= MW for l_ in lines):
             break
-        size -= 8
-    lh = size + 12
-    sub = f'{station["massif"]}'
+        size -= 6
+    lh = size + 8
+
+    # ligne massif · domaine (petit)
+    sub = station["massif"]
+    if domaine and domaine.lower() not in name.lower():
+        sub += f"  ·  {domaine}"
+    fsb = 36
+    while fsb > 24 and d.textlength(sub, font=load_font(FONT_REG, fsb)) > MW:
+        fsb -= 2
+    f_sub = load_font(FONT_REG, fsb)
+
+    # chiffres clés
     stats = []
     if station.get("alt_max"):
         stats.append(f'{station["alt_max"]} m')
@@ -133,51 +177,143 @@ def make_pin(station, photo_path, out_path):
     if station.get("forfait"):
         stats.append(f'forfait {station["forfait"]} €')
     stat_line = "  ·  ".join(stats)
-
-    fs = 50
-    while fs > 30 and d.textlength(stat_line, font=load_font(FONT_BOLD, fs)) > W - 120:
+    fs = 40
+    while fs > 26 and d.textlength(stat_line, font=load_font(FONT_BOLD, fs)) > MW:
         fs -= 2
     f_stat = load_font(FONT_BOLD, fs)
-    # --- bloc "À savoir" : 2 points forts de la station ---
-    f_lab = load_font(FONT_BOLD, 30)
-    f_pt = load_font(FONT_BOLD, 40)
-    pts = [p.strip() for p in (station.get("pts") or []) if p and p.strip()][:2]
-    pt_lines = []
-    for p_ in pts:
-        wl = wrap(d, p_, f_pt, W - 120 - 90)[:2]
-        pt_lines.append(wl)
-    box_h = 0
-    if pt_lines:
-        box_h = 28 + 44 + sum(len(wl) * 52 + 14 for wl in pt_lines) + 14
 
-    block_h = len(lines) * lh + 70 + 80 + 120
-    y = H - 90 - block_h
-    if pt_lines:
-        top = y - box_h - 40
-        bx = Image.new("RGBA", (W - 80, box_h), (0, 0, 0, 0))
-        ImageDraw.Draw(bx).rounded_rectangle((0, 0, W - 81, box_h - 1), radius=28, fill=(8, 28, 48, 175))
-        img.alpha_composite(bx, (40, top))
-        d = ImageDraw.Draw(img)
-        d.text((70, top + 24), "A SAVOIR", font=f_lab, fill=(255, 150, 90, 255))
-        yy = top + 24 + 52
-        for wl in pt_lines:
-            d.text((70, yy), "•", font=f_pt, fill=(255, 150, 90, 255))
-            for ln_ in wl:
-                d.text((112, yy), ln_, font=f_pt, fill="white")
-                yy += 52
-            yy += 14
+    f_url = load_font(FONT_BOLD, 40)
+    btn_h = 76
+    # on empile de bas en haut
+    y = H - 80 - btn_h
+    btn_y = y
+    y -= 28 + fs                      # chiffres clés
+    stat_y = y
+    y -= 14 + fsb + 6                 # massif · domaine
+    sub_y = y
+    y -= 10 + len(lines) * lh         # nom
+    name_y = y
+    if hook_lines:
+        y -= 30 + len(hook_lines) * hl
+    hook_y = y
+
+    if hook_lines:
+        bar_h = len(hook_lines) * hl - 8
+        d.rounded_rectangle((MX, hook_y + 4, MX + 10, hook_y + 4 + bar_h), radius=5, fill=(237, 107, 47, 255))
+        yy = hook_y
+        for ln in hook_lines:
+            d.text((MX + 34, yy), ln, font=f_hook, fill="white")
+            yy += hl
+    yy = name_y
     for ln in lines:
-        d.text((60, y), ln, font=f_title, fill="white")
-        y += lh
-    d.text((60, y + 8), sub, font=f_sub, fill=(220, 235, 248, 255))
-    y += 70
-    d.text((60, y + 10), stat_line, font=f_stat, fill=(255, 255, 255, 255))
-    y += 110
-    d.rounded_rectangle((60, y, 60 + 560, y + 78), radius=39, fill=(237, 107, 47, 255))
-    d.text((90, y + 17), "snowfinder.fr", font=f_url, fill="white")
+        d.text((MX, yy), ln, font=f_title, fill=(255, 255, 255, 255))
+        yy += lh
+    d.text((MX, sub_y), sub, font=f_sub, fill=(205, 225, 245, 255))
+    d.text((MX, stat_y), stat_line, font=f_stat, fill="white")
+    bw = int(d.textlength("snowfinder.fr", font=f_url)) + 64
+    d.rounded_rectangle((MX, btn_y, MX + bw, btn_y + btn_h), radius=btn_h // 2, fill=(237, 107, 47, 255))
+    d.text((MX + 32, btn_y + 15), "snowfinder.fr", font=f_url, fill="white")
 
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     img.convert("RGB").save(out_path, "JPEG", quality=88, optimize=True)
+
+
+# ── Accroches (écrites une fois par l'IA, mémorisées) ────────────────
+HOOKS_PATH = os.path.join(ROOT, "pinterest-hooks.json")
+HOOK_MODEL = os.environ.get("PIN_HOOK_MODEL", "claude-haiku-5-5")
+HOOK_SYSTEM = (
+    "Tu écris des accroches pour des épingles Pinterest de stations de ski françaises et européennes. "
+    "Pour CHAQUE station, écris UNE accroche de 25 à 55 caractères qui donne envie de cliquer : "
+    "l'atout n°1 de la station, concret et séduisant, comme « Skiez au-dessus des nuages » ou "
+    "« 600 km de pistes, un seul forfait ». Règles strictes : tu t'appuies UNIQUEMENT sur la fiche fournie ; "
+    "tout chiffre doit figurer dans la fiche ; aucun superlatif (meilleur, n°1, plus grand...) sauf s'il est "
+    "écrit dans la fiche ; pas de point d'exclamation, pas d'emoji, pas de guillemets, pas de nom de la station "
+    "dans l'accroche ; pas de majuscules sur chaque mot. Réponds UNIQUEMENT par un objet JSON "
+    "{\"Nom exact de la station\": \"accroche\", ...}."
+)
+NUM_RE = re.compile(r"\d+")
+
+
+def fiche_text(s):
+    return " ".join(str(s.get(k, "")) for k in ("desc", "desc_long")) + " " + " ".join(s.get("pts") or []) + \
+        " " + " ".join(str(s.get(k, "")) for k in ("alt_min", "alt_max", "km", "remontees", "forfait"))
+
+
+def hook_ok(hook, s):
+    if not isinstance(hook, str):
+        return False
+    h = hook.strip()
+    if not (15 <= len(h) <= 62) or "!" in h or '"' in h or "«" in h:
+        return False
+    src = fiche_text(s)
+    if any(n not in src for n in NUM_RE.findall(h)):
+        return False
+    for w in ("meilleur", "numéro 1", "n°1", "incontournable", "plus grand", "plus haut", "le plus"):
+        if w in h.lower() and w not in src.lower():
+            return False
+    return True
+
+
+def fallback_hook(s):
+    for p_ in (s.get("pts") or []):
+        p_ = (p_ or "").strip()
+        if 15 <= len(p_) <= 62:
+            return p_
+    return None
+
+
+def load_hooks():
+    try:
+        with open(HOOKS_PATH, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:  # noqa: BLE001
+        return {}
+
+
+def ensure_hooks(needed):
+    """needed : stations de la fenêtre. Écrit les accroches manquantes (1 appel par lot)."""
+    hooks = load_hooks()
+    missing = [s for s in needed if not hook_ok(hooks.get(s["name"]), s)]
+    if missing and os.environ.get("ANTHROPIC_API_KEY"):
+        try:
+            import anthropic
+            client = anthropic.Anthropic()
+            for i in range(0, len(missing), 20):
+                batch = missing[i:i + 20]
+                fiches = [{"name": s["name"], "massif": s["massif"], "desc": s.get("desc"),
+                           "pts": s.get("pts"), "desc_long": (s.get("desc_long") or "")[:600],
+                           "alt_max": s.get("alt_max"), "km": s.get("km")} for s in batch]
+                for _ in range(2):
+                    msg = client.messages.create(
+                        model=HOOK_MODEL, max_tokens=2000, system=HOOK_SYSTEM,
+                        messages=[{"role": "user", "content": json.dumps(fiches, ensure_ascii=False)}])
+                    txt = "".join(b.text for b in msg.content if getattr(b, "type", "") == "text")
+                    try:
+                        got = json.loads(txt[txt.find("{"):txt.rfind("}") + 1])
+                    except Exception:  # noqa: BLE001
+                        continue
+                    for s in batch:
+                        h = got.get(s["name"])
+                        if hook_ok(h, s):
+                            hooks[s["name"]] = h.strip()
+                    batch = [s for s in batch if not hook_ok(hooks.get(s["name"]), s)]
+                    if not batch:
+                        break
+        except Exception as e:  # noqa: BLE001
+            print("⚠ accroches IA indisponibles :", e)
+        with open(HOOKS_PATH, "w", encoding="utf-8") as f:
+            json.dump(hooks, f, ensure_ascii=False, indent=1, sort_keys=True)
+    elif missing:
+        print("ℹ pas de clé API : repli sur les points forts de la fiche pour", len(missing), "stations")
+    return hooks
+
+
+def load_domaines():
+    try:
+        with open(os.path.join(ROOT, "pinterest-domaines.json"), encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:  # noqa: BLE001
+        return {}
 
 
 def load_stations():
@@ -201,8 +337,10 @@ def pins_for_day(ordered, day):
     return [ordered[(k + i) % n] for i in range(PINS_PAR_JOUR)]
 
 
-def description(s):
+def description(s, hook=None):
     parts = []
+    if hook:
+        parts.append(hook)
     d = (s.get("desc") or "").strip()
     if d:
         parts.append(d)
@@ -229,6 +367,14 @@ def main():
         return 1
     ordered = order(stations)
 
+    # stations de la fenêtre -> accroches
+    window = []
+    for back in range(FENETRE_JOURS):
+        window += pins_for_day(ordered, today - timedelta(days=back))
+    uniq = list({s["name"]: s for s in window}.values())
+    hooks = ensure_hooks(uniq)
+    domaines = load_domaines()
+
     items = []
     keep_files = set()
     for back in range(FENETRE_JOURS):
@@ -239,7 +385,8 @@ def main():
             keep_files.add(fname)
             out = os.path.join(ROOT, "img", "pins", fname)
             if not os.path.exists(out):
-                make_pin(s, find_photo(s["name"]), out)
+                hook = hooks.get(s["name"]) if hook_ok(hooks.get(s["name"]), s) else fallback_hook(s)
+                make_pin(s, find_photo(s["name"]), out, hook=hook, domaine=domaines.get(s["name"]))
             dt = datetime(day.year, day.month, day.day, 5, 40 + 5 * j, tzinfo=timezone.utc)
             items.append((dt, s, slug, fname, day))
 
@@ -270,7 +417,7 @@ def main():
                   f'<link>{escape(link)}</link>',
                   f'<guid isPermaLink="false">{escape(guid)}</guid>',
                   f'<pubDate>{format_datetime(dt)}</pubDate>',
-                  f'<description>{escape(description(s))}</description>',
+                  f'<description>{escape(description(s, hooks.get(s["name"]) if hook_ok(hooks.get(s["name"]), s) else None))}</description>',
                   f'<enclosure url="{escape(img)}" length="{size}" type="image/jpeg"/>',
                   f'<media:content url="{escape(img)}" medium="image" type="image/jpeg" width="{W}" height="{H}"/>',
                   '</item>']
