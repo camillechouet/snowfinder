@@ -2,6 +2,16 @@
 
 <html lang="en" style="background:#1a5a8a">
 <head>
+<!-- App Android (TWA) : au lancement, un téléphone non francophone ouvre la version anglaise -->
+<script>(function(){try{
+  var ref=document.referrer||"";
+  var fromApp=ref.indexOf("android-app://")===0;
+  if(!fromApp) return;                                   // seulement au lancement de l'app installée
+  if(sessionStorage.getItem("sf_app_lang")) return;     // une seule fois par session
+  sessionStorage.setItem("sf_app_lang","1");
+  var l=String(navigator.language||"fr").toLowerCase();
+  if(l.indexOf("fr")!==0 && !/[?&]nolang/.test(location.search)) location.replace("/en/index.html");
+}catch(e){}})();</script>
 <link href="/manifest.json" rel="manifest"/>
 <link as="image" fetchpriority="high" href="/img/avoriaz-hero.jpg" rel="preload"/>
 <meta content="#1a5a8a" name="theme-color"/>
@@ -1343,7 +1353,7 @@ document.getElementById("eteOverlay").addEventListener("click", e => {
 function openSfMenu(){document.getElementById('sfMenuOverlay').classList.add('open');document.getElementById('sfMenuSheet').classList.add('open');document.body.style.overflow='hidden';}
 function closeSfMenu(){document.getElementById('sfMenuOverlay').classList.remove('open');document.getElementById('sfMenuSheet').classList.remove('open');document.body.style.overflow='';}
 function openSfNotifFromMenu(){
-  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ alert('Notifications are already enabled ✅'); return; }
+  if(typeof Notification!=='undefined' && Notification.permission==='granted'){ try{ if(window.sfLoadOneSignal) window.sfLoadOneSignal(); }catch(e){} alert('Notifications are already enabled ✅'); return; }
   if(typeof Notification!=='undefined' && Notification.permission==='denied'){ alert("Notifications are blocked in your browser settings."); return; }
   var overlay = document.getElementById('notifOverlay');
   var sheet   = document.getElementById('notifSheet');
@@ -1740,30 +1750,30 @@ function toggleCompareStation(id){
 <a class="section-link" href="/en/articles/toutes-les-actus.html">See all articles →</a>
 </div>
 <!-- Hero : article le plus récent -->
-<a href="/en/articles/stations-ski-mieux-notees-alpes-du-nord.html" style="display:block;position:relative;height:260px;text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(13,34,64,.18);margin-bottom:8px">
-<div style="position:absolute;inset:0;background:url(/img/valthorens1.jpg) center/cover no-repeat"></div>
+<a href="/en/articles/retour-est-alpes-neige-octobre-2026.html" style="display:block;position:relative;height:260px;text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(13,34,64,.18);margin-bottom:8px">
+<div style="position:absolute;inset:0;background:url(/img/tignes1.jpg) center/cover no-repeat"></div>
 <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,20,45,.05) 0%,rgba(8,20,45,.25) 45%,rgba(8,20,45,.88) 100%)"></div>
-<div style="position:absolute;top:14px;left:14px;background:rgba(58,125,184,.85);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 12px;font-size:.68rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.06em">Ranking</div>
+<div style="position:absolute;top:14px;left:14px;background:rgba(58,125,184,.85);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 12px;font-size:.68rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.06em">Snow reliability</div>
 <div style="position:absolute;bottom:0;left:0;right:0;padding:18px 20px 20px">
-<div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.5rem;color:white;line-height:1.15;margin-bottom:6px">The 10 best-rated ski resorts in the French Northern Alps</div>
-<div style="font-size:.78rem;color:rgba(255,255,255,.7)">26 October 2026 · 8 min read</div>
+<div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.5rem;color:white;line-height:1.15;margin-bottom:6px">Easterly airflow in the Alps: up to 50 cm of snow this week</div>
+<div style="font-size:.78rem;color:rgba(255,255,255,.7)">20 October 2026 · 3 min read</div>
 </div>
 </a>
 <!-- Bandeaux : 2 articles suivants -->
 <div style="display:flex;flex-direction:column;gap:8px">
-<a href="/en/articles/ski-a-noel-et-au-nouvel-an-2026-2027-dates-des-vacances-ouvertures.html" style="display:flex;align-items:center;gap:10px;position:relative;border-radius:12px;overflow:hidden;height:64px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.22);padding:0 14px">
-<div style="position:absolute;inset:0;background:url(/img/tignes1.jpg) center/cover no-repeat"></div>
+<a href="/en/articles/ski-fevrier-2027-stations-familiales-reserver.html" style="display:flex;align-items:center;gap:10px;position:relative;border-radius:12px;overflow:hidden;height:64px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.22);padding:0 14px">
+<div style="position:absolute;inset:0;background:url(/img/legrandbornand1.jpg) center/cover no-repeat"></div>
 <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,20,45,.88) 0%,rgba(8,20,45,.62) 55%,rgba(8,20,45,.3) 100%)"></div>
 <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;width:100%;gap:10px">
-<div style="display:flex;align-items:baseline;gap:8px;min-width:0"><span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Skiing at Christmas and New Year 2026-2027: holiday dates, openings, lift passes and booking</span> <span style="font-size:.68rem;color:rgba(255,255,255,.65);white-space:nowrap">23 Oct.</span></div>
+<div style="display:flex;align-items:baseline;gap:8px;min-width:0"><span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Skiing in February 2027: family-friendly resorts</span> <span style="font-size:.68rem;color:rgba(255,255,255,.65);white-space:nowrap">15 Oct.</span></div>
 <span style="font-size:.7rem;color:#ffd97a;font-weight:700;white-space:nowrap">Read →</span>
 </div>
 </a>
-<a href="/en/articles/ski-de-fond-en-savoie-bessans-ouvre-le-samedi-31-octobre-les-saisies-octobre-2026.html" style="display:flex;align-items:center;gap:10px;position:relative;border-radius:12px;overflow:hidden;height:64px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.22);padding:0 14px">
-<div style="position:absolute;inset:0;background:url(https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&amp;q=80) center/cover no-repeat"></div>
+<a href="/en/articles/forfaits-ski-2026-2027-prix-hausse-payer-moins.html" style="display:flex;align-items:center;gap:10px;position:relative;border-radius:12px;overflow:hidden;height:64px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.22);padding:0 14px">
+<div style="position:absolute;inset:0;background:url(/img/chamonix1.jpg) center/cover no-repeat"></div>
 <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,20,45,.88) 0%,rgba(8,20,45,.62) 55%,rgba(8,20,45,.3) 100%)"></div>
 <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;width:100%;gap:10px">
-<div style="display:flex;align-items:baseline;gap:8px;min-width:0"><span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cross-country skiing in Savoie: Bessans opens Saturday 31 October, Les Saisies Wednesday 11 November</span> <span style="font-size:.68rem;color:rgba(255,255,255,.65);white-space:nowrap">23 Oct.</span></div>
+<div style="display:flex;align-items:baseline;gap:8px;min-width:0"><span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">2026-2027 lift passes: what's changing</span> <span style="font-size:.68rem;color:rgba(255,255,255,.65);white-space:nowrap">9 Oct.</span></div>
 <span style="font-size:.7rem;color:#ffd97a;font-weight:700;white-space:nowrap">Read →</span>
 </div>
 </a>
@@ -1776,30 +1786,30 @@ function toggleCompareStation(id){
 <a class="section-link" href="/en/comparatifs/tous-les-comparatifs.html">See all head-to-heads →</a>
 </div>
 <!-- Hero : duel le plus récent -->
-<a href="/en/comparatifs/peisey-vallandry-vs-montchavin-les-coches.html" style="display:block;position:relative;height:260px;text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(13,34,64,.18);margin-bottom:8px">
-<div style="position:absolute;inset:0;background:url(https://images.unsplash.com/photo-1614089916276-eb5be76854bd?w=800&amp;q=80) center/cover no-repeat"></div>
+<a href="/en/comparatifs/saint-veran-vs-molines-en-queyras.html" style="display:block;position:relative;height:260px;text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(13,34,64,.18);margin-bottom:8px">
+<div style="position:absolute;inset:0;background:url(/img/saint-veran1.jpg) center/cover no-repeat"></div>
 <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,20,45,.05) 0%,rgba(8,20,45,.25) 45%,rgba(8,20,45,.88) 100%)"></div>
 <div style="position:absolute;top:14px;left:14px;background:rgba(168,120,64,.85);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 12px;font-size:.68rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.06em">Head-to-head</div>
 <div style="position:absolute;bottom:0;left:0;right:0;padding:18px 20px 20px">
-<div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.6rem;color:white;line-height:1.15;margin-bottom:6px">Peisey-Vallandry vs Montchavin-Les Coches</div>
+<div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.6rem;color:white;line-height:1.1;margin-bottom:6px">Saint-Véran vs Molines-en-Queyras</div>
 <div style="font-size:.78rem;color:rgba(255,255,255,.7)">Our detailed comparison</div>
 </div>
 </a>
 <!-- Bandeaux : 2 duels suivants -->
 <div style="display:flex;flex-direction:column;gap:8px">
-<a href="/en/comparatifs/saint-martin-de-belleville-vs-la-tania.html" style="display:flex;align-items:center;gap:10px;position:relative;border-radius:12px;overflow:hidden;height:64px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.22);padding:0 14px">
-<div style="position:absolute;inset:0;background:url(https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=600&amp;q=80) center/cover no-repeat"></div>
+<a href="/en/comparatifs/grand-tourmalet-vs-cauterets.html" style="display:flex;align-items:center;gap:10px;position:relative;border-radius:12px;overflow:hidden;height:64px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.22);padding:0 14px">
+<div style="position:absolute;inset:0;background:url(https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=600&amp;q=80) center/cover no-repeat"></div>
 <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,20,45,.88) 0%,rgba(8,20,45,.62) 55%,rgba(8,20,45,.3) 100%)"></div>
 <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;width:100%;gap:10px">
-<div style="display:flex;align-items:baseline;gap:8px;min-width:0"><span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Saint-Martin-de-Belleville vs La Tania</span></div>
+<div style="display:flex;align-items:baseline;gap:8px;min-width:0"><span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Grand Tourmalet vs Cauterets</span></div>
 <span style="font-size:.7rem;color:#ffd97a;font-weight:700;white-space:nowrap">View →</span>
 </div>
 </a>
-<a href="/en/comparatifs/saint-veran-vs-molines-en-queyras.html" style="display:flex;align-items:center;gap:10px;position:relative;border-radius:12px;overflow:hidden;height:64px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.22);padding:0 14px">
-<div style="position:absolute;inset:0;background:url(/img/saint-veran1.jpg) center/cover no-repeat"></div>
+<a href="/en/comparatifs/les-carroz-vs-samoens.html" style="display:flex;align-items:center;gap:10px;position:relative;border-radius:12px;overflow:hidden;height:64px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.22);padding:0 14px">
+<div style="position:absolute;inset:0;background:url(https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=600&amp;q=80) center/cover no-repeat"></div>
 <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,20,45,.88) 0%,rgba(8,20,45,.62) 55%,rgba(8,20,45,.3) 100%)"></div>
 <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;width:100%;gap:10px">
-<div style="display:flex;align-items:baseline;gap:8px;min-width:0"><span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Saint-Véran vs Molines-en-Queyras</span></div>
+<div style="display:flex;align-items:baseline;gap:8px;min-width:0"><span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Les Carroz vs Samoëns</span></div>
 <span style="font-size:.7rem;color:#ffd97a;font-weight:700;white-space:nowrap">View →</span>
 </div>
 </a>
@@ -2500,6 +2510,11 @@ function refuseCookies() {
     }, 4500);
   }
 
+  // Permission déjà accordée : on (ré)enregistre l'abonnement chez OneSignal sans rien demander
+  if(typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+    setTimeout(function(){ try{ window.sfLoadOneSignal(); }catch(e){} }, 2500);
+  }
+
   window.dismissNotifPopup = function() {
     localStorage.setItem('sf_notif_ask', Date.now());
     var sheet = document.getElementById('notifSheet');
@@ -2512,16 +2527,21 @@ function refuseCookies() {
   window.acceptNotifPopup = function() {
     localStorage.setItem('sf_notif_ask', Date.now());
     dismissNotifPopup();
+    window.sfLoadOneSignal();
+  };
 
+  window.sfLoadOneSignal = function() {
+    if(window._sfOSLoaded) return;
+    window._sfOSLoaded = true;
     var s = document.createElement('script');
     s.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
     s.onload = function() {
       window.OneSignalDeferred = window.OneSignalDeferred || [];
       OneSignalDeferred.push(async function(OneSignal) {
         await OneSignal.init({
-          appId: "9530c745-8578-41e9-ad9f-2fa5348ad0b8",
+          appId: "df4757f7-ed59-4973-8a3d-782547295c9c",
           safari_web_id: "web.onesignal.auto.5c6acdd7-2576-4d7e-9cb0-efba7bf8602e",
-          serviceWorkerPath: "OneSignalSDKWorker.js",
+          serviceWorkerPath: "sw.js",
           notifyButton: { enable: false },
           welcomeNotification: { disable: true },
           promptOptions: {
@@ -2531,7 +2551,7 @@ function refuseCookies() {
                 autoPrompt: true,
                 text: {
                   actionMessage: "Derni\u00e8re \u00e9tape \u2014 confirme dans la fen\u00eatre qui va s'ouvrir !",
-                  acceptButton: "Confirmer",
+                  acceptButton: "Confirm",
                   cancelButton: "Cancel",
                 },
                 delay: { timeDelay: 0, pageViews: 1 }
