@@ -1,0 +1,60 @@
+name: Chercher des photos libres (Wikimedia)
+
+# Cherche sur Wikimedia Commons une photo libre (CC0, domaine public, CC BY, CC BY-SA)
+# pour les stations qui n'ont pas de photo dans img/, grave le crédit sur l'image,
+# nomme le fichier comme tes photos habituelles (valloire1.jpg) et les met dans un ZIP.
+#
+# Utilisation : Actions > « Chercher des photos libres (Wikimedia) » > Run workflow.
+#   · Premier essai conseillé : limite = 3.
+#   · Ensuite : limite = 40 ; relancer avec « offset » = le chiffre indiqué à la fin du journal.
+#   · Une seule station : champ « seulement » (ex. Valloire).
+# Le ZIP est en bas de la page du lancement (rubrique Artifacts), conservé 14 jours.
+# Rien n'est ajouté au site : tu gardes les bonnes photos et tu les envoies dans img/.
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Nombre de stations à traiter (défaut 40)"
+        required: false
+        default: "40"
+      offset:
+        description: "Départ dans la liste (0 = les mieux notées d'abord ; reprendre au chiffre du journal)"
+        required: false
+        default: "0"
+      only:
+        description: "Seulement les stations dont le nom contient ce texte (facultatif)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installer Pillow
+        run: pip install pillow
+
+      - name: Chercher les photos
+        env:
+          LIMIT: ${{ github.event.inputs.limit }}
+          OFFSET: ${{ github.event.inputs.offset }}
+          ONLY: ${{ github.event.inputs.only }}
+        run: |
+          python3 _scripts/find_photos_wikimedia.py --limit "${LIMIT:-40}" --offset "${OFFSET:-0}" --only "$ONLY" | tee /tmp/photos.log
+          { echo '### Photos trouvées'; tail -n 1 /tmp/photos.log; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Mettre les photos dans un ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: photos-stations
+          path: photos-out/
+          retention-days: 14
