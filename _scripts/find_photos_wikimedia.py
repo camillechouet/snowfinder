@@ -20,7 +20,7 @@ Usage : python3 _scripts/find_photos_wikimedia.py [--limit 40] [--offset 0] [--o
 """
 import os, re, sys, json, csv, time, html, argparse, unicodedata, urllib.request, urllib.parse, urllib.error, io
 
-from PIL import Image, ImageDraw, ImageFont, ImageStat
+from PIL import Image, ImageDraw, ImageFont, ImageStat, ImageChops
 
 ROOT = os.environ.get("SF_ROOT") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 API = "https://commons.wikimedia.org/w/api.php"
@@ -217,21 +217,36 @@ def burn_credit(img, text):
     return img.convert("RGB")
 
 
+def _frac(mask):
+    """Part de pixels allumés (255) dans un masque 'L'."""
+    return ImageStat.Stat(mask).mean[0] / 255.0
+
+
 def image_problem(img):
-    """None si la photo a l'air d'une photo d'hiver de jour ; sinon la raison du refus."""
-    import numpy as np
-    t = img.copy(); t.thumbnail((400, 400))
-    hsv = np.asarray(t.convert("HSV")).astype(float) / 255
-    a = np.asarray(t).astype(float) / 255
-    sat, val = hsv[..., 1], hsv[..., 2]
-    if sat.mean() < MIN_SATURATION:
+    """None si la photo a l'air d'une photo d'hiver de jour ; sinon la raison du refus.
+    Pillow seul (pas de numpy : le workflow n'installe que Pillow)."""
+    t = img.copy()
+    t.thumbnail((400, 400))
+    t = t.convert("RGB")
+    h, s_, v = t.convert("HSV").split()
+    if ImageStat.Stat(s_).mean[0] / 255.0 < MIN_SATURATION:
         return "noir et blanc"
-    if val.mean() < MIN_BRIGHT:
+    if ImageStat.Stat(v).mean[0] / 255.0 < MIN_BRIGHT:
         return "trop sombre (nuit ?)"
-    r, g, b = a[..., 0], a[..., 1], a[..., 2]
-    if ((g > r * 1.08) & (g > b * 1.08) & (val > 0.2)).mean() > MAX_GREEN:
+    r, g, b = t.split()
+    # vert dominant : g > 1.08 r, g > 1.08 b, v > 0.2
+    r108 = r.point(lambda x: min(255, int(x * 1.08)))
+    b108 = b.point(lambda x: min(255, int(x * 1.08)))
+    gr = ImageChops.subtract(g, r108).point(lambda x: 255 if x > 0 else 0)
+    gb = ImageChops.subtract(g, b108).point(lambda x: 255 if x > 0 else 0)
+    vm = v.point(lambda x: 255 if x > 51 else 0)
+    green = ImageChops.multiply(ImageChops.multiply(gr, gb), vm)
+    if _frac(green) > MAX_GREEN:
         return "trop d'herbe (été ?)"
-    if ((sat < 0.30) & (val > 0.62)).mean() < MIN_SNOW:
+    # neige : pixels clairs et peu saturés
+    snow = ImageChops.multiply(s_.point(lambda x: 255 if x < 77 else 0),
+                               v.point(lambda x: 255 if x > 158 else 0))
+    if _frac(snow) < MIN_SNOW:
         return "pas assez de neige"
     return None
 
