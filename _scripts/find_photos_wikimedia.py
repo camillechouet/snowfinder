@@ -231,6 +231,13 @@ def image_problem(img):
     h, s_, v = t.convert("HSV").split()
     if ImageStat.Stat(s_).mean[0] / 255.0 < MIN_SATURATION:
         return "noir et blanc"
+    # sépia / photo ancienne : presque tous les pixels clairs sont orange-jaune
+    warm = ImageChops.multiply(ImageChops.multiply(h.point(lambda x: 255 if 8 <= x <= 36 else 0),
+                                                   s_.point(lambda x: 255 if x >= 30 else 0)),
+                               v.point(lambda x: 255 if x >= 90 else 0))
+    lit = v.point(lambda x: 255 if x >= 90 else 0)
+    if ImageStat.Stat(warm).mean[0] / max(ImageStat.Stat(lit).mean[0], 1) > 0.70:
+        return "sépia (photo ancienne)"
     if ImageStat.Stat(v).mean[0] / 255.0 < MIN_BRIGHT:
         return "trop sombre (nuit ?)"
     r, g, b = t.split()
