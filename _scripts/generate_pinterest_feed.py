@@ -26,6 +26,7 @@ PINS_PAR_JOUR = 3
 FENETRE_JOURS = 7
 W, H = 1000, 1500
 SEED = "snowfinder-pinterest-v1"
+PIN_VERSION = "v2"   # change-la pour régénérer toutes les images après un changement de design
 FONT_BOLD = ["/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
              "/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf"]
 FONT_REG = ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
@@ -68,15 +69,19 @@ def load_font(paths, size):
 
 
 def wrap(draw, text, font, max_w):
+    """Retour à la ligne aux espaces ET après les tirets (Saint-Martin-de-Belleville)."""
+    pieces = []  # (texte, espace_avant)
+    for wi, word in enumerate(text.split()):
+        for pi, part in enumerate(re.findall(r'[^-]+-?|-', word)):
+            pieces.append((part, wi > 0 and pi == 0))
     lines, cur = [], ""
-    for word in text.split():
-        t = (cur + " " + word).strip()
-        if draw.textlength(t, font=font) <= max_w:
+    for part, sp in pieces:
+        t = cur + (" " if sp and cur else "") + part
+        if draw.textlength(t, font=font) <= max_w or not cur:
             cur = t
         else:
-            if cur:
-                lines.append(cur)
-            cur = word
+            lines.append(cur)
+            cur = part
     if cur:
         lines.append(cur)
     return lines
@@ -115,7 +120,7 @@ def make_pin(station, photo_path, out_path):
     while size > 56:
         f_title = load_font(FONT_BOLD, size)
         lines = wrap(d, name, f_title, W - 120)
-        if len(lines) <= 2:
+        if len(lines) <= 2 and all(d.textlength(l_, font=f_title) <= W - 120 for l_ in lines):
             break
         size -= 8
     lh = size + 12
@@ -133,8 +138,34 @@ def make_pin(station, photo_path, out_path):
     while fs > 30 and d.textlength(stat_line, font=load_font(FONT_BOLD, fs)) > W - 120:
         fs -= 2
     f_stat = load_font(FONT_BOLD, fs)
+    # --- bloc "À savoir" : 2 points forts de la station ---
+    f_lab = load_font(FONT_BOLD, 30)
+    f_pt = load_font(FONT_BOLD, 40)
+    pts = [p.strip() for p in (station.get("pts") or []) if p and p.strip()][:2]
+    pt_lines = []
+    for p_ in pts:
+        wl = wrap(d, p_, f_pt, W - 120 - 90)[:2]
+        pt_lines.append(wl)
+    box_h = 0
+    if pt_lines:
+        box_h = 28 + 44 + sum(len(wl) * 52 + 14 for wl in pt_lines) + 14
+
     block_h = len(lines) * lh + 70 + 80 + 120
     y = H - 90 - block_h
+    if pt_lines:
+        top = y - box_h - 40
+        bx = Image.new("RGBA", (W - 80, box_h), (0, 0, 0, 0))
+        ImageDraw.Draw(bx).rounded_rectangle((0, 0, W - 81, box_h - 1), radius=28, fill=(8, 28, 48, 175))
+        img.alpha_composite(bx, (40, top))
+        d = ImageDraw.Draw(img)
+        d.text((70, top + 24), "A SAVOIR", font=f_lab, fill=(255, 150, 90, 255))
+        yy = top + 24 + 52
+        for wl in pt_lines:
+            d.text((70, yy), "•", font=f_pt, fill=(255, 150, 90, 255))
+            for ln_ in wl:
+                d.text((112, yy), ln_, font=f_pt, fill="white")
+                yy += 52
+            yy += 14
     for ln in lines:
         d.text((60, y), ln, font=f_title, fill="white")
         y += lh
@@ -204,7 +235,7 @@ def main():
         day = today - timedelta(days=back)
         for j, s in enumerate(pins_for_day(ordered, day)):
             slug = slugify(s["name"])
-            fname = f"{slug}.jpg"
+            fname = f"{slug}-{PIN_VERSION}.jpg"
             keep_files.add(fname)
             out = os.path.join(ROOT, "img", "pins", fname)
             if not os.path.exists(out):
