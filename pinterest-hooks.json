@@ -1,24 +1,4 @@
 {
- "Avoriaz": "Station 100% piétonne au cœur des Portes du Soleil",
- "Chamrousse": "Station olympique de Grenoble, 30 min de la ville",
- "Courchevel": "Restaurants étoilés en altitude, 3 Vallées à deux pas",
- "Isola 2000": "Vue sur la mer depuis les pistes, Nice à 90 min",
- "La Clusaz": "132 km de pistes sur 5 espaces distincts",
- "La Grave - La Meije": "Mecque mondiale du hors-piste, dénivelé de 2100 m",
- "La Tania": "Station sans voitures nichée dans la forêt",
- "Le Grand-Bornand": "90 km de pistes dans un village savoyard d'exception",
- "Les Deux Alpes": "Plus grand glacier skiable d'Europe, 225 km de pistes",
- "Les Menuires": "Accès aux 600 km des 3 Vallées dès 1850 m",
- "Molines-en-Queyras": "Domaine de 35 km partagé avec Saint-Véran",
- "Morzine": "Village animé toute l'année et 600 km de pistes",
- "Méribel": "Architecture chalet préservée au cœur des 3 Vallées",
- "Saint-François-Longchamp": "Domaine Maurienne 160 km, ambiance détendue",
- "Saint-Gervais": "Thermes et 445 km de pistes au pied du Mont-Blanc",
- "Saint-Lary-Soulan": "Thermes naturels à 36°C entre deux descentes",
- "Saint-Martin-de-Belleville": "Village savoyard du XVIIe siècle, 600 km accessibles",
- "Super Besse": "Lac Pavin et volcans d'Auvergne à proximité",
- "Superdévoluy": "Label Famille Plus et deux domaines reliés",
- "Tignes": "Glacier du Grande Motte ouvert presque toute l'année",
- "Val Thorens": "600 km de pistes à 2300 m d'altitude",
- "Valloire": "Sous le col du Galibier, 160 km de pistes"
+ "Le Grand-Bornand": "Skiez dans un vrai village savoyard",
+ "_prompt": "v2"
 }
