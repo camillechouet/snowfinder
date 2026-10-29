@@ -138,8 +138,11 @@ def make_pin(station, photo_path, out_path, hook=None, domaine=None):
     ov = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     od = ImageDraw.Draw(ov)
     for i in range(780):
-        a = int(220 * (i / 780) ** 1.5)
-        od.line([(0, H - 780 + i), (W, H - 780 + i)], fill=(8, 28, 48, a))
+        a = 220 * (i / 780) ** 1.5
+        row = H - 780 + i
+        if row > H - 90:                       # bas adouci : le crédit photo gravé reste lisible
+            a *= 1 - 0.65 * ((row - (H - 90)) / 90)
+        od.line([(0, row), (W, row)], fill=(8, 28, 48, int(a)))
     for i in range(260):
         a = int(120 * (1 - i / 260) ** 1.5)
         od.line([(0, i), (W, i)], fill=(8, 28, 48, a))
