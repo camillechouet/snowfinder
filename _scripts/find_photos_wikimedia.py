@@ -32,7 +32,7 @@ MIN_SCORE = 6.0      # sous ce score, la photo n'est pas proposée
 N_KEEP = 3           # 1 principale + 2 alternatives (dossier autres/)
 MIN_SATURATION = 0.04  # refuse le noir et blanc (une photo de neige reste peu saturée : ne pas monter)
 MIN_BRIGHT = 0.40      # refuse les photos de nuit
-MAX_GREEN = 0.20       # refuse les photos d'été (beaucoup d'herbe)
+MAX_GREEN = 0.06       # refuse les photos d'été (beaucoup d'herbe)
 MIN_SNOW = 0.12        # refuse les photos sans neige visible
 FONT_REG = ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "/usr/share/fonts/dejavu/DejaVuSans.ttf"]
 
@@ -196,7 +196,7 @@ def burn_credit(img, text):
     w, h = img.size
     crop_w = (2 * h / 3)                       # largeur conservée par le recadrage portrait central
     max_w = min(crop_w * 0.92, w * 0.9)
-    size = max(16, int(w * 0.017))
+    size = max(14, int(min(w, crop_w) * 0.04))   # taille proportionnelle à la partie visible (épingle)
     d = ImageDraw.Draw(img)
     f = load_font(size)
     while d.textlength(text, font=f) > max_w and size > 12:
