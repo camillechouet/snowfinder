@@ -259,7 +259,7 @@ HOOK_SYSTEM = (
     "plus grand...) sauf s'il est écrit dans la fiche ; INTERDIT : labels et jargon administratif "
     "(« Label Famille Plus », classements, appellations), simple liste de caractéristiques, dates d'histoire, "
     "point d'exclamation, emoji, guillemets, nom de la station, majuscules sur chaque mot. "
-    "Deux stations ne doivent pas avoir la même accroche. Réponds UNIQUEMENT par un objet JSON "
+    "Varie les débuts de phrase : au plus une accroche sur quatre commence par « Skiez », et évite de répéter les mêmes tournures (« vrai village », « sans voiture »...) d'une station à l'autre. Deux stations ne doivent pas avoir la même accroche. Réponds UNIQUEMENT par un objet JSON "
     "{\"Nom exact de la station\": \"accroche\", ...}."
 )
 PROMPT_VERSION = "v2"   # change-la pour faire réécrire toutes les accroches
@@ -394,6 +394,33 @@ def ensure_hooks(needed):
     return hooks
 
 
+MANUEL_PATH = os.path.join(ROOT, "pinterest-hooks-manuel.json")
+
+
+def apply_manual(hooks, stations):
+    """pinterest-hooks-manuel.json : {"Station": "accroche"} écrase l'accroche de l'IA.
+    Même contrôle (chiffres présents dans la fiche, longueur, ponctuation)."""
+    try:
+        with open(MANUEL_PATH, encoding="utf-8") as f:
+            manual = json.load(f)
+    except Exception:  # noqa: BLE001
+        return hooks
+    by = {s["name"]: s for s in stations}
+    n = 0
+    for name, h in manual.items():
+        if name.startswith("_") or name not in by:
+            continue
+        why = hook_reason(h, by[name])
+        if why:
+            print(f"⚠ accroche manuelle ignorée pour {name} ({why}) : {h!r}")
+        else:
+            hooks[name] = h.strip()
+            n += 1
+    if n:
+        print(f"ℹ {n} accroche(s) manuelle(s) appliquée(s)")
+    return hooks
+
+
 def load_domaines():
     try:
         with open(os.path.join(ROOT, "pinterest-domaines.json"), encoding="utf-8") as f:
@@ -416,17 +443,35 @@ def load_stations():
     return elig
 
 
-def order(stations):
-    names = sorted(s["name"] for s in stations)
-    random.Random(SEED).shuffle(names)
-    by = {s["name"]: s for s in stations}
-    return [by[n] for n in names]
+STATE_PATH = os.path.join(ROOT, "pinterest-state.json")
 
 
-def pins_for_day(ordered, day):
-    n = len(ordered)
-    k = day.toordinal() * PINS_PAR_JOUR
-    return [ordered[(k + i) % n] for i in range(PINS_PAR_JOUR)]
+def load_state():
+    try:
+        with open(STATE_PATH, encoding="utf-8") as f:
+            st = json.load(f)
+        st.setdefault("days", {})
+        st.setdefault("seen", [])
+        return st
+    except Exception:  # noqa: BLE001
+        return {"days": {}, "seen": []}
+
+
+def pick_day(stations, state, day):
+    """Choisit les stations du jour : d'abord celles JAMAIS épinglées (ex. photo tout juste
+    ajoutée), puis les plus anciennement épinglées. Ordre stable (hash) à égalité."""
+    last = {}
+    for d_, names in state["days"].items():
+        for n in names:
+            if d_ > last.get(n, ""):
+                last[n] = d_
+    seen = set(state.get("seen") or [])
+    # station "nouvelle" = éligible aujourd'hui mais pas au passage précédent (photo tout juste ajoutée)
+    def is_new(n):
+        return bool(seen) and n not in seen
+    cand = sorted(stations, key=lambda s: (0 if is_new(s["name"]) else 1, last.get(s["name"], ""),
+                                           hashlib.md5((SEED + s["name"]).encode("utf-8")).hexdigest()))
+    return [s["name"] for s in cand[:PINS_PAR_JOUR]]
 
 
 def description(s, hook=None):
@@ -457,14 +502,35 @@ def main():
     if len(stations) < 20:
         print("⚠ Moins de 20 stations avec photo — flux NON écrit (sécurité).")
         return 1
-    ordered = order(stations)
+    by_name = {s["name"]: s for s in stations}
+    state = load_state()
+    changed = False
+    current = sorted(by_name)
+    days_win = [today - timedelta(days=back) for back in range(FENETRE_JOURS - 1, -1, -1)]  # ancien -> récent
+    for day in days_win:
+        k = day.isoformat()
+        if k not in state["days"]:
+            state["days"][k] = pick_day(stations, state, day)
+            changed = True
+            print(f"ℹ {k} : {', '.join(state['days'][k])}")
+    if sorted(state.get("seen") or []) != current:
+        state["seen"] = current
+        changed = True
+    if changed:
+        with open(STATE_PATH, "w", encoding="utf-8") as f:
+            json.dump(state, f, ensure_ascii=False, indent=1, sort_keys=True)
+
+    def pins_for_day(_ordered, day):  # stations du jour encore éligibles (photo toujours là)
+        return [by_name[n] for n in state["days"].get(day.isoformat(), []) if n in by_name]
+
+    ordered = None
 
     # stations de la fenêtre -> accroches
     window = []
     for back in range(FENETRE_JOURS):
         window += pins_for_day(ordered, today - timedelta(days=back))
     uniq = list({s["name"]: s for s in window}.values())
-    hooks = ensure_hooks(uniq)
+    hooks = apply_manual(ensure_hooks(uniq), uniq)
     domaines = load_domaines()
 
     items = []
