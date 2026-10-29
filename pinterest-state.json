@@ -1,0 +1,93 @@
+{
+ "days": {
+  "2026-10-23": [
+   "La Mongie",
+   "Isola 2000",
+   "Flaine"
+  ],
+  "2026-10-24": [
+   "Val Thorens",
+   "La Thuile",
+   "Alpe d'Huez"
+  ],
+  "2026-10-25": [
+   "Les Contamines-Montjoie",
+   "La Rosière",
+   "Combloux"
+  ],
+  "2026-10-26": [
+   "Morzine",
+   "La Plagne",
+   "Saint-Véran"
+  ],
+  "2026-10-27": [
+   "Méribel",
+   "Saint-Lary-Soulan",
+   "Les Saisies"
+  ],
+  "2026-10-28": [
+   "Tignes",
+   "Les Gets",
+   "Serre Chevalier"
+  ],
+  "2026-10-29": [
+   "Sainte-Foy-Tarentaise",
+   "Avoriaz",
+   "Les Houches"
+  ]
+ },
+ "seen": [
+  "Alpe d'Huez",
+  "Auris-en-Oisans",
+  "Avoriaz",
+  "Barèges",
+  "Chamonix",
+  "Chamrousse",
+  "Châtel",
+  "Combloux",
+  "Courchevel",
+  "Flaine",
+  "Isola 2000",
+  "La Bresse-Hohneck",
+  "La Clusaz",
+  "La Grave - La Meije",
+  "La Mongie",
+  "La Plagne",
+  "La Rosière",
+  "La Tania",
+  "La Thuile",
+  "Le Grand-Bornand",
+  "Le Lioran",
+  "Les 7 Laux",
+  "Les Arcs",
+  "Les Contamines-Montjoie",
+  "Les Deux Alpes",
+  "Les Gets",
+  "Les Houches",
+  "Les Karellis",
+  "Les Menuires",
+  "Les Saisies",
+  "Megève",
+  "Molines-en-Queyras",
+  "Morzine",
+  "Méribel",
+  "Métabief Mont d'Or",
+  "Pralognan-la-Vanoise",
+  "Saint-François-Longchamp",
+  "Saint-Gervais",
+  "Saint-Lary-Soulan",
+  "Saint-Martin-de-Belleville",
+  "Saint-Véran",
+  "Sainte-Foy-Tarentaise",
+  "Serre Chevalier",
+  "Super Besse",
+  "Superdévoluy",
+  "Tignes",
+  "Val Cenis",
+  "Val Thorens",
+  "Val d'Isère",
+  "Valloire",
+  "Valmorel",
+  "Vars"
+ ]
+}
