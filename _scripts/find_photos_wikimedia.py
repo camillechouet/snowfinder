@@ -20,7 +20,7 @@ Usage : python3 _scripts/find_photos_wikimedia.py [--limit 40] [--offset 0] [--o
 """
 import os, re, sys, json, csv, time, html, argparse, unicodedata, urllib.request, urllib.parse, urllib.error, io
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageStat
 
 ROOT = os.environ.get("SF_ROOT") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 API = "https://commons.wikimedia.org/w/api.php"
@@ -28,11 +28,17 @@ UA = "SnowFinderPhotoBot/1.0 (https://snowfinder.fr; photos libres pour fiches d
 OUT = os.path.join(ROOT, "photos-out")
 MAX_W = 2000
 MIN_W, MIN_H = 1500, 900
+MIN_SCORE = 6.0      # sous ce score, la photo n'est pas proposée
+N_KEEP = 3           # 1 principale + 2 alternatives (dossier autres/)
+MIN_SATURATION = 0.10  # refuse le noir et blanc / photos très ternes
 FONT_REG = ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "/usr/share/fonts/dejavu/DejaVuSans.ttf"]
 
 BAD_TITLE = re.compile(r"\b(map|carte|plan|logo|panneau|sign|diagram|schema|schéma|poster|affiche|flyer|"
                        r"portrait|interior|intérieur|parking|bus|train|car|voiture|facture|document|blason|"
-                       r"coat of arms|flag|drapeau)\b", re.I)
+                       r"coat of arms|flag|drapeau|anefo|bestanddeelnr|royal|koninklijke|prins|prince|princess|king|queen|"
+                       r"president|président|minister|ministre|visit|visite|meeting|interview|vacation|vakantie|"
+                       r"championship|championnat|world cup|coupe du monde|race|course|athlete|biathlon|olympic|"
+                       r"olympique|ceremony|cérémonie|crash|accident|wreck|fire|incendie)\b", re.I)
 WINTER = re.compile(r"\b(ski|skiing|piste|pistes|neige|snow|snowy|hiver|winter|télésiège|telesiege|chairlift|"
                     r"remontée|remontee|cable|téléphérique|station|resort|enneigé|poudreuse)\b", re.I)
 SUMMER = re.compile(r"\b(été|summer|hiking|randonnée|vtt|bike|biking|lac|lake|fleur|flower|vache|cow)\b", re.I)
@@ -136,9 +142,10 @@ def score_candidate(page, station):
             "license": meta(info, "LicenseShortName") or meta(info, "UsageTerms")}
 
 
-def best_for(station):
+def candidates_for(station):
+    """Candidats triés par score décroissant (sans doublons de titre)."""
     queries = [f'"{station["name"]}" ski', f'"{station["name"]}" neige', f'"{station["name"]}"']
-    best = None
+    found = {}
     for q in queries:
         try:
             pages = api_search(q)
@@ -148,11 +155,16 @@ def best_for(station):
         time.sleep(1)
         for p in pages:
             c = score_candidate(p, station)
-            if c and (best is None or c["score"] > best["score"]):
-                best = c
-        if best and best["score"] >= 8:
+            if c and c["score"] >= MIN_SCORE and c["title"] not in found:
+                found[c["title"]] = c
+        if len(found) >= 6 and max(c["score"] for c in found.values()) >= 8:
             break
-    return best
+    return sorted(found.values(), key=lambda c: -c["score"])
+
+
+def best_for(station):
+    cs = candidates_for(station)
+    return cs[0] if cs else None
 
 
 # ── Crédit gravé sur l'image ──────────────────────────────────────────
@@ -198,17 +210,31 @@ def burn_credit(img, text):
     return img.convert("RGB")
 
 
-def process(station, cand):
+def too_dull(img):
+    """True si la photo est (presque) en noir et blanc."""
+    return ImageStat.Stat(img.convert("HSV").getchannel("S")).mean[0] / 255.0 < MIN_SATURATION
+
+
+def process(station, cand, rank=0):
+    """rank 0 = photo principale (racine) ; 1, 2 = alternatives (dossier autres/).
+    Renvoie le chemin relatif écrit, ou None si la photo est refusée (noir et blanc)."""
     url = cand["info"].get("thumburl") or cand["info"].get("url")
     raw = http_get(url, binary=True)
     img = Image.open(io.BytesIO(raw)).convert("RGB")
+    if too_dull(img):
+        return None
     if img.width > MAX_W:
         img = img.resize((MAX_W, int(img.height * MAX_W / img.width)), Image.LANCZOS)
     if cand["kind"] == "by":
         img = burn_credit(img, credit_text(cand))
-    fname = f"{photo_slug(station['name'])}1.jpg"
-    img.save(os.path.join(OUT, fname), "JPEG", quality=85, optimize=True)
-    return fname
+    base = photo_slug(station["name"])
+    if rank == 0:
+        rel = f"{base}1.jpg"
+    else:
+        rel = os.path.join("autres", f"{base}1-{'bc'[rank - 1]}.jpg")
+    os.makedirs(os.path.dirname(os.path.join(OUT, rel)) or OUT, exist_ok=True)
+    img.save(os.path.join(OUT, rel), "JPEG", quality=85, optimize=True)
+    return rel
 
 
 def main():
@@ -233,25 +259,33 @@ def main():
     for i, s in enumerate(batch, 1):
         print(f"[{i}/{len(batch)}] {s['name']}")
         try:
-            c = best_for(s)
-            if not c:
-                missing.append(s["name"]); print("   — aucune photo exploitable"); continue
-            fname = process(s, c)
-            rows.append([s["name"], fname, c["title"], re.sub(r"\s+", " ", c["artist"]), c["license"],
-                         c["page_url"], round(c["score"], 1), c["w"]])
-            print(f"   ✓ {fname} ({c['license']}, score {c['score']:.1f})")
+            kept = 0
+            for c in candidates_for(s):
+                rel = process(s, c, rank=kept)
+                if rel is None:
+                    print(f"   — refusée (noir et blanc) : {c['title'][:60]}")
+                    continue
+                rows.append([s["name"], rel.replace(os.sep, "/"), "principale" if kept == 0 else "alternative",
+                             c["title"], re.sub(r"\s+", " ", c["artist"]), c["license"],
+                             c["page_url"], round(c["score"], 1), c["w"]])
+                print(f"   ✓ {rel} ({c['license']}, score {c['score']:.1f})")
+                kept += 1
+                if kept >= N_KEEP:
+                    break
+            if not kept:
+                missing.append(s["name"]); print("   — aucune photo exploitable")
         except Exception as e:  # noqa: BLE001
             missing.append(s["name"]); print(f"   ⚠ échec : {e!r}")
         time.sleep(1)
 
     with open(os.path.join(OUT, "liste.csv"), "w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f, delimiter=";")
-        w.writerow(["station", "fichier", "titre Commons", "auteur", "licence", "page Commons", "score", "largeur"])
+        w.writerow(["station", "fichier", "rang", "titre Commons", "auteur", "licence", "page Commons", "score", "largeur"])
         w.writerows(rows)
     with open(os.path.join(OUT, "non-trouvees.txt"), "w", encoding="utf-8") as f:
         f.write("\n".join(missing) + "\n")
     nxt = a.offset + a.limit
-    print(f"✓ {len(rows)} photos, {len(missing)} sans résultat. Prochain lot : offset = {nxt} (reste {max(total - nxt, 0)})")
+    print(f"✓ {len({r[0] for r in rows})} stations avec photo ({len(rows)} fichiers), {len(missing)} sans résultat. Prochain lot : offset = {nxt} (reste {max(total - nxt, 0)})")
     return 0
 
 
