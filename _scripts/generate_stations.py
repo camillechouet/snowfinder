@@ -2858,8 +2858,8 @@ OFFICIAL_URLS = {
     "Les Deux Alpes":               "https://www.les2alpes.com",
     "Auris-en-Oisans":              "https://www.auris-en-oisans.com",
     "Alpe du Grand Serre":          "https://www.algrandserre.com",
-    "Villard-de-Lans":              "https://www.villarddelans.com",
-    "Corrençon-en-Vercors":         "https://www.correncon.com",
+    "Villard-de-Lans":              "https://www.villardcorrencon.com/fr/",
+    "Corrençon-en-Vercors":         "https://www.villardcorrencon.com/fr/",
     "Autrans-Méaudre":              "https://www.autrans-meaudre.fr",
     "Lans-en-Vercors":              "https://www.lans-en-vercors.fr",
     # HAUTES-ALPES / BRIANÇONNAIS
