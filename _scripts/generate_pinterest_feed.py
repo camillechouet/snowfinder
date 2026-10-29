@@ -244,17 +244,24 @@ def make_pin(station, photo_path, out_path, hook=None, domaine=None):
 
 # ── Accroches (écrites une fois par l'IA, mémorisées) ────────────────
 HOOKS_PATH = os.path.join(ROOT, "pinterest-hooks.json")
-HOOK_MODEL = os.environ.get("PIN_HOOK_MODEL", "claude-haiku-5-5")
+HOOK_MODEL = os.environ.get("PIN_HOOK_MODEL", "claude-sonnet-5-5")
 HOOK_SYSTEM = (
     "Tu écris des accroches pour des épingles Pinterest de stations de ski françaises et européennes. "
-    "Pour CHAQUE station, écris UNE accroche de 25 à 60 caractères qui donne envie de cliquer : "
-    "l'atout n°1 de la station, concret et séduisant, comme « Skiez au-dessus des nuages » ou "
-    "« 600 km de pistes, un seul forfait ». Règles strictes : tu t'appuies UNIQUEMENT sur la fiche fournie ; "
-    "tout chiffre doit figurer dans la fiche ; aucun superlatif (meilleur, n°1, plus grand...) sauf s'il est "
-    "écrit dans la fiche ; pas de point d'exclamation, pas d'emoji, pas de guillemets, pas de nom de la station "
-    "dans l'accroche ; pas de majuscules sur chaque mot. Réponds UNIQUEMENT par un objet JSON "
+    "Objectif : donner envie de cliquer. Pour CHAQUE station, écris UNE accroche de 25 à 50 caractères qui "
+    "promet un bénéfice ou éveille la curiosité, à partir de l'atout n°1 de la station : ce que le skieur va "
+    "vivre, ressentir ou trouver là-bas. Ton chaleureux et imagé, phrase courte, souvent à l'impératif. "
+    "Exemples de style : « Skiez au-dessus des nuages », « Le grand huit des 3 Vallées », "
+    "« Le ski en famille, sans stress », « Un glacier pour skier jusqu'en mai », "
+    "« Glissez jusqu'au pied du village ». "
+    "Règles strictes : l'image peut être évocatrice, mais le fait qui la porte doit figurer dans la fiche "
+    "fournie (n'invente rien) ; tout chiffre doit figurer dans la fiche ; aucun superlatif (meilleur, n°1, "
+    "plus grand...) sauf s'il est écrit dans la fiche ; INTERDIT : labels et jargon administratif "
+    "(« Label Famille Plus », classements, appellations), simple liste de caractéristiques, dates d'histoire, "
+    "point d'exclamation, emoji, guillemets, nom de la station, majuscules sur chaque mot. "
+    "Deux stations ne doivent pas avoir la même accroche. Réponds UNIQUEMENT par un objet JSON "
     "{\"Nom exact de la station\": \"accroche\", ...}."
 )
+PROMPT_VERSION = "v2"   # change-la pour faire réécrire toutes les accroches
 NUM_RE = re.compile(r"\d+")
 
 
@@ -297,14 +304,19 @@ def fallback_hook(s):
 def load_hooks():
     try:
         with open(HOOKS_PATH, encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
     except Exception:  # noqa: BLE001
         return {}
+    if data.get("_prompt") != PROMPT_VERSION:
+        print("ℹ consignes d'accroches modifiées : toutes les accroches seront réécrites")
+        return {}
+    return data
 
 
 def ensure_hooks(needed):
     """needed : stations de la fenêtre. Écrit les accroches manquantes (1 appel par lot)."""
     hooks = load_hooks()
+    hooks.pop("_prompt", None)
     missing = [s for s in needed if not hook_ok(hooks.get(s["name"]), s)]
     print(f"ℹ accroches : {len(needed) - len(missing)} déjà valides, {len(missing)} à écrire")
     if missing and os.environ.get("ANTHROPIC_API_KEY"):
@@ -342,8 +354,8 @@ def ensure_hooks(needed):
         except Exception as e:  # noqa: BLE001
             print("⚠ accroches IA indisponibles :", repr(e))
         with open(HOOKS_PATH, "w", encoding="utf-8") as f:
-            json.dump(hooks, f, ensure_ascii=False, indent=1, sort_keys=True)
-        print(f"ℹ pinterest-hooks.json : {len(hooks)} accroches enregistrées")
+            json.dump({**hooks, "_prompt": PROMPT_VERSION}, f, ensure_ascii=False, indent=1, sort_keys=True)
+        print(f"ℹ pinterest-hooks.json : {len([k for k in hooks if k != '_prompt'])} accroches enregistrées")
     elif missing:
         print("ℹ pas de clé API (ANTHROPIC_API_KEY) : repli sur les points forts de la fiche pour", len(missing), "stations")
     return hooks
