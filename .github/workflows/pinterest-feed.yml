@@ -37,7 +37,7 @@ jobs:
           fi
           git config user.name "SnowFinder Bot"
           git config user.email "bot@snowfinder.fr"
-          git add pinterest-feed.xml pinterest-hooks.json img/pins
+          git add pinterest-feed.xml pinterest-hooks.json pinterest-state.json img/pins
           git commit -m "📌 Flux Pinterest du jour"
           git pull --rebase origin main
           git push origin HEAD:main
