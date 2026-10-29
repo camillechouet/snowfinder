@@ -30,7 +30,10 @@ MAX_W = 2000
 MIN_W, MIN_H = 1500, 900
 MIN_SCORE = 6.0      # sous ce score, la photo n'est pas proposée
 N_KEEP = 3           # 1 principale + 2 alternatives (dossier autres/)
-MIN_SATURATION = 0.10  # refuse le noir et blanc / photos très ternes
+MIN_SATURATION = 0.04  # refuse le noir et blanc (une photo de neige reste peu saturée : ne pas monter)
+MIN_BRIGHT = 0.40      # refuse les photos de nuit
+MAX_GREEN = 0.20       # refuse les photos d'été (beaucoup d'herbe)
+MIN_SNOW = 0.12        # refuse les photos sans neige visible
 FONT_REG = ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "/usr/share/fonts/dejavu/DejaVuSans.ttf"]
 
 BAD_TITLE = re.compile(r"\b(map|carte|plan|logo|panneau|sign|diagram|schema|schéma|poster|affiche|flyer|"
@@ -38,7 +41,11 @@ BAD_TITLE = re.compile(r"\b(map|carte|plan|logo|panneau|sign|diagram|schema|sch�
                        r"coat of arms|flag|drapeau|anefo|bestanddeelnr|royal|koninklijke|prins|prince|princess|king|queen|"
                        r"president|président|minister|ministre|visit|visite|meeting|interview|vacation|vakantie|"
                        r"championship|championnat|world cup|coupe du monde|race|course|athlete|biathlon|olympic|"
-                       r"olympique|ceremony|cérémonie|crash|accident|wreck|fire|incendie)\b", re.I)
+                       r"olympique|ceremony|cérémonie|crash|accident|wreck|fire|incendie|"
+                       r"church|kirche|chiesa|chapelle|chapel|crocifisso|crucifix|interno|interior|innen|bahnhof|"
+                       r"stadion|stadium|hotel|villa|castle|burg|ruine|ruins|carnaval|carnival|procession|pride|"
+                       r"kuhstall|hexenkuche|hexenküche|restaurant|bar|pub|apres|après|brücke|bridge|bench|"
+                       r"bahn station|railway|gare|tunnel|cemetery|friedhof|museum|musée)\b", re.I)
 WINTER = re.compile(r"\b(ski|skiing|piste|pistes|neige|snow|snowy|hiver|winter|télésiège|telesiege|chairlift|"
                     r"remontée|remontee|cable|téléphérique|station|resort|enneigé|poudreuse)\b", re.I)
 SUMMER = re.compile(r"\b(été|summer|hiking|randonnée|vtt|bike|biking|lac|lake|fleur|flower|vache|cow)\b", re.I)
@@ -210,19 +217,38 @@ def burn_credit(img, text):
     return img.convert("RGB")
 
 
+def image_problem(img):
+    """None si la photo a l'air d'une photo d'hiver de jour ; sinon la raison du refus."""
+    import numpy as np
+    t = img.copy(); t.thumbnail((400, 400))
+    hsv = np.asarray(t.convert("HSV")).astype(float) / 255
+    a = np.asarray(t).astype(float) / 255
+    sat, val = hsv[..., 1], hsv[..., 2]
+    if sat.mean() < MIN_SATURATION:
+        return "noir et blanc"
+    if val.mean() < MIN_BRIGHT:
+        return "trop sombre (nuit ?)"
+    r, g, b = a[..., 0], a[..., 1], a[..., 2]
+    if ((g > r * 1.08) & (g > b * 1.08) & (val > 0.2)).mean() > MAX_GREEN:
+        return "trop d'herbe (été ?)"
+    if ((sat < 0.30) & (val > 0.62)).mean() < MIN_SNOW:
+        return "pas assez de neige"
+    return None
+
+
 def too_dull(img):
-    """True si la photo est (presque) en noir et blanc."""
-    return ImageStat.Stat(img.convert("HSV").getchannel("S")).mean[0] / 255.0 < MIN_SATURATION
+    return image_problem(img) is not None
 
 
 def process(station, cand, rank=0):
     """rank 0 = photo principale (racine) ; 1, 2 = alternatives (dossier autres/).
-    Renvoie le chemin relatif écrit, ou None si la photo est refusée (noir et blanc)."""
+    Renvoie le chemin relatif écrit, ou la raison du refus (texte) si la photo est refusée."""
     url = cand["info"].get("thumburl") or cand["info"].get("url")
     raw = http_get(url, binary=True)
     img = Image.open(io.BytesIO(raw)).convert("RGB")
-    if too_dull(img):
-        return None
+    prob = image_problem(img)
+    if prob:
+        return prob
     if img.width > MAX_W:
         img = img.resize((MAX_W, int(img.height * MAX_W / img.width)), Image.LANCZOS)
     if cand["kind"] == "by":
@@ -262,8 +288,8 @@ def main():
             kept = 0
             for c in candidates_for(s):
                 rel = process(s, c, rank=kept)
-                if rel is None:
-                    print(f"   — refusée (noir et blanc) : {c['title'][:60]}")
+                if rel in ("noir et blanc", "trop sombre (nuit ?)", "trop d'herbe (été ?)", "pas assez de neige"):
+                    print(f"   — refusée ({rel}) : {c['title'][:60]}")
                     continue
                 rows.append([s["name"], rel.replace(os.sep, "/"), "principale" if kept == 0 else "alternative",
                              c["title"], re.sub(r"\s+", " ", c["artist"]), c["license"],
