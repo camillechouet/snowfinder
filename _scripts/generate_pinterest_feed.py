@@ -245,6 +245,7 @@ def make_pin(station, photo_path, out_path, hook=None, domaine=None):
 # ── Accroches (écrites une fois par l'IA, mémorisées) ────────────────
 HOOKS_PATH = os.path.join(ROOT, "pinterest-hooks.json")
 HOOK_MODEL = os.environ.get("PIN_HOOK_MODEL", "claude-sonnet-5-5")
+HOOK_FALLBACK_MODELS = ["claude-haiku-5-5"]
 HOOK_SYSTEM = (
     "Tu écris des accroches pour des épingles Pinterest de stations de ski françaises et européennes. "
     "Objectif : donner envie de cliquer. Pour CHAQUE station, écris UNE accroche de 25 à 50 caractères qui "
@@ -313,8 +314,28 @@ def load_hooks():
     return data
 
 
+def _ask_hooks(client, model, fiches):
+    """Un appel : renvoie (dict d'accroches ou None). Journalise toute réponse vide."""
+    msg = client.messages.create(
+        model=model, max_tokens=8000, system=HOOK_SYSTEM,
+        messages=[{"role": "user", "content":
+                   "Fiches des stations (JSON) :\n" + json.dumps(fiches, ensure_ascii=False) +
+                   "\n\nRéponds maintenant uniquement par l'objet JSON demandé."}])
+    txt = "".join(b.text for b in msg.content if getattr(b, "type", "") == "text")
+    if not txt.strip():
+        types = [getattr(b, "type", "?") for b in msg.content]
+        print(f"⚠ réponse vide ({model}) : stop_reason={msg.stop_reason}, blocs={types}")
+        return None
+    try:
+        return json.loads(txt[txt.find("{"):txt.rfind("}") + 1])
+    except Exception:  # noqa: BLE001
+        print(f"⚠ réponse illisible ({model}) : {txt[:200]!r}")
+        return None
+
+
 def ensure_hooks(needed):
-    """needed : stations de la fenêtre. Écrit les accroches manquantes (1 appel par lot)."""
+    """needed : stations de la fenêtre. Écrit les accroches manquantes.
+    Ordre : lot de 20 avec le modèle principal, puis modèle de secours, puis station par station."""
     hooks = load_hooks()
     hooks.pop("_prompt", None)
     missing = [s for s in needed if not hook_ok(hooks.get(s["name"]), s)]
@@ -323,34 +344,46 @@ def ensure_hooks(needed):
         try:
             import anthropic
             client = anthropic.Anthropic()
-            for i in range(0, len(missing), 20):
-                batch = missing[i:i + 20]
-                fiches = [{"name": s["name"], "massif": s["massif"], "desc": s.get("desc"),
-                           "pts": s.get("pts"), "desc_long": (s.get("desc_long") or "")[:600],
-                           "alt_max": s.get("alt_max"), "km": s.get("km")} for s in batch]
-                for essai in range(3):
-                    msg = client.messages.create(
-                        model=HOOK_MODEL, max_tokens=3000, system=HOOK_SYSTEM,
-                        messages=[{"role": "user", "content": json.dumps(
-                            [f for f in fiches if f["name"] in {b_["name"] for b_ in batch}], ensure_ascii=False)}])
-                    txt = "".join(b.text for b in msg.content if getattr(b, "type", "") == "text")
-                    try:
-                        got = json.loads(txt[txt.find("{"):txt.rfind("}") + 1])
-                    except Exception:  # noqa: BLE001
-                        print(f"⚠ réponse IA illisible (essai {essai + 1}) : {txt[:200]!r}")
+
+            def fiche(s):
+                return {"name": s["name"], "massif": s["massif"], "desc": s.get("desc"),
+                        "pts": s.get("pts"), "desc_long": (s.get("desc_long") or "")[:600],
+                        "alt_max": s.get("alt_max"), "km": s.get("km")}
+
+            def absorb(got, batch):
+                norm = {slugify(k): v for k, v in (got or {}).items()}
+                for s in batch:
+                    h = (got or {}).get(s["name"]) or norm.get(slugify(s["name"]))
+                    if h is None:
                         continue
-                    norm = {slugify(k): v for k, v in got.items()}
-                    for s in batch:
-                        h = got.get(s["name"]) or norm.get(slugify(s["name"]))
-                        why = hook_reason(h, s)
-                        if why is None:
-                            hooks[s["name"]] = h.strip()
-                        else:
-                            print(f"⚠ accroche rejetée pour {s['name']} ({why}) : {h!r}")
-                    batch = [s for s in batch if not hook_ok(hooks.get(s["name"]), s)]
-                    if not batch:
-                        break
-                    print(f"ℹ nouvel essai pour {len(batch)} station(s)")
+                    why = hook_reason(h, s)
+                    if why is None and any(v == (h or "").strip() for k, v in hooks.items() if k != s["name"]):
+                        why = "identique à celle d'une autre station"
+                    if why is None:
+                        hooks[s["name"]] = h.strip()
+                    else:
+                        print(f"⚠ accroche rejetée pour {s['name']} ({why}) : {h!r}")
+
+            def todo(batch):
+                return [s for s in batch if not hook_ok(hooks.get(s["name"]), s)]
+
+            models = [HOOK_MODEL] + [m for m in HOOK_FALLBACK_MODELS if m != HOOK_MODEL]
+            for i in range(0, len(missing), 15):
+                batch = missing[i:i + 15]
+                for model in models:
+                    for _ in range(2):
+                        if not batch:
+                            break
+                        absorb(_ask_hooks(client, model, [fiche(s) for s in batch]), batch)
+                        batch = todo(batch)
+                # dernier recours : une station à la fois
+                for s in batch:
+                    for model in models:
+                        absorb(_ask_hooks(client, model, [fiche(s)]), [s])
+                        if hook_ok(hooks.get(s["name"]), s):
+                            break
+                for s in todo(missing[i:i + 15]):
+                    print(f"⚠ pas d'accroche IA pour {s['name']} : repli sur la fiche")
         except Exception as e:  # noqa: BLE001
             print("⚠ accroches IA indisponibles :", repr(e))
         with open(HOOKS_PATH, "w", encoding="utf-8") as f:
