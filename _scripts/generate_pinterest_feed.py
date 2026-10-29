@@ -19,7 +19,7 @@ Seules les photos déjà présentes dans img/ sont utilisées ; le crédit
 Usage : python3 _scripts/generate_pinterest_feed.py [--date AAAA-MM-JJ]
 Nécessite Pillow (pip install pillow).
 """
-import os, re, json, random, unicodedata, sys, argparse, time
+import os, re, json, random, unicodedata, sys, argparse, time, hashlib
 from datetime import date, datetime, timedelta, timezone
 from email.utils import format_datetime
 from xml.sax.saxutils import escape
@@ -247,7 +247,7 @@ HOOKS_PATH = os.path.join(ROOT, "pinterest-hooks.json")
 HOOK_MODEL = os.environ.get("PIN_HOOK_MODEL", "claude-haiku-5-5")
 HOOK_SYSTEM = (
     "Tu écris des accroches pour des épingles Pinterest de stations de ski françaises et européennes. "
-    "Pour CHAQUE station, écris UNE accroche de 25 à 55 caractères qui donne envie de cliquer : "
+    "Pour CHAQUE station, écris UNE accroche de 25 à 60 caractères qui donne envie de cliquer : "
     "l'atout n°1 de la station, concret et séduisant, comme « Skiez au-dessus des nuages » ou "
     "« 600 km de pistes, un seul forfait ». Règles strictes : tu t'appuies UNIQUEMENT sur la fiche fournie ; "
     "tout chiffre doit figurer dans la fiche ; aucun superlatif (meilleur, n°1, plus grand...) sauf s'il est "
@@ -263,19 +263,27 @@ def fiche_text(s):
         " " + " ".join(str(s.get(k, "")) for k in ("alt_min", "alt_max", "km", "remontees", "forfait"))
 
 
-def hook_ok(hook, s):
+def hook_reason(hook, s):
+    """None si l'accroche est valable, sinon la raison du rejet."""
     if not isinstance(hook, str):
-        return False
+        return "pas du texte"
     h = hook.strip()
-    if not (15 <= len(h) <= 62) or "!" in h or '"' in h or "«" in h:
-        return False
+    if not (15 <= len(h) <= 70):
+        return f"longueur {len(h)} (15-70 attendus)"
+    if "!" in h or '"' in h or "«" in h or "»" in h:
+        return "ponctuation interdite (! ou guillemets)"
     src = fiche_text(s)
-    if any(n not in src for n in NUM_RE.findall(h)):
-        return False
+    for n in NUM_RE.findall(h):
+        if n not in src:
+            return f"chiffre {n} absent de la fiche"
     for w in ("meilleur", "numéro 1", "n°1", "incontournable", "plus grand", "plus haut", "le plus"):
         if w in h.lower() and w not in src.lower():
-            return False
-    return True
+            return f"superlatif « {w} » absent de la fiche"
+    return None
+
+
+def hook_ok(hook, s):
+    return hook_reason(hook, s) is None
 
 
 def fallback_hook(s):
@@ -298,6 +306,7 @@ def ensure_hooks(needed):
     """needed : stations de la fenêtre. Écrit les accroches manquantes (1 appel par lot)."""
     hooks = load_hooks()
     missing = [s for s in needed if not hook_ok(hooks.get(s["name"]), s)]
+    print(f"ℹ accroches : {len(needed) - len(missing)} déjà valides, {len(missing)} à écrire")
     if missing and os.environ.get("ANTHROPIC_API_KEY"):
         try:
             import anthropic
@@ -307,28 +316,36 @@ def ensure_hooks(needed):
                 fiches = [{"name": s["name"], "massif": s["massif"], "desc": s.get("desc"),
                            "pts": s.get("pts"), "desc_long": (s.get("desc_long") or "")[:600],
                            "alt_max": s.get("alt_max"), "km": s.get("km")} for s in batch]
-                for _ in range(2):
+                for essai in range(3):
                     msg = client.messages.create(
-                        model=HOOK_MODEL, max_tokens=2000, system=HOOK_SYSTEM,
-                        messages=[{"role": "user", "content": json.dumps(fiches, ensure_ascii=False)}])
+                        model=HOOK_MODEL, max_tokens=3000, system=HOOK_SYSTEM,
+                        messages=[{"role": "user", "content": json.dumps(
+                            [f for f in fiches if f["name"] in {b_["name"] for b_ in batch}], ensure_ascii=False)}])
                     txt = "".join(b.text for b in msg.content if getattr(b, "type", "") == "text")
                     try:
                         got = json.loads(txt[txt.find("{"):txt.rfind("}") + 1])
                     except Exception:  # noqa: BLE001
+                        print(f"⚠ réponse IA illisible (essai {essai + 1}) : {txt[:200]!r}")
                         continue
+                    norm = {slugify(k): v for k, v in got.items()}
                     for s in batch:
-                        h = got.get(s["name"])
-                        if hook_ok(h, s):
+                        h = got.get(s["name"]) or norm.get(slugify(s["name"]))
+                        why = hook_reason(h, s)
+                        if why is None:
                             hooks[s["name"]] = h.strip()
+                        else:
+                            print(f"⚠ accroche rejetée pour {s['name']} ({why}) : {h!r}")
                     batch = [s for s in batch if not hook_ok(hooks.get(s["name"]), s)]
                     if not batch:
                         break
+                    print(f"ℹ nouvel essai pour {len(batch)} station(s)")
         except Exception as e:  # noqa: BLE001
-            print("⚠ accroches IA indisponibles :", e)
+            print("⚠ accroches IA indisponibles :", repr(e))
         with open(HOOKS_PATH, "w", encoding="utf-8") as f:
             json.dump(hooks, f, ensure_ascii=False, indent=1, sort_keys=True)
+        print(f"ℹ pinterest-hooks.json : {len(hooks)} accroches enregistrées")
     elif missing:
-        print("ℹ pas de clé API : repli sur les points forts de la fiche pour", len(missing), "stations")
+        print("ℹ pas de clé API (ANTHROPIC_API_KEY) : repli sur les points forts de la fiche pour", len(missing), "stations")
     return hooks
 
 
@@ -411,7 +428,9 @@ def main():
         day = today - timedelta(days=back)
         for j, s in enumerate(pins_for_day(ordered, day)):
             slug = slugify(s["name"])
-            fname = f"{slug}-{PIN_VERSION}.jpg"
+            h_ = hooks.get(s["name"]) if hook_ok(hooks.get(s["name"]), s) else fallback_hook(s)
+            tag = hashlib.md5((h_ or "").encode("utf-8")).hexdigest()[:6]
+            fname = f"{slug}-{PIN_VERSION}-{tag}.jpg"
             keep_files.add(fname)
             out = os.path.join(ROOT, "img", "pins", fname)
             if not os.path.exists(out):
