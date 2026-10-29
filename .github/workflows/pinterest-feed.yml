@@ -21,10 +21,12 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Installer Pillow
-        run: pip install pillow
+      - name: Installer Pillow et le client Anthropic
+        run: pip install pillow anthropic
 
-      - name: Générer images + flux
+      - name: Générer accroches + images + flux
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python3 _scripts/generate_pinterest_feed.py
 
       - name: Publier
@@ -35,7 +37,7 @@ jobs:
           fi
           git config user.name "SnowFinder Bot"
           git config user.email "bot@snowfinder.fr"
-          git add pinterest-feed.xml img/pins
+          git add pinterest-feed.xml pinterest-hooks.json img/pins
           git commit -m "📌 Flux Pinterest du jour"
           git pull --rebase origin main
           git push origin HEAD:main
