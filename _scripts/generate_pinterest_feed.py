@@ -57,12 +57,26 @@ def photo_slug(name):  # identique à to_photo_slug()
     return re.sub(r'[^a-z0-9]', '', n.lower())
 
 
-def find_photo(name):
-    ps = photo_slug(name)
+def _first_existing(base):
     for ext in ('jpg', 'jpeg', 'png', 'webp', 'JPG', 'JPEG', 'PNG', 'WEBP'):
-        p = os.path.join(ROOT, 'img', f'{ps}1.{ext}')
+        p = os.path.join(ROOT, 'img', f'{base}.{ext}')
         if os.path.exists(p):
             return p
+    return None
+
+
+def find_photo(name, station=None, domaine=None):
+    """1) photo propre de la station (img/<slug>1.jpg) ; 2) fichier indiqué dans le champ
+    « photo » de la fiche ; 3) photo du domaine skiable relié (img/<domaine>1.jpg)."""
+    p = _first_existing(f'{photo_slug(name)}1')
+    if p:
+        return p
+    if station and station.get("photo"):
+        q = os.path.join(ROOT, station["photo"].lstrip("/"))
+        if os.path.exists(q):
+            return q
+    if domaine:
+        return _first_existing(f'{photo_slug(domaine)}1')
     return None
 
 
@@ -136,15 +150,25 @@ def make_pin(station, photo_path, out_path, hook=None, domaine=None):
 
     MX, MW = 60, W - 120
 
-    # accroche (2 lignes max, taille adaptée)
+    # accroche : UNE ligne si possible (taille 60 -> 38), sinon 2 lignes (60 -> 40)
     hook_lines, hs = [], 60
     if hook:
-        while hs >= 42:
-            fh = load_font(FONT_BOLD, hs)
-            hook_lines = wrap(d, hook, fh, MW - 34)
-            if len(hook_lines) <= 3 and all(d.textlength(l_, font=fh) <= MW - 34 for l_ in hook_lines):
+        found = False
+        for size_ in range(60, 37, -2):
+            fh = load_font(FONT_BOLD, size_)
+            if d.textlength(hook, font=fh) <= MW - 34:
+                hook_lines, hs, found = [hook], size_, True
                 break
-            hs -= 4
+        if not found:
+            for size_ in range(60, 39, -2):
+                fh = load_font(FONT_BOLD, size_)
+                ls = wrap(d, hook, fh, MW - 34)
+                if len(ls) <= 2 and all(d.textlength(l_, font=fh) <= MW - 34 for l_ in ls):
+                    hook_lines, hs, found = ls, size_, True
+                    break
+        if not found:
+            fh = load_font(FONT_BOLD, 40)
+            hook_lines, hs = wrap(d, hook, fh, MW - 34)[:2], 40
         f_hook = load_font(FONT_BOLD, hs)
     hl = hs + 12
 
@@ -321,7 +345,13 @@ def load_stations():
         js = f.read()
     m = re.search(r'window\.SF_DATA\s*=\s*(\[.*\]);', js, re.DOTALL)
     data = json.loads(m.group(1))
-    return [s for s in data if s.get("ok") and find_photo(s["name"])]
+    dom = load_domaines()
+    allok = [s for s in data if s.get("ok")]
+    elig = [s for s in allok if find_photo(s["name"], s, dom.get(s["name"]))]
+    own = sum(1 for s in elig if _first_existing(f'{photo_slug(s["name"])}1'))
+    print(f"ℹ {len(allok)} stations actives : {len(elig)} avec photo exploitable "
+          f"({own} photo propre, {len(elig) - own} via fiche/domaine), {len(allok) - len(elig)} sans photo (ignorées)")
+    return elig
 
 
 def order(stations):
@@ -386,7 +416,7 @@ def main():
             out = os.path.join(ROOT, "img", "pins", fname)
             if not os.path.exists(out):
                 hook = hooks.get(s["name"]) if hook_ok(hooks.get(s["name"]), s) else fallback_hook(s)
-                make_pin(s, find_photo(s["name"]), out, hook=hook, domaine=domaines.get(s["name"]))
+                make_pin(s, find_photo(s["name"], s, domaines.get(s["name"])), out, hook=hook, domaine=domaines.get(s["name"]))
             dt = datetime(day.year, day.month, day.day, 5, 40 + 5 * j, tzinfo=timezone.utc)
             items.append((dt, s, slug, fname, day))
 
