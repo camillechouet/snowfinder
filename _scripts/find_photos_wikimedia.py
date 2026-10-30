@@ -33,11 +33,14 @@ N_KEEP = 3           # 1 principale + 2 alternatives (dossier autres/)
 MIN_SATURATION = 0.04  # refuse le noir et blanc (une photo de neige reste peu saturée : ne pas monter)
 MIN_BRIGHT = 0.40      # refuse les photos de nuit
 MAX_GREEN = 0.045       # refuse les photos d'été (beaucoup d'herbe)
+MIN_SNOW_BAS = 0.045
 MIN_SNOW = 0.12        # refuse les photos sans neige visible
 FONT_REG = ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "/usr/share/fonts/dejavu/DejaVuSans.ttf"]
 
 BAD_TITLE2 = re.compile(r"(triebwagen|lokschuppen|lokomotiv|locomotive|railway|eisenbahn|zillertalbahn|montafonerbahn|"
                         r"rhätische|rhaetische|\bRhB\b|\bGe 4|mtn25|snow vehicle|snow trac|snowcat|pistenraupe|"
+                        r"navette|routi|\broute\b|\brue\b|quartier|maison|sculpture|\besf\b|piou|school|école|ecole|enfant|children|kids|crèche|garderie|"
+                        r"cabane|repère|sentier|randonn|\btrail\b|hike|parapente|paraglid|"
                         r"heli|hubschrauber|helicopter|air-zermatt|\brega\b|bergrettung|rescue|rettung|hund|\bdogs?\b|husk|chien|safari|"
                         r"kapelle|cappella|cimitero|friedhof|cemetery|\bkreuz\b|gipfelkreuz|wegkreuz|chapelle|calvaire|kloster|monastery|abbaye|abbey|santuario|sanctuary|wallfahrt|heilig|"
                         r"secretary|forum|speech|arrives|chancellor|bundesrat|championships|weltcup|gewinner|sieger|winner|\bfis\b|"
@@ -260,6 +263,11 @@ def image_problem(img):
     snow = ImageChops.multiply(s_.point(lambda x: 255 if x < 77 else 0),
                                v.point(lambda x: 255 if x > 158 else 0))
     if _frac(snow) < MIN_SNOW:
+        return "pas assez de neige"
+    # la neige doit aussi couvrir le bas de l'image (les nuages et le ciel clair ne comptent pas)
+    w2, h2 = t.size
+    bas = snow.crop((0, int(h2 * 0.4), w2, h2))
+    if _frac(bas) < MIN_SNOW_BAS:
         return "pas assez de neige"
     return None
 
