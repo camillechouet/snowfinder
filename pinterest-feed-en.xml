@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>SnowFinder — ski resorts</title>
+<link>https://snowfinder.fr/en/</link>
+<description>Compare ski resorts in France and Europe</description>
+<language>en</language>
+<atom:link href="https://snowfinder.fr/pinterest-feed-en.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>Lech: slopes, altitude and lift pass</title>
+<link>https://snowfinder.fr/en/stations/lech.html</link>
+<guid isPermaLink="false">https://snowfinder.fr/en/stations/lech.html#pin-2026-10-30</guid>
+<pubDate>Fri, 30 Oct 2026 15:50:00 +0000</pubDate>
+<description>Glide a 22 km loop through chic Arlberg — Lech: 2,811 m, 300 km of slopes, day pass €82 — Compare ski resorts on SnowFinder.fr</description>
+<enclosure url="https://snowfinder.fr/img/pins-en/lech-v3en-e7e3a1.jpg" length="314004" type="image/jpeg"/>
+<media:content url="https://snowfinder.fr/img/pins-en/lech-v3en-e7e3a1.jpg" medium="image" type="image/jpeg" width="1000" height="1500"/>
+</item>
+<item>
+<title>Kitzbühel: slopes, altitude and lift pass</title>
+<link>https://snowfinder.fr/en/stations/kitzbuhel.html</link>
+<guid isPermaLink="false">https://snowfinder.fr/en/stations/kitzbuhel.html#pin-2026-10-30</guid>
+<pubDate>Fri, 30 Oct 2026 15:45:00 +0000</pubDate>
+<description>Medieval charm meets the Streif's thrill — Kitzbühel: 2,000 m, 188 km of slopes, day pass €83 — Compare ski resorts on SnowFinder.fr</description>
+<enclosure url="https://snowfinder.fr/img/pins-en/kitzbuhel-v3en-3be89f.jpg" length="433754" type="image/jpeg"/>
+<media:content url="https://snowfinder.fr/img/pins-en/kitzbuhel-v3en-3be89f.jpg" medium="image" type="image/jpeg" width="1000" height="1500"/>
+</item>
+<item>
+<title>Zermatt: slopes, altitude and lift pass</title>
+<link>https://snowfinder.fr/en/stations/zermatt.html</link>
+<guid isPermaLink="false">https://snowfinder.fr/en/stations/zermatt.html#pin-2026-10-30</guid>
+<pubDate>Fri, 30 Oct 2026 15:40:00 +0000</pubDate>
+<description>Cross into Italy on skis for lunch — Zermatt: 3,899 m, 322 km of slopes, day pass €123 — Compare ski resorts on SnowFinder.fr</description>
+<enclosure url="https://snowfinder.fr/img/pins-en/zermatt-v3en-4afea1.jpg" length="273386" type="image/jpeg"/>
+<media:content url="https://snowfinder.fr/img/pins-en/zermatt-v3en-4afea1.jpg" medium="image" type="image/jpeg" width="1000" height="1500"/>
+</item>
+<item>
+<title>Val Thorens: slopes, altitude and lift pass</title>
+<link>https://snowfinder.fr/en/stations/val-thorens.html</link>
+<guid isPermaLink="false">https://snowfinder.fr/en/stations/val-thorens.html#pin-2026-10-30</guid>
+<pubDate>Fri, 30 Oct 2026 15:35:00 +0000</pubDate>
+<description>Snow you can count on, November to May — Val Thorens: 3,230 m, 150 km of slopes, day pass €74 — Compare ski resorts on SnowFinder.fr</description>
+<enclosure url="https://snowfinder.fr/img/pins-en/val-thorens-v3en-d89a2d.jpg" length="316024" type="image/jpeg"/>
+<media:content url="https://snowfinder.fr/img/pins-en/val-thorens-v3en-d89a2d.jpg" medium="image" type="image/jpeg" width="1000" height="1500"/>
+</item>
+<item>
+<title>Chamonix: slopes, altitude and lift pass</title>
+<link>https://snowfinder.fr/en/stations/chamonix.html</link>
+<guid isPermaLink="false">https://snowfinder.fr/en/stations/chamonix.html#pin-2026-10-30</guid>
+<pubDate>Fri, 30 Oct 2026 15:30:00 +0000</pubDate>
+<description>Descend 24 km of glacier beneath Mont Blanc — Chamonix: 3,842 m, 110 km of slopes, day pass €77 — Compare ski resorts on SnowFinder.fr</description>
+<enclosure url="https://snowfinder.fr/img/pins-en/chamonix-v3en-e2a1a0.jpg" length="416296" type="image/jpeg"/>
+<media:content url="https://snowfinder.fr/img/pins-en/chamonix-v3en-e2a1a0.jpg" medium="image" type="image/jpeg" width="1000" height="1500"/>
+</item>
+</channel>
+</rss>
