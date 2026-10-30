@@ -36,6 +36,9 @@ MAX_GREEN = 0.06       # refuse les photos d'été (beaucoup d'herbe)
 MIN_SNOW = 0.12        # refuse les photos sans neige visible
 FONT_REG = ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "/usr/share/fonts/dejavu/DejaVuSans.ttf"]
 
+BAD_TITLE2 = re.compile(r"(triebwagen|lokschuppen|lokomotiv|locomotive|railway|eisenbahn|zillertalbahn|montafonerbahn|"
+                        r"rhätische|rhaetische|\bRhB\b|\bGe 4|mtn25|snow vehicle|snow trac|snowcat|pistenraupe|"
+                        r"vehicle|tractor|truck|olympics|\b1[0-8]\d\d\b|\b19[0-4]\d\b)", re.I)
 BAD_TITLE = re.compile(r"\b(map|carte|plan|logo|panneau|sign|diagram|schema|schéma|poster|affiche|flyer|"
                        r"portrait|interior|intérieur|parking|bus|train|car|voiture|facture|document|blason|"
                        r"coat of arms|flag|drapeau|anefo|bestanddeelnr|royal|koninklijke|prins|prince|princess|king|queen|"
@@ -129,7 +132,7 @@ def score_candidate(page, station):
     if not kind:
         return None
     title = re.sub(r"^File:|\.jpe?g$", "", page.get("title", ""), flags=re.I)
-    if BAD_TITLE.search(title):
+    if BAD_TITLE.search(title) or BAD_TITLE2.search(title):
         return None
     desc = meta(info, "ImageDescription")
     cats = meta(info, "Categories")
