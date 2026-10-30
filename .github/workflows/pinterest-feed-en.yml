@@ -1,0 +1,49 @@
+name: Flux Pinterest anglais (épingles du soir)
+
+# Chaque après-midi, prépare 5 images d'épingles EN ANGLAIS (toutes les stations, les plus
+# grandes d'abord) et met à jour pinterest-feed-en.xml. Pinterest lit ce flux (tableau anglais)
+# et publie les nouvelles épingles tout seul. Les liens pointent vers les pages /en/stations/.
+
+on:
+  schedule:
+    - cron: "30 15 * * *"     # tous les jours, 15 h 30 UTC (16 h 30 ou 17 h 30 en France)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pinterest-feed        # jamais en même temps que le flux français
+
+jobs:
+  feed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installer Pillow et le client Anthropic
+        run: pip install pillow anthropic
+
+      - name: Générer accroches + images + flux (anglais)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 _scripts/generate_pinterest_feed.py --lang en
+
+      - name: Publier
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Aucun changement."
+            exit 0
+          fi
+          git config user.name "SnowFinder Bot"
+          git config user.email "bot@snowfinder.fr"
+          for f in pinterest-feed-en.xml pinterest-hooks-en.json pinterest-state-en.json img/pins-en; do
+            [ -e "$f" ] && git add "$f"
+          done
+          git commit -m "📌 Flux Pinterest du jour (EN)"
+          git pull --rebase origin main
+          git push origin HEAD:main
