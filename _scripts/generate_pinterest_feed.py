@@ -16,7 +16,9 @@ de la fiche. Le domaine skiable vient de pinterest-domaines.json.
 Seules les photos déjà présentes dans img/ sont utilisées ; le crédit
 (PHOTO_CREDITS) est repris dans la description de l'épingle.
 
-Usage : python3 _scripts/generate_pinterest_feed.py [--date AAAA-MM-JJ]
+Usage : python3 _scripts/generate_pinterest_feed.py [--lang fr|en] [--date AAAA-MM-JJ]
+  --lang fr (défaut) : stations françaises, textes français  -> pinterest-feed.xml
+  --lang en          : TOUTES les stations, textes anglais, plus grandes d'abord -> pinterest-feed-en.xml
 Nécessite Pillow (pip install pillow).
 """
 import os, re, json, random, unicodedata, sys, argparse, time, hashlib
@@ -27,7 +29,7 @@ from xml.sax.saxutils import escape
 from PIL import Image, ImageDraw, ImageFont
 
 BASE = "https://snowfinder.fr"
-PINS_PAR_JOUR = 3
+PINS_PAR_JOUR = 5
 FENETRE_JOURS = 7
 W, H = 1000, 1500
 SEED = "snowfinder-pinterest-v1"
@@ -42,6 +44,58 @@ PHOTO_CREDITS = {
     "Sainte-Foy-Tarentaise": "David André",
     "Pralognan-la-Vanoise": "Pierre Guilbaud",
 }
+
+LANG = "fr"
+FEED_NAME = "pinterest-feed.xml"
+PIN_DIRNAME = "pins"
+PUB_HOUR = 5
+SITE_PREFIX = ""          # "" (français) ou "/en" (anglais)
+
+MASSIF_EN = {"Alpes du Nord": "Northern Alps", "Alpes du Sud": "Southern Alps", "Pyrénées": "Pyrenees",
+             "Jura": "Jura", "Vosges": "Vosges", "Apennins": "Apennines", "Massif Central": "Massif Central",
+             "Moyenne montagne": "Low mountains", "Corse": "Corsica"}
+PAYS_EN = {"Autriche": "Austria", "Suisse": "Switzerland", "Italie": "Italy", "Allemagne": "Germany",
+           "Espagne": "Spain", "Andorre": "Andorra", "Slovénie": "Slovenia", "Liechtenstein": "Liechtenstein"}
+FLAG_RE = re.compile("[\U0001F1E6-\U0001F1FF]{2}")
+
+
+def is_foreign(s):
+    return bool(FLAG_RE.search(s.get("region") or ""))
+
+
+def pays_en(s):
+    last = FLAG_RE.sub("", (s.get("region") or "").split(",")[-1]).strip()
+    return PAYS_EN.get(last, last)
+
+
+def pin_stats(s):
+    st = []
+    if LANG == "en":
+        if s.get("alt_max"):
+            st.append(f'{int(s["alt_max"]):,} m')
+        if s.get("km"):
+            st.append(f'{s["km"]} km of slopes')
+        if s.get("forfait"):
+            st.append(f'day pass €{s["forfait"]}')
+    else:
+        if s.get("alt_max"):
+            st.append(f'{s["alt_max"]} m')
+        if s.get("km"):
+            st.append(f'{s["km"]} km de pistes')
+        if s.get("forfait"):
+            st.append(f'forfait {s["forfait"]} €')
+    return "  ·  ".join(st)
+
+
+def pin_sub(s, domaine):
+    if LANG == "en":
+        sub = pays_en(s) if is_foreign(s) else MASSIF_EN.get(s["massif"], s["massif"])
+    else:
+        sub = s["massif"]
+    if domaine and domaine.lower() not in s["name"].lower():
+        sub += f"  ·  {domaine}"
+    return sub
+
 
 ROOT = os.environ.get("SF_ROOT") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -187,23 +241,14 @@ def make_pin(station, photo_path, out_path, hook=None, domaine=None):
     lh = size + 8
 
     # ligne massif · domaine (petit)
-    sub = station["massif"]
-    if domaine and domaine.lower() not in name.lower():
-        sub += f"  ·  {domaine}"
+    sub = pin_sub(station, domaine)
     fsb = 36
     while fsb > 24 and d.textlength(sub, font=load_font(FONT_REG, fsb)) > MW:
         fsb -= 2
     f_sub = load_font(FONT_REG, fsb)
 
     # chiffres clés
-    stats = []
-    if station.get("alt_max"):
-        stats.append(f'{station["alt_max"]} m')
-    if station.get("km"):
-        stats.append(f'{station["km"]} km de pistes')
-    if station.get("forfait"):
-        stats.append(f'forfait {station["forfait"]} €')
-    stat_line = "  ·  ".join(stats)
+    stat_line = pin_stats(station)
     fs = 40
     while fs > 26 and d.textlength(stat_line, font=load_font(FONT_BOLD, fs)) > MW:
         fs -= 2
@@ -265,6 +310,23 @@ HOOK_SYSTEM = (
     "Varie les débuts de phrase : au plus une accroche sur quatre commence par « Skiez », et évite de répéter les mêmes tournures (« vrai village », « sans voiture »...) d'une station à l'autre. Deux stations ne doivent pas avoir la même accroche. Réponds UNIQUEMENT par un objet JSON "
     "{\"Nom exact de la station\": \"accroche\", ...}."
 )
+HOOK_SYSTEM_EN = (
+    "You write hooks for Pinterest pins about ski resorts in France and Europe, for an English-speaking audience. "
+    "Goal: make people want to click. For EACH resort, write ONE hook of 25 to 50 characters that promises a "
+    "benefit or sparks curiosity, based on the resort's #1 asset: what the skier will live, feel or find there. "
+    "Warm, vivid tone, short phrase, often imperative. Style examples: « Ski above the clouds », "
+    "« The roller coaster of the 3 Valleys », « Family skiing, zero stress », « A glacier to ski until May », "
+    "« Glide down to the village doorstep ». "
+    "Strict rules: the image may be evocative, but the fact behind it must appear in the sheet provided (invent "
+    "nothing); any number must appear in the sheet (write digits without thousands separators); no superlatives "
+    "(best, biggest, largest, highest, #1, most) unless written in the sheet; FORBIDDEN: labels and administrative "
+    "jargon, plain lists of features, history dates, exclamation marks, emoji, quotation marks, the resort name, "
+    "Title Case On Every Word. Vary sentence openings: at most one hook in four starts with « Ski », and avoid "
+    "repeating the same phrases from one resort to another. Two resorts must never share the same hook. "
+    "The sheets are in French; write the hook in natural English. Reply ONLY with a JSON object "
+    "{\"Exact resort name\": \"hook\", ...}."
+)
+HOOK_SYSTEM_FR = HOOK_SYSTEM
 PROMPT_VERSION = "v2"   # change-la pour faire réécrire toutes les accroches
 NUM_RE = re.compile(r"\d+")
 
@@ -284,10 +346,12 @@ def hook_reason(hook, s):
     if "!" in h or '"' in h or "«" in h or "»" in h:
         return "ponctuation interdite (! ou guillemets)"
     src = fiche_text(s)
-    for n in NUM_RE.findall(h):
+    for n in NUM_RE.findall(re.sub(r"(?<=\d),(?=\d{3})", "", h)):
         if n not in src:
             return f"chiffre {n} absent de la fiche"
-    for w in ("meilleur", "numéro 1", "n°1", "incontournable", "plus grand", "plus haut", "le plus"):
+    sup = ("best", "biggest", "largest", "highest", "number one", "#1", "must-see", "the most", "ultimate") \
+        if LANG == "en" else ("meilleur", "numéro 1", "n°1", "incontournable", "plus grand", "plus haut", "le plus")
+    for w in sup:
         if w in h.lower() and w not in src.lower():
             return f"superlatif « {w} » absent de la fiche"
     return None
@@ -298,6 +362,8 @@ def hook_ok(hook, s):
 
 
 def fallback_hook(s):
+    if LANG == "en":
+        return None            # les points forts de la fiche sont en français : pas de repli en anglais
     for p_ in (s.get("pts") or []):
         p_ = (p_ or "").strip()
         if 15 <= len(p_) <= 62:
@@ -439,7 +505,12 @@ def load_stations():
     data = json.loads(m.group(1))
     dom = load_domaines()
     allok = [s for s in data if s.get("ok")]
+    if LANG == "fr":
+        allok = [s for s in allok if not is_foreign(s)]       # flux français : stations françaises
     elig = [s for s in allok if find_photo(s["name"], s, dom.get(s["name"]))]
+    if LANG == "en" and os.path.isdir(os.path.join(ROOT, "en", "stations")):
+        # on n'épingle que les stations dont la page anglaise existe
+        elig = [s for s in elig if os.path.exists(os.path.join(ROOT, "en", "stations", slugify(s["name"]) + ".html"))]
     own = sum(1 for s in elig if _first_existing(f'{photo_slug(s["name"])}1'))
     print(f"ℹ {len(allok)} stations actives : {len(elig)} avec photo exploitable "
           f"({own} photo propre, {len(elig) - own} via fiche/domaine), {len(allok) - len(elig)} sans photo (ignorées)")
@@ -472,12 +543,22 @@ def pick_day(stations, state, day):
     # station "nouvelle" = éligible aujourd'hui mais pas au passage précédent (photo tout juste ajoutée)
     def is_new(n):
         return bool(seen) and n not in seen
-    cand = sorted(stations, key=lambda s: (0 if is_new(s["name"]) else 1, last.get(s["name"], ""),
-                                           hashlib.md5((SEED + s["name"]).encode("utf-8")).hexdigest()))
+    if LANG == "en":      # les plus grandes d'abord (score), puis rotation sur les moins récemment épinglées
+        cand = sorted(stations, key=lambda s: (last.get(s["name"], ""), -float(s.get("score") or 0), s["name"]))
+    else:
+        cand = sorted(stations, key=lambda s: (0 if is_new(s["name"]) else 1, last.get(s["name"], ""),
+                                               hashlib.md5((SEED + s["name"]).encode("utf-8")).hexdigest()))
     return [s["name"] for s in cand[:PINS_PAR_JOUR]]
 
 
 def description(s, hook=None):
+    if LANG == "en":
+        parts = []
+        if hook:
+            parts.append(hook)
+        parts.append(f'{s["name"]}: ' + pin_stats(s).replace("  ·  ", ", "))
+        parts.append("Compare ski resorts on SnowFinder.fr")
+        return " — ".join(parts)[:480]
     parts = []
     if hook:
         parts.append(hook)
@@ -495,10 +576,26 @@ def description(s, hook=None):
     return txt[:480]
 
 
+def set_lang(lang):
+    """Bascule tout le script (fichiers, textes, horaires) en français ou en anglais."""
+    global LANG, FEED_NAME, PIN_DIRNAME, PUB_HOUR, SITE_PREFIX, HOOKS_PATH, STATE_PATH, MANUEL_PATH
+    global HOOK_SYSTEM, PIN_VERSION
+    LANG = lang
+    if lang == "en":
+        FEED_NAME, PIN_DIRNAME, PUB_HOUR, SITE_PREFIX = "pinterest-feed-en.xml", "pins-en", 15, "/en"
+        HOOKS_PATH = os.path.join(ROOT, "pinterest-hooks-en.json")
+        STATE_PATH = os.path.join(ROOT, "pinterest-state-en.json")
+        MANUEL_PATH = os.path.join(ROOT, "pinterest-hooks-manuel-en.json")
+        HOOK_SYSTEM = HOOK_SYSTEM_EN
+        PIN_VERSION = PIN_VERSION + "en"
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date")
+    ap.add_argument("--lang", choices=["fr", "en"], default="fr")
     a = ap.parse_args()
+    set_lang(a.lang)
     today = date.fromisoformat(a.date) if a.date else datetime.now(timezone.utc).date()
 
     stations = load_stations()
@@ -510,12 +607,20 @@ def main():
     changed = False
     current = sorted(by_name)
     days_win = [today - timedelta(days=back) for back in range(FENETRE_JOURS - 1, -1, -1)]  # ancien -> récent
+    if not state["days"]:      # tout premier passage (ex. flux anglais) : seulement aujourd'hui, pas 7 jours d'un coup
+        days_win = [today]
     for day in days_win:
         k = day.isoformat()
         if k not in state["days"]:
             state["days"][k] = pick_day(stations, state, day)
             changed = True
             print(f"ℹ {k} : {', '.join(state['days'][k])}")
+        elif day == today and len(state["days"][k]) < PINS_PAR_JOUR:      # cadence augmentée : on complète seulement le jour même
+            have = state["days"][k]
+            extra = [n for n in pick_day(stations, state, day) if n not in have]
+            state["days"][k] = have + extra[:PINS_PAR_JOUR - len(have)]
+            changed = True
+            print(f"ℹ {k} complété : {', '.join(state['days'][k])}")
     if sorted(state.get("seen") or []) != current:
         state["seen"] = current
         changed = True
@@ -546,15 +651,16 @@ def main():
             tag = hashlib.md5((h_ or "").encode("utf-8")).hexdigest()[:6]
             fname = f"{slug}-{PIN_VERSION}-{tag}.jpg"
             keep_files.add(fname)
-            out = os.path.join(ROOT, "img", "pins", fname)
+            out = os.path.join(ROOT, "img", PIN_DIRNAME, fname)
             if not os.path.exists(out):
                 hook = hooks.get(s["name"]) if hook_ok(hooks.get(s["name"]), s) else fallback_hook(s)
                 make_pin(s, find_photo(s["name"], s, domaines.get(s["name"])), out, hook=hook, domaine=domaines.get(s["name"]))
-            dt = datetime(day.year, day.month, day.day, 5, 40 + 5 * j, tzinfo=timezone.utc)
+            dt = datetime(day.year, day.month, day.day, PUB_HOUR, 30 + 5 * j, tzinfo=timezone.utc)
             items.append((dt, s, slug, fname, day))
 
     # nettoyage des anciennes images
-    pdir = os.path.join(ROOT, "img", "pins")
+    pdir = os.path.join(ROOT, "img", PIN_DIRNAME)
+    os.makedirs(pdir, exist_ok=True)
     for f in os.listdir(pdir):
         if f.endswith(".jpg") and f not in keep_files:
             os.remove(os.path.join(pdir, f))
@@ -563,17 +669,19 @@ def main():
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
              '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom">',
              '<channel>',
-             '<title>SnowFinder — stations de ski</title>',
-             f'<link>{BASE}/</link>',
-             '<description>Comparateur de stations de ski en France et en Europe</description>',
-             '<language>fr</language>',
-             f'<atom:link href="{BASE}/pinterest-feed.xml" rel="self" type="application/rss+xml"/>']
+             '<title>SnowFinder — ski resorts</title>' if LANG == "en" else '<title>SnowFinder — stations de ski</title>',
+             f'<link>{BASE}{SITE_PREFIX}/</link>',
+             '<description>Compare ski resorts in France and Europe</description>' if LANG == "en"
+             else '<description>Comparateur de stations de ski en France et en Europe</description>',
+             f'<language>{LANG}</language>',
+             f'<atom:link href="{BASE}/{FEED_NAME}" rel="self" type="application/rss+xml"/>']
     for dt, s, slug, fname, day in items:
-        link = f"{BASE}/stations/{slug}.html"
-        img = f"{BASE}/img/pins/{fname}"
-        title = f'{s["name"]} : pistes, altitude et forfait'
+        link = f"{BASE}{SITE_PREFIX}/stations/{slug}.html"
+        img = f"{BASE}/img/{PIN_DIRNAME}/{fname}"
+        title = (f'{s["name"]}: slopes, altitude and lift pass' if LANG == "en"
+                 else f'{s["name"]} : pistes, altitude et forfait')
         # guid unique par station ET par jour => un cycle suivant republie la station
-        guid = f"{BASE}/stations/{slug}.html#pin-{day.isoformat()}"
+        guid = f"{link}#pin-{day.isoformat()}"
         size = os.path.getsize(os.path.join(pdir, fname))
         lines += ['<item>',
                   f'<title>{escape(title)}</title>',
@@ -585,9 +693,9 @@ def main():
                   f'<media:content url="{escape(img)}" medium="image" type="image/jpeg" width="{W}" height="{H}"/>',
                   '</item>']
     lines += ['</channel>', '</rss>']
-    with open(os.path.join(ROOT, "pinterest-feed.xml"), "w", encoding="utf-8") as f:
+    with open(os.path.join(ROOT, FEED_NAME), "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
-    print(f"✓ pinterest-feed.xml : {len(items)} épingles, {len(stations)} stations éligibles")
+    print(f"✓ {FEED_NAME} : {len(items)} épingles, {len(stations)} stations éligibles")
     for dt, s, *_ in items[:PINS_PAR_JOUR]:
         print("   aujourd'hui :", s["name"])
     return 0
