@@ -20,20 +20,22 @@ Usage : python3 _scripts/find_photos_wikimedia.py [--limit 40] [--offset 0] [--o
 """
 import os, re, sys, json, csv, time, html, argparse, unicodedata, urllib.request, urllib.parse, urllib.error, io
 
-from PIL import Image, ImageDraw, ImageFont, ImageStat, ImageChops
+from PIL import Image, ImageDraw, ImageFont, ImageStat, ImageChops, ImageFilter
 
 ROOT = os.environ.get("SF_ROOT") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 API = "https://commons.wikimedia.org/w/api.php"
 UA = "SnowFinderPhotoBot/1.0 (https://snowfinder.fr; photos libres pour fiches de stations)"
 OUT = os.path.join(ROOT, "photos-out")
 MAX_W = 1600
-MIN_W, MIN_H = 1500, 900
+MIN_W, MIN_H = 2400, 1400      # grosses photos seulement : une épingle floue ou pixelisée fait perdre en crédibilité
 MIN_SCORE = 7.0      # sous ce score, la photo n'est pas proposée
 N_KEEP = 3           # 1 principale + 2 alternatives (dossier autres/)
 MIN_SATURATION = 0.04  # refuse le noir et blanc (une photo de neige reste peu saturée : ne pas monter)
 MIN_BRIGHT = 0.40      # refuse les photos de nuit
 MAX_GREEN = 0.045       # refuse les photos d'été (beaucoup d'herbe)
 MIN_SNOW_BAS = 0.045
+MIN_EDGE = 10.0        # refuse les photos floues ou sans relief (zone centrale visible sur l'épingle)
+MIN_SCORE_MAIN = 8.5   # une photo principale doit être clairement une photo de ski
 MIN_SNOW = 0.12        # refuse les photos sans neige visible
 FONT_REG = ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "/usr/share/fonts/dejavu/DejaVuSans.ttf"]
 
@@ -165,6 +167,8 @@ def score_candidate(page, station):
     sc += min(len(WINTER.findall(blob)), 4) * 1.2
     sc -= min(len(SUMMER.findall(blob)), 3) * 1.5
     sc += min(w / 4000, 1)
+    if re.search(r"quality images|featured pictures|valued images|picture of the day", cats, re.I):
+        sc += 4            # labels de qualité de Wikimedia Commons : photos relues et choisies par la communauté
     return {"score": sc, "info": info, "kind": kind, "title": title, "w": w, "h": h,
             "page_url": info.get("descriptionurl", ""), "artist": meta(info, "Artist") or "Wikimedia Commons",
             "license": meta(info, "LicenseShortName") or meta(info, "UsageTerms")}
@@ -252,6 +256,11 @@ def image_problem(img, max_green=None):
     h, s_, v = t.convert("HSV").split()
     if ImageStat.Stat(s_).mean[0] / 255.0 < MIN_SATURATION:
         return "noir et blanc"
+    # netteté et relief de la zone centrale (celle que montre l'épingle 2:3)
+    cw = min(img.width, int(img.height * 2 / 3)); l0 = (img.width - cw) // 2
+    cc = img.crop((l0, 0, l0 + cw, img.height)).convert("L"); cc.thumbnail((400, 600))
+    if ImageStat.Stat(cc.filter(ImageFilter.FIND_EDGES)).mean[0] < MIN_EDGE:
+        return "flou ou sans relief"
     # dominante rose / rouge : photo mal étalonnée
     mk = v.point(lambda x: 255 if x > 110 else 0)
     if ImageStat.Stat(mk).mean[0] > 5:
@@ -378,10 +387,12 @@ def main():
             kept = 0
             seen = []
             for c in candidates_for(s):
+                if kept == 0 and c["score"] < MIN_SCORE_MAIN:
+                    continue
                 if kept > 0 and c["score"] < 8:      # une alternative doit être clairement une photo de ski
                     continue
                 rel = process(s, c, rank=kept, seen=seen)
-                if rel in ("noir et blanc", "trop sombre (nuit ?)", "trop d'herbe (été ?)", "pas assez de neige", "doublon", "sépia (photo ancienne)", "dominante rose"):
+                if rel in ("noir et blanc", "trop sombre (nuit ?)", "trop d'herbe (été ?)", "pas assez de neige", "doublon", "sépia (photo ancienne)", "dominante rose", "flou ou sans relief"):
                     print(f"   — refusée ({rel}) : {c['title'][:60]}")
                     continue
                 rows.append([s["name"], rel.replace(os.sep, "/"), "principale" if kept == 0 else "alternative",
