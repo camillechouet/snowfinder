@@ -5,8 +5,8 @@ name: Chercher des photos libres (Wikimedia)
 # nomme le fichier comme tes photos habituelles (valloire1.jpg) et les met dans un ZIP.
 #
 # Utilisation : Actions > « Chercher des photos libres (Wikimedia) » > Run workflow.
-#   · Premier essai conseillé : limite = 3.
-#   · Ensuite : limite = 40 ; relancer avec « offset » = le chiffre indiqué à la fin du journal.
+#   · pays = france pour commencer par les stations françaises.
+#   · Lot suivant : « offset » = le chiffre indiqué à la fin du journal.
 #   · Une seule station : champ « seulement » (ex. Valloire).
 # Le ZIP est en bas de la page du lancement (rubrique Artifacts), conservé 14 jours.
 # Rien n'est ajouté au site : tu gardes les bonnes photos et tu les envoies dans img/.
@@ -14,6 +14,15 @@ name: Chercher des photos libres (Wikimedia)
 on:
   workflow_dispatch:
     inputs:
+      pays:
+        description: "Quelles stations ? tous / france / etranger"
+        required: false
+        default: "tous"
+        type: choice
+        options:
+          - tous
+          - france
+          - etranger
       limit:
         description: "Nombre de stations à traiter (défaut 40)"
         required: false
@@ -45,11 +54,12 @@ jobs:
 
       - name: Chercher les photos
         env:
+          PAYS: ${{ github.event.inputs.pays }}
           LIMIT: ${{ github.event.inputs.limit }}
           OFFSET: ${{ github.event.inputs.offset }}
           ONLY: ${{ github.event.inputs.only }}
         run: |
-          python3 _scripts/find_photos_wikimedia.py --limit "${LIMIT:-40}" --offset "${OFFSET:-0}" --only "$ONLY" | tee /tmp/photos.log
+          python3 _scripts/find_photos_wikimedia.py --pays "${PAYS:-tous}" --limit "${LIMIT:-40}" --offset "${OFFSET:-0}" --only "$ONLY" | tee /tmp/photos.log
           { echo '### Photos trouvées'; tail -n 1 /tmp/photos.log; } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Mettre les photos dans un ZIP
