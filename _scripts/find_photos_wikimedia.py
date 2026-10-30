@@ -26,7 +26,7 @@ ROOT = os.environ.get("SF_ROOT") or os.path.dirname(os.path.dirname(os.path.absp
 API = "https://commons.wikimedia.org/w/api.php"
 UA = "SnowFinderPhotoBot/1.0 (https://snowfinder.fr; photos libres pour fiches de stations)"
 OUT = os.path.join(ROOT, "photos-out")
-MAX_W = 2000
+MAX_W = 1600
 MIN_W, MIN_H = 1500, 900
 MIN_SCORE = 7.0      # sous ce score, la photo n'est pas proposée
 N_KEEP = 3           # 1 principale + 2 alternatives (dossier autres/)
@@ -325,7 +325,7 @@ def process(station, cand, rank=0, seen=None):
     else:
         rel = os.path.join("autres", f"{base}1-{'bc'[rank - 1]}.jpg")
     os.makedirs(os.path.dirname(os.path.join(OUT, rel)) or OUT, exist_ok=True)
-    img.save(os.path.join(OUT, rel), "JPEG", quality=85, optimize=True)
+    img.save(os.path.join(OUT, rel), "JPEG", quality=80, optimize=True, progressive=True)
     return rel
 
 
