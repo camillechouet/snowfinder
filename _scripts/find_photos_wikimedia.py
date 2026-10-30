@@ -237,7 +237,7 @@ def _frac(mask):
     return ImageStat.Stat(mask).mean[0] / 255.0
 
 
-def image_problem(img):
+def image_problem(img, max_green=None):
     """None si la photo a l'air d'une photo d'hiver de jour ; sinon la raison du refus.
     Pillow seul (pas de numpy : le workflow n'installe que Pillow)."""
     t = img.copy()
@@ -263,7 +263,7 @@ def image_problem(img):
     gb = ImageChops.subtract(g, b108).point(lambda x: 255 if x > 0 else 0)
     vm = v.point(lambda x: 255 if x > 51 else 0)
     green = ImageChops.multiply(ImageChops.multiply(gr, gb), vm)
-    if _frac(green) > MAX_GREEN:
+    if _frac(green) > (max_green if max_green is not None else MAX_GREEN):
         return "trop d'herbe (été ?)"
     # neige : pixels clairs et peu saturés
     snow = ImageChops.multiply(s_.point(lambda x: 255 if x < 77 else 0),
@@ -307,7 +307,7 @@ def process(station, cand, rank=0, seen=None):
     url = cand["info"].get("thumburl") or cand["info"].get("url")
     raw = http_get(url, binary=True)
     img = Image.open(io.BytesIO(raw)).convert("RGB")
-    prob = image_problem(img)
+    prob = image_problem(img, max_green=(MAX_GREEN if rank == 0 else 0.03))   # alternatives : encore plus strict sur le vert
     if prob:
         return prob
     if seen is not None:
@@ -359,6 +359,8 @@ def main():
             kept = 0
             seen = []
             for c in candidates_for(s):
+                if kept > 0 and c["score"] < 8:      # une alternative doit être clairement une photo de ski
+                    continue
                 rel = process(s, c, rank=kept, seen=seen)
                 if rel in ("noir et blanc", "trop sombre (nuit ?)", "trop d'herbe (été ?)", "pas assez de neige", "doublon", "sépia (photo ancienne)"):
                     print(f"   — refusée ({rel}) : {c['title'][:60]}")
