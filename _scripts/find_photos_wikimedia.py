@@ -38,7 +38,7 @@ FONT_REG = ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "/usr/share/fonts
 
 BAD_TITLE2 = re.compile(r"(triebwagen|lokschuppen|lokomotiv|locomotive|railway|eisenbahn|zillertalbahn|montafonerbahn|"
                         r"rhätische|rhaetische|\bRhB\b|\bGe 4|mtn25|snow vehicle|snow trac|snowcat|pistenraupe|"
-                        r"vehicle|tractor|truck|olympics|\b1[0-8]\d\d\b|\b19[0-4]\d\b)", re.I)
+                        r"yeti|bombardier|\bZB\b|\bVT\d|old[ -]ski|schriftzug|sundial|parkbank|dorfstra|piazza|\bstreet\b|vehicle|tractor|truck|olympics|\b1[0-8]\d\d\b|\b19[0-4]\d\b)", re.I)
 BAD_TITLE = re.compile(r"\b(map|carte|plan|logo|panneau|sign|diagram|schema|schéma|poster|affiche|flyer|"
                        r"portrait|interior|intérieur|parking|bus|train|car|voiture|facture|document|blason|"
                        r"coat of arms|flag|drapeau|anefo|bestanddeelnr|royal|koninklijke|prins|prince|princess|king|queen|"
