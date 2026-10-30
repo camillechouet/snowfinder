@@ -28,7 +28,7 @@ UA = "SnowFinderPhotoBot/1.0 (https://snowfinder.fr; photos libres pour fiches d
 OUT = os.path.join(ROOT, "photos-out")
 MAX_W = 2000
 MIN_W, MIN_H = 1500, 900
-MIN_SCORE = 6.0      # sous ce score, la photo n'est pas proposée
+MIN_SCORE = 7.0      # sous ce score, la photo n'est pas proposée
 N_KEEP = 3           # 1 principale + 2 alternatives (dossier autres/)
 MIN_SATURATION = 0.04  # refuse le noir et blanc (une photo de neige reste peu saturée : ne pas monter)
 MIN_BRIGHT = 0.40      # refuse les photos de nuit
@@ -37,8 +37,12 @@ MIN_SNOW_BAS = 0.045
 MIN_SNOW = 0.12        # refuse les photos sans neige visible
 FONT_REG = ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "/usr/share/fonts/dejavu/DejaVuSans.ttf"]
 
+BAD_CONTENT = re.compile(r"\b(dogs?|huskies|husky|helicopters?|trains?|railway|locomotives?|churches|church|chapels?|"
+                         r"cemeter(?:y|ies)|crucifix|buses|bus|children|portraits?|motorways?|snowcats?|"
+                         r"snow groomers?|hotels?|houses|restaurants?|summer|hiking|mountain biking|sculptures?|monuments?)\b", re.I)
 BAD_TITLE2 = re.compile(r"(triebwagen|lokschuppen|lokomotiv|locomotive|railway|eisenbahn|zillertalbahn|montafonerbahn|"
                         r"rhätische|rhaetische|\bRhB\b|\bGe 4|mtn25|snow vehicle|snow trac|snowcat|pistenraupe|"
+                        r"promenade|autobahn|rest area|building|institute|haus\b|house|schule|kulturzentrum|reservoir|snowmaking|\bwm\d*\b|"
                         r"navette|routi|\broute\b|\brue\b|quartier|maison|sculpture|\besf\b|piou|school|école|ecole|enfant|children|kids|crèche|garderie|"
                         r"cabane|repère|sentier|randonn|\btrail\b|hike|parapente|paraglid|"
                         r"heli|hubschrauber|helicopter|air-zermatt|\brega\b|bergrettung|rescue|rettung|hund|\bdogs?\b|husk|chien|safari|"
@@ -142,6 +146,8 @@ def score_candidate(page, station):
         return None
     desc = meta(info, "ImageDescription")
     cats = meta(info, "Categories")
+    if BAD_CONTENT.search(desc + " " + cats):
+        return None
     text = norm(" ".join([title, desc, cats]))
     key = norm(station["name"])
     if key not in text:
@@ -276,7 +282,26 @@ def too_dull(img):
     return image_problem(img) is not None
 
 
-def process(station, cand, rank=0):
+def dhash(img, n=8):
+    g = img.convert("L").resize((n + 1, n), Image.LANCZOS)
+    px = list(g.getdata())
+    return [1 if px[r * (n + 1) + c] > px[r * (n + 1) + c + 1] else 0 for r in range(n) for c in range(n)]
+
+
+def doublon(img, cand, seen):
+    """Vrai si la photo ressemble à une déjà retenue pour la même station (image ou série du même auteur)."""
+    import difflib
+    h = dhash(img)
+    t = re.sub(r"\d+", "", norm(cand["title"]))
+    for h2, t2, a2 in seen:
+        if sum(x != y for x, y in zip(h, h2)) <= 14:
+            return True
+        if cand["artist"] == a2:           # même auteur = presque toujours la même séance photo
+            return True
+    return False
+
+
+def process(station, cand, rank=0, seen=None):
     """rank 0 = photo principale (racine) ; 1, 2 = alternatives (dossier autres/).
     Renvoie le chemin relatif écrit, ou la raison du refus (texte) si la photo est refusée."""
     url = cand["info"].get("thumburl") or cand["info"].get("url")
@@ -285,6 +310,10 @@ def process(station, cand, rank=0):
     prob = image_problem(img)
     if prob:
         return prob
+    if seen is not None:
+        if doublon(img, cand, seen):
+            return "doublon"
+        seen.append((dhash(img), re.sub(r"\d+", "", norm(cand["title"])), cand["artist"]))
     if img.width > MAX_W:
         img = img.resize((MAX_W, int(img.height * MAX_W / img.width)), Image.LANCZOS)
     if cand["kind"] == "by":
@@ -328,9 +357,10 @@ def main():
         print(f"[{i}/{len(batch)}] {s['name']}")
         try:
             kept = 0
+            seen = []
             for c in candidates_for(s):
-                rel = process(s, c, rank=kept)
-                if rel in ("noir et blanc", "trop sombre (nuit ?)", "trop d'herbe (été ?)", "pas assez de neige"):
+                rel = process(s, c, rank=kept, seen=seen)
+                if rel in ("noir et blanc", "trop sombre (nuit ?)", "trop d'herbe (été ?)", "pas assez de neige", "doublon", "sépia (photo ancienne)"):
                     print(f"   — refusée ({rel}) : {c['title'][:60]}")
                     continue
                 rows.append([s["name"], rel.replace(os.sep, "/"), "principale" if kept == 0 else "alternative",
