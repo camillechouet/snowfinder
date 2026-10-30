@@ -48,6 +48,7 @@ BAD_TITLE2 = re.compile(r"(triebwagen|lokschuppen|lokomotiv|locomotive|railway|e
                         r"heli|hubschrauber|helicopter|air-zermatt|\brega\b|bergrettung|rescue|rettung|hund|\bdogs?\b|husk|chien|safari|"
                         r"kapelle|cappella|cimitero|friedhof|cemetery|\bkreuz\b|gipfelkreuz|wegkreuz|chapelle|calvaire|kloster|monastery|abbaye|abbey|santuario|sanctuary|wallfahrt|heilig|"
                         r"secretary|forum|speech|arrives|chancellor|bundesrat|championships|weltcup|gewinner|sieger|winner|\bfis\b|"
+                        r"hotel|schloss|hinweistafel|tafel|schild|\bcentro\b|sprünge|sprung|\bjump|freestyle|snowpark|"
                         r"snow[- ]?trac|\bSL\b|\bGS\b|\bSG\b|1st run|2nd run|slalom|giant|downhill|riesenslalom|super-?g\b|racer|"
                         r"yeti|bombardier|\bZB\b|\bVT\d|old[ -]ski|schriftzug|sundial|parkbank|dorfstra|piazza|\bstreet\b|vehicle|tractor|truck|olympics|\b1[0-8]\d\d\b|\b19[0-8]\d\b)", re.I)
 BAD_TITLE = re.compile(r"\b(map|carte|plan|logo|panneau|sign|diagram|schema|schéma|poster|affiche|flyer|"
@@ -153,6 +154,10 @@ def score_candidate(page, station):
     key = norm(station["name"])
     if key not in text:
         return None          # on exige le nom de la station : évite les mauvais lieux
+    # ... en mot entier et dans le titre ou les catégories (pas seulement dans la description :
+    # « Going » = « en train de monter » donnait une photo d'Aspen)
+    if not re.search(r"(?<![a-z0-9])" + re.escape(key) + r"(?![a-z0-9])", norm(title) + " | " + norm(cats)):
+        return None
     sc = 0.0
     if key in norm(title):
         sc += 5
@@ -247,6 +252,12 @@ def image_problem(img, max_green=None):
     h, s_, v = t.convert("HSV").split()
     if ImageStat.Stat(s_).mean[0] / 255.0 < MIN_SATURATION:
         return "noir et blanc"
+    # dominante rose / rouge : photo mal étalonnée
+    mk = v.point(lambda x: 255 if x > 110 else 0)
+    if ImageStat.Stat(mk).mean[0] > 5:
+        r_, g_, b_ = t.split()
+        if (ImageStat.Stat(r_, mask=mk).mean[0] - ImageStat.Stat(g_, mask=mk).mean[0]) / 255.0 > 0.10:
+            return "dominante rose"
     # sépia / photo ancienne : presque tous les pixels clairs sont orange-jaune
     warm = ImageChops.multiply(ImageChops.multiply(h.point(lambda x: 255 if 8 <= x <= 36 else 0),
                                                    s_.point(lambda x: 255 if x >= 30 else 0)),
@@ -289,10 +300,16 @@ def dhash(img, n=8):
     return [1 if px[r * (n + 1) + c] > px[r * (n + 1) + c + 1] else 0 for r in range(n) for c in range(n)]
 
 
+GLOBAL_HASHES = []     # photos déjà retenues pour une AUTRE station du lot
+
+
 def doublon(img, cand, seen):
     """Vrai si la photo ressemble à une déjà retenue pour la même station (image ou série du même auteur)."""
     import difflib
     h = dhash(img)
+    for g in GLOBAL_HASHES:
+        if sum(x != y for x, y in zip(h, g)) <= 8:
+            return True
     t = re.sub(r"\d+", "", norm(cand["title"]))
     for h2, t2, a2 in seen:
         if sum(x != y for x, y in zip(h, h2)) <= 14:
@@ -314,6 +331,7 @@ def process(station, cand, rank=0, seen=None):
     if seen is not None:
         if doublon(img, cand, seen):
             return "doublon"
+        GLOBAL_HASHES.append(dhash(img))
         seen.append((dhash(img), re.sub(r"\d+", "", norm(cand["title"])), cand["artist"]))
     if img.width > MAX_W:
         img = img.resize((MAX_W, int(img.height * MAX_W / img.width)), Image.LANCZOS)
@@ -363,7 +381,7 @@ def main():
                 if kept > 0 and c["score"] < 8:      # une alternative doit être clairement une photo de ski
                     continue
                 rel = process(s, c, rank=kept, seen=seen)
-                if rel in ("noir et blanc", "trop sombre (nuit ?)", "trop d'herbe (été ?)", "pas assez de neige", "doublon", "sépia (photo ancienne)"):
+                if rel in ("noir et blanc", "trop sombre (nuit ?)", "trop d'herbe (été ?)", "pas assez de neige", "doublon", "sépia (photo ancienne)", "dominante rose"):
                     print(f"   — refusée ({rel}) : {c['title'][:60]}")
                     continue
                 rows.append([s["name"], rel.replace(os.sep, "/"), "principale" if kept == 0 else "alternative",
