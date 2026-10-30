@@ -32,13 +32,16 @@ MIN_SCORE = 6.0      # sous ce score, la photo n'est pas proposée
 N_KEEP = 3           # 1 principale + 2 alternatives (dossier autres/)
 MIN_SATURATION = 0.04  # refuse le noir et blanc (une photo de neige reste peu saturée : ne pas monter)
 MIN_BRIGHT = 0.40      # refuse les photos de nuit
-MAX_GREEN = 0.06       # refuse les photos d'été (beaucoup d'herbe)
+MAX_GREEN = 0.045       # refuse les photos d'été (beaucoup d'herbe)
 MIN_SNOW = 0.12        # refuse les photos sans neige visible
 FONT_REG = ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "/usr/share/fonts/dejavu/DejaVuSans.ttf"]
 
 BAD_TITLE2 = re.compile(r"(triebwagen|lokschuppen|lokomotiv|locomotive|railway|eisenbahn|zillertalbahn|montafonerbahn|"
                         r"rhätische|rhaetische|\bRhB\b|\bGe 4|mtn25|snow vehicle|snow trac|snowcat|pistenraupe|"
-                        r"yeti|bombardier|\bZB\b|\bVT\d|old[ -]ski|schriftzug|sundial|parkbank|dorfstra|piazza|\bstreet\b|vehicle|tractor|truck|olympics|\b1[0-8]\d\d\b|\b19[0-4]\d\b)", re.I)
+                        r"heli|hubschrauber|helicopter|air-zermatt|\brega\b|bergrettung|rescue|rettung|hund|\bdogs?\b|husk|chien|safari|"
+                        r"kapelle|cappella|cimitero|friedhof|cemetery|\bkreuz\b|gipfelkreuz|wegkreuz|chapelle|calvaire|kloster|monastery|abbaye|abbey|santuario|sanctuary|wallfahrt|heilig|"
+                        r"secretary|forum|speech|arrives|chancellor|bundesrat|championships|weltcup|gewinner|sieger|winner|\bfis\b|"
+                        r"yeti|bombardier|\bZB\b|\bVT\d|old[ -]ski|schriftzug|sundial|parkbank|dorfstra|piazza|\bstreet\b|vehicle|tractor|truck|olympics|\b1[0-8]\d\d\b|\b19[0-8]\d\b)", re.I)
 BAD_TITLE = re.compile(r"\b(map|carte|plan|logo|panneau|sign|diagram|schema|schéma|poster|affiche|flyer|"
                        r"portrait|interior|intérieur|parking|bus|train|car|voiture|facture|document|blason|"
                        r"coat of arms|flag|drapeau|anefo|bestanddeelnr|royal|koninklijke|prins|prince|princess|king|queen|"
@@ -293,17 +296,23 @@ def main():
     ap.add_argument("--limit", type=int, default=40)
     ap.add_argument("--offset", type=int, default=0)
     ap.add_argument("--only", default="")
+    ap.add_argument("--pays", default="tous", choices=["tous", "france", "etranger"])
     a = ap.parse_args()
 
     with open(os.path.join(ROOT, "stations-data.js"), encoding="utf-8") as f:
         data = json.loads(re.search(r"window\.SF_DATA\s*=\s*(\[.*\]);", f.read(), re.DOTALL).group(1))
     todo = [s for s in data if s.get("ok") and not has_own_photo(s)]
     todo.sort(key=lambda s: (-(s.get("score") or 0), s["name"]))
+    drapeau = re.compile("[\U0001F1E6-\U0001F1FF]{2}")      # les régions étrangères portent un drapeau
+    if a.pays == "france":
+        todo = [s for s in todo if not drapeau.search(s.get("region") or "")]
+    elif a.pays == "etranger":
+        todo = [s for s in todo if drapeau.search(s.get("region") or "")]
     if a.only:
         todo = [s for s in todo if norm(a.only) in norm(s["name"])]
     total = len(todo)
     batch = todo[a.offset:a.offset + a.limit]
-    print(f"ℹ {total} stations sans photo ; lot de {len(batch)} (offset {a.offset})")
+    print(f"ℹ {total} stations sans photo ({a.pays}) ; lot de {len(batch)} (offset {a.offset})")
 
     os.makedirs(OUT, exist_ok=True)
     rows, missing = [], []
