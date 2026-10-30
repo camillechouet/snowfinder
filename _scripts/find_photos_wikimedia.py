@@ -48,6 +48,7 @@ BAD_TITLE2 = re.compile(r"(triebwagen|lokschuppen|lokomotiv|locomotive|railway|e
                         r"heli|hubschrauber|helicopter|air-zermatt|\brega\b|bergrettung|rescue|rettung|hund|\bdogs?\b|husk|chien|safari|"
                         r"kapelle|cappella|cimitero|friedhof|cemetery|\bkreuz\b|gipfelkreuz|wegkreuz|chapelle|calvaire|kloster|monastery|abbaye|abbey|santuario|sanctuary|wallfahrt|heilig|"
                         r"secretary|forum|speech|arrives|chancellor|bundesrat|championships|weltcup|gewinner|sieger|winner|\bfis\b|"
+                        r"snow[- ]?trac|\bSL\b|\bGS\b|\bSG\b|1st run|2nd run|slalom|giant|downhill|riesenslalom|super-?g\b|racer|"
                         r"yeti|bombardier|\bZB\b|\bVT\d|old[ -]ski|schriftzug|sundial|parkbank|dorfstra|piazza|\bstreet\b|vehicle|tractor|truck|olympics|\b1[0-8]\d\d\b|\b19[0-8]\d\b)", re.I)
 BAD_TITLE = re.compile(r"\b(map|carte|plan|logo|panneau|sign|diagram|schema|schéma|poster|affiche|flyer|"
                        r"portrait|interior|intérieur|parking|bus|train|car|voiture|facture|document|blason|"
