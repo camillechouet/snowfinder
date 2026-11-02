@@ -229,6 +229,12 @@
   ],
   "duels": [
     {
+      "a": "Les Saisies",
+      "b": "Valloire",
+      "img": "/img/lessaisies1.jpg",
+      "img_b": "/img/valloire1.jpg"
+    },
+    {
       "a": "Peisey-Vallandry",
       "b": "Montchavin-Les Coches",
       "img": "https://images.unsplash.com/photo-1614089916276-eb5be76854bd?w=800&q=80",

@@ -118,5 +118,65 @@
     ],
     "date": "2026-10-26",
     "modele": "claude-opus-5-5"
+  },
+  {
+    "a": "Les Saisies",
+    "b": "Valloire",
+    "img_a": "lessaisies1",
+    "img_b": "valloire1",
+    "teaser": "Deux stations savoyardes des Alpes du Nord, deux philosophies. Sur son plateau du Beaufortain à 1650 m, Les Saisies mise sur la famille, les pistes faciles et un grand domaine nordique. Au pied du col du Galibier, Valloire propose un village de caractère, plus de dénivelé et davantage de pistes rouges et noires. Voici comment choisir selon votre profil.",
+    "profils": [
+      [
+        "👨‍👩‍👧 Famille avec jeunes enfants",
+        "Les Saisies",
+        "Avec 15 pistes vertes et 30 bleues, le domaine convient bien aux enfants et aux débutants. La station est labellisée Famille Plus et dispose d'une garderie."
+      ],
+      [
+        "⛷️ Skieur confirmé en quête de pente",
+        "Valloire",
+        "Valloire compte 20 pistes rouges et 5 noires, contre 12 et 3 aux Saisies. Elle est aussi recommandée pour le niveau avancé, avec un sommet à 2600 m."
+      ],
+      [
+        "💶 Budget serré",
+        "Les Saisies",
+        "Le forfait journée y coûte 46 €, contre 55 € à Valloire, soit 9 € d'économie par jour (16 % de moins)."
+      ],
+      [
+        "🎿 Amateur de ski de fond",
+        "Les Saisies",
+        "Les Saisies possède un vaste domaine nordique. La station a accueilli les épreuves de ski de fond et de biathlon des JO d'Albertville 1992."
+      ],
+      [
+        "🏘️ Amoureux des villages de caractère",
+        "Valloire",
+        "Valloire est un village savoyard animé de Maurienne. Son architecture baroque est préservée."
+      ],
+      [
+        "🗺️ Skieur qui aime varier les itinéraires",
+        "Valloire",
+        "Son domaine propre s'étend sur 90 km, contre 83 km aux Saisies. Il s'élargit à 160 km avec Valmeinier sur le domaine Galibier-Thabor."
+      ]
+    ],
+    "verdict": "<strong>Les Saisies</strong> conviendra aux familles, aux débutants et aux skieurs intermédiaires, ainsi qu'aux amateurs de ski de fond, avec un forfait à 46 € et 31 remontées. <strong>Valloire</strong> s'adresse davantage aux skieurs qui recherchent du dénivelé et des pentes plus exigeantes : son domaine monte jusqu'à 2600 m, soit 530 m de plus que son voisin du Beaufortain. Son village de caractère est un atout supplémentaire pour qui aime l'ambiance montagnarde. Les deux stations proposent une garderie et des restaurants : le choix dépend donc surtout de votre niveau et de votre budget.",
+    "faq": [
+      [
+        "Quelle station a le forfait le moins cher ?",
+        "Les Saisies, avec un forfait à 46 € contre 55 € à Valloire. L'écart est de 9 €, soit 16 %."
+      ],
+      [
+        "Quelle station monte le plus haut ?",
+        "Valloire, dont le domaine s'étage de 1430 m à 2600 m. Celui des Saisies va de 1650 m à 2070 m, soit un sommet 530 m plus bas."
+      ],
+      [
+        "Les Saisies ou Valloire pour apprendre à skier ?",
+        "Les deux stations accueillent les débutants. Les Saisies propose davantage de pistes faciles, avec 15 vertes et 30 bleues contre 10 vertes et 19 bleues à Valloire."
+      ],
+      [
+        "Ces stations sont-elles reliées à un domaine plus vaste ?",
+        "Oui. Les Saisies fait partie de l'Espace Diamant (150 km). Valloire partage avec Valmeinier le domaine Galibier-Thabor (160 km)."
+      ]
+    ],
+    "date": "2026-11-02",
+    "modele": "claude-opus-5-5"
   }
 ]
