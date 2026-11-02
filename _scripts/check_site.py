@@ -9,7 +9,8 @@ Vérifie :
   2. Texte cassé : {accolades} non remplies, undefined, NaN, None
   3. Une page par station (stations/xxx.html) et pages non vides
   4. Coordonnées GPS présentes pour chaque station (carte + météo)
-  5. Liens internes et images locales qui existent vraiment
+  5. Liens internes qui existent vraiment (les images manquantes ne comptent PAS :
+     le site affiche une image de secours)
   6. (info) nombre de stations sans site officiel (lien Google de secours)
 
 Utilisation :  python3 _scripts/check_site.py
@@ -26,6 +27,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DOSSIERS_PAGES = ["stations", "domaines", "comparatifs", "articles"]
 PAGES_RACINE = ["index.html", "recherche.html", "comparateur.html", "enneigement.html",
                 "hebergement.html", "tinder.html", "favoris.html", "domaines.html"]
+EXT_IMAGES = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".avif", ".ico")
 
 erreurs: dict[str, list[str]] = {}
 infos: list[str] = []
@@ -56,7 +58,7 @@ def texte_visible(html: str) -> str:
 
 
 def de_a_attendus(nom: str):
-    """Renvoie (faux_de, faux_a) : les tournures fautives pour ce nom, ou None si le nom n'en pose pas."""
+    """Renvoie la liste des tournures fautives pour ce nom (vide si le nom n'en pose pas)."""
     fautes = []
     if re.match(r"^Les ", nom):
         fautes += [f"de {nom}", f"à {nom}"]
@@ -124,8 +126,8 @@ def main() -> int:
         elif not (-90 <= c[0] <= 90 and -180 <= c[1] <= 180) or (c[0] == 0 and c[1] == 0):
             err("Coordonnées", f"{n} : valeurs impossibles {c}")
 
-    # ── 5. Liens internes et images locales ──────────────────────────────────
-    attr = re.compile(r'(?:href|src)="([^"]+)"')
+    # ── 5. Liens internes (les images sont ignorées : image de secours sur le site) ──
+    attr = re.compile(r'href="([^"]+)"')
     deja = set()
     for f in pages:
         rel = f.relative_to(ROOT).as_posix()
@@ -137,7 +139,7 @@ def main() -> int:
                     or "{" in u or "'+" in u or "' +" in u):
                 continue
             u = unquote(u.split("#")[0].split("?")[0])
-            if not u:
+            if not u or u.lower().endswith(EXT_IMAGES):
                 continue
             cible = (ROOT / u.lstrip("/")) if u.startswith("/") else (f.parent / u)
             cible = Path(os.path.normpath(cible))
@@ -147,14 +149,16 @@ def main() -> int:
                 if (u) in deja:
                     continue
                 deja.add(u)
-                err("Lien ou image introuvable", f"{u}  (vu dans {rel})")
+                err("Lien introuvable", f"{u}  (vu dans {rel})")
 
     # ── 6. Info : stations sans site officiel ────────────────────────────────
     off = 0
     for n in noms:
         p = ROOT / "stations" / f"{slugify(n)}.html"
-        if p.exists() and "google.com/search" in p.read_text(encoding="utf-8", errors="replace") and "site+officiel" in p.read_text(encoding="utf-8", errors="replace"):
-            off += 1
+        if p.exists():
+            t = p.read_text(encoding="utf-8", errors="replace")
+            if "google.com/search" in t and "site+officiel" in t:
+                off += 1
     infos.append(f"{off} stations sans site officiel (lien Google de secours)")
 
     # ── Rapport ──────────────────────────────────────────────────────────────
