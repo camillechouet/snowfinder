@@ -1424,7 +1424,7 @@ function toggleCompareStation(id){
 <!-- SNOW CONDITIONS TICKER -->
 <div class="snow-strip">
 <div class="snow-strip-inner">
-<span class="snow-strip-label">❄ Live conditions</span>
+<span class="snow-strip-label">❄ Snow reliability</span>
 <div class="snow-items" id="snowTickerItems">
 <div class="snow-track"><div class="snow-item"><span class="sn" style="opacity:.6">Loading…</span></div></div>
 </div>
@@ -1432,75 +1432,36 @@ function toggleCompareStation(id){
 </div>
 <script>
 (function(){
-  // alt = [alt_min, alt_max] en mètres — sert à estimer village/sommet
-  const STATIONS = [
-    {name:"Val Thorens",     lat:45.2986, lon:6.5797, alt:[2300,3230]},
-    {name:"Tignes",          lat:45.4686, lon:6.9086, alt:[1550,3456]},
-    {name:"Val d'Isère",     lat:45.4497, lon:6.9797, alt:[1850,3456]},
-    {name:"Les 2 Alpes",     lat:45.0136, lon:6.1236, alt:[1650,3200]},
-    {name:"Alpe d'Huez",     lat:45.0886, lon:6.0686, alt:[1125,3330]},
-    {name:"Serre Chevalier", lat:44.9336, lon:6.5236, alt:[1200,2800]},
-    {name:"Chamonix",        lat:45.9237, lon:6.8694, alt:[1035,3300]},
-    {name:"Avoriaz",         lat:46.1936, lon:6.7714, alt:[1800,2466]},
-    {name:"Courchevel",      lat:45.4147, lon:6.6347, alt:[1100,3230]},
-    {name:"Méribel",         lat:45.4047, lon:6.5647, alt:[1450,2952]},
-    {name:"La Plagne",       lat:45.5097, lon:6.6697, alt:[1250,3250]},
-    {name:"Les Arcs",        lat:45.5686, lon:6.8086, alt:[1200,3226]},
-    {name:"Vars",            lat:44.5586, lon:6.7036, alt:[1650,2750]},
-    {name:"Risoul",          lat:44.6236, lon:6.6236, alt:[1850,2750]},
-    {name:"Isola 2000",      lat:44.1886, lon:7.1636, alt:[1800,2610]},
-    {name:"Grand Tourmalet", lat:42.9086, lon:0.1436, alt:[1250,2500]},
-    {name:"Saint-Lary",      lat:42.8186, lon:0.3236, alt:[830,2450]},
-    {name:"Font-Romeu",      lat:42.5086, lon:2.0436, alt:[1700,2213]},
-    {name:"Gérardmer",       lat:48.0736, lon:6.8736, alt:[660,1138]},
-    {name:"Métabief",        lat:46.7736, lon:6.3336, alt:[900,1463]},
-    {name:"Megève",          lat:45.8569, lon:6.6172, alt:[1113,2350]},
-    {name:"La Clusaz",       lat:45.9036, lon:6.4236, alt:[1100,2600]},
-    {name:"Montgenèvre",     lat:44.9336, lon:6.7236, alt:[1860,2823]},
-    {name:"Pra-Loup",        lat:44.3836, lon:6.6036, alt:[1500,2600]},
-    {name:"Ax-3-Domaines",   lat:42.7186, lon:1.8436, alt:[1400,2400]},
-  ];
-
-  // Estime sommet/village à partir de snow_depth Open-Meteo
-  // Gradient ~7cm de neige par 100m d'altitude (réaliste pour les Alpes)
-  function splitSnow(cm, altMin, altMax) {
-    const delta = Math.round(7 * (altMax - altMin) / 200);
-    return {
-      village: Math.max(0, cm - delta),
-      sommet:  cm + delta
-    };
-  }
-
+  // Hauteurs de neige RÉELLES (relevés officiels des stations), lues dans neige.json
+  // (mis à jour 2 fois par jour par le workflow « Relevés de neige »).
+  // Format : {"stations":{"Tignes":{"haut":120,"bas":60,"alt_haut":3450,"alt_bas":1550,"date":"2026-11-02"}, ...}}
+  // Règle : aucune valeur estimée. Un domaine n'apparaît que s'il a un relevé haut ET bas de moins de 4 jours.
   async function loadTicker() {
-    const results = await Promise.allSettled(
-      STATIONS.map(async s => {
-        const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${s.lat}&longitude=${s.lon}&current=snow_depth&timezone=Europe%2FParis&forecast_days=1`);
-        const d = await r.json();
-        const cm = Math.round((d.current?.snow_depth||0)*100);
-        const split = splitSnow(cm, s.alt[0], s.alt[1]);
-        return {...s, cm, sommet: split.sommet, village: split.village};
-      })
-    );
-
-    const data = results
-      .filter(r => r.status==='fulfilled')
-      .map(r => r.value)
-      .sort((a,b) => b.sommet - a.sommet);
-
     const wrap = document.getElementById('snowTickerItems');
-    if(!wrap || !data.length) return;
+    if(!wrap) return;
+    let src = {};
+    try {
+      const r = await fetch('/neige.json?v=' + Date.now(), {cache:'no-store'});
+      if(r.ok) src = (await r.json()).stations || {};
+    } catch(e) {}
 
-    const itemsHTML = data.map(s => {
-      const val = s.cm > 0
-        ? `<strong>${s.sommet}</strong><span style="opacity:.6">/</span>${s.village} cm`
-        : '<span style="opacity:.5">–</span>';
-      return `<div class="snow-item"><span class="sn">${s.name}</span><span class="sv">${val}</span></div>`;
-    }).join('');
+    const now = Date.now();
+    const data = Object.entries(src)
+      .map(([name, d]) => ({name, d}))
+      .filter(x => x.d && Number.isFinite(x.d.haut) && Number.isFinite(x.d.bas)
+                   && x.d.date && (now - new Date(x.d.date + 'T12:00:00').getTime()) < 4.5 * 86400000)
+      .sort((a,b) => b.d.haut - a.d.haut);
 
-    // Dupliquer pour boucle seamless
+    if(!data.length){
+      wrap.innerHTML = '<div class="snow-track"><div class="snow-item"><span class="sn" style="opacity:.8">Official upper / lower slope snow readings from the opening of the resorts</span></div></div>';
+      return;
+    }
+
+    const itemsHTML = data.map(x =>
+      `<div class="snow-item"><span class="sn">${x.name}</span><span class="sv"><strong>${x.d.haut}</strong><span style="opacity:.6">/</span>${x.d.bas} cm</span></div>`
+    ).join('');
+
     wrap.innerHTML = `<div class="snow-track" id="snowTrack">${itemsHTML}${itemsHTML}</div>`;
-
-    // Durée proportionnelle au nombre d'items
     const track = document.getElementById('snowTrack');
     if(track) track.style.animationDuration = (data.length * 3.2) + 's';
   }
@@ -1973,7 +1934,7 @@ function updateSaisonUI(saison) {
   // Snow strip / ticker
   const stripLabel = document.querySelector('.snow-strip-label');
   if(stripLabel) {
-    stripLabel.textContent = saison === 'winter' ? '❄ Conditions' : '🌿 Activities';
+    stripLabel.textContent = saison === 'winter' ? '❄ Snow reliability' : '🌿 Activities';
   }
   
   // Hero
