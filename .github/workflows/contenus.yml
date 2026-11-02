@@ -25,7 +25,10 @@ jobs:
         with:
           python-version: "3.11"
 
+      # continue-on-error : si UNE page pose problème, les autres pages réussies sont quand même publiées
       - name: Générer les contenus
+        id: gen
+        continue-on-error: true
         run: python3 _scripts/generate_contenus.py
 
       - name: Commit si changement
@@ -40,3 +43,9 @@ jobs:
             git pull --rebase
             git push
           fi
+
+      - name: Signaler une erreur de génération
+        if: steps.gen.outcome == 'failure'
+        run: |
+          echo "::error::generate_contenus.py a signalé une erreur (voir l'étape Générer les contenus)."
+          exit 1
