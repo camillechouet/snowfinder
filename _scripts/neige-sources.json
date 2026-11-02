@@ -1,0 +1,26 @@
+{
+  "_commentaire": "Une entrée = un domaine skiable (un seul bulletin pour toutes les stations qu'il couvre). 'slugs' = pages candidates sur skipass.com/neige/<slug>.html, essayées dans l'ordre. Les slugs marqués verifie=true ont été vus en ligne ; les autres sont essayés et ignorés sans erreur s'ils n'existent pas (la sortie du workflow indique alors quelle station n'a pas pu être lue).",
+  "source_nom": "bulletins des stations (ANMSM) via Skipass",
+  "url_modele": "https://www.skipass.com/neige/{slug}.html",
+  "domaines": [
+    {"nom": "Chamonix",        "slugs": ["chamonix"],                          "couvre": ["Chamonix"],                                        "verifie": true},
+    {"nom": "Les 2 Alpes",     "slugs": ["les-deux-alpes", "les-2-alpes"],     "couvre": ["Les Deux Alpes"],                                  "verifie": false},
+    {"nom": "La Grave",        "slugs": ["la-grave"],                          "couvre": ["La Grave - La Meije"],                             "verifie": true},
+    {"nom": "Val d'Isère",     "slugs": ["val-d-isere"],                       "couvre": ["Val d'Isère"],                                     "verifie": true},
+    {"nom": "Tignes",          "slugs": ["tignes"],                            "couvre": ["Tignes"],                                          "verifie": true},
+    {"nom": "Alpe d'Huez",     "slugs": ["l-alpe-d-huez", "alpe-d-huez"],      "couvre": ["Alpe d'Huez"],                                     "verifie": true},
+    {"nom": "La Plagne",       "slugs": ["la-plagne"],                         "couvre": ["La Plagne", "Champagny-en-Vanoise", "Montchavin-Les Coches"], "verifie": true},
+    {"nom": "Val Thorens",     "slugs": ["val-thorens"],                       "couvre": ["Val Thorens", "Orelle"],                           "verifie": true},
+    {"nom": "Les Arcs",        "slugs": ["les-arcs"],                          "couvre": ["Les Arcs", "Peisey-Vallandry"],                    "verifie": true},
+    {"nom": "Bonneval-sur-Arc","slugs": ["bonneval-sur-arc", "bonneval"],      "couvre": ["Bonneval-sur-Arc"],                                "verifie": false},
+    {"nom": "Méribel",         "slugs": ["meribel"],                           "couvre": ["Méribel", "Brides-les-Bains"],                     "verifie": false},
+    {"nom": "Les Menuires",    "slugs": ["les-menuires"],                      "couvre": ["Les Menuires"],                                    "verifie": true},
+    {"nom": "Saint-Véran",     "slugs": ["saint-veran"],                       "couvre": ["Saint-Véran", "Molines-en-Queyras"],               "verifie": false},
+    {"nom": "Montgenèvre",     "slugs": ["montgenevre"],                       "couvre": ["Montgenèvre"],                                     "verifie": true},
+    {"nom": "La Rosière",      "slugs": ["la-rosiere"],                        "couvre": ["La Rosière"],                                      "verifie": false},
+    {"nom": "Val Cenis",       "slugs": ["val-cenis", "val-cenis-vanoise"],    "couvre": ["Val Cenis"],                                       "verifie": false},
+    {"nom": "Serre Chevalier", "slugs": ["serre-chevalier"],                   "couvre": ["Serre Chevalier"],                                 "verifie": true},
+    {"nom": "Aussois",         "slugs": ["aussois"],                           "couvre": ["Aussois"],                                         "verifie": false},
+    {"nom": "La Norma",        "slugs": ["la-norma"],                          "couvre": ["La Norma"],                                        "verifie": false}
+  ]
+}
