@@ -1007,7 +1007,6 @@ STATION_ANECDOTES = {
         "Le village est situé à seulement 7 km de la frontière suisse ; son secteur de ski « Piquemiette » touche même directement cette frontière, au pied des falaises du Mont d'Or.",
     ],
     "Les Rousses": [
-        "C'est la toute première station française à avoir obtenu le label « Flocon Vert », qui récompense l'engagement durable des stations de montagne.",
         "Son domaine alpin « Jura sur Léman » est en partie transfrontalier avec la Suisse — on peut littéralement skier avec un ski de chaque côté de la frontière — et offre depuis le sommet de la Dôle une vue sur la chaîne des Alpes et le Mont-Blanc.",
         "La station rassemble quatre villages (Les Rousses, Prémanon, Lamoura, Bois-d'Amont) et est un haut lieu historique du ski nordique français, qui accueille chaque année la Transjurassienne, l'une des plus grandes courses populaires de ski de fond d'Europe.",
     ],
@@ -1947,8 +1946,9 @@ def get_station_photos(name):
             if os.path.exists(p):
                 found = f'../img/{pslug}{i}.{ext}'
                 break
-        if found:
-            photos.append(found)   # trous tolérés : si 1 manque, la 2 devient la photo principale
+        if not found:
+            break  # stop au premier trou
+        photos.append(found)
     return photos
 
 def get_domaine_photos(slug):
@@ -2013,11 +2013,14 @@ def _liste_fr(noms):
     noms = list(noms)
     return noms[0] if len(noms) == 1 else ', '.join(noms[:-1]) + ' et ' + noms[-1]
 
+# Nom officiel à afficher dans la légende du plan (si différent du nom de la fiche)
+PLAN_CREDIT_NOM = {"Les Rousses": "Station des Rousses"}
+
 def get_plan_pistes(station_name):
     """Retourne (chemin_relatif, crédit) du plan des pistes d'une station, ou (None, None)."""
     own = _find_plan(to_photo_slug(station_name))
     if own:
-        return own, station_name
+        return own, PLAN_CREDIT_NOM.get(station_name, station_name)
     dslug, d = get_domaine(station_name)
     if d:
         dp = _find_plan(dslug.replace('-', ''))
