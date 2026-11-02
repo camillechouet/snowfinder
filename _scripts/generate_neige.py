@@ -12,6 +12,9 @@ Règles (aucune valeur inventée) :
 * Lecture par expressions régulières (gratuit). Si la mise en page change et que la lecture
   échoue, repli sur Claude Haiku (quelques centimes par mois), avec les mêmes contrôles.
 * Une valeur absurde (négative, > 800 cm, altitude haut <= altitude bas) est refusée.
+* Contrôle de cohérence (sept.-déc.) : Skipass remet parfois la date du jour sur d'anciens chiffres
+  (copie du printemps). Des hauteurs importantes (haut >= 40 cm ou bas >= 20 cm) sans aucune chute
+  de neige depuis plus de 60 jours, d'après le bulletin lui-même, sont refusées.
 * Si le site de lecture est injoignable pour (presque) tous les domaines, neige.json existant
   est conservé tel quel : le bandeau ignore de lui-même les relevés de plus de 4 jours.
 
@@ -138,6 +141,36 @@ def validate(raw, ref):
     return {"haut": cm_haut, "bas": cm_bas, "alt_haut": alt_haut, "alt_bas": alt_bas, "date": d.isoformat()}, None
 
 
+RE_LAST_A = re.compile(r"derni[eè]re chute(?: de neige)?\s*(?:remonte\s*)?(?:au|le)\s*(?:le\s*)?(\d{1,2})/(\d{1,2})/(\d{4})", re.I)
+RE_LAST_B = re.compile(r"derni[eè]re chute(?: de neige)?\s*(?:remonte\s*)?(?:au|le)\s*(?:le\s*)?(\d{1,2})\s+([A-Za-zéû]+)\.?\s+(\d{4})", re.I)
+
+
+def parse_last_snow(text):
+    """Date de la dernière chute de neige indiquée par le bulletin (None si absente)."""
+    m = RE_LAST_A.search(text)
+    try:
+        if m:
+            return dt.date(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+        m = RE_LAST_B.search(text)
+        if m and month_num(m.group(2)):
+            return dt.date(int(m.group(3)), month_num(m.group(2)), int(m.group(1)))
+    except ValueError:
+        pass
+    return None
+
+
+def coherent(res, last, ref):
+    """Skipass remet parfois la date du jour sur des chiffres anciens (copie du printemps, avant l'ouverture).
+    En automne (sept.-déc.), des hauteurs importantes sans aucune chute de neige depuis plus de 60 jours
+    sont donc refusées. Sans date de dernière chute dans la page, on ne peut pas juger : relevé gardé."""
+    if res is None or last is None:
+        return res, None
+    if ref.month in (9, 10, 11, 12) and (ref - last).days > 60 and (res["haut"] >= 40 or res["bas"] >= 20):
+        return None, (f"incohérent : {res['haut']}/{res['bas']} cm mais dernière chute le {last.strftime('%d/%m/%Y')} "
+                      "(ancien relevé recopié ?)")
+    return res, None
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Repli : Claude Haiku (seulement si les expressions régulières ne lisent rien)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -256,9 +289,12 @@ def main():
                 raw = llm_read(text, ref)
                 how = "llm"
             res, why = validate(raw, ref)
+            res, why2 = coherent(res, parse_last_snow(text), ref)
+            why = why2 or why
             if res:
                 res["via"] = how
                 break
+            break
         if res:
             via = res.pop("via", "regex")
             out[nom] = {**res, "couvre": dom["couvre"]}
