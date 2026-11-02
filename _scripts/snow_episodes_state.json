@@ -1,3 +1,13 @@
 {
-  "episodes": {}
+  "episodes": {
+    "Alpes du Sud_2026-W46": {
+      "massif": "Alpes du Sud",
+      "target_date": "2026-11-15",
+      "top_station": "Isola 2000",
+      "snow_cm": 22,
+      "stages_sent": [
+        "j10"
+      ]
+    }
+  }
 }
