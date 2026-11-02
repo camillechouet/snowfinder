@@ -3317,10 +3317,10 @@ async function getCustomPhotos(s, maxProbe){
   const promises=[];
   for(let n=1;n<=maxProbe;n++) promises.push(checkImg('/img/'+slug+n+'.jpg').catch(()=>null));
   const raw=await Promise.all(promises);
-  // Stopper au premier trou (convention : pas de gap)
+  // Les trous sont tolérés (ex. vent2.jpg sans vent1.jpg : la 2 devient la photo principale)
   const results=[];
   let done=false;
-  for(const url of raw){ if(url){ results.push(url); } else { done=true; break; } }
+  for(const url of raw){ if(url){ results.push(url); } else { done=true; } }
   const newEntry={results, probed:maxProbe, done};
   CUSTOM_PHOTO_CACHE[slug]=newEntry;
   writePhotoCacheLS(slug,newEntry);

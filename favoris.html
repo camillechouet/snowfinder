@@ -1136,9 +1136,9 @@ async function getCustomPhotos(s){
   const promises=[];
   for(let n=1;n<=8;n++) promises.push(checkImg('/img/'+slug+n+'.jpg').catch(()=>null));
   const raw=await Promise.all(promises);
-  // Stopper au premier trou (convention : pas de gap)
+  // Les trous sont tolérés (ex. vent2.jpg sans vent1.jpg : la 2 devient la photo principale)
   const results=[];
-  for(const url of raw){if(url)results.push(url);else break;}
+  for(const url of raw){if(url)results.push(url);}
   CUSTOM_PHOTO_CACHE[slug]=results;
   return results;
 }
