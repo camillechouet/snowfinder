@@ -122,9 +122,10 @@ def _first_existing(base):
 def find_photo(name, station=None, domaine=None):
     """1) photo propre de la station (img/<slug>1.jpg) ; 2) fichier indiqué dans le champ
     « photo » de la fiche ; 3) photo du domaine skiable relié (img/<domaine>1.jpg)."""
-    p = _first_existing(f'{photo_slug(name)}1')
-    if p:
-        return p
+    for n in (1, 2, 3):              # la 2 ou la 3 suffit si la 1 n'existe pas
+        p = _first_existing(f'{photo_slug(name)}{n}')
+        if p:
+            return p
     if station and station.get("photo"):
         q = os.path.join(ROOT, station["photo"].lstrip("/"))
         if os.path.exists(q):

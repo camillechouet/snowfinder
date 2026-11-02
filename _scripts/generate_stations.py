@@ -1947,9 +1947,8 @@ def get_station_photos(name):
             if os.path.exists(p):
                 found = f'../img/{pslug}{i}.{ext}'
                 break
-        if not found:
-            break  # stop au premier trou
-        photos.append(found)
+        if found:
+            photos.append(found)   # trous tolérés : si 1 manque, la 2 devient la photo principale
     return photos
 
 def get_domaine_photos(slug):

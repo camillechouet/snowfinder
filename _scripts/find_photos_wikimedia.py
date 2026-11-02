@@ -29,7 +29,7 @@ OUT = os.path.join(ROOT, "photos-out")
 MAX_W = 1600
 MIN_W, MIN_H = 2400, 1400      # grosses photos seulement : une épingle floue ou pixelisée fait perdre en crédibilité
 MIN_SCORE = 7.0      # sous ce score, la photo n'est pas proposée
-N_KEEP = 3           # 1 principale + 2 alternatives (dossier autres/)
+N_KEEP = 3           # 1 principale (<slug>1.jpg) + 2 alternatives (autres/<slug>2.jpg et 3.jpg)
 MIN_SATURATION = 0.04  # refuse le noir et blanc (une photo de neige reste peu saturée : ne pas monter)
 MIN_BRIGHT = 0.40      # refuse les photos de nuit
 MAX_GREEN = 0.045       # refuse les photos d'été (beaucoup d'herbe)
@@ -80,9 +80,10 @@ def photo_slug(name):
 
 def has_own_photo(s):
     ps = photo_slug(s["name"])
-    for ext in ("jpg", "jpeg", "png", "webp", "JPG", "JPEG", "PNG", "WEBP"):
-        if os.path.exists(os.path.join(ROOT, "img", f"{ps}1.{ext}")):
-            return True
+    for n in (1, 2, 3):            # une photo 2 ou 3 sans la 1 compte aussi (le site accepte les trous)
+        for ext in ("jpg", "jpeg", "png", "webp", "JPG", "JPEG", "PNG", "WEBP"):
+            if os.path.exists(os.path.join(ROOT, "img", f"{ps}{n}.{ext}")):
+                return True
     if s.get("photo") and os.path.exists(os.path.join(ROOT, s["photo"].lstrip("/"))):
         return True
     return False
@@ -350,7 +351,7 @@ def process(station, cand, rank=0, seen=None):
     if rank == 0:
         rel = f"{base}1.jpg"
     else:
-        rel = os.path.join("autres", f"{base}1-{'bc'[rank - 1]}.jpg")
+        rel = os.path.join("autres", f"{base}{rank + 1}.jpg")
     os.makedirs(os.path.dirname(os.path.join(OUT, rel)) or OUT, exist_ok=True)
     img.save(os.path.join(OUT, rel), "JPEG", quality=80, optimize=True, progressive=True)
     return rel
