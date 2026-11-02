@@ -293,7 +293,10 @@ function acceptSfNotif(){
 </script>
 <div class="dm-hero">
 <div class="hero-slides">
-<img alt="Les 4 Vallées photo 1" class="hero-slide active" data-idx="0" loading="eager" src="https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&amp;q=80"/>
+<img alt="Les 4 Vallées photo 1" class="hero-slide active" data-idx="0" loading="eager" src="/img/verbier1.jpg"/>
+<img alt="Les 4 Vallées photo 2" class="hero-slide" data-idx="1" loading="lazy" src="/img/nendaz1.jpg"/>
+<img alt="Les 4 Vallées photo 3" class="hero-slide" data-idx="2" loading="lazy" src="/img/thyon1.jpg"/>
+<img alt="Les 4 Vallées photo 4" class="hero-slide" data-idx="3" loading="lazy" src="/img/latzoumaz1.jpg"/>
 </div>
 <div class="dm-hero-overlay"></div>
 <a aria-label="Back" class="dm-close" href="#" id="dmClose">✕</a>
@@ -344,13 +347,20 @@ function acceptSfNotif(){
   renderDomCompare();
 })();
 </script>
+<button aria-label="Previous" class="hero-nav hero-prev" onclick="dmHeroPrev()">‹</button>
+<button aria-label="Next" class="hero-nav hero-next" onclick="dmHeroNext()">›</button>
+<div class="hero-dots">
+<button aria-label="Photo 1" class="hero-dot active" data-idx="0" onclick="dmHeroGoTo(0)"></button>
+<button aria-label="Photo 2" class="hero-dot" data-idx="1" onclick="dmHeroGoTo(1)"></button>
+<button aria-label="Photo 3" class="hero-dot" data-idx="2" onclick="dmHeroGoTo(2)"></button>
+<button aria-label="Photo 4" class="hero-dot" data-idx="3" onclick="dmHeroGoTo(3)"></button>
+</div>
 <div class="dm-hero-content">
 <div class="dm-hero-massif">⛷ Northern Alps</div>
 <h1>Les 4 Vallées</h1>
 <div class="dm-hero-meta">🎿 412 km · 5 resorts · €99/day</div>
 <div class="dm-rank">4th largest ski area listed</div>
 </div>
-<div class="hero-illu-note">Illustrative photo</div>
 </div>
 <div class="dm-wrap">
 <div class="dm-breadcrumb"><a href="/en/index.html">Accueil</a> › <a href="/en/recherche.html">Stations de ski</a> › Les 4 Vallées</div>
@@ -469,7 +479,7 @@ function acceptSfNotif(){
 <div class="dm-section-title">Explore the resorts</div>
 <div class="dm-stations-grid">
 <a class="dm-station-card" href="/en/stations/verbier.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/verbier1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="340" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="340" type="button">⚖️</button>
@@ -482,7 +492,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/nendaz.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/nendaz1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="341" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="341" type="button">⚖️</button>
@@ -508,7 +518,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/thyon.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/thyon1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="343" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="343" type="button">⚖️</button>
@@ -521,7 +531,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/la-tzoumaz.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/latzoumaz1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="344" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="344" type="button">⚖️</button>
@@ -574,7 +584,7 @@ function acceptSfNotif(){
 <div class="dm-other-foot"><span>400 km</span></div>
 </a>
 <a class="dm-other" href="/en/domaines/matterhorn-ski-paradise.html">
-<div class="dm-other-photo" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&amp;q=80')">
+<div class="dm-other-photo" style="background-image:url('../img/zermatt1.jpg')">
 <div class="dm-other-overlay"></div>
 <button aria-label="Add to favourites" class="dm-other-fav" data-dslug="matterhorn-ski-paradise" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-other-cmp" data-dslug="matterhorn-ski-paradise" type="button">⚖️</button>
@@ -583,7 +593,7 @@ function acceptSfNotif(){
 <div class="dm-other-foot"><span>322 km</span></div>
 </a>
 <a class="dm-other" href="/en/domaines/sybelles.html">
-<div class="dm-other-photo" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=1400&amp;q=80')">
+<div class="dm-other-photo" style="background-image:url('../img/latoussuire1.jpg')">
 <div class="dm-other-overlay"></div>
 <button aria-label="Add to favourites" class="dm-other-fav" data-dslug="sybelles" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-other-cmp" data-dslug="sybelles" type="button">⚖️</button>
@@ -655,7 +665,7 @@ function toggleReadMore(id, btn){
   btn.textContent = expanded ? 'Show less ▲' : 'Read more ▼';
 }
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&q=80"];
+var DM_HERO_URLS = ["/img/verbier1.jpg","/img/nendaz1.jpg","/img/thyon1.jpg","/img/latzoumaz1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;

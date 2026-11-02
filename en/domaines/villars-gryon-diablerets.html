@@ -293,7 +293,8 @@ function acceptSfNotif(){
 </script>
 <div class="dm-hero">
 <div class="hero-slides">
-<img alt="Villars – Gryon – Les Diablerets photo 1" class="hero-slide active" data-idx="0" loading="eager" src="https://images.unsplash.com/photo-1528659862616-22886eb53642?w=1400&amp;q=80"/>
+<img alt="Villars – Gryon – Les Diablerets photo 1" class="hero-slide active" data-idx="0" loading="eager" src="/img/villarssurollon1.jpg"/>
+<img alt="Villars – Gryon – Les Diablerets photo 2" class="hero-slide" data-idx="1" loading="lazy" src="/img/lesdiablerets1.jpg"/>
 </div>
 <div class="dm-hero-overlay"></div>
 <a aria-label="Back" class="dm-close" href="#" id="dmClose">✕</a>
@@ -344,13 +345,18 @@ function acceptSfNotif(){
   renderDomCompare();
 })();
 </script>
+<button aria-label="Previous" class="hero-nav hero-prev" onclick="dmHeroPrev()">‹</button>
+<button aria-label="Next" class="hero-nav hero-next" onclick="dmHeroNext()">›</button>
+<div class="hero-dots">
+<button aria-label="Photo 1" class="hero-dot active" data-idx="0" onclick="dmHeroGoTo(0)"></button>
+<button aria-label="Photo 2" class="hero-dot" data-idx="1" onclick="dmHeroGoTo(1)"></button>
+</div>
 <div class="dm-hero-content">
 <div class="dm-hero-massif">⛷ Northern Alps</div>
 <h1>Villars – Gryon – Les Diablerets</h1>
 <div class="dm-hero-meta">🎿 87 km · 3 resorts · 73€/day</div>
 <div class="dm-rank">48th largest ski area listed</div>
 </div>
-<div class="hero-illu-note">Illustrative photo</div>
 </div>
 <div class="dm-wrap">
 <div class="dm-breadcrumb"><a href="/en/index.html">Accueil</a> › <a href="/en/recherche.html">Stations de ski</a> › Villars – Gryon – Les Diablerets</div>
@@ -457,7 +463,7 @@ function acceptSfNotif(){
 <div class="dm-section-title">Explore the resorts</div>
 <div class="dm-stations-grid">
 <a class="dm-station-card" href="/en/stations/villars-sur-ollon.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1528659862616-22886eb53642?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/villarssurollon1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="380" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="380" type="button">⚖️</button>
@@ -483,7 +489,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/les-diablerets.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/lesdiablerets1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="382" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="382" type="button">⚖️</button>
@@ -527,7 +533,7 @@ function acceptSfNotif(){
 <div class="dm-other-foot"><span>425 km</span></div>
 </a>
 <a class="dm-other" href="/en/domaines/4-vallees.html">
-<div class="dm-other-photo" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&amp;q=80')">
+<div class="dm-other-photo" style="background-image:url('../img/verbier1.jpg')">
 <div class="dm-other-overlay"></div>
 <button aria-label="Add to favourites" class="dm-other-fav" data-dslug="4-vallees" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-other-cmp" data-dslug="4-vallees" type="button">⚖️</button>
@@ -545,7 +551,7 @@ function acceptSfNotif(){
 <div class="dm-other-foot"><span>400 km</span></div>
 </a>
 <a class="dm-other" href="/en/domaines/matterhorn-ski-paradise.html">
-<div class="dm-other-photo" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&amp;q=80')">
+<div class="dm-other-photo" style="background-image:url('../img/zermatt1.jpg')">
 <div class="dm-other-overlay"></div>
 <button aria-label="Add to favourites" class="dm-other-fav" data-dslug="matterhorn-ski-paradise" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-other-cmp" data-dslug="matterhorn-ski-paradise" type="button">⚖️</button>
@@ -617,7 +623,7 @@ function toggleReadMore(id, btn){
   btn.textContent = expanded ? 'Show less ▲' : 'Read more ▼';
 }
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["https://images.unsplash.com/photo-1528659862616-22886eb53642?w=1400&q=80"];
+var DM_HERO_URLS = ["/img/villarssurollon1.jpg","/img/lesdiablerets1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;

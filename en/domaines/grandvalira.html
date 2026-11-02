@@ -293,7 +293,8 @@ function acceptSfNotif(){
 </script>
 <div class="dm-hero">
 <div class="hero-slides">
-<img alt="Grandvalira photo 1" class="hero-slide active" data-idx="0" loading="eager" src="https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&amp;q=80"/>
+<img alt="Grandvalira photo 1" class="hero-slide active" data-idx="0" loading="eager" src="/img/pasdelacasa1.jpg"/>
+<img alt="Grandvalira photo 2" class="hero-slide" data-idx="1" loading="lazy" src="/img/grauroig1.jpg"/>
 </div>
 <div class="dm-hero-overlay"></div>
 <a aria-label="Back" class="dm-close" href="#" id="dmClose">✕</a>
@@ -344,13 +345,18 @@ function acceptSfNotif(){
   renderDomCompare();
 })();
 </script>
+<button aria-label="Previous" class="hero-nav hero-prev" onclick="dmHeroPrev()">‹</button>
+<button aria-label="Next" class="hero-nav hero-next" onclick="dmHeroNext()">›</button>
+<div class="hero-dots">
+<button aria-label="Photo 1" class="hero-dot active" data-idx="0" onclick="dmHeroGoTo(0)"></button>
+<button aria-label="Photo 2" class="hero-dot" data-idx="1" onclick="dmHeroGoTo(1)"></button>
+</div>
 <div class="dm-hero-content">
 <div class="dm-hero-massif">⛷ Pyrenees</div>
 <h1>Grandvalira</h1>
 <div class="dm-hero-meta">🎿 215 km · 6 resorts · 69€/day</div>
 <div class="dm-rank">18th largest ski area listed</div>
 </div>
-<div class="hero-illu-note">Illustrative photo</div>
 </div>
 <div class="dm-wrap">
 <div class="dm-breadcrumb"><a href="/en/index.html">Accueil</a> › <a href="/en/recherche.html">Stations de ski</a> › Grandvalira</div>
@@ -475,7 +481,7 @@ function acceptSfNotif(){
 <div class="dm-section-title">Explore the resorts</div>
 <div class="dm-stations-grid">
 <a class="dm-station-card" href="/en/stations/pas-de-la-casa.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/pasdelacasa1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="330" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="330" type="button">⚖️</button>
@@ -488,7 +494,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/grau-roig.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/grauroig1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="331" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="331" type="button">⚖️</button>
@@ -557,7 +563,7 @@ function acceptSfNotif(){
 <div class="dm-section">
 <div class="dm-section-title">Other ski areas — Pyrenees</div>
 <div class="dm-other-grid"><a class="dm-other" href="/en/domaines/alp-2500.html">
-<div class="dm-other-photo" style="background-image:url('https://images.unsplash.com/photo-1731445289819-ed2efbdb9d83?w=1400&amp;q=80')">
+<div class="dm-other-photo" style="background-image:url('../img/lamolina1.jpg')">
 <div class="dm-other-overlay"></div>
 <button aria-label="Add to favourites" class="dm-other-fav" data-dslug="alp-2500" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-other-cmp" data-dslug="alp-2500" type="button">⚖️</button>
@@ -575,7 +581,7 @@ function acceptSfNotif(){
 <div class="dm-other-foot"><span>100 km</span></div>
 </a>
 <a class="dm-other" href="/en/domaines/pal-arinsal.html">
-<div class="dm-other-photo" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&amp;q=80')">
+<div class="dm-other-photo" style="background-image:url('../img/pal1.jpg')">
 <div class="dm-other-overlay"></div>
 <button aria-label="Add to favourites" class="dm-other-fav" data-dslug="pal-arinsal" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-other-cmp" data-dslug="pal-arinsal" type="button">⚖️</button>
@@ -647,7 +653,7 @@ function toggleReadMore(id, btn){
   btn.textContent = expanded ? 'Show less ▲' : 'Read more ▼';
 }
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&q=80"];
+var DM_HERO_URLS = ["/img/pasdelacasa1.jpg","/img/grauroig1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;

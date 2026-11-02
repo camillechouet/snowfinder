@@ -307,6 +307,7 @@ function acceptSfNotif(){
 <div class="dm-hero">
 <div class="hero-slides">
 <img alt="La Forêt Blanche photo 1" class="hero-slide active" data-idx="0" loading="eager" src="/img/vars1.jpg"/>
+<img alt="La Forêt Blanche photo 2" class="hero-slide" data-idx="1" loading="lazy" src="/img/risoul1.jpg"/>
 </div>
 <div class="dm-hero-overlay"></div>
 <a aria-label="Back" class="dm-close" href="#" id="dmClose">✕</a>
@@ -357,6 +358,12 @@ function acceptSfNotif(){
   renderDomCompare();
 })();
 </script>
+<button aria-label="Previous" class="hero-nav hero-prev" onclick="dmHeroPrev()">‹</button>
+<button aria-label="Next" class="hero-nav hero-next" onclick="dmHeroNext()">›</button>
+<div class="hero-dots">
+<button aria-label="Photo 1" class="hero-dot active" data-idx="0" onclick="dmHeroGoTo(0)"></button>
+<button aria-label="Photo 2" class="hero-dot" data-idx="1" onclick="dmHeroGoTo(1)"></button>
+</div>
 <div class="dm-hero-content">
 <div class="dm-hero-massif">⛷ Southern Alps</div>
 <h1>La Forêt Blanche</h1>
@@ -480,7 +487,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/risoul.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/risoul1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="92" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="92" type="button">⚖️</button>
@@ -497,7 +504,7 @@ function acceptSfNotif(){
 <div class="dm-section">
 <div class="dm-section-title">Other ski areas — Southern Alps</div>
 <div class="dm-other-grid"><a class="dm-other" href="/en/domaines/voie-lactee.html">
-<div class="dm-other-photo" style="background-image:url('https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=1400&amp;q=80')">
+<div class="dm-other-photo" style="background-image:url('../img/montgenevre1.jpg')">
 <div class="dm-other-overlay"></div>
 <button aria-label="Add to favourites" class="dm-other-fav" data-dslug="voie-lactee" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-other-cmp" data-dslug="voie-lactee" type="button">⚖️</button>
@@ -669,7 +676,7 @@ function toggleReadMore(id, btn){
   btn.textContent = expanded ? 'Show less ▲' : 'Read more ▼';
 }
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["/img/vars1.jpg"];
+var DM_HERO_URLS = ["/img/vars1.jpg","/img/risoul1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;

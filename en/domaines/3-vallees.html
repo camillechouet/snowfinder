@@ -299,6 +299,7 @@ function acceptSfNotif(){
 <img alt="Les 3 Vallées photo 4" class="hero-slide" data-idx="3" loading="lazy" src="/img/saintmartindebelleville1.jpg"/>
 <img alt="Les 3 Vallées photo 5" class="hero-slide" data-idx="4" loading="lazy" src="/img/lesmenuires1.jpg"/>
 <img alt="Les 3 Vallées photo 6" class="hero-slide" data-idx="5" loading="lazy" src="/img/valthorens1.jpg"/>
+<img alt="Les 3 Vallées photo 7" class="hero-slide" data-idx="6" loading="lazy" src="/img/orelle1.jpg"/>
 </div>
 <div class="dm-hero-overlay"></div>
 <a aria-label="Back" class="dm-close" href="#" id="dmClose">✕</a>
@@ -358,6 +359,7 @@ function acceptSfNotif(){
 <button aria-label="Photo 4" class="hero-dot" data-idx="3" onclick="dmHeroGoTo(3)"></button>
 <button aria-label="Photo 5" class="hero-dot" data-idx="4" onclick="dmHeroGoTo(4)"></button>
 <button aria-label="Photo 6" class="hero-dot" data-idx="5" onclick="dmHeroGoTo(5)"></button>
+<button aria-label="Photo 7" class="hero-dot" data-idx="6" onclick="dmHeroGoTo(6)"></button>
 </div>
 <div class="dm-hero-content">
 <div class="dm-hero-massif">⛷ Northern Alps</div>
@@ -565,7 +567,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/orelle.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/orelle1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="13" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="13" type="button">⚖️</button>
@@ -626,7 +628,7 @@ function acceptSfNotif(){
 <div class="dm-other-foot"><span>425 km</span></div>
 </a>
 <a class="dm-other" href="/en/domaines/4-vallees.html">
-<div class="dm-other-photo" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&amp;q=80')">
+<div class="dm-other-photo" style="background-image:url('../img/verbier1.jpg')">
 <div class="dm-other-overlay"></div>
 <button aria-label="Add to favourites" class="dm-other-fav" data-dslug="4-vallees" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-other-cmp" data-dslug="4-vallees" type="button">⚖️</button>
@@ -644,7 +646,7 @@ function acceptSfNotif(){
 <div class="dm-other-foot"><span>400 km</span></div>
 </a>
 <a class="dm-other" href="/en/domaines/matterhorn-ski-paradise.html">
-<div class="dm-other-photo" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&amp;q=80')">
+<div class="dm-other-photo" style="background-image:url('../img/zermatt1.jpg')">
 <div class="dm-other-overlay"></div>
 <button aria-label="Add to favourites" class="dm-other-fav" data-dslug="matterhorn-ski-paradise" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-other-cmp" data-dslug="matterhorn-ski-paradise" type="button">⚖️</button>
@@ -653,7 +655,7 @@ function acceptSfNotif(){
 <div class="dm-other-foot"><span>322 km</span></div>
 </a>
 <a class="dm-other" href="/en/domaines/sybelles.html">
-<div class="dm-other-photo" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=1400&amp;q=80')">
+<div class="dm-other-photo" style="background-image:url('../img/latoussuire1.jpg')">
 <div class="dm-other-overlay"></div>
 <button aria-label="Add to favourites" class="dm-other-fav" data-dslug="sybelles" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-other-cmp" data-dslug="sybelles" type="button">⚖️</button>
@@ -725,7 +727,7 @@ function toggleReadMore(id, btn){
   btn.textContent = expanded ? 'Show less ▲' : 'Read more ▼';
 }
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["/img/courchevel1.jpg","/img/latania1.jpg","/img/meribel1.jpg","/img/saintmartindebelleville1.jpg","/img/lesmenuires1.jpg","/img/valthorens1.jpg"];
+var DM_HERO_URLS = ["/img/courchevel1.jpg","/img/latania1.jpg","/img/meribel1.jpg","/img/saintmartindebelleville1.jpg","/img/lesmenuires1.jpg","/img/valthorens1.jpg","/img/orelle1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;

@@ -293,7 +293,9 @@ function acceptSfNotif(){
 </script>
 <div class="dm-hero">
 <div class="hero-slides">
-<img alt="Les Sybelles photo 1" class="hero-slide active" data-idx="0" loading="eager" src="https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=1400&amp;q=80"/>
+<img alt="Les Sybelles photo 1" class="hero-slide active" data-idx="0" loading="eager" src="/img/latoussuire1.jpg"/>
+<img alt="Les Sybelles photo 2" class="hero-slide" data-idx="1" loading="lazy" src="/img/saintsorlindarves1.jpg"/>
+<img alt="Les Sybelles photo 3" class="hero-slide" data-idx="2" loading="lazy" src="/img/saintjeandarves1.jpg"/>
 </div>
 <div class="dm-hero-overlay"></div>
 <a aria-label="Back" class="dm-close" href="#" id="dmClose">✕</a>
@@ -344,13 +346,19 @@ function acceptSfNotif(){
   renderDomCompare();
 })();
 </script>
+<button aria-label="Previous" class="hero-nav hero-prev" onclick="dmHeroPrev()">‹</button>
+<button aria-label="Next" class="hero-nav hero-next" onclick="dmHeroNext()">›</button>
+<div class="hero-dots">
+<button aria-label="Photo 1" class="hero-dot active" data-idx="0" onclick="dmHeroGoTo(0)"></button>
+<button aria-label="Photo 2" class="hero-dot" data-idx="1" onclick="dmHeroGoTo(1)"></button>
+<button aria-label="Photo 3" class="hero-dot" data-idx="2" onclick="dmHeroGoTo(2)"></button>
+</div>
 <div class="dm-hero-content">
 <div class="dm-hero-massif">⛷ Northern Alps</div>
 <h1>Les Sybelles</h1>
 <div class="dm-hero-meta">🎿 310 km · 6 resorts · 59€/day</div>
 <div class="dm-rank">8th largest listed ski area</div>
 </div>
-<div class="hero-illu-note">Illustrative photo</div>
 </div>
 <div class="dm-wrap">
 <div class="dm-breadcrumb"><a href="/en/index.html">Accueil</a> › <a href="/en/recherche.html">Stations de ski</a> › Les Sybelles</div>
@@ -475,7 +483,7 @@ function acceptSfNotif(){
 <div class="dm-section-title">Explore the resorts</div>
 <div class="dm-stations-grid">
 <a class="dm-station-card" href="/en/stations/la-toussuire.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/latoussuire1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="50" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="50" type="button">⚖️</button>
@@ -501,7 +509,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/saint-sorlin-d-arves.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/saintsorlindarves1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="52" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="52" type="button">⚖️</button>
@@ -514,7 +522,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/saint-jean-d-arves.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/saintjeandarves1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="53" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="53" type="button">⚖️</button>
@@ -584,7 +592,7 @@ function acceptSfNotif(){
 <div class="dm-other-foot"><span>425 km</span></div>
 </a>
 <a class="dm-other" href="/en/domaines/4-vallees.html">
-<div class="dm-other-photo" style="background-image:url('https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=1400&amp;q=80')">
+<div class="dm-other-photo" style="background-image:url('../img/verbier1.jpg')">
 <div class="dm-other-overlay"></div>
 <button aria-label="Add to favourites" class="dm-other-fav" data-dslug="4-vallees" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-other-cmp" data-dslug="4-vallees" type="button">⚖️</button>
@@ -602,7 +610,7 @@ function acceptSfNotif(){
 <div class="dm-other-foot"><span>400 km</span></div>
 </a>
 <a class="dm-other" href="/en/domaines/matterhorn-ski-paradise.html">
-<div class="dm-other-photo" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=1400&amp;q=80')">
+<div class="dm-other-photo" style="background-image:url('../img/zermatt1.jpg')">
 <div class="dm-other-overlay"></div>
 <button aria-label="Add to favourites" class="dm-other-fav" data-dslug="matterhorn-ski-paradise" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-other-cmp" data-dslug="matterhorn-ski-paradise" type="button">⚖️</button>
@@ -674,7 +682,7 @@ function toggleReadMore(id, btn){
   btn.textContent = expanded ? 'Show less ▲' : 'Read more ▼';
 }
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=1400&q=80"];
+var DM_HERO_URLS = ["/img/latoussuire1.jpg","/img/saintsorlindarves1.jpg","/img/saintjeandarves1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;
