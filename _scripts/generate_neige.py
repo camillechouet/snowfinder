@@ -12,7 +12,7 @@ Règles (aucune valeur inventée) :
 * Lecture par expressions régulières (gratuit). Si la mise en page change et que la lecture
   échoue, repli sur Claude Haiku (quelques centimes par mois), avec les mêmes contrôles.
 * Une valeur absurde (négative, > 800 cm, altitude haut <= altitude bas) est refusée.
-* Contrôle de cohérence (sept.-déc.) : Skipass remet parfois la date du jour sur d'anciens chiffres
+* Contrôle de cohérence (sept.-nov.) : Skipass remet parfois la date du jour sur d'anciens chiffres
   (copie du printemps). Des hauteurs importantes (haut >= 40 cm ou bas >= 20 cm) sans aucune chute
   de neige depuis plus de 60 jours, d'après le bulletin lui-même, sont refusées.
 * Si le site de lecture est injoignable pour (presque) tous les domaines, neige.json existant
@@ -161,11 +161,13 @@ def parse_last_snow(text):
 
 def coherent(res, last, ref):
     """Skipass remet parfois la date du jour sur des chiffres anciens (copie du printemps, avant l'ouverture).
-    En automne (sept.-déc.), des hauteurs importantes sans aucune chute de neige depuis plus de 60 jours
-    sont donc refusées. Sans date de dernière chute dans la page, on ne peut pas juger : relevé gardé."""
+    En automne (sept.-nov., avant l'ouverture des stations), des hauteurs importantes sans aucune chute de
+    neige depuis plus de 60 jours sont donc refusées. Dès décembre, les stations sont ouvertes et leurs
+    bulletins tenus à jour : la règle ne s'applique plus. Sans date de dernière chute dans la page, on ne
+    peut pas juger : relevé gardé."""
     if res is None or last is None:
         return res, None
-    if ref.month in (9, 10, 11, 12) and (ref - last).days > 60 and (res["haut"] >= 40 or res["bas"] >= 20):
+    if ref.month in (9, 10, 11) and (ref - last).days > 60 and (res["haut"] >= 40 or res["bas"] >= 20):
         return None, (f"incohérent : {res['haut']}/{res['bas']} cm mais dernière chute le {last.strftime('%d/%m/%Y')} "
                       "(ancien relevé recopié ?)")
     return res, None

@@ -21,6 +21,7 @@
     {"nom": "Val Cenis",       "slugs": ["val-cenis", "val-cenis-vanoise"],    "couvre": ["Val Cenis"],                                       "verifie": false},
     {"nom": "Serre Chevalier", "slugs": ["serre-chevalier"],                   "couvre": ["Serre Chevalier"],                                 "verifie": true},
     {"nom": "Aussois",         "slugs": ["aussois"],                           "couvre": ["Aussois"],                                         "verifie": false},
-    {"nom": "La Norma",        "slugs": ["la-norma"],                          "couvre": ["La Norma"],                                        "verifie": false}
+    {"nom": "La Norma",        "slugs": ["la-norma"],                          "couvre": ["La Norma"],                                        "verifie": false},
+    {"nom": "Avoriaz",         "slugs": ["avoriaz"],                           "couvre": ["Avoriaz"],                                         "verifie": true}
   ]
 }
