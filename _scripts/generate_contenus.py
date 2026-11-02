@@ -55,12 +55,14 @@ def esc(s: str) -> str:
 
 
 def slugify(name: str) -> str:
-    """Identique à generate_comparatifs.py et generate_stations.py (slug canonique du site)."""
+    """Identique à generate_comparatifs.py (slug canonique du site)."""
     s = name.lower()
     s = "".join(c for c in unicodedata.normalize("NFD", s)
                 if unicodedata.category(c) != "Mn")
-    s = re.sub(r"[^a-z0-9]+", "-", s)   # même règle que generate_stations.py
-    return s.strip("-")
+    s = re.sub(r"['’\s]+", "-", s)
+    s = re.sub(r"[^a-z0-9-]", "", s)
+    s = re.sub(r"-+", "-", s).strip("-")
+    return s
 
 
 def day_label(d: date) -> str:
@@ -168,9 +170,13 @@ def render_card(a: dict) -> str:
     )
 
 
+# Fin de page tolérante : après la grille, on accepte le menu du bas, puis (facultatif) le
+# sélecteur de langue posé par translate_site.py (<!--sf-lang-->…<!--/sf-lang-->), puis </body>.
 GRID_RE = re.compile(
     r'(<h1>Toutes nos actus</h1>\s*(?:<div class="count">.*?</div>\s*)?<div class="grid">)(.*?)'
-    r'(</div>\s*</div>\s*(?:<nav class="sf-bottomnav">.*?</nav>\s*)?</body>)',
+    r'(</div>\s*</div>\s*(?:<nav class="sf-bottomnav">.*?</nav>\s*)?)'
+    r'((?:<!--sf-lang-->.*?<!--/sf-lang-->\s*)?)'
+    r'(</body>)',
     re.S,
 )
 ACTUS_CSS_MARK = "/* SF-ACTUS-BAR */"
@@ -198,8 +204,10 @@ def build_actus_page(page: str, articles: list[dict]) -> str | None:
         return None
     page = _actus_extras(page, len(articles))
     cards = "\n\n".join(render_card(a) for a in articles)
-    return GRID_RE.sub(lambda m: m.group(1) + "\n\n" + cards + "\n\n  </div>\n</div>\n" + gc.SF_BOTTOMNAV_HTML + "</body>",
-                       page, count=1)
+    return GRID_RE.sub(
+        lambda m: (m.group(1) + "\n\n" + cards + "\n\n  </div>\n</div>\n" + gc.SF_BOTTOMNAV_HTML
+                   + m.group(4) + "</body>"),
+        page, count=1)
 
 
 def patch_article_page(page: str) -> str | None:
