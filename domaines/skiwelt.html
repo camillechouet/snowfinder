@@ -161,7 +161,7 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>
 <script>try{if(localStorage.getItem("sf_cookie_consent")==="refused")window["ga-disable-G-S0C748Y0DX"]=true;}catch(e){}window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-S0C748Y0DX");</script>
-<!--sf-i18n--><link rel="alternate" hreflang="fr" href="https://snowfinder.fr/domaines/skiwelt.html"><link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/domaines/skiwelt.html"><link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/domaines/skiwelt.html"><!--/sf-i18n--></head>
+</head>
 <body>
 
 <style>
@@ -309,8 +309,10 @@ function acceptSfNotif(){
 
 <div class="dm-hero">
   <div class="hero-slides">
-  <img class="hero-slide active" data-idx="0" src="../img/scheffau1.jpg" alt="SkiWelt Wilder Kaiser – Brixental photo 1" loading="eager">
-  <img class="hero-slide" data-idx="1" src="../img/westendorf1.jpg" alt="SkiWelt Wilder Kaiser – Brixental photo 2" loading="lazy">
+  <img class="hero-slide active" data-idx="0" src="../img/ellmau1.jpg" alt="SkiWelt Wilder Kaiser – Brixental photo 1" loading="eager">
+  <img class="hero-slide" data-idx="1" src="../img/scheffau1.jpg" alt="SkiWelt Wilder Kaiser – Brixental photo 2" loading="lazy">
+  <img class="hero-slide" data-idx="2" src="../img/brixenimthale1.jpg" alt="SkiWelt Wilder Kaiser – Brixental photo 3" loading="lazy">
+  <img class="hero-slide" data-idx="3" src="../img/westendorf1.jpg" alt="SkiWelt Wilder Kaiser – Brixental photo 4" loading="lazy">
   </div>
   <div class="dm-hero-overlay"></div>
   <a href="#" class="dm-close" id="dmClose" aria-label="Retour">✕</a>
@@ -366,6 +368,8 @@ function acceptSfNotif(){
 <div class="hero-dots">
     <button class="hero-dot active" data-idx="0" onclick="dmHeroGoTo(0)" aria-label="Photo 1"></button>
     <button class="hero-dot" data-idx="1" onclick="dmHeroGoTo(1)" aria-label="Photo 2"></button>
+    <button class="hero-dot" data-idx="2" onclick="dmHeroGoTo(2)" aria-label="Photo 3"></button>
+    <button class="hero-dot" data-idx="3" onclick="dmHeroGoTo(3)" aria-label="Photo 4"></button>
 </div>
   <div class="dm-hero-content">
     <div class="dm-hero-massif">⛷ Alpes du Nord</div>
@@ -531,7 +535,7 @@ function acceptSfNotif(){
       </div>
     </a>
 <a href="../stations/ellmau.html" class="dm-station-card">
-      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=700&q=80')">
+      <div class="dm-sc-photo" style="background-image:url('../img/ellmau1.jpg')">
         <div class="dm-sc-overlay"></div>
         <button type="button" class="dm-sc-fav" data-sid="807" aria-label="Ajouter aux favoris">☆</button>
         <button type="button" class="dm-sc-cmp" data-sid="807" aria-label="Ajouter au comparateur">⚖️</button>
@@ -570,7 +574,7 @@ function acceptSfNotif(){
       </div>
     </a>
 <a href="../stations/brixen-im-thale.html" class="dm-station-card">
-      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=700&q=80')">
+      <div class="dm-sc-photo" style="background-image:url('../img/brixenimthale1.jpg')">
         <div class="dm-sc-overlay"></div>
         <button type="button" class="dm-sc-fav" data-sid="810" aria-label="Ajouter aux favoris">☆</button>
         <button type="button" class="dm-sc-cmp" data-sid="810" aria-label="Ajouter au comparateur">⚖️</button>
@@ -742,7 +746,7 @@ function toggleReadMore(id, btn){
   btn.textContent = expanded ? 'Voir moins ▲' : 'Lire plus ▼';
 }
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["../img/scheffau1.jpg","../img/westendorf1.jpg"];
+var DM_HERO_URLS = ["../img/ellmau1.jpg","../img/scheffau1.jpg","../img/brixenimthale1.jpg","../img/westendorf1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;
@@ -789,5 +793,5 @@ document.getElementById('dmClose').addEventListener('click', function(e){
 });
 </script>
 
-<!--sf-lang--><a class="sf-lang-switch" href="/en/domaines/skiwelt.html" hreflang="en" lang="en" rel="alternate">🇬🇧 English</a><style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index:900;background:rgba(255,255,255,.94);color:#1d4f7a;border:1px solid #d6dde4;border-radius:20px;padding:6px 12px;font:600 .74rem/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}.sf-lang-switch:hover{background:#fff}</style><!--/sf-lang--></body>
+</body>
 </html>
