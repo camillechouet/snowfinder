@@ -95,7 +95,10 @@ def main():
     if n:
         with open(DONE, "w", encoding="utf-8") as fh:
             json.dump(sorted(done), fh, indent=1)
-    print(f"✓ {n} photo(s) améliorée(s).")
+    if a.dry_run:
+        print(f"✓ ESSAI : {len(files)} photo(s) seraient améliorées ({len(done)} déjà faites). Rien n'a été modifié.")
+    else:
+        print(f"✓ {n} photo(s) améliorée(s).")
     return 0
 
 
