@@ -26,14 +26,14 @@ from datetime import date, datetime, timedelta, timezone
 from email.utils import format_datetime
 from xml.sax.saxutils import escape
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageOps, ImageStat
 
 BASE = "https://snowfinder.fr"
 PINS_PAR_JOUR = 5
 FENETRE_JOURS = 7
 W, H = 1000, 1500
 SEED = "snowfinder-pinterest-v1"
-PIN_VERSION = "v3"   # change-la pour régénérer toutes les images après un changement de design
+PIN_VERSION = "v4"   # change-la pour régénérer toutes les images après un changement de design
 FONT_BOLD = ["/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
              "/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf"]
 FONT_REG = ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
@@ -184,12 +184,53 @@ def draw_logo(img):
     d.text((x, ty), "SnowFinder", font=f, fill="white")
 
 
+def enhance(img):
+    """Met la photo en valeur sans la dénaturer : contraste et lumière corrigés selon la photo,
+    couleurs un peu plus vives, netteté, léger « clarity ». Réglages volontairement doux."""
+    try:
+        img = ImageOps.autocontrast(img, cutoff=(0.5, 0.3))
+    except Exception:  # noqa: BLE001
+        pass
+    lum = ImageStat.Stat(img.convert("L")).mean[0]
+    if lum < 120:                                   # photo sombre : on éclaircit les tons moyens
+        g = min(1.0 + (120 - lum) / 220.0, 1.35)
+        lut = [min(255, int(255 * ((i / 255.0) ** (1.0 / g)))) for i in range(256)]
+        img = img.point(lut * 3)
+    elif lum > 190:                                 # photo très claire (neige brûlée) : on rattrape les blancs
+        g = min(1.0 + (lum - 190) / 160.0, 1.25)
+        lut = [min(255, int(255 * ((i / 255.0) ** g))) for i in range(256)]
+        img = img.point(lut * 3)
+    img = ImageEnhance.Color(img).enhance(1.18)      # couleurs un peu plus riches
+    img = ImageEnhance.Contrast(img).enhance(1.06)
+    img = img.filter(ImageFilter.UnsharpMask(radius=45, percent=22, threshold=0))   # relief des volumes (clarity)
+    img = img.filter(ImageFilter.UnsharpMask(radius=1.4, percent=70, threshold=2))  # netteté fine
+    return img
+
+
+_ENH = None
+
+
+def enhanced_names():
+    """Photos déjà améliorées par _scripts/enhance_photos.py (liste dans img/enhanced.json)."""
+    global _ENH
+    if _ENH is None:
+        try:
+            with open(os.path.join(ROOT, "img", "enhanced.json"), encoding="utf-8") as f:
+                _ENH = set(json.load(f))
+        except Exception:  # noqa: BLE001
+            _ENH = set()
+    return _ENH
+
+
 def make_pin(station, photo_path, out_path, hook=None, domaine=None):
     img = Image.open(photo_path).convert("RGB")
+    deja = os.path.basename(photo_path) in enhanced_names()      # déjà améliorée sur le site : pas de double traitement
     r = max(W / img.width, H / img.height)
     img = img.resize((int(img.width * r) + 1, int(img.height * r) + 1), Image.LANCZOS)
     x, y = (img.width - W) // 2, (img.height - H) // 2
     img = img.crop((x, y, x + W, y + H))
+    if not deja:
+        img = enhance(img)
     ov = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     od = ImageDraw.Draw(ov)
     for i in range(780):
