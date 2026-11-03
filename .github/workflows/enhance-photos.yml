@@ -1,0 +1,76 @@
+name: Améliorer les photos des stations
+
+# Applique un traitement doux (contraste, lumière, couleurs, netteté) aux photos AJOUTÉES au dépôt
+# depuis la date indiquée (défaut : 29 oct. 2026, début des photos Wikimedia). Chaque photo n'est
+# traitée qu'une fois (noms notés dans img/enhanced.json). Tes photos plus anciennes ne sont pas touchées.
+#
+# Utilisation : Actions > « Améliorer les photos des stations » > Run workflow.
+#   · Essai d'abord : « essai » = oui (liste les photos sans rien modifier).
+#   · À relancer après chaque envoi de nouvelles photos.
+# Les originaux restent dans l'historique GitHub.
+
+on:
+  workflow_dispatch:
+    inputs:
+      since:
+        description: "Photos ajoutées depuis cette date (AAAA-MM-JJ)"
+        required: false
+        default: "2026-10-29"
+      names:
+        description: "Ou noms précis, séparés par des virgules (ex. zermatt1.jpg,verbier1.jpg) — facultatif"
+        required: false
+        default: ""
+      dry_run:
+        description: "Essai : lister sans modifier ?"
+        required: false
+        default: "oui"
+        type: choice
+        options:
+          - oui
+          - non
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pinterest-feed        # jamais en même temps que les flux Pinterest
+
+jobs:
+  enhance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0       # historique complet : nécessaire pour savoir quelles photos sont récentes
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installer Pillow
+        run: pip install pillow
+
+      - name: Améliorer les photos
+        env:
+          SINCE: ${{ github.event.inputs.since }}
+          NAMES: ${{ github.event.inputs.names }}
+          DRY: ${{ github.event.inputs.dry_run }}
+        run: |
+          ARGS=""
+          if [ "$DRY" != "non" ]; then ARGS="--dry-run"; fi
+          python3 _scripts/enhance_photos.py --since "${SINCE:-2026-10-29}" --names "$NAMES" $ARGS | tee /tmp/enh.log
+          { echo '### Photos améliorées'; tail -n 1 /tmp/enh.log; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publier
+        if: ${{ github.event.inputs.dry_run == 'non' }}
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Aucun changement."
+            exit 0
+          fi
+          git config user.name "SnowFinder Bot"
+          git config user.email "bot@snowfinder.fr"
+          git add img
+          git commit -m "✨ Photos des stations améliorées"
+          git pull --rebase origin main
+          git push origin HEAD:main
