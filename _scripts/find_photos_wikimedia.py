@@ -136,7 +136,7 @@ def license_kind(info):
     return None
 
 
-def score_candidate(page, station):
+def score_candidate(page, station, from_article=False):
     info = (page.get("imageinfo") or [{}])[0]
     if info.get("mime") != "image/jpeg":
         return None
@@ -146,7 +146,7 @@ def score_candidate(page, station):
     kind = license_kind(info)
     if not kind:
         return None
-    title = re.sub(r"^File:|\.jpe?g$", "", page.get("title", ""), flags=re.I)
+    title = re.sub(r"^(File|Fichier|Datei|Archivo|Immagine):|\.jpe?g$", "", page.get("title", ""), flags=re.I)
     if BAD_TITLE.search(title) or BAD_TITLE2.search(title):
         return None
     desc = meta(info, "ImageDescription")
@@ -155,14 +155,17 @@ def score_candidate(page, station):
         return None
     text = norm(" ".join([title, desc, cats]))
     key = norm(station["name"])
-    if key not in text:
-        return None          # on exige le nom de la station : évite les mauvais lieux
-    # ... en mot entier et dans le titre ou les catégories (pas seulement dans la description :
-    # « Going » = « en train de monter » donnait une photo d'Aspen)
-    if not re.search(r"(?<![a-z0-9])" + re.escape(key) + r"(?![a-z0-9])", norm(title) + " | " + norm(cats)):
-        return None
+    if not from_article:
+        if key not in text:
+            return None          # on exige le nom de la station : évite les mauvais lieux
+        # ... en mot entier et dans le titre ou les catégories (pas seulement dans la description :
+        # « Going » = « en train de monter » donnait une photo d'Aspen)
+        if not re.search(r"(?<![a-z0-9])" + re.escape(key) + r"(?![a-z0-9])", norm(title) + " | " + norm(cats)):
+            return None
     sc = 0.0
-    if key in norm(title):
+    if from_article:
+        sc += 7.5                # illustre l'article Wikipédia de la station (choisie par les rédacteurs) ; les filtres d'image écartent l'été
+    elif key in norm(title):
         sc += 5
     blob = " ".join([title, desc, cats])
     sc += min(len(WINTER.findall(blob)), 4) * 1.2
@@ -192,6 +195,42 @@ def candidates_for(station):
                 found[c["title"]] = c
         if len(found) >= 6 and max(c["score"] for c in found.values()) >= 8:
             break
+    return sorted(found.values(), key=lambda c: -c["score"])
+
+
+def wikipedia_candidates(station):
+    """Photos qui illustrent l'article Wikipédia (français, puis anglais) de la station.
+    Ce sont des fichiers de Wikimedia Commons choisis par les rédacteurs : très pertinents,
+    même quand le nom de la station n'est pas dans le nom du fichier."""
+    key = norm(station["name"])
+    found = {}
+    for lang in ("fr", "en"):
+        base = f"https://{lang}.wikipedia.org/w/api.php"
+        try:
+            q = {"action": "query", "format": "json", "list": "search", "srsearch": station["name"] + " station de ski" if lang == "fr" else station["name"] + " ski resort",
+                 "srlimit": "3"}
+            hits = json.loads(http_get(base + "?" + urllib.parse.urlencode(q))).get("query", {}).get("search", [])
+            time.sleep(1)
+        except Exception as e:  # noqa: BLE001
+            print(f"   ⚠ Wikipédia {lang} : {e!r}")
+            continue
+        title = next((h["title"] for h in hits if key in norm(h["title"])), None)   # le titre de l'article doit contenir le nom
+        if not title:
+            continue
+        try:
+            q = {"action": "query", "format": "json", "titles": title, "generator": "images", "gimlimit": "60",
+                 "prop": "imageinfo", "iiprop": "url|size|mime|extmetadata", "iiurlwidth": str(MAX_W)}
+            pages = list((json.loads(http_get(base + "?" + urllib.parse.urlencode(q))).get("query") or {}).get("pages", {}).values())
+            time.sleep(1)
+        except Exception as e:  # noqa: BLE001
+            print(f"   ⚠ Wikipédia {lang} images : {e!r}")
+            continue
+        for pg in pages:
+            c = score_candidate(pg, station, from_article=True)
+            if c and c["score"] >= MIN_SCORE and c["title"] not in found:
+                found[c["title"]] = c
+        if found:
+            break                                   # l'article français suffit s'il a des photos utilisables
     return sorted(found.values(), key=lambda c: -c["score"])
 
 
@@ -481,7 +520,12 @@ def main():
             seen = []
             batches = []
             if a.source in ("wikimedia", "both"):
-                batches.append(lambda: candidates_for(s))
+                def wiki_all(s=s):
+                    cs = {c["title"]: c for c in candidates_for(s)}
+                    for c in wikipedia_candidates(s):
+                        cs.setdefault(c["title"], c)
+                    return sorted(cs.values(), key=lambda c: -c["score"])
+                batches.append(wiki_all)
             if token and a.source in ("openverse", "both"):
                 batches.append(lambda: openverse_candidates(s, token))   # en mode « both » : seulement si Wikimedia n'a rien donné
             for get_cands in batches:
