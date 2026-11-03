@@ -35,6 +35,15 @@ on:
         description: "Seulement les stations dont le nom contient ce texte (facultatif)"
         required: false
         default: ""
+      source:
+        description: "D'où viennent les photos ? wikimedia / openverse (Flickr...) / both (Wikimedia, puis Openverse si rien)"
+        required: false
+        default: "wikimedia"
+        type: choice
+        options:
+          - wikimedia
+          - openverse
+          - both
 
 permissions:
   contents: read
@@ -58,8 +67,11 @@ jobs:
           LIMIT: ${{ github.event.inputs.limit }}
           OFFSET: ${{ github.event.inputs.offset }}
           ONLY: ${{ github.event.inputs.only }}
+          SOURCE: ${{ github.event.inputs.source }}
+          OPENVERSE_CLIENT_ID: ${{ secrets.OPENVERSE_CLIENT_ID }}
+          OPENVERSE_CLIENT_SECRET: ${{ secrets.OPENVERSE_CLIENT_SECRET }}
         run: |
-          python3 _scripts/find_photos_wikimedia.py --pays "${PAYS:-tous}" --limit "${LIMIT:-40}" --offset "${OFFSET:-0}" --only "$ONLY" | tee /tmp/photos.log
+          python3 _scripts/find_photos_wikimedia.py --pays "${PAYS:-tous}" --source "${SOURCE:-wikimedia}" --limit "${LIMIT:-40}" --offset "${OFFSET:-0}" --only "$ONLY" | tee /tmp/photos.log
           { echo '### Photos trouvées'; tail -n 1 /tmp/photos.log; } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Mettre les photos dans un ZIP
