@@ -27,15 +27,15 @@ API = "https://commons.wikimedia.org/w/api.php"
 UA = "SnowFinderPhotoBot/1.0 (https://snowfinder.fr; photos libres pour fiches de stations)"
 OUT = os.path.join(ROOT, "photos-out")
 MAX_W = 1600
-MIN_W, MIN_H = 2400, 1400      # grosses photos seulement : une épingle floue ou pixelisée fait perdre en crédibilité
-MIN_SCORE = 7.0      # sous ce score, la photo n'est pas proposée
+MIN_W, MIN_H = 2000, 1200      # grosses photos seulement (2400x1400 avant l'élargissement du 3 nov.)
+MIN_SCORE = 6.5      # sous ce score, la photo n'est pas proposée
 N_KEEP = 3           # 1 principale (<slug>1.jpg) + 2 alternatives (autres/<slug>2.jpg et 3.jpg)
 MIN_SATURATION = 0.04  # refuse le noir et blanc (une photo de neige reste peu saturée : ne pas monter)
 MIN_BRIGHT = 0.40      # refuse les photos de nuit
-MAX_GREEN = 0.045       # refuse les photos d'été (beaucoup d'herbe)
+MAX_GREEN = 0.06       # refuse les photos d'été (beaucoup d'herbe)
 MIN_SNOW_BAS = 0.045
-MIN_EDGE = 10.0        # refuse les photos floues ou sans relief (zone centrale visible sur l'épingle)
-MIN_SCORE_MAIN = 8.5   # une photo principale doit être clairement une photo de ski
+MIN_EDGE = 9.0        # refuse les photos floues ou sans relief (zone centrale visible sur l'épingle)
+MIN_SCORE_MAIN = 8.0   # une photo principale doit être clairement une photo de ski
 MIN_SNOW = 0.12        # refuse les photos sans neige visible
 FONT_REG = ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "/usr/share/fonts/dejavu/DejaVuSans.ttf"]
 
@@ -200,6 +200,90 @@ def best_for(station):
     return cs[0] if cs else None
 
 
+# ── Openverse (photos Flickr etc. sous licence libre) ────────────────────
+# Nécessite un compte gratuit Openverse : secrets OPENVERSE_CLIENT_ID et OPENVERSE_CLIENT_SECRET.
+# Sans eux, l'API anonyme est limitée à 100 requêtes par jour : inutilisable pour un lot.
+OV_API = "https://api.openverse.org/v1"
+OV_UA = "SnowFinderPhotoBot/1.0 (+https://snowfinder.fr)"
+
+
+def ov_token():
+    cid, sec = os.environ.get("OPENVERSE_CLIENT_ID"), os.environ.get("OPENVERSE_CLIENT_SECRET")
+    if not (cid and sec):
+        return None
+    body = urllib.parse.urlencode({"grant_type": "client_credentials", "client_id": cid, "client_secret": sec}).encode()
+    req = urllib.request.Request(OV_API + "/auth_tokens/token/", data=body, headers={"User-Agent": OV_UA})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read().decode("utf-8")).get("access_token")
+
+
+def ov_get(path_qs, token):
+    for i in range(4):
+        try:
+            req = urllib.request.Request(OV_API + path_qs, headers={"User-Agent": OV_UA, "Authorization": f"Bearer {token}"})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return json.loads(r.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:
+            if e.code in (429, 503) and i < 3:
+                time.sleep(10 * (i + 1))
+                continue
+            raise
+        except Exception:
+            if i < 3:
+                time.sleep(3)
+                continue
+            raise
+
+
+def ov_license(r):
+    lic = (r.get("license") or "").lower()
+    ver = r.get("license_version") or ""
+    if lic in ("cc0", "pdm"):
+        return "pd", "CC0" if lic == "cc0" else "Public domain"
+    if lic in ("by", "by-sa"):
+        return "by", f"CC {lic.upper()} {ver}".strip()
+    return None, None          # nc, nd... refusées
+
+
+def openverse_candidates(station, token):
+    key = norm(station["name"])
+    found = {}
+    for q in (f'"{station["name"]}" ski', f'"{station["name"]}" neige snow'):
+        qs = urllib.parse.urlencode({"q": q, "license": "cc0,pdm,by,by-sa", "extension": "jpg", "size": "large",
+                                     "aspect_ratio": "wide", "page_size": "20", "mature": "false"})
+        try:
+            data = ov_get("/images/?" + qs, token)
+        except Exception as e:  # noqa: BLE001
+            print(f"   ⚠ Openverse « {q} » : {e!r}")
+            continue
+        time.sleep(1.5)
+        for r in (data or {}).get("results", []):
+            if (r.get("source") or "").lower().startswith("wikimedia"):
+                continue                       # déjà couvert par la recherche Wikimedia
+            w, h = r.get("width") or 0, r.get("height") or 0
+            if w < MIN_W or h < MIN_H or not (1.25 <= w / h <= 2.3):
+                continue
+            kind, lic_txt = ov_license(r)
+            if not kind or not r.get("url"):
+                continue
+            title = r.get("title") or ""
+            tags = " ".join(t.get("name", "") for t in (r.get("tags") or []))
+            if BAD_TITLE.search(title) or BAD_TITLE2.search(title) or BAD_CONTENT.search(tags) or BAD_TITLE2.search(tags):
+                continue
+            if not re.search(r"(?<![a-z0-9])" + re.escape(key) + r"(?![a-z0-9])", norm(title) + " | " + norm(tags)):
+                continue                       # le nom de la station doit figurer dans le titre ou les mots-clés
+            blob = title + " " + tags
+            sc = 5.0 if key in norm(title) else 2.0
+            sc += min(len(WINTER.findall(blob)), 4) * 1.2
+            sc -= min(len(SUMMER.findall(blob)), 3) * 1.5
+            sc += min(w / 4000, 1)
+            cand = {"score": sc, "info": {"url": r["url"]}, "kind": kind, "title": "[Openverse] " + title, "w": w, "h": h,
+                    "page_url": r.get("foreign_landing_url") or r.get("url"), "artist": (r.get("creator") or "Flickr").strip(),
+                    "license": lic_txt}
+            found[r.get("id") or r["url"]] = cand
+    return sorted(found.values(), key=lambda c: -c["score"])
+
+
 # ── Crédit gravé sur l'image ──────────────────────────────────────────
 def load_font(size):
     for p in FONT_REG:
@@ -335,7 +419,7 @@ def process(station, cand, rank=0, seen=None):
     url = cand["info"].get("thumburl") or cand["info"].get("url")
     raw = http_get(url, binary=True)
     img = Image.open(io.BytesIO(raw)).convert("RGB")
-    prob = image_problem(img, max_green=(MAX_GREEN if rank == 0 else 0.03))   # alternatives : encore plus strict sur le vert
+    prob = image_problem(img, max_green=(MAX_GREEN if rank == 0 else 0.04))   # alternatives : encore plus strict sur le vert
     if prob:
         return prob
     if seen is not None:
@@ -363,6 +447,7 @@ def main():
     ap.add_argument("--offset", type=int, default=0)
     ap.add_argument("--only", default="")
     ap.add_argument("--pays", default="tous", choices=["tous", "france", "etranger"])
+    ap.add_argument("--source", default="wikimedia", choices=["wikimedia", "openverse", "both"])
     a = ap.parse_args()
 
     with open(os.path.join(ROOT, "stations-data.js"), encoding="utf-8") as f:
@@ -381,28 +466,43 @@ def main():
     print(f"ℹ {total} stations sans photo ({a.pays}) ; lot de {len(batch)} (offset {a.offset})")
 
     os.makedirs(OUT, exist_ok=True)
+    token = None
+    if a.source in ("openverse", "both"):
+        token = ov_token()
+        if not token:
+            print("⚠ Openverse : secrets OPENVERSE_CLIENT_ID / OPENVERSE_CLIENT_SECRET absents ou refusés.")
+            if a.source == "openverse":
+                return 2
     rows, missing = [], []
     for i, s in enumerate(batch, 1):
         print(f"[{i}/{len(batch)}] {s['name']}")
         try:
             kept = 0
             seen = []
-            for c in candidates_for(s):
-                if kept == 0 and c["score"] < MIN_SCORE_MAIN:
-                    continue
-                if kept > 0 and c["score"] < 8:      # une alternative doit être clairement une photo de ski
-                    continue
-                rel = process(s, c, rank=kept, seen=seen)
-                if rel in ("noir et blanc", "trop sombre (nuit ?)", "trop d'herbe (été ?)", "pas assez de neige", "doublon", "sépia (photo ancienne)", "dominante rose", "flou ou sans relief"):
-                    print(f"   — refusée ({rel}) : {c['title'][:60]}")
-                    continue
-                rows.append([s["name"], rel.replace(os.sep, "/"), "principale" if kept == 0 else "alternative",
-                             c["title"], re.sub(r"\s+", " ", c["artist"]), c["license"],
-                             c["page_url"], round(c["score"], 1), c["w"]])
-                print(f"   ✓ {rel} ({c['license']}, score {c['score']:.1f})")
-                kept += 1
-                if kept >= N_KEEP:
+            batches = []
+            if a.source in ("wikimedia", "both"):
+                batches.append(lambda: candidates_for(s))
+            if token and a.source in ("openverse", "both"):
+                batches.append(lambda: openverse_candidates(s, token))   # en mode « both » : seulement si Wikimedia n'a rien donné
+            for get_cands in batches:
+                if kept:
                     break
+                for c in get_cands():
+                    if kept == 0 and c["score"] < MIN_SCORE_MAIN:
+                        continue
+                    if kept > 0 and c["score"] < 7.5:      # une alternative doit être clairement une photo de ski
+                        continue
+                    rel = process(s, c, rank=kept, seen=seen)
+                    if rel in ("noir et blanc", "trop sombre (nuit ?)", "trop d'herbe (été ?)", "pas assez de neige", "doublon", "sépia (photo ancienne)", "dominante rose", "flou ou sans relief"):
+                        print(f"   — refusée ({rel}) : {c['title'][:60]}")
+                        continue
+                    rows.append([s["name"], rel.replace(os.sep, "/"), "principale" if kept == 0 else "alternative",
+                                 c["title"], re.sub(r"\s+", " ", c["artist"]), c["license"],
+                                 c["page_url"], round(c["score"], 1), c["w"]])
+                    print(f"   ✓ {rel} ({c['license']}, score {c['score']:.1f})")
+                    kept += 1
+                    if kept >= N_KEEP:
+                        break
             if not kept:
                 missing.append(s["name"]); print("   — aucune photo exploitable")
         except Exception as e:  # noqa: BLE001
