@@ -32,6 +32,6 @@ jobs:
         run: |
           git config user.name "SnowFinder Bot"
           git config user.email "bot@snowfinder.fr"
-          git add stations/ domaines/ domaines.html sitemap.xml
+          git add stations/ domaines/ domaines.html partenaires.html partenaires-data.js sitemap.xml
           git diff --staged --quiet || git commit -m "🤖 Régénération automatique des pages stations"
           git push
