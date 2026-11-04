@@ -3934,8 +3934,8 @@ def render_page(s):
     .cv-scale .euros{{font-size:1.35rem}}
     .partner-badge-hero{{position:absolute;top:76px;right:14px;z-index:11;display:block;pointer-events:auto;filter:drop-shadow(0 3px 8px rgba(0,0,0,.4));transition:transform .15s}}
     .partner-badge-hero:hover{{transform:scale(1.06)}}
-    .partner-badge-hero img{{display:block;width:70px;height:auto}}
-    @media(min-width:768px){{.partner-badge-hero{{top:84px;right:24px}}.partner-badge-hero img{{width:96px}}}}
+    .partner-badge-hero img{{display:block;width:88px;height:auto}}
+    @media(min-width:768px){{.partner-badge-hero{{top:88px;right:26px}}.partner-badge-hero img{{width:124px}}}}
     .hero-illu-note{{font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}}
     .hero-illu-note{{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}}
     /* Vignette "Grand domaine" — en bas à droite. Le padding-droit de .hero-content
@@ -5877,6 +5877,125 @@ document.getElementById('dmClose').addEventListener('click', function(e){{
 
 PAYS_CODE = {"France": "FR", "Suisse": "CH", "Italie": "IT", "Espagne": "ES", "Andorre": "AD", "Allemagne": "DE", "Liechtenstein": "LI", "Autriche": "AT", "Slovénie": "SI"}
 
+# Nombre minimum de stations partenaires pour afficher le bandeau (accueil) et la pastille (recherche).
+# Tant qu'il y en a moins, la page partenaires.html existe mais n'est pas mise en avant (noindex).
+MIN_PARTENAIRES_AFFICHES = 2
+
+def _partenaires_liste():
+    out = []
+    for s in DATA:
+        if s['name'] in PARTNER_STATIONS:
+            photos = get_station_photos(s['name'])
+            out.append({
+                "n": s['name'], "u": f"/stations/{slugify(s['name'])}.html",
+                "r": s.get('region', ''), "m": s.get('massif', ''),
+                "p": (('/' + photos[0][3:]) if photos and photos[0].startswith('../') else (photos[0] if photos else '')), "km": s.get('km'), "sc": s.get('score'),
+            })
+    return sorted(out, key=lambda x: x['n'])
+
+def render_partenaires():
+    liste = _partenaires_liste()
+    cards = []
+    for x in liste:
+        photo = x['p'] if x['p'].startswith('http') or x['p'].startswith('/') else '/' + x['p'].lstrip('./')
+        cards.append(f'''<a href="{x['u']}" class="pt-card">
+      <div class="pt-top" style="background-image:url('{photo}')">
+        <div class="pt-top-overlay"></div>
+        <img class="pt-badge" src="/img/badge-partenaire-pastille.svg" alt="Partenaire officiel SnowFinder">
+        <div class="pt-top-text"><div class="pt-name">{x['n']}</div><div class="pt-region">{x['r']}</div></div>
+      </div>
+      <div class="pt-foot"><span>⭐ {x['sc']:.1f}/5</span><span>🎿 {x['km']} km</span><span class="pt-go">Voir la fiche →</span></div>
+    </a>''')
+    n = len(liste)
+    cards_html = "\n".join(cards)
+    noindex = '' if n >= MIN_PARTENAIRES_AFFICHES else '<meta name="robots" content="noindex,follow">'
+    intro = (f"{n} stations nous font déjà confiance." if n > 1 else
+             "Une première station nous fait confiance." if n == 1 else "Les premières stations partenaires arrivent.")
+    return f"""<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Nos stations partenaires | SnowFinder</title>
+<meta name="description" content="Les stations de ski partenaires officielles de SnowFinder : fiches vérifiées avec les offices du tourisme, plans des pistes et informations à jour.">
+<link rel="canonical" href="https://snowfinder.fr/partenaires.html">
+{noindex}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SnowFinder">
+<meta property="og:title" content="Nos stations partenaires">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root{{--wood-pale:#f7efe2;--wood:#c49a6c;--wood-dark:#8b5e3c;--blue:#5b9fd4;--blue-light:#e8f3fb;--blue-mid:#3a7db8;--blue-dark:#1a5a8a;--text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7560;--border:#e0d4c0;--navy:#0B2942}}
+  *{{box-sizing:border-box;margin:0;padding:0}}
+  html,body{{overflow-x:hidden;max-width:100%}}
+  body{{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;padding-bottom:84px}}
+  a{{color:inherit}}
+  .pt-hero{{background:linear-gradient(160deg,var(--blue-dark) 0%,var(--blue-mid) 50%,var(--blue) 100%);color:#fff;padding:40px 20px 34px;text-align:center;position:relative}}
+  .pt-hero h1{{font-family:"DM Serif Display",serif;font-size:2rem;margin-bottom:9px;line-height:1.15}}
+  .pt-hero p{{opacity:.9;font-size:.92rem;max-width:560px;margin:0 auto}}
+  .pt-close{{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.1rem}}
+  .pt-wrap{{max-width:1080px;margin:0 auto;padding:26px 20px 10px}}
+  .pt-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;padding-bottom:30px}}
+  .pt-card{{display:block;background:#fff;border-radius:16px;overflow:hidden;text-decoration:none;box-shadow:0 4px 18px rgba(20,60,120,.10);transition:transform .25s,box-shadow .35s}}
+  .pt-card:hover{{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.15)}}
+  .pt-top{{height:190px;position:relative;display:flex;align-items:flex-end;padding:16px;background-size:cover;background-position:center;background-color:#1a5a8a}}
+  .pt-top-overlay{{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,28,58,.82) 0%,rgba(10,30,60,.2) 55%,transparent 100%)}}
+  .pt-badge{{position:absolute;top:12px;right:12px;width:66px;height:auto;z-index:2;filter:drop-shadow(0 2px 5px rgba(0,0,0,.4))}}
+  .pt-top-text{{position:relative;z-index:1}}
+  .pt-name{{font-family:"DM Serif Display",serif;font-size:1.35rem;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.7)}}
+  .pt-region{{font-size:.74rem;color:rgba(255,255,255,.8)}}
+  .pt-foot{{display:flex;align-items:center;gap:14px;padding:12px 15px;font-size:.8rem;font-weight:600;color:var(--text-mid)}}
+  .pt-go{{margin-left:auto;font-weight:800;color:var(--blue-dark)}}
+  .pt-empty{{background:#fff;border-radius:16px;padding:26px 20px;text-align:center;color:var(--text-mid);box-shadow:0 4px 18px rgba(20,60,120,.08)}}
+  .pt-join{{background:#fff;border-radius:18px;padding:26px 22px;box-shadow:0 4px 18px rgba(20,60,120,.10);margin-bottom:30px}}
+  .pt-join h2{{font-family:"DM Serif Display",serif;font-size:1.4rem;margin-bottom:6px;color:var(--navy)}}
+  .pt-join > p{{font-size:.88rem;color:var(--text-mid);margin-bottom:16px;line-height:1.55}}
+  .pt-perks{{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-bottom:20px}}
+  .pt-perk{{background:var(--blue-light);border-radius:12px;padding:14px;font-size:.82rem;line-height:1.5;color:var(--text-mid)}}
+  .pt-perk b{{display:block;color:var(--blue-dark);margin-bottom:3px;font-size:.88rem}}
+  .pt-cta{{display:inline-block;background:linear-gradient(135deg,#F0D78C,#C9982F);color:var(--navy);font-weight:900;text-decoration:none;padding:12px 24px;border-radius:30px;font-size:.9rem}}
+  .footer{{text-align:center;padding:26px 20px 20px;font-size:.8rem;color:var(--text-mid)}}
+  .footer a{{color:var(--blue-dark);text-decoration:none;font-weight:600}}
+  .sf-bottomnav{{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;align-items:center;padding:8px 0;box-shadow:0 -2px 10px rgba(0,0,0,.1);z-index:50}}
+  .sf-bn-item{{text-decoration:none;font-size:1.3rem;padding:6px 10px}}
+  .sf-bn-home-circle{{background:var(--blue-dark);color:#fff;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:1.3rem}}
+</style>
+</head>
+<body>
+<div class="pt-hero">
+  <a href="index.html" class="pt-close" aria-label="Retour">✕</a>
+  <h1>🤝 Nos stations partenaires</h1>
+  <p>{intro} Leurs fiches sont relues avec leur office du tourisme : chiffres, forfaits, plans des pistes et photos à jour.</p>
+</div>
+<div class="pt-wrap">
+  {('<div class="pt-grid">' + cards_html + '</div>') if n else '<div class="pt-empty">Les premières stations partenaires seront présentées ici très bientôt.</div>'}
+  <div class="pt-join">
+    <h2>Vous représentez une station ?</h2>
+    <p>Devenir partenaire est gratuit : envoyez-nous le plan des pistes officiel et placez un lien vers SnowFinder sur votre site. En retour :</p>
+    <div class="pt-perks">
+      <div class="pt-perk"><b>🏅 Badge « Partenaire »</b>Sur votre fiche et sur votre vignette dans les résultats de recherche.</div>
+      <div class="pt-perk"><b>✅ Fiche relue avec vous</b>Chiffres, forfaits, textes et photos validés par votre office du tourisme.</div>
+      <div class="pt-perk"><b>🤝 Page partenaires</b>Votre station présentée sur cette page et sur l'accueil de SnowFinder.</div>
+    </div>
+    <a class="pt-cta" href="mailto:contact.snowfinder@gmail.com?subject=Devenir%20partenaire%20SnowFinder">Devenir partenaire</a>
+  </div>
+</div>
+<footer class="footer">
+  <strong>SnowFinder</strong> — Le guide complet des stations de ski en Europe<br>
+  <a href="index.html">Accueil</a> · <a href="recherche.html">Recherche</a> · <a href="comparateur.html">Comparateur</a> · <a href="grille-tarifaire.html">Partenariats</a> · <a href="mentions-legales.html">Mentions légales</a>
+</footer>
+<nav class="sf-bottomnav">
+  <a href="recherche.html" class="sf-bn-item" title="Trouver ma station">🔍</a>
+  <a href="enneigement.html" class="sf-bn-item" title="Météo &amp; enneigement">❄️</a>
+  <a href="index.html" class="sf-bn-item" title="Accueil"><span class="sf-bn-home-circle">🏡</span></a>
+  <a href="tinder.html" class="sf-bn-item" title="Tinder du ski">💕</a>
+  <a href="hebergement.html" class="sf-bn-item" title="Hébergement">🛏️</a>
+</nav>
+</body>
+</html>"""
+
+
 def render_domaines_index():
     """Page racine listant les 50 grands domaines skiables reliés."""
     massifs = sorted({d['massif'] for d in DOMAINES.values()})
@@ -6502,6 +6621,17 @@ if derrors:
     print("Erreurs domaines:", derrors)
 if errors:
     print("Erreurs:", errors)
+
+# Page « Nos stations partenaires » + données pour le bandeau d'accueil / la pastille de recherche
+try:
+    with open(os.path.join(root_dir, 'partenaires.html'), 'w', encoding='utf-8') as f:
+        f.write(harmonize_topbar(render_partenaires()))
+    _pl = _partenaires_liste()
+    with open(os.path.join(root_dir, 'partenaires-data.js'), 'w', encoding='utf-8') as f:
+        f.write("window.SF_PARTNERS=" + json.dumps({"min": MIN_PARTENAIRES_AFFICHES, "list": _pl}, ensure_ascii=False) + ";\n")
+    print(f"✓ partenaires.html + partenaires-data.js générés ({len(_pl)} station(s))")
+except Exception as e:
+    print("Erreur partenaires :", e)
 
 # Générer la page index des domaines
 try:
