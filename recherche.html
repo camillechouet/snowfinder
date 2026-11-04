@@ -289,7 +289,7 @@ footer a{color:rgba(255,255,255,.6);text-decoration:none}
 .card-top-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,28,58,.82) 0%,rgba(10,30,60,.25) 50%,transparent 100%)}
 .card-emoji{position:absolute;top:50%;left:50%;transform:translate(-50%,-65%);font-size:3rem;opacity:.3}
 .card-massif-tag{position:absolute;top:11px;left:11px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);color:white;font-size:.62rem;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em}
-.card-partner-badge{position:absolute;top:48px;right:8px;width:44px;height:auto;z-index:2;filter:drop-shadow(0 2px 5px rgba(0,0,0,.4))}
+.card-partner-badge{position:absolute;top:48px;right:8px;width:58px;height:auto;z-index:2;filter:drop-shadow(0 2px 5px rgba(0,0,0,.4))}@media(min-width:768px){.card-partner-badge{width:68px;right:10px}}
 .card-score-tag{position:absolute;top:11px;right:11px;background:var(--wood);color:white;font-size:.78rem;font-weight:700;padding:3px 9px;border-radius:20px}
 .card-name{position:relative;z-index:1;font-family:"DM Serif Display",serif;font-size:1.28rem;color:white;text-shadow:0 2px 10px rgba(0,0,0,.7);line-height:1.2;letter-spacing:-.01em}
 .card-region-inline{position:relative;z-index:1;font-size:.7rem;color:rgba(255,255,255,.75);margin-top:2px}
@@ -1570,7 +1570,7 @@ function expediaUrl(station, sid) {
 <!-- ══ FIN FILTRE PAYS ══ -->
 
 <script src="/stations-data.js"></script>
-<!--sf-i18n--><link rel="alternate" hreflang="fr" href="https://snowfinder.fr/recherche.html"><link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/recherche.html"><link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/recherche.html"><!--/sf-i18n--></head>
+</head>
 <body>
 
 <!-- ══ SIDEBAR ══ -->
@@ -1958,6 +1958,7 @@ function closeFilterPanel(){
     <a href="javascript:void(0)" onclick="openIaPanel()" style="display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:10px 20px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,.4);border-radius:30px;color:white;font-size:.85rem;font-weight:600;text-decoration:none;transition:background .2s" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">
       ✨ Une envie précise en tête ? Demande au Conseiller IA
     </a>
+    <div id="sfPartnersSlot"></div>
   </div>
 </div>
 
@@ -6160,7 +6161,9 @@ function acceptSfNotif(){
 }
 </script>
 
-<!--sf-lang--><a class="sf-lang-switch" href="/en/recherche.html" hreflang="en" lang="en" rel="alternate">🇬🇧 English</a><style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index:900;background:rgba(255,255,255,.94);color:#1d4f7a;border:1px solid #d6dde4;border-radius:20px;padding:6px 12px;font:600 .74rem/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}.sf-lang-switch:hover{background:#fff}</style><!--/sf-lang--></body>
+<script src="/partenaires-data.js"></script>
+<script src="/partenaires-bandeau.js"></script>
+</body>
 </html>
 <script>
 // Carte : redessinée quand le choix des pays change
