@@ -19,6 +19,7 @@ import re, json, unicodedata, os, sys, hashlib, math
 PARTNER_STATIONS = set([
     # "Le Lioran",
     # "Valmorel",
+    "Morillon",
 ])
 
 def badge_html(station_name, size="hero"):
@@ -28,8 +29,12 @@ def badge_html(station_name, size="hero"):
     if station_name not in PARTNER_STATIONS:
         return ''
     if size == "mini":
-        return '<img class="partner-badge-mini" src="img/badge-partenaire-mini.svg" alt="Partenaire officiel SnowFinder" width="28" height="28" loading="lazy">'
-    return '<a class="partner-badge-hero" href="grille-tarifaire.html" title="Partenaire officiel SnowFinder"><img src="img/badge-partenaire.svg" alt="Partenaire officiel SnowFinder" width="180" height="54" loading="lazy"></a>'
+        return '<img class="partner-badge-mini" src="/img/badge-partenaire-mini.svg" alt="Partenaire officiel SnowFinder" width="28" height="28" loading="lazy">'
+    img = '<img src="/img/badge-partenaire-pastille.svg" alt="Partenaire officiel SnowFinder" width="64" height="94" loading="lazy">'
+    # Lien vers la page Partenaires seulement quand elle est assez fournie (jamais vers la grille tarifaire, réservée aux stations)
+    if len(PARTNER_STATIONS) >= 2:
+        return '<a class="partner-badge-hero" href="/partenaires.html" title="Partenaire officiel SnowFinder">' + img + '</a>'
+    return '<span class="partner-badge-hero" title="Partenaire officiel SnowFinder">' + img + '</span>'
 
 def slugify(name):
     name = unicodedata.normalize('NFD', name)
@@ -332,7 +337,7 @@ DOMAINES = {
         "km_propre": {"Flaine":146,"Samoëns":40,"Les Carroz":45,"Morillon":35,"Sixt-Fer-à-Cheval":15},
         "km_total": 265, "remontees_total": 62, "forfait_domaine": 63,
         "alt_min": 700, "alt_max": 2500,
-        "pistes": {"v":29,"b":111,"r":80,"n":31},
+        "pistes": {"v":24,"b":67,"r":46,"n":14},
         "short": "Grand Massif",
         "desc": "Cinq villages du Faucigny reliés autour du plateau des Grandes Platières, à deux pas de Genève. Flaine, station-manifeste construite dans les années 60 par les architectes Marcel Breuer et Éric Boissonnas avec ses immeubles en béton brut et ses sculptures de Picasso et Dubuffet en pleine montagne — on aime ou on déteste, mais c'est unique. En contrebas, Samoëns, Morillon, Les Carroz et Sixt ont gardé leurs chalets et leurs clochers. Le domaine offre l'une des plus longues pistes des Alpes, les Cascades : 14 km de descente depuis les Grandes Platières jusqu'à Sixt, avec vue sur le cirque du Fer-à-Cheval.",
     },
@@ -1007,7 +1012,6 @@ STATION_ANECDOTES = {
         "Le village est situé à seulement 7 km de la frontière suisse ; son secteur de ski « Piquemiette » touche même directement cette frontière, au pied des falaises du Mont d'Or.",
     ],
     "Les Rousses": [
-        "C'est la toute première station française à avoir obtenu le label « Flocon Vert », qui récompense l'engagement durable des stations de montagne.",
         "Son domaine alpin « Jura sur Léman » est en partie transfrontalier avec la Suisse — on peut littéralement skier avec un ski de chaque côté de la frontière — et offre depuis le sommet de la Dôle une vue sur la chaîne des Alpes et le Mont-Blanc.",
         "La station rassemble quatre villages (Les Rousses, Prémanon, Lamoura, Bois-d'Amont) et est un haut lieu historique du ski nordique français, qui accueille chaque année la Transjurassienne, l'une des plus grandes courses populaires de ski de fond d'Europe.",
     ],
@@ -2014,11 +2018,14 @@ def _liste_fr(noms):
     noms = list(noms)
     return noms[0] if len(noms) == 1 else ', '.join(noms[:-1]) + ' et ' + noms[-1]
 
+# Nom officiel à afficher dans la légende du plan (si différent du nom de la fiche)
+PLAN_CREDIT_NOM = {"Les Rousses": "Station des Rousses"}
+
 def get_plan_pistes(station_name):
     """Retourne (chemin_relatif, crédit) du plan des pistes d'une station, ou (None, None)."""
     own = _find_plan(to_photo_slug(station_name))
     if own:
-        return own, station_name
+        return own, PLAN_CREDIT_NOM.get(station_name, station_name)
     dslug, d = get_domaine(station_name)
     if d:
         dp = _find_plan(dslug.replace('-', ''))
@@ -2293,7 +2300,7 @@ def generate_verdict(s):
             f"que l'on rejoint par remontée mécanique.",
             f"Le village est à {alt_v} m et le domaine monte jusqu'à {alt} m : on dort en vallée "
             f"et on skie en altitude, avec l'enneigement du grand domaine.",
-            f"Le forfait journée est celui du grand domaine, à {forfait}€. L'intérêt {nom_de} se joue surtout "
+            f"Le forfait journée est celui du grand domaine, à {fmt_eur(forfait)}€. L'intérêt {nom_de} se joue surtout "
             f"côté hébergement, souvent plus abordable qu'en station d'altitude.",
             f"Il faut simplement compter chaque jour le trajet en remontée pour rejoindre les pistes.",
             f"En résumé : {name} convient à ceux qui veulent profiter du domaine {_dom['name']} en logeant au calme, en vallée.",
@@ -2342,7 +2349,7 @@ def generate_verdict(s):
         parts.append(
             f"L'ADN {nom_de}, c'est le haut de gamme : les hébergements, les restaurants d'altitude "
             f"et les services en station reflètent une clientèle qui ne compte pas. "
-            f"Avec un forfait journée à {forfait}€, le séjour a un prix, mais l'expérience est à la hauteur "
+            f"Avec un forfait journée à {fmt_eur(forfait)}€, le séjour a un prix, mais l'expérience est à la hauteur "
             f"pour qui veut se faire plaisir sans compromis."
         )
     elif 'festif' in ambs and 'famille' not in ambs:
@@ -2388,7 +2395,7 @@ def generate_verdict(s):
         parts.append(
             f"Station polyvalente par excellence, {name} convient à un groupe hétérogène "
             f"sans que personne ne soit lésé. "
-            f"Les niveaux débutant à avancé trouvent leur compte, et le forfait à {forfait}€/jour "
+            f"Les niveaux débutant à avancé trouvent leur compte, et le forfait à {fmt_eur(forfait)}€/jour "
             f"reste dans la moyenne raisonnable du massif."
         )
 
@@ -2426,26 +2433,26 @@ def generate_verdict(s):
     # ── VALEUR / RAPPORT QUALITÉ-PRIX ──
     if forfait <= 22:
         parts.append(
-            f"Avec un forfait journée à seulement {forfait}€, {name} est l'une des destinations "
+            f"Avec un forfait journée à seulement {fmt_eur(forfait)}€, {name} est l'une des destinations "
             f"les plus accessibles {PAYS_DE.get(pays_code(s), 'de France')}. "
             f"Pour les familles à budget maîtrisé ou les skieurs qui veulent multiplier les sorties "
             f"sans se ruiner, c'est une adresse sincère et souvent méconnue."
         )
     elif forfait <= 35:
         parts.append(
-            f"Le forfait journée à {forfait}€ reste raisonnable pour la qualité du domaine offert. "
+            f"Le forfait journée à {fmt_eur(forfait)}€ reste raisonnable pour la qualité du domaine offert. "
             f"En comptant hébergement, ski et repas, {name} s'adresse à ceux qui veulent passer "
             f"une belle semaine sans que la note finale ne les fasse tomber de leur chaise."
         )
     elif forfait <= 50:
         parts.append(
-            f"Le forfait journée à {forfait}€ place {name} dans la catégorie des stations "
+            f"Le forfait journée à {fmt_eur(forfait)}€ place {name} dans la catégorie des stations "
             f"intermédiaires côté budget — ni donné, ni exorbitant. "
             f"La qualité du domaine et des équipements justifie ce tarif pour la plupart des skieurs."
         )
     else:
         parts.append(
-            f"Le budget séjour {nom_a} est clairement élevé : {forfait}€ le forfait journée, "
+            f"Le budget séjour {nom_a} est clairement élevé : {fmt_eur(forfait)}€ le forfait journée, "
             f"auxquels s'ajoutent des hébergements et des restaurants d'altitude parmi les plus chers "
             f"des Alpes. "
             f"C'est le prix de l'excellence — mais il faut en avoir conscience avant de partir."
@@ -2846,7 +2853,7 @@ OFFICIAL_URLS = {
     "Flaine":                       "https://www.flaine.com",
     "Les Carroz":                   "https://www.lescarroz.com",
     "Samoëns":                      "https://www.samoens.com",
-    "Morillon":                     "https://www.morillon.fr",
+    "Morillon":                     "https://www.haut-giffre.fr/",
     "Praz-de-Lys Sommand":          "https://www.prazdelys-sommand.com",
     # HAUTE-SAVOIE / ARAVIS
     "La Clusaz":                    "https://www.laclusaz.com",
@@ -2858,8 +2865,8 @@ OFFICIAL_URLS = {
     "Les Deux Alpes":               "https://www.les2alpes.com",
     "Auris-en-Oisans":              "https://www.auris-en-oisans.com",
     "Alpe du Grand Serre":          "https://www.algrandserre.com",
-    "Villard-de-Lans":              "https://www.villarddelans.com",
-    "Corrençon-en-Vercors":         "https://www.correncon.com",
+    "Villard-de-Lans":              "https://www.villardcorrencon.com/fr/",
+    "Corrençon-en-Vercors":         "https://www.villardcorrencon.com/fr/",
     "Autrans-Méaudre":              "https://www.autrans-meaudre.fr",
     "Lans-en-Vercors":              "https://www.lans-en-vercors.fr",
     # HAUTES-ALPES / BRIANÇONNAIS
@@ -3225,10 +3232,21 @@ def fmt_eur(v):
 # Infos pratiques complémentaires validées par la station (ajoutées après le forfait adulte)
 # Crédit photo affiché en petit sur le héro de la fiche (clé = nom exact de la station)
 PHOTO_CREDITS = {
+    "Morillon": "Haut-Giffre Tourisme",
     "Sainte-Foy-Tarentaise": "David André",
     "Pralognan-la-Vanoise": "Pierre Guilbaud",
 }
 
+# Texte « domaine » des Informations pratiques fourni par l'office (remplace la phrase auto)
+INFOS_DOMAINE_OVERRIDE = {
+    "Morillon": "Le domaine relié comprend les stations de Morillon, Les Carroz, Flaine, Samoëns et Sixt-Fer-à-Cheval et s'étend entre 700 m et 2480 m. Il existe 2 types de forfait : le forfait Grand Massif comprenant le domaine entier et le forfait Village comprenant les stations de Morillon, Samoëns, Les Carroz et Sixt-Fer-à-Cheval.",
+}
+FORFAIT_LABEL = {"Morillon": "Forfait Village journée"}
+# Liens officiels précis (webcams / plan des pistes) fournis par la station
+LIENS_OFFICIELS = {
+    "Morillon": {"webcam": "https://www.haut-giffre.fr/jy-suis/webcams/",
+                 "plan": "https://www.haut-giffre.fr/domaines-skiables/grand-massif-domaines-skiables/"},
+}
 INFOS_PRATIQUES_EXTRA = {
     "Pralognan-la-Vanoise": " Tarif réduit : <strong>35€</strong>.",
     "Sainte-Foy-Tarentaise": " Le samedi, le forfait journée adulte descend à <strong>30€</strong>.",
@@ -3527,6 +3545,13 @@ def render_page(s):
         infos_domaine_txt = (
             f"Le domaine s'étend sur <strong>{display_km} km de pistes</strong> entre {display_alt_min} m et "
             f"{display_alt_max} m, desservi par {display_remontees} remontées mécaniques.")
+    if s['name'] in INFOS_DOMAINE_OVERRIDE:
+        infos_domaine_txt = INFOS_DOMAINE_OVERRIDE[s['name']]
+    if s['name'] == "Morillon":
+        # Chiffres du domaine Village (office du tourisme), pas du secteur Morillon seul
+        display_km = s['km']; km_lbl = "Pistes (domaine Village)"
+        display_remontees = s['remontees']; remontees_lbl = "Remontées (domaine Village)"
+        km_meta_txt = f"{display_km} km de pistes"; km_og_txt = f"{display_km} km"
     _region_pre, _region_nom = region_prep(s['region'])
     from urllib.parse import quote as _q
     _bk_pays = {"ES": "espagne", "AD": "andorre", "CH": "suisse", "IT": "italie", "DE": "allemagne", "LI": "liechtenstein", "AT": "autriche", "SI": "slovenie"}.get(s.get('pays'), "france")
@@ -3587,6 +3612,12 @@ def render_page(s):
         <div style="font-size:.68rem;color:#4a7a9b;line-height:1.4">{NIV_DESC.get(n,"")}</div>
       </div>''' for n in s.get('niv', []))
     official_url = get_official_url(s['name'])
+    _lo = LIENS_OFFICIELS.get(s['name'])
+    liens_officiels_html = (
+        '<div style="display:flex;gap:8px;margin:-4px 0 12px">'
+        f'<a href="{_lo["webcam"]}" target="_blank" rel="noopener" style="flex:1;text-align:center;font-size:.75rem;font-weight:700;color:var(--blue-dark);background:var(--blue-light);border:1.5px solid #c8dff0;border-radius:10px;padding:8px 6px;text-decoration:none">📹 Webcams</a>'
+        f'<a href="{_lo["plan"]}" target="_blank" rel="noopener" style="flex:1;text-align:center;font-size:.75rem;font-weight:700;color:var(--blue-dark);background:var(--blue-light);border:1.5px solid #c8dff0;border-radius:10px;padding:8px 6px;text-decoration:none">🗺️ Plan des pistes</a>'
+        '</div>') if _lo else ''
     has_official = s['name'] in OFFICIAL_URLS
     nom_de = de_nom(s['name'])
     nom_a = a_nom(s['name'])
@@ -3905,9 +3936,10 @@ def render_page(s):
     .cv-title{{font-weight:700;font-size:.85rem;color:var(--text)}}
     .cv-sub{{font-size:.68rem;color:var(--text-mid);margin-top:2px;line-height:1.4}}
     .cv-scale .euros{{font-size:1.35rem}}
-    .partner-badge-hero{{display:inline-block;margin-top:10px;pointer-events:auto;filter:drop-shadow(0 4px 10px rgba(0,0,0,.35));transition:transform .15s}}
-    .partner-badge-hero:hover{{transform:translateY(-2px)}}
-    .partner-badge-hero img{{display:block;height:44px;width:auto}}
+    .partner-badge-hero{{position:absolute;top:76px;right:14px;z-index:11;display:block;pointer-events:auto;filter:drop-shadow(0 3px 8px rgba(0,0,0,.4));transition:transform .15s}}
+    a.partner-badge-hero:hover{{transform:scale(1.06)}}
+    .partner-badge-hero img{{display:block;width:88px;height:auto}}
+    @media(min-width:768px){{.partner-badge-hero{{top:88px;right:26px}}.partner-badge-hero img{{width:124px}}}}
     .hero-illu-note{{font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}}
     .hero-illu-note{{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}}
     /* Vignette "Grand domaine" — en bas à droite. Le padding-droit de .hero-content
@@ -4443,8 +4475,8 @@ def render_page(s):
     <h1>{s['name']}</h1>
     <div class="hero-region">📍 {s['region']}</div>
     {cout_vie_hero_html}
-    {badge_html(s['name'], 'hero')}
   </div>
+  {badge_html(s['name'], 'hero')}
   {hero_illu_note}
   {hero_domaine_html}
 </div>
@@ -4785,7 +4817,7 @@ function closeStation(){{
           <div class="section-title">Informations pratiques</div>
           <p style="font-size:.83rem;line-height:1.65;color:var(--text-mid)">
             <strong>{s['name']}</strong> est une station de ski du massif <strong>{s['massif']}</strong>,
-            {_region_pre} <strong>{_region_nom}</strong>. {infos_domaine_txt} Forfait journée <strong>{fmt_eur(s['forfait'])}€</strong> par adulte.{INFOS_PRATIQUES_EXTRA.get(s['name'], '')}
+            {_region_pre} <strong>{_region_nom}</strong>. {infos_domaine_txt} {FORFAIT_LABEL.get(s['name'],'Forfait journée')} <strong>{fmt_eur(s['forfait'])}€</strong> par adulte.{INFOS_PRATIQUES_EXTRA.get(s['name'], '')}
           </p>
           <p style="font-size:.72rem;line-height:1.5;color:var(--text-soft);margin-top:.5rem">
             * Prix par adulte pour 1 journée, tarif public haute saison. Des tarifs réduits
@@ -4989,6 +5021,7 @@ function closeStation(){{
           <div class="official-btn-cta">{off_cta}</div>
         </div>
       </button>
+      {liens_officiels_html}
 
       <!-- BOOKING / EXPEDIA — style index -->
       <div style="border-radius:16px;overflow:hidden;box-shadow:0 8px 28px rgba(13,34,64,.18);margin-bottom:16px">
@@ -5848,6 +5881,125 @@ document.getElementById('dmClose').addEventListener('click', function(e){{
 
 PAYS_CODE = {"France": "FR", "Suisse": "CH", "Italie": "IT", "Espagne": "ES", "Andorre": "AD", "Allemagne": "DE", "Liechtenstein": "LI", "Autriche": "AT", "Slovénie": "SI"}
 
+# Nombre minimum de stations partenaires pour afficher le bandeau (accueil) et la pastille (recherche).
+# Tant qu'il y en a moins, la page partenaires.html existe mais n'est pas mise en avant (noindex).
+MIN_PARTENAIRES_AFFICHES = 2
+
+def _partenaires_liste():
+    out = []
+    for s in DATA:
+        if s['name'] in PARTNER_STATIONS:
+            photos = get_station_photos(s['name'])
+            out.append({
+                "n": s['name'], "u": f"/stations/{slugify(s['name'])}.html",
+                "r": s.get('region', ''), "m": s.get('massif', ''),
+                "p": (('/' + photos[0][3:]) if photos and photos[0].startswith('../') else (photos[0] if photos else '')), "km": s.get('km'), "sc": s.get('score'),
+            })
+    return sorted(out, key=lambda x: x['n'])
+
+def render_partenaires():
+    liste = _partenaires_liste()
+    cards = []
+    for x in liste:
+        photo = x['p'] if x['p'].startswith('http') or x['p'].startswith('/') else '/' + x['p'].lstrip('./')
+        cards.append(f'''<a href="{x['u']}" class="pt-card">
+      <div class="pt-top" style="background-image:url('{photo}')">
+        <div class="pt-top-overlay"></div>
+        <img class="pt-badge" src="/img/badge-partenaire-pastille.svg" alt="Partenaire officiel SnowFinder">
+        <div class="pt-top-text"><div class="pt-name">{x['n']}</div><div class="pt-region">{x['r']}</div></div>
+      </div>
+      <div class="pt-foot"><span>⭐ {x['sc']:.1f}/5</span><span>🎿 {x['km']} km</span><span class="pt-go">Voir la fiche →</span></div>
+    </a>''')
+    n = len(liste)
+    cards_html = "\n".join(cards)
+    noindex = '' if n >= MIN_PARTENAIRES_AFFICHES else '<meta name="robots" content="noindex,follow">'
+    intro = (f"{n} stations nous font déjà confiance." if n > 1 else
+             "Une première station nous fait confiance." if n == 1 else "Les premières stations partenaires arrivent.")
+    return f"""<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Nos stations partenaires | SnowFinder</title>
+<meta name="description" content="Les stations de ski partenaires officielles de SnowFinder : fiches vérifiées avec les offices du tourisme, plans des pistes et informations à jour.">
+<link rel="canonical" href="https://snowfinder.fr/partenaires.html">
+{noindex}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SnowFinder">
+<meta property="og:title" content="Nos stations partenaires">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root{{--wood-pale:#f7efe2;--wood:#c49a6c;--wood-dark:#8b5e3c;--blue:#5b9fd4;--blue-light:#e8f3fb;--blue-mid:#3a7db8;--blue-dark:#1a5a8a;--text:#2a1f14;--text-mid:#5c4a35;--text-light:#8a7560;--border:#e0d4c0;--navy:#0B2942}}
+  *{{box-sizing:border-box;margin:0;padding:0}}
+  html,body{{overflow-x:hidden;max-width:100%}}
+  body{{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;padding-bottom:84px}}
+  a{{color:inherit}}
+  .pt-hero{{background:linear-gradient(160deg,var(--blue-dark) 0%,var(--blue-mid) 50%,var(--blue) 100%);color:#fff;padding:40px 20px 34px;text-align:center;position:relative}}
+  .pt-hero h1{{font-family:"DM Serif Display",serif;font-size:2rem;margin-bottom:9px;line-height:1.15}}
+  .pt-hero p{{opacity:.9;font-size:.92rem;max-width:560px;margin:0 auto}}
+  .pt-close{{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.1rem}}
+  .pt-wrap{{max-width:1080px;margin:0 auto;padding:26px 20px 10px}}
+  .pt-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;padding-bottom:30px}}
+  .pt-card{{display:block;background:#fff;border-radius:16px;overflow:hidden;text-decoration:none;box-shadow:0 4px 18px rgba(20,60,120,.10);transition:transform .25s,box-shadow .35s}}
+  .pt-card:hover{{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.15)}}
+  .pt-top{{height:190px;position:relative;display:flex;align-items:flex-end;padding:16px;background-size:cover;background-position:center;background-color:#1a5a8a}}
+  .pt-top-overlay{{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,28,58,.82) 0%,rgba(10,30,60,.2) 55%,transparent 100%)}}
+  .pt-badge{{position:absolute;top:12px;right:12px;width:66px;height:auto;z-index:2;filter:drop-shadow(0 2px 5px rgba(0,0,0,.4))}}
+  .pt-top-text{{position:relative;z-index:1}}
+  .pt-name{{font-family:"DM Serif Display",serif;font-size:1.35rem;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.7)}}
+  .pt-region{{font-size:.74rem;color:rgba(255,255,255,.8)}}
+  .pt-foot{{display:flex;align-items:center;gap:14px;padding:12px 15px;font-size:.8rem;font-weight:600;color:var(--text-mid)}}
+  .pt-go{{margin-left:auto;font-weight:800;color:var(--blue-dark)}}
+  .pt-empty{{background:#fff;border-radius:16px;padding:26px 20px;text-align:center;color:var(--text-mid);box-shadow:0 4px 18px rgba(20,60,120,.08)}}
+  .pt-join{{background:#fff;border-radius:18px;padding:26px 22px;box-shadow:0 4px 18px rgba(20,60,120,.10);margin-bottom:30px}}
+  .pt-join h2{{font-family:"DM Serif Display",serif;font-size:1.4rem;margin-bottom:6px;color:var(--navy)}}
+  .pt-join > p{{font-size:.88rem;color:var(--text-mid);margin-bottom:16px;line-height:1.55}}
+  .pt-perks{{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-bottom:20px}}
+  .pt-perk{{background:var(--blue-light);border-radius:12px;padding:14px;font-size:.82rem;line-height:1.5;color:var(--text-mid)}}
+  .pt-perk b{{display:block;color:var(--blue-dark);margin-bottom:3px;font-size:.88rem}}
+  .pt-cta{{display:inline-block;background:linear-gradient(135deg,#F0D78C,#C9982F);color:var(--navy);font-weight:900;text-decoration:none;padding:12px 24px;border-radius:30px;font-size:.9rem}}
+  .footer{{text-align:center;padding:26px 20px 20px;font-size:.8rem;color:var(--text-mid)}}
+  .footer a{{color:var(--blue-dark);text-decoration:none;font-weight:600}}
+  .sf-bottomnav{{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;align-items:center;padding:8px 0;box-shadow:0 -2px 10px rgba(0,0,0,.1);z-index:50}}
+  .sf-bn-item{{text-decoration:none;font-size:1.3rem;padding:6px 10px}}
+  .sf-bn-home-circle{{background:var(--blue-dark);color:#fff;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:1.3rem}}
+</style>
+</head>
+<body>
+<div class="pt-hero">
+  <a href="index.html" class="pt-close" aria-label="Retour">✕</a>
+  <h1>🤝 Nos stations partenaires</h1>
+  <p>{intro} Leurs fiches sont relues avec leur office du tourisme : chiffres, forfaits, plans des pistes et photos à jour.</p>
+</div>
+<div class="pt-wrap">
+  {('<div class="pt-grid">' + cards_html + '</div>') if n else '<div class="pt-empty">Les premières stations partenaires seront présentées ici très bientôt.</div>'}
+  <div class="pt-join">
+    <h2>Vous représentez une station ?</h2>
+    <p>Devenir partenaire est gratuit : envoyez-nous le plan des pistes officiel et placez un lien vers SnowFinder sur votre site. En retour :</p>
+    <div class="pt-perks">
+      <div class="pt-perk"><b>🏅 Badge « Partenaire »</b>Sur votre fiche et sur votre vignette dans les résultats de recherche.</div>
+      <div class="pt-perk"><b>✅ Fiche relue avec vous</b>Chiffres, forfaits, textes et photos validés par votre office du tourisme.</div>
+      <div class="pt-perk"><b>🤝 Page partenaires</b>Votre station présentée sur cette page et sur l'accueil de SnowFinder.</div>
+    </div>
+    <a class="pt-cta" href="mailto:contact.snowfinder@gmail.com?subject=Devenir%20partenaire%20SnowFinder">Devenir partenaire</a>
+  </div>
+</div>
+<footer class="footer">
+  <strong>SnowFinder</strong> — Le guide complet des stations de ski en Europe<br>
+  <a href="index.html">Accueil</a> · <a href="recherche.html">Recherche</a> · <a href="comparateur.html">Comparateur</a> · <a href="grille-tarifaire.html">Partenariats</a> · <a href="mentions-legales.html">Mentions légales</a>
+</footer>
+<nav class="sf-bottomnav">
+  <a href="recherche.html" class="sf-bn-item" title="Trouver ma station">🔍</a>
+  <a href="enneigement.html" class="sf-bn-item" title="Météo &amp; enneigement">❄️</a>
+  <a href="index.html" class="sf-bn-item" title="Accueil"><span class="sf-bn-home-circle">🏡</span></a>
+  <a href="tinder.html" class="sf-bn-item" title="Tinder du ski">💕</a>
+  <a href="hebergement.html" class="sf-bn-item" title="Hébergement">🛏️</a>
+</nav>
+</body>
+</html>"""
+
+
 def render_domaines_index():
     """Page racine listant les 50 grands domaines skiables reliés."""
     massifs = sorted({d['massif'] for d in DOMAINES.values()})
@@ -6473,6 +6625,17 @@ if derrors:
     print("Erreurs domaines:", derrors)
 if errors:
     print("Erreurs:", errors)
+
+# Page « Nos stations partenaires » + données pour le bandeau d'accueil / la pastille de recherche
+try:
+    with open(os.path.join(root_dir, 'partenaires.html'), 'w', encoding='utf-8') as f:
+        f.write(harmonize_topbar(render_partenaires()))
+    _pl = _partenaires_liste()
+    with open(os.path.join(root_dir, 'partenaires-data.js'), 'w', encoding='utf-8') as f:
+        f.write("window.SF_PARTNERS=" + json.dumps({"min": MIN_PARTENAIRES_AFFICHES, "list": _pl}, ensure_ascii=False) + ";\n")
+    print(f"✓ partenaires.html + partenaires-data.js générés ({len(_pl)} station(s))")
+except Exception as e:
+    print("Erreur partenaires :", e)
 
 # Générer la page index des domaines
 try:
