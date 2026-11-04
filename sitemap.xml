@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://snowfinder.fr/en/index.html</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/index.html"/>
@@ -14984,6 +14984,12 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/favoris.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/favoris.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/favoris.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/partenaires.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://snowfinder.fr/station-du-moment/le-lioran-tour-de-france-2026.html</loc>
