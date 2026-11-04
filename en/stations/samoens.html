@@ -17,7 +17,7 @@
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="Samoëns — Ski resort | SnowFinder" name="twitter:title"/>
 <meta content="../img/samoens1.jpg" name="twitter:image"/>
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TouristAttraction", "@id": "https://snowfinder.fr/en/stations/samoens.html#attraction", "name": "Samoëns", "description": "Classified 'Plus Beau Village de France'. Medieval village with its central square, access to the Grand Massif by gondola.", "url": "https://snowfinder.fr/en/stations/samoens.html", "image": "../img/samoens1.jpg", "touristType": "Skier", "address": {"@type": "PostalAddress", "addressCountry": "FR", "addressRegion": "Grand Massif, Haute-Savoie"}, "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.2", "bestRating": "5", "worstRating": "1", "ratingCount": "50"}, "amenityFeature": [{"@type": "LocationFeatureSpecification", "name": "Pistes de ski", "value": "119 km"}, {"@type": "LocationFeatureSpecification", "name": "Remontees mecaniques", "value": "38"}, {"@type": "LocationFeatureSpecification", "name": "Altitude maximale", "value": "2480 m"}, {"@type": "LocationFeatureSpecification", "name": "Altitude minimale", "value": "710 m"}]}, {"@type": "WebPage", "@id": "https://snowfinder.fr/en/stations/samoens.html#webpage", "url": "https://snowfinder.fr/en/stations/samoens.html", "name": "Samoëns — Station de ski : pistes, enneigement, hébergements | SnowFinder", "isPartOf": {"@id": "https://snowfinder.fr/#website"}, "inLanguage": "fr-FR", "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://snowfinder.fr/"}, {"@type": "ListItem", "position": 2, "name": "Stations de ski", "item": "https://snowfinder.fr/recherche.html"}, {"@type": "ListItem", "position": 3, "name": "Alpes du Nord", "item": "https://snowfinder.fr/recherche.html"}, {"@type": "ListItem", "position": 4, "name": "Samoëns", "item": "https://snowfinder.fr/en/stations/samoens.html"}]}}, {"@type": "Offer", "@id": "https://snowfinder.fr/en/stations/samoens.html#offer", "name": "Forfait ski Samoëns", "price": "59", "priceCurrency": "EUR", "description": "Adult day lift pass", "url": "https://snowfinder.fr/en/stations/samoens.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TouristAttraction", "@id": "https://snowfinder.fr/en/stations/samoens.html#attraction", "name": "Samoëns", "description": "Classified 'Plus Beau Village de France'. Medieval village with its central square, access to the Grand Massif by gondola.", "url": "https://snowfinder.fr/en/stations/samoens.html", "image": "../img/samoens1.jpg", "touristType": "Skier", "address": {"@type": "PostalAddress", "addressCountry": "FR", "addressRegion": "Grand Massif, Haute-Savoie"}, "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.0", "bestRating": "5", "worstRating": "1", "ratingCount": "50"}, "amenityFeature": [{"@type": "LocationFeatureSpecification", "name": "Pistes de ski", "value": "119 km"}, {"@type": "LocationFeatureSpecification", "name": "Remontees mecaniques", "value": "38"}, {"@type": "LocationFeatureSpecification", "name": "Altitude maximale", "value": "2480 m"}, {"@type": "LocationFeatureSpecification", "name": "Altitude minimale", "value": "710 m"}]}, {"@type": "WebPage", "@id": "https://snowfinder.fr/en/stations/samoens.html#webpage", "url": "https://snowfinder.fr/en/stations/samoens.html", "name": "Samoëns — Station de ski : pistes, enneigement, hébergements | SnowFinder", "isPartOf": {"@id": "https://snowfinder.fr/#website"}, "inLanguage": "fr-FR", "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://snowfinder.fr/"}, {"@type": "ListItem", "position": 2, "name": "Stations de ski", "item": "https://snowfinder.fr/recherche.html"}, {"@type": "ListItem", "position": 3, "name": "Alpes du Nord", "item": "https://snowfinder.fr/recherche.html"}, {"@type": "ListItem", "position": 4, "name": "Samoëns", "item": "https://snowfinder.fr/en/stations/samoens.html"}]}}, {"@type": "Offer", "@id": "https://snowfinder.fr/en/stations/samoens.html#offer", "name": "Forfait ski Samoëns", "price": "59", "priceCurrency": "EUR", "description": "Adult day lift pass", "url": "https://snowfinder.fr/en/stations/samoens.html"}]}</script>
 <script defer="" src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"></script>
 <script>
     window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -194,6 +194,19 @@
     .tab-content{display:none;background:white;border:1px solid var(--border);border-radius:14px;padding:18px 14px;min-height:200px}
     .tab-content.active{display:block}
     
+    .plan-fig{margin:0}
+    .plan-open{position:relative;display:block;width:100%;padding:0;border:1px solid var(--border,#e3e3e3);border-radius:12px;overflow:hidden;background:#eaf3fb;cursor:zoom-in}
+    .plan-open img{display:block;width:100%;height:auto}
+    .plan-hint{position:absolute;right:8px;bottom:8px;background:rgba(20,40,70,.82);color:#fff;font-size:.72rem;font-weight:700;padding:6px 11px;border-radius:20px}
+    .plan-credit{margin-top:8px;font-size:.72rem;color:#7a7a7a;font-style:italic;line-height:1.4}
+    .plan-viewer{position:fixed;inset:0;z-index:10000;background:rgba(8,16,28,.96);display:none;flex-direction:column}
+    .plan-viewer.open{display:flex}
+    .plan-viewer-bar{display:flex;align-items:center;gap:8px;padding:10px 12px;color:#fff;flex:0 0 auto}
+    .plan-viewer-title{flex:1;font-size:.85rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .plan-viewer-bar button{width:40px;height:40px;border:none;border-radius:10px;background:rgba(255,255,255,.16);color:#fff;font-size:1.15rem;cursor:pointer}
+    .plan-viewer-stage{position:relative;flex:1;overflow:hidden;touch-action:none;cursor:grab}
+    .plan-viewer-stage img{position:absolute;left:0;top:0;max-width:none;transform-origin:0 0;user-select:none;-webkit-user-drag:none;will-change:transform}
+
     /* LIRE PLUS / VOIR MOINS — textes longs (avis, description) */
     .readmore-wrap{position:relative;max-height:var(--rm-max,118px);overflow:hidden;transition:max-height .35s ease}
     .readmore-wrap.expanded{max-height:3000px}
@@ -738,7 +751,7 @@ function acceptSfNotif(){
 </div>
 <div class="hero-overlay"></div>
 <button aria-label="Back" class="hero-close" onclick="closeStation()" title="Back">✕</button>
-<div class="hero-score">4.2 ⭐</div>
+<div class="hero-score">4.0 ⭐</div>
 <button class="fav-star" id="favBtn" onclick="toggleFav()" title="Add to favourites">☆</button>
 <button class="compare-star" id="compareBtn" onclick="toggleCompare()" title="Add to comparison tool">⚖️</button>
 <div class="hero-content">
@@ -757,7 +770,7 @@ function acceptSfNotif(){
 </div>
 <!-- NAVIGATION ONGLETS — coulissante horizontalement, avec indice de scroll visible -->
 <div class="tab-nav-wrap" id="tabNavWrap">
-<div class="tab-nav" id="tabNav"><button class="tab-btn active" onclick="switchTab('infos',this)">📖 The resort</button> <button class="tab-btn" onclick="switchTab('domaine',this)">🔗 Linked ski area</button> <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Who is it for?</button> <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Weather &amp; snow reliability</button></div>
+<div class="tab-nav" id="tabNav"><button class="tab-btn active" onclick="switchTab('infos',this)">📖 The resort</button> <button class="tab-btn" onclick="switchTab('domaine',this)">🔗 Linked ski area</button> <button class="tab-btn" onclick="switchTab('plan',this)">🗺️ Piste map</button> <button class="tab-btn" onclick="switchTab('pourqui',this)">👥 Who is it for?</button> <button class="tab-btn" onclick="switchTab('meteo',this)">🌤 Weather &amp; snow reliability</button></div>
 <div class="tab-scroll-hint" id="tabScrollHint"><span>▶</span></div>
 </div>
 <script>
@@ -1251,7 +1264,7 @@ function closeStation(){
 <img alt="Montriond" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&amp;q=80'" src="https://images.unsplash.com/photo-1528659862616-22886eb53642?w=400&amp;q=80" style="width:100%;height:100%;object-fit:cover"/>
 <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
 <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Montriond</div>
-<div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.2 ⭐</div>
+<div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">3.7 ⭐</div>
 </div>
 <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:.75rem;color:#5c4a35;font-weight:600">75 km · 2,350m</span> <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~137€/night</span></div>
 </a>
@@ -1260,7 +1273,7 @@ function closeStation(){
 <img alt="Praz-de-Lys Sommand" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&amp;q=80'" src="https://images.unsplash.com/photo-1588932716589-909fd383d64a?w=400&amp;q=80" style="width:100%;height:100%;object-fit:cover"/>
 <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
 <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Praz-de-Lys Sommand</div>
-<div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">3.6 ⭐</div>
+<div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">3.8 ⭐</div>
 </div>
 <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:.75rem;color:#5c4a35;font-weight:600">55 km · 1,700m</span> <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~86€/night</span></div>
 </a>
@@ -1269,7 +1282,7 @@ function closeStation(){
 <img alt="Les Gets" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&amp;q=80'" src="https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=400&amp;q=80" style="width:100%;height:100%;object-fit:cover"/>
 <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)"></div>
 <div style="position:absolute;bottom:6px;left:8px;color:white;font-family:'DM Serif Display',serif;font-size:.85rem">Les Gets</div>
-<div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.4 ⭐</div>
+<div style="position:absolute;top:6px;right:6px;background:#c49a6c;color:white;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:4px">4.5 ⭐</div>
 </div>
 <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:.75rem;color:#5c4a35;font-weight:600">120 km · 2,002m</span> <span style="font-size:.72rem;color:#3a7db8;font-weight:700">~134€/night</span></div>
 </a>
@@ -1306,33 +1319,33 @@ function closeStation(){
 <div class="piste-circles">
 <div class="piste-circle-item">
 <div class="piste-circle" style="background:#2ea84e"></div>
-<div class="piste-circle-val"><b>29</b></div>
-<div class="piste-circle-pct">12%</div>
+<div class="piste-circle-val"><b>24</b></div>
+<div class="piste-circle-pct">16%</div>
 <div class="piste-circle-lbl">Green</div>
 </div>
 <div class="piste-circle-item">
 <div class="piste-circle" style="background:#3a7db8"></div>
-<div class="piste-circle-val"><b>111</b></div>
+<div class="piste-circle-val"><b>67</b></div>
 <div class="piste-circle-pct">44%</div>
 <div class="piste-circle-lbl">Blue</div>
 </div>
 <div class="piste-circle-item">
 <div class="piste-circle" style="background:#cc2200"></div>
-<div class="piste-circle-val"><b>80</b></div>
-<div class="piste-circle-pct">32%</div>
+<div class="piste-circle-val"><b>46</b></div>
+<div class="piste-circle-pct">30%</div>
 <div class="piste-circle-lbl">Red</div>
 </div>
 <div class="piste-circle-item">
 <div class="piste-circle" style="background:#222"></div>
-<div class="piste-circle-val"><b>31</b></div>
-<div class="piste-circle-pct">12%</div>
+<div class="piste-circle-val"><b>14</b></div>
+<div class="piste-circle-pct">9%</div>
 <div class="piste-circle-lbl">Black</div>
 </div>
 </div>
 <div class="icon-stat-grid">
 <div class="icon-stat-tile">
 <span class="icon-stat-ico">🎿</span>
-<div class="icon-stat-val">251</div>
+<div class="icon-stat-val">151</div>
 <div class="icon-stat-lbl">Number of runs</div>
 </div>
 <div class="icon-stat-tile">
@@ -1396,6 +1409,10 @@ function closeStation(){
 </div>
 </a></div>
 </div>
+<div class="tab-content" id="tab-plan"><figure class="plan-fig">
+<button aria-label="Enlarge the piste map" class="plan-open" onclick="openPlan('/plan-des-pistes/plan-grandmassif.webp','Plan des pistes de Samoëns')" type="button"><img alt="Piste map of Samoëns" loading="lazy" src="/plan-des-pistes/plan-grandmassif.webp"/> <span class="plan-hint">🔍 Tap to enlarge and zoom</span></button>
+<figcaption class="plan-credit">Piste map © Flaine, Les Carroz, Morillon, Samoëns and Sixt-Fer-à-Cheval — reproduced with the resort's permission.</figcaption>
+</figure></div>
 <!-- ONGLET EXPOSITION : ORIENTATION DU VILLAGE ET DU DOMAINE (omis si aucune donnée vérifiée) -->
 <!-- ONGLET MÉTÉO & ENNEIGEMENT (fusionnés) -->
 <div class="tab-content" id="tab-meteo">
@@ -1613,6 +1630,70 @@ function hideOfficialSheet(){
 </script>
 <footer class="footer"><strong>SnowFinder</strong> – The complete guide to ski resorts in Europe<br/> <a href="/en/index.html">Accueil</a> · <a href="/en/recherche.html">Search</a> · <a href="/en/comparateur.html">Comparison tool</a> · <a href="/en/mentions-legales.html">Legal notice</a><br/> <span style="font-size:.7rem;opacity:.7">Indicative data · High-season adult lift passes · Check the official website of each resort</span></footer>
 <!-- LIGHTBOX GALERIE -->
+<div aria-hidden="true" class="plan-viewer" id="planViewer">
+<div class="plan-viewer-bar">
+<span class="plan-viewer-title" id="planViewerTitle"></span>
+<button aria-label="Zoom in" onclick="planZoom(1.5)" type="button">＋</button>
+<button aria-label="Zoom out" onclick="planZoom(1/1.5)" type="button">－</button>
+<button aria-label="Full map" onclick="planFit()" type="button">⤢</button>
+<button aria-label="Close" onclick="closePlan()" type="button">✕</button>
+</div>
+<div class="plan-viewer-stage" id="planStage"><img alt="" draggable="false" id="planImg"/></div>
+</div>
+<script>
+(function(){
+  var v=document.getElementById('planViewer'), st=document.getElementById('planStage'), im=document.getElementById('planImg');
+  if(!v||!st||!im) return;
+  var s=1,tx=0,ty=0,minS=0.1,maxS=8,ptrs={},pinch=null,lastTap=0,lastX=0,lastY=0;
+  function clamp(){
+    var sw=st.clientWidth, sh=st.clientHeight, w=im.naturalWidth*s, h=im.naturalHeight*s;
+    tx = w<=sw ? (sw-w)/2 : Math.min(0,Math.max(sw-w,tx));
+    ty = h<=sh ? (sh-h)/2 : Math.min(0,Math.max(sh-h,ty));
+  }
+  function apply(){ clamp(); im.style.transform='translate('+tx+'px,'+ty+'px) scale('+s+')'; }
+  function fit(){
+    var sw=st.clientWidth, sh=st.clientHeight, iw=im.naturalWidth||1, ih=im.naturalHeight||1;
+    minS=Math.min(sw/iw,sh/ih); s=minS; maxS=Math.max(minS*8,3); tx=0; ty=0; apply();
+  }
+  function zoomAt(f,cx,cy){
+    var ns=Math.min(maxS,Math.max(minS,s*f)); if(ns===s) return;
+    tx=cx-(cx-tx)*(ns/s); ty=cy-(cy-ty)*(ns/s); s=ns; apply();
+  }
+  function center(){ var r=st.getBoundingClientRect(); return [r.width/2,r.height/2]; }
+  window.openPlan=function(src,title){
+    document.getElementById('planViewerTitle').textContent=title||'';
+    v.classList.add('open'); v.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+    im.onload=fit; im.src=src; if(im.complete&&im.naturalWidth) fit();
+  };
+  window.closePlan=function(){ v.classList.remove('open'); v.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
+  window.planZoom=function(f){ var c=center(); zoomAt(f,c[0],c[1]); };
+  window.planFit=fit;
+  function dist(a,b){ return Math.hypot(a.x-b.x,a.y-b.y); }
+  st.addEventListener('pointerdown',function(e){
+    st.setPointerCapture(e.pointerId); ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+    var ids=Object.keys(ptrs);
+    if(ids.length===2){ pinch={d:dist(ptrs[ids[0]],ptrs[ids[1]])}; }
+    else { lastX=e.clientX; lastY=e.clientY;
+      var now=Date.now(); if(now-lastTap<300){ var r=st.getBoundingClientRect(); if(s<=minS*1.05) zoomAt(3,e.clientX-r.left,e.clientY-r.top); else fit(); lastTap=0; } else lastTap=now; }
+  });
+  st.addEventListener('pointermove',function(e){
+    if(!ptrs[e.pointerId]) return;
+    ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+    var ids=Object.keys(ptrs);
+    if(ids.length>=2&&pinch){
+      var a=ptrs[ids[0]], b=ptrs[ids[1]], d=dist(a,b), r=st.getBoundingClientRect();
+      zoomAt(d/pinch.d,(a.x+b.x)/2-r.left,(a.y+b.y)/2-r.top); pinch.d=d;
+    } else {
+      tx+=e.clientX-lastX; ty+=e.clientY-lastY; lastX=e.clientX; lastY=e.clientY; apply();
+    }
+  });
+  function up(e){ delete ptrs[e.pointerId]; pinch=null; var ids=Object.keys(ptrs); if(ids.length===1){ lastX=ptrs[ids[0]].x; lastY=ptrs[ids[0]].y; } }
+  st.addEventListener('pointerup',up); st.addEventListener('pointercancel',up);
+  st.addEventListener('wheel',function(e){ e.preventDefault(); var r=st.getBoundingClientRect(); zoomAt(e.deltaY<0?1.2:1/1.2,e.clientX-r.left,e.clientY-r.top); },{passive:false});
+  window.addEventListener('resize',function(){ if(v.classList.contains('open')) fit(); });
+  document.addEventListener('keydown',function(e){ if(!v.classList.contains('open')) return; if(e.key==='Escape') closePlan(); else if(e.key==='+') planZoom(1.5); else if(e.key==='-') planZoom(1/1.5); });
+})();
+</script>
 <div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
 <button aria-label="Close" class="lightbox-close" onclick="closeLightbox()">✕</button>
 <button aria-label="Previous" class="lightbox-nav lightbox-prev" onclick="lightboxPrev()">‹</button>
