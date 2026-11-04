@@ -294,6 +294,7 @@ function acceptSfNotif(){
 <div class="dm-hero">
 <div class="hero-slides">
 <img alt="Le Grand Sancy photo 1" class="hero-slide active" data-idx="0" loading="eager" src="/img/superbesse1.jpg"/>
+<img alt="Le Grand Sancy photo 2" class="hero-slide" data-idx="1" loading="lazy" src="/img/lemontdore1.jpg"/>
 </div>
 <div class="dm-hero-overlay"></div>
 <a aria-label="Back" class="dm-close" href="#" id="dmClose">✕</a>
@@ -344,6 +345,12 @@ function acceptSfNotif(){
   renderDomCompare();
 })();
 </script>
+<button aria-label="Previous" class="hero-nav hero-prev" onclick="dmHeroPrev()">‹</button>
+<button aria-label="Next" class="hero-nav hero-next" onclick="dmHeroNext()">›</button>
+<div class="hero-dots">
+<button aria-label="Photo 1" class="hero-dot active" data-idx="0" onclick="dmHeroGoTo(0)"></button>
+<button aria-label="Photo 2" class="hero-dot" data-idx="1" onclick="dmHeroGoTo(1)"></button>
+</div>
 <div class="dm-hero-content">
 <div class="dm-hero-massif">⛷ Massif Central</div>
 <h1>Le Grand Sancy</h1>
@@ -439,7 +446,7 @@ function acceptSfNotif(){
 </tr><tr onclick="location.href='/stations/le-mont-dore.html'">
 <td class="dm-t-name">Le Mont Dore</td>
 <td>1,050m</td><td>41 km</td><td>43€</td>
-<td>⭐3.7</td>
+<td>⭐3.8</td>
 <td class="dm-t-tags"><span class="dm-tag">Village</span><span class="dm-tag">Family</span></td>
 <td class="dm-t-go">→</td>
 </tr></tbody>
@@ -463,7 +470,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/le-mont-dore.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1622139673657-13ba4a23918a?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/lemontdore1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="183" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="183" type="button">⚖️</button>
@@ -540,7 +547,7 @@ function toggleReadMore(id, btn){
   btn.textContent = expanded ? 'Show less ▲' : 'Read more ▼';
 }
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["/img/superbesse1.jpg"];
+var DM_HERO_URLS = ["/img/superbesse1.jpg","/img/lemontdore1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;

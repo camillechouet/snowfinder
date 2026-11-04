@@ -293,8 +293,10 @@ function acceptSfNotif(){
 </script>
 <div class="dm-hero">
 <div class="hero-slides">
-<img alt="SkiWelt Wilder Kaiser – Brixental photo 1" class="hero-slide active" data-idx="0" loading="eager" src="/img/scheffau1.jpg"/>
-<img alt="SkiWelt Wilder Kaiser – Brixental photo 2" class="hero-slide" data-idx="1" loading="lazy" src="/img/westendorf1.jpg"/>
+<img alt="SkiWelt Wilder Kaiser – Brixental photo 1" class="hero-slide active" data-idx="0" loading="eager" src="/img/ellmau1.jpg"/>
+<img alt="SkiWelt Wilder Kaiser – Brixental photo 2" class="hero-slide" data-idx="1" loading="lazy" src="/img/scheffau1.jpg"/>
+<img alt="SkiWelt Wilder Kaiser – Brixental photo 3" class="hero-slide" data-idx="2" loading="lazy" src="/img/brixenimthale1.jpg"/>
+<img alt="SkiWelt Wilder Kaiser – Brixental photo 4" class="hero-slide" data-idx="3" loading="lazy" src="/img/westendorf1.jpg"/>
 </div>
 <div class="dm-hero-overlay"></div>
 <a aria-label="Back" class="dm-close" href="#" id="dmClose">✕</a>
@@ -350,6 +352,8 @@ function acceptSfNotif(){
 <div class="hero-dots">
 <button aria-label="Photo 1" class="hero-dot active" data-idx="0" onclick="dmHeroGoTo(0)"></button>
 <button aria-label="Photo 2" class="hero-dot" data-idx="1" onclick="dmHeroGoTo(1)"></button>
+<button aria-label="Photo 3" class="hero-dot" data-idx="2" onclick="dmHeroGoTo(2)"></button>
+<button aria-label="Photo 4" class="hero-dot" data-idx="3" onclick="dmHeroGoTo(3)"></button>
 </div>
 <div class="dm-hero-content">
 <div class="dm-hero-massif">⛷ Northern Alps</div>
@@ -500,7 +504,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/ellmau.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1579525006336-c8919e3dc770?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/ellmau1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="807" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="807" type="button">⚖️</button>
@@ -539,7 +543,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/brixen-im-thale.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/brixenimthale1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="810" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="810" type="button">⚖️</button>
@@ -699,7 +703,7 @@ function toggleReadMore(id, btn){
   btn.textContent = expanded ? 'Show less ▲' : 'Read more ▼';
 }
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["/img/scheffau1.jpg","/img/westendorf1.jpg"];
+var DM_HERO_URLS = ["/img/ellmau1.jpg","/img/scheffau1.jpg","/img/brixenimthale1.jpg","/img/westendorf1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;

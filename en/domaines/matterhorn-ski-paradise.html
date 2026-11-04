@@ -294,7 +294,8 @@ function acceptSfNotif(){
 <div class="dm-hero">
 <div class="hero-slides">
 <img alt="Matterhorn Ski Paradise (Zermatt – Cervinia) photo 1" class="hero-slide active" data-idx="0" loading="eager" src="/img/zermatt1.jpg"/>
-<img alt="Matterhorn Ski Paradise (Zermatt – Cervinia) photo 2" class="hero-slide" data-idx="1" loading="lazy" src="/img/valtournenche1.jpg"/>
+<img alt="Matterhorn Ski Paradise (Zermatt – Cervinia) photo 2" class="hero-slide" data-idx="1" loading="lazy" src="/img/breuilcervinia1.jpg"/>
+<img alt="Matterhorn Ski Paradise (Zermatt – Cervinia) photo 3" class="hero-slide" data-idx="2" loading="lazy" src="/img/valtournenche1.jpg"/>
 </div>
 <div class="dm-hero-overlay"></div>
 <a aria-label="Back" class="dm-close" href="#" id="dmClose">✕</a>
@@ -350,6 +351,7 @@ function acceptSfNotif(){
 <div class="hero-dots">
 <button aria-label="Photo 1" class="hero-dot active" data-idx="0" onclick="dmHeroGoTo(0)"></button>
 <button aria-label="Photo 2" class="hero-dot" data-idx="1" onclick="dmHeroGoTo(1)"></button>
+<button aria-label="Photo 3" class="hero-dot" data-idx="2" onclick="dmHeroGoTo(2)"></button>
 </div>
 <div class="dm-hero-content">
 <div class="dm-hero-massif">⛷ Northern Alps</div>
@@ -477,7 +479,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/breuil-cervinia.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/breuilcervinia1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="560" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="560" type="button">⚖️</button>
@@ -624,7 +626,7 @@ function toggleReadMore(id, btn){
   btn.textContent = expanded ? 'Show less ▲' : 'Read more ▼';
 }
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["/img/zermatt1.jpg","/img/valtournenche1.jpg"];
+var DM_HERO_URLS = ["/img/zermatt1.jpg","/img/breuilcervinia1.jpg","/img/valtournenche1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;

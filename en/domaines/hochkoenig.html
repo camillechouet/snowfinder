@@ -293,7 +293,7 @@ function acceptSfNotif(){
 </script>
 <div class="dm-hero">
 <div class="hero-slides">
-<img alt="Hochkönig photo 1" class="hero-slide active" data-idx="0" loading="eager" src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1400&amp;q=80"/>
+<img alt="Hochkönig photo 1" class="hero-slide active" data-idx="0" loading="eager" src="/img/mariaalm1.jpg"/>
 </div>
 <div class="dm-hero-overlay"></div>
 <a aria-label="Back" class="dm-close" href="#" id="dmClose">✕</a>
@@ -350,7 +350,6 @@ function acceptSfNotif(){
 <div class="dm-hero-meta">🎿 120 km · 3 resorts · 79€/day</div>
 <div class="dm-rank">39th largest ski area listed</div>
 </div>
-<div class="hero-illu-note">Illustrative photo</div>
 </div>
 <div class="dm-wrap">
 <div class="dm-breadcrumb"><a href="/en/index.html">Accueil</a> › <a href="/en/recherche.html">Stations de ski</a> › Hochkönig</div>
@@ -457,7 +456,7 @@ function acceptSfNotif(){
 <div class="dm-section-title">Explore the resorts</div>
 <div class="dm-stations-grid">
 <a class="dm-station-card" href="/en/stations/maria-alm.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551036359-aaa8fdf6314b?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/mariaalm1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="882" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="882" type="button">⚖️</button>
@@ -617,7 +616,7 @@ function toggleReadMore(id, btn){
   btn.textContent = expanded ? 'Show less ▲' : 'Read more ▼';
 }
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=1400&q=80"];
+var DM_HERO_URLS = ["/img/mariaalm1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;
