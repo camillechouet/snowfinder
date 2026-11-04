@@ -19,6 +19,7 @@ import re, json, unicodedata, os, sys, hashlib, math
 PARTNER_STATIONS = set([
     # "Le Lioran",
     # "Valmorel",
+    "Morillon",
 ])
 
 def badge_html(station_name, size="hero"):
@@ -28,8 +29,8 @@ def badge_html(station_name, size="hero"):
     if station_name not in PARTNER_STATIONS:
         return ''
     if size == "mini":
-        return '<img class="partner-badge-mini" src="img/badge-partenaire-mini.svg" alt="Partenaire officiel SnowFinder" width="28" height="28" loading="lazy">'
-    return '<a class="partner-badge-hero" href="grille-tarifaire.html" title="Partenaire officiel SnowFinder"><img src="img/badge-partenaire.svg" alt="Partenaire officiel SnowFinder" width="180" height="54" loading="lazy"></a>'
+        return '<img class="partner-badge-mini" src="/img/badge-partenaire-mini.svg" alt="Partenaire officiel SnowFinder" width="28" height="28" loading="lazy">'
+    return '<a class="partner-badge-hero" href="/grille-tarifaire.html" title="Partenaire officiel SnowFinder"><img src="/img/badge-partenaire-pastille.svg" alt="Partenaire officiel SnowFinder" width="64" height="94" loading="lazy"></a>'
 
 def slugify(name):
     name = unicodedata.normalize('NFD', name)
@@ -3931,9 +3932,10 @@ def render_page(s):
     .cv-title{{font-weight:700;font-size:.85rem;color:var(--text)}}
     .cv-sub{{font-size:.68rem;color:var(--text-mid);margin-top:2px;line-height:1.4}}
     .cv-scale .euros{{font-size:1.35rem}}
-    .partner-badge-hero{{display:inline-block;margin-top:10px;pointer-events:auto;filter:drop-shadow(0 4px 10px rgba(0,0,0,.35));transition:transform .15s}}
-    .partner-badge-hero:hover{{transform:translateY(-2px)}}
-    .partner-badge-hero img{{display:block;height:44px;width:auto}}
+    .partner-badge-hero{{position:absolute;top:76px;right:14px;z-index:11;display:block;pointer-events:auto;filter:drop-shadow(0 3px 8px rgba(0,0,0,.4));transition:transform .15s}}
+    .partner-badge-hero:hover{{transform:scale(1.06)}}
+    .partner-badge-hero img{{display:block;width:70px;height:auto}}
+    @media(min-width:768px){{.partner-badge-hero{{top:84px;right:24px}}.partner-badge-hero img{{width:96px}}}}
     .hero-illu-note{{font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}}
     .hero-illu-note{{position:absolute;bottom:8px;right:14px;z-index:6;font-style:italic;font-size:.66rem;color:rgba(255,255,255,.55);text-shadow:0 1px 4px rgba(0,0,0,.6)}}
     /* Vignette "Grand domaine" — en bas à droite. Le padding-droit de .hero-content
@@ -4469,8 +4471,8 @@ def render_page(s):
     <h1>{s['name']}</h1>
     <div class="hero-region">📍 {s['region']}</div>
     {cout_vie_hero_html}
-    {badge_html(s['name'], 'hero')}
   </div>
+  {badge_html(s['name'], 'hero')}
   {hero_illu_note}
   {hero_domaine_html}
 </div>
