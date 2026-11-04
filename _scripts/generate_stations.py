@@ -30,7 +30,11 @@ def badge_html(station_name, size="hero"):
         return ''
     if size == "mini":
         return '<img class="partner-badge-mini" src="/img/badge-partenaire-mini.svg" alt="Partenaire officiel SnowFinder" width="28" height="28" loading="lazy">'
-    return '<a class="partner-badge-hero" href="/grille-tarifaire.html" title="Partenaire officiel SnowFinder"><img src="/img/badge-partenaire-pastille.svg" alt="Partenaire officiel SnowFinder" width="64" height="94" loading="lazy"></a>'
+    img = '<img src="/img/badge-partenaire-pastille.svg" alt="Partenaire officiel SnowFinder" width="64" height="94" loading="lazy">'
+    # Lien vers la page Partenaires seulement quand elle est assez fournie (jamais vers la grille tarifaire, réservée aux stations)
+    if len(PARTNER_STATIONS) >= 2:
+        return '<a class="partner-badge-hero" href="/partenaires.html" title="Partenaire officiel SnowFinder">' + img + '</a>'
+    return '<span class="partner-badge-hero" title="Partenaire officiel SnowFinder">' + img + '</span>'
 
 def slugify(name):
     name = unicodedata.normalize('NFD', name)
