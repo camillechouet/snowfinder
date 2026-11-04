@@ -332,7 +332,7 @@ DOMAINES = {
         "km_propre": {"Flaine":146,"Samoëns":40,"Les Carroz":45,"Morillon":35,"Sixt-Fer-à-Cheval":15},
         "km_total": 265, "remontees_total": 62, "forfait_domaine": 63,
         "alt_min": 700, "alt_max": 2500,
-        "pistes": {"v":29,"b":111,"r":80,"n":31},
+        "pistes": {"v":24,"b":67,"r":46,"n":14},
         "short": "Grand Massif",
         "desc": "Cinq villages du Faucigny reliés autour du plateau des Grandes Platières, à deux pas de Genève. Flaine, station-manifeste construite dans les années 60 par les architectes Marcel Breuer et Éric Boissonnas avec ses immeubles en béton brut et ses sculptures de Picasso et Dubuffet en pleine montagne — on aime ou on déteste, mais c'est unique. En contrebas, Samoëns, Morillon, Les Carroz et Sixt ont gardé leurs chalets et leurs clochers. Le domaine offre l'une des plus longues pistes des Alpes, les Cascades : 14 km de descente depuis les Grandes Platières jusqu'à Sixt, avec vue sur le cirque du Fer-à-Cheval.",
     },
@@ -2295,7 +2295,7 @@ def generate_verdict(s):
             f"que l'on rejoint par remontée mécanique.",
             f"Le village est à {alt_v} m et le domaine monte jusqu'à {alt} m : on dort en vallée "
             f"et on skie en altitude, avec l'enneigement du grand domaine.",
-            f"Le forfait journée est celui du grand domaine, à {forfait}€. L'intérêt {nom_de} se joue surtout "
+            f"Le forfait journée est celui du grand domaine, à {fmt_eur(forfait)}€. L'intérêt {nom_de} se joue surtout "
             f"côté hébergement, souvent plus abordable qu'en station d'altitude.",
             f"Il faut simplement compter chaque jour le trajet en remontée pour rejoindre les pistes.",
             f"En résumé : {name} convient à ceux qui veulent profiter du domaine {_dom['name']} en logeant au calme, en vallée.",
@@ -2344,7 +2344,7 @@ def generate_verdict(s):
         parts.append(
             f"L'ADN {nom_de}, c'est le haut de gamme : les hébergements, les restaurants d'altitude "
             f"et les services en station reflètent une clientèle qui ne compte pas. "
-            f"Avec un forfait journée à {forfait}€, le séjour a un prix, mais l'expérience est à la hauteur "
+            f"Avec un forfait journée à {fmt_eur(forfait)}€, le séjour a un prix, mais l'expérience est à la hauteur "
             f"pour qui veut se faire plaisir sans compromis."
         )
     elif 'festif' in ambs and 'famille' not in ambs:
@@ -2390,7 +2390,7 @@ def generate_verdict(s):
         parts.append(
             f"Station polyvalente par excellence, {name} convient à un groupe hétérogène "
             f"sans que personne ne soit lésé. "
-            f"Les niveaux débutant à avancé trouvent leur compte, et le forfait à {forfait}€/jour "
+            f"Les niveaux débutant à avancé trouvent leur compte, et le forfait à {fmt_eur(forfait)}€/jour "
             f"reste dans la moyenne raisonnable du massif."
         )
 
@@ -2428,26 +2428,26 @@ def generate_verdict(s):
     # ── VALEUR / RAPPORT QUALITÉ-PRIX ──
     if forfait <= 22:
         parts.append(
-            f"Avec un forfait journée à seulement {forfait}€, {name} est l'une des destinations "
+            f"Avec un forfait journée à seulement {fmt_eur(forfait)}€, {name} est l'une des destinations "
             f"les plus accessibles {PAYS_DE.get(pays_code(s), 'de France')}. "
             f"Pour les familles à budget maîtrisé ou les skieurs qui veulent multiplier les sorties "
             f"sans se ruiner, c'est une adresse sincère et souvent méconnue."
         )
     elif forfait <= 35:
         parts.append(
-            f"Le forfait journée à {forfait}€ reste raisonnable pour la qualité du domaine offert. "
+            f"Le forfait journée à {fmt_eur(forfait)}€ reste raisonnable pour la qualité du domaine offert. "
             f"En comptant hébergement, ski et repas, {name} s'adresse à ceux qui veulent passer "
             f"une belle semaine sans que la note finale ne les fasse tomber de leur chaise."
         )
     elif forfait <= 50:
         parts.append(
-            f"Le forfait journée à {forfait}€ place {name} dans la catégorie des stations "
+            f"Le forfait journée à {fmt_eur(forfait)}€ place {name} dans la catégorie des stations "
             f"intermédiaires côté budget — ni donné, ni exorbitant. "
             f"La qualité du domaine et des équipements justifie ce tarif pour la plupart des skieurs."
         )
     else:
         parts.append(
-            f"Le budget séjour {nom_a} est clairement élevé : {forfait}€ le forfait journée, "
+            f"Le budget séjour {nom_a} est clairement élevé : {fmt_eur(forfait)}€ le forfait journée, "
             f"auxquels s'ajoutent des hébergements et des restaurants d'altitude parmi les plus chers "
             f"des Alpes. "
             f"C'est le prix de l'excellence — mais il faut en avoir conscience avant de partir."
@@ -2848,7 +2848,7 @@ OFFICIAL_URLS = {
     "Flaine":                       "https://www.flaine.com",
     "Les Carroz":                   "https://www.lescarroz.com",
     "Samoëns":                      "https://www.samoens.com",
-    "Morillon":                     "https://www.morillon.fr",
+    "Morillon":                     "https://www.haut-giffre.fr/",
     "Praz-de-Lys Sommand":          "https://www.prazdelys-sommand.com",
     # HAUTE-SAVOIE / ARAVIS
     "La Clusaz":                    "https://www.laclusaz.com",
@@ -3227,10 +3227,21 @@ def fmt_eur(v):
 # Infos pratiques complémentaires validées par la station (ajoutées après le forfait adulte)
 # Crédit photo affiché en petit sur le héro de la fiche (clé = nom exact de la station)
 PHOTO_CREDITS = {
+    "Morillon": "Haut-Giffre Tourisme",
     "Sainte-Foy-Tarentaise": "David André",
     "Pralognan-la-Vanoise": "Pierre Guilbaud",
 }
 
+# Texte « domaine » des Informations pratiques fourni par l'office (remplace la phrase auto)
+INFOS_DOMAINE_OVERRIDE = {
+    "Morillon": "Le domaine relié comprend les stations de Morillon, Les Carroz, Flaine, Samoëns et Sixt-Fer-à-Cheval et s'étend entre 700 m et 2480 m. Il existe 2 types de forfait : le forfait Grand Massif comprenant le domaine entier et le forfait Village comprenant les stations de Morillon, Samoëns, Les Carroz et Sixt-Fer-à-Cheval.",
+}
+FORFAIT_LABEL = {"Morillon": "Forfait Village journée"}
+# Liens officiels précis (webcams / plan des pistes) fournis par la station
+LIENS_OFFICIELS = {
+    "Morillon": {"webcam": "https://www.haut-giffre.fr/jy-suis/webcams/",
+                 "plan": "https://www.haut-giffre.fr/domaines-skiables/grand-massif-domaines-skiables/"},
+}
 INFOS_PRATIQUES_EXTRA = {
     "Pralognan-la-Vanoise": " Tarif réduit : <strong>35€</strong>.",
     "Sainte-Foy-Tarentaise": " Le samedi, le forfait journée adulte descend à <strong>30€</strong>.",
@@ -3529,6 +3540,13 @@ def render_page(s):
         infos_domaine_txt = (
             f"Le domaine s'étend sur <strong>{display_km} km de pistes</strong> entre {display_alt_min} m et "
             f"{display_alt_max} m, desservi par {display_remontees} remontées mécaniques.")
+    if s['name'] in INFOS_DOMAINE_OVERRIDE:
+        infos_domaine_txt = INFOS_DOMAINE_OVERRIDE[s['name']]
+    if s['name'] == "Morillon":
+        # Chiffres du domaine Village (office du tourisme), pas du secteur Morillon seul
+        display_km = s['km']; km_lbl = "Pistes (domaine Village)"
+        display_remontees = s['remontees']; remontees_lbl = "Remontées (domaine Village)"
+        km_meta_txt = f"{display_km} km de pistes"; km_og_txt = f"{display_km} km"
     _region_pre, _region_nom = region_prep(s['region'])
     from urllib.parse import quote as _q
     _bk_pays = {"ES": "espagne", "AD": "andorre", "CH": "suisse", "IT": "italie", "DE": "allemagne", "LI": "liechtenstein", "AT": "autriche", "SI": "slovenie"}.get(s.get('pays'), "france")
@@ -3589,6 +3607,12 @@ def render_page(s):
         <div style="font-size:.68rem;color:#4a7a9b;line-height:1.4">{NIV_DESC.get(n,"")}</div>
       </div>''' for n in s.get('niv', []))
     official_url = get_official_url(s['name'])
+    _lo = LIENS_OFFICIELS.get(s['name'])
+    liens_officiels_html = (
+        '<div style="display:flex;gap:8px;margin:-4px 0 12px">'
+        f'<a href="{_lo["webcam"]}" target="_blank" rel="noopener" style="flex:1;text-align:center;font-size:.75rem;font-weight:700;color:var(--blue-dark);background:var(--blue-light);border:1.5px solid #c8dff0;border-radius:10px;padding:8px 6px;text-decoration:none">📹 Webcams</a>'
+        f'<a href="{_lo["plan"]}" target="_blank" rel="noopener" style="flex:1;text-align:center;font-size:.75rem;font-weight:700;color:var(--blue-dark);background:var(--blue-light);border:1.5px solid #c8dff0;border-radius:10px;padding:8px 6px;text-decoration:none">🗺️ Plan des pistes</a>'
+        '</div>') if _lo else ''
     has_official = s['name'] in OFFICIAL_URLS
     nom_de = de_nom(s['name'])
     nom_a = a_nom(s['name'])
@@ -4787,7 +4811,7 @@ function closeStation(){{
           <div class="section-title">Informations pratiques</div>
           <p style="font-size:.83rem;line-height:1.65;color:var(--text-mid)">
             <strong>{s['name']}</strong> est une station de ski du massif <strong>{s['massif']}</strong>,
-            {_region_pre} <strong>{_region_nom}</strong>. {infos_domaine_txt} Forfait journée <strong>{fmt_eur(s['forfait'])}€</strong> par adulte.{INFOS_PRATIQUES_EXTRA.get(s['name'], '')}
+            {_region_pre} <strong>{_region_nom}</strong>. {infos_domaine_txt} {FORFAIT_LABEL.get(s['name'],'Forfait journée')} <strong>{fmt_eur(s['forfait'])}€</strong> par adulte.{INFOS_PRATIQUES_EXTRA.get(s['name'], '')}
           </p>
           <p style="font-size:.72rem;line-height:1.5;color:var(--text-soft);margin-top:.5rem">
             * Prix par adulte pour 1 journée, tarif public haute saison. Des tarifs réduits
@@ -4991,6 +5015,7 @@ function closeStation(){{
           <div class="official-btn-cta">{off_cta}</div>
         </div>
       </button>
+      {liens_officiels_html}
 
       <!-- BOOKING / EXPEDIA — style index -->
       <div style="border-radius:16px;overflow:hidden;box-shadow:0 8px 28px rgba(13,34,64,.18);margin-bottom:16px">
