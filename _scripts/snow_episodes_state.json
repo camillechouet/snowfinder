@@ -8,6 +8,15 @@
       "stages_sent": [
         "j10"
       ]
+    },
+    "Alpes du Nord_2026-W47": {
+      "massif": "Alpes du Nord",
+      "target_date": "2026-11-17",
+      "top_station": "Val Thorens",
+      "snow_cm": 28,
+      "stages_sent": [
+        "j10"
+      ]
     }
   }
 }
