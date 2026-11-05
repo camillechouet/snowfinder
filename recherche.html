@@ -4312,21 +4312,7 @@ window.applyFilters = function() {
 // Init au chargement
 document.addEventListener('DOMContentLoaded', function() {
   initSaison();
-  // Ouvrir la carte automatiquement (desktop uniquement)
-  const container = document.getElementById('mapContainer');
-  const btn = document.getElementById('mapToggleBtn');
-  if(container && !container.classList.contains('open') && window.innerWidth > 768) {
-    container.classList.add('open');
-    if(btn) btn.classList.add('open');
-    // Initialiser la carte comme le ferait toggleMap
-    setTimeout(function() {
-      if(!mapInitialized) {
-        initMap();
-      } else if(mapInstance) {
-        mapInstance.invalidateSize();
-      }
-    }, 200);
-  }
+  // La carte reste fermée à l'arrivée : l'utilisateur l'ouvre via le bouton « Voir la carte des stations »
 });
 initSaison();
 </script>
