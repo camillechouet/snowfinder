@@ -2944,15 +2944,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/garmisch-partenkirchen.html"/>
   </url>
   <url>
-    <loc>https://snowfinder.fr/en/stations/gaschney-360.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/gaschney-360.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/stations/gaschney-360.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/gaschney-360.html"/>
-  </url>
-  <url>
     <loc>https://snowfinder.fr/en/stations/gaschurn.html</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -9422,15 +9413,6 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/garmisch-partenkirchen.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/stations/garmisch-partenkirchen.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/garmisch-partenkirchen.html"/>
-  </url>
-  <url>
-    <loc>https://snowfinder.fr/stations/gaschney-360.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/gaschney-360.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/stations/gaschney-360.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/gaschney-360.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/stations/gaschurn.html</loc>
