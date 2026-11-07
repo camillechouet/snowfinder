@@ -11,9 +11,18 @@
     },
     "Alpes du Nord_2026-W47": {
       "massif": "Alpes du Nord",
+      "target_date": "2026-11-18",
+      "top_station": "La Plagne",
+      "snow_cm": 41,
+      "stages_sent": [
+        "j10"
+      ]
+    },
+    "Alpes du Sud_2026-W47": {
+      "massif": "Alpes du Sud",
       "target_date": "2026-11-17",
-      "top_station": "Val Thorens",
-      "snow_cm": 28,
+      "top_station": "Montgenèvre",
+      "snow_cm": 26,
       "stages_sent": [
         "j10"
       ]
