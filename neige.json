@@ -1,5 +1,5 @@
 {
- "maj": "2026-11-07T14:12Z",
+ "maj": "2026-11-08T14:25Z",
  "source": "bulletins des stations (ANMSM) via Skipass",
  "stations": {
   "Les 2 Alpes": {
@@ -7,7 +7,7 @@
    "bas": 0,
    "alt_haut": 3600,
    "alt_bas": 1300,
-   "date": "2026-11-07",
+   "date": "2026-11-08",
    "couvre": [
     "Les Deux Alpes"
    ]
@@ -17,7 +17,7 @@
    "bas": 0,
    "alt_haut": 3550,
    "alt_bas": 1400,
-   "date": "2026-11-07",
+   "date": "2026-11-08",
    "couvre": [
     "La Grave - La Meije"
    ]
@@ -27,7 +27,7 @@
    "bas": 0,
    "alt_haut": 3450,
    "alt_bas": 1550,
-   "date": "2026-11-07",
+   "date": "2026-11-08",
    "couvre": [
     "Tignes"
    ]
@@ -37,7 +37,7 @@
    "bas": 0,
    "alt_haut": 3330,
    "alt_bas": 1120,
-   "date": "2026-11-07",
+   "date": "2026-11-08",
    "couvre": [
     "Alpe d'Huez"
    ]
@@ -47,7 +47,7 @@
    "bas": 0,
    "alt_haut": 3250,
    "alt_bas": 1250,
-   "date": "2026-11-07",
+   "date": "2026-11-08",
    "couvre": [
     "La Plagne",
     "Champagny-en-Vanoise",
@@ -59,7 +59,7 @@
    "bas": 0,
    "alt_haut": 3230,
    "alt_bas": 1800,
-   "date": "2026-11-07",
+   "date": "2026-11-08",
    "couvre": [
     "Val Thorens",
     "Orelle"
@@ -70,7 +70,7 @@
    "bas": 0,
    "alt_haut": 3226,
    "alt_bas": 1200,
-   "date": "2026-11-07",
+   "date": "2026-11-08",
    "couvre": [
     "Les Arcs",
     "Peisey-Vallandry"
@@ -81,7 +81,7 @@
    "bas": 0,
    "alt_haut": 2952,
    "alt_bas": 1100,
-   "date": "2026-11-07",
+   "date": "2026-11-08",
    "couvre": [
     "Méribel",
     "Brides-les-Bains"
@@ -92,7 +92,7 @@
    "bas": 0,
    "alt_haut": 2800,
    "alt_bas": 1190,
-   "date": "2026-11-07",
+   "date": "2026-11-08",
    "couvre": [
     "La Rosière"
    ]
@@ -102,7 +102,7 @@
    "bas": 0,
    "alt_haut": 2800,
    "alt_bas": 1300,
-   "date": "2026-11-07",
+   "date": "2026-11-08",
    "couvre": [
     "Val Cenis"
    ]
@@ -112,7 +112,7 @@
    "bas": 0,
    "alt_haut": 2750,
    "alt_bas": 1500,
-   "date": "2026-11-07",
+   "date": "2026-11-08",
    "couvre": [
     "Aussois"
    ]
