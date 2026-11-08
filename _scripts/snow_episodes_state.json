@@ -6,26 +6,34 @@
       "top_station": "Isola 2000",
       "snow_cm": 22,
       "stages_sent": [
-        "j10"
+        "j10",
+        "j7"
       ]
     },
     "Alpes du Nord_2026-W47": {
       "massif": "Alpes du Nord",
       "target_date": "2026-11-18",
       "top_station": "La Plagne",
-      "snow_cm": 41,
+      "snow_cm": 35,
       "stages_sent": [
         "j10"
       ]
     },
     "Alpes du Sud_2026-W47": {
       "massif": "Alpes du Sud",
-      "target_date": "2026-11-17",
+      "target_date": "2026-11-18",
       "top_station": "Montgenèvre",
-      "snow_cm": 26,
+      "snow_cm": 35,
       "stages_sent": [
         "j10"
       ]
+    },
+    "Pyrénées_2026-W47": {
+      "massif": "Pyrénées",
+      "target_date": "2026-11-22",
+      "top_station": "Cauterets",
+      "snow_cm": 27,
+      "stages_sent": []
     }
   }
 }
