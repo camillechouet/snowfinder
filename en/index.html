@@ -1424,7 +1424,7 @@ function toggleCompareStation(id){
 <!-- SNOW CONDITIONS TICKER -->
 <div class="snow-strip">
 <div class="snow-strip-inner">
-<span class="snow-strip-label">❄ Snow reliability</span>
+<span class="snow-strip-label">❄ Snow depth</span>
 <div class="snow-items" id="snowTickerItems">
 <div class="snow-track"><div class="snow-item"><span class="sn" style="opacity:.6">Loading…</span></div></div>
 </div>
@@ -1567,7 +1567,7 @@ function toggleCompareStation(id){
 
   for (var k = 1; k <= total; k++) {
     (function(n) {
-      var url = 'img/hero' + n + '.jpg';
+      var url = '/img/hero' + n + '.jpg';
       var img = new Image();
       img.onload = function() { found.push({n: n, url: url}); maybeShowFirst(); check(); };
       img.onerror = function() { check(); };
@@ -1934,7 +1934,7 @@ function updateSaisonUI(saison) {
   // Snow strip / ticker
   const stripLabel = document.querySelector('.snow-strip-label');
   if(stripLabel) {
-    stripLabel.textContent = saison === 'winter' ? '❄ Snow reliability' : '🌿 Activities';
+    stripLabel.textContent = saison === 'winter' ? '❄ Snow depth' : '🌿 Activities';
   }
   
   // Hero
