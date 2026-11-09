@@ -33,7 +33,9 @@
       "target_date": "2026-11-22",
       "top_station": "Cauterets",
       "snow_cm": 27,
-      "stages_sent": []
+      "stages_sent": [
+        "j10"
+      ]
     }
   }
 }
