@@ -761,6 +761,7 @@ def fix_en(en):
         except Exception:
             return m.group(0)
     en = CENTURY_RE.sub(rep, en)
+    en = en.replace("❄ Snow reliability", "❄ Snow depth")   # bandeau d'accueil : vraies hauteurs de neige
     return ALT_RE.sub(lambda m: m.group(1) + "," + m.group(2), en)
 
 
@@ -1097,6 +1098,9 @@ LANG_CSS = ('<style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index
 # Textes fabriqués par le JavaScript des pages (météo, boutons, alertes…) : remplacés tels quels
 # dans les scripts en ligne des pages anglaises. Remplacement exact, sans appel à l'API.
 JS_FIXES = [
+    # photos du hero de l'accueil : chemin relatif -> absolu (sinon /en/img/heroN.jpg, introuvable)
+    ("'❄ Snow reliability'", "'❄ Snow depth'"),
+    ("'img/hero' + n + '.jpg'", "'/img/hero' + n + '.jpg'"),
     ('acceptButton: "Confirmer"', 'acceptButton: "Confirm"'),
     (">Reliée au grand domaine<", ">Part of a large ski area<"),
     (">Pas de grand domaine relié<", ">Not part of a large ski area<"),
