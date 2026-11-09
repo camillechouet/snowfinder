@@ -229,6 +229,12 @@
   ],
   "duels": [
     {
+      "a": "Champagny-en-Vanoise",
+      "b": "La Toussuire",
+      "img": "https://images.unsplash.com/photo-1623057896740-99f8c2f090fc?w=800&q=80",
+      "img_b": "/img/latoussuire1.jpg"
+    },
+    {
       "a": "Les Saisies",
       "b": "Valloire",
       "img": "/img/lessaisies1.jpg",

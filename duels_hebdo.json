@@ -178,5 +178,65 @@
     ],
     "date": "2026-11-02",
     "modele": "claude-opus-5-5"
+  },
+  {
+    "a": "Champagny-en-Vanoise",
+    "b": "La Toussuire",
+    "img_a": "",
+    "img_b": "latoussuire1",
+    "teaser": "D'un côté, Champagny-en-Vanoise, village savoyard à 1250 m intégré au domaine de La Plagne, relié à Paradiski, avec vue sur la Grande Casse. De l'autre, La Toussuire, station familiale à 1750 m en Maurienne, au cœur des Sybelles et de leurs 310 km. Deux stations de Savoie aux atouts distincts : altitude et pentes exigeantes d'un côté, domaine plus vaste et forfait plus abordable de l'autre.",
+    "profils": [
+      [
+        "👨‍👩‍👧 Familles avec enfants",
+        "Égalité",
+        "Les deux stations revendiquent une ambiance familiale, proposent une garderie et accueillent tous les niveaux, du débutant à l'avancé. Le choix se fera plutôt sur le budget ou le cadre recherché."
+      ],
+      [
+        "💰 Skieurs à budget serré",
+        "La Toussuire",
+        "Le forfait est à 59 € contre 72 € à Champagny-en-Vanoise, soit 13 € de moins (18 %)."
+      ],
+      [
+        "⛷️ Skieurs confirmés en quête de pentes raides",
+        "Champagny-en-Vanoise",
+        "La fiche recense 21 pistes noires contre 2 à La Toussuire, et le domaine culmine à 3250 m, soit 630 m plus haut."
+      ],
+      [
+        "🗺️ Amateurs de grands kilométrages",
+        "La Toussuire",
+        "Les Sybelles offrent 310 km de pistes répartis sur 6 stations, soit 85 km de plus que les 225 km du domaine de Champagny-en-Vanoise."
+      ],
+      [
+        "🏡 Amoureux des villages de caractère",
+        "Champagny-en-Vanoise",
+        "Chalets traditionnels, église baroque classée et cadre préservé aux portes du Parc National de la Vanoise forment une ambiance de village savoyard authentique."
+      ],
+      [
+        "☀️ Skieurs en quête de soleil",
+        "La Toussuire",
+        "La station est décrite comme ensoleillée, avec des pistes orientées plein sud sur le plateau des Sybelles."
+      ]
+    ],
+    "verdict": "<strong>Champagny-en-Vanoise</strong> conviendra aux skieurs qui recherchent l'altitude, avec un sommet à 3250 m, de nombreuses pistes noires et le charme d'un village savoyard relié à La Plagne et à Paradiski. <strong>La Toussuire</strong> se distingue par un domaine plus vaste de 310 km et un forfait moins cher de 13 €, dans une ambiance familiale tournée vers la nature. Les deux stations proposent une garderie, des restaurants et des télésièges, et accueillent tous les niveaux. Le choix dépend donc surtout de vos priorités : exigence technique et cadre villageois, ou kilométrage et budget.",
+    "faq": [
+      [
+        "Quelle station a le forfait le moins cher ?",
+        "La Toussuire, avec un forfait à 59 € contre 72 € à Champagny-en-Vanoise. L'écart est de 13 €, soit 18 %."
+      ],
+      [
+        "Quelle station skie le plus haut ?",
+        "Champagny-en-Vanoise, dont le domaine culmine à 3250 m contre 2620 m à La Toussuire, soit 630 m de plus. Le village de La Toussuire est en revanche situé plus haut, à 1750 m contre 1250 m pour Champagny-en-Vanoise."
+      ],
+      [
+        "À quels domaines skiables ces stations sont-elles reliées ?",
+        "Champagny-en-Vanoise fait partie du domaine de La Plagne (143 pistes, 225 km), lui-même relié à Paradiski. La Toussuire est intégrée aux Sybelles, qui regroupent 6 stations et 310 km de pistes."
+      ],
+      [
+        "Ces stations conviennent-elles aux débutants ?",
+        "Oui, les deux fiches mentionnent les niveaux débutant, intermédiaire et avancé. Champagny-en-Vanoise recense 9 pistes vertes et 78 bleues, La Toussuire 4 vertes et 14 bleues, et chacune dispose d'une garderie."
+      ]
+    ],
+    "date": "2026-11-09",
+    "modele": "claude-opus-5-5"
   }
 ]
