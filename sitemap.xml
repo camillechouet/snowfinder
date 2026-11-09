@@ -11,7 +11,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/index.html</loc>
-    <lastmod>2026-11-04</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/index.html"/>
@@ -14122,6 +14122,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/chamonix-vs-megeve.html"/>
   </url>
   <url>
+    <loc>https://snowfinder.fr/comparatifs/champagny-en-vanoise-vs-la-toussuire.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/comparatifs/champagny-en-vanoise-vs-la-toussuire.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/comparatifs/champagny-en-vanoise-vs-la-toussuire.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/champagny-en-vanoise-vs-la-toussuire.html"/>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/comparatifs/courchevel-vs-meribel.html</loc>
     <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
@@ -14309,6 +14318,15 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/comparatifs/chamonix-vs-megeve.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/comparatifs/chamonix-vs-megeve.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/chamonix-vs-megeve.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/comparatifs/champagny-en-vanoise-vs-la-toussuire.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/comparatifs/champagny-en-vanoise-vs-la-toussuire.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/comparatifs/champagny-en-vanoise-vs-la-toussuire.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/champagny-en-vanoise-vs-la-toussuire.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/en/comparatifs/courchevel-vs-meribel.html</loc>
@@ -14545,6 +14563,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/la-clusaz-usine-a-champions-freestyle.html"/>
   </url>
   <url>
+    <loc>https://snowfinder.fr/articles/meilleures-stations-ski-debutants-france.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/meilleures-stations-ski-debutants-france.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/meilleures-stations-ski-debutants-france.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/meilleures-stations-ski-debutants-france.html"/>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/articles/premier-sejour-au-ski-cours-materiel-forfait-debutant-et-erreurs-a-novembre-2026.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -14768,6 +14795,15 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/la-clusaz-usine-a-champions-freestyle.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/la-clusaz-usine-a-champions-freestyle.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/la-clusaz-usine-a-champions-freestyle.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/articles/meilleures-stations-ski-debutants-france.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/meilleures-stations-ski-debutants-france.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/meilleures-stations-ski-debutants-france.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/meilleures-stations-ski-debutants-france.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/en/articles/premier-sejour-au-ski-cours-materiel-forfait-debutant-et-erreurs-a-novembre-2026.html</loc>
