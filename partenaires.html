@@ -18,15 +18,10 @@
   html,body{overflow-x:hidden;max-width:100%}
   body{font-family:"DM Sans",sans-serif;color:var(--text);background:linear-gradient(135deg,#e8f3fb 0%,#d0e7f5 50%,#e8f3fb 100%);background-attachment:fixed;min-height:100vh;padding-bottom:84px}
   a{color:inherit}
-  .pt-hero{background:linear-gradient(160deg,var(--blue-dark) 0%,var(--blue-mid) 50%,var(--blue) 100%);color:#fff;padding:0 20px;text-align:center;position:relative;overflow:hidden;min-height:270px;display:flex;align-items:center;justify-content:center}
-  .pt-slides{position:absolute;inset:0}
-  .pt-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.4s ease}
-  .pt-slide.on{opacity:1}
-  .pt-hero-shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,28,58,.55) 0%,rgba(8,28,58,.45) 50%,rgba(8,28,58,.72) 100%)}
-  .pt-hero-text{position:relative;z-index:2;padding:44px 0 38px}
-  .pt-hero h1{font-family:"DM Serif Display",serif;font-size:2rem;margin-bottom:9px;line-height:1.15;text-shadow:0 2px 14px rgba(0,0,0,.55)}
-  .pt-hero p{opacity:.95;text-shadow:0 1px 8px rgba(0,0,0,.6);font-size:.92rem;max-width:560px;margin:0 auto}
-  .pt-close{z-index:3;position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.1rem}
+  .pt-hero{background:linear-gradient(160deg,var(--blue-dark) 0%,var(--blue-mid) 50%,var(--blue) 100%);color:#fff;padding:40px 20px 34px;text-align:center;position:relative}
+  .pt-hero h1{font-family:"DM Serif Display",serif;font-size:2rem;margin-bottom:9px;line-height:1.15}
+  .pt-hero p{opacity:.9;font-size:.92rem;max-width:560px;margin:0 auto}
+  .pt-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.1rem}
   .pt-wrap{max-width:1080px;margin:0 auto;padding:26px 20px 10px}
   .pt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;padding-bottom:30px}
   .pt-card{display:block;background:#fff;border-radius:16px;overflow:hidden;text-decoration:none;box-shadow:0 4px 18px rgba(20,60,120,.10);transition:transform .25s,box-shadow .35s}
@@ -40,6 +35,13 @@
   .pt-foot{display:flex;align-items:center;gap:14px;padding:12px 15px;font-size:.8rem;font-weight:600;color:var(--text-mid)}
   .pt-go{margin-left:auto;font-weight:800;color:var(--blue-dark)}
   .pt-empty{background:#fff;border-radius:16px;padding:26px 20px;text-align:center;color:var(--text-mid);box-shadow:0 4px 18px rgba(20,60,120,.08)}
+  .pt-join{background:#fff;border-radius:18px;padding:26px 22px;box-shadow:0 4px 18px rgba(20,60,120,.10);margin-bottom:30px}
+  .pt-join h2{font-family:"DM Serif Display",serif;font-size:1.4rem;margin-bottom:6px;color:var(--navy)}
+  .pt-join > p{font-size:.88rem;color:var(--text-mid);margin-bottom:16px;line-height:1.55}
+  .pt-perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-bottom:20px}
+  .pt-perk{background:var(--blue-light);border-radius:12px;padding:14px;font-size:.82rem;line-height:1.5;color:var(--text-mid)}
+  .pt-perk b{display:block;color:var(--blue-dark);margin-bottom:3px;font-size:.88rem}
+  .pt-cta{display:inline-block;background:linear-gradient(135deg,#F0D78C,#C9982F);color:var(--navy);font-weight:900;text-decoration:none;padding:12px 24px;border-radius:30px;font-size:.9rem}
   .footer{text-align:center;padding:26px 20px 20px;font-size:.8rem;color:var(--text-mid)}
   .footer a{color:var(--blue-dark);text-decoration:none;font-weight:600}
   .sf-bottomnav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;align-items:center;padding:8px 0;box-shadow:0 -2px 10px rgba(0,0,0,.1);z-index:50}
@@ -191,14 +193,9 @@ function acceptSfNotif(){
 
 <div class="pt-hero">
   <a href="index.html" class="pt-close" aria-label="Retour">✕</a>
-  <div class="pt-slides"><div class="pt-slide on" style="background-image:url('/img/morillon1.jpg')"></div></div>
-  <div class="pt-hero-shade"></div>
-  <div class="pt-hero-text">
-  <h1>Nos stations partenaires</h1>
+  <h1>🤝 Nos stations partenaires</h1>
   <p>Une première station nous fait confiance. Leurs fiches sont relues avec leur office du tourisme : chiffres, forfaits, plans des pistes et photos à jour.</p>
-  </div>
 </div>
-<script>(function(){var s=document.querySelectorAll('.pt-slide');if(s.length<2)return;var i=0;setInterval(function(){s[i].classList.remove('on');i=(i+1)%s.length;s[i].classList.add('on')},4500)})();</script>
 <div class="pt-wrap">
   <div class="pt-grid"><a href="/stations/morillon.html" class="pt-card">
       <div class="pt-top" style="background-image:url('/img/morillon1.jpg')">
@@ -208,6 +205,16 @@ function acceptSfNotif(){
       </div>
       <div class="pt-foot"><span>⭐ 4.1/5</span><span>🎿 119 km</span><span class="pt-go">Voir la fiche →</span></div>
     </a></div>
+  <div class="pt-join">
+    <h2>Vous représentez une station ?</h2>
+    <p>Devenir partenaire est gratuit : envoyez-nous le plan des pistes officiel et placez un lien vers SnowFinder sur votre site. En retour :</p>
+    <div class="pt-perks">
+      <div class="pt-perk"><b>🏅 Badge « Partenaire »</b>Sur votre fiche et sur votre vignette dans les résultats de recherche.</div>
+      <div class="pt-perk"><b>✅ Fiche relue avec vous</b>Chiffres, forfaits, textes et photos validés par votre office du tourisme.</div>
+      <div class="pt-perk"><b>🤝 Page partenaires</b>Votre station présentée sur cette page et sur l'accueil de SnowFinder.</div>
+    </div>
+    <a class="pt-cta" href="mailto:contact.snowfinder@gmail.com?subject=Devenir%20partenaire%20SnowFinder">Devenir partenaire</a>
+  </div>
 </div>
 <footer class="footer">
   <strong>SnowFinder</strong> — Le guide complet des stations de ski en Europe<br>
