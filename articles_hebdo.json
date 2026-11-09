@@ -14,5 +14,13 @@
     "slug": "stations-ski-mieux-notees-alpes-du-nord",
     "title": "Les 10 stations de ski les mieux notées dans les Alpes du Nord françaises",
     "date": "2026-10-26"
+  },
+  {
+    "key": "debutants:france",
+    "format": "debutants",
+    "scope": "france",
+    "slug": "meilleures-stations-ski-debutants-france",
+    "title": "Les 10 stations de ski les plus adaptées aux débutants en France",
+    "date": "2026-11-09"
   }
 ]
