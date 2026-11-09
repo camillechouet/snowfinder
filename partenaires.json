@@ -11,6 +11,14 @@
     "lien : adresse de l'offre (lien d'affiliation CJ ou lien du partenaire). Il s'ouvre dans un nouvel onglet, marqué « sponsored ».",
     "image : adresse d'une image (facultatif). en : version anglaise du titre, du texte et du bouton (facultatif ; sans elle, le français s'affiche)."
   ],
+  "_aide_colonnes": [
+    "Colonnes verticales affichées à gauche et à droite, sur grands écrans seulement (masquées sur téléphone et petits écrans) : accueil (de « À la une » au pied de page), recherche, tous les duels, météo/enneigement, hébergements, comparateur.",
+    "Pour ajouter une colonne : copie le bloc { ... } de la liste « colonnes », change les textes. actif : true = affichée, false = cachée.",
+    "cote : \"gauche\", \"droite\" ou \"les-deux\" (la même colonne des deux côtés). Une seule colonne par côté ; si plusieurs, la plus haute priorité passe.",
+    "label : « Partenaire », « Bon plan » ou « Publicité » (mention obligatoire). image : adresse d'une photo (idéalement verticale). lien : site du partenaire.",
+    "debut / fin : dates AAAA-MM-JJ (facultatif). en : version anglaise (facultatif). Aperçu sans colonne active : ajouter ?colonnes=1 à l'adresse de l'accueil.",
+    "pages : (facultatif) liste des pages où la colonne s'affiche, parmi \"accueil\", \"recherche\", \"duels\", \"meteo\", \"hebergement\", \"comparateur\". Absent = toutes ces pages. Exemple : \"pages\": [\"accueil\", \"hebergement\"]."
+  ],
   "offres": [
     {
       "id": "exemple-location-ski",
@@ -23,7 +31,10 @@
       "cta": "Voir l'offre",
       "lien": "https://www.exemple.fr/",
       "image": "",
-      "stations": ["Tignes", "Val d'Isère"],
+      "stations": [
+        "Tignes",
+        "Val d'Isère"
+      ],
       "pages": [],
       "debut": "2026-11-01",
       "fin": "2027-04-30",
@@ -46,7 +57,10 @@
       "lien": "https://www.exemple.fr/",
       "image": "",
       "stations": [],
-      "pages": ["article", "duel"],
+      "pages": [
+        "article",
+        "duel"
+      ],
       "debut": "",
       "fin": "",
       "priorite": 1,
@@ -54,6 +68,28 @@
         "titre": "Deal of the moment",
         "texte": "Describe the offer here in one or two short sentences.",
         "cta": "Get the deal"
+      }
+    }
+  ],
+  "colonnes": [
+    {
+      "id": "exemple-morillon",
+      "actif": false,
+      "cote": "les-deux",
+      "label": "Partenaire",
+      "partenaire": "Haut-Giffre Tourisme",
+      "titre": "Morillon, au cœur du Grand Massif",
+      "texte": "Dans la vallée du Haut-Giffre, découvrez la station et préparez votre séjour.",
+      "cta": "Découvrir Morillon",
+      "lien": "https://www.haut-giffre.fr/",
+      "image": "/img/morillon1.jpg",
+      "debut": "",
+      "fin": "",
+      "priorite": 5,
+      "en": {
+        "titre": "Morillon, in the heart of the Grand Massif",
+        "texte": "In the Haut-Giffre valley, discover the resort and plan your stay.",
+        "cta": "Discover Morillon"
       }
     }
   ]
