@@ -1319,7 +1319,7 @@ STATION_ANECDOTES = {
         "La légende locale voulait que ce soit un « lac sans fond » : en 1990, à la demande de la mairie, des plongeurs de l'armée ont exploré le fond... et démenti le mythe (25 m de profondeur, tout de même).",
     ],
     "Les Deux Alpes": [
-        "La station possède le plus grand glacier skiable d'Europe : le glacier du Mont-de-Lans, environ 100 hectares entre 2 900 et 3 600 m, si peu pentu et peu crevassé qu'on y skie même en plein été.",
+        "La station possède le plus grand glacier skiable d'Europe : le glacier du Mont-de-Lans, environ 100 hectares entre 2 900 et 3 600 m.",
         "Du haut du glacier (3 600 m) au village de Mont-de-Lans (1 300 m), on peut enchaîner environ 2 300 m de dénivelé skis aux pieds sans reprendre une seule remontée — l'un des plus longs dénivelés sur piste au monde.",
         "Le nom ne désigne pas deux montagnes : les « deux Alpes », ce sont les deux alpages d'altitude des villages de Mont-de-Lans et de Vénosc, sur le plateau desquels la station s'est construite.",
     ],

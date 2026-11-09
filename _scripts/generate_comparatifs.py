@@ -530,30 +530,30 @@ COMPARAISONS = [
             ("👨‍👩‍👧‍👦 Famille équilibrée", "Alpe d'Huez",
              "Label Famille Plus, grand domaine progressif, 300 jours de soleil par an, plus d'animations enfants. La station idéale pour une semaine sans stress."),
             ("☀️ Skieurs qui détestent le froid", "Alpe d'Huez",
-             "L'ensoleillement record (record en France) rend les journées beaucoup plus agréables. Les Deux Alpes, plus encaissée, voit moins le soleil."),
+             "L'ensoleillement record (record en France) rend les journées beaucoup plus agréables. Les Deux Alpes ont aussi des versants ensoleillés, notamment du côté de la Vallée Blanche, mais l'Alpe d'Huez reste la référence du soleil."),
             ("🏂 Freestylers", "Les Deux Alpes",
-             "Le snowpark perché sur le glacier est l'une des références mondiales, ouvert hiver ET été. Les pros y viennent."),
+             "Le snowpark du secteur de Toura, à 2 600 m, est reconnu depuis des années par les freestylers de tous niveaux. Les pros y viennent."),
             ("🎉 Ambiance jeune / fêtard", "Les Deux Alpes",
              "Vie de soirée intense, public plus jeune, bars qui ferment tard. L'Alpe d'Huez est plus posée."),
-            ("☃️ Ski d'été", "Les Deux Alpes",
-             "Le plus grand glacier skiable d'Europe accessible l'été (mi-juin à fin août). L'Alpe d'Huez ferme son glacier de Sarenne en avril."),
+            ("🏔️ Altitude et neige tardive", "Les Deux Alpes",
+             "75 % du domaine au-dessus de 2 000 m, jusqu'à 3 600 m : une neige de qualité de décembre à mai, et même au printemps sur neige naturelle. L'Alpe d'Huez culmine à 3 330 m."),
             ("🏔️ Skieurs expérimentés cherchant LA descente", "Alpe d'Huez",
              "La Sarenne : 16 km depuis le Pic Blanc (3330 m), la plus longue piste noire d'Europe. Une expérience à vivre."),
         ],
         "verdict": (
             "<strong>L'Alpe d'Huez</strong> est l'option famille équilibrée : soleil garanti, domaine large, label Famille Plus. "
             "<strong>Les Deux Alpes</strong> attirent les freestyleurs, les amateurs de ski sur glacier et les fêtards. "
-            "Pas besoin de choisir si vous y allez en été — seule Les Deux Alpes a son glacier ouvert."
+            "Les amateurs de grande altitude et de neige jusqu'au printemps trouveront leur compte aux Deux Alpes."
         ),
         "faq": [
             ("Peut-on skier entre l'Alpe d'Huez et Les Deux Alpes ?",
              "Une liaison à skis via le col du Lac Blanc existe mais n'est plus opérationnelle de façon fiable depuis plusieurs années. Concrètement, on choisit l'une ou l'autre. Une navette routière permet de passer de l'une à l'autre en 1h-1h30."),
             ("Quelle station a le meilleur snowpark ?",
-             "Les Deux Alpes, c'est même l'une de ses signatures. Le snowpark, perché sur le glacier, fonctionne en hiver comme en été et accueille régulièrement les pros mondiaux."),
+             "Les Deux Alpes, c'est même l'une de ses signatures. Le snowpark du secteur de Toura (2 600 m), vaste et organisé par niveaux, est reconnu depuis des années par les freestylers."),
             ("La piste de la Sarenne est-elle vraiment la plus longue noire d'Europe ?",
              "Oui, 16 km depuis le Pic Blanc (3330 m) jusqu'à Sarenne, soit 2 000 m de dénivelé. Attention, malgré son label noire, la majorité du parcours est rouge — accessible à un bon skieur."),
-            ("Peut-on skier sur le glacier des Deux Alpes en été ?",
-             "Oui, c'est le plus grand glacier skiable d'Europe accessible l'été (de mi-juin à fin août en général). Idéal pour les amateurs de ski estival et les stages de freestyle."),
+            ("Jusqu'à quand peut-on skier aux Deux Alpes ?",
+             "Le domaine s'étend de 1 300 à 3 600 m, avec 75 % des pistes au-dessus de 2 000 m : les conditions sont optimales de décembre à mai, et même au printemps sur neige naturelle. Vérifiez toujours les dates d'ouverture de la saison sur le site de la station."),
         ],
     },
 
