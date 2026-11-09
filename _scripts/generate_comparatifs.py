@@ -1682,6 +1682,7 @@ h1 {{ font-family:"DM Serif Display",serif; font-size:2.2rem; line-height:1.15; 
 {cards}
   </div>
 </main>
+<script src="/partenaires-bandeau.js"></script>
 </body>
 </html>
 """
