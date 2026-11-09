@@ -175,8 +175,7 @@ def render_card(a: dict) -> str:
 GRID_RE = re.compile(
     r'(<h1>Toutes nos actus</h1>\s*(?:<div class="count">.*?</div>\s*)?<div class="grid">)(.*?)'
     r'(</div>\s*</div>\s*(?:<nav class="sf-bottomnav">.*?</nav>\s*)?)'
-    r'((?:<!--sf-lang-->.*?<!--/sf-lang-->\s*)?)'
-    r'(?:<script src="/partenaires-bandeau\.js"></script>\s*)?'
+    r'((?:<script src="/partenaires-bandeau\.js"></script>\s*)?(?:<!--sf-lang-->.*?<!--/sf-lang-->\s*)?(?:<script src="/partenaires-bandeau\.js"></script>\s*)?)'
     r'(</body>)',
     re.S,
 )
@@ -207,7 +206,8 @@ def build_actus_page(page: str, articles: list[dict]) -> str | None:
     cards = "\n\n".join(render_card(a) for a in articles)
     return GRID_RE.sub(
         lambda m: (m.group(1) + "\n\n" + cards + "\n\n  </div>\n</div>\n" + gc.SF_BOTTOMNAV_HTML
-                   + m.group(4) + '<script src="/partenaires-bandeau.js"></script>\n' + "</body>"),
+                   + '<script src="/partenaires-bandeau.js"></script>\n'
+                   + re.sub(r'<script src="/partenaires-bandeau\.js"></script>\s*', '', m.group(4)) + "</body>"),
         page, count=1)
 
 
