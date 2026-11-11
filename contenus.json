@@ -2,6 +2,15 @@
   "_aide": "Manifeste des contenus SnowFinder. Un nouvel article = une entrée dans 'articles' (date ISO, le plus récent est trié en premier). Un nouveau duel = une entrée EN TÊTE de 'duels' (le premier est le héros de l'accueil, les 2 suivants les bandeaux). Le script generate_contenus.py reconstruit l'accueil et toutes-les-actus.html. Les duels marqués \"manuel\": true ont une page faite à la main (pas générée par generate_comparatifs.py) : ils restent dans les listes mais ne sont pas régénérés.",
   "articles": [
     {
+      "slug": "tignes-ouvre-le-samedi-21-novembre-forfait-journee-a-50-la-premiere-novembre-2026",
+      "title": "Tignes ouvre le samedi 21 novembre : forfait journée à 50 € la première semaine",
+      "category": "Forfaits & budget",
+      "excerpt": "Tignes ouvre sa saison le samedi 21 novembre sur le glacier de la Grande Motte. Jusqu'au vendredi 27 novembre, le forfait journée coûte 50 €, puis la liaison avec Val d'Isère est prévue à partir du samedi 28 novembre.",
+      "img": "/img/tignes1.jpg",
+      "date": "2026-11-11",
+      "read_min": 4
+    },
+    {
       "slug": "meilleures-stations-ski-debutants-france",
       "title": "Les 10 stations de ski les plus adaptées aux débutants en France",
       "category": "Classement",
