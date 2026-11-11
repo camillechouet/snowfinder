@@ -7,23 +7,24 @@
       "snow_cm": 22,
       "stages_sent": [
         "j10",
-        "j7"
+        "j7",
+        "j4"
       ]
     },
     "Alpes du Nord_2026-W47": {
       "massif": "Alpes du Nord",
-      "target_date": "2026-11-18",
-      "top_station": "Tignes",
-      "snow_cm": 34,
+      "target_date": "2026-11-19",
+      "top_station": "Val d'Isère",
+      "snow_cm": 48,
       "stages_sent": [
         "j10"
       ]
     },
     "Alpes du Sud_2026-W47": {
       "massif": "Alpes du Sud",
-      "target_date": "2026-11-18",
-      "top_station": "Montgenèvre",
-      "snow_cm": 35,
+      "target_date": "2026-11-19",
+      "top_station": "Vars",
+      "snow_cm": 34,
       "stages_sent": [
         "j10"
       ]
@@ -45,6 +46,20 @@
       "stages_sent": [
         "j10"
       ]
+    },
+    "Massif Central_2026-W48": {
+      "massif": "Massif Central",
+      "target_date": "2026-11-25",
+      "top_station": "Le Mont Dore",
+      "snow_cm": 22,
+      "stages_sent": []
+    },
+    "Pyrénées_2026-W48": {
+      "massif": "Pyrénées",
+      "target_date": "2026-11-24",
+      "top_station": "Cauterets",
+      "snow_cm": 25,
+      "stages_sent": []
     }
   }
 }
