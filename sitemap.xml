@@ -11,7 +11,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/index.html</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/index.html"/>
@@ -14698,6 +14698,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/stations-ski-plus-hautes-france.html"/>
   </url>
   <url>
+    <loc>https://snowfinder.fr/articles/tignes-ouvre-le-samedi-21-novembre-forfait-journee-a-50-la-premiere-novembre-2026.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/tignes-ouvre-le-samedi-21-novembre-forfait-journee-a-50-la-premiere-novembre-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/tignes-ouvre-le-samedi-21-novembre-forfait-journee-a-50-la-premiere-novembre-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/tignes-ouvre-le-samedi-21-novembre-forfait-journee-a-50-la-premiere-novembre-2026.html"/>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/articles/top-5-stations-initier-enfants-ski.html</loc>
     <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
@@ -14708,7 +14717,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/toutes-les-actus.html</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/toutes-les-actus.html"/>
@@ -14930,6 +14939,15 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/stations-ski-plus-hautes-france.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/stations-ski-plus-hautes-france.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/stations-ski-plus-hautes-france.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/articles/tignes-ouvre-le-samedi-21-novembre-forfait-journee-a-50-la-premiere-novembre-2026.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/tignes-ouvre-le-samedi-21-novembre-forfait-journee-a-50-la-premiere-novembre-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/tignes-ouvre-le-samedi-21-novembre-forfait-journee-a-50-la-premiere-novembre-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/tignes-ouvre-le-samedi-21-novembre-forfait-journee-a-50-la-premiere-novembre-2026.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/en/articles/top-5-stations-initier-enfants-ski.html</loc>
