@@ -2019,7 +2019,9 @@ def _liste_fr(noms):
     return noms[0] if len(noms) == 1 else ', '.join(noms[:-1]) + ' et ' + noms[-1]
 
 # Nom officiel à afficher dans la légende du plan (si différent du nom de la fiche)
-PLAN_CREDIT_NOM = {"Les Rousses": "Station des Rousses"}
+PLAN_CREDIT_NOM = {"Les Rousses": "Station des Rousses",
+                   "Les Menuires": "Tourisme des Menuires et Saint-Martin-de-Belleville",
+                   "Saint-Martin-de-Belleville": "Tourisme des Menuires et Saint-Martin-de-Belleville"}
 
 def get_plan_pistes(station_name):
     """Retourne (chemin_relatif, crédit) du plan des pistes d'une station, ou (None, None)."""
