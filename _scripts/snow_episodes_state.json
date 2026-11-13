@@ -15,7 +15,7 @@
       "massif": "Alpes du Nord",
       "target_date": "2026-11-18",
       "top_station": "Val Thorens",
-      "snow_cm": 40,
+      "snow_cm": 39,
       "stages_sent": [
         "j10",
         "j7"
@@ -60,7 +60,9 @@
       "target_date": "2026-11-24",
       "top_station": "Cauterets",
       "snow_cm": 25,
-      "stages_sent": []
+      "stages_sent": [
+        "j10"
+      ]
     }
   }
 }
