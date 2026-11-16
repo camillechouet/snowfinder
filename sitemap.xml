@@ -14135,6 +14135,9 @@
     <lastmod>2026-11-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/comparatifs/chatel-vs-morillon.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/comparatifs/chatel-vs-morillon.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/chatel-vs-morillon.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/comparatifs/courchevel-vs-meribel.html</loc>
@@ -14333,6 +14336,15 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/comparatifs/champagny-en-vanoise-vs-la-toussuire.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/comparatifs/champagny-en-vanoise-vs-la-toussuire.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/champagny-en-vanoise-vs-la-toussuire.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/comparatifs/chatel-vs-morillon.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/comparatifs/chatel-vs-morillon.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/comparatifs/chatel-vs-morillon.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/chatel-vs-morillon.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/en/comparatifs/courchevel-vs-meribel.html</loc>
