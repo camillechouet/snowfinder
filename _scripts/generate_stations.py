@@ -2024,7 +2024,8 @@ PLAN_CREDIT_NOM = {"Les Rousses": "Station des Rousses",
                    "Les Menuires": "Tourisme des Menuires et Saint-Martin-de-Belleville",
                    "Saint-Martin-de-Belleville": "Tourisme des Menuires et Saint-Martin-de-Belleville",
                    "Saint-Jean-d'Aulps": "Vallée d'Aulps Tourisme",
-                   "Montriond": "Vallée d'Aulps Tourisme / Avoriaz"}
+                   "Montriond": "Vallée d'Aulps Tourisme / Avoriaz",
+                   "Avoriaz": "Avoriaz Domaine de montagne (plan transmis par Vallée d'Aulps Tourisme)"}
 
 def get_plan_pistes(station_name):
     """Retourne (chemin_relatif, crédit) du plan des pistes d'une station, ou (None, None)."""
