@@ -2025,6 +2025,7 @@ PLAN_CREDIT_NOM = {"Les Rousses": "Station des Rousses",
                    "Saint-Martin-de-Belleville": "Tourisme des Menuires et Saint-Martin-de-Belleville",
                    "Saint-Jean-d'Aulps": "Vallée d'Aulps Tourisme",
                    "Montriond": "Vallée d'Aulps Tourisme / Avoriaz",
+                   "La Rosière": "Office de tourisme de La Rosière",
                    "Avoriaz": "Avoriaz Domaine de montagne (plan transmis par Vallée d'Aulps Tourisme)"}
 
 def get_plan_pistes(station_name):
@@ -3243,6 +3244,7 @@ PHOTO_CREDITS = {
     "Pralognan-la-Vanoise": "Pierre Guilbaud",
     "Saint-Jean-d'Aulps": "Vallée d'Aulps Tourisme",
     "Montriond": "Vallée d'Aulps Tourisme",
+    "La Rosière": "Office de tourisme de La Rosière",
 }
 
 # Texte « domaine » des Informations pratiques fourni par l'office (remplace la phrase auto)
