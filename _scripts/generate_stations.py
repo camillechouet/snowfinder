@@ -3242,8 +3242,8 @@ PHOTO_CREDITS = {
     "Morillon": "Haut-Giffre Tourisme",
     "Sainte-Foy-Tarentaise": "David André",
     "Pralognan-la-Vanoise": "Pierre Guilbaud",
-    "Saint-Jean-d'Aulps": "Vallée d'Aulps Tourisme",
-    "Montriond": "Vallée d'Aulps Tourisme",
+    "Saint-Jean-d'Aulps": "Vallée d'Aulps Tourisme – Jérémy Trolliet, Vincent Euzen, Lucie Tanguy",
+    "Montriond": "Vallée d'Aulps Tourisme – Lucie Tanguy",
     "La Rosière": "Office de tourisme de La Rosière",
 }
 
