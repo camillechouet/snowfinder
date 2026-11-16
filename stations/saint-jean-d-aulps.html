@@ -581,7 +581,7 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>
 <script>try{if(localStorage.getItem("sf_cookie_consent")==="refused")window["ga-disable-G-S0C748Y0DX"]=true;}catch(e){}window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-S0C748Y0DX");</script>
-<!--sf-i18n--><link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/saint-jean-d-aulps.html"><link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/stations/saint-jean-d-aulps.html"><link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/stations/saint-jean-d-aulps.html"><!--/sf-i18n--></head>
+</head>
 <body>
 <canvas id="snowCanvas"></canvas>
 <script>
@@ -766,6 +766,8 @@ function acceptSfNotif(){
     <img class="hero-slide" data-idx="2" src="../img/saintjeandaulps3.jpg" alt="Saint-Jean-d'Aulps photo 3" loading="lazy" onclick="heroLightbox(2)">
     <img class="hero-slide" data-idx="3" src="../img/saintjeandaulps4.jpg" alt="Saint-Jean-d'Aulps photo 4" loading="lazy" onclick="heroLightbox(3)">
     <img class="hero-slide" data-idx="4" src="../img/saintjeandaulps5.jpg" alt="Saint-Jean-d'Aulps photo 5" loading="lazy" onclick="heroLightbox(4)">
+    <img class="hero-slide" data-idx="5" src="../img/saintjeandaulps6.jpg" alt="Saint-Jean-d'Aulps photo 6" loading="lazy" onclick="heroLightbox(5)">
+    <img class="hero-slide" data-idx="6" src="../img/saintjeandaulps7.jpg" alt="Saint-Jean-d'Aulps photo 7" loading="lazy" onclick="heroLightbox(6)">
   </div>
   <div class="hero-overlay"></div>
   <button class="hero-close" onclick="closeStation()" title="Retour" aria-label="Retour">✕</button>
@@ -780,6 +782,8 @@ function acceptSfNotif(){
       <button class="hero-dot" data-idx="2" onclick="heroGoTo(2)" aria-label="Photo 3"></button>
       <button class="hero-dot" data-idx="3" onclick="heroGoTo(3)" aria-label="Photo 4"></button>
       <button class="hero-dot" data-idx="4" onclick="heroGoTo(4)" aria-label="Photo 5"></button>
+      <button class="hero-dot" data-idx="5" onclick="heroGoTo(5)" aria-label="Photo 6"></button>
+      <button class="hero-dot" data-idx="6" onclick="heroGoTo(6)" aria-label="Photo 7"></button>
   </div>
   <div class="hero-photo-credit">📷 © Vallée d'Aulps Tourisme</div>
   <div class="hero-content">
@@ -1048,7 +1052,7 @@ function toggleReadMore(id, btn){
 })();
 
 // ── CARROUSEL HERO ──
-var HERO_URLS = ["../img/saintjeandaulps1.jpg","../img/saintjeandaulps2.jpg","../img/saintjeandaulps3.jpg","../img/saintjeandaulps4.jpg","../img/saintjeandaulps5.jpg"];
+var HERO_URLS = ["../img/saintjeandaulps1.jpg","../img/saintjeandaulps2.jpg","../img/saintjeandaulps3.jpg","../img/saintjeandaulps4.jpg","../img/saintjeandaulps5.jpg","../img/saintjeandaulps6.jpg","../img/saintjeandaulps7.jpg"];
 var heroIdx = 0;
 var heroAuto = null;
 function heroShow(i){
@@ -1932,7 +1936,7 @@ function hideOfficialSheet(){
   <div class="lightbox-count" id="lightboxCount"></div>
 </div>
 <script>
-var GALLERY_URLS = ["../img/saintjeandaulps1.jpg","../img/saintjeandaulps2.jpg","../img/saintjeandaulps3.jpg","../img/saintjeandaulps4.jpg","../img/saintjeandaulps5.jpg"];
+var GALLERY_URLS = ["../img/saintjeandaulps1.jpg","../img/saintjeandaulps2.jpg","../img/saintjeandaulps3.jpg","../img/saintjeandaulps4.jpg","../img/saintjeandaulps5.jpg","../img/saintjeandaulps6.jpg","../img/saintjeandaulps7.jpg"];
 var lbIdx = 0;
 function openLightbox(i){
   if(!GALLERY_URLS.length) return;
@@ -1974,6 +1978,5 @@ document.addEventListener('keydown', function(e){
   <a href="../hebergement.html" class="sf-bn-item" title="Hébergement">🛏️</a>
 </nav>
 
-<script src="/offres.js" defer></script>
-<!--sf-lang--><a class="sf-lang-switch" href="/en/stations/saint-jean-d-aulps.html" hreflang="en" lang="en" rel="alternate">🇬🇧 English</a><style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index:900;background:rgba(255,255,255,.94);color:#1d4f7a;border:1px solid #d6dde4;border-radius:20px;padding:6px 12px;font:600 .74rem/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}.sf-lang-switch:hover{background:#fff}</style><!--/sf-lang--></body>
+</body>
 </html>
