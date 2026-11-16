@@ -295,9 +295,11 @@ function acceptSfNotif(){
 <div class="hero-slides">
 <img alt="Les Portes du Soleil photo 1" class="hero-slide active" data-idx="0" loading="eager" src="/img/avoriaz1.jpg"/>
 <img alt="Les Portes du Soleil photo 2" class="hero-slide" data-idx="1" loading="lazy" src="/img/morzine1.jpg"/>
-<img alt="Les Portes du Soleil photo 3" class="hero-slide" data-idx="2" loading="lazy" src="/img/lesgets1.jpg"/>
-<img alt="Les Portes du Soleil photo 4" class="hero-slide" data-idx="3" loading="lazy" src="/img/lachapelledabondance1.jpg"/>
-<img alt="Les Portes du Soleil photo 5" class="hero-slide" data-idx="4" loading="lazy" src="/img/chatel1.jpg"/>
+<img alt="Les Portes du Soleil photo 3" class="hero-slide" data-idx="2" loading="lazy" src="/img/montriond1.jpg"/>
+<img alt="Les Portes du Soleil photo 4" class="hero-slide" data-idx="3" loading="lazy" src="/img/lesgets1.jpg"/>
+<img alt="Les Portes du Soleil photo 5" class="hero-slide" data-idx="4" loading="lazy" src="/img/saintjeandaulps1.jpg"/>
+<img alt="Les Portes du Soleil photo 6" class="hero-slide" data-idx="5" loading="lazy" src="/img/lachapelledabondance1.jpg"/>
+<img alt="Les Portes du Soleil photo 7" class="hero-slide" data-idx="6" loading="lazy" src="/img/chatel1.jpg"/>
 </div>
 <div class="dm-hero-overlay"></div>
 <a aria-label="Back" class="dm-close" href="#" id="dmClose">✕</a>
@@ -356,6 +358,8 @@ function acceptSfNotif(){
 <button aria-label="Photo 3" class="hero-dot" data-idx="2" onclick="dmHeroGoTo(2)"></button>
 <button aria-label="Photo 4" class="hero-dot" data-idx="3" onclick="dmHeroGoTo(3)"></button>
 <button aria-label="Photo 5" class="hero-dot" data-idx="4" onclick="dmHeroGoTo(4)"></button>
+<button aria-label="Photo 6" class="hero-dot" data-idx="5" onclick="dmHeroGoTo(5)"></button>
+<button aria-label="Photo 7" class="hero-dot" data-idx="6" onclick="dmHeroGoTo(6)"></button>
 </div>
 <div class="dm-hero-content">
 <div class="dm-hero-massif">⛷ Northern Alps</div>
@@ -564,7 +568,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/saint-jean-d-aulps.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/saintjeandaulps1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="26" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="26" type="button">⚖️</button>
@@ -590,7 +594,7 @@ function acceptSfNotif(){
 </div>
 </a>
 <a class="dm-station-card" href="/en/stations/montriond.html">
-<div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1528659862616-22886eb53642?w=700&amp;q=80')">
+<div class="dm-sc-photo" style="background-image:url('../img/montriond1.jpg')">
 <div class="dm-sc-overlay"></div>
 <button aria-label="Add to favourites" class="dm-sc-fav" data-sid="286" type="button">☆</button>
 <button aria-label="Add to comparison tool" class="dm-sc-cmp" data-sid="286" type="button">⚖️</button>
@@ -724,7 +728,7 @@ function toggleReadMore(id, btn){
   btn.textContent = expanded ? 'Show less ▲' : 'Read more ▼';
 }
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["/img/avoriaz1.jpg","/img/morzine1.jpg","/img/lesgets1.jpg","/img/lachapelledabondance1.jpg","/img/chatel1.jpg"];
+var DM_HERO_URLS = ["/img/avoriaz1.jpg","/img/morzine1.jpg","/img/montriond1.jpg","/img/lesgets1.jpg","/img/saintjeandaulps1.jpg","/img/lachapelledabondance1.jpg","/img/chatel1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;
