@@ -256,6 +256,12 @@
   ],
   "duels": [
     {
+      "a": "Montgenèvre",
+      "b": "Orcières Merlette 1850",
+      "img": "/img/montgenevre1.jpg",
+      "img_b": "https://images.unsplash.com/photo-1507534192483-69914c0692d7?w=800&q=80"
+    },
+    {
       "a": "Châtel",
       "b": "Morillon",
       "img": "/img/chatel1.jpg",

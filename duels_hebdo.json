@@ -298,5 +298,65 @@
     ],
     "date": "2026-11-16",
     "modele": "claude-opus-5-5"
+  },
+  {
+    "a": "Montgenèvre",
+    "b": "Orcières Merlette 1850",
+    "img_a": "montgenevre1",
+    "img_b": "",
+    "teaser": "Deux stations familiales des Hautes-Alpes partent presque de la même altitude : Montgenèvre à 1860 m et Orcières Merlette 1850 à 1850 m. Montgenèvre, plus ancienne station de France depuis 1907, est intégrée à la Via Lattea franco-italienne. Orcières Merlette 1850, dans le Champsaur, propose un forfait moins cher et un ensoleillement réputé.",
+    "profils": [
+      [
+        "👨‍👩‍👧 Familles avec jeunes enfants",
+        "Montgenèvre",
+        "Les deux stations disposent d'une garderie. Montgenèvre compte davantage de pistes faciles : 9 vertes et 27 bleues, contre 7 vertes et 14 bleues à Orcières Merlette 1850."
+      ],
+      [
+        "💶 Budget serré",
+        "Orcières Merlette 1850",
+        "Le forfait y coûte 46 €, contre 52 € à Montgenèvre, soit 6 € d'écart (12 %)."
+      ],
+      [
+        "🗺️ Skieurs qui veulent varier les itinéraires",
+        "Montgenèvre",
+        "Son domaine de 95 km fait partie de la Via Lattea, un ensemble franco-italien de 400 km."
+      ],
+      [
+        "⛷️ Skieurs confirmés",
+        "Égalité",
+        "Chaque station compte 6 pistes noires. Orcières Merlette 1850 est référencée pour le niveau avancé, tandis que Montgenèvre aligne 18 pistes rouges contre 17."
+      ],
+      [
+        "☀️ Amateurs de soleil",
+        "Orcières Merlette 1850",
+        "Les deux stations sont décrites comme très ensoleillées. Orcières Merlette 1850 annonce plus de 300 jours de soleil par an."
+      ],
+      [
+        "🏔️ Amateurs de haute altitude",
+        "Montgenèvre",
+        "Son domaine culmine à 2823 m, soit 98 m de plus qu'Orcières Merlette 1850, qui monte à 2725 m."
+      ]
+    ],
+    "verdict": "<strong>Montgenèvre</strong> séduira les familles et les skieurs qui veulent de l'espace : elle propose plus de pistes vertes et bleues, monte jusqu'à 2823 m et donne accès aux 400 km de la Via Lattea. <strong>Orcières Merlette 1850</strong> reste plus économique, avec un forfait à 46 € contre 52 €, et son propre domaine est légèrement plus étendu (100 km contre 95 km). Les deux stations partagent une ambiance familiale et nature, une garderie et 6 pistes noires chacune. Le choix dépend donc surtout du budget et de l'envie de skier au-delà de la station.",
+    "faq": [
+      [
+        "Quelle station a le forfait le moins cher ?",
+        "Orcières Merlette 1850, avec un forfait à 46 € contre 52 € à Montgenèvre. L'écart est de 6 €, soit 12 %."
+      ],
+      [
+        "Quelle station offre le plus grand domaine skiable ?",
+        "En domaine propre, Orcières Merlette 1850 compte 100 km de pistes contre 95 km à Montgenèvre, soit 5 km de plus. Montgenèvre est toutefois intégrée à la Via Lattea, un domaine franco-italien de 400 km."
+      ],
+      [
+        "Laquelle convient le mieux aux débutants ?",
+        "Les deux stations sont référencées pour les débutants et disposent d'une garderie. Montgenèvre propose davantage de pistes faciles, avec 9 vertes et 27 bleues contre 7 vertes et 14 bleues à Orcières Merlette 1850."
+      ],
+      [
+        "Quelle station monte le plus haut ?",
+        "Montgenèvre culmine à 2823 m et Orcières Merlette 1850 à 2725 m, soit un écart de 98 m. Leurs altitudes de départ sont proches : 1860 m pour Montgenèvre et 1850 m pour Orcières Merlette 1850."
+      ]
+    ],
+    "date": "2026-11-16",
+    "modele": "claude-opus-5-5"
   }
 ]
