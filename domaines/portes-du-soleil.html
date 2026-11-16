@@ -161,7 +161,7 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0C748Y0DX"></script>
 <script>try{if(localStorage.getItem("sf_cookie_consent")==="refused")window["ga-disable-G-S0C748Y0DX"]=true;}catch(e){}window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-S0C748Y0DX");</script>
-<!--sf-i18n--><link rel="alternate" hreflang="fr" href="https://snowfinder.fr/domaines/portes-du-soleil.html"><link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/domaines/portes-du-soleil.html"><link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/domaines/portes-du-soleil.html"><!--/sf-i18n--></head>
+</head>
 <body>
 
 <style>
@@ -311,9 +311,11 @@ function acceptSfNotif(){
   <div class="hero-slides">
   <img class="hero-slide active" data-idx="0" src="../img/avoriaz1.jpg" alt="Les Portes du Soleil photo 1" loading="eager">
   <img class="hero-slide" data-idx="1" src="../img/morzine1.jpg" alt="Les Portes du Soleil photo 2" loading="lazy">
-  <img class="hero-slide" data-idx="2" src="../img/lesgets1.jpg" alt="Les Portes du Soleil photo 3" loading="lazy">
-  <img class="hero-slide" data-idx="3" src="../img/lachapelledabondance1.jpg" alt="Les Portes du Soleil photo 4" loading="lazy">
-  <img class="hero-slide" data-idx="4" src="../img/chatel1.jpg" alt="Les Portes du Soleil photo 5" loading="lazy">
+  <img class="hero-slide" data-idx="2" src="../img/montriond1.jpg" alt="Les Portes du Soleil photo 3" loading="lazy">
+  <img class="hero-slide" data-idx="3" src="../img/lesgets1.jpg" alt="Les Portes du Soleil photo 4" loading="lazy">
+  <img class="hero-slide" data-idx="4" src="../img/saintjeandaulps1.jpg" alt="Les Portes du Soleil photo 5" loading="lazy">
+  <img class="hero-slide" data-idx="5" src="../img/lachapelledabondance1.jpg" alt="Les Portes du Soleil photo 6" loading="lazy">
+  <img class="hero-slide" data-idx="6" src="../img/chatel1.jpg" alt="Les Portes du Soleil photo 7" loading="lazy">
   </div>
   <div class="dm-hero-overlay"></div>
   <a href="#" class="dm-close" id="dmClose" aria-label="Retour">✕</a>
@@ -372,6 +374,8 @@ function acceptSfNotif(){
     <button class="hero-dot" data-idx="2" onclick="dmHeroGoTo(2)" aria-label="Photo 3"></button>
     <button class="hero-dot" data-idx="3" onclick="dmHeroGoTo(3)" aria-label="Photo 4"></button>
     <button class="hero-dot" data-idx="4" onclick="dmHeroGoTo(4)" aria-label="Photo 5"></button>
+    <button class="hero-dot" data-idx="5" onclick="dmHeroGoTo(5)" aria-label="Photo 6"></button>
+    <button class="hero-dot" data-idx="6" onclick="dmHeroGoTo(6)" aria-label="Photo 7"></button>
 </div>
   <div class="dm-hero-content">
     <div class="dm-hero-massif">⛷ Alpes du Nord</div>
@@ -595,7 +599,7 @@ function acceptSfNotif(){
       </div>
     </a>
 <a href="../stations/saint-jean-d-aulps.html" class="dm-station-card">
-      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=700&q=80')">
+      <div class="dm-sc-photo" style="background-image:url('../img/saintjeandaulps1.jpg')">
         <div class="dm-sc-overlay"></div>
         <button type="button" class="dm-sc-fav" data-sid="26" aria-label="Ajouter aux favoris">☆</button>
         <button type="button" class="dm-sc-cmp" data-sid="26" aria-label="Ajouter au comparateur">⚖️</button>
@@ -621,7 +625,7 @@ function acceptSfNotif(){
       </div>
     </a>
 <a href="../stations/montriond.html" class="dm-station-card">
-      <div class="dm-sc-photo" style="background-image:url('https://images.unsplash.com/photo-1528659862616-22886eb53642?w=700&q=80')">
+      <div class="dm-sc-photo" style="background-image:url('../img/montriond1.jpg')">
         <div class="dm-sc-overlay"></div>
         <button type="button" class="dm-sc-fav" data-sid="286" aria-label="Ajouter aux favoris">☆</button>
         <button type="button" class="dm-sc-cmp" data-sid="286" aria-label="Ajouter au comparateur">⚖️</button>
@@ -767,7 +771,7 @@ function toggleReadMore(id, btn){
   btn.textContent = expanded ? 'Voir moins ▲' : 'Lire plus ▼';
 }
 // ── CARROUSEL HERO (photos du domaine) ──
-var DM_HERO_URLS = ["../img/avoriaz1.jpg","../img/morzine1.jpg","../img/lesgets1.jpg","../img/lachapelledabondance1.jpg","../img/chatel1.jpg"];
+var DM_HERO_URLS = ["../img/avoriaz1.jpg","../img/morzine1.jpg","../img/montriond1.jpg","../img/lesgets1.jpg","../img/saintjeandaulps1.jpg","../img/lachapelledabondance1.jpg","../img/chatel1.jpg"];
 var dmHeroIdx = 0, dmHeroAuto = null;
 function dmHeroShow(i){
   if(!DM_HERO_URLS.length) return;
@@ -814,5 +818,5 @@ document.getElementById('dmClose').addEventListener('click', function(e){
 });
 </script>
 
-<!--sf-lang--><a class="sf-lang-switch" href="/en/domaines/portes-du-soleil.html" hreflang="en" lang="en" rel="alternate">🇬🇧 English</a><style>.sf-lang-switch{position:fixed;left:10px;bottom:76px;z-index:900;background:rgba(255,255,255,.94);color:#1d4f7a;border:1px solid #d6dde4;border-radius:20px;padding:6px 12px;font:600 .74rem/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}.sf-lang-switch:hover{background:#fff}</style><!--/sf-lang--></body>
+</body>
 </html>

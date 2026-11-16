@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://snowfinder.fr/en/index.html</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/index.html"/>
@@ -5051,7 +5051,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/en/stations/montriond.html</loc>
-    <lastmod>2026-11-04</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/montriond.html"/>
@@ -6068,7 +6068,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/en/stations/saint-jean-d-aulps.html</loc>
-    <lastmod>2026-11-04</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/stations/saint-jean-d-aulps.html"/>
@@ -14474,7 +14474,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/en/comparatifs/tous-les-comparatifs.html</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/comparatifs/tous-les-comparatifs.html"/>
