@@ -751,8 +751,6 @@ function acceptSfNotif(){
 <img alt="Montriond photo 1" class="hero-slide active" data-idx="0" loading="eager" onclick="heroLightbox(0)" src="/img/montriond1.jpg"/>
 <img alt="Montriond photo 2" class="hero-slide" data-idx="1" loading="lazy" onclick="heroLightbox(1)" src="/img/montriond2.jpg"/>
 <img alt="Montriond photo 3" class="hero-slide" data-idx="2" loading="lazy" onclick="heroLightbox(2)" src="/img/montriond3.jpg"/>
-<img alt="Montriond photo 4" class="hero-slide" data-idx="3" loading="lazy" onclick="heroLightbox(3)" src="/img/montriond4.jpg"/>
-<img alt="Montriond photo 5" class="hero-slide" data-idx="4" loading="lazy" onclick="heroLightbox(4)" src="/img/montriond5.jpg"/>
 </div>
 <div class="hero-overlay"></div>
 <button aria-label="Back" class="hero-close" onclick="closeStation()" title="Back">✕</button>
@@ -765,8 +763,6 @@ function acceptSfNotif(){
 <button aria-label="Photo 1" class="hero-dot active" data-idx="0" onclick="heroGoTo(0)"></button>
 <button aria-label="Photo 2" class="hero-dot" data-idx="1" onclick="heroGoTo(1)"></button>
 <button aria-label="Photo 3" class="hero-dot" data-idx="2" onclick="heroGoTo(2)"></button>
-<button aria-label="Photo 4" class="hero-dot" data-idx="3" onclick="heroGoTo(3)"></button>
-<button aria-label="Photo 5" class="hero-dot" data-idx="4" onclick="heroGoTo(4)"></button>
 </div>
 <div class="hero-photo-credit">📷 © Vallée d'Aulps Tourisme</div>
 <div class="hero-content">
@@ -1024,7 +1020,7 @@ function toggleReadMore(id, btn){
 })();
 
 // ── CARROUSEL HERO ──
-var HERO_URLS = ["/img/montriond1.jpg","/img/montriond2.jpg","/img/montriond3.jpg","/img/montriond4.jpg","/img/montriond5.jpg"];
+var HERO_URLS = ["/img/montriond1.jpg","/img/montriond2.jpg","/img/montriond3.jpg"];
 var heroIdx = 0;
 var heroAuto = null;
 function heroShow(i){
@@ -1739,7 +1735,7 @@ function hideOfficialSheet(){
 <div class="lightbox-count" id="lightboxCount"></div>
 </div>
 <script>
-var GALLERY_URLS = ["/img/montriond1.jpg","/img/montriond2.jpg","/img/montriond3.jpg","/img/montriond4.jpg","/img/montriond5.jpg"];
+var GALLERY_URLS = ["/img/montriond1.jpg","/img/montriond2.jpg","/img/montriond3.jpg"];
 var lbIdx = 0;
 function openLightbox(i){
   if(!GALLERY_URLS.length) return;
