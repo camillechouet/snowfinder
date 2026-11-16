@@ -238,5 +238,65 @@
     ],
     "date": "2026-11-09",
     "modele": "claude-opus-5-5"
+  },
+  {
+    "a": "Châtel",
+    "b": "Morillon",
+    "img_a": "chatel1",
+    "img_b": "morillon1",
+    "teaser": "Deux villages familiaux de Haute-Savoie, deux portes d'entrée vers de grands domaines reliés : Châtel donne accès aux Portes du Soleil et à la Suisse, Morillon au Grand Massif depuis la vallée du Giffre. Sur le papier, leurs domaines se valent à 1 km près (120 contre 119 km). Le forfait, la répartition des pistes et l'altitude du village les distinguent nettement.",
+    "profils": [
+      [
+        "👨‍👩‍👧 Familles avec enfants débutants",
+        "Morillon",
+        "Les deux stations disposent d'une garderie, mais Morillon aligne 16 pistes vertes et 42 bleues, contre 9 vertes et 15 bleues à Châtel. Ce choix plus large convient bien aux premiers pas."
+      ],
+      [
+        "💶 Budget forfait serré",
+        "Morillon",
+        "Le forfait est affiché à 58.5 € à Morillon contre 68 € à Châtel. L'écart est de 9.5 €, soit 14 %."
+      ],
+      [
+        "🇨🇭 Envie de skier entre France et Suisse",
+        "Châtel",
+        "Ce village frontalier offre un passage direct vers la Suisse à ski, au sein des Portes du Soleil."
+      ],
+      [
+        "⛷️ Skieurs de niveau avancé",
+        "Égalité",
+        "Seule Châtel est indiquée pour le niveau avancé et culmine un peu plus haut (2200 m contre 2118 m). En revanche, Morillon compte davantage de pistes rouges (22 contre 15) et de pistes noires (9 contre 6)."
+      ],
+      [
+        "🗺️ Grands rayonneurs",
+        "Châtel",
+        "Châtel s'ouvre sur les 600 km des Portes du Soleil, contre 265 km pour le Grand Massif accessible depuis Morillon. Châtel dispose aussi de 56 remontées, contre 38 à Morillon."
+      ],
+      [
+        "🌲 Amateurs de calme et de skis aux pieds",
+        "Morillon",
+        "Morillon est présenté comme un village paisible et une entrée moins fréquentée du Grand Massif. Morillon 1100 est « skis aux pieds », avec ses résidences chalets et ses commerces de proximité."
+      ]
+    ],
+    "verdict": "<strong>Châtel</strong> s'adresse à ceux qui veulent rayonner loin, jusqu'en Suisse, sur les 600 km des Portes du Soleil, depuis un village perché à 1200 m et doté de 56 remontées. <strong>Morillon</strong> mise sur la tranquillité, un forfait moins cher de 9.5 € et une offre de pistes nettement plus fournie, des vertes jusqu'aux noires. Les familles et les skieurs attentifs à leur budget y trouveront leur compte, tandis que les amateurs de grands itinéraires transfrontaliers pencheront pour <strong>Châtel</strong>. À domaine local quasi identique, le choix se fait surtout sur l'envie de voyager à ski ou de skier au calme.",
+    "faq": [
+      [
+        "Quelle station a le forfait le moins cher, Châtel ou Morillon ?",
+        "Morillon, avec un forfait à 58.5 € contre 68 € à Châtel. L'écart est de 9.5 €, soit 14 %."
+      ],
+      [
+        "Peut-on skier en Suisse depuis Châtel ?",
+        "Oui. Châtel est un village frontalier des Portes du Soleil, un domaine de 600 km, avec un passage direct vers la Suisse à ski."
+      ],
+      [
+        "Quelle station est la plus haute ?",
+        "Châtel culmine à 2200 m contre 2118 m pour Morillon, soit 82 m de plus. Son village est aussi situé plus haut, à 1200 m contre 700 m pour Morillon."
+      ],
+      [
+        "Les deux stations conviennent-elles aux familles ?",
+        "Oui. Châtel et Morillon affichent toutes deux une ambiance familiale et de village, et disposent chacune d'une garderie."
+      ]
+    ],
+    "date": "2026-11-16",
+    "modele": "claude-opus-5-5"
   }
 ]

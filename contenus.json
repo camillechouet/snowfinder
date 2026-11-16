@@ -247,6 +247,12 @@
   ],
   "duels": [
     {
+      "a": "Châtel",
+      "b": "Morillon",
+      "img": "/img/chatel1.jpg",
+      "img_b": "/img/morillon1.jpg"
+    },
+    {
       "a": "Champagny-en-Vanoise",
       "b": "La Toussuire",
       "img": "https://images.unsplash.com/photo-1623057896740-99f8c2f090fc?w=800&q=80",
