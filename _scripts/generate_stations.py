@@ -2026,6 +2026,7 @@ PLAN_CREDIT_NOM = {"Les Rousses": "Station des Rousses",
                    "Saint-Jean-d'Aulps": "Vallée d'Aulps Tourisme",
                    "Montriond": "Vallée d'Aulps Tourisme / Avoriaz",
                    "La Rosière": "Office de tourisme de La Rosière",
+                   "Le Bleymard-Mont Lozère": "Station Le Bleymard – Les Monts Lozère",
                    "Avoriaz": "Avoriaz Domaine de montagne (plan transmis par Vallée d'Aulps Tourisme)"}
 
 def get_plan_pistes(station_name):
