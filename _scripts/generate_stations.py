@@ -2022,7 +2022,9 @@ def _liste_fr(noms):
 # Nom officiel à afficher dans la légende du plan (si différent du nom de la fiche)
 PLAN_CREDIT_NOM = {"Les Rousses": "Station des Rousses",
                    "Les Menuires": "Tourisme des Menuires et Saint-Martin-de-Belleville",
-                   "Saint-Martin-de-Belleville": "Tourisme des Menuires et Saint-Martin-de-Belleville"}
+                   "Saint-Martin-de-Belleville": "Tourisme des Menuires et Saint-Martin-de-Belleville",
+                   "Saint-Jean-d'Aulps": "Vallée d'Aulps Tourisme",
+                   "Montriond": "Vallée d'Aulps Tourisme / Avoriaz"}
 
 def get_plan_pistes(station_name):
     """Retourne (chemin_relatif, crédit) du plan des pistes d'une station, ou (None, None)."""
@@ -3238,6 +3240,8 @@ PHOTO_CREDITS = {
     "Morillon": "Haut-Giffre Tourisme",
     "Sainte-Foy-Tarentaise": "David André",
     "Pralognan-la-Vanoise": "Pierre Guilbaud",
+    "Saint-Jean-d'Aulps": "Vallée d'Aulps Tourisme",
+    "Montriond": "Vallée d'Aulps Tourisme",
 }
 
 # Texte « domaine » des Informations pratiques fourni par l'office (remplace la phrase auto)
