@@ -159,6 +159,20 @@ def parse_last_snow(text):
     return None
 
 
+RE_OUV = re.compile(r"Dates?\s+d.ouverture[^\n]{0,60}\n?\s*du\s+(\d{1,2})/(\d{1,2})/(\d{4})", re.I)
+
+
+def parse_opening(text):
+    """Date d'ouverture de la saison indiquée par la page (« Dates d'ouverture … du 21/11/2026 au … »), ou None."""
+    m = RE_OUV.search(text)
+    if not m:
+        return None
+    try:
+        return dt.date(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+    except ValueError:
+        return None
+
+
 def coherent(res, last, ref):
     """Skipass remet parfois la date du jour sur des chiffres anciens (copie du printemps, avant l'ouverture).
     En automne (sept.-nov., avant l'ouverture des stations), des hauteurs importantes sans aucune chute de
@@ -268,7 +282,7 @@ def main():
     with open(SOURCES_FILE, "r", encoding="utf-8") as f:
         cfg = json.load(f)
 
-    out, log, net_errors = {}, [], 0
+    out, fermees, log, net_errors = {}, {}, [], 0
     for dom in cfg["domaines"]:
         nom = dom["nom"]
         res, why, tried = None, "page introuvable", []
@@ -282,6 +296,7 @@ def main():
                 net_errors += 1
                 break
             text = page_text(html)
+            opening = parse_opening(text)
             if re.search(r"Pas de bulletine? neige à jour", text, re.I):
                 res, why = None, "Skipass : pas de bulletin à jour"
                 break
@@ -297,7 +312,14 @@ def main():
                 res["via"] = how
                 break
             break
-        if res:
+        if res and res["haut"] <= 0 and res["bas"] <= 0 and opening and opening > ref:
+            # Station pas encore ouverte et bulletin à 0 cm : ce 0 ne veut pas dire « pas de neige »
+            # (la station ne mesure pas avant l'ouverture). On ne l'affiche donc pas comme une hauteur.
+            res.pop("via", None)
+            fermees[nom] = {"ouverture": opening.isoformat(), "alt_haut": res["alt_haut"], "alt_bas": res["alt_bas"],
+                            "date": res["date"], "couvre": dom["couvre"]}
+            log.append(f"⏸ {nom}: fermée, bulletin à 0 cm — ouverture le {opening.isoformat()} (non affichée comme 0 cm)")
+        elif res:
             via = res.pop("via", "regex")
             out[nom] = {**res, "couvre": dom["couvre"]}
             log.append(f"✓ {nom}: {res['haut']} cm à {res['alt_haut']} m / {res['bas']} cm à {res['alt_bas']} m ({res['date']}, {via})")
@@ -306,7 +328,7 @@ def main():
 
     print("\n".join(log))
     total = len(cfg["domaines"])
-    summary = (f"## Relevés de neige\n- Domaines lus : **{len(out)} / {total}** (date du jour : {ref})\n"
+    summary = (f"## Relevés de neige\n- Domaines lus : **{len(out) + len(fermees)} / {total}** (date du jour : {ref})\n"
                + "\n".join("  - " + l for l in log) + "\n")
     sp = os.environ.get("GITHUB_STEP_SUMMARY")
     if sp:
@@ -322,7 +344,8 @@ def main():
 
     payload = {"maj": dt.datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ") if not os.environ.get("NEIGE_TODAY") else ref.isoformat(),
                "source": cfg.get("source_nom", ""),
-               "stations": out}
+               "stations": out,
+               "fermees": fermees}
     new_txt = json.dumps(payload, ensure_ascii=False, indent=1) + "\n"
     old = ""
     if os.path.exists(OUT_FILE):
@@ -332,7 +355,7 @@ def main():
     def core(t):
         try:
             j = json.loads(t)
-            return json.dumps(j.get("stations", {}), sort_keys=True)
+            return json.dumps([j.get("stations", {}), j.get("fermees", {})], sort_keys=True)
         except Exception:
             return t
     if core(old) == core(new_txt):
