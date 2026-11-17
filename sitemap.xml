@@ -11,7 +11,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/index.html</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/index.html"/>
@@ -14212,6 +14212,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/metabief-mont-d-or-vs-le-lioran.html"/>
   </url>
   <url>
+    <loc>https://snowfinder.fr/comparatifs/montgenevre-vs-orcieres-merlette-1850.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/comparatifs/montgenevre-vs-orcieres-merlette-1850.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/comparatifs/montgenevre-vs-orcieres-merlette-1850.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/montgenevre-vs-orcieres-merlette-1850.html"/>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/comparatifs/peisey-vallandry-vs-montchavin-les-coches.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -14419,6 +14428,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/metabief-mont-d-or-vs-le-lioran.html"/>
   </url>
   <url>
+    <loc>https://snowfinder.fr/en/comparatifs/montgenevre-vs-orcieres-merlette-1850.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/comparatifs/montgenevre-vs-orcieres-merlette-1850.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/comparatifs/montgenevre-vs-orcieres-merlette-1850.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/montgenevre-vs-orcieres-merlette-1850.html"/>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/en/comparatifs/peisey-vallandry-vs-montchavin-les-coches.html</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
@@ -14617,6 +14635,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/quand-reserver-sejour-ski-moins-cher.html"/>
   </url>
   <url>
+    <loc>https://snowfinder.fr/articles/quel-forfait-de-ski-choisir-en-2026-2027-journee-sejour-saison.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/quel-forfait-de-ski-choisir-en-2026-2027-journee-sejour-saison.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/quel-forfait-de-ski-choisir-en-2026-2027-journee-sejour-saison.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/quel-forfait-de-ski-choisir-en-2026-2027-journee-sejour-saison.html"/>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/articles/retour-est-alpes-neige-octobre-2026.html</loc>
     <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
@@ -14735,7 +14762,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/toutes-les-actus.html</loc>
-    <lastmod>2026-11-11</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/toutes-les-actus.html"/>
@@ -14858,6 +14885,15 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/quand-reserver-sejour-ski-moins-cher.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/quand-reserver-sejour-ski-moins-cher.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/quand-reserver-sejour-ski-moins-cher.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/articles/quel-forfait-de-ski-choisir-en-2026-2027-journee-sejour-saison.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/quel-forfait-de-ski-choisir-en-2026-2027-journee-sejour-saison.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/quel-forfait-de-ski-choisir-en-2026-2027-journee-sejour-saison.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/quel-forfait-de-ski-choisir-en-2026-2027-journee-sejour-saison.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/en/articles/retour-est-alpes-neige-octobre-2026.html</loc>
