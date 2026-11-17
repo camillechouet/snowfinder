@@ -463,6 +463,7 @@ function toggleCompareStation(id){
 </div>
 <div id="snowCompareLabel" style="font-size:.68rem;color:#1a5a8a;font-weight:700"></div>
 </div>
+<div id="snowSrcVillage" style="font-size:.64rem;color:#3a7db8;margin-top:10px;font-style:italic"></div>
 </div>
 <!-- ENNEIGEMENT EN ALTITUDE (SOMMET) -->
 <div style="background:linear-gradient(135deg,#dcecf9,#b9d6ee);border-radius:14px;padding:20px;margin-bottom:14px">
@@ -1423,6 +1424,7 @@ function updateSommetBlock(s, snowCm, snowAnnual, off) {
 
 async function renderWeatherVignettes(grid, stations) {
   if (!grid || !stations.length) return;
+  await loadNeigeOfficiel();
 
   grid.innerHTML = stations.map(function(s){
     return '<div class="vignette-card vig-loading" data-vid="'+s.id+'" onclick="selectStation('+s.id+');checkStation()">'
@@ -1450,16 +1452,19 @@ async function renderWeatherVignettes(grid, stations) {
       card.querySelector('.vig-temp').innerHTML = temp + '°';
       var sd = d.current.snow_depth;
       var snowCm = (sd != null && sd > 0) ? Math.round(sd * 100) : 0;
-      var sommetCm = estimateSommetSnow(s, snowCm);
+      var offV = findOfficiel(s.name);
+      var basOff = offV && typeof offV.bas === 'number', hautOff = offV && typeof offV.haut === 'number';
+      if (basOff) snowCm = offV.bas;
+      var sommetCm = hautOff ? offV.haut : estimateSommetSnow(s, snowCm);
 
       // Hors saison (rien au sol nulle part) → on n'affiche pas le bloc neige
       var rows = card.querySelector('.vig-snow-rows');
-      if (rows && (snowCm > 0 || sommetCm > 0)) {
+      if (rows) {
         var elSt = rows.querySelector('[data-snow="station"]');
         var elSo = rows.querySelector('[data-snow="sommet"]');
-        elSt.textContent = snowCm + ' cm';
+        elSt.textContent = (basOff || snowCm === 0 ? '' : '≈ ') + snowCm + ' cm';
         elSt.className = 'vig-snow-val' + (snowCm > 0 ? '' : ' is-zero');
-        elSo.textContent = '≈ ' + sommetCm + ' cm';
+        elSo.textContent = (hautOff || sommetCm === 0 ? '' : '≈ ') + sommetCm + ' cm';
         elSo.className = 'vig-snow-val' + (sommetCm > 0 ? '' : ' is-zero');
         rows.style.display = 'flex';
       }
@@ -1562,6 +1567,7 @@ async function checkStation() {
   ['snowNowValTop','snowMonthValTop','snowAnnualValTop'].forEach(function(i){ var e=document.getElementById(i); if(e) e.textContent='—'; });
   document.getElementById('snowCompareBarTop').style.display = 'none';
   document.getElementById('snowSrcTop').textContent = '';
+  var _sv = document.getElementById('snowSrcVillage'); if (_sv) _sv.textContent = '';
   document.getElementById('snowTitleVillage').textContent = '❄️ Current snow cover (village · ' + s.alt_min + ' m)';
   document.getElementById('snowTitleTop').textContent = '🏔 Snow cover at altitude (summit · ' + s.alt_max + ' m)';
   document.getElementById('villageVsSommetLbl').textContent = '📍 Village (' + s.alt_min + ' m) vs Sommet (' + s.alt_max + ' m)';
@@ -1607,7 +1613,9 @@ async function checkStation() {
       document.getElementById('meteoNowIco').textContent = wmoIcoFiche(d.current.weathercode);
       var sd = d.current.snow_depth;
       var sub = '';
-      if (sd != null && sd > 0) sub = 'Snow depth: ' + Math.round(sd * 100) + ' cm';
+      var offH = findOfficiel(s.name);
+      if (offH && typeof offH.bas === 'number') sub = 'Official bulletin: ' + offH.bas + ' cm (bottom)' + (typeof offH.haut === 'number' ? ' · ' + offH.haut + ' cm (top)' : '');
+      else if (sd != null && sd > 0) sub = 'Snow on the ground (model): ≈ ' + Math.round(sd * 100) + ' cm';
       else if (d.current.wind_speed_10m != null) sub = 'Wind ' + Math.round(d.current.wind_speed_10m) + ' km/h';
       document.getElementById('meteoNowSnow').textContent = sub;
       document.getElementById('meteoNow').style.display = 'flex';
@@ -1617,6 +1625,11 @@ async function checkStation() {
       var offData = findOfficiel(s.name);
       if (offData && typeof offData.bas === 'number') snowCm = offData.bas;
       document.getElementById('snowNowVal').textContent = snowCm;
+      if (offData && offData.alt_bas && offData.alt_haut) {
+        document.getElementById('snowTitleVillage').textContent = '❄️ Current snow cover (bottom of the ski area · ' + offData.alt_bas + ' m)';
+        document.getElementById('snowTitleTop').textContent = '🏔 Snow cover at altitude (top of the ski area · ' + offData.alt_haut + ' m)';
+      }
+      document.getElementById('snowSrcVillage').textContent = (offData && typeof offData.bas === 'number') ? 'Official resort bulletin' + (offData.date ? ' from ' + frDate(offData.date) : '') + '.' : 'Weather model value (≈, not an official measurement). May differ from actual conditions on the ground.';
 
       var monthFactors = [0,0.90,1.00,0.80,0.45,0.10,0,0,0,0,0.05,0.20,0.50];
       var altMax = s.alt_min || s.alt_max; /* moyenne du village : bonus d'altitude du village */
