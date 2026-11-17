@@ -109,8 +109,9 @@
       { re: /^\/comparatifs\/tous-les-comparatifs\.html$/, key: 'duels', top: '.page', box: '.page' },
       { re: /^\/articles\/toutes-les-actus\.html$/, key: 'actus', top: '.wrap', box: '.wrap' },
       { re: /^\/station-du-moment\/toutes-les-stations-du-moment\.html$/, key: 'moment', top: '.wrap', box: '.wrap' },
-      { re: /^\/enneigement\.html$/, key: 'meteo', top: '.snow-hero', box: '.snow-hero-inner', fixed: 900 },
-      { re: /^\/hebergement\.html$/, key: 'hebergement', top: '.heb-hero', box: '.heb-hero-inner', fixed: 900 },
+      { re: /^\/enneigement\.html$/, key: 'meteo', top: '.snow-hero', box: '.snow-hero-inner', fixed: 900, maxw: 210 },
+      { re: /^\/hebergement\.html$/, key: 'hebergement', top: '.page-wrap', box: '.heb-hero-inner', fixed: 900, offset: 70 },
+      { re: /^\/tinder\.html$/, key: 'tinder', top: '.page-wrap', box: '.quiz-content-wrap', fixed: 1000, offset: 70, noInline: true },
       { re: /^\/comparateur\.html$/, key: 'comparateur', top: '.hero', box: '.container', fixed: 900 }
     ];
     var PAGE = null;
@@ -215,9 +216,9 @@
       var I = document.createElement('aside'); I.id = 'sfc-inline'; I.className = 'sfc-inl';
       I.setAttribute('aria-label', EN ? 'Partner' : 'Partenaire');
       var one = sel.left || sel.right; I.innerHTML = cardHtml(one);
-      var snow = document.querySelector('.snow-strip'); /* encart téléphone : juste sous le bandeau Enneigement */
+      var snow = PAGE.noInline ? null : document.querySelector('.snow-strip'); /* encart téléphone : juste sous le bandeau Enneigement */
       if (snow && snow.parentNode) snow.parentNode.insertBefore(I, snow.nextSibling);
-      else if (sep.parentNode) sep.parentNode.insertBefore(I, sep);
+      else if (sep.parentNode && !PAGE.noInline) sep.parentNode.insertBefore(I, sep);
 
       document.addEventListener('click', function (ev) {
         var a = ev.target && ev.target.closest ? ev.target.closest('.sfc-link') : null;
@@ -235,12 +236,12 @@
           if (sec) { var r = sec.getBoundingClientRect(); if (r.width > 300) { cl = r.left; cr = r.right; } }
         }
         var phone = vw < 760; // téléphone : un encart en ligne à la place des colonnes
-        I.style.display = phone ? 'block' : 'none';
+        I.style.display = (phone && !PAGE.noInline) ? 'block' : 'none';
         if (phone) { L.style.display = R.style.display = 'none'; document.documentElement.classList.remove('sfc-on'); return; }
         var margin = Math.min(cl, vw - cr);
-        var w = Math.min(MAX_W, Math.floor(margin - GAP - 8));
+        var w = Math.min(PAGE.maxw || MAX_W, Math.floor(margin - GAP - 8));
         var sy = window.pageYOffset || 0;
-        var top = sep.getBoundingClientRect().top + sy;
+        var top = sep.getBoundingClientRect().top + sy + (PAGE.offset || 0);
         var foot = document.querySelector('footer');
         var end = foot ? foot.getBoundingClientRect().top + sy : document.documentElement.scrollHeight;
         var h = Math.max(0, end - top - 24);
