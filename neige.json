@@ -1,17 +1,7 @@
 {
- "maj": "2026-11-17T11:24Z",
+ "maj": "2026-11-17T11:36Z",
  "source": "bulletins des stations (ANMSM) via Skipass",
  "stations": {
-  "Les 2 Alpes": {
-   "haut": 0,
-   "bas": 0,
-   "alt_haut": 3600,
-   "alt_bas": 1300,
-   "date": "2026-11-17",
-   "couvre": [
-    "Les Deux Alpes"
-   ]
-  },
   "La Grave": {
    "haut": 130,
    "bas": 0,
@@ -54,47 +44,6 @@
     "Montchavin-Les Coches"
    ]
   },
-  "Les Arcs": {
-   "haut": 0,
-   "bas": 0,
-   "alt_haut": 3226,
-   "alt_bas": 1200,
-   "date": "2026-11-17",
-   "couvre": [
-    "Les Arcs",
-    "Peisey-Vallandry"
-   ]
-  },
-  "La Rosière": {
-   "haut": 0,
-   "bas": 0,
-   "alt_haut": 2800,
-   "alt_bas": 1190,
-   "date": "2026-11-17",
-   "couvre": [
-    "La Rosière"
-   ]
-  },
-  "Val Cenis": {
-   "haut": 0,
-   "bas": 0,
-   "alt_haut": 2800,
-   "alt_bas": 1300,
-   "date": "2026-11-17",
-   "couvre": [
-    "Val Cenis"
-   ]
-  },
-  "Aussois": {
-   "haut": 0,
-   "bas": 0,
-   "alt_haut": 2750,
-   "alt_bas": 1500,
-   "date": "2026-11-17",
-   "couvre": [
-    "Aussois"
-   ]
-  },
   "La Norma": {
    "haut": 20,
    "bas": 0,
@@ -107,33 +56,74 @@
   }
  },
  "fermees": {
+  "Les 2 Alpes": {
+   "alt_haut": 3600,
+   "alt_bas": 1300,
+   "date": "2026-11-17",
+   "couvre": [
+    "Les Deux Alpes"
+   ]
+  },
   "Val Thorens": {
-   "ouverture": "2026-11-21",
    "alt_haut": 3230,
    "alt_bas": 1800,
    "date": "2026-11-17",
    "couvre": [
     "Val Thorens",
     "Orelle"
+   ],
+   "ouverture": "2026-11-21"
+  },
+  "Les Arcs": {
+   "alt_haut": 3226,
+   "alt_bas": 1200,
+   "date": "2026-11-17",
+   "couvre": [
+    "Les Arcs",
+    "Peisey-Vallandry"
    ]
   },
   "Méribel": {
-   "ouverture": "2026-12-05",
    "alt_haut": 2952,
    "alt_bas": 1100,
    "date": "2026-11-17",
    "couvre": [
     "Méribel",
     "Brides-les-Bains"
+   ],
+   "ouverture": "2026-12-05"
+  },
+  "La Rosière": {
+   "alt_haut": 2800,
+   "alt_bas": 1190,
+   "date": "2026-11-17",
+   "couvre": [
+    "La Rosière"
+   ]
+  },
+  "Val Cenis": {
+   "alt_haut": 2800,
+   "alt_bas": 1300,
+   "date": "2026-11-17",
+   "couvre": [
+    "Val Cenis"
    ]
   },
   "Serre Chevalier": {
-   "ouverture": "2026-12-05",
    "alt_haut": 2800,
    "alt_bas": 1200,
    "date": "2026-11-17",
    "couvre": [
     "Serre Chevalier"
+   ],
+   "ouverture": "2026-12-05"
+  },
+  "Aussois": {
+   "alt_haut": 2750,
+   "alt_bas": 1500,
+   "date": "2026-11-17",
+   "couvre": [
+    "Aussois"
    ]
   }
  }
