@@ -196,10 +196,10 @@
         '.sfc-l .sfc-h{font-size:1.75rem;margin-bottom:12px}.sfc-l .sfc-p{font-size:.98rem;margin-bottom:14px}.sfc-l .sfc-body{padding:0 24px 26px}.sfc-l .sfc-cta{font-size:.98rem;padding:13px 10px}.sfc-l .sfc-badge{top:18px;left:18px;font-size:.72rem}' +
         '.sfc-m .sfc-h{font-size:1.45rem}.sfc-m .sfc-p{font-size:.9rem}' +
         '.sfc-s .sfc-h{font-size:1.12rem}.sfc-s .sfc-p{font-size:.78rem;-webkit-line-clamp:5}.sfc-s .sfc-body{padding:0 13px 16px}.sfc-s .sfc-cta{font-size:.78rem;padding:10px 6px}.sfc-s .sfc-badge{top:11px;left:11px;font-size:.58rem}' +
-        '.sfc-inl{display:none;position:relative;box-sizing:border-box;margin:14px 14px 18px;border-radius:18px;overflow:hidden;height:210px;background:linear-gradient(160deg,#0B2942,#1a5a8a);box-shadow:0 8px 24px rgba(13,34,64,.25);border:1px solid rgba(255,255,255,.35);font-family:"DM Sans",-apple-system,sans-serif}' +
+        '.sfc-inl{display:none;position:relative;box-sizing:border-box;margin:10px 14px 12px;border-radius:16px;overflow:hidden;height:150px;background:linear-gradient(160deg,#0B2942,#1a5a8a);box-shadow:0 8px 24px rgba(13,34,64,.25);border:1px solid rgba(255,255,255,.35);font-family:"DM Sans",-apple-system,sans-serif}' +
         '.sfc-inl *{box-sizing:border-box}' +
         '.sfc-inl .sfc-card{position:relative;top:auto;height:100%;max-height:none;border-radius:0;border:0;box-shadow:none}' +
-        '.sfc-inl .sfc-h{font-size:1.2rem;margin-bottom:5px}.sfc-inl .sfc-p{font-size:.78rem;-webkit-line-clamp:2;margin-bottom:6px}.sfc-inl .sfc-by{margin-bottom:9px;font-size:.62rem}.sfc-inl .sfc-body{padding:0 16px 14px}.sfc-inl .sfc-cta{font-size:.82rem;padding:9px 8px}.sfc-inl .sfc-badge{top:10px;left:10px;font-size:.58rem}' +
+        '.sfc-inl .sfc-h{font-size:1.1rem;margin-bottom:7px;color:#F0D78C}.sfc-inl .sfc-p{display:none}.sfc-inl .sfc-by{margin-bottom:6px;font-size:.62rem}.sfc-inl .sfc-body{padding:0 14px 10px}.sfc-inl .sfc-cta{font-size:.8rem;padding:7px 8px}.sfc-inl .sfc-badge{top:8px;left:8px;font-size:.55rem}' +
         '.sfc-inl .sfc-shade{background:linear-gradient(to bottom,rgba(11,41,66,.5) 0%,rgba(11,41,66,0) 25%,rgba(11,41,66,.25) 45%,rgba(11,41,66,.92) 85%)}' +
         'html.sfc-on .layout{max-width:1240px!important}html.sfc-on{--filter-w:225px!important}' +
         '@media print{.sfc-rail{display:none!important}}';
