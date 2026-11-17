@@ -1439,12 +1439,12 @@ function findFermee(name) {
   for (var k in d.fermees) {
     var o = d.fermees[k];
     if (k.toLowerCase() === n || (o.couvre || []).some(function(c){ return String(c).toLowerCase() === n; })) {
-      if (o.ouverture && o.ouverture < new Date().toISOString().slice(0, 10)) return null; // ouverture passée : on ignore
       return o;
     }
   }
   return null;
 }
+function ouvFutur(o) { return o && o.ouverture && o.ouverture >= new Date().toISOString().slice(0, 10) ? o.ouverture : ''; }
 function frDate(iso) { var p = String(iso || '').split('-'); return p.length === 3 ? p[2] + '/' + p[1] : ''; }
 
 // ── Bloc « Enneigement en altitude (sommet) » : mêmes 3 cases que le village ──
@@ -1515,14 +1515,15 @@ async function renderWeatherVignettes(grid, stations) {
         var elSt = rows.querySelector('[data-snow="station"]');
         var elSo = rows.querySelector('[data-snow="sommet"]');
         if (fermV) {
-          var ouvTxt = fermV.ouverture ? 'Ouvre le ' + frDate(fermV.ouverture) : 'Fermée';
+          var ouvTxt = ouvFutur(fermV) ? 'Ouvre le ' + frDate(ouvFutur(fermV)) : 'En attente';
           elSt.textContent = ouvTxt; elSo.textContent = ouvTxt;
           elSt.className = 'vig-snow-val is-zero'; elSo.className = 'vig-snow-val is-zero';
         } else {
-        elSt.textContent = (basOff || snowCm === 0 ? '' : '≈ ') + snowCm + ' cm';
-        elSt.className = 'vig-snow-val' + (snowCm > 0 ? '' : ' is-zero');
-        elSo.textContent = (hautOff || sommetCm === 0 ? '' : '≈ ') + sommetCm + ' cm';
-        elSo.className = 'vig-snow-val' + (sommetCm > 0 ? '' : ' is-zero');
+          // Chiffre officiel = « N cm » ; modèle météo = « ≈ N cm » ; rien de fiable (0 du modèle compris) = « En attente »
+          elSt.textContent = basOff ? snowCm + ' cm' : (snowCm > 0 ? '≈ ' + snowCm + ' cm' : 'En attente');
+          elSt.className = 'vig-snow-val' + ((basOff ? snowCm : snowCm) > 0 ? '' : ' is-zero');
+          elSo.textContent = hautOff ? sommetCm + ' cm' : (sommetCm > 0 ? '≈ ' + sommetCm + ' cm' : 'En attente');
+          elSo.className = 'vig-snow-val' + (sommetCm > 0 ? '' : ' is-zero');
         }
         rows.style.display = 'flex';
       }
@@ -1673,7 +1674,7 @@ async function checkStation() {
       var sub = '';
       var offH = findOfficiel(s.name);
       var fermH = (!offH) ? findFermee(s.name) : null;
-      if (fermH) sub = 'Station fermée' + (fermH.ouverture ? ' · ouverture le ' + frDate(fermH.ouverture) : '');
+      if (fermH) sub = ouvFutur(fermH) ? 'Station fermée · ouverture le ' + frDate(ouvFutur(fermH)) : 'En attente de relevé officiel';
       else if (offH && typeof offH.bas === 'number') sub = 'Bulletin officiel : ' + offH.bas + ' cm (bas)' + (typeof offH.haut === 'number' ? ' · ' + offH.haut + ' cm (haut)' : '');
       else if (sd != null && sd > 0) sub = 'Neige au sol (modèle) : ≈ ' + Math.round(sd * 100) + ' cm';
       else if (d.current.wind_speed_10m != null) sub = 'Vent ' + Math.round(d.current.wind_speed_10m) + ' km/h';
@@ -1702,18 +1703,20 @@ async function checkStation() {
       document.getElementById('snowAnnualVal').textContent = snowAnnual;
       updateSommetBlock(s, snowCm, snowAnnual, offData);
 
-      // Station fermée (bulletin à 0 cm avant l'ouverture) : pas de chiffre trompeur
+      // Pas de chiffre fiable (station fermée, bulletin à 0 avant l'ouverture, ou aucun relevé officiel et 0 du modèle) : « en attente »
       var fermD = (!offData) ? findFermee(s.name) : null;
-      if (fermD) {
-        var ouvLbl = fermD.ouverture ? 'Ouverture le ' + frDate(fermD.ouverture) : 'Station fermée';
-        var srcF = 'Station fermée' + (fermD.ouverture ? ' (ouverture le ' + frDate(fermD.ouverture) + ')' : '') + ' : pas de relevé de neige fiable avant l’ouverture. Moyennes : estimations.';
+      var attente = !!fermD || (!offData && snowCm === 0);
+      if (attente) {
+        var srcF = (fermD && ouvFutur(fermD))
+          ? 'Station fermée (ouverture le ' + frDate(ouvFutur(fermD)) + ') : pas de relevé de neige fiable avant l’ouverture. Moyennes : estimations.'
+          : 'En attente de données : pas de relevé officiel fiable pour le moment. Moyennes : estimations.';
         document.getElementById('snowNowVal').textContent = '—';
         document.getElementById('snowNowValTop').textContent = '—';
         document.getElementById('snowSrcVillage').textContent = srcF;
         document.getElementById('snowSrcTop').textContent = srcF;
         document.getElementById('snowCompareBar').style.display = 'none';
         document.getElementById('snowCompareBarTop').style.display = 'none';
-        if (fermD.alt_bas && fermD.alt_haut) {
+        if (fermD && fermD.alt_bas && fermD.alt_haut) {
           document.getElementById('snowTitleVillage').textContent = '❄️ Enneigement en ce moment (bas du domaine · ' + fermD.alt_bas + ' m)';
           document.getElementById('snowTitleTop').textContent = '🏔 Enneigement en altitude (haut du domaine · ' + fermD.alt_haut + ' m)';
         }
@@ -1733,6 +1736,7 @@ async function checkStation() {
         barFill.style.width = '0%';
         barLabel.textContent = 'Hors saison — enneigement non significatif';
       }
+      if (attente) barWrap.style.display = 'none';
     }
 
     if (d.daily && d.daily.time) {
