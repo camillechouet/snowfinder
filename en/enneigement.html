@@ -1394,6 +1394,19 @@ function findOfficiel(name) {
   }
   return null;
 }
+// Stations fermées (bulletin à 0 cm avant l'ouverture) : listées à part dans neige.json (« fermees »)
+function findFermee(name) {
+  var d = window.__neigeData; if (!d || !d.fermees) return null;
+  var n = String(name || '').toLowerCase();
+  for (var k in d.fermees) {
+    var o = d.fermees[k];
+    if (k.toLowerCase() === n || (o.couvre || []).some(function(c){ return String(c).toLowerCase() === n; })) {
+      if (o.ouverture && o.ouverture < new Date().toISOString().slice(0, 10)) return null; // ouverture passée : on ignore
+      return o;
+    }
+  }
+  return null;
+}
 function frDate(iso) { var p = String(iso || '').split('-'); return p.length === 3 ? p[2] + '/' + p[1] : ''; }
 
 // ── Bloc « Enneigement en altitude (sommet) » : mêmes 3 cases que le village ──
@@ -1456,16 +1469,23 @@ async function renderWeatherVignettes(grid, stations) {
       var basOff = offV && typeof offV.bas === 'number', hautOff = offV && typeof offV.haut === 'number';
       if (basOff) snowCm = offV.bas;
       var sommetCm = hautOff ? offV.haut : estimateSommetSnow(s, snowCm);
+      var fermV = (!offV) ? findFermee(s.name) : null;
 
       // Hors saison (rien au sol nulle part) → on n'affiche pas le bloc neige
       var rows = card.querySelector('.vig-snow-rows');
       if (rows) {
         var elSt = rows.querySelector('[data-snow="station"]');
         var elSo = rows.querySelector('[data-snow="sommet"]');
+        if (fermV) {
+          var ouvTxt = fermV.ouverture ? 'Opens on ' + frDate(fermV.ouverture) : 'Closed';
+          elSt.textContent = ouvTxt; elSo.textContent = ouvTxt;
+          elSt.className = 'vig-snow-val is-zero'; elSo.className = 'vig-snow-val is-zero';
+        } else {
         elSt.textContent = (basOff || snowCm === 0 ? '' : '≈ ') + snowCm + ' cm';
         elSt.className = 'vig-snow-val' + (snowCm > 0 ? '' : ' is-zero');
         elSo.textContent = (hautOff || sommetCm === 0 ? '' : '≈ ') + sommetCm + ' cm';
         elSo.className = 'vig-snow-val' + (sommetCm > 0 ? '' : ' is-zero');
+        }
         rows.style.display = 'flex';
       }
     }).catch(function(){
@@ -1614,7 +1634,9 @@ async function checkStation() {
       var sd = d.current.snow_depth;
       var sub = '';
       var offH = findOfficiel(s.name);
-      if (offH && typeof offH.bas === 'number') sub = 'Official bulletin: ' + offH.bas + ' cm (bottom)' + (typeof offH.haut === 'number' ? ' · ' + offH.haut + ' cm (top)' : '');
+      var fermH = (!offH) ? findFermee(s.name) : null;
+      if (fermH) sub = 'Resort closed' + (fermH.ouverture ? ' · opening on ' + frDate(fermH.ouverture) : '');
+      else if (offH && typeof offH.bas === 'number') sub = 'Official bulletin: ' + offH.bas + ' cm (bottom)' + (typeof offH.haut === 'number' ? ' · ' + offH.haut + ' cm (top)' : '');
       else if (sd != null && sd > 0) sub = 'Snow on the ground (model): ≈ ' + Math.round(sd * 100) + ' cm';
       else if (d.current.wind_speed_10m != null) sub = 'Wind ' + Math.round(d.current.wind_speed_10m) + ' km/h';
       document.getElementById('meteoNowSnow').textContent = sub;
@@ -1641,6 +1663,23 @@ async function checkStation() {
       document.getElementById('snowMonthVal').textContent = snowMonthTypical;
       document.getElementById('snowAnnualVal').textContent = snowAnnual;
       updateSommetBlock(s, snowCm, snowAnnual, offData);
+
+      // Station fermée (bulletin à 0 cm avant l'ouverture) : pas de chiffre trompeur
+      var fermD = (!offData) ? findFermee(s.name) : null;
+      if (fermD) {
+        var ouvLbl = fermD.ouverture ? 'Opening on ' + frDate(fermD.ouverture) : 'Resort closed';
+        var srcF = 'Resort closed' + (fermD.ouverture ? ' (opening on ' + frDate(fermD.ouverture) + ')' : '') + ' : no reliable snow records before opening. Averages: estimates.';
+        document.getElementById('snowNowVal').textContent = '—';
+        document.getElementById('snowNowValTop').textContent = '—';
+        document.getElementById('snowSrcVillage').textContent = srcF;
+        document.getElementById('snowSrcTop').textContent = srcF;
+        document.getElementById('snowCompareBar').style.display = 'none';
+        document.getElementById('snowCompareBarTop').style.display = 'none';
+        if (fermD.alt_bas && fermD.alt_haut) {
+          document.getElementById('snowTitleVillage').textContent = '❄️ Current snow cover (bottom of the ski area · ' + fermD.alt_bas + ' m)';
+          document.getElementById('snowTitleTop').textContent = '🏔 Snow cover at altitude (top of the ski area · ' + fermD.alt_haut + ' m)';
+        }
+      }
 
       var barWrap = document.getElementById('snowCompareBar');
       var barFill = document.getElementById('snowBarFill');
