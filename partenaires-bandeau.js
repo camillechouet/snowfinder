@@ -110,8 +110,8 @@
       { re: /^\/articles\/toutes-les-actus\.html$/, key: 'actus', top: '.wrap', box: '.wrap' },
       { re: /^\/station-du-moment\/toutes-les-stations-du-moment\.html$/, key: 'moment', top: '.wrap', box: '.wrap' },
       { re: /^\/enneigement\.html$/, key: 'meteo', top: '.snow-hero', box: '.snow-hero-inner', fixed: 900, maxw: 210, edge: true },
-      { re: /^\/hebergement\.html$/, key: 'hebergement', top: '.page-wrap', box: '.heb-hero-inner', fixed: 900, offset: 70, maxw: 210, edge: true },
-      { re: /^\/tinder\.html$/, key: 'tinder', top: '.page-wrap', box: '.quiz-content-wrap', fixed: 1000, offset: 70, noInline: true },
+      { re: /^\/hebergement\.html$/, key: 'hebergement', top: '.page-wrap', box: '.heb-hero-inner', fixed: 900, offset: 70, maxw: 210, edge: true, inlineFirst: true },
+      { re: /^\/tinder\.html$/, key: 'tinder', top: '.page-wrap', box: '.quiz-content-wrap', fixed: 1000, offset: 70, inlineFirst: true },
       { re: /^\/comparateur\.html$/, key: 'comparateur', top: '.hero', box: '.container', fixed: 900 }
     ];
     var PAGE = null;
@@ -218,6 +218,7 @@
       var one = sel.left || sel.right; I.innerHTML = cardHtml(one);
       var snow = PAGE.noInline ? null : document.querySelector('.snow-strip'); /* encart téléphone : juste sous le bandeau Enneigement */
       if (snow && snow.parentNode) snow.parentNode.insertBefore(I, snow.nextSibling);
+      else if (PAGE.inlineFirst && sep) sep.insertBefore(I, sep.firstChild); /* en tête du contenu, sous la barre fixe du téléphone */
       else if (sep.parentNode && !PAGE.noInline) sep.parentNode.insertBefore(I, sep);
 
       document.addEventListener('click', function (ev) {
