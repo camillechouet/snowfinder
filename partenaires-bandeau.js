@@ -109,7 +109,7 @@
       { re: /^\/comparatifs\/tous-les-comparatifs\.html$/, key: 'duels', top: '.page', box: '.page' },
       { re: /^\/articles\/toutes-les-actus\.html$/, key: 'actus', top: '.wrap', box: '.wrap' },
       { re: /^\/station-du-moment\/toutes-les-stations-du-moment\.html$/, key: 'moment', top: '.wrap', box: '.wrap' },
-      { re: /^\/enneigement\.html$/, key: 'meteo', top: '.snow-hero', box: '.snow-hero-inner', fixed: 900, maxw: 210 },
+      { re: /^\/enneigement\.html$/, key: 'meteo', top: '.snow-hero', box: '.snow-hero-inner', fixed: 900, maxw: 210, edge: true },
       { re: /^\/hebergement\.html$/, key: 'hebergement', top: '.page-wrap', box: '.heb-hero-inner', fixed: 900, offset: 70 },
       { re: /^\/tinder\.html$/, key: 'tinder', top: '.page-wrap', box: '.quiz-content-wrap', fixed: 1000, offset: 70, noInline: true },
       { re: /^\/comparateur\.html$/, key: 'comparateur', top: '.hero', box: '.container', fixed: 900 }
@@ -237,7 +237,7 @@
         }
         var phone = vw < 760; // téléphone : un encart en ligne à la place des colonnes
         I.style.display = (phone && !PAGE.noInline) ? 'block' : 'none';
-        if (phone) { L.style.display = R.style.display = 'none'; document.documentElement.classList.remove('sfc-on'); return; }
+        if (phone) { L.style.display = R.style.display = 'none'; document.documentElement.classList.remove('sfc-on', 'sfc-edge'); return; }
         var margin = Math.min(cl, vw - cr);
         var w = Math.min(PAGE.maxw || MAX_W, Math.floor(margin - GAP - 8));
         var sy = window.pageYOffset || 0;
@@ -245,9 +245,10 @@
         var foot = document.querySelector('footer');
         var end = foot ? foot.getBoundingClientRect().top + sy : document.documentElement.scrollHeight;
         var h = Math.max(0, end - top - 24);
-        if (w < MIN_W || h < 320) { L.style.display = R.style.display = 'none'; document.documentElement.classList.remove('sfc-on'); return; }
+        if (w < MIN_W || h < 320) { L.style.display = R.style.display = 'none'; document.documentElement.classList.remove('sfc-on', 'sfc-edge'); return; }
+        if (PAGE.edge) document.documentElement.classList.add('sfc-edge');
         if (PAGE.key === 'recherche') document.documentElement.classList.add('sfc-on');
-        [[L, sel.left, Math.round(cl - GAP - w)], [R, sel.right, Math.round(cr + GAP)]].forEach(function (p) {
+        [[L, sel.left, PAGE.edge ? 14 : Math.round(cl - GAP - w)], [R, sel.right, PAGE.edge ? Math.round(vw - 14 - w) : Math.round(cr + GAP)]].forEach(function (p) {
           var el = p[0];
           el.style.display = p[1] ? 'block' : 'none';
           el.style.width = w + 'px';
