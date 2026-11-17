@@ -69,6 +69,50 @@
         "texte": "Describe the offer here in one or two short sentences.",
         "cta": "Get the deal"
       }
+    },
+    {
+      "id": "expedia-25",
+      "actif": true,
+      "type": "hebergement",
+      "label": "Bon plan",
+      "partenaire": "",
+      "titre": "Expedia : -25 % en ce moment",
+      "texte": "Séjours et hôtels à prix réduit pour la saison de ski.",
+      "cta": "Voir l'offre",
+      "lien": "https://www.tkqlhce.com/click-101709262-15606970",
+      "image": "/img/valthorens1.jpg",
+      "stations": [],
+      "pages": [],
+      "debut": "",
+      "fin": "",
+      "priorite": 3,
+      "en": {
+        "titre": "Expedia: 25% off right now",
+        "texte": "Discounted stays and hotels for the ski season.",
+        "cta": "See the offer"
+      }
+    },
+    {
+      "id": "booking-late-escape",
+      "actif": true,
+      "type": "hebergement",
+      "label": "Bon plan",
+      "partenaire": "",
+      "titre": "Booking : Late Escape Deals",
+      "texte": "Escapades de dernière minute au ski, jusqu'au 7 janvier.",
+      "cta": "Voir l'offre",
+      "lien": "https://www.dpbolvw.net/click-101709262-17344158",
+      "image": "/img/valthorens1.jpg",
+      "stations": [],
+      "pages": [],
+      "debut": "",
+      "fin": "2027-01-07",
+      "priorite": 2,
+      "en": {
+        "titre": "Booking: Late Escape Deals",
+        "texte": "Last-minute ski getaways, until 7 January.",
+        "cta": "See the offer"
+      }
     }
   ],
   "colonnes": [
@@ -90,6 +134,52 @@
         "titre": "Morillon, in the heart of the Grand Massif",
         "texte": "In the Haut-Giffre valley, discover the resort and plan your stay.",
         "cta": "Discover Morillon"
+      }
+    },
+    {
+      "id": "col-expedia-25",
+      "actif": true,
+      "cote": "gauche",
+      "label": "Bon plan",
+      "partenaire": "",
+      "titre": "Expedia : -25 % en ce moment",
+      "texte": "Séjours et hôtels à prix réduit.",
+      "cta": "Voir l'offre",
+      "lien": "https://www.tkqlhce.com/click-101709262-15606970",
+      "image": "/img/valthorens1.jpg",
+      "pages": [
+        "accueil"
+      ],
+      "debut": "",
+      "fin": "",
+      "priorite": 3,
+      "en": {
+        "titre": "Expedia: 25% off right now",
+        "texte": "Discounted stays and hotels.",
+        "cta": "See the offer"
+      }
+    },
+    {
+      "id": "col-booking-late-escape",
+      "actif": true,
+      "cote": "droite",
+      "label": "Bon plan",
+      "partenaire": "",
+      "titre": "Booking : Late Escape Deals",
+      "texte": "Last minute, jusqu'au 7 janvier.",
+      "cta": "Voir l'offre",
+      "lien": "https://www.dpbolvw.net/click-101709262-17344158",
+      "image": "/img/valthorens1.jpg",
+      "pages": [
+        "accueil"
+      ],
+      "debut": "",
+      "fin": "2027-01-07",
+      "priorite": 3,
+      "en": {
+        "titre": "Booking: Late Escape Deals",
+        "texte": "Last minute, until 7 January.",
+        "cta": "See the offer"
       }
     }
   ]
