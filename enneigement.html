@@ -153,6 +153,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .meteo-widget{background:linear-gradient(135deg,#1a5a8a 0%,#3a7db8 100%);border-radius:14px;padding:22px 26px;margin-bottom:16px;color:white;box-shadow:0 6px 22px rgba(26,90,138,.25);position:relative;overflow:hidden}
 .meteo-widget::before{content:"";position:absolute;top:-20px;right:-20px;width:140px;height:140px;background:radial-gradient(circle,rgba(255,255,255,.18) 0%,transparent 70%);pointer-events:none}
 .meteo-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:12px}
+.meteo-fav{margin-top:8px;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;border:1.5px solid rgba(240,215,140,.8);background:rgba(255,255,255,.12);color:#F0D78C;font:700 .78rem 'DM Sans',sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}.meteo-fav.on{background:linear-gradient(135deg,#F0D78C,#C9982F);color:#0B2942;border-color:transparent}
 .meteo-title{font-family:"DM Serif Display",serif;font-size:1.15rem;line-height:1.2;color:white}
 .meteo-sub{font-size:.78rem;color:rgba(255,255,255,.72);margin-top:3px}
 .meteo-now{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border-radius:12px;padding:8px 14px;backdrop-filter:blur(6px)}
@@ -279,6 +280,7 @@ body{background:linear-gradient(180deg,#f3f8fc 0%,#faf6f0 420px)}
 
 /* Vignettes favorites : icônes plus grandes et plus soignées */
 .vig-icon{font-size:2.9rem!important;line-height:1;margin-bottom:8px!important;filter:drop-shadow(0 4px 6px rgba(26,90,138,.28))}
+.vig-star-btn{background:none;border:0;padding:6px 6px;margin:-6px 0 -6px -8px;cursor:pointer;font-family:inherit;line-height:1;-webkit-tap-highlight-color:transparent}.vig-star-btn:active{transform:scale(1.25)}
 .vig-star{color:#E3A81C;font-size:1.15em;margin-right:3px;text-shadow:0 1px 2px rgba(201,152,47,.5)}
 .vig-snow-lbl{display:inline-flex;align-items:center;gap:5px;font-size:.66rem!important}
 .vig-snow-lbl svg{width:17px;height:17px;flex-shrink:0}
@@ -437,6 +439,7 @@ function toggleCompareStation(id){
           <div>
             <div class="meteo-title" id="meteoTitle">❄️ Météo à —</div>
             <div class="meteo-sub">Conditions actuelles &amp; prévisions 5 jours</div>
+            <button type="button" id="meteoFavBtn" class="meteo-fav" style="display:none" onclick="toggleFavStation(selectedStation && selectedStation.id, event)">☆ Ajouter aux favoris</button>
           </div>
           <div class="meteo-now" id="meteoNow" style="display:none">
             <span class="meteo-now-ico" id="meteoNowIco">☁️</span>
@@ -1537,7 +1540,7 @@ async function renderWeatherVignettes(grid, stations) {
   grid.innerHTML = stations.map(function(s){
     return '<div class="vignette-card vig-loading" data-vid="'+s.id+'" onclick="selectStation('+s.id+');checkStation()">'
       + '<div class="vig-icon">⏳</div>'
-      + '<div class="vig-name"><span class="vig-star">★</span>'+s.name+'</div>'
+      + '<div class="vig-name"><button type="button" class="vig-star vig-star-btn" title="Retirer des favoris" aria-label="Retirer des favoris" onclick="toggleFavStation('+s.id+',event)">★</button>'+s.name+'</div>'
       + '<div class="vig-massif">'+s.massif+'</div>'
       + '<div class="vig-temp">—</div>'
       + '<div class="vig-snow-rows">'
@@ -1564,30 +1567,22 @@ async function renderWeatherVignettes(grid, stations) {
       var basOff = offV && typeof offV.bas === 'number', hautOff = offV && typeof offV.haut === 'number';
       if (basOff) snowCm = offV.bas;
       var sommetCm = hautOff ? offV.haut : estimateSommetSnow(s, snowCm);
-      var fermV = (!offV) ? findFermee(s.name) : null;
 
       // Hors saison (rien au sol nulle part) → on n'affiche pas le bloc neige
       var rows = card.querySelector('.vig-snow-rows');
       if (rows) {
         var elSt = rows.querySelector('[data-snow="station"]');
         var elSo = rows.querySelector('[data-snow="sommet"]');
-        var ouvF = fermV ? ouvFutur(fermV) : '';
         var inconnuSo = !hautOff && sommetCm === 0 && (s.alt_max || 0) >= SOMMET_INCERTAIN;
-        if (ouvF) {
-          // Station fermée, ouverture à venir
-          elSt.textContent = 'Fermée'; elSo.textContent = 'Fermée';
-          elSt.className = 'vig-snow-val is-zero'; elSo.className = 'vig-snow-val is-zero';
-        } else {
-          // Officiel = « N cm » ; modèle météo = « ≈ N cm » ; 0 du modèle = « 0 cm » (sauf haute montagne au sommet : « — »)
-          elSt.textContent = (basOff || snowCm === 0 ? '' : '≈ ') + snowCm + ' cm';
-          elSt.className = 'vig-snow-val' + (snowCm > 0 ? '' : ' is-zero');
-          elSo.textContent = inconnuSo ? '—' : (hautOff || sommetCm === 0 ? '' : '≈ ') + sommetCm + ' cm';
-          elSo.className = 'vig-snow-val' + (sommetCm > 0 && !inconnuSo ? '' : ' is-zero');
-          if (inconnuSo) {
-            estimateSommetMeteo(s).then(function(v) {
-              if (v && v > 0) { elSo.textContent = '≈ ' + v + ' cm'; elSo.className = 'vig-snow-val'; }
-            });
-          }
+        // Officiel = « N cm » ; modèle météo = « ≈ N cm » ; 0 du modèle = « 0 cm » (sauf haute montagne au sommet : « — » ou estimation)
+        elSt.textContent = (basOff || snowCm === 0 ? '' : '≈ ') + snowCm + ' cm';
+        elSt.className = 'vig-snow-val' + (snowCm > 0 ? '' : ' is-zero');
+        elSo.textContent = inconnuSo ? '—' : (hautOff || sommetCm === 0 ? '' : '≈ ') + sommetCm + ' cm';
+        elSo.className = 'vig-snow-val' + (sommetCm > 0 && !inconnuSo ? '' : ' is-zero');
+        if (inconnuSo) {
+          estimateSommetMeteo(s).then(function(v) {
+            if (v && v > 0) { elSo.textContent = '≈ ' + v + ' cm'; elSo.className = 'vig-snow-val'; }
+          });
         }
         rows.style.display = 'flex';
       }
@@ -1623,14 +1618,29 @@ function onSearchInput() {
 }
 
 // ── Favoris rapides depuis la recherche (sans ouvrir la fiche) ──
+function favMatch(fav, st) {
+  return !!st && (st.id === fav || String(st.id) === String(fav) || slugify(st.name) === fav);
+}
 function isFavStation(id) {
-  try { return JSON.parse(localStorage.getItem('sf_favorites')||'[]').includes(id); } catch(e) { return false; }
+  var st = STATIONS.find(function(x){ return x.id === id; });
+  try { return JSON.parse(localStorage.getItem('sf_favorites')||'[]').some(function(f){ return favMatch(f, st); }); } catch(e) { return false; }
+}
+function updateMeteoFavBtn() {
+  var b = document.getElementById('meteoFavBtn');
+  if (!b || !selectedStation) return;
+  var on = isFavStation(selectedStation.id);
+  b.style.display = 'inline-flex';
+  b.className = 'meteo-fav' + (on ? ' on' : '');
+  b.textContent = on ? '★ Dans mes favoris — retirer' : '☆ Ajouter aux favoris';
 }
 function toggleFavStation(id, evt) {
   if (evt) { evt.stopPropagation(); evt.preventDefault(); }
+  var st = STATIONS.find(function(x){ return x.id === id; });
+  if (!st) return;
   var favs = [];
   try { favs = JSON.parse(localStorage.getItem('sf_favorites')||'[]'); } catch(e){}
-  if (favs.includes(id)) favs = favs.filter(function(x){ return x !== id; });
+  var had = favs.some(function(f){ return favMatch(f, st); });
+  if (had) favs = favs.filter(function(f){ return !favMatch(f, st); });
   else { favs.push(id); if (navigator.vibrate) navigator.vibrate(40); }
   try { localStorage.setItem('sf_favorites', JSON.stringify(favs)); } catch(e){}
 
@@ -1638,6 +1648,7 @@ function toggleFavStation(id, evt) {
   if (btn) btn.textContent = isFavStation(id) ? '⭐' : '☆';
   var sfc = document.getElementById('sfFavCount');
   if (sfc) sfc.textContent = favs.length;
+  updateMeteoFavBtn();
 
   loadFavorites(); // rafraîchit les vignettes "Mes stations favorites" en dessous
 }
@@ -1679,6 +1690,7 @@ async function checkStation() {
 
   // État "chargement"
   document.getElementById('meteoTitle').textContent = '❄️ Météo ' + sfA(s.name);
+  updateMeteoFavBtn();
   document.getElementById('meteoNow').style.display = 'none';
   document.getElementById('meteoLoading').style.display = 'block';
   document.getElementById('meteoLoading').textContent = 'Chargement…';
@@ -1737,9 +1749,7 @@ async function checkStation() {
       var sd = d.current.snow_depth;
       var sub = '';
       var offH = findOfficiel(s.name);
-      var fermH = (!offH) ? findFermee(s.name) : null;
-      if (fermH && ouvFutur(fermH)) sub = 'Station fermée';
-      else if (offH && typeof offH.bas === 'number') sub = 'Bulletin officiel : ' + offH.bas + ' cm (bas)' + (typeof offH.haut === 'number' ? ' · ' + offH.haut + ' cm (haut)' : '');
+      if (offH && typeof offH.bas === 'number') sub = 'Bulletin officiel : ' + offH.bas + ' cm (bas)' + (typeof offH.haut === 'number' ? ' · ' + offH.haut + ' cm (haut)' : '');
       else if (sd != null && sd > 0) sub = 'Neige au sol (modèle) : ≈ ' + Math.round(sd * 100) + ' cm';
       else if (d.current.wind_speed_10m != null) sub = 'Vent ' + Math.round(d.current.wind_speed_10m) + ' km/h';
       document.getElementById('meteoNowSnow').textContent = sub;
@@ -1767,22 +1777,9 @@ async function checkStation() {
       document.getElementById('snowAnnualVal').textContent = snowAnnual;
       updateSommetBlock(s, snowCm, snowAnnual, offData);
 
-      // Station fermée (ouverture à venir) : pas de chiffre. Sinon : officiel, ou modèle (≈, ou 0 si rien au sol).
-      var fermD = (!offData) ? findFermee(s.name) : null;
-      var attente = !!(fermD && ouvFutur(fermD));
-      if (attente) {
-        var srcF = 'Station fermée : pas de relevé de neige fiable avant l’ouverture. Moyennes : estimations.';
-        document.getElementById('snowNowVal').textContent = '—';
-        document.getElementById('snowNowValTop').textContent = '—';
-        document.getElementById('snowSrcVillage').textContent = srcF;
-        document.getElementById('snowSrcTop').textContent = srcF;
-        document.getElementById('snowCompareBarTop').style.display = 'none';
-        if (fermD.alt_bas && fermD.alt_haut) {
-          document.getElementById('snowTitleVillage').textContent = '❄️ Enneigement en ce moment (bas du domaine · ' + fermD.alt_bas + ' m)';
-          document.getElementById('snowTitleTop').textContent = '🏔 Enneigement en altitude (haut du domaine · ' + fermD.alt_haut + ' m)';
-        }
-      } else if (!offData && (s.alt_max || 0) >= SOMMET_INCERTAIN && estimateSommetSnow(s, snowCm) === 0) {
-        // Haute montagne sans relevé officiel : le 0 du modèle au sommet n'est pas crédible
+      // Haute montagne sans relevé officiel : le 0 du modèle au sommet n'est pas crédible
+      var attente = false;
+      if (!offData && (s.alt_max || 0) >= SOMMET_INCERTAIN && estimateSommetSnow(s, snowCm) === 0) {
         document.getElementById('snowNowValTop').textContent = '—';
         document.getElementById('snowSrcTop').textContent = 'Pas de relevé officiel en altitude pour cette station. Moyennes : estimations.';
         document.getElementById('snowCompareBarTop').style.display = 'none';
