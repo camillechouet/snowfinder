@@ -250,7 +250,34 @@ function expediaUrl(station, sid) {
     + (sid || '') + '&url=' + encodeURIComponent(base);
 }
 </script>
-<!--sf-i18n--><link rel="alternate" hreflang="fr" href="https://snowfinder.fr/enneigement.html"><link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/enneigement.html"><link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/enneigement.html"><!--/sf-i18n--></head>
+<!--sf-i18n--><link rel="alternate" hreflang="fr" href="https://snowfinder.fr/enneigement.html"><link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/enneigement.html"><link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/enneigement.html"><!--/sf-i18n--><style id="sfEnnBeauty">
+/* ── Embellissement Enneigement / Météo ── */
+body{background:linear-gradient(180deg,#f3f8fc 0%,#faf6f0 420px)}
+.snow-hero{background:linear-gradient(165deg,rgba(13,34,64,.72) 0%,rgba(26,90,138,.5) 55%,rgba(42,154,205,.55) 100%),url('/img/chamonix1.jpg') center/cover no-repeat;padding:76px 24px 70px}
+.snow-hero h1{font-size:clamp(2rem,4.8vw,3.1rem);text-shadow:0 3px 18px rgba(0,0,0,.5);margin-bottom:12px}
+.snow-hero h1::after{content:'';display:block;width:70px;height:3px;border-radius:3px;margin:16px auto 0;background:linear-gradient(90deg,#F0D78C,#C9982F)}
+.snow-hero p{color:rgba(255,255,255,.94);font-size:1.02rem;margin:16px 0 30px;text-shadow:0 1px 8px rgba(0,0,0,.45)}
+.search-label{color:#F0D78C;font-size:1.15rem;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.search-input{padding:17px 54px 17px 22px;font-size:1.05rem;box-shadow:0 10px 34px rgba(0,0,0,.32);border:2px solid rgba(255,255,255,.7)}
+.check-btn{background:linear-gradient(135deg,#F0D78C,#C9982F);color:#0B2942;box-shadow:0 8px 22px rgba(201,152,47,.45);padding:14px 40px}
+.check-btn:disabled{opacity:.75;filter:saturate(.7)}
+.sfi-wrap{padding:0;margin:0;background:linear-gradient(180deg,rgba(11,41,66,.80),rgba(26,90,138,.55)),url('/img/courchevel1.jpg') center/cover no-repeat;text-align:center}
+.sfi-inner{max-width:900px;margin:0 auto;padding:54px 20px 70px;color:#fff}
+.sfi-kicker{display:inline-block;background:linear-gradient(135deg,#F0D78C,#C9982F);color:#0B2942;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:16px}
+.sfi-title{font-family:"DM Serif Display",serif;font-size:clamp(1.5rem,3.4vw,2.2rem);line-height:1.2;margin-bottom:12px;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.sfi-text{max-width:560px;margin:0 auto;font-size:.98rem;line-height:1.65;color:rgba(255,255,255,.92);text-shadow:0 1px 8px rgba(0,0,0,.45)}
+.sfi-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:26px 0 34px}
+#introState .sfi-chips button{background:rgba(255,255,255,.16)!important;color:#fff!important;border:1px solid rgba(255,255,255,.55)!important;backdrop-filter:blur(6px);padding:9px 18px!important;font-size:.9rem!important;transition:all .2s}
+#introState .sfi-chips button:hover{background:#fff!important;color:#1a5a8a!important;transform:translateY(-2px)}
+.sfi-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.sfi-card{background:rgba(255,255,255,.14);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.4);border-radius:18px;padding:20px 14px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
+.sfi-card span{display:block;font-size:2rem;margin-bottom:8px}
+.sfi-card strong{display:block;font-family:"DM Serif Display",serif;font-size:1.1rem;color:#F0D78C;margin-bottom:4px}
+.sfi-card em{display:block;font-style:normal;font-size:.82rem;color:rgba(255,255,255,.9);line-height:1.45}
+.meteo-widget{border-radius:20px;box-shadow:0 14px 38px rgba(26,90,138,.35)}
+@media(max-width:700px){.snow-hero{padding:54px 16px 48px}.sfi-cards{grid-template-columns:1fr}.sfi-inner{padding:40px 16px 50px}}
+</style>
+</head>
 <body>
 
 <canvas id="pageSnow" aria-hidden="true"></canvas>
@@ -506,18 +533,26 @@ function toggleCompareStation(id){
 </div>
 
 <!-- PLACEHOLDER / INTRO -->
-<div id="introState" style="text-align:center;padding:50px 20px 80px;max-width:500px;margin:0 auto">
-  <div style="font-size:3.5rem;margin-bottom:16px">🏔</div>
-  <div style="font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--text);margin-bottom:10px">+ de 700 stations à portée de recherche</div>
-  <div style="font-size:.88rem;color:var(--text-light);line-height:1.65">Tapez les premières lettres d'une station pour obtenir toutes les infos : enneigement actuel vs moyenne historique, village et sommet, météo 5 jours.</div>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px">
+<div id="introState" class="sfi-wrap">
+  <div class="sfi-inner">
+    <div class="sfi-kicker">❄️ Enneigement &amp; météo en direct</div>
+    <h2 class="sfi-title">+ de 700 stations à portée de recherche</h2>
+    <p class="sfi-text">Tapez les premières lettres d'une station : enneigement actuel vs moyenne historique, village et sommet, météo 5 jours.</p>
+    <div class="sfi-chips">
     <button onclick="quickSearch('Avoriaz')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Avoriaz</button>
     <button onclick="quickSearch('Val Thorens')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Val Thorens</button>
     <button onclick="quickSearch('Chamonix')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Chamonix</button>
     <button onclick="quickSearch('Courchevel')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Courchevel</button>
     <button onclick="quickSearch('Alpe d'Huez')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Alpe d'Huez</button>
     <button onclick="quickSearch('Les Deux Alpes')" style="padding:7px 14px;background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid);border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600">Les 2 Alpes</button>
+    </div>
+    <div class="sfi-cards">
+      <div class="sfi-card"><span>🌨️</span><strong>Neige actuelle</strong><em>Village et sommet, comparés à la moyenne</em></div>
+      <div class="sfi-card"><span>⛅</span><strong>Météo 5 jours</strong><em>Températures, soleil, chutes de neige</em></div>
+      <div class="sfi-card"><span>⛷️</span><strong>Fiche complète</strong><em>Pistes, forfaits, hébergement</em></div>
+    </div>
   </div>
+</div>
 </div>
 
 </div>
