@@ -1405,8 +1405,8 @@ function estimateSommetSnow(s, stationCm) {
     var ratio = 1 + deltaKm * 0.8;
     return Math.max(stationCm, Math.round(stationCm * ratio));
   }
-  // Rien au village : le sommet peut quand même être enneigé (ou pas, hors saison)
-  return Math.round(modelSommet * 0.45);
+  // Rien au village selon le modèle : on n'invente pas de neige au sommet (0 tant qu'aucun relevé officiel ne dit le contraire)
+  return 0;
 }
 
 
@@ -1443,7 +1443,7 @@ function updateSommetBlock(s, snowCm, snowAnnual, off) {
   var bonus = altMax >= 3000 ? 1.8 : altMax >= 2500 ? 1.5 : altMax >= 2000 ? 1.2 : altMax >= 1500 ? 0.9 : 0.6;
   var monthTyp = Math.round(snowAnnual * mf * bonus);
   var annualTop = Math.round(snowAnnual * (1 + deltaKm * 0.8));
-  document.getElementById('snowNowValTop').textContent = (officiel ? '' : '≈ ') + cur;
+  document.getElementById('snowNowValTop').textContent = (officiel || cur === 0 ? '' : '≈ ') + cur;
   document.getElementById('snowMonthValTop').textContent = monthTyp;
   document.getElementById('snowAnnualValTop').textContent = annualTop;
   var wrap = document.getElementById('snowCompareBarTop'), fill = document.getElementById('snowBarFillTop'), lab = document.getElementById('snowCompareLabelTop');
