@@ -250,10 +250,10 @@ function expediaUrl(station, sid) {
     + (sid || '') + '&url=' + encodeURIComponent(base);
 }
 </script>
-<style id="sfEnnBeauty">
+<!--sf-i18n--><link rel="alternate" hreflang="fr" href="https://snowfinder.fr/enneigement.html"><link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/enneigement.html"><link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/enneigement.html"><!--/sf-i18n--><style id="sfEnnBeauty">
 /* ── Embellissement Enneigement / Météo ── */
 body{background:linear-gradient(180deg,#f3f8fc 0%,#faf6f0 420px)}
-.snow-hero{background:linear-gradient(165deg,rgba(13,34,64,.72) 0%,rgba(26,90,138,.5) 55%,rgba(42,154,205,.55) 100%),url('/img/chamonix1.jpg') center/cover no-repeat;padding:76px 24px 70px}
+.snow-hero{background:linear-gradient(165deg,rgba(13,34,64,.93) 0%,rgba(26,90,138,.86) 55%,rgba(42,154,205,.88) 100%),url('/img/chamonix1.jpg') center/cover no-repeat;padding:76px 24px 70px}
 .snow-hero h1{font-size:clamp(2rem,4.8vw,3.1rem);text-shadow:0 3px 18px rgba(0,0,0,.5);margin-bottom:12px}
 .snow-hero h1::after{content:'';display:block;width:70px;height:3px;border-radius:3px;margin:16px auto 0;background:linear-gradient(90deg,#F0D78C,#C9982F)}
 .snow-hero p{color:rgba(255,255,255,.94);font-size:1.02rem;margin:16px 0 30px;text-shadow:0 1px 8px rgba(0,0,0,.45)}
@@ -261,7 +261,7 @@ body{background:linear-gradient(180deg,#f3f8fc 0%,#faf6f0 420px)}
 .search-input{padding:17px 54px 17px 22px;font-size:1.05rem;box-shadow:0 10px 34px rgba(0,0,0,.32);border:2px solid rgba(255,255,255,.7)}
 .check-btn{background:linear-gradient(135deg,#F0D78C,#C9982F);color:#0B2942;box-shadow:0 8px 22px rgba(201,152,47,.45);padding:14px 40px}
 .check-btn:disabled{opacity:.75;filter:saturate(.7)}
-.sfi-wrap{padding:0;margin:0;background:linear-gradient(180deg,rgba(11,41,66,.80),rgba(26,90,138,.55)),url('/img/courchevel1.jpg') center/cover no-repeat;text-align:center}
+.sfi-wrap{padding:0;margin:0;background:linear-gradient(180deg,rgba(11,41,66,.93),rgba(26,90,138,.86)),url('/img/courchevel1.jpg') center/cover no-repeat;text-align:center}
 .sfi-inner{max-width:900px;margin:0 auto;padding:54px 20px 70px;color:#fff}
 .sfi-kicker{display:inline-block;background:linear-gradient(135deg,#F0D78C,#C9982F);color:#0B2942;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:16px}
 .sfi-title{font-family:"DM Serif Display",serif;font-size:clamp(1.5rem,3.4vw,2.2rem);line-height:1.2;margin-bottom:12px;text-shadow:0 2px 14px rgba(0,0,0,.5)}
@@ -275,11 +275,18 @@ body{background:linear-gradient(180deg,#f3f8fc 0%,#faf6f0 420px)}
 .sfi-card strong{display:block;font-family:"DM Serif Display",serif;font-size:1.25rem;color:#F0D78C;margin-bottom:4px}
 .sfi-card em{display:block;font-style:normal;font-size:.9rem;color:rgba(255,255,255,.9);line-height:1.45}
 .meteo-widget{border-radius:20px;box-shadow:0 14px 38px rgba(26,90,138,.35)}
-html.sfc-edge .snow-hero,html.sfc-edge .sfi-wrap{max-width:min(1000px,calc(100vw - 500px));margin-left:auto;margin-right:auto}
-html.sfc-edge .snow-hero{border-radius:0 0 28px 28px}html.sfc-edge .sfi-wrap{border-radius:28px;margin-top:22px;margin-bottom:22px}
 @media(max-width:700px){.snow-hero{padding:54px 16px 48px}.sfi-cards{grid-template-columns:1fr}.sfi-inner{padding:40px 16px 50px}}
+
+/* Vignettes favorites : icônes plus grandes et plus soignées */
+.vig-icon{font-size:2.9rem!important;line-height:1;margin-bottom:8px!important;filter:drop-shadow(0 4px 6px rgba(26,90,138,.28))}
+.vig-star{color:#E3A81C;font-size:1.15em;margin-right:3px;text-shadow:0 1px 2px rgba(201,152,47,.5)}
+.vig-snow-lbl{display:inline-flex;align-items:center;gap:5px;font-size:.66rem!important}
+.vig-snow-lbl svg{width:17px;height:17px;flex-shrink:0}
+.vig-name{font-size:.95rem!important}
+.vig-temp{font-size:1.5rem!important}
+.vig-snow-row{font-size:.74rem!important}
 </style>
-<!--sf-i18n--><link rel="alternate" hreflang="fr" href="https://snowfinder.fr/enneigement.html"><link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/enneigement.html"><link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/enneigement.html"><!--/sf-i18n--></head>
+</head>
 <body>
 
 <canvas id="pageSnow" aria-hidden="true"></canvas>
@@ -1378,12 +1385,12 @@ async function renderWeatherVignettes(grid, stations) {
   grid.innerHTML = stations.map(function(s){
     return '<div class="vignette-card vig-loading" data-vid="'+s.id+'" onclick="selectStation('+s.id+');checkStation()">'
       + '<div class="vig-icon">⏳</div>'
-      + '<div class="vig-name">⭐ '+s.name+'</div>'
+      + '<div class="vig-name"><span class="vig-star">★</span>'+s.name+'</div>'
       + '<div class="vig-massif">'+s.massif+'</div>'
       + '<div class="vig-temp">—</div>'
       + '<div class="vig-snow-rows">'
-      +   '<div class="vig-snow-row"><span class="vig-snow-lbl">🏔 Station</span><span class="vig-snow-val" data-snow="station">—</span></div>'
-      +   '<div class="vig-snow-row"><span class="vig-snow-lbl">🔺 Sommet</span><span class="vig-snow-val" data-snow="sommet">—</span></div>'
+      +   '<div class="vig-snow-row"><span class="vig-snow-lbl"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5a8a" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M3 11l9-7 9 7v9H3z"/><path d="M10 20v-6h4v6"/></svg>Station</span><span class="vig-snow-val" data-snow="station">—</span></div>'
+      +   '<div class="vig-snow-row"><span class="vig-snow-lbl"><svg viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M2 20L10 6l4 7 3-4 5 11z"/></svg>Sommet</span><span class="vig-snow-val" data-snow="sommet">—</span></div>'
       + '</div>'
       + '</div>';
   }).join('');

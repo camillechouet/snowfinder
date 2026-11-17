@@ -110,7 +110,7 @@
       { re: /^\/articles\/toutes-les-actus\.html$/, key: 'actus', top: '.wrap', box: '.wrap' },
       { re: /^\/station-du-moment\/toutes-les-stations-du-moment\.html$/, key: 'moment', top: '.wrap', box: '.wrap' },
       { re: /^\/enneigement\.html$/, key: 'meteo', top: '.snow-hero', box: '.snow-hero-inner', fixed: 900, maxw: 210, edge: true },
-      { re: /^\/hebergement\.html$/, key: 'hebergement', top: '.page-wrap', box: '.heb-hero-inner', fixed: 900, offset: 70 },
+      { re: /^\/hebergement\.html$/, key: 'hebergement', top: '.page-wrap', box: '.heb-hero-inner', fixed: 900, offset: 70, maxw: 210, edge: true },
       { re: /^\/tinder\.html$/, key: 'tinder', top: '.page-wrap', box: '.quiz-content-wrap', fixed: 1000, offset: 70, noInline: true },
       { re: /^\/comparateur\.html$/, key: 'comparateur', top: '.hero', box: '.container', fixed: 900 }
     ];
