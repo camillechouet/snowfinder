@@ -1408,6 +1408,61 @@ function findFermee(name) {
 }
 // Altitude à partir de laquelle un « 0 » du modèle au sommet n'est plus crédible (haute montagne, glaciers) : on affiche « — »
 var SOMMET_INCERTAIN = 2600;
+// ── Estimation du sommet (haute montagne sans relevé officiel) ──
+// Neige tombée sur 60 jours à l'altitude du sommet (Open-Meteo, avec altitude), compactée (×0,7) moins la fonte
+// (1 cm par °C moyen positif et par jour). Affichée seulement si la même méthode, testée sur les stations qui ont
+// un relevé officiel (neige.json), tombe dans le bon ordre de grandeur (médiane entre ×0,4 et ×2,5) ; sinon « — ».
+function fetchSnowAlt(lat, lon, elev) {
+  var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&elevation=' + elev
+    + '&daily=snowfall_sum,temperature_2m_mean&past_days=60&forecast_days=1&timezone=Europe%2FParis';
+  return fetch(url).then(function(r){ return r.json(); }).then(function(d){
+    var sn = d && d.daily && d.daily.snowfall_sum, t = d && d.daily && d.daily.temperature_2m_mean;
+    if (!sn || !t) return null;
+    var depth = 0;
+    for (var i = 0; i < sn.length; i++) {
+      depth += (sn[i] || 0) * 0.7;
+      if (t[i] != null && t[i] > 0) depth -= t[i];
+      if (depth < 0) depth = 0;
+    }
+    return depth;
+  }).catch(function(){ return null; });
+}
+var __calibP = null, __estCache = {};
+function calibrationOK() {
+  if (__calibP) return __calibP;
+  __calibP = loadNeigeOfficiel().then(function(d) {
+    var refs = [];
+    if (d && d.stations) Object.keys(d.stations).forEach(function(k) {
+      var o = d.stations[k];
+      if (!(o.haut >= 10) || !o.alt_haut) return;
+      var names = [k].concat(o.couvre || []).map(function(x){ return String(x).toLowerCase(); });
+      var st = STATIONS.filter(function(x){ return names.indexOf(x.name.toLowerCase()) >= 0; })[0];
+      if (st) refs.push({st: st, o: o});
+    });
+    refs = refs.slice(0, 6);
+    if (refs.length < 3) return false;
+    return Promise.all(refs.map(function(r) {
+      return fetchSnowAlt(r.st.lat, r.st.lon, r.o.alt_haut).then(function(e){ return e == null ? null : e / r.o.haut; });
+    })).then(function(rs) {
+      rs = rs.filter(function(x){ return x != null; }).sort(function(a, b){ return a - b; });
+      if (rs.length < 3) return false;
+      var med = rs[Math.floor(rs.length / 2)];
+      window.__calibMed = med;
+      try { console.log('[SnowFinder] contrôle estimation sommet : médiane estimé/officiel =', med.toFixed(2), '(' + rs.length + ' stations)'); } catch(e) {}
+      return med >= 0.4 && med <= 2.5;
+    });
+  }).catch(function(){ return false; });
+  return __calibP;
+}
+function estimateSommetMeteo(s) {
+  if (!__estCache[s.id]) {
+    __estCache[s.id] = calibrationOK().then(function(ok) {
+      if (!ok) return null;
+      return fetchSnowAlt(s.lat, s.lon, s.alt_max).then(function(v){ return v == null ? null : Math.round(v / 5) * 5; });
+    });
+  }
+  return __estCache[s.id];
+}
 function ouvFutur(o) { return o && o.ouverture && o.ouverture >= new Date().toISOString().slice(0, 10) ? o.ouverture : ''; }
 function frDate(iso) { var p = String(iso || '').split('-'); return p.length === 3 ? p[2] + '/' + p[1] : ''; }
 
@@ -1482,7 +1537,7 @@ async function renderWeatherVignettes(grid, stations) {
         var inconnuSo = !hautOff && sommetCm === 0 && (s.alt_max || 0) >= SOMMET_INCERTAIN;
         if (ouvF) {
           // Station fermée, ouverture à venir
-          elSt.textContent = 'Opens on ' + frDate(ouvF); elSo.textContent = 'Opens on ' + frDate(ouvF);
+          elSt.textContent = 'Closed'; elSo.textContent = 'Closed';
           elSt.className = 'vig-snow-val is-zero'; elSo.className = 'vig-snow-val is-zero';
         } else {
           // Officiel = « N cm » ; modèle météo = « ≈ N cm » ; 0 du modèle = « 0 cm » (sauf haute montagne au sommet : « — »)
@@ -1490,6 +1545,11 @@ async function renderWeatherVignettes(grid, stations) {
           elSt.className = 'vig-snow-val' + (snowCm > 0 ? '' : ' is-zero');
           elSo.textContent = inconnuSo ? '—' : (hautOff || sommetCm === 0 ? '' : '≈ ') + sommetCm + ' cm';
           elSo.className = 'vig-snow-val' + (sommetCm > 0 && !inconnuSo ? '' : ' is-zero');
+          if (inconnuSo) {
+            estimateSommetMeteo(s).then(function(v) {
+              if (v && v > 0) { elSo.textContent = '≈ ' + v + ' cm'; elSo.className = 'vig-snow-val'; }
+            });
+          }
         }
         rows.style.display = 'flex';
       }
@@ -1640,7 +1700,7 @@ async function checkStation() {
       var sub = '';
       var offH = findOfficiel(s.name);
       var fermH = (!offH) ? findFermee(s.name) : null;
-      if (fermH && ouvFutur(fermH)) sub = 'Resort closed · opening on ' + frDate(ouvFutur(fermH));
+      if (fermH && ouvFutur(fermH)) sub = 'Resort closed';
       else if (offH && typeof offH.bas === 'number') sub = 'Official bulletin: ' + offH.bas + ' cm (bottom)' + (typeof offH.haut === 'number' ? ' · ' + offH.haut + ' cm (top)' : '');
       else if (sd != null && sd > 0) sub = 'Snow on the ground (model): ≈ ' + Math.round(sd * 100) + ' cm';
       else if (d.current.wind_speed_10m != null) sub = 'Wind ' + Math.round(d.current.wind_speed_10m) + ' km/h';
@@ -1673,7 +1733,7 @@ async function checkStation() {
       var fermD = (!offData) ? findFermee(s.name) : null;
       var attente = !!(fermD && ouvFutur(fermD));
       if (attente) {
-        var srcF = 'Resort closed (opening on ' + frDate(ouvFutur(fermD)) + ') : no reliable snow report before opening. Averages: estimates.';
+        var srcF = 'Resort closed: no reliable snow reading before opening. Averages: estimates.';
         document.getElementById('snowNowVal').textContent = '—';
         document.getElementById('snowNowValTop').textContent = '—';
         document.getElementById('snowSrcVillage').textContent = srcF;
@@ -1688,6 +1748,12 @@ async function checkStation() {
         document.getElementById('snowNowValTop').textContent = '—';
         document.getElementById('snowSrcTop').textContent = 'No official altitude readings for this resort. Averages: estimates.';
         document.getElementById('snowCompareBarTop').style.display = 'none';
+        estimateSommetMeteo(s).then(function(v) {
+          if (v && v > 0) {
+            document.getElementById('snowNowValTop').textContent = '≈ ' + v;
+            document.getElementById('snowSrcTop').textContent = 'Estimate (≈): snowfall and temperatures at ' + s.alt_max + ' m over 60 days, verified against resorts with an official reading. Averages: estimates.';
+          }
+        });
       }
 
       var barWrap = document.getElementById('snowCompareBar');
