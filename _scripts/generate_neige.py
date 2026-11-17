@@ -312,13 +312,18 @@ def main():
                 res["via"] = how
                 break
             break
-        if res and res["haut"] <= 0 and res["bas"] <= 0 and opening and opening > ref:
-            # Station pas encore ouverte et bulletin à 0 cm : ce 0 ne veut pas dire « pas de neige »
-            # (la station ne mesure pas avant l'ouverture). On ne l'affiche donc pas comme une hauteur.
+        if res and res["haut"] <= 0 and res["bas"] <= 0 and (
+                (opening and opening > ref) or ref.month in (9, 10, 11) or res["alt_haut"] >= 2500):
+            # Bulletin à 0 / 0 : ce n'est pas une mesure fiable (station pas encore ouverte, pas de relevé en
+            # automne, ou 0 cm à plus de 2500 m, impossible en réalité). On ne l'affiche pas comme « 0 cm » :
+            # le site écrit « en attente de données » (ou « ouvre le … » si la date d'ouverture est connue).
             res.pop("via", None)
-            fermees[nom] = {"ouverture": opening.isoformat(), "alt_haut": res["alt_haut"], "alt_bas": res["alt_bas"],
-                            "date": res["date"], "couvre": dom["couvre"]}
-            log.append(f"⏸ {nom}: fermée, bulletin à 0 cm — ouverture le {opening.isoformat()} (non affichée comme 0 cm)")
+            fermees[nom] = {"alt_haut": res["alt_haut"], "alt_bas": res["alt_bas"], "date": res["date"],
+                            "couvre": dom["couvre"]}
+            if opening and opening > ref:
+                fermees[nom]["ouverture"] = opening.isoformat()
+            log.append(f"⏸ {nom}: bulletin 0/0 non fiable → « en attente »"
+                       + (f" (ouverture le {opening.isoformat()})" if opening and opening > ref else ""))
         elif res:
             via = res.pop("via", "regex")
             out[nom] = {**res, "couvre": dom["couvre"]}
