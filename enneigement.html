@@ -453,7 +453,7 @@ function toggleCompareStation(id){
 
       <!-- ENNEIGEMENT EN CE MOMENT -->
       <div style="background:linear-gradient(135deg,#e8f3fb,#d0e7f5);border-radius:14px;padding:20px;margin-bottom:14px">
-        <div style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#3a7db8;margin-bottom:14px">❄️ Enneigement en ce moment (altitude station)</div>
+        <div id="snowTitleVillage" style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#3a7db8;margin-bottom:14px">❄️ Enneigement en ce moment (altitude station)</div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
           <div style="background:white;border-radius:10px;padding:12px;text-align:center">
             <div style="font-size:.62rem;font-weight:700;color:var(--text-light);text-transform:uppercase;margin-bottom:6px">Actuellement</div>
@@ -478,6 +478,36 @@ function toggleCompareStation(id){
           </div>
           <div id="snowCompareLabel" style="font-size:.68rem;color:#1a5a8a;font-weight:700"></div>
         </div>
+      </div>
+
+      <!-- ENNEIGEMENT EN ALTITUDE (SOMMET) -->
+      <div style="background:linear-gradient(135deg,#dcecf9,#b9d6ee);border-radius:14px;padding:20px;margin-bottom:14px">
+        <div id="snowTitleTop" style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#3a7db8;margin-bottom:14px">🏔 Enneigement en altitude (sommet)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+          <div style="background:white;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-size:.62rem;font-weight:700;color:var(--text-light);text-transform:uppercase;margin-bottom:6px">Actuellement</div>
+            <div id="snowNowValTop" style="font-family:'DM Serif Display',serif;font-size:2rem;color:#1a5a8a;line-height:1">—</div>
+            <div style="font-size:.68rem;color:#3a7db8;font-weight:600;margin-top:2px">cm</div>
+          </div>
+          <div style="background:white;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-size:.62rem;font-weight:700;color:var(--text-light);text-transform:uppercase;margin-bottom:6px">Moy. ce mois</div>
+            <div id="snowMonthValTop" style="font-family:'DM Serif Display',serif;font-size:2rem;color:#2a6090;line-height:1">—</div>
+            <div style="font-size:.68rem;color:#3a7db8;font-weight:600;margin-top:2px">cm</div>
+          </div>
+          <div style="background:white;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-size:.62rem;font-weight:700;color:var(--text-light);text-transform:uppercase;margin-bottom:6px">Moy. annuelle</div>
+            <div id="snowAnnualValTop" style="font-family:'DM Serif Display',serif;font-size:2rem;color:#3a7db8;line-height:1">—</div>
+            <div style="font-size:.68rem;color:#3a7db8;font-weight:600;margin-top:2px">cm</div>
+          </div>
+        </div>
+        <div id="snowCompareBarTop" style="display:none">
+          <div style="font-size:.65rem;color:#3a7db8;font-weight:700;margin-bottom:6px">Actuel vs moyenne du mois</div>
+          <div style="background:rgba(255,255,255,.6);border-radius:8px;height:12px;overflow:hidden;margin-bottom:4px">
+            <div id="snowBarFillTop" style="height:100%;background:#1a5a8a;border-radius:8px;transition:width .6s ease"></div>
+          </div>
+          <div id="snowCompareLabelTop" style="font-size:.68rem;color:#1a5a8a;font-weight:700"></div>
+        </div>
+        <div id="snowSrcTop" style="font-size:.64rem;color:#3a7db8;margin-top:10px;font-style:italic"></div>
       </div>
 
       <!-- VILLAGE VS SOMMET -->
@@ -1379,6 +1409,56 @@ function estimateSommetSnow(s, stationCm) {
   return Math.round(modelSommet * 0.45);
 }
 
+
+// ── Bulletins officiels (neige.json) : utilisés quand la station est couverte, sinon estimation ──
+var __neigePromise = null;
+function loadNeigeOfficiel() {
+  if (!__neigePromise) {
+    __neigePromise = fetch('/neige.json?v=' + Math.floor(Date.now() / 600000))
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){ window.__neigeData = d; return d; })
+      .catch(function(){ return null; });
+  }
+  return __neigePromise;
+}
+loadNeigeOfficiel();
+function findOfficiel(name) {
+  var d = window.__neigeData; if (!d || !d.stations) return null;
+  var n = String(name || '').toLowerCase();
+  for (var k in d.stations) {
+    var o = d.stations[k];
+    if (k.toLowerCase() === n || (o.couvre || []).some(function(c){ return String(c).toLowerCase() === n; })) return o;
+  }
+  return null;
+}
+function frDate(iso) { var p = String(iso || '').split('-'); return p.length === 3 ? p[2] + '/' + p[1] : ''; }
+
+// ── Bloc « Enneigement en altitude (sommet) » : mêmes 3 cases que le village ──
+function updateSommetBlock(s, snowCm, snowAnnual, off) {
+  var altMin = s.alt_min || 0, altMax = s.alt_max || altMin;
+  var deltaKm = Math.max(0, altMax - altMin) / 1000;
+  var officiel = off && typeof off.haut === 'number';
+  var cur = officiel ? off.haut : estimateSommetSnow(s, snowCm);
+  var mf = [0,0.90,1.00,0.80,0.45,0.10,0,0,0,0,0.05,0.20,0.50][new Date().getMonth() + 1] || 0;
+  var bonus = altMax >= 3000 ? 1.8 : altMax >= 2500 ? 1.5 : altMax >= 2000 ? 1.2 : altMax >= 1500 ? 0.9 : 0.6;
+  var monthTyp = Math.round(snowAnnual * mf * bonus);
+  var annualTop = Math.round(snowAnnual * (1 + deltaKm * 0.8));
+  document.getElementById('snowNowValTop').textContent = (officiel ? '' : '≈ ') + cur;
+  document.getElementById('snowMonthValTop').textContent = monthTyp;
+  document.getElementById('snowAnnualValTop').textContent = annualTop;
+  var wrap = document.getElementById('snowCompareBarTop'), fill = document.getElementById('snowBarFillTop'), lab = document.getElementById('snowCompareLabelTop');
+  wrap.style.display = 'block';
+  if (monthTyp > 0) {
+    var pct = Math.min(150, Math.round((cur / monthTyp) * 100));
+    fill.style.width = Math.min(100, pct) + '%';
+    fill.style.background = pct >= 90 ? '#2ea84e' : pct >= 60 ? '#f0a500' : '#cc2200';
+    lab.textContent = pct >= 110 ? 'Au-dessus de la normale (' + pct + '%)' : pct >= 80 ? 'Dans la normale (' + pct + '%)' : 'En dessous de la normale (' + pct + '%)';
+  } else { fill.style.width = '0%'; lab.textContent = 'Hors saison — enneigement non significatif'; }
+  document.getElementById('snowSrcTop').textContent = officiel
+    ? 'Bulletin officiel de la station' + (off.date ? ' du ' + frDate(off.date) : '') + '. Moyennes : estimations.'
+    : 'Valeurs estimées à partir du modèle météo (pas de relevé officiel au sommet pour cette station). Moyennes : estimations.';
+}
+
 async function renderWeatherVignettes(grid, stations) {
   if (!grid || !stations.length) return;
 
@@ -1517,6 +1597,11 @@ async function checkStation() {
   document.getElementById('snowMonthVal').textContent = '—';
   document.getElementById('snowAnnualVal').textContent = s.snow || '—';
   document.getElementById('snowCompareBar').style.display = 'none';
+  ['snowNowValTop','snowMonthValTop','snowAnnualValTop'].forEach(function(i){ var e=document.getElementById(i); if(e) e.textContent='—'; });
+  document.getElementById('snowCompareBarTop').style.display = 'none';
+  document.getElementById('snowSrcTop').textContent = '';
+  document.getElementById('snowTitleVillage').textContent = '❄️ Enneigement en ce moment (village · ' + s.alt_min + ' m)';
+  document.getElementById('snowTitleTop').textContent = '🏔 Enneigement en altitude (sommet · ' + s.alt_max + ' m)';
   document.getElementById('villageVsSommetLbl').textContent = '📍 Village (' + s.alt_min + ' m) vs Sommet (' + s.alt_max + ' m)';
   document.getElementById('villageTxt').textContent =
     s.alt_min >= 1800 ? 'Neige garantie dès novembre — village à haute altitude.' :
@@ -1567,10 +1652,12 @@ async function checkStation() {
 
       // Enneigement — valeurs comparatives (même calcul que les fiches stations)
       var snowCm = (sd != null && sd > 0) ? Math.round(sd * 100) : 0;
+      var offData = findOfficiel(s.name);
+      if (offData && typeof offData.bas === 'number') snowCm = offData.bas;
       document.getElementById('snowNowVal').textContent = snowCm;
 
       var monthFactors = [0,0.90,1.00,0.80,0.45,0.10,0,0,0,0,0.05,0.20,0.50];
-      var altMax = s.alt_max;
+      var altMax = s.alt_min || s.alt_max; /* moyenne du village : bonus d'altitude du village */
       var altBonus = altMax >= 3000 ? 1.8 : altMax >= 2500 ? 1.5 : altMax >= 2000 ? 1.2 : altMax >= 1500 ? 0.9 : 0.6;
       var curMonth = new Date().getMonth() + 1;
       var factor = (monthFactors[curMonth] || 0) * altBonus;
@@ -1578,6 +1665,7 @@ async function checkStation() {
       var snowMonthTypical = Math.round(snowAnnual * factor);
       document.getElementById('snowMonthVal').textContent = snowMonthTypical;
       document.getElementById('snowAnnualVal').textContent = snowAnnual;
+      updateSommetBlock(s, snowCm, snowAnnual, offData);
 
       var barWrap = document.getElementById('snowCompareBar');
       var barFill = document.getElementById('snowBarFill');
