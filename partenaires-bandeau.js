@@ -215,7 +215,9 @@
       var I = document.createElement('aside'); I.id = 'sfc-inline'; I.className = 'sfc-inl';
       I.setAttribute('aria-label', EN ? 'Partner' : 'Partenaire');
       var one = sel.left || sel.right; I.innerHTML = cardHtml(one);
-      if (sep.parentNode) sep.parentNode.insertBefore(I, sep);
+      var snow = document.querySelector('.snow-strip'); /* encart téléphone : juste sous le bandeau Enneigement */
+      if (snow && snow.parentNode) snow.parentNode.insertBefore(I, snow.nextSibling);
+      else if (sep.parentNode) sep.parentNode.insertBefore(I, sep);
 
       document.addEventListener('click', function (ev) {
         var a = ev.target && ev.target.closest ? ev.target.closest('.sfc-link') : null;
@@ -278,40 +280,4 @@
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
   } catch (e) { /* une colonne ne doit jamais casser la page */ }
-})();
-
-/* ── Bandeau « Offres du moment » (Expedia / Booking) sous le bandeau Enneigement de l'accueil ──
-   Pour le retirer : supprimer ce bloc. Le lien Booking disparaît seul après le 07/01/2027. */
-(function () {
-  try {
-    var p = location.pathname.replace(/^\/en\//, '/');
-    if (!(p === '/' || /^\/index\.html$/.test(p))) return;
-    var EN = String(document.documentElement.getAttribute('lang') || 'fr').toLowerCase().indexOf('en') === 0;
-    function go() {
-      var strip = document.querySelector('.snow-strip');
-      if (!strip || document.getElementById('sfOffresMoment')) return;
-      var late = new Date() <= new Date('2027-01-08');
-      var T = EN ? { badge: '🔥 Deals right now', exp: 'EXPEDIA RIGHT NOW', boo: 'BOOKING LATE ESCAPE', lm: 'Last minute', cta: 'See the offer →' }
-                 : { badge: '🔥 Offres du moment', exp: 'EXPEDIA EN CE MOMENT', boo: 'BOOKING LATE ESCAPE', lm: 'Last minute', cta: "Voir l'offre →" };
-      var card = 'flex:1 1 240px;display:block;text-decoration:none;background:#fff;border-radius:14px;padding:14px;color:#0d2240;box-shadow:0 4px 14px rgba(0,0,0,.25);text-align:center';
-      var html = '<div style="max-width:860px;margin:16px auto 0;padding:0 20px">' +
-        '<div style="border-radius:18px;overflow:hidden;padding:22px 16px;background:linear-gradient(180deg,rgba(13,34,64,.45) 0%,rgba(13,34,64,.75) 100%),url(\'/img/valthorens1.jpg\') center/cover no-repeat;box-shadow:0 10px 30px rgba(13,34,64,.28);text-align:center">' +
-        '<div style="display:inline-block;background:#ff5a3c;color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:14px">' + T.badge + '</div>' +
-        '<div style="display:flex;flex-wrap:wrap;gap:10px">' +
-        '<a href="https://www.tkqlhce.com/click-101709262-15606970" target="_blank" rel="noopener sponsored" style="' + card + '">' +
-          '<span style="display:block;font-size:1.9rem;font-weight:800;color:#ff5a3c;line-height:1">-25 %</span>' +
-          '<strong style="display:block;font-size:.95rem;margin-top:4px">' + T.exp + '</strong>' +
-          '<span style="display:block;margin-top:10px;background:#ff5a3c;color:#fff;font-weight:700;font-size:.82rem;border-radius:20px;padding:8px 12px">' + T.cta + '</span></a>' +
-        (late ? '<a href="https://www.dpbolvw.net/click-101709262-17344158" target="_blank" rel="noopener sponsored" style="' + card + '">' +
-          '<span style="display:block;font-size:1.9rem;font-weight:800;color:#003580;line-height:1">' + T.lm + '</span>' +
-          '<strong style="display:block;font-size:.95rem;margin-top:4px">' + T.boo + '</strong>' +
-          '<span style="display:block;margin-top:10px;background:#003580;color:#fff;font-weight:700;font-size:.82rem;border-radius:20px;padding:8px 12px">' + T.cta + '</span></a>' : '') +
-        '</div></div></div>';
-      var d = document.createElement('div');
-      d.id = 'sfOffresMoment';
-      d.innerHTML = html;
-      strip.parentNode.insertBefore(d, strip.nextSibling);
-    }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
-  } catch (e) { /* ne doit jamais casser la page */ }
 })();
