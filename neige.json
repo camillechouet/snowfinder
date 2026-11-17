@@ -1,5 +1,5 @@
 {
- "maj": "2026-11-17T11:36Z",
+ "maj": "2026-11-17T16:59Z",
  "source": "bulletins des stations (ANMSM) via Skipass",
  "stations": {
   "La Grave": {
@@ -108,15 +108,6 @@
    "couvre": [
     "Val Cenis"
    ]
-  },
-  "Serre Chevalier": {
-   "alt_haut": 2800,
-   "alt_bas": 1200,
-   "date": "2026-11-17",
-   "couvre": [
-    "Serre Chevalier"
-   ],
-   "ouverture": "2026-12-05"
   },
   "Aussois": {
    "alt_haut": 2750,
