@@ -2245,6 +2245,89 @@ def render_similar_section(s, exclude=None):
     </a>
   </div>"""
 
+
+def _rang(valeur, valeurs, plus_grand_mieux=True):
+    """Rang (1 = meilleur) de `valeur` parmi `valeurs`, ex æquo compris."""
+    if plus_grand_mieux:
+        return 1 + sum(1 for v in valeurs if v > valeur)
+    return 1 + sum(1 for v in valeurs if v < valeur)
+
+def _duels_de(s):
+    """Duels publiés (comparatifs/*.html) qui concernent cette station."""
+    slug = slugify(s['name'])
+    dossier = os.path.join(root_dir, 'comparatifs')
+    out = []
+    if os.path.isdir(dossier):
+        for f in sorted(os.listdir(dossier)):
+            if not f.endswith('.html') or '-vs-' not in f or f.startswith('tous-'):
+                continue
+            a, b = f[:-5].split('-vs-', 1)
+            if slug in (a, b):
+                autre = b if a == slug else a
+                nom = next((x['name'] for x in DATA if slugify(x['name']) == autre), None)
+                if nom:
+                    out.append((nom, f))
+    return out
+
+def render_position_section(s):
+    """Bloc « Où se situe la station » : classement chiffré parmi les stations du même pays
+    et du même massif de stations-data.js. Uniquement des chiffres calculés, aucun texte inventé."""
+    import statistics
+    nom = s['name']
+    pays = pays_code(s)
+    groupe = [x for x in DATA if pays_code(x) == pays and x.get('massif') == s.get('massif')]
+    if len(groupe) < 5:
+        groupe = [x for x in DATA if pays_code(x) == pays]
+        libelle = "les " + str(len(groupe)) + " stations " + PAYS_DE[pays] + " suivies par SnowFinder"
+    else:
+        libelle = "les " + str(len(groupe)) + " stations de la zone « " + str(s.get('massif')) + " »" + (
+            "" if pays == 'FR' else " (" + PAYS_NOM[pays] + ")")
+    if len(groupe) < 5:
+        return ''
+    lignes = []
+    def ajoute(titre, cle, unite, plus_grand_mieux=True, fmt=lambda v: str(v)):
+        v = s.get(cle) or 0
+        vals = [x.get(cle) or 0 for x in groupe if (x.get(cle) or 0) > 0]
+        if v <= 0 or len(vals) < 5:
+            return
+        med = statistics.median(vals)
+        rang = _rang(v, vals, plus_grand_mieux)
+        lignes.append((titre, fmt(v) + unite, str(rang) + ("er" if rang == 1 else "e") + " sur " + str(len(vals)),
+                       fmt(int(round(med)) if cle != 'score' else med) + unite))
+    ajoute("Taille du domaine", "km", " km")
+    ajoute("Altitude du sommet", "alt_max", " m")
+    ajoute("Forfait journée (du moins cher au plus cher)", "forfait", " €", plus_grand_mieux=False)
+    ajoute("Nombre de remontées", "remontees", "")
+    ajoute("Note SnowFinder", "score", " / 5", fmt=lambda v: ("%.2f" % v).replace('.', ','))
+    if len(lignes) < 3:
+        return ''
+    phrases = []
+    f = s.get('forfait') or 0
+    fv = [x['forfait'] for x in groupe if (x.get('forfait') or 0) > 0]
+    if f > 0 and len(fv) >= 5:
+        med = statistics.median(fv)
+        if med > 0 and abs(f - med) / med >= 0.05:
+            ecart = round(abs(f - med) / med * 100)
+            phrases.append("Son forfait journée à " + str(f) + " € est " + str(ecart) + " % " +
+                           ("moins cher" if f < med else "plus cher") + " que la médiane de ces stations (" + str(int(round(med))) + " €).")
+    td = '<td style="padding:7px 8px;border-bottom:1px solid #f0e6d6'
+    rows = ''.join('<tr>' + td + '">' + a + '</td>' + td + ';font-weight:700">' + b + '</td>' + td + '">' + c +
+                   '</td>' + td + ';color:#8a7060">' + d + '</td></tr>' for a, b, c, d in lignes)
+    duels = _duels_de(s)
+    duels_html = ''
+    if duels:
+        duels_html = '<p style="font-size:.85rem;margin-top:10px;line-height:1.7">⚔️ Duels : ' + ' · '.join(
+            '<a href="../comparatifs/' + fn + '" style="color:#3a7db8;font-weight:600">' + nom + ' vs ' + n2 + '</a>'
+            for n2, fn in duels) + '</p>'
+    intro = ("Pour situer " + nom + ", voici son classement parmi " + libelle + ". "
+             "Le rang 1 correspond à la valeur la plus élevée, sauf pour le forfait où il désigne le moins cher. " + ' '.join(phrases))
+    return ('\n  <div style="margin-top:20px">\n    <div style="font-family:\'DM Serif Display\',serif;font-size:1rem;color:#8a7060;'
+            'text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid #f7efe2">'
+            '📊 Où se situe ' + nom + '</div>\n    <p style="font-size:.85rem;line-height:1.7;color:var(--text-mid)">' + intro +
+            '</p>\n    <table style="width:100%;border-collapse:collapse;font-size:.82rem;margin-top:8px"><tr style="text-align:left;color:#8a7060">'
+            '<th style="padding:6px 8px">Critère</th><th style="padding:6px 8px">' + nom + '</th><th style="padding:6px 8px">Rang</th>'
+            '<th style="padding:6px 8px">Médiane</th></tr>' + rows + '</table>' + duels_html + '\n  </div>')
+
 AMB_EMOJI = {
     "luxe": "💎", "festif": "🎉", "famille": "👨‍👩‍👧", 
     "nature": "🌿", "village": "🏡", "rider": "⚡", "soleil": "☀️"
@@ -3702,7 +3785,7 @@ def render_page(s):
         ]
     }
     schema = json.dumps(schema_obj, ensure_ascii=False)
-    similar_html = render_similar_section(s, exclude=soeurs)
+    similar_html = render_position_section(s) + render_similar_section(s, exclude=soeurs)
     if sans_pistes:
         apercu_pistes_html = f'''<div style="background:var(--blue-light);border:1.5px solid #c8dff0;border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:.85rem;line-height:1.6;color:var(--text-mid)">
             🚡 <strong>Pas de pistes au départ {nom_de}.</strong> La station est reliée au domaine
