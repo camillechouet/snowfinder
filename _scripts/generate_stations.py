@@ -1342,8 +1342,8 @@ STATION_ANECDOTES = {
         "La Clusaz est aussi le berceau du reblochon fermier : certaines fermes de production se visitent... skis aux pieds.",
     ],
     "Le Grand-Bornand": [
-        "C'est la capitale française du biathlon : depuis 2013, la Coupe du monde y fait étape sur le stade Sylvie Becaert, un stade démontable en plein village — le « circuit de Monaco » du biathlon — réputé pour l'ambiance la plus folle du circuit mondial. Le village accueillera les épreuves de biathlon des JO 2030.",
-        "Le village est aussi une terre historique du reblochon fermier AOP : le fromage y est mentionné officiellement dès 1699, dans un bail de location de propriété.",
+        "Hôte de l'unique manche française de la LaVita IBU Coupe du monde de Biathlon, Le Grand-Bornand, fort de l'organisation réussie de sept éditions depuis 2013, se prépare à accueillir à nouveau cet événement mondial du 07 au 13 décembre 2026 mais également en 2028. L'occasion de voir briller les talents de l'équipe de France à domicile, dans l'enceinte du stade international Sylvie Becaert. Ces deux temps forts internationaux interviennent au Grand-Bornand alors même que la ville se prépare à accueillir les Jeux Olympiques et Paralympiques d'hiver de 2030.",
+        "Le reblochon de Savoie, bien plus qu'un fromage… Avec une quarantaine de fermes en activité toute l'année et 2060 vaches, Le Grand-Bornand s'impose comme la première commune agropastorale de Haute-Savoie. Le Grand-Bornand est le berceau du reblochon fermier.",
     ],
     "Les Saisies": [
         "Le 1er août 1944, le col des Saisies fut le théâtre de l'un des plus importants parachutages d'armes de la Résistance française : en plein jour, des dizaines de bombardiers B17 américains larguèrent près de 900 containers pour armer le maquis du Beaufortain du capitaine Bulle. Un monument commémore l'opération.",
@@ -2582,6 +2582,8 @@ def generate_verdict(s):
 
 def generate_pour_qui(s):
     """Génère les profils de voyageurs recommandés."""
+    if s['name'] in POUR_QUI_OVERRIDE:
+        return POUR_QUI_OVERRIDE[s['name']]
     ambs = s.get('amb', [])
     nivs = s.get('niv', [])
     items = []
@@ -3341,7 +3343,33 @@ LIENS_OFFICIELS = {
     "Morillon": {"webcam": "https://www.haut-giffre.fr/jy-suis/webcams/",
                  "plan": "https://www.haut-giffre.fr/domaines-skiables/grand-massif-domaines-skiables/"},
 }
+# Texte d'introduction des Informations pratiques fourni par l'office (remplace « est une station de ski du massif… »)
+INFOS_INTRO_OVERRIDE = {
+    "Le Grand-Bornand": "En Haute-Savoie, au cœur du Massif des Aravis entre Annecy, Chamonix et Genève, <strong>Le Grand-Bornand</strong> offre le charme d'un village de montagne traditionnel et les équipements d'une station de premier plan.",
+}
+# Descriptions « Ambiance », « Niveaux » et « Pour qui » fournies par l'office
+AMB_DESC_OVERRIDE = {
+    "Le Grand-Bornand": {
+        "famille": "Infrastructures pensées pour les enfants, pistes vertes faciles, station labellisée Famille Plus",
+        "village": "Destination d'Excellence™, charme montagnard, architecture traditionnelle préservée, 3 lieux-3 ambiances : Le Grand-Bornand Village, Chinaillon et la vallée du Bouchet",
+    },
+}
+NIV_DESC_OVERRIDE = {
+    "Le Grand-Bornand": {
+        "debutant": "Larges pistes vertes et bleues, écoles de ski accessibles, 3 espaces de ski débutant",
+        "intermediaire": "Beau choix de bleues et rouges variées possibles en connexion",
+        "avance": "5 pistes noires, Dénivel'Maxx : 3 km de descente pour 1100 m de dénivelé, snowpark (lignes XS à XXL), boardercross, big air bag",
+    },
+}
+POUR_QUI_OVERRIDE = {
+    "Le Grand-Bornand": [
+        ("👨‍👩‍👧", "Familles", "Parfait pour initier les enfants, séjours tout-compris via la centrale de réservation"),
+        ("⛷", "Skieurs tranquilles, contemplatifs et sportifs", "Quelles que soient vos aptitudes ou vos envies, trouvez votre itinéraire"),
+        ("🌿", "Amoureux de nature et grands espaces", "Authenticité et cadre calme et préservé"),
+    ],
+}
 INFOS_PRATIQUES_EXTRA = {
+    "Le Grand-Bornand": " Tarification dynamique : achetez tôt, payez moins ! Jusqu'à <strong>50 %</strong> de remise sur le forfait en l'achetant à l'avance ; forfait 6 jours adulte à partir de <strong>129€</strong>. Pré-ouverture les 5 et 6 décembre 2026, ouverture en continu du 12 décembre 2026 au 11 avril 2027.",
     "Pralognan-la-Vanoise": " Tarif réduit : <strong>35€</strong>.",
     "Sainte-Foy-Tarentaise": " Le samedi, le forfait journée adulte descend à <strong>30€</strong>.",
     "La Bresse-Hohneck": " Forfait étudiant 1 jour : <strong>27€</strong>.",
@@ -3695,7 +3723,7 @@ def render_page(s):
       <div style="background:var(--wood-pale);border-radius:12px;padding:14px 12px;text-align:center;border:1.5px solid var(--wood-light)">
         <div style="font-size:1.8rem;margin-bottom:5px">{AMB_EMOJI.get(a,"⛷")}</div>
         <div style="font-weight:700;font-size:.82rem;color:var(--text-mid);margin-bottom:3px">{AMB.get(a,a)}</div>
-        <div style="font-size:.68rem;color:var(--text-light);line-height:1.4">{AMB_DESC.get(a,"")}</div>
+        <div style="font-size:.68rem;color:var(--text-light);line-height:1.4">{AMB_DESC_OVERRIDE.get(s['name'],{}).get(a) or AMB_DESC.get(a,"")}</div>
       </div>''' for a in s.get('amb', []))
 
     # HTML niveaux (grandes tuiles)
@@ -3703,7 +3731,7 @@ def render_page(s):
       <div style="background:var(--blue-light);border-radius:12px;padding:14px 12px;text-align:center;border:1.5px solid #c8dff0">
         <div style="font-size:1.5rem;margin-bottom:5px">{NIV_EMOJI.get(n,"⛷")}</div>
         <div style="font-weight:700;font-size:.82rem;color:var(--blue-dark);margin-bottom:3px">{NIV.get(n,n)}</div>
-        <div style="font-size:.68rem;color:#4a7a9b;line-height:1.4">{NIV_DESC.get(n,"")}</div>
+        <div style="font-size:.68rem;color:#4a7a9b;line-height:1.4">{NIV_DESC_OVERRIDE.get(s['name'],{}).get(n) or NIV_DESC.get(n,"")}</div>
       </div>''' for n in s.get('niv', []))
     official_url = get_official_url(s['name'])
     _lo = LIENS_OFFICIELS.get(s['name'])
@@ -4910,8 +4938,7 @@ function closeStation(){{
         <div class="section">
           <div class="section-title">Informations pratiques</div>
           <p style="font-size:.83rem;line-height:1.65;color:var(--text-mid)">
-            <strong>{s['name']}</strong> est une station de ski du massif <strong>{s['massif']}</strong>,
-            {_region_pre} <strong>{_region_nom}</strong>. {infos_domaine_txt} {FORFAIT_LABEL.get(s['name'],'Forfait journée')} <strong>{fmt_eur(s['forfait'])}€</strong> par adulte.{INFOS_PRATIQUES_EXTRA.get(s['name'], '')}
+            {INFOS_INTRO_OVERRIDE.get(s['name']) or (f"<strong>{s['name']}</strong> est une station de ski du massif <strong>{s['massif']}</strong>, {_region_pre} <strong>{_region_nom}</strong>.")} {infos_domaine_txt} {FORFAIT_LABEL.get(s['name'],'Forfait journée')} <strong>{fmt_eur(s['forfait'])}€</strong> par adulte.{INFOS_PRATIQUES_EXTRA.get(s['name'], '')}
           </p>
           <p style="font-size:.72rem;line-height:1.5;color:var(--text-soft);margin-top:.5rem">
             * Prix par adulte pour 1 journée, tarif public haute saison. Des tarifs réduits
