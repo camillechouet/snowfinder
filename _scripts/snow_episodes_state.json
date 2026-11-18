@@ -2,9 +2,9 @@
   "episodes": {
     "Alpes du Nord_2026-W47": {
       "massif": "Alpes du Nord",
-      "target_date": "2026-11-18",
-      "top_station": "Val Thorens",
-      "snow_cm": 60,
+      "target_date": "2026-11-19",
+      "top_station": "Tignes",
+      "snow_cm": 70,
       "stages_sent": [
         "j10",
         "j7",
@@ -19,7 +19,8 @@
       "snow_cm": 28,
       "stages_sent": [
         "j10",
-        "j7"
+        "j7",
+        "j4"
       ]
     },
     "Pyrénées_2026-W47": {
