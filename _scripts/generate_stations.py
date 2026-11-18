@@ -2026,6 +2026,7 @@ PLAN_CREDIT_NOM = {"Les Rousses": "Station des Rousses",
                    "Saint-Jean-d'Aulps": "Vallée d'Aulps Tourisme",
                    "Montriond": "Vallée d'Aulps Tourisme / Avoriaz",
                    "La Rosière": "Office de tourisme de La Rosière",
+                   "Le Grand-Bornand": "Le Grand-Bornand Tourisme",
                    "Le Bleymard-Mont Lozère": "Station Le Bleymard – Les Monts Lozère",
                    "Avoriaz": "Avoriaz Domaine de montagne (plan transmis par Vallée d'Aulps Tourisme)"}
 
@@ -3331,6 +3332,7 @@ PHOTO_CREDITS = {
     "Saint-Jean-d'Aulps": "Vallée d'Aulps Tourisme – Jérémy Trolliet, Vincent Euzen, Lucie Tanguy",
     "Montriond": "Vallée d'Aulps Tourisme – Lucie Tanguy",
     "La Rosière": "Office de tourisme de La Rosière",
+    "Le Grand-Bornand": "Le Grand-Bornand Tourisme – Loris Poussin, P. Guilbaud, C. Hudry, Tilby Vattard",
 }
 
 # Texte « domaine » des Informations pratiques fourni par l'office (remplace la phrase auto)
