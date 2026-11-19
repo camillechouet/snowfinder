@@ -2,9 +2,9 @@
   "episodes": {
     "Alpes du Nord_2026-W47": {
       "massif": "Alpes du Nord",
-      "target_date": "2026-11-19",
-      "top_station": "Tignes",
-      "snow_cm": 70,
+      "target_date": "2026-11-22",
+      "top_station": "Val Thorens",
+      "snow_cm": 46,
       "stages_sent": [
         "j10",
         "j7",
@@ -29,14 +29,15 @@
       "top_station": "Cauterets",
       "snow_cm": 27,
       "stages_sent": [
-        "j10"
+        "j10",
+        "j4"
       ]
     },
     "Alpes du Sud_2026-W48": {
       "massif": "Alpes du Sud",
-      "target_date": "2026-11-23",
-      "top_station": "Serre Chevalier",
-      "snow_cm": 29,
+      "target_date": "2026-11-25",
+      "top_station": "Isola 2000",
+      "snow_cm": 43,
       "stages_sent": [
         "j10"
       ]
