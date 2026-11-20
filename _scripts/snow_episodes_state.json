@@ -3,8 +3,8 @@
     "Alpes du Nord_2026-W47": {
       "massif": "Alpes du Nord",
       "target_date": "2026-11-22",
-      "top_station": "Val Thorens",
-      "snow_cm": 46,
+      "top_station": "Alpe d'Huez",
+      "snow_cm": 44,
       "stages_sent": [
         "j10",
         "j7",
@@ -14,13 +14,14 @@
     },
     "Alpes du Sud_2026-W47": {
       "massif": "Alpes du Sud",
-      "target_date": "2026-11-22",
-      "top_station": "Isola 2000",
-      "snow_cm": 28,
+      "target_date": "2026-11-21",
+      "top_station": "Serre Chevalier",
+      "snow_cm": 23,
       "stages_sent": [
         "j10",
         "j7",
-        "j4"
+        "j4",
+        "j1"
       ]
     },
     "Pyrénées_2026-W47": {
