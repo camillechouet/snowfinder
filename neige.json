@@ -1,5 +1,5 @@
 {
- "maj": "2026-11-19T16:41Z",
+ "maj": "2026-11-20T16:17Z",
  "source": "bulletins des stations (ANMSM) via Skipass",
  "stations": {
   "La Grave": {
@@ -7,7 +7,7 @@
    "bas": 0,
    "alt_haut": 3550,
    "alt_bas": 1400,
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "couvre": [
     "La Grave - La Meije"
    ]
@@ -17,31 +17,53 @@
    "bas": 19,
    "alt_haut": 3500,
    "alt_bas": 1850,
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "couvre": [
     "Val d'Isère"
    ]
   },
   "Tignes": {
-   "haut": 110,
-   "bas": 20,
+   "haut": 150,
+   "bas": 70,
    "alt_haut": 3450,
    "alt_bas": 1550,
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "couvre": [
     "Tignes"
    ]
   },
   "La Plagne": {
-   "haut": 102,
+   "haut": 116,
    "bas": 0,
    "alt_haut": 3250,
    "alt_bas": 1250,
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "couvre": [
     "La Plagne",
     "Champagny-en-Vanoise",
     "Montchavin-Les Coches"
+   ]
+  },
+  "Val Thorens": {
+   "haut": 90,
+   "bas": 40,
+   "alt_haut": 3230,
+   "alt_bas": 1800,
+   "date": "2026-11-20",
+   "couvre": [
+    "Val Thorens",
+    "Orelle"
+   ]
+  },
+  "Les Arcs": {
+   "haut": 30,
+   "bas": 0,
+   "alt_haut": 3226,
+   "alt_bas": 1200,
+   "date": "2026-11-20",
+   "couvre": [
+    "Les Arcs",
+    "Peisey-Vallandry"
    ]
   },
   "La Norma": {
@@ -49,7 +71,7 @@
    "bas": 0,
    "alt_haut": 2750,
    "alt_bas": 1350,
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "couvre": [
     "La Norma"
    ]
@@ -59,44 +81,24 @@
   "Les 2 Alpes": {
    "alt_haut": 3600,
    "alt_bas": 1300,
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "couvre": [
     "Les Deux Alpes"
-   ]
-  },
-  "Val Thorens": {
-   "alt_haut": 3230,
-   "alt_bas": 1800,
-   "date": "2026-11-19",
-   "couvre": [
-    "Val Thorens",
-    "Orelle"
-   ],
-   "ouverture": "2026-11-21"
-  },
-  "Les Arcs": {
-   "alt_haut": 3226,
-   "alt_bas": 1200,
-   "date": "2026-11-19",
-   "couvre": [
-    "Les Arcs",
-    "Peisey-Vallandry"
    ]
   },
   "Méribel": {
    "alt_haut": 2952,
    "alt_bas": 1100,
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "couvre": [
     "Méribel",
     "Brides-les-Bains"
-   ],
-   "ouverture": "2026-12-05"
+   ]
   },
   "La Rosière": {
    "alt_haut": 2800,
    "alt_bas": 1190,
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "couvre": [
     "La Rosière"
    ]
@@ -104,18 +106,20 @@
   "Val Cenis": {
    "alt_haut": 2800,
    "alt_bas": 1300,
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "couvre": [
     "Val Cenis"
-   ]
+   ],
+   "ouverture": "2026-12-13"
   },
   "Aussois": {
    "alt_haut": 2750,
    "alt_bas": 1500,
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "couvre": [
     "Aussois"
-   ]
+   ],
+   "ouverture": "2026-12-12"
   }
  }
 }
