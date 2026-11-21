@@ -3772,13 +3772,6 @@ def render_page(s):
                     "addressCountry": "FR",
                     "addressRegion": s.get("region", "")
                 },
-                "aggregateRating": {
-                    "@type": "AggregateRating",
-                    "ratingValue": str(round(s.get("score", 4.0), 1)),
-                    "bestRating": "5",
-                    "worstRating": "1",
-                    "ratingCount": "50"
-                },
                 "amenityFeature": ([] if not s["km"] else [
                     {"@type": "LocationFeatureSpecification", "name": "Pistes de ski", "value": str(s["km"]) + " km"}]) + [
                     {"@type": "LocationFeatureSpecification", "name": "Remontees mecaniques", "value": str(s["remontees"])},
