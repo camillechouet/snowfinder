@@ -12,18 +12,6 @@
         "j1"
       ]
     },
-    "Alpes du Sud_2026-W47": {
-      "massif": "Alpes du Sud",
-      "target_date": "2026-11-21",
-      "top_station": "Serre Chevalier",
-      "snow_cm": 23,
-      "stages_sent": [
-        "j10",
-        "j7",
-        "j4",
-        "j1"
-      ]
-    },
     "Pyrénées_2026-W47": {
       "massif": "Pyrénées",
       "target_date": "2026-11-22",
@@ -38,10 +26,11 @@
     "Alpes du Sud_2026-W48": {
       "massif": "Alpes du Sud",
       "target_date": "2026-11-24",
-      "top_station": "Pra-Loup",
-      "snow_cm": 34,
+      "top_station": "Isola 2000",
+      "snow_cm": 33,
       "stages_sent": [
-        "j10"
+        "j10",
+        "j4"
       ]
     },
     "Massif Central_2026-W48": {
@@ -59,6 +48,13 @@
       "stages_sent": [
         "j10"
       ]
+    },
+    "Alpes du Nord_2026-W48": {
+      "massif": "Alpes du Nord",
+      "target_date": "2026-11-25",
+      "top_station": "Chamrousse",
+      "snow_cm": 39,
+      "stages_sent": []
     }
   }
 }
