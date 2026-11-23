@@ -22,5 +22,13 @@
     "slug": "meilleures-stations-ski-debutants-france",
     "title": "Les 10 stations de ski les plus adaptées aux débutants en France",
     "date": "2026-11-09"
+  },
+  {
+    "key": "altitude:alpes-du-nord",
+    "format": "altitude",
+    "scope": "alpes-du-nord",
+    "slug": "stations-ski-plus-hautes-alpes-du-nord",
+    "title": "Les 10 domaines skiables où l'on skie le plus haut dans les Alpes du Nord françaises",
+    "date": "2026-11-23"
   }
 ]

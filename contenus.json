@@ -2,6 +2,15 @@
   "_aide": "Manifeste des contenus SnowFinder. Un nouvel article = une entrée dans 'articles' (date ISO, le plus récent est trié en premier). Un nouveau duel = une entrée EN TÊTE de 'duels' (le premier est le héros de l'accueil, les 2 suivants les bandeaux). Le script generate_contenus.py reconstruit l'accueil et toutes-les-actus.html. Les duels marqués \"manuel\": true ont une page faite à la main (pas générée par generate_comparatifs.py) : ils restent dans les listes mais ne sont pas régénérés.",
   "articles": [
     {
+      "slug": "stations-ski-plus-hautes-alpes-du-nord",
+      "title": "Les 10 domaines skiables où l'on skie le plus haut dans les Alpes du Nord françaises",
+      "category": "Classement",
+      "excerpt": "Chamonix arrive en tête (3 842 m) : le classement chiffré des 10 domaines skiables dans les Alpes du Nord françaises, à partir des données SnowFinder.",
+      "img": "/img/chamonix1.jpg",
+      "date": "2026-11-23",
+      "read_min": 10
+    },
+    {
       "slug": "quel-forfait-de-ski-choisir-en-2026-2027-journee-sejour-saison",
       "title": "Quel forfait de ski choisir en 2026-2027 : journée, séjour, saison, débutant ou grand domaine ?",
       "category": "Forfaits & budget",
