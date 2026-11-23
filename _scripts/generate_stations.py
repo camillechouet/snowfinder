@@ -2027,6 +2027,7 @@ PLAN_CREDIT_NOM = {"Les Rousses": "Station des Rousses",
                    "Montriond": "Vallée d'Aulps Tourisme / Avoriaz",
                    "La Rosière": "Office de tourisme de La Rosière",
                    "Le Grand-Bornand": "Le Grand-Bornand Tourisme",
+                   "Le Champ du Feu": "Mont Champ du Feu",
                    "Le Bleymard-Mont Lozère": "Station Le Bleymard – Les Monts Lozère",
                    "Avoriaz": "Avoriaz Domaine de montagne (plan transmis par Vallée d'Aulps Tourisme)"}
 
@@ -3020,6 +3021,7 @@ OFFICIAL_URLS = {
     # VOSGES
     "Gérardmer":                    "https://www.gerardmer-montagne.com",
     "La Bresse-Hohneck":            "https://labresse.labellemontagne.com/fr/",
+    "Le Champ du Feu":              "https://destination.montchampdufeu.com/fr/",
     "La Bresse Lispach":            "https://lispach.com/",
     "Le Markstein":                 "https://www.lemarkstein.fr",
     # JURA
@@ -3333,6 +3335,7 @@ PHOTO_CREDITS = {
     "Montriond": "Vallée d'Aulps Tourisme – Lucie Tanguy",
     "La Rosière": "Office de tourisme de La Rosière",
     "Le Grand-Bornand": "Le Grand-Bornand Tourisme – Loris Poussin, P. Guilbaud, C. Hudry, Tilby Vattard",
+    "Le Champ du Feu": "@montchampdufeu",
 }
 
 # Texte « domaine » des Informations pratiques fourni par l'office (remplace la phrase auto)
@@ -3371,6 +3374,7 @@ POUR_QUI_OVERRIDE = {
     ],
 }
 INFOS_PRATIQUES_EXTRA = {
+    "Le Champ du Feu": " Forfait adulte à la journée : <strong>27€</strong> pendant les vacances scolaires, <strong>22€</strong> hors vacances. Un tarif réduit est proposé aux débutants avec accès aux pistes dédiées.",
     "Le Grand-Bornand": " Tarification dynamique : achetez tôt, payez moins ! Jusqu'à <strong>50 %</strong> de remise sur le forfait en l'achetant à l'avance ; forfait 6 jours adulte à partir de <strong>129€</strong>. Pré-ouverture les 5 et 6 décembre 2026, ouverture en continu du 12 décembre 2026 au 11 avril 2027.",
     "Pralognan-la-Vanoise": " Tarif réduit : <strong>35€</strong>.",
     "Sainte-Foy-Tarentaise": " Le samedi, le forfait journée adulte descend à <strong>30€</strong>.",
