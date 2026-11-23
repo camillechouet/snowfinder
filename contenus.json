@@ -256,6 +256,12 @@
   ],
   "duels": [
     {
+      "a": "La Giettaz",
+      "b": "Valmorel",
+      "img": "/img/lagiettaz1.jpg",
+      "img_b": "/img/valmorel1.jpg"
+    },
+    {
       "a": "Montgenèvre",
       "b": "Orcières Merlette 1850",
       "img": "/img/montgenevre1.jpg",

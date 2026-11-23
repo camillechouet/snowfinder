@@ -358,5 +358,65 @@
     ],
     "date": "2026-11-16",
     "modele": "claude-opus-5-5"
+  },
+  {
+    "a": "La Giettaz",
+    "b": "Valmorel",
+    "img_a": "lagiettaz1",
+    "img_b": "valmorel1",
+    "teaser": "Deux stations-villages savoyardes des Alpes du Nord, au profil familial, s'affrontent. La Giettaz, petit village pastoral entre Aravis et Mont-Blanc, mise sur le calme et un forfait plus abordable. Valmorel, station piétonne de Tarentaise à l'architecture savoyarde soignée, répond avec davantage de pistes bleues et noires et le label Famille Plus.",
+    "profils": [
+      [
+        "👨‍👩‍👧 Familles avec jeunes enfants",
+        "Valmorel",
+        "Station piétonne titulaire du label Famille Plus, Valmorel propose une garderie et 31 pistes bleues pour faire progresser les enfants en douceur."
+      ],
+      [
+        "💰 Skieurs attentifs au prix du forfait",
+        "La Giettaz",
+        "Le forfait y coûte 52 € contre 56 € à Valmorel, soit 4 € d'écart (7 %)."
+      ],
+      [
+        "🌲 Amateurs de nature et de tranquillité",
+        "La Giettaz",
+        "Ce village pastoral très peu fréquenté offre un cadre champêtre avec vue sur le Mont-Blanc, idéal pour un ski tranquille."
+      ],
+      [
+        "⛷️ Skieurs confirmés",
+        "Valmorel",
+        "Valmorel s'adresse aussi aux skieurs de niveau avancé, avec 5 pistes noires contre 3 et une altitude maximale de 2550 m, soit 110 m de plus."
+      ],
+      [
+        "🔴 Amateurs de pistes rouges",
+        "La Giettaz",
+        "La Giettaz compte 14 pistes rouges contre 12 à Valmorel, pour un domaine de 100 km."
+      ],
+      [
+        "🎿 Grands débutants",
+        "Égalité",
+        "Les deux stations ciblent les débutants et proposent un nombre proche de pistes vertes : 12 à La Giettaz et 13 à Valmorel."
+      ]
+    ],
+    "verdict": "<strong>La Giettaz</strong> convient aux skieurs qui recherchent un village authentique et calme, un forfait à 52 € et un domaine orienté débutants et intermédiaires. <strong>Valmorel</strong> répond mieux aux familles qui veulent une station piétonne labellisée Famille Plus, ainsi qu'aux groupes de niveaux variés grâce à ses 31 pistes bleues et 5 noires. Les deux stations sont proches au classement, avec un score de 4.17 pour l'une et 4.2 pour l'autre. Le choix dépend donc surtout de l'ambiance recherchée : nature et tranquillité d'un côté, station-village conviviale et architecture soignée de l'autre.",
+    "faq": [
+      [
+        "Quelle station a le forfait le moins cher ?",
+        "La Giettaz, avec un forfait à 52 € contre 56 € à Valmorel. L'écart est de 4 €, soit 7 %."
+      ],
+      [
+        "Quelle station offre le plus grand domaine skiable ?",
+        "Selon nos fiches, La Giettaz annonce 100 km de pistes et Valmorel 95 km, soit 5 km d'écart. La Giettaz fait partie de l'Espace Diamant (155 km avec Crest-Voland, Flumet…), tandis que le domaine de Valmorel, de 165 km, s'étend jusqu'au Grand Domaine."
+      ],
+      [
+        "Laquelle est la plus adaptée aux skieurs expérimentés ?",
+        "Valmorel, qui couvre les niveaux débutant, intermédiaire et avancé, avec 5 pistes noires et une altitude maximale de 2550 m. La Giettaz s'adresse plutôt aux débutants et aux intermédiaires, avec 3 pistes noires et un sommet à 2440 m."
+      ],
+      [
+        "Les deux stations sont-elles adaptées aux familles ?",
+        "Oui, toutes deux ont une ambiance familiale et disposent d'une garderie. Valmorel ajoute le label Famille Plus et des rues piétonnes, tandis que La Giettaz mise sur un cadre champêtre et peu fréquenté."
+      ]
+    ],
+    "date": "2026-11-23",
+    "modele": "claude-opus-5-5"
   }
 ]
