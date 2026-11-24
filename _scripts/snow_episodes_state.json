@@ -1,33 +1,10 @@
 {
   "episodes": {
-    "Alpes du Nord_2026-W47": {
-      "massif": "Alpes du Nord",
-      "target_date": "2026-11-22",
-      "top_station": "Val Thorens",
-      "snow_cm": 59,
-      "stages_sent": [
-        "j10",
-        "j7",
-        "j4",
-        "j1"
-      ]
-    },
-    "Pyrénées_2026-W47": {
-      "massif": "Pyrénées",
-      "target_date": "2026-11-22",
-      "top_station": "Cauterets",
-      "snow_cm": 27,
-      "stages_sent": [
-        "j10",
-        "j4",
-        "j1"
-      ]
-    },
     "Alpes du Sud_2026-W48": {
       "massif": "Alpes du Sud",
-      "target_date": "2026-11-24",
-      "top_station": "Isola 2000",
-      "snow_cm": 33,
+      "target_date": "2026-11-25",
+      "top_station": "Serre Chevalier",
+      "snow_cm": 24,
       "stages_sent": [
         "j10",
         "j4"
@@ -46,14 +23,15 @@
       "top_station": "Cauterets",
       "snow_cm": 25,
       "stages_sent": [
-        "j10"
+        "j10",
+        "j1"
       ]
     },
     "Alpes du Nord_2026-W48": {
       "massif": "Alpes du Nord",
       "target_date": "2026-11-25",
       "top_station": "Chamrousse",
-      "snow_cm": 39,
+      "snow_cm": 27,
       "stages_sent": []
     }
   }
