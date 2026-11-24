@@ -11,7 +11,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/index.html</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/index.html"/>
@@ -14167,6 +14167,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/la-clusaz-vs-le-grand-bornand.html"/>
   </url>
   <url>
+    <loc>https://snowfinder.fr/comparatifs/la-giettaz-vs-valmorel.html</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/comparatifs/la-giettaz-vs-valmorel.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/comparatifs/la-giettaz-vs-valmorel.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/la-giettaz-vs-valmorel.html"/>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/comparatifs/la-plagne-vs-les-arcs.html</loc>
     <lastmod>2026-11-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -14381,6 +14390,15 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/comparatifs/la-clusaz-vs-le-grand-bornand.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/comparatifs/la-clusaz-vs-le-grand-bornand.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/la-clusaz-vs-le-grand-bornand.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/comparatifs/la-giettaz-vs-valmorel.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/comparatifs/la-giettaz-vs-valmorel.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/comparatifs/la-giettaz-vs-valmorel.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/comparatifs/la-giettaz-vs-valmorel.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/en/comparatifs/la-plagne-vs-les-arcs.html</loc>
@@ -14734,6 +14752,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/stations-ski-mieux-notees-alpes-du-nord.html"/>
   </url>
   <url>
+    <loc>https://snowfinder.fr/articles/stations-ski-plus-hautes-alpes-du-nord.html</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/stations-ski-plus-hautes-alpes-du-nord.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/stations-ski-plus-hautes-alpes-du-nord.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/stations-ski-plus-hautes-alpes-du-nord.html"/>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/articles/stations-ski-plus-hautes-france.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -14762,7 +14789,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/toutes-les-actus.html</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/toutes-les-actus.html"/>
@@ -14984,6 +15011,15 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/stations-ski-mieux-notees-alpes-du-nord.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/stations-ski-mieux-notees-alpes-du-nord.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/stations-ski-mieux-notees-alpes-du-nord.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/articles/stations-ski-plus-hautes-alpes-du-nord.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/stations-ski-plus-hautes-alpes-du-nord.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/stations-ski-plus-hautes-alpes-du-nord.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/stations-ski-plus-hautes-alpes-du-nord.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/en/articles/stations-ski-plus-hautes-france.html</loc>
