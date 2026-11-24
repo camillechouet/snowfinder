@@ -1,5 +1,5 @@
 {
- "maj": "2026-11-23T19:22Z",
+ "maj": "2026-11-24T18:59Z",
  "source": "bulletins des stations (ANMSM) via Skipass",
  "stations": {
   "La Grave": {
@@ -7,17 +7,17 @@
    "bas": 0,
    "alt_haut": 3550,
    "alt_bas": 1400,
-   "date": "2026-11-23",
+   "date": "2026-11-24",
    "couvre": [
     "La Grave - La Meije"
    ]
   },
   "Val d'Isère": {
-   "haut": 80,
-   "bas": 52,
+   "haut": 120,
+   "bas": 76,
    "alt_haut": 3500,
    "alt_bas": 1850,
-   "date": "2026-11-23",
+   "date": "2026-11-24",
    "couvre": [
     "Val d'Isère"
    ]
@@ -27,9 +27,19 @@
    "bas": 116,
    "alt_haut": 3450,
    "alt_bas": 1550,
-   "date": "2026-11-23",
+   "date": "2026-11-24",
    "couvre": [
     "Tignes"
+   ]
+  },
+  "Alpe d'Huez": {
+   "haut": 140,
+   "bas": 30,
+   "alt_haut": 3330,
+   "alt_bas": 1120,
+   "date": "2026-11-24",
+   "couvre": [
+    "Alpe d'Huez"
    ]
   },
   "La Plagne": {
@@ -37,7 +47,7 @@
    "bas": 20,
    "alt_haut": 3250,
    "alt_bas": 1250,
-   "date": "2026-11-23",
+   "date": "2026-11-24",
    "couvre": [
     "La Plagne",
     "Champagny-en-Vanoise",
@@ -45,25 +55,36 @@
    ]
   },
   "Val Thorens": {
-   "haut": 90,
-   "bas": 46,
+   "haut": 165,
+   "bas": 95,
    "alt_haut": 3230,
    "alt_bas": 1800,
-   "date": "2026-11-23",
+   "date": "2026-11-24",
    "couvre": [
     "Val Thorens",
     "Orelle"
    ]
   },
   "Les Arcs": {
-   "haut": 130,
+   "haut": 150,
    "bas": 0,
    "alt_haut": 3226,
    "alt_bas": 1200,
-   "date": "2026-11-23",
+   "date": "2026-11-24",
    "couvre": [
     "Les Arcs",
     "Peisey-Vallandry"
+   ]
+  },
+  "Méribel": {
+   "haut": 100,
+   "bas": 15,
+   "alt_haut": 2952,
+   "alt_bas": 1100,
+   "date": "2026-11-24",
+   "couvre": [
+    "Méribel",
+    "Brides-les-Bains"
    ]
   },
   "Les Menuires": {
@@ -71,7 +92,7 @@
    "bas": 15,
    "alt_haut": 2850,
    "alt_bas": 1450,
-   "date": "2026-11-23",
+   "date": "2026-11-24",
    "couvre": [
     "Les Menuires"
    ]
@@ -81,7 +102,7 @@
    "bas": 40,
    "alt_haut": 2700,
    "alt_bas": 1860,
-   "date": "2026-11-23",
+   "date": "2026-11-24",
    "couvre": [
     "Montgenèvre"
    ]
@@ -91,29 +112,49 @@
    "bas": 100,
    "alt_haut": 2800,
    "alt_bas": 1190,
-   "date": "2026-11-23",
+   "date": "2026-11-24",
    "couvre": [
     "La Rosière"
    ]
   },
+  "Serre Chevalier": {
+   "haut": 150,
+   "bas": 10,
+   "alt_haut": 2800,
+   "alt_bas": 1200,
+   "date": "2026-11-24",
+   "couvre": [
+    "Serre Chevalier"
+   ]
+  },
   "Aussois": {
-   "haut": 30,
+   "haut": 50,
    "bas": 5,
    "alt_haut": 2750,
    "alt_bas": 1500,
-   "date": "2026-11-23",
+   "date": "2026-11-24",
    "couvre": [
     "Aussois"
    ]
   },
   "La Norma": {
-   "haut": 20,
+   "haut": 60,
    "bas": 0,
    "alt_haut": 2750,
    "alt_bas": 1350,
-   "date": "2026-11-23",
+   "date": "2026-11-24",
    "couvre": [
     "La Norma"
+   ]
+  },
+  "Avoriaz": {
+   "haut": 220,
+   "bas": 120,
+   "alt_haut": 2277,
+   "alt_bas": 1100,
+   "date": "2026-11-24",
+   "couvre": [
+    "Avoriaz"
    ]
   }
  },
@@ -121,24 +162,15 @@
   "Les 2 Alpes": {
    "alt_haut": 3600,
    "alt_bas": 1300,
-   "date": "2026-11-23",
+   "date": "2026-11-24",
    "couvre": [
     "Les Deux Alpes"
-   ]
-  },
-  "Méribel": {
-   "alt_haut": 2952,
-   "alt_bas": 1100,
-   "date": "2026-11-23",
-   "couvre": [
-    "Méribel",
-    "Brides-les-Bains"
    ]
   },
   "Val Cenis": {
    "alt_haut": 2800,
    "alt_bas": 1300,
-   "date": "2026-11-23",
+   "date": "2026-11-24",
    "couvre": [
     "Val Cenis"
    ],
