@@ -17,11 +17,11 @@
     var T = EN ? {
       book: "Book your stay", hotelsIn: "Hotels in ", booking: "Booking", expedia: "Expedia",
       aff: "Affiliate links — same price for you, no extra cost.", partner: "Partner", see: "See the offer",
-      offers: "Offers & deals", deals: "Deals", pick: "Picked by SnowFinder"
+      offers: "Offers & deals", deals: "Hot deals", pick: "Right now · picked by SnowFinder"
     } : {
       book: "Réserver votre séjour", hotelsIn: "Hôtels à ", booking: "Booking", expedia: "Expedia",
       aff: "Liens affiliés — prix identiques pour vous, sans frais supplémentaires.", partner: "Partenaire",
-      see: "Voir l'offre", offers: "Offres & bons plans", deals: "Bons plans", pick: "Sélection SnowFinder"
+      see: "Voir l'offre", offers: "Offres & bons plans", deals: "Bons plans 🔥", pick: "Offres du moment · sélection SnowFinder"
     };
     var ICONS = { "location-ski": "🎿", "forfait": "🎟️", "hebergement": "🏨", "bon-plan": "🔥", "station": "⛰️" };
 
@@ -81,23 +81,24 @@
     css.textContent =
       "#sfo-root{box-sizing:border-box;font-family:'DM Sans',-apple-system,sans-serif;color:var(--text,#22303e)}" +
       "#sfo-root *{box-sizing:border-box}" +
-      ".sfo-box{background:#fff;border:1px solid rgba(13,34,64,.07);border-radius:20px;overflow:hidden;margin-bottom:12px;box-shadow:0 10px 30px rgba(13,34,64,.15)}" +
-      ".sfo-box-hd{display:flex;align-items:center;gap:11px;padding:14px 16px;color:#fff;background:linear-gradient(135deg,#0d2240 0%,#1a5a8a 58%,#2b8bd0 100%)}" +
-      ".sfo-box-fire{flex:0 0 36px;height:36px;border-radius:50%;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;font-size:1.15rem}" +
-      ".sfo-box-t{font-family:'DM Serif Display',serif;font-size:1.25rem;line-height:1.1;display:block}" +
-      ".sfo-box-s{display:block;font-size:.68rem;letter-spacing:.04em;opacity:.78;margin-top:2px}" +
-      ".sfo-deal{display:flex;gap:13px;align-items:flex-start;padding:15px 16px;text-decoration:none!important;color:inherit!important;border-top:1px solid #eef2f6;transition:background .2s}" +
-      ".sfo-box-hd+.sfo-deal{border-top:0}" +
-      ".sfo-deal:hover{background:#f5f9fd}" +
+      ".sfo-box{background:#fff;border:2px solid #ff7a1a;border-radius:20px;overflow:hidden;margin-bottom:14px;box-shadow:0 12px 34px rgba(255,90,20,.28)}" +
+      ".sfo-box-hd{display:flex;align-items:center;gap:11px;padding:15px 16px;color:#fff;background:linear-gradient(135deg,#ff8a1f 0%,#ff4d3d 60%,#e8265f 100%)}" +
+      ".sfo-box-fire{flex:0 0 40px;height:40px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:1.4rem}" +
+      ".sfo-box-t{font-family:'DM Serif Display',serif;font-size:1.45rem;line-height:1.05;display:block;text-shadow:0 1px 4px rgba(0,0,0,.25)}" +
+      ".sfo-box-s{display:block;font-size:.72rem;font-weight:600;letter-spacing:.03em;opacity:.95;margin-top:3px}" +
+      ".sfo-deal{display:flex;gap:13px;align-items:flex-start;padding:15px 16px;text-decoration:none!important;color:inherit!important;border-top:1px solid #ffe2cc;border-left:5px solid #ff7a1a;transition:background .2s}" +
+      ".sfo-box-hd+.sfo-deal{border-top:0;background:#fff4e8}" +
+      ".sfo-box-hd+.sfo-deal+.sfo-deal{background:#fffbe3;border-left-color:#ffb800}" +
+      ".sfo-deal:hover{filter:brightness(.97)}" +
       ".sfo-thumb{flex:0 0 74px;height:74px;border-radius:14px;position:relative;background:linear-gradient(135deg,#d3e8f8,#8fbfe3) center/cover no-repeat;box-shadow:0 4px 12px rgba(13,34,64,.18)}" +
       ".sfo-ico{position:absolute;right:-7px;bottom:-7px;width:30px;height:30px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.22);display:flex;align-items:center;justify-content:center;font-size:.95rem}" +
       ".sfo-dbody{min-width:0;display:flex;flex-direction:column;gap:4px}" +
       ".sfo-tag{align-self:flex-start;font-size:.58rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#fff;background:linear-gradient(90deg,#ff8a2b,#ff4d4d);border-radius:20px;padding:2px 9px}" +
-      ".sfo-dh{font-weight:800;font-size:.92rem;line-height:1.25;color:#0d2240}" +
+      ".sfo-dh{font-weight:800;font-size:.95rem;line-height:1.25;color:#7a1d00}" +
       ".sfo-dp{font-size:.77rem;line-height:1.42;color:#5a6b7b}" +
       ".sfo-by{font-size:.68rem;color:#8a97a3}" +
-      ".sfo-go{margin-top:3px;font-size:.8rem;font-weight:800;color:#e8590c}" +
-      ".sfo-deal:hover .sfo-go{text-decoration:underline}" +
+      ".sfo-go{align-self:flex-start;margin-top:5px;font-size:.8rem;font-weight:800;color:#fff;background:linear-gradient(90deg,#ff7a1a,#ff3d3d);padding:7px 14px;border-radius:22px;box-shadow:0 4px 12px rgba(255,70,30,.35)}" +
+      ".sfo-deal:hover .sfo-go{filter:brightness(1.08)}" +
       ".sfo-stay{background:#f6faff;border-top:1px solid #eef2f6;padding:13px 16px}" +
       ".sfo-stay-h{font-weight:800;font-size:.86rem;margin:0 0 8px;color:#0d2240}" +
       ".sfo-row{margin:0 0 9px}.sfo-row:last-child{margin-bottom:0}" +
@@ -105,16 +106,29 @@
       ".sfo-pill{display:inline-block;font-size:.76rem;font-weight:800;text-decoration:none!important;padding:6px 12px;border-radius:20px;margin-right:6px}" +
       ".sfo-pill.bk{background:#003d96;color:#fff!important}.sfo-pill.ex{background:#ffcc00;color:#1a2060!important}" +
       ".sfo-aff{font-size:.64rem;color:#8a97a3;text-align:center;padding:9px 14px;line-height:1.35;background:#faf9f7;border-top:1px solid #eef2f6}" +
-      ".sfb{position:fixed;right:18px;bottom:18px;width:320px;max-width:calc(100vw - 24px);z-index:60;background:#fff;border-radius:18px;box-shadow:0 14px 40px rgba(13,34,64,.30);overflow:hidden;font-family:'DM Sans',-apple-system,sans-serif;transform:translateY(24px);opacity:0;transition:transform .45s ease,opacity .45s ease}" +
+      ".sfb{position:fixed;right:20px;bottom:20px;width:400px;max-width:calc(100vw - 24px);z-index:60;color:#fff;border-radius:22px;box-shadow:0 18px 50px rgba(120,20,0,.45),0 0 0 3px rgba(255,255,255,.9);overflow:hidden;font-family:'DM Sans',-apple-system,sans-serif;background:linear-gradient(135deg,#ff8a1f 0%,#ff4d3d 55%,#e8265f 100%);transform:translateY(40px) scale(.96);opacity:0;transition:transform .5s cubic-bezier(.2,.9,.3,1.2),opacity .4s ease}" +
       ".sfb.on{transform:none;opacity:1}" +
-      ".sfb a.sfb-a{display:flex;gap:12px;align-items:center;padding:13px 40px 13px 14px;text-decoration:none!important;color:inherit!important}" +
-      ".sfb-ico{flex:0 0 44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#0d2240,#2b8bd0);display:flex;align-items:center;justify-content:center;font-size:1.3rem}" +
-      ".sfb-tag{display:inline-block;font-size:.58rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#fff;background:linear-gradient(90deg,#ff8a2b,#ff4d4d);border-radius:20px;padding:2px 9px;margin-bottom:3px}" +
-      ".sfb-t{display:block;font-weight:800;font-size:.88rem;line-height:1.25;color:#0d2240}" +
-      ".sfb-p{display:block;font-size:.74rem;line-height:1.35;color:#5a6b7b;margin-top:1px}" +
-      ".sfb-go{display:block;font-size:.78rem;font-weight:800;color:#e8590c;margin-top:3px}" +
-      ".sfb-x{position:absolute;top:6px;right:8px;width:28px;height:28px;border:0;background:transparent;font-size:1.2rem;line-height:1;color:#8a97a3;cursor:pointer}" +
-      "@media(max-width:700px){.sfb{left:12px;right:12px;width:auto;bottom:calc(78px + env(safe-area-inset-bottom,0px))}}" +
+      ".sfb-in{padding:16px 18px 14px}" +
+      ".sfb-top{display:flex;align-items:center;gap:8px;font-size:.7rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;margin-bottom:10px;padding-right:26px}" +
+      ".sfb-live{display:inline-block;width:9px;height:9px;border-radius:50%;background:#fff;animation:sfbpulse 1.2s infinite}" +
+      "@keyframes sfbpulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.8)}100%{box-shadow:0 0 0 10px rgba(255,255,255,0)}}" +
+      ".sfb-main{display:flex;align-items:center;gap:14px}" +
+      ".sfb-big{flex:0 0 auto;min-width:104px;text-align:center;background:#fff176;color:#c4171a;border-radius:16px;padding:8px 10px 6px;transform:rotate(-3deg);box-shadow:0 6px 16px rgba(0,0,0,.25)}" +
+      ".sfb-big b{display:block;font-family:'DM Serif Display',serif;font-weight:400;font-size:2.5rem;line-height:1}" +
+      ".sfb-big span{display:block;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#7a1d00;margin-top:2px}" +
+      ".sfb-t{font-family:'DM Serif Display',serif;font-size:1.3rem;line-height:1.15}" +
+      ".sfb-p{font-size:.8rem;line-height:1.35;opacity:.95;margin-top:3px}" +
+      ".sfb-chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}" +
+      ".sfb-chip{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.45);border-radius:20px;padding:4px 10px;font-size:.7rem;font-weight:700}" +
+      ".sfb-btns{display:flex;gap:8px;margin-top:12px}" +
+      ".sfb-btn{flex:1;text-align:center;text-decoration:none!important;font-weight:800;font-size:.84rem;padding:11px 10px;border-radius:26px;line-height:1.15}" +
+      ".sfb-btn.a{background:#fff;color:#d0291d!important;animation:sfbpop 1.8s ease-in-out infinite}" +
+      ".sfb-btn.b{background:#ffe03a;color:#6b1a00!important}" +
+      "@keyframes sfbpop{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}" +
+      ".sfb-urg{font-size:.7rem;font-weight:700;margin-top:10px;text-align:center;opacity:.97}" +
+      ".sfb-aff{font-size:.58rem;opacity:.75;text-align:center;margin-top:5px}" +
+      ".sfb-x{position:absolute;top:8px;right:10px;width:30px;height:30px;border:0;border-radius:50%;background:rgba(0,0,0,.22);color:#fff;font-size:1.25rem;line-height:1;cursor:pointer}" +
+      "@media(max-width:700px){.sfb{left:10px;right:10px;width:auto;bottom:calc(74px + env(safe-area-inset-bottom,0px))}.sfb-in{padding:13px 14px 12px}.sfb-big{min-width:86px}.sfb-big b{font-size:2rem}.sfb-t{font-size:1.1rem}.sfb-chips{display:none}.sfb-btn{font-size:.78rem;padding:10px 6px}}" +
       "@media print{.sfb{display:none!important}}" +
       ".sfo-rail{position:fixed;top:84px;width:270px;max-height:calc(100vh - 160px);overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;z-index:20}" +
       ".sfo-inline{max-width:640px;margin:22px auto}" +
@@ -161,7 +175,7 @@
         if (rows) { html += '<div class="sfo-stay"><div class="sfo-stay-h">🏨 ' + T.book + "</div>" + rows + "</div>"; hasAff = true; }
       }
       if (!html) return false;
-      root.innerHTML = '<div class="sfo-box"><div class="sfo-box-hd"><span class="sfo-box-fire">🔥</span><span><span class="sfo-box-t">' + T.deals + '</span><span class="sfo-box-s">' + T.pick + "</span></span></div>" +
+      root.innerHTML = '<div class="sfo-box"><div class="sfo-box-hd"><span class="sfo-box-fire">🎿</span><span><span class="sfo-box-t">' + T.deals + '</span><span class="sfo-box-s">' + T.pick + "</span></span></div>" +
         html + (hasAff ? '<div class="sfo-aff">' + T.aff + "</div>" : "") + "</div>";
       return true;
     }
@@ -213,6 +227,9 @@
         var sb = document.querySelector(".sidebar");
         if (!sb) return;
         root.className = ""; root.style.cssText = "margin-top:2px";
+        var bkA = sb.querySelector("a[href*='tkqlhce.com']");
+        var bkBlock = bkA && bkA.parentNode && bkA.parentNode !== sb ? bkA.parentNode : null;
+        if (bkBlock && bkBlock.parentNode === sb) { sb.insertBefore(root, bkBlock); return; }
         var ref = sb.children[1] || sb.lastElementChild;
         if (ref && ref.nextSibling) sb.insertBefore(root, ref.nextSibling); else sb.appendChild(root);
         return;
@@ -241,7 +258,7 @@
     }
 
 
-    // ── Bulle « offre du moment » (petite, temporaire, fermable) ───────────
+    // ── Bulle « offres du moment » (temporaire, fermable) ──────────────────
     function bulle(b) {
       try {
         if (!b || b.actif === false || !safeUrl(b.lien)) return;
@@ -252,25 +269,31 @@
         var key = "sfb_" + (b.id || "x"), days = (b.masquer_jours == null ? 3 : b.masquer_jours);
         try { var last = parseInt(localStorage.getItem(key) || "0", 10); if (last && Date.now() - last < days * 86400000) return; } catch (e) { }
         var e = (EN && b.en) || {};
-        var titre = e.titre || b.titre, texte = e.texte || b.texte, cta = e.cta || b.cta || T.see;
-        if (!titre) return;
-        var tag = e.tag || b.tag || (EN ? "Current offer" : "Offre du moment");
+        var g = function (k) { return e[k] != null ? e[k] : b[k]; };
+        var titre = g("titre"); if (!titre) return;
+        var urg = g("urgence") || "";
         if (b.fin) {
           var d = new Date(b.fin + "T00:00:00");
-          tag = (EN ? "Until " : "Jusqu'au ") + d.toLocaleDateString(EN ? "en-GB" : "fr-FR", { day: "numeric", month: "long" });
+          urg = (EN ? "⏳ Offer valid until " : "⏳ Offre valable jusqu'au ") + d.toLocaleDateString(EN ? "en-GB" : "fr-FR", { day: "numeric", month: "long" }) + (urg ? " — " + urg : "");
         }
+        var chips = g("puces") || [];
         var el = document.createElement("div");
         el.className = "sfb"; el.setAttribute("role", "complementary");
-        el.innerHTML = '<a class="sfb-a" href="' + esc(b.lien) + '" target="_blank" rel="sponsored nofollow noopener">' +
-          '<span class="sfb-ico">' + esc(b.emoji || "🎿") + "</span><span><span class=\"sfb-tag\">⏳ " + esc(tag) + "</span>" +
-          '<span class="sfb-t">' + esc(titre) + "</span>" + (texte ? '<span class="sfb-p">' + esc(texte) + "</span>" : "") +
-          '<span class="sfb-go">' + esc(cta) + " →</span></span></a>" +
+        var h = '<div class="sfb-in"><div class="sfb-top"><span class="sfb-live"></span>' + esc(g("tag") || (EN ? "Ski deals right now" : "Bons plans ski en ce moment")) + "</div>" +
+          '<div class="sfb-main">' + (g("gros") ? '<div class="sfb-big"><b>' + esc(g("gros")) + "</b><span>" + esc(g("gros_legende") || "") + "</span></div>" : "") +
+          "<div><div class=\"sfb-t\">" + esc(titre) + "</div>" + (g("texte") ? '<div class="sfb-p">' + esc(g("texte")) + "</div>" : "") + "</div></div>";
+        if (chips.length) { h += '<div class="sfb-chips">'; chips.forEach(function (c) { h += '<span class="sfb-chip">' + esc(c) + "</span>"; }); h += "</div>"; }
+        h += '<div class="sfb-btns"><a class="sfb-btn a" href="' + esc(b.lien) + '" target="_blank" rel="sponsored nofollow noopener">' + esc(g("cta") || T.see) + "</a>" +
+          (safeUrl(b.lien2) ? '<a class="sfb-btn b" href="' + esc(b.lien2) + '" target="_blank" rel="sponsored nofollow noopener">' + esc(g("cta2") || T.see) + "</a>" : "") + "</div>" +
+          (urg ? '<div class="sfb-urg">' + esc(urg) + "</div>" : "") +
+          '<div class="sfb-aff">' + esc(T.aff) + "</div></div>" +
           '<button class="sfb-x" type="button" aria-label="' + (EN ? "Close" : "Fermer") + '">×</button>';
+        el.innerHTML = h;
         el.querySelector(".sfb-x").addEventListener("click", function () {
           try { localStorage.setItem(key, String(Date.now())); } catch (e) { }
           el.classList.remove("on"); setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 500);
         });
-        setTimeout(function () { document.body.appendChild(el); setTimeout(function () { el.classList.add("on"); }, 30); }, Math.max(0, (b.delai == null ? 20 : b.delai)) * 1000);
+        setTimeout(function () { document.body.appendChild(el); setTimeout(function () { el.classList.add("on"); }, 30); }, Math.max(0, (b.delai == null ? 12 : b.delai)) * 1000);
       } catch (e) { }
     }
 

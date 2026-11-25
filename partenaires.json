@@ -142,19 +142,40 @@
     "id": "snowtrex-bulle",
     "actif": true,
     "emoji": "🎿",
-    "titre": "Séjour ski avec forfait inclus",
-    "texte": "Hébergement + remontées réservés ensemble, sur SnowTrex.",
-    "cta": "Voir l'offre",
+    "titre": "Réductions ski en ce moment",
+    "texte": "Séjour + forfait de ski inclus chez SnowTrex, hôtels à -25 % sur Expedia.",
+    "cta": "🎿 Séjour + forfait SnowTrex",
     "lien": "https://www.awin1.com/cread.php?awinmid=127965&awinaffid=3158316&ued=https%3A%2F%2Fwww.snowtrex.fr",
     "debut": "",
     "fin": "",
-    "delai": 20,
+    "delai": 12,
     "masquer_jours": 3,
     "en": {
-      "titre": "Ski holiday with lift pass included",
-      "texte": "Accommodation + lift pass booked together on SnowTrex.",
-      "cta": "See the offer"
-    }
+      "tag": "Ski deals right now",
+      "gros": "-25%",
+      "gros_legende": "on Expedia",
+      "titre": "Ski discounts right now",
+      "texte": "Stay + lift pass included with SnowTrex, hotels 25% off on Expedia.",
+      "puces": [
+        "🎟️ Lift pass included",
+        "🏨 2,500+ stays",
+        "🏆 Best price guarantee"
+      ],
+      "cta": "🎿 Stay + pass SnowTrex",
+      "cta2": "-25% Expedia",
+      "urgence": "Hurry: the best places go fast for the holidays."
+    },
+    "tag": "Bons plans ski en ce moment",
+    "gros": "-25 %",
+    "gros_legende": "sur Expedia",
+    "puces": [
+      "🎟️ Forfait de ski inclus",
+      "🏨 +2 500 hébergements",
+      "🏆 Meilleur prix garanti"
+    ],
+    "lien2": "https://www.tkqlhce.com/click-101709262-15606970",
+    "cta2": "-25 % Expedia",
+    "urgence": "Dépêche-toi : les meilleures places partent vite pour les vacances."
   },
   "colonnes": [
     {
