@@ -9,7 +9,8 @@
     "label : mention affichée en haut de l'encart. Obligatoire d'être honnête : « Partenaire », « Bon plan » ou « Publicité ».",
     "priorite : plus le nombre est grand, plus l'offre passe en premier. Maximum 2 offres affichées par page.",
     "lien : adresse de l'offre (lien d'affiliation CJ ou lien du partenaire). Il s'ouvre dans un nouvel onglet, marqué « sponsored ».",
-    "image : adresse d'une image (facultatif). en : version anglaise du titre, du texte et du bouton (facultatif ; sans elle, le français s'affiche)."
+    "image : adresse d'une image (facultatif). en : version anglaise du titre, du texte et du bouton (facultatif ; sans elle, le français s'affiche).",
+    "bulle : petite fenêtre « offre du moment » en bas de l'écran (fiches stations, articles, duels). actif : true/false. fin : date AAAA-MM-JJ (ex. \"2026-12-15\") = affiche « Jusqu'au 15 décembre » et disparaît toute seule après cette date ; vide = affiche « Offre du moment ». delai : secondes avant l'apparition. masquer_jours : nombre de jours sans la réafficher si le visiteur la ferme. Ne mettre une date que si l'offre a vraiment une date de fin."
   ],
   "_aide_colonnes": [
     "Colonnes verticales affichées à gauche et à droite, sur grands écrans seulement (masquées sur téléphone et petits écrans) : accueil (de « À la une » au pied de page), recherche, tous les duels, météo/enneigement, hébergements, comparateur.",
@@ -137,6 +138,24 @@
       }
     }
   ],
+  "bulle": {
+    "id": "snowtrex-bulle",
+    "actif": true,
+    "emoji": "🎿",
+    "titre": "Séjour ski avec forfait inclus",
+    "texte": "Hébergement + remontées réservés ensemble, sur SnowTrex.",
+    "cta": "Voir l'offre",
+    "lien": "https://www.awin1.com/cread.php?awinmid=127965&awinaffid=3158316&ued=https%3A%2F%2Fwww.snowtrex.fr",
+    "debut": "",
+    "fin": "",
+    "delai": 20,
+    "masquer_jours": 3,
+    "en": {
+      "titre": "Ski holiday with lift pass included",
+      "texte": "Accommodation + lift pass booked together on SnowTrex.",
+      "cta": "See the offer"
+    }
+  },
   "colonnes": [
     {
       "id": "exemple-morillon",
