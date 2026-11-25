@@ -17,11 +17,11 @@
     var T = EN ? {
       book: "Book your stay", hotelsIn: "Hotels in ", booking: "Booking", expedia: "Expedia",
       aff: "Affiliate links — same price for you, no extra cost.", partner: "Partner", see: "See the offer",
-      offers: "Offers & deals"
+      offers: "Offers & deals", deals: "Deals", pick: "Picked by SnowFinder"
     } : {
       book: "Réserver votre séjour", hotelsIn: "Hôtels à ", booking: "Booking", expedia: "Expedia",
       aff: "Liens affiliés — prix identiques pour vous, sans frais supplémentaires.", partner: "Partenaire",
-      see: "Voir l'offre", offers: "Offres & bons plans"
+      see: "Voir l'offre", offers: "Offres & bons plans", deals: "Bons plans", pick: "Sélection SnowFinder"
     };
     var ICONS = { "location-ski": "🎿", "forfait": "🎟️", "hebergement": "🏨", "bon-plan": "🔥", "station": "⛰️" };
 
@@ -81,23 +81,30 @@
     css.textContent =
       "#sfo-root{box-sizing:border-box;font-family:'DM Sans',-apple-system,sans-serif;color:var(--text,#22303e)}" +
       "#sfo-root *{box-sizing:border-box}" +
-      ".sfo-title-h{font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-light,#8a97a3);margin:0 2px 8px}" +
-      ".sfo-card{display:block;background:#fff;border:1px solid var(--border,#e3e9ee);border-radius:14px;overflow:hidden;margin-bottom:12px;box-shadow:0 4px 16px rgba(13,34,64,.09)}" +
-      ".sfo-img{display:block;width:100%;height:120px;object-fit:cover}" +
-      ".sfo-body{padding:12px 14px 14px}" +
-      ".sfo-badge{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#7a4a00;background:#ffe9b8;border-radius:20px;padding:3px 9px;margin-bottom:7px}" +
-      ".sfo-h{font-family:'DM Serif Display',serif;font-size:1.02rem;line-height:1.25;margin:0 0 5px;color:var(--blue-dark,#1a5a8a)}" +
-      ".sfo-p{font-size:.82rem;line-height:1.45;margin:0 0 10px;color:var(--text-mid,#4a5a6a)}" +
-      ".sfo-by{font-size:.7rem;color:var(--text-light,#8a97a3);margin:-4px 0 9px}" +
-      ".sfo-cta{display:inline-block;background:var(--blue-dark,#1a5a8a);color:#fff!important;text-decoration:none!important;font-weight:800;font-size:.8rem;padding:8px 15px;border-radius:22px}" +
-      ".sfo-cta:hover{filter:brightness(1.1)}" +
-      ".sfo-stay{background:#fff;border:1px solid var(--border,#e3e9ee);border-radius:14px;padding:12px 14px;margin-bottom:12px;box-shadow:0 4px 16px rgba(13,34,64,.09)}" +
-      ".sfo-stay-h{font-weight:800;font-size:.86rem;margin:0 0 8px;color:var(--blue-dark,#1a5a8a)}" +
+      ".sfo-box{background:#fff;border:1px solid rgba(13,34,64,.07);border-radius:20px;overflow:hidden;margin-bottom:12px;box-shadow:0 10px 30px rgba(13,34,64,.15)}" +
+      ".sfo-box-hd{display:flex;align-items:center;gap:11px;padding:14px 16px;color:#fff;background:linear-gradient(135deg,#0d2240 0%,#1a5a8a 58%,#2b8bd0 100%)}" +
+      ".sfo-box-fire{flex:0 0 36px;height:36px;border-radius:50%;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;font-size:1.15rem}" +
+      ".sfo-box-t{font-family:'DM Serif Display',serif;font-size:1.25rem;line-height:1.1;display:block}" +
+      ".sfo-box-s{display:block;font-size:.68rem;letter-spacing:.04em;opacity:.78;margin-top:2px}" +
+      ".sfo-deal{display:flex;gap:13px;align-items:flex-start;padding:15px 16px;text-decoration:none!important;color:inherit!important;border-top:1px solid #eef2f6;transition:background .2s}" +
+      ".sfo-box-hd+.sfo-deal{border-top:0}" +
+      ".sfo-deal:hover{background:#f5f9fd}" +
+      ".sfo-thumb{flex:0 0 74px;height:74px;border-radius:14px;position:relative;background:linear-gradient(135deg,#d3e8f8,#8fbfe3) center/cover no-repeat;box-shadow:0 4px 12px rgba(13,34,64,.18)}" +
+      ".sfo-ico{position:absolute;right:-7px;bottom:-7px;width:30px;height:30px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.22);display:flex;align-items:center;justify-content:center;font-size:.95rem}" +
+      ".sfo-dbody{min-width:0;display:flex;flex-direction:column;gap:4px}" +
+      ".sfo-tag{align-self:flex-start;font-size:.58rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#fff;background:linear-gradient(90deg,#ff8a2b,#ff4d4d);border-radius:20px;padding:2px 9px}" +
+      ".sfo-dh{font-weight:800;font-size:.92rem;line-height:1.25;color:#0d2240}" +
+      ".sfo-dp{font-size:.77rem;line-height:1.42;color:#5a6b7b}" +
+      ".sfo-by{font-size:.68rem;color:#8a97a3}" +
+      ".sfo-go{margin-top:3px;font-size:.8rem;font-weight:800;color:#e8590c}" +
+      ".sfo-deal:hover .sfo-go{text-decoration:underline}" +
+      ".sfo-stay{background:#f6faff;border-top:1px solid #eef2f6;padding:13px 16px}" +
+      ".sfo-stay-h{font-weight:800;font-size:.86rem;margin:0 0 8px;color:#0d2240}" +
       ".sfo-row{margin:0 0 9px}.sfo-row:last-child{margin-bottom:0}" +
       ".sfo-row-n{font-size:.78rem;font-weight:700;margin:0 0 5px}" +
       ".sfo-pill{display:inline-block;font-size:.76rem;font-weight:800;text-decoration:none!important;padding:6px 12px;border-radius:20px;margin-right:6px}" +
       ".sfo-pill.bk{background:#003d96;color:#fff!important}.sfo-pill.ex{background:#ffcc00;color:#1a2060!important}" +
-      ".sfo-aff{font-size:.64rem;color:var(--text-light,#8a97a3);text-align:center;margin:2px 4px 0;line-height:1.35}" +
+      ".sfo-aff{font-size:.64rem;color:#8a97a3;text-align:center;padding:9px 14px;line-height:1.35;background:#faf9f7;border-top:1px solid #eef2f6}" +
       ".sfo-rail{position:fixed;top:84px;width:270px;max-height:calc(100vh - 160px);overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;z-index:20}" +
       ".sfo-inline{max-width:640px;margin:22px auto}" +
       "@media print{#sfo-root{display:none!important}}";
@@ -119,13 +126,14 @@
         var label = o.label || T.partner;
         if (EN) label = ({ "Partenaire": "Partner", "Bon plan": "Deal", "Publicité": "Ad" })[label] || label;
         var icon = ICONS[o.type] || "⭐";
-        html += '<div class="sfo-card">' +
-          (safeUrl(o.image) ? '<img class="sfo-img" src="' + esc(o.image) + '" alt="" loading="lazy">' : "") +
-          '<div class="sfo-body"><span class="sfo-badge">' + icon + " " + esc(label) + "</span>" +
-          '<div class="sfo-h">' + esc(titre) + "</div>" +
-          (texte ? '<p class="sfo-p">' + esc(texte) + "</p>" : "") +
-          (o.partenaire ? '<div class="sfo-by">' + esc(o.partenaire) + "</div>" : "") +
-          '<a class="sfo-cta" href="' + esc(lien) + '" target="_blank" rel="sponsored nofollow noopener">' + esc(cta) + " →</a></div></div>";
+        var thumb = safeUrl(o.image) || (/^\//.test(o.image || "") ? o.image : "");
+        html += '<a class="sfo-deal" href="' + esc(lien) + '" target="_blank" rel="sponsored nofollow noopener">' +
+          '<span class="sfo-thumb"' + (thumb ? ' style="background-image:url(\'' + esc(thumb) + '\')"' : "") + '><span class="sfo-ico">' + icon + "</span></span>" +
+          '<span class="sfo-dbody"><span class="sfo-tag">' + esc(label) + "</span>" +
+          '<span class="sfo-dh">' + esc(titre) + "</span>" +
+          (texte ? '<span class="sfo-dp">' + esc(texte) + "</span>" : "") +
+          (o.partenaire ? '<span class="sfo-by">' + esc(o.partenaire) + "</span>" : "") +
+          '<span class="sfo-go">' + esc(cta) + " →</span></span></a>";
         hasAff = true;
       });
       // Hébergement (Booking / Expedia) : seulement sur articles et duels (déjà présent dans la colonne des fiches stations)
@@ -142,7 +150,8 @@
         if (rows) { html += '<div class="sfo-stay"><div class="sfo-stay-h">🏨 ' + T.book + "</div>" + rows + "</div>"; hasAff = true; }
       }
       if (!html) return false;
-      root.innerHTML = '<div class="sfo-title-h">' + T.offers + "</div>" + html + (hasAff ? '<div class="sfo-aff">' + T.aff + "</div>" : "");
+      root.innerHTML = '<div class="sfo-box"><div class="sfo-box-hd"><span class="sfo-box-fire">🔥</span><span><span class="sfo-box-t">' + T.deals + '</span><span class="sfo-box-s">' + T.pick + "</span></span></div>" +
+        html + (hasAff ? '<div class="sfo-aff">' + T.aff + "</div>" : "") + "</div>";
       return true;
     }
 
