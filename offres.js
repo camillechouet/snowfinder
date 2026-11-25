@@ -157,6 +157,23 @@
       "@media print{#sfo-root{display:none!important}}";
     document.head.appendChild(css);
 
+
+    // ── Habillage des fiches stations : onglets bien visibles + fil d'Ariane ──
+    if (kind === "station") {
+      var st = document.createElement("style");
+      st.textContent =
+        ".tab-nav-wrap{background:linear-gradient(180deg,#eaf3fb,#fff 70%)!important;border-bottom:3px solid #1a5a8a!important;padding-top:10px;box-shadow:0 4px 14px rgba(13,34,64,.10)!important}" +
+        ".tab-nav{gap:6px!important;padding:0 10px!important;align-items:flex-end}" +
+        ".tab-btn{font-size:.9rem!important;font-weight:800!important;padding:13px 20px 12px!important;min-width:0!important;color:#1a5a8a!important;background:#fff!important;border:2px solid #cfe0ee!important;border-bottom:0!important;border-radius:14px 14px 0 0!important;box-shadow:0 -2px 6px rgba(13,34,64,.05);transition:background .15s,transform .15s}" +
+        ".tab-btn:hover:not(.active){background:#e3f0fa!important;transform:translateY(-2px)}" +
+        ".tab-btn.active{color:#fff!important;background:linear-gradient(180deg,#2b8bd0,#1a5a8a)!important;border-color:#1a5a8a!important;box-shadow:0 -4px 12px rgba(26,90,138,.35);padding-bottom:14px!important;margin-bottom:-3px;position:relative}" +
+        ".tab-btn.active::after{content:'';position:absolute;left:0;right:0;bottom:0;height:4px;background:#ff7a1a}" +
+        ".breadcrumb{display:inline-flex!important;max-width:100%;background:#fff;border:1px solid #cfe0ee;border-radius:14px;padding:9px 16px;box-shadow:0 3px 10px rgba(13,34,64,.08);font-size:.9rem!important;font-weight:800;color:#0d2240!important;gap:9px!important}" +
+        ".breadcrumb a{font-weight:700!important;color:#1a5a8a!important;text-decoration:underline;text-decoration-color:rgba(26,90,138,.35);text-underline-offset:3px}" +
+        "@media(max-width:700px){.tab-btn{font-size:.8rem!important;padding:12px 13px 11px!important}.tab-btn.active{padding-bottom:13px!important}.breadcrumb{font-size:.8rem!important;padding:8px 12px}}";
+      document.head.appendChild(st);
+    }
+
     // ── Rendu ──────────────────────────────────────────────────────────────
     var root = document.createElement("aside");
     root.id = "sfo-root";
@@ -373,6 +390,7 @@
     var started = false;
     function go(offers) {
       if (started) return; started = true;
+      if (kind === "station") return; // fiches stations : le bandeau déroulant remplace l'encart de droite
       if (render(offers)) mount();
     }
     var v = Math.floor(Date.now() / 3600000);
