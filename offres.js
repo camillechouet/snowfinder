@@ -130,6 +130,28 @@
       ".sfb-x{position:absolute;top:8px;right:10px;width:30px;height:30px;border:0;border-radius:50%;background:rgba(0,0,0,.22);color:#fff;font-size:1.25rem;line-height:1;cursor:pointer}" +
       "@media(max-width:700px){.sfb{left:10px;right:10px;width:auto;bottom:calc(74px + env(safe-area-inset-bottom,0px))}.sfb-in{padding:13px 14px 12px}.sfb-big{min-width:86px}.sfb-big b{font-size:2rem}.sfb-t{font-size:1.1rem}.sfb-chips{display:none}.sfb-btn{font-size:.78rem;padding:10px 6px}}" +
       "@media print{.sfb{display:none!important}}" +
+      ".sfx{width:100%;position:relative;z-index:5;background:linear-gradient(100deg,#ff8a1f,#ff4d3d 55%,#e8265f);box-shadow:0 6px 22px rgba(232,38,95,.35);font-family:'DM Sans',-apple-system,sans-serif;color:#fff}" +
+      ".sfx-in{max-width:1100px;margin:0 auto;padding:0 12px}" +
+      ".sfx-bar{display:flex;align-items:center;gap:12px;width:100%;border:0;background:transparent;color:#fff;cursor:pointer;text-align:left;padding:13px 6px;font:inherit;position:relative;overflow:hidden}" +
+      ".sfx-bar::after{content:'';position:absolute;top:0;bottom:0;width:90px;left:-120px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:sfxshine 3.6s ease-in-out infinite}" +
+      "@keyframes sfxshine{0%{left:-120px}55%,100%{left:110%}}" +
+      ".sfx-fire{flex:0 0 40px;height:40px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:1.4rem}" +
+      ".sfx-txt{flex:1;min-width:0}" +
+      ".sfx-txt b{display:block;font-family:'DM Serif Display',serif;font-weight:400;font-size:1.3rem;line-height:1.1}" +
+      ".sfx-txt small{display:block;font-size:.8rem;font-weight:600;opacity:.97;margin-top:2px}" +
+      ".sfx-count{flex:0 0 auto;background:#fff176;color:#b3141a;font-weight:800;font-size:.78rem;border-radius:20px;padding:5px 11px;animation:sfbpop 1.8s ease-in-out infinite}" +
+      ".sfx-go{flex:0 0 auto;background:#fff;color:#d0291d;font-weight:800;font-size:.82rem;border-radius:24px;padding:9px 15px;white-space:nowrap}" +
+      ".sfx-chev{display:inline-block;transition:transform .3s}" +
+      ".sfx.open .sfx-chev{transform:rotate(180deg)}" +
+      ".sfx-panel{display:none;padding:4px 0 16px}" +
+      ".sfx.open .sfx-panel{display:block}" +
+      ".sfx-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}" +
+      ".sfx-card{display:flex;gap:13px;align-items:flex-start;background:#fff;color:#22303e;border-radius:16px;padding:13px;text-decoration:none!important;box-shadow:0 8px 22px rgba(80,10,0,.28)}" +
+      ".sfx-card .sfo-thumb{flex:0 0 78px;height:78px}" +
+      ".sfx-card .sfo-dh{font-size:.98rem}" +
+      ".sfx-note{font-size:.66rem;opacity:.85;text-align:center;margin-top:10px}" +
+      "@media(max-width:700px){.sfx-txt b{font-size:1.08rem}.sfx-txt small{font-size:.72rem}.sfx-count{display:none}.sfx-go{padding:8px 11px;font-size:.76rem}.sfx-fire{flex-basis:34px;height:34px;font-size:1.2rem}}" +
+      "@media print{.sfx{display:none!important}}" +
       ".sfo-rail{position:fixed;top:84px;width:270px;max-height:calc(100vh - 160px);overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;z-index:20}" +
       ".sfo-inline{max-width:640px;margin:22px auto}" +
       "@media print{#sfo-root{display:none!important}}";
@@ -239,7 +261,7 @@
     }
 
     // ── Données ────────────────────────────────────────────────────────────
-    function pick(data) {
+    function pick(data, nmax) {
       var today = new Date(); today.setHours(0, 0, 0, 0);
       var iso = today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + today.getDate()).slice(-2);
       var list = (data && data.offres || []).filter(function (o) {
@@ -254,7 +276,7 @@
         return true;
       });
       list.sort(function (a, b) { return (b.priorite || 0) - (a.priorite || 0); });
-      return list.slice(0, 2);
+      return list.slice(0, nmax || 2);
     }
 
 
@@ -297,6 +319,57 @@
       } catch (e) { }
     }
 
+    // ── Bandeau « bons plans » déroulant (fiches stations, entre la photo et le menu) ──
+    function bandeau(data) {
+      try {
+        if (kind !== "station") return;
+        var b = data && data.bandeau;
+        if (!b || b.actif === false) return;
+        var today = new Date(); today.setHours(0, 0, 0, 0);
+        var iso = today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + ("0" + today.getDate()).slice(-2);
+        if (b.debut && iso < b.debut) return;
+        if (b.fin && iso > b.fin) return;
+        var anchor = document.getElementById("tabNavWrap");
+        if (!anchor || document.getElementById("sfx")) return;
+        var offers = pick(data, 4);
+        var cards = "";
+        offers.forEach(function (o) {
+          var e = (EN && o.en) || {};
+          var titre = e.titre || o.titre, texte = e.texte || o.texte, cta = e.cta || o.cta || T.see, lien = safeUrl(o.lien);
+          if (!titre || !lien) return;
+          var label = o.label || T.partner;
+          if (EN) label = ({ "Partenaire": "Partner", "Bon plan": "Deal", "Publicité": "Ad" })[label] || label;
+          var thumb = safeUrl(o.image) || (/^\//.test(o.image || "") ? o.image : "");
+          cards += '<a class="sfx-card" href="' + esc(lien) + '" target="_blank" rel="sponsored nofollow noopener">' +
+            '<span class="sfo-thumb"' + (thumb ? ' style="background-image:url(\'' + esc(thumb) + '\')"' : "") + '><span class="sfo-ico">' + (ICONS[o.type] || "⭐") + "</span></span>" +
+            '<span class="sfo-dbody"><span class="sfo-tag">' + esc(label) + "</span>" +
+            '<span class="sfo-dh">' + esc(titre) + "</span>" + (texte ? '<span class="sfo-dp">' + esc(texte) + "</span>" : "") +
+            '<span class="sfo-go">' + esc(cta) + " →</span></span></a>";
+        });
+        if (!cards) return;
+        var e2 = (EN && b.en) || {};
+        var titreB = e2.titre || b.titre || T.deals, resume = e2.resume || b.resume || "";
+        if (b.fin) {
+          var d = new Date(b.fin + "T00:00:00");
+          resume = (EN ? "Until " : "Jusqu'au ") + d.toLocaleDateString(EN ? "en-GB" : "fr-FR", { day: "numeric", month: "long" }) + " · " + resume;
+        }
+        var n = offers.length;
+        var el = document.createElement("div");
+        el.id = "sfx"; el.className = "sfx";
+        el.innerHTML = '<div class="sfx-in"><button type="button" class="sfx-bar" aria-expanded="false" aria-controls="sfx-panel">' +
+          '<span class="sfx-fire">🔥</span><span class="sfx-txt"><b>' + esc(titreB) + "</b><small>" + esc(resume) + "</small></span>" +
+          '<span class="sfx-count">' + n + (EN ? (n > 1 ? " deals" : " deal") : (n > 1 ? " offres" : " offre")) + '</span>' +
+          '<span class="sfx-go">' + (EN ? "See deals" : "Voir les offres") + ' <span class="sfx-chev">▾</span></span></button>' +
+          '<div class="sfx-panel" id="sfx-panel"><div class="sfx-grid">' + cards + "</div>" +
+          '<div class="sfx-note">' + esc(T.aff) + "</div></div></div>";
+        el.querySelector(".sfx-bar").addEventListener("click", function () {
+          var open = el.classList.toggle("open");
+          this.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+        anchor.parentNode.insertBefore(el, anchor);
+      } catch (e) { }
+    }
+
     var started = false;
     function go(offers) {
       if (started) return; started = true;
@@ -306,6 +379,6 @@
     fetch("/partenaires.json?v=" + v, { credentials: "omit" })
       .then(function (r) { return r.ok ? r.json() : { offres: [] }; })
       .catch(function () { return { offres: [] }; })
-      .then(function (d) { go(pick(d)); bulle(d && d.bulle); });
+      .then(function (d) { go(pick(d)); bandeau(d); bulle(d && d.bulle); });
   } catch (e) { /* un encart ne doit jamais casser une page */ }
 })();

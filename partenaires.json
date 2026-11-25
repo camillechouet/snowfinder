@@ -10,7 +10,8 @@
     "priorite : plus le nombre est grand, plus l'offre passe en premier. Maximum 2 offres affichées par page.",
     "lien : adresse de l'offre (lien d'affiliation CJ ou lien du partenaire). Il s'ouvre dans un nouvel onglet, marqué « sponsored ».",
     "image : adresse d'une image (facultatif). en : version anglaise du titre, du texte et du bouton (facultatif ; sans elle, le français s'affiche).",
-    "bulle : petite fenêtre « offre du moment » en bas de l'écran (fiches stations, articles, duels). actif : true/false. fin : date AAAA-MM-JJ (ex. \"2026-12-15\") = affiche « Jusqu'au 15 décembre » et disparaît toute seule après cette date ; vide = affiche « Offre du moment ». delai : secondes avant l'apparition. masquer_jours : nombre de jours sans la réafficher si le visiteur la ferme. Ne mettre une date que si l'offre a vraiment une date de fin."
+    "bulle : petite fenêtre « offre du moment » en bas de l'écran (fiches stations, articles, duels). actif : true/false. fin : date AAAA-MM-JJ (ex. \"2026-12-15\") = affiche « Jusqu'au 15 décembre » et disparaît toute seule après cette date ; vide = affiche « Offre du moment ». delai : secondes avant l'apparition. masquer_jours : nombre de jours sans la réafficher si le visiteur la ferme. Ne mettre une date que si l'offre a vraiment une date de fin.",
+    "bandeau : bandeau déroulant « bons plans » entre la photo et le menu des fiches stations. Il liste automatiquement les offres actives (max 4, les plus prioritaires). titre / resume : texte de la barre fermée. fin : date AAAA-MM-JJ facultative (affiche « Jusqu'au … » et disparaît après)."
   ],
   "_aide_colonnes": [
     "Colonnes verticales affichées à gauche et à droite, sur grands écrans seulement (masquées sur téléphone et petits écrans) : accueil (de « À la une » au pied de page), recherche, tous les duels, météo/enneigement, hébergements, comparateur.",
@@ -176,6 +177,17 @@
     "lien2": "https://www.tkqlhce.com/click-101709262-15606970",
     "cta2": "-25 % Expedia",
     "urgence": "Dépêche-toi : les meilleures places partent vite pour les vacances."
+  },
+  "bandeau": {
+    "actif": true,
+    "titre": "Bons plans ski du moment",
+    "resume": "-25 % sur Expedia · Séjour + forfait de ski inclus chez SnowTrex",
+    "debut": "",
+    "fin": "",
+    "en": {
+      "titre": "Ski deals right now",
+      "resume": "25% off on Expedia · Stay + lift pass included with SnowTrex"
+    }
   },
   "colonnes": [
     {
