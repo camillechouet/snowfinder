@@ -2,6 +2,15 @@
   "_aide": "Manifeste des contenus SnowFinder. Un nouvel article = une entrée dans 'articles' (date ISO, le plus récent est trié en premier). Un nouveau duel = une entrée EN TÊTE de 'duels' (le premier est le héros de l'accueil, les 2 suivants les bandeaux). Le script generate_contenus.py reconstruit l'accueil et toutes-les-actus.html. Les duels marqués \"manuel\": true ont une page faite à la main (pas générée par generate_comparatifs.py) : ils restent dans les listes mais ne sont pas régénérés.",
   "articles": [
     {
+      "slug": "alpes-neige-abondante-et-risque-d-avalanche-avant-les-ouvertures-du-novembre-2026",
+      "title": "Alpes : neige abondante et risque d'avalanche avant les ouvertures du samedi 28 novembre",
+      "category": "Météo",
+      "excerpt": "Le risque d'avalanche est marqué dans la plupart des massifs des Alpes du Nord ce mercredi 25 novembre. Val d'Isère, Les 2 Alpes et Montgenèvre ouvrent le samedi 28 novembre.",
+      "img": "/img/valdisere1.jpg",
+      "date": "2026-11-25",
+      "read_min": 6
+    },
+    {
       "slug": "stations-ski-plus-hautes-alpes-du-nord",
       "title": "Les 10 domaines skiables où l'on skie le plus haut dans les Alpes du Nord françaises",
       "category": "Classement",
