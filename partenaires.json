@@ -21,6 +21,28 @@
   ],
   "offres": [
     {
+      "id": "snowtrex-forfait-inclus",
+      "actif": true,
+      "type": "forfait",
+      "label": "Bon plan",
+      "partenaire": "",
+      "titre": "Séjour au ski avec forfait inclus",
+      "texte": "Hébergement + forfait de remontées réservés ensemble : pas d'attente aux caisses et un prix packagé avantageux.",
+      "cta": "Voir les séjours",
+      "lien": "https://www.awin1.com/cread.php?awinmid=127965&awinaffid=3158316&ued=https%3A%2F%2Fwww.snowtrex.fr",
+      "image": "/img/valthorens1.jpg",
+      "stations": [],
+      "pages": [],
+      "debut": "",
+      "fin": "",
+      "priorite": 4,
+      "en": {
+        "titre": "Ski holiday with lift pass included",
+        "texte": "Accommodation and lift pass booked together: no queue at the ticket office and a great package price.",
+        "cta": "See the stays"
+      }
+    },
+    {
       "id": "exemple-location-ski",
       "actif": false,
       "type": "location-ski",
