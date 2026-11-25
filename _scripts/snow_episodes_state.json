@@ -16,13 +16,29 @@
       "target_date": "2026-11-25",
       "top_station": "Le Mont Dore",
       "snow_cm": 22,
-      "stages_sent": []
+      "stages_sent": [
+        "j1"
+      ]
     },
     "Alpes du Nord_2026-W48": {
       "massif": "Alpes du Nord",
       "target_date": "2026-11-25",
       "top_station": "Chamrousse",
       "snow_cm": 27,
+      "stages_sent": []
+    },
+    "Alpes du Nord_2026-W50": {
+      "massif": "Alpes du Nord",
+      "target_date": "2026-12-07",
+      "top_station": "Les Deux Alpes",
+      "snow_cm": 23,
+      "stages_sent": []
+    },
+    "Massif Central_2026-W50": {
+      "massif": "Massif Central",
+      "target_date": "2026-12-07",
+      "top_station": "Super Besse",
+      "snow_cm": 22,
       "stages_sent": []
     }
   }
