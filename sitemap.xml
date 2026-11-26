@@ -11,7 +11,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/index.html</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/index.html"/>
@@ -14554,6 +14554,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/10-stations-secretes-alpes.html"/>
   </url>
   <url>
+    <loc>https://snowfinder.fr/articles/alpes-neige-abondante-et-risque-d-avalanche-avant-les-ouvertures-du-novembre-2026.html</loc>
+    <lastmod>2026-11-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/alpes-neige-abondante-et-risque-d-avalanche-avant-les-ouvertures-du-novembre-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/alpes-neige-abondante-et-risque-d-avalanche-avant-les-ouvertures-du-novembre-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/alpes-neige-abondante-et-risque-d-avalanche-avant-les-ouvertures-du-novembre-2026.html"/>
+  </url>
+  <url>
     <loc>https://snowfinder.fr/articles/bilan-neige-pyrenees-hiver-2025.html</loc>
     <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
@@ -14789,7 +14798,7 @@
   </url>
   <url>
     <loc>https://snowfinder.fr/articles/toutes-les-actus.html</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/toutes-les-actus.html"/>
@@ -14813,6 +14822,15 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/10-stations-secretes-alpes.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/10-stations-secretes-alpes.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/10-stations-secretes-alpes.html"/>
+  </url>
+  <url>
+    <loc>https://snowfinder.fr/en/articles/alpes-neige-abondante-et-risque-d-avalanche-avant-les-ouvertures-du-novembre-2026.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://snowfinder.fr/articles/alpes-neige-abondante-et-risque-d-avalanche-avant-les-ouvertures-du-novembre-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://snowfinder.fr/en/articles/alpes-neige-abondante-et-risque-d-avalanche-avant-les-ouvertures-du-novembre-2026.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://snowfinder.fr/articles/alpes-neige-abondante-et-risque-d-avalanche-avant-les-ouvertures-du-novembre-2026.html"/>
   </url>
   <url>
     <loc>https://snowfinder.fr/en/articles/bilan-neige-pyrenees-hiver-2025.html</loc>
