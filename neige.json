@@ -1,5 +1,5 @@
 {
- "maj": "2026-11-26T17:50Z",
+ "maj": "2026-11-27T17:33Z",
  "source": "bulletins des stations (ANMSM) via Skipass",
  "stations": {
   "La Grave": {
@@ -7,7 +7,7 @@
    "bas": 0,
    "alt_haut": 3550,
    "alt_bas": 1400,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "La Grave - La Meije"
    ]
@@ -17,17 +17,17 @@
    "bas": 78,
    "alt_haut": 3500,
    "alt_bas": 1850,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "Val d'Isère"
    ]
   },
   "Tignes": {
    "haut": 190,
-   "bas": 98,
+   "bas": 95,
    "alt_haut": 3450,
    "alt_bas": 1550,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "Tignes"
    ]
@@ -37,7 +37,7 @@
    "bas": 80,
    "alt_haut": 3330,
    "alt_bas": 1120,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "Alpe d'Huez"
    ]
@@ -47,7 +47,7 @@
    "bas": 20,
    "alt_haut": 3250,
    "alt_bas": 1250,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "La Plagne",
     "Champagny-en-Vanoise",
@@ -55,11 +55,11 @@
    ]
   },
   "Val Thorens": {
-   "haut": 165,
-   "bas": 95,
+   "haut": 150,
+   "bas": 80,
    "alt_haut": 3230,
    "alt_bas": 1800,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "Val Thorens",
     "Orelle"
@@ -70,7 +70,7 @@
    "bas": 0,
    "alt_haut": 3226,
    "alt_bas": 1200,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "Les Arcs",
     "Peisey-Vallandry"
@@ -81,7 +81,7 @@
    "bas": 15,
    "alt_haut": 2952,
    "alt_bas": 1100,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "Méribel",
     "Brides-les-Bains"
@@ -92,7 +92,7 @@
    "bas": 15,
    "alt_haut": 2850,
    "alt_bas": 1450,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "Les Menuires"
    ]
@@ -102,7 +102,7 @@
    "bas": 60,
    "alt_haut": 2700,
    "alt_bas": 1860,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "Montgenèvre"
    ]
@@ -112,7 +112,7 @@
    "bas": 100,
    "alt_haut": 2800,
    "alt_bas": 1190,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "La Rosière"
    ]
@@ -122,7 +122,7 @@
    "bas": 35,
    "alt_haut": 2800,
    "alt_bas": 1200,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "Serre Chevalier"
    ]
@@ -132,7 +132,7 @@
    "bas": 5,
    "alt_haut": 2750,
    "alt_bas": 1500,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "Aussois"
    ]
@@ -142,17 +142,17 @@
    "bas": 5,
    "alt_haut": 2750,
    "alt_bas": 1350,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "La Norma"
    ]
   },
   "Avoriaz": {
-   "haut": 220,
-   "bas": 120,
+   "haut": 145,
+   "bas": 85,
    "alt_haut": 2277,
    "alt_bas": 1100,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "Avoriaz"
    ]
@@ -162,7 +162,7 @@
   "Les 2 Alpes": {
    "alt_haut": 3600,
    "alt_bas": 1300,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "Les Deux Alpes"
    ]
@@ -170,7 +170,7 @@
   "Val Cenis": {
    "alt_haut": 2800,
    "alt_bas": 1300,
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "couvre": [
     "Val Cenis"
    ],
