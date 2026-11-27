@@ -14,7 +14,9 @@
       "target_date": "2026-12-07",
       "top_station": "Super Besse",
       "snow_cm": 22,
-      "stages_sent": []
+      "stages_sent": [
+        "j10"
+      ]
     }
   }
 }
